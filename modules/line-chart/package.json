@@ -1,0 +1,18 @@
+{
+  "name": "@dalian/line-chart",
+  "version": "0.0.1",
+  "description": "An interactive line chart.",
+  "main": "src/index.js",
+  "dependencies": {
+    "@dalian/chart": "^0.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint src/index.js",
+    "build": "webpack"
+  }
+}
