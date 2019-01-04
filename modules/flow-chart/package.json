@@ -1,13 +1,14 @@
 {
-  "name": "@dalian/widget",
+  "name": "@dalian/chart",
   "version": "0.0.3",
-  "description": "Abstract class implementing a generic widget element.",
+  "description": "Abstract class implementing a generic chart widget.",
   "main": "src/index.js",
   "dependencies": {
-    "d3-color": "^1.2.3",
-    "d3-ease": "^1.0.5",
-    "d3-format": "^1.3.2",
-    "d3-selection": "^1.3.2"
+    "d3-selection": "^1.3.2",
+    "d3-transition": "^1.1.3",
+    "d3-scale": "^2.1.2",
+    "d3-axis": "^1.0.12",
+    "@dalian/widget": "^0.0.2"
   },
   "devDependencies": {
     "eslint": "^5.7.0",
