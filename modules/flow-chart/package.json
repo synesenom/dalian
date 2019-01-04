@@ -1,14 +1,12 @@
 {
-  "name": "@dalian/chart",
-  "version": "0.0.3",
-  "description": "Abstract class implementing a generic chart widget.",
+  "name": "@dalian/flow-chart",
+  "version": "0.0.1",
+  "description": "Simple flow charts.",
   "main": "src/index.js",
   "dependencies": {
     "d3-selection": "^1.3.2",
     "d3-transition": "^1.1.3",
-    "d3-scale": "^2.1.2",
-    "d3-axis": "^1.0.12",
-    "@dalian/widget": "^0.0.2"
+    "@dalian/widget": "^0.0.4"
   },
   "devDependencies": {
     "eslint": "^5.7.0",

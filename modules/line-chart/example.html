@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <script src="dist/dalian.line-chart.min.js"></script>
     <title>@dalian/line-chart</title>
+    <style>
+        html, body {
+            font-family: 'Avenir Next', 'Helvetica', sans-serif;
+        }
+    </style>
 </head>
 <body>
 <script>
     let lineChart = new dalian.LineChart('myLineChart')
         .x(100)
         .y(100)
-        .width(300)
-        .height(200)
+        .width(400)
+        .height(300)
         .xLabel("days")
         .yLabel("price")
         .margins(40)
@@ -40,7 +45,40 @@
                 })
             }
         ])
+        .lineStyles({
+            kiwi: 'dashed',
+            mango: 'dotted'
+        })
         .render();
+
+    /*setTimeout(() => {
+        lineChart.data([
+            {
+                name: "mango",
+                values: new Array(100).fill(0).map(function (d, i) {
+                    return {
+                        x: i,
+                        y: Math.pow(i / 20, 2),
+                        lo: i / 100,
+                        hi: i / 150
+                    };
+                })
+            },
+            {
+                name: "kiwi",
+                values: new Array(100).fill(0).map(function (d, i) {
+                    return {
+                        x: i,
+                        y: Math.log(i + 3)
+                        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+                        lo: .4,
+                        hi: .9
+                    };
+                })
+            }
+        ])
+            .render();
+    }, 2000);*/
 </script>
 </body>
 </html>

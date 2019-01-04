@@ -1,6 +1,6 @@
 {
   "name": "@dalian/widget",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Abstract class implementing a generic widget element.",
   "main": "src/index.js",
   "dependencies": {

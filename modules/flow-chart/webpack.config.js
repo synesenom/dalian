@@ -1,6 +1,6 @@
 const path = require('path');
 const libraryName = 'dalian';
-const moduleName = 'chart';
+const moduleName = 'flow-chart';
 
 const browserConfig = {
     target: 'web',

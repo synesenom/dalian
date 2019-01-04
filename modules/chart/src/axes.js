@@ -64,7 +64,7 @@ export default class Axes {
 
         // Axes
         this._axes.x.transition().duration(700)
-            .call(this._fn.x.scale(scales.x.g));
+            .call(this._fn.x.scale(scales.x.scale));
         this._axes.x.attr('transform', 'translate(0,' + parseFloat(attr.size.innerHeight) + ')');
         this._axes.x
             .selectAll('path')
@@ -73,7 +73,7 @@ export default class Axes {
             .style('stroke-width', '1px')
             .style('shape-rendering', 'crispEdges');
         this._axes.y.transition().duration(700)
-            .call(this._fn.y.scale(scales.y.g));
+            .call(this._fn.y.scale(scales.y.scale));
         this._axes.y.attr('transform', 'translate(0,' + 1 + ')');
         this._axes.y
             .selectAll('path')

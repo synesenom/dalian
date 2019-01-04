@@ -1,4 +1,7 @@
 import { Widget } from '@dalian/widget';
+import FlowChartNode from './flow-chart-node';
+import FlowChartEdge from './flow-chart-edge';
+
 
 export default class FlowChart extends Widget {
     constructor(name, parent) {
@@ -6,11 +9,11 @@ export default class FlowChart extends Widget {
         super('flow-chart', name, parent);
 
         // Add flow chart specific attributes
-        this.attr.grid = Array.from({length: 100}, () => Array.from({length: 100}));
+        this._attr.grid = [100, 100];
 
         // Add nodes and edges
-        this.dom.nodes = this.dom.container.append('g')
-            .attr('class', 'nodes');
+        this._dom.nodes = [];
+        this._dom.edges = [];
         // TODO add edges
     }
 
@@ -25,7 +28,57 @@ export default class FlowChart extends Widget {
      */
     grid(width, height) {
         // TODO remove all nodes and edges
-        this.attr.grid = Array.from({length: width}, () => Array.from({length: height}));
+        this._attr.grid = [width, height];
         return this;
+    }
+
+    addNode(name, attr) {
+        // Get grid dimensions
+        let grid = {
+            x0: parseInt(this._attr.margins.left),
+            dx: (parseInt(this._attr.size.innerWidth) - 2) / this._attr.grid[0],
+            y0: parseInt(this._attr.margins.top),
+            dy: (parseInt(this._attr.size.innerHeight) - 2) / this._attr.grid[1]
+        };
+
+        this._dom.nodes.push(
+            new FlowChartNode(this._dom.container, name, 'rect', {
+                pos: [grid.x0 + attr.x * grid.dx, grid.y0 + attr.y * grid.dy],
+                size: [attr.width * grid.dx, attr.height * grid.dy],
+                fill: attr.fill,
+                stroke: attr.stroke,
+                label: attr.label
+            })
+        );
+        return this;
+    }
+
+    addEdge(name, srcId, dstId, attr) {
+        // Find nodes
+        let srcNode = this._dom.nodes.filter(d => d.id === srcId),
+            dstNode = this._dom.nodes.filter(d => d.id === dstId);
+
+        // Get connectors
+        let src = srcNode.length === 1 ? srcNode[0].connector('south') : null,
+            dst = dstNode.length === 1 ? dstNode[0].connector('north') : null;
+        if (src && dst) {
+            this._dom.edges.push(
+                new FlowChartEdge(this._dom.container, name, {
+                        src: src,
+                        dst: dst,
+                        stroke: attr.stroke
+                    }
+                )
+            );
+        }
+        return this;
+    }
+
+    _update(duration) {
+        // Nodes
+        this._dom.nodes.forEach(d => d.update(duration));
+
+        // Edges
+        this._dom.edges.forEach(d => d.update(duration));
     }
 }

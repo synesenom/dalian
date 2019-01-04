@@ -4,6 +4,18 @@ import { format } from 'd3-format';
 import { easeLinear } from 'd3-ease';
 
 /**
+ * Converts a name (a string containing spaces) to a valid ID.
+ *
+ * @method encode
+ * @param {(string|number)} name Name to convert.
+ * @returns {string} Converted valid ID.
+ * @static
+ */
+export function encode(name) {
+    return ('' + name).replace(/ /g, '__');
+}
+
+/**
  * The class widget, the base class of all widget elements.
  *
  * @class Widget
@@ -96,19 +108,6 @@ export class Widget {
 
         // Return this widget
         return this;
-    }
-
-    /**
-     * Converts a name (a string containing spaces) to a valid ID.
-     *
-     * @method encode
-     * @memberOf Widget
-     * @param {(string|number)} name Name to convert.
-     * @returns {string} Converted valid ID.
-     * @static
-     */
-    static encode(name) {
-        return ('' + name).replace(/ /g, '__');
     }
 
     /**
