@@ -9,27 +9,27 @@ import 'd3-transition';
  */
 export default class Axes {
     constructor(dom) {
-        this.group = dom.container.append('g')
+        this._dom = dom.container.append('g')
             .attr('class', 'axis-container');
 
-        this.fn = {
+        this._fn = {
             x: axisBottom().ticks(5),
             y: axisLeft().ticks(5)
         };
 
-        this.axes = {
-            x: this.group.append('g')
+        this._axes = {
+            x: this._dom.append('g')
                 .attr('class', 'x axis'),
-            y: this.group.append('g')
+            y: this._dom.append('g')
                 .attr('class', 'y axis')
         };
 
-        this.labels = {
-            x: this.group.append('text')
+        this._labels = {
+            x: this._dom.append('text')
                 .attr('class', 'x axis-label')
                 .attr('text-anchor', 'end')
                 .attr('stroke-width', 0),
-            y: this.group.append('text')
+            y: this._dom.append('text')
                 .attr('class', 'y axis-label')
                 .attr('text-anchor', 'begin')
                 .attr('stroke-width', 0)
@@ -39,12 +39,12 @@ export default class Axes {
     /**
      * Returns the axis d3-selection object.
      *
-     * @property g
+     * @property dom
      * @memberOf Axes
      * @return {Object} D3 selection.
      */
-    get g() {
-        return this.group;
+    get dom() {
+        return this._dom;
     }
 
     /**
@@ -57,25 +57,25 @@ export default class Axes {
      */
     update(attr, scales) {
         // Container
-        this.group.attr('transform', 'translate(' + attr.margins.left + ',' + attr.margins.top + ')')
+        this._dom.attr('transform', 'translate(' + attr.margins.left + ',' + attr.margins.top + ')')
             .style('width', attr.size.innerWidth)
             .style('height', attr.size.innerHeight)
             .style('pointer-events', 'all');
 
         // Axes
-        this.axes.x.transition().duration(700)
-            .call(this.fn.x.scale(scales.x.g));
-        this.axes.x.attr('transform', 'translate(0,' + parseFloat(attr.size.innerHeight) + ')');
-        this.axes.x
+        this._axes.x.transition().duration(700)
+            .call(this._fn.x.scale(scales.x.g));
+        this._axes.x.attr('transform', 'translate(0,' + parseFloat(attr.size.innerHeight) + ')');
+        this._axes.x
             .selectAll('path')
             .style('fill', 'none')
             .style('stroke', attr.font.color)
             .style('stroke-width', '1px')
             .style('shape-rendering', 'crispEdges');
-        this.axes.y.transition().duration(700)
-            .call(this.fn.y.scale(scales.y.g));
-        this.axes.y.attr('transform', 'translate(0,' + 1 + ')');
-        this.axes.y
+        this._axes.y.transition().duration(700)
+            .call(this._fn.y.scale(scales.y.g));
+        this._axes.y.attr('transform', 'translate(0,' + 1 + ')');
+        this._axes.y
             .selectAll('path')
             .style('fill', 'none')
             .style('stroke', attr.font.color)
@@ -83,17 +83,17 @@ export default class Axes {
             .style('shape-rendering', 'crispEdges');
 
         // Ticks
-        this.fn.x.tickFormat(attr.ticks.format.x);
-        this.fn.y.tickFormat(attr.ticks.format.y);
+        this._fn.x.tickFormat(attr.ticks.format.x);
+        this._fn.y.tickFormat(attr.ticks.format.y);
 
 
         // Labels
-        this.labels.x.attr('x', attr.size.innerWidth)
+        this._labels.x.attr('x', attr.size.innerWidth)
             .attr('y', (parseFloat(attr.size.innerHeight) + 2.2 * parseInt(attr.font.size)) + 'px')
             .attr('fill', attr.font.color)
             .style('font-size', attr.font.size)
             .text(attr.labels.x);
-        this.labels.y.attr('x', 5 + 'px')
+        this._labels.y.attr('x', 5 + 'px')
             .attr('y', (-5) + 'px')
             .attr('fill', attr.font.color)
             .style('font-size', attr.font.size)

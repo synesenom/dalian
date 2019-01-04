@@ -9,19 +9,19 @@ import { scaleLinear, scaleBand, scalePoint } from 'd3-scale';
 export default class Scale {
     constructor(type) {
         // Set type
-        this.type = type;
+        this._type = type;
 
         // Add domain
         switch (type) {
             default:
             case 'linear':
-                this.scale = scaleLinear();
+                this._scale = scaleLinear();
                 break;
             case 'band':
-                this.scale = scaleBand().padding(0.1);
+                this._scale = scaleBand().padding(0.1);
                 break;
             case 'point':
-                this.scale = scalePoint().padding(0.5);
+                this._scale = scalePoint().padding(0.5);
         }
     }
 
@@ -32,8 +32,8 @@ export default class Scale {
      * @memberOf Scale
      * @return {Object} D3 scale object.
      */
-    get g() {
-        return this.scale;
+    get scale() {
+        return this._scale;
     }
 
     /**
@@ -45,19 +45,19 @@ export default class Scale {
      * @param {number[]} range Array containing the lower and upper boundary of the range.
      */
     update(values, range) {
-        switch (this.type) {
+        switch (this._type) {
             default:
             case 'linear':
-                this.scale.domain([Math.min(...values), Math.max(...values)]);
+                this._scale.domain([Math.min(...values), Math.max(...values)]);
                 break;
             case 'band':
             case 'point':
-                this.scale.domain(values);
+                this._scale.domain(values);
                 break;
         }
 
         if (range) {
-            this.scale.range(range);
+            this._scale.range(range);
         }
     }
 }

@@ -16,20 +16,24 @@ export default class Chart extends Widget {
      */
     constructor(type, name, parent) {
         // Call Widget constructor
-        super('chart-' +type, name, parent);
+        super('chart-' + type, name, parent);
 
         // Add chart specific attributes
-        this.attr.labels = {
+        this._attr.labels = {
             x: '',
             y: ''
         };
-        this.attr.ticks = {
+        this._attr.ticks = {
             format: {
                 single: Widget.defaultFormat(),
                 x: Widget.defaultFormat(),
                 y: Widget.defaultFormat()
             }
         };
+
+        // Add chart specific dom elements
+        this._dom.plots = this._dom.container.append('g')
+            .attr('class', 'plots-container');
 
         // Data to plot
         this._data = [];
@@ -172,7 +176,7 @@ export default class Chart extends Widget {
         throw Error('_chartUpdate not implemented');
     }
 
-    _chartTooltipContent(/*mouse*/) {
+    _chartTooltipContent(mouse) {
     }
 
     /**
@@ -191,14 +195,12 @@ export default class Chart extends Widget {
      *     <li>{Function} union.after Attributes/styles on the union of groups after transition.</li>
      * </ul>
      * @returns {Object} Object containing four selections of groups: enter, exit, union before transition and union after transition.
-     * @private
+     * @protected
      */
     _plotGroups(g, attr) {
         // Select groups
         let groups = g.selectAll('.plot-group')
-            .data(this._data, function (d) {
-                return d.name;
-            });
+            .data(this._data, d => d.name);
 
         // Exiting groups: simply fade out
         let exit = groups.exit()
@@ -208,9 +210,7 @@ export default class Chart extends Widget {
 
         // Entering groups: starting transparent
         let enter = groups.enter().append('g')
-            .attr('class', function (d) {
-                return 'plot-group ' + Widget.encode(d.name);
-            })
+            .attr('class', d => 'plot-group ' + Widget.encode(d.name))
             .style('shape-rendering', 'geometricPrecision')
             .style('opacity', 0)
             .style('fill', 'transparent')
@@ -226,15 +226,15 @@ export default class Chart extends Widget {
                 // Disable pointer events before transition
                 g.style('pointer-events', 'none');
             })
-            .on('mouseover', (d) => {
+            .on('mouseover', d => {
                 that.state.current = d;
                 that.attr.mouse.enter && that.attr.mouse.enter(d);
             })
-            .on('mouseleave', (d) => {
+            .on('mouseleave', d => {
                 that.state.current = null;
                 that.attr.mouse.leave && that.attr.mouse.leave(d);
             })
-            .on('click', (d) => {
+            .on('click', d => {
                 that.attr.mouse.click && that.attr.mouse.click(d);
             });
         if (attr && attr.union && attr.union.before) {
@@ -244,12 +244,8 @@ export default class Chart extends Widget {
         // Animate new state
         let unionAnimated = union.transition().duration(700)
             .style('opacity', 1)
-            .style('fill', (d) => {
-                return that.attr.colors.mapping(d.name);
-            })
-            .style('stroke', (d) => {
-                return that.attr.colors.mapping(d.name);
-            });
+            .style('fill', d => that.attr.colors.mapping(d.name))
+            .style('stroke', d => that.attr.colors.mapping(d.name));
         if (attr && attr.union && attr.union.after) {
             unionAnimated = attr.union.after(unionAnimated);
         }
@@ -272,6 +268,11 @@ export default class Chart extends Widget {
     _update() {
         // Chart specific update
         this._chartUpdate();
+
+        // Adjust plots container
+        this._dom.plots.attr('width', this._attr.size.innerWidth + 'px')
+            .attr('height', this._attr.size.innerHeight + 'px')
+            .attr('transform', 'translate(' + this._attr.margins.left + ',' + this._attr.margins.top + ')');
     }
 
     _tooltip(mouse) {
@@ -356,11 +357,11 @@ export default class Chart extends Widget {
      *
      * @method tickFormat
      * @memberOf Widget
-     * @param {(v: number) => string} format Format function to set.
+     * @param {Function} format Format function to set.
      * @returns {Widget} Reference to the current widget.
      */
     tickFormat(format) {
-        this.attr.ticks.format.single = format !== null && format !== undefined ? format : Widget.defaultFormat();
+        this._attr.ticks.format.single = format !== null && format !== undefined ? format : Widget.defaultFormat();
         return this;
     }
 
@@ -370,11 +371,11 @@ export default class Chart extends Widget {
      *
      * @method xTickFormat
      * @memberOf Widget
-     * @param {(v: number) => string} format Format function to set.
+     * @param {Function} format Format function to set.
      * @returns {Widget} Reference to the current widget.
      */
     xTickFormat(format) {
-        this.attr.ticks.format.x = format !== null && format !== undefined ? format : Widget.defaultFormat();
+        this._attr.ticks.format.x = format !== null && format !== undefined ? format : Widget.defaultFormat();
         return this;
     }
 
@@ -384,11 +385,11 @@ export default class Chart extends Widget {
      *
      * @method yTickFormat
      * @memberOf Widget
-     * @param {(v: number) => string} format Format function to set.
+     * @param {Function} format Format function to set.
      * @returns {Widget} Reference to the current widget.
      */
     yTickFormat(format) {
-        this.attr.ticks.format.y = format !== null && format !== undefined ? format : Widget.defaultFormat();
+        this._attr.ticks.format.y = format !== null && format !== undefined ? format : Widget.defaultFormat();
         return this;
     }
 
@@ -406,8 +407,8 @@ export default class Chart extends Widget {
         this._data = this._transformData(values);
 
         // Reset color mapping if it is set to default
-        if (this.attr.colors.policy === null || this.attr.colors.policy === undefined) {
-            this.attr.colors.mapping = Widget.defaultColors();
+        if (this._attr.colors.policy === null || this._attr.colors.policy === undefined) {
+            this._attr.colors.mapping = Widget.defaultColors();
         }
 
         // Switch render flag
