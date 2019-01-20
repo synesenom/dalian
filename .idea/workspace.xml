@@ -2,22 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/flow-chart/src/vector2d.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js" afterPath="$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/chart/package.json" afterPath="$PROJECT_DIR$/modules/chart/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/chart/src/axes.js" afterPath="$PROJECT_DIR$/modules/chart/src/axes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/chart/src/chart.js" afterPath="$PROJECT_DIR$/modules/chart/src/chart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js" afterPath="$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/example.html" afterPath="$PROJECT_DIR$/modules/flow-chart/example.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/package.json" afterPath="$PROJECT_DIR$/modules/flow-chart/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/index.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/webpack.config.js" afterPath="$PROJECT_DIR$/modules/flow-chart/webpack.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/yarn.lock" afterPath="$PROJECT_DIR$/modules/flow-chart/yarn.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/line-chart/dist/dalian.line-chart.min.js" afterPath="$PROJECT_DIR$/modules/line-chart/dist/dalian.line-chart.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/line-chart/example.html" afterPath="$PROJECT_DIR$/modules/line-chart/example.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/line-chart/package.json" afterPath="$PROJECT_DIR$/modules/line-chart/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/line-chart/src/index.js" afterPath="$PROJECT_DIR$/modules/line-chart/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/line-chart/yarn.lock" afterPath="$PROJECT_DIR$/modules/line-chart/yarn.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/widget/dist/dalian.widget.min.js" afterPath="$PROJECT_DIR$/modules/widget/dist/dalian.widget.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/widget/package.json" afterPath="$PROJECT_DIR$/modules/widget/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/widget/src/index.js" afterPath="$PROJECT_DIR$/modules/widget/src/index.js" />
@@ -37,8 +33,8 @@
       <file leaf-file-name="example.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/flow-chart/example.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+            <state relative-caret-position="68">
+              <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -47,8 +43,8 @@
       <file leaf-file-name="flow-chart-edge.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="100" column="8" lean-forward="false" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
+            <state relative-caret-position="280">
+              <caret line="125" column="14" lean-forward="true" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="14" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -59,20 +55,8 @@
       <file leaf-file-name="flow-chart-node.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="flow-chart.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="80" column="3" lean-forward="true" selection-start-line="80" selection-start-column="3" selection-end-line="80" selection-end-column="3" />
+            <state relative-caret-position="675">
+              <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -88,23 +72,13 @@
         <option value="Pug File" />
         <option value="HTML File" />
         <option value="package_json" />
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>defaultFormat</find>
-      <find>_show</find>
-      <find>dalian.Widget</find>
-      <find>d3.select</find>
-      <find>300</find>
-      <find>defaultColors</find>
-      <find>&quot;</find>
-      <find>d3.</find>
-      <find>dalian.Chart</find>
-      <find>req</find>
       <find>require</find>
       <find>returns</find>
       <find>member</find>
@@ -123,8 +97,18 @@
       <find>.g()</find>
       <find>this.dom</find>
       <find>._dom.axes</find>
-      <find>.g</find>
       <find>encode</find>
+      <find>.pos[</find>
+      <find>.size[</find>
+      <find>.size2</find>
+      <find>rotate</find>
+      <find>this._geo.n</find>
+      <find>highlight</find>
+      <find>.g</find>
+      <find>mouse</find>
+      <find>this.src</find>
+      <find>this.dst</find>
+      <find>Vector</find>
     </findStrings>
     <replaceStrings>
       <replace>Widget</replace>
@@ -133,6 +117,10 @@
       <replace>this._attr</replace>
       <replace>this._labels</replace>
       <replace>this._dom</replace>
+      <replace>.pos</replace>
+      <replace>.size</replace>
+      <replace>this._src</replace>
+      <replace>this._dst</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -151,7 +139,6 @@
         <option value="$PROJECT_DIR$/modules/widget/widget.js" />
         <option value="$PROJECT_DIR$/modules/widget/index.js" />
         <option value="$PROJECT_DIR$/modules/widget/example/widget.html" />
-        <option value="$PROJECT_DIR$/modules/widget/package.json" />
         <option value="$PROJECT_DIR$/modules/chart/webpack.config.js" />
         <option value="$PROJECT_DIR$/modules/line-chart/webpack.config.js" />
         <option value="$PROJECT_DIR$/modules/widget/webpack.config.js" />
@@ -173,10 +160,12 @@
         <option value="$PROJECT_DIR$/modules/line-chart/src/index.js" />
         <option value="$PROJECT_DIR$/modules/widget/src/utils.ts" />
         <option value="$PROJECT_DIR$/modules/widget/src/index.js" />
+        <option value="$PROJECT_DIR$/modules/widget/package.json" />
         <option value="$PROJECT_DIR$/modules/flow-chart/package.json" />
-        <option value="$PROJECT_DIR$/modules/flow-chart/example.html" />
-        <option value="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" />
         <option value="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" />
+        <option value="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" />
+        <option value="$PROJECT_DIR$/modules/flow-chart/example.html" />
+        <option value="$PROJECT_DIR$/modules/flow-chart/src/vector2d.js" />
         <option value="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" />
       </list>
     </option>
@@ -202,13 +191,15 @@
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/modules/chart/package.json" />
+    <dismissed value="$PROJECT_DIR$/modules/flow-chart/package.json" />
     <dismissed value="$PROJECT_DIR$/modules/line-chart/package.json" />
+    <dismissed value="$PROJECT_DIR$/modules/widget/package.json" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="685" />
+    <option name="x" value="728" />
     <option name="y" value="23" />
-    <option name="width" value="755" />
-    <option name="height" value="798" />
+    <option name="width" value="712" />
+    <option name="height" value="801" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -227,6 +218,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -239,11 +231,43 @@
               <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="flow-chart" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="flow-chart" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="flow-chart" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -314,32 +338,34 @@
       <workItem from="1542657933678" duration="307000" />
       <workItem from="1544685124462" duration="7437000" />
       <workItem from="1544867111652" duration="265000" />
-      <workItem from="1546447504824" duration="15051000" />
+      <workItem from="1546447504824" duration="16728000" />
+      <workItem from="1546945649468" duration="743000" />
+      <workItem from="1547152969278" duration="27691000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55848000" />
+    <option name="totallyTimeSpent" value="85959000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="685" y="23" width="755" height="798" extended-state="0" />
+    <frame x="728" y="23" width="712" height="801" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26622516" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28230336" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32784638" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24900663" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39944905" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32784638" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39917696" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -357,20 +383,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/widget/node_modules/d3-color/dist/d3-color.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8410">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/widget/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/node_modules/d3-format/src/defaultLocale.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -429,13 +441,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/widget/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/line-chart/node_modules/@dalian/chart/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1215">
@@ -447,13 +452,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="328" column="0" lean-forward="false" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="558" column="0" lean-forward="false" selection-start-line="558" selection-start-column="0" selection-end-line="558" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -504,7 +502,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -512,7 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -520,7 +516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -528,15 +523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7765">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -560,7 +546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -572,19 +557,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/line-chart/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="126" column="0" lean-forward="true" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/line-chart/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -592,7 +568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -608,7 +583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -616,7 +590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -636,10 +609,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/widget/src/utils.ts">
+    <entry file="file://$PROJECT_DIR$/modules/widget/src/utils.ts" />
+    <entry file="file://$PROJECT_DIR$/modules/widget/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/widget/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="21" column="3" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="21" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -647,25 +629,59 @@
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="0" column="50886" lean-forward="false" selection-start-line="0" selection-start-column="50880" selection-end-line="0" selection-end-column="50886" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="939" column="9" lean-forward="false" selection-start-line="939" selection-start-column="9" selection-end-line="939" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/line-chart/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="126" column="0" lean-forward="true" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/widget/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+        <state relative-caret-position="165">
+          <caret line="573" column="88" lean-forward="false" selection-start-line="573" selection-start-column="79" selection-end-line="573" selection-end-column="88" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="112" column="30" lean-forward="true" selection-start-line="112" selection-start-column="20" selection-end-line="112" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+        <state relative-caret-position="675">
+          <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
@@ -674,26 +690,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/example.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+        <state relative-caret-position="68">
+          <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js">
+    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/vector2d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="80" column="3" lean-forward="true" selection-start-line="80" selection-start-column="3" selection-end-line="80" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="222">
+          <caret line="36" column="23" lean-forward="false" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="100" column="8" lean-forward="false" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
+        <state relative-caret-position="280">
+          <caret line="125" column="14" lean-forward="true" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="14" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>

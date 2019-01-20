@@ -284,7 +284,7 @@ export default class Chart extends Widget {
         // Erase tooltip content and add title
         let contentNode = select(document.createElement('div'));
         contentNode
-            .style('border-radius', '2px')
+            .style('border-r', '2px')
             .style('padding', '5px')
             .append('div')
             .style('position', 'relative')
