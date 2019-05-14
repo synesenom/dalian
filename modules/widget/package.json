@@ -2,22 +2,32 @@
   "name": "@dalian/widget",
   "version": "0.0.4",
   "description": "Abstract class implementing a generic widget element.",
-  "main": "src/index.js",
+  "author": {
+    "name": "Enys Mones",
+    "email": "enys.mones@gmail.com",
+    "url": "enysmones.com"
+  },
+  "homepage": "https://www.npmjs.com/package/@dalian/widget",
+  "main": "dist/dalian.widget.min.js",
+  "module": "src/index.js",
+  "license": "MIT",
   "dependencies": {
     "d3-color": "^1.2.3",
     "d3-ease": "^1.0.5",
     "d3-format": "^1.3.2",
-    "d3-selection": "^1.3.2"
+    "d3-selection": "^1.3.2",
+    "d3-transition": "^1.2.0"
   },
   "devDependencies": {
-    "eslint": "^5.7.0",
-    "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2",
-    "nodemon": "^1.18.9"
+    "eslint-config-standard": "^12.0.0",
+    "nodemon": "^1.19.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "standard": "^12.0.1"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/index.js",
-    "build": "webpack",
+    "standard": "./node_modules/.bin/standard --fix src/**/*.js",
+    "build": "./node_modules/.bin/rollup -c",
     "dev": "nodemon -x 'npm run build' -w src -e js"
   }
 }

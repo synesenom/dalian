@@ -1,4 +1,5 @@
 import { select, mouse, event } from 'd3-selection';
+import 'd3-transition';
 import { color } from 'd3-color';
 import { format } from 'd3-format';
 import { easeLinear } from 'd3-ease';
@@ -27,7 +28,7 @@ import { easeLinear } from 'd3-ease';
  *
  */
 export default class Widget {
-    constructor(type, name, parent = 'body', elem = 'svg') {
+    constructor (type, name, parent = 'body', elem = 'svg') {
         /**
          * The unique ID of the widget.
          *
@@ -47,11 +48,11 @@ export default class Widget {
         this._dom = {};
         try {
             this._dom.container = select(parent)
-                .append(elem)
-                .attr('id', this._id)
-                .attr('class', `dalian-widget dalian-widget-${type}`)
-                .style('display', 'none')
-                .style('position', 'absolute');
+              .append(elem)
+              .attr('id', this._id)
+              .attr('class', `dalian-widget dalian-widget-${type}`)
+              .style('display', 'none')
+              .style('position', 'absolute');
         } catch (e) {
             throw Error('MissingDOMException: DOM is not present.');
         }
@@ -68,10 +69,12 @@ export default class Widget {
             pos: {
                 x: {
                     attr: 'left',
+                    ignore: 'right',
                     value: '0px'
                 },
                 y: {
                     attr: 'top',
+                    ignore: 'bottom',
                     value: '0px'
                 }
             },
@@ -111,6 +114,9 @@ export default class Widget {
             }
         };
 
+        // Placeholder
+        this._placeholder = null;
+
         // Return this widget
         return this;
     }
@@ -128,7 +134,7 @@ export default class Widget {
      * encode('an orange')
      * // => 'an__orange'
      */
-    static encode(name) {
+    static encode (name) {
         return ('' + name).replace(/ /g, '__');
     }
 
@@ -140,7 +146,7 @@ export default class Widget {
      * @returns {Function} The default color generator, which is the combination of Sets 1 and 3 in Color Brewer.
      * @static
      */
-    static defaultColors() {
+    static defaultColors () {
         let keys = [];
         return key => {
             let i = keys.indexOf(key);
@@ -176,7 +182,7 @@ export default class Widget {
      * @returns {Function} The default formatter.
      * @static
      */
-    static defaultFormat() {
+    static defaultFormat () {
         return v => v > 1 ? format('.2s')(v) : v + '';
     }
 
@@ -188,7 +194,7 @@ export default class Widget {
      * @param {number=} [duration = 700] Duration of the update animation on data change.
      * @protected
      */
-    _update(duration = 700) {
+    _update (duration = 700) {
     }
 
     /**
@@ -200,7 +206,7 @@ export default class Widget {
      * @returns {string} The tooltip content.
      * @protected
      */
-    _tooltip(mouse) {
+    _tooltip (mouse) {
     }
 
     /**
@@ -210,21 +216,21 @@ export default class Widget {
      * @methodOf Widget
      * @private
      */
-    _showTooltip() {
+    _showTooltip () {
         // Create container and tooltip ID
         let tooltipContainerId = 'dalian-widget-tooltip-container';
         let tooltipId = `${this._id}-tooltip`,
-            m = mouse(this._dom.container.node()),
-            mx = event.clientX,
-            my = event.clientY,
-            boundingBox = this._dom.container.node().getBoundingClientRect();
+          m = mouse(this._dom.container.node()),
+          mx = event.clientX,
+          my = event.clientY,
+          boundingBox = this._dom.container.node().getBoundingClientRect();
 
         // If we are outside the charting area just remove tooltip
         if (mx < boundingBox.left + this._attr.margins.left || mx > boundingBox.right - this._attr.margins.right
-            || my < boundingBox.top + this._attr.margins.top || my > boundingBox.bottom - this._attr.margins.bottom) {
+          || my < boundingBox.top + this._attr.margins.top || my > boundingBox.bottom - this._attr.margins.bottom) {
             select('#' + tooltipId)
-                .style('opacity', 0)
-                .remove();
+              .style('opacity', 0)
+              .remove();
             this._tooltip();
             return;
         }
@@ -233,7 +239,7 @@ export default class Widget {
         // Create container if it does not exist
         if (select('#' + tooltipContainerId).empty()) {
             select('body').append('div')
-                .attr('id', tooltipContainerId);
+              .attr('id', tooltipContainerId);
         }
 
         // Create tooltip if needed
@@ -245,17 +251,17 @@ export default class Widget {
 
             // Add tooltip to the container
             tooltip = select('#' + tooltipContainerId).append('div')
-                .attr('id', tooltipId)
-                .style('position', 'absolute')
-                .style('background-color', 'rgba(255, 255, 255, 0.9)')
-                .style('border-r', '2px')
-                .style('box-shadow', '0 0 3px ' + shadowColor)
-                .style('font-family', '"Courier", monospace')
-                .style('font-size', '0.7em')
-                .style('color', this._attr.font.color)
-                .style('pointer-events', 'none')
-                .style('left', (boundingBox.left + boundingBox.right) / 2 + 'px')
-                .style('top', (boundingBox.top + boundingBox.bottom) / 2 + 'px');
+              .attr('id', tooltipId)
+              .style('position', 'absolute')
+              .style('background-color', 'rgba(255, 255, 255, 0.9)')
+              .style('border-r', '2px')
+              .style('box-shadow', '0 0 3px ' + shadowColor)
+              .style('font-family', '"Courier", monospace')
+              .style('font-size', '0.7em')
+              .style('color', this._attr.font.color)
+              .style('pointer-events', 'none')
+              .style('left', (boundingBox.left + boundingBox.right) / 2 + 'px')
+              .style('top', (boundingBox.top + boundingBox.bottom) / 2 + 'px');
         }
 
         // Create content
@@ -263,8 +269,8 @@ export default class Widget {
         if (!content) {
             // If content is invalid, remove tooltip
             select('#' + tooltipId)
-                .style('opacity', 0)
-                .html('');
+              .style('opacity', 0)
+              .html('');
             this._tooltip();
             return;
         } else {
@@ -273,10 +279,10 @@ export default class Widget {
 
         // Calculate position
         let elem = tooltip.node().getBoundingClientRect(),
-            tw = elem.width,
-            th = elem.height,
-            tx = mx + 20,
-            ty = my + 20;
+          tw = elem.width,
+          th = elem.height,
+          tx = mx + 20,
+          ty = my + 20;
 
         // Correct for edges
         if (tx + tw > boundingBox.right - this._attr.margins.right - 5) {
@@ -288,12 +294,12 @@ export default class Widget {
 
         // Set position
         tooltip
-            .style('opacity', 1)
-            .transition();
+          .style('opacity', 1)
+          .transition();
         tooltip
-            .transition().duration(200).ease(easeLinear)
-            .style('left', tx + 'px')
-            .style('top', ty + 'px');
+          .transition().duration(200).ease(easeLinear)
+          .style('left', tx + 'px')
+          .style('top', ty + 'px');
     }
 
     /**
@@ -305,38 +311,53 @@ export default class Widget {
      * @param {number} [duration = 700] Duration of the rendering animation in ms.
      * @returns {Widget} Reference to the widget.
      */
-    render(duration = 700) {
+    render (duration = 700) {
         // Update widget first
         this._update(duration);
 
         // Update container position and size
         this._dom.container
-            .style(this._attr.pos.x.attr, this._attr.pos.x.value)
-            .style(this._attr.pos.y.attr, this._attr.pos.y.value)
-            .style('width', this._attr.size.width)
-            .style('height', this._attr.size.height);
+          .style(this._attr.pos.x.ignore, null)
+          .style(this._attr.pos.x.attr, this._attr.pos.x.value)
+          .style(this._attr.pos.y.ignore, null)
+          .style(this._attr.pos.y.attr, this._attr.pos.y.value)
+          .style('width', this._attr.size.width)
+          .style('height', this._attr.size.height);
 
         // Propagate font style to all text
         this._dom.container
-            .style('font-family', 'inherit');
+          .style('font-family', 'inherit');
         this._dom.container
-            .selectAll('.tick > text')
-            .attr('stroke-width', 0)
-            .attr('font-family', 'inherit')
-            .style('font-size', this._attr.font.size)
-            .style('fill', this._attr.font.color);
+          .selectAll('.tick > text')
+          .attr('stroke-width', 0)
+          .attr('font-family', 'inherit')
+          .style('font-size', this._attr.font.size)
+          .style('fill', this._attr.font.color);
         this._dom.container
-            .selectAll('g')
-            .attr('font-family', 'inherit');
+          .selectAll('g')
+          .attr('font-family', 'inherit');
 
         // Update tooltip behavior
         this._dom.container
-            .style('pointer-events', this._attr.flags.tooltip ? 'all' : null)
-            .on('mousemove', () => this._attr.flags.tooltip && this._showTooltip());
+          .style('pointer-events', this._attr.flags.tooltip ? 'all' : null)
+          .on('mousemove', () => this._attr.flags.tooltip && this._showTooltip());
+
+        // Update placeholder
+        if (this._placeholder !== null && !this._placeholder.empty()) {
+            this._placeholder
+              .style(this._attr.pos.x.ignore, null)
+              .style(this._attr.pos.x.attr, this._attr.pos.x.value)
+              .style(this._attr.pos.y.ignore, null)
+              .style(this._attr.pos.y.attr, this._attr.pos.y.value)
+              .style('width', this._attr.size.width)
+              .style('height', this._attr.size.height)
+              .style('color', this._attr.font.color)
+              .style('font-size', this._attr.font.size);
+        }
 
         // Show widget
         this._dom.container
-            .style('display', 'block');
+          .style('display', 'block');
         return this;
     }
 
@@ -351,7 +372,7 @@ export default class Widget {
      * disabled.
      * @returns {Widget} Reference to the widget.
      */
-    description(content) {
+    description (content) {
         // If content is empty, disable description
         if (!content) {
             this._dom.container.on('contextmenu', null);
@@ -365,22 +386,22 @@ export default class Widget {
                 // Create description if does not exist
                 if (select('#' + descriptionId).empty()) {
                     select('body').append('div')
-                        .attr('id', descriptionId)
-                        .style('position', 'absolute')
-                        .style('left', (event.pageX + 20) + 'px')
-                        .style('top', (event.pageY - 20) + 'px')
-                        .style('width', 'auto')
-                        .style('max-width', '500px')
-                        .style('padding', '10px')
-                        .style('background', 'white')
-                        .style('box-shadow', '0 0 1px black')
-                        .style('border-r', '3px')
-                        .style('color', 'black')
-                        .style('font-size', '0.8em')
-                        .style('font-family', 'inherit')
-                        .style('line-height', '1.35em')
-                        .style('pointer-events', 'none')
-                        .html(content);
+                      .attr('id', descriptionId)
+                      .style('position', 'absolute')
+                      .style('left', (event.pageX + 20) + 'px')
+                      .style('top', (event.pageY - 20) + 'px')
+                      .style('width', 'auto')
+                      .style('max-width', '500px')
+                      .style('padding', '10px')
+                      .style('background', 'white')
+                      .style('box-shadow', '0 0 1px black')
+                      .style('border-r', '3px')
+                      .style('color', 'black')
+                      .style('font-size', '0.8em')
+                      .style('font-family', 'inherit')
+                      .style('line-height', '1.35em')
+                      .style('pointer-events', 'none')
+                      .html(content);
                 }
             }).on('mouseleave', () => {
                 // Remove description if mouse leaves widget
@@ -400,48 +421,57 @@ export default class Widget {
      * @method placeholder
      * @methodOf Widget
      * @param {string?} content Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.
+     * @param {number} [duration = 700] Duration of the placeholder animation.
      * @returns {Widget} Reference to the widget.
      */
-    placeholder(content) {
+    placeholder (content, duration = 700) {
         let placeholderId = this._id + '-placeholder';
 
         // If no content provided, remove placeholder and show widget
         if (!content) {
             this._dom.container
-                .transition().duration(700)
-                .style('opacity', 1);
-            let placeholder = select('#' + placeholderId);
-            if (!placeholder.empty()) {
-                placeholder.remove();
+              .transition().duration(duration)
+              .style('opacity', 1);
+            //let placeholder = select('#' + placeholderId);
+            if (this._placeholder !== null && !this._placeholder.empty()) {
+                this._placeholder
+                  .transition().duration(duration)
+                  .style('opacity', 0)
+                  .remove();
+                this._placeholder = null;
             }
         } else {
             // Otherwise hide widget and add placeholder
             this._dom.container
-                .transition().duration(700)
-                .style('opacity', 0);
+              .transition().duration(duration)
+              .style('opacity', 0);
 
             // Otherwise fade out widget and add placeholder
-            if (select('#' + placeholderId).empty()) {
-                select('body').append('div')
-                    .attr('id', placeholderId)
-                    .style('position', 'absolute')
-                    .style('width', this._attr.size.width)
-                    .style('height', this._attr.size.height)
-                    .style('line-height', this._attr.size.height)
-                    .style(this._attr.pos.x.attr, this._attr.pos.x.value)
-                    .style(this._attr.pos.y.attr, this._attr.pos.y.value)
-                    .style('text-align', 'center')
-                    .style('pointer-events', 'none')
-                    .append('span')
-                    .style('display', 'inline-block')
-                    .style('vertical-align', 'middle')
-                    .style('line-height', 'normal')
-                    .style('font-size', this._attr.font.size)
-                    .style('color', this._attr.font.color)
-                    .style('opacity', 0)
-                    .html(content)
-                    .transition().duration(700)
-                    .style('opacity', 1);
+            if (this._placeholder === null || this._placeholder.empty()) {
+                this._placeholder = select('body').append('div')
+                  .attr('id', placeholderId)
+                  .style('display', 'table')
+                  .style('position', 'absolute')
+                  .style('width', this._attr.size.innerWidth)
+                  .style('height', this._attr.size.innerHeight)
+                  .style(this._attr.pos.x.attr, this._attr.pos.x.value)
+                  .style(this._attr.pos.y.attr, this._attr.pos.y.value)
+                  .style('color', this._attr.font.color)
+                  .style('font-family', 'inherit')
+                  .style('font-size', this._attr.font.size)
+                  .style('pointer-events', 'none');
+                this._placeholder.append('span')
+                  .style('display', 'table-cell')
+                  .style('vertical-align', 'middle')
+                  .style('line-height', 'normal')
+                  .style('text-align', 'center')
+                  .style('color', 'inherit')
+                  .style('font-family', 'inherit')
+                  .style('font-size', 'inherit')
+                  .style('opacity', 0)
+                  .html(content)
+                  .transition().duration(duration)
+                  .style('opacity', 1);
             }
         }
         return this;
@@ -456,8 +486,9 @@ export default class Widget {
      * @param {number} [value = 0] Value of the X coordinate.
      * @returns {Widget} Reference to the widget.
      */
-    x(value = 0) {
+    x (value = 0) {
         this._attr.pos.x.attr = value >= 0 ? 'left' : 'right';
+        this._attr.pos.x.ignore = value >= 0 ? 'right' : 'left';
         this._attr.pos.x.value = Math.abs(value) + 'px';
         return this;
     }
@@ -471,8 +502,9 @@ export default class Widget {
      * @param {number} [value = 0] Value of the Y coordinate.
      * @returns {Widget} Reference to the widget.
      */
-    y(value = 0) {
+    y (value = 0) {
         this._attr.pos.y.attr = value >= 0 ? 'top' : 'bottom';
+        this._attr.pos.y.ignore = value >= 0 ? 'bottom' : 'top';
         this._attr.pos.y.value = Math.abs(value) + 'px';
         return this;
     }
@@ -485,7 +517,7 @@ export default class Widget {
      * @param {number} [value = 300] Width value.
      * @returns {Widget} Reference to the widget.
      */
-    width(value = 300) {
+    width (value = 300) {
         this._attr.size.width = value + 'px';
         this._attr.size.innerWidth = (value - this._attr.margins.left - this._attr.margins.right) + 'px';
         return this;
@@ -499,7 +531,7 @@ export default class Widget {
      * @param {number} [value = 200] Height value.
      * @returns {Widget} Reference to the widget.
      */
-    height(value = 200) {
+    height (value = 200) {
         this._attr.size.height = value + 'px';
         this._attr.size.innerHeight = (value - this._attr.margins.top - this._attr.margins.bottom) + 'px';
         return this;
@@ -515,7 +547,7 @@ export default class Widget {
      * sides.
      * @returns {Widget} Reference to the widget.
      */
-    margins(margins = 0) {
+    margins (margins = 0) {
         switch (typeof margins) {
             case 'number':
                 // Single value for each side
@@ -540,9 +572,9 @@ export default class Widget {
 
         // Update inner size
         this._attr.size.innerWidth = (parseInt(this._attr.size.width)
-            - this._attr.margins.left - this._attr.margins.right) + 'px';
+          - this._attr.margins.left - this._attr.margins.right) + 'px';
         this._attr.size.innerHeight = (parseInt(this._attr.size.height)
-            - this._attr.margins.top - this._attr.margins.bottom) + 'px';
+          - this._attr.margins.top - this._attr.margins.bottom) + 'px';
         return this;
     }
 
@@ -554,7 +586,7 @@ export default class Widget {
      * @param {number} [size = 14] Size of the main font in pixels.
      * @returns {Widget} Reference to the  widget.
      */
-    fontSize(size) {
+    fontSize (size = 14) {
         this._attr.font.size = size + 'px';
         return this;
     }
@@ -567,7 +599,7 @@ export default class Widget {
      * @param {string} [color = black] Font color to set.
      * @returns {Widget} Reference to the widget.
      */
-    fontColor(color = 'black') {
+    fontColor (color = 'black') {
         this._attr.font.color = color;
         return this;
     }
@@ -588,7 +620,7 @@ export default class Widget {
      * @param {?(string | object)} [policy = null] Color policy to set.
      * @returns {Widget} Reference to the widget.
      */
-    colors(policy = null) {
+    colors (policy = null) {
         // Update color policy
         this._attr.colors.policy = policy;
 
@@ -618,7 +650,7 @@ export default class Widget {
      * @param {?Function} [callback = null] Callback to trigger on mouse over.
      * @returns {Widget} Reference to the widget.
      */
-    mouseover(callback = null) {
+    mouseover (callback = null) {
         this._attr.mouse.enter = callback;
         return this;
     }
@@ -636,7 +668,7 @@ export default class Widget {
      * @param {?Function} [callback = null] Callback to trigger on mouse leave.
      * @returns {Widget} Reference to the widget.
      */
-    mouseleave(callback = null) {
+    mouseleave (callback = null) {
         this._attr.mouse.leave = callback;
         return this;
     }
@@ -653,7 +685,7 @@ export default class Widget {
      * @param {?Function} [callback = null] Callback to trigger on click.
      * @returns {Widget} Reference to the widget.
      */
-    click(callback = null) {
+    click (callback = null) {
         this._attr.mouse.click = callback;
         return this;
     }
@@ -666,7 +698,7 @@ export default class Widget {
      * @param {boolean} [on = false] Whether tooltip should be enabled or not.
      * @returns {Widget} Reference to the widget.
      */
-    tooltip(on = false) {
+    tooltip (on = false) {
         this._attr.flags.tooltip = on;
         return this;
     }
