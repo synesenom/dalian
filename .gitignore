@@ -1,2 +1,5 @@
 # Node modules
 modules/**/node_modules
+
+# .idea
+.idea/

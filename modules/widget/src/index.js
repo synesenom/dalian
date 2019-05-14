@@ -4,31 +4,29 @@ import { format } from 'd3-format';
 import { easeLinear } from 'd3-ease';
 
 /**
- * Converts a name (a string containing spaces) to a valid ID.
- *
- * @method encode
- * @param {(string|number)} name Name to convert.
- * @returns {string} Converted valid ID.
- * @static
- */
-export function encode(name) {
-    return ('' + name).replace(/ /g, '__');
-}
-
-/**
  * The class widget, the base class of all widget elements.
  *
  * @class Widget
  * @constructor
  * @param {string} type Widget type. This should be set by the child widget class.
- * @param {string} name The name of the current widget object. This is used as a unique identifier for the
- * widget.
+ * @param {string} name The name of the current widget object. This is used as a unique identifier for the widget.
  * @param {string} [parent = body] The parent DOM element that this widget will be added.
- * @param {string} [elem = svg] The HTML tag of the topmost level container for the widget. This should be set by
- * the child widget class.
- * @returns {Widget} Reference to the widget.
+ * @param {string} [elem = svg] The HTML tag of the topmost level container for the widget. This should be set by the
+ * child widget class.
+ * @constructor
+ * @example
+ *
+ * // Create an SVG widget and append it to the body as an SVG
+ * let chart1 = new Widget('fancy-chart-type', 'chart-1')
+ *
+ * // Create an SVG widget and append it to a div selected by it's id
+ * let chart2 = new Widget('fancy-chart-type', 'chart-2', '#container')
+ *
+ * // Create a DIV widget an append it to the first div selected by class
+ * let chart3 = new Widget('fancy-chart-type', 'chart-3', '.container', 'div')
+ *
  */
-export class Widget {
+export default class Widget {
     constructor(type, name, parent = 'body', elem = 'svg') {
         /**
          * The unique ID of the widget.
@@ -66,6 +64,7 @@ export class Widget {
          * @private
          */
         this._attr = {
+            // Position
             pos: {
                 x: {
                     attr: 'left',
@@ -76,31 +75,37 @@ export class Widget {
                     value: '0px'
                 }
             },
+            // Size: outer and inner
             size: {
                 width: '300px',
                 height: '200px',
                 innerWidth: '300px',
                 innerHeight: '200px'
             },
-            font: {
-                size: '14px',
-                color: 'black'
-            },
-            colors: {
-                policy: null,
-                mapping: () => 'black'
-            },
+            // Margins
             margins: {
                 left: 0,
                 right: 0,
                 top: 0,
                 bottom: 0
             },
+            // Font style
+            font: {
+                size: '14px',
+                color: 'black'
+            },
+            // Color palette
+            colors: {
+                policy: null,
+                mapping: () => 'black'
+            },
+            // Mouse events
             mouse: {
                 enter: null,
                 leave: null,
                 click: null
             },
+            // Optional flags
             flags: {
                 tooltip: false
             }
@@ -111,16 +116,33 @@ export class Widget {
     }
 
     /**
+     * Converts a name (a string containing spaces) to a valid ID.
+     *
+     * @method encode
+     * @methodOf Widget
+     * @param {(string|number)} name Name to convert.
+     * @returns {string} Converted valid ID.
+     * @static
+     * @example
+     *
+     * encode('an orange')
+     * // => 'an__orange'
+     */
+    static encode(name) {
+        return ('' + name).replace(/ /g, '__');
+    }
+
+    /**
      * Generator of the default color function.
      *
      * @method defaultColors
-     * @memberOf Widget
-     * @returns {Function} The default color generator.
+     * @methodOf Widget
+     * @returns {Function} The default color generator, which is the combination of Sets 1 and 3 in Color Brewer.
      * @static
      */
     static defaultColors() {
         let keys = [];
-        return function (key) {
+        return key => {
             let i = keys.indexOf(key);
             return [
                 '#e41a1c',
@@ -146,7 +168,8 @@ export class Widget {
     }
 
     /**
-     * Generator for the default formatter.
+     * Generator for the default formatter. For values less than 1 it returns the value itself, whereas for values
+     * larger than one it returns a 2-decimal point precision format with SI prefixes.
      *
      * @method defaultFormat
      * @methodOf Widget
@@ -154,47 +177,46 @@ export class Widget {
      * @static
      */
     static defaultFormat() {
-        return function (v) {
-            return v > 1 ? format('.2s')(v) : v + '';
-        };
+        return v => v > 1 ? format('.2s')(v) : v + '';
     }
 
     /**
      * Updater method that is called at each rendering. May be overridden by the child class.
      *
      * @method _update
-     * @memberOf Widget
-     * @param {number=} duration Duration of the update animation on data change.
-     * @private
+     * @methodOf Widget
+     * @param {number=} [duration = 700] Duration of the update animation on data change.
+     * @protected
      */
-    _update(duration) {
+    _update(duration = 700) {
     }
 
     /**
      * Creates the content of the tooltip. My be overridden.
      *
      * @method _tooltip
-     * @memberOf Widget
-     * @param {number[]=} mouse Mouse position.
+     * @methodOf Widget
+     * @param {number[]?} mouse Mouse position.
      * @returns {string} The tooltip content.
-     * @private
+     * @protected
      */
     _tooltip(mouse) {
-        return '';
     }
 
     /**
      * Shows the tooltip.
      *
      * @method _showTooltip
-     * @memberOf Widget
+     * @methodOf Widget
      * @private
      */
     _showTooltip() {
-        let tooltipId = 'dalian-widgets-tooltip',
+        // Create container and tooltip ID
+        let tooltipContainerId = 'dalian-widget-tooltip-container';
+        let tooltipId = `${this._id}-tooltip`,
             m = mouse(this._dom.container.node()),
-            mx = event.pageX,
-            my = event.pageY,
+            mx = event.clientX,
+            my = event.clientY,
             boundingBox = this._dom.container.node().getBoundingClientRect();
 
         // If we are outside the charting area just remove tooltip
@@ -207,12 +229,22 @@ export class Widget {
             return;
         }
 
+        // All tooltips for dalian are appended to a separate tooltip container
+        // Create container if it does not exist
+        if (select('#' + tooltipContainerId).empty()) {
+            select('body').append('div')
+                .attr('id', tooltipContainerId);
+        }
+
         // Create tooltip if needed
         let tooltip = select('#' + tooltipId);
         if (select('#' + tooltipId).empty()) {
+            // Inherit tooltip shadow color from the font color
             let shadowColor = color(this._attr.font.color);
             shadowColor.opacity = 0.3;
-            tooltip = select('body').append('div')
+
+            // Add tooltip to the container
+            tooltip = select('#' + tooltipContainerId).append('div')
                 .attr('id', tooltipId)
                 .style('position', 'absolute')
                 .style('background-color', 'rgba(255, 255, 255, 0.9)')
@@ -226,10 +258,10 @@ export class Widget {
                 .style('top', (boundingBox.top + boundingBox.bottom) / 2 + 'px');
         }
 
-        // Get content
-        // If content is invalid, remove tooltip
+        // Create content
         let content = this._tooltip([m[0] - this._attr.margins.left, m[1] - this._attr.margins.top]);
         if (!content) {
+            // If content is invalid, remove tooltip
             select('#' + tooltipId)
                 .style('opacity', 0)
                 .html('');
@@ -265,26 +297,28 @@ export class Widget {
     }
 
     /**
-     * Renders the widget. If called for the first time, the widget is built, otherwise this method updates the
-     * widget with attributes that have been changed since the last rendering.
+     * Renders the widget. If called for the first time, the widget is built, otherwise this method updates the widget
+     * with the attributes that have been changed since the last rendering.
      *
      * @method render
-     * @memberOf Widget
-     * @param {number} duration Duration of the rendering animation in ms. Default is 700 ms.
+     * @methodOf Widget
+     * @param {number} [duration = 700] Duration of the rendering animation in ms.
      * @returns {Widget} Reference to the widget.
      */
     render(duration = 700) {
         // Update widget first
         this._update(duration);
 
-        // Update position and size
+        // Update container position and size
         this._dom.container
             .style(this._attr.pos.x.attr, this._attr.pos.x.value)
             .style(this._attr.pos.y.attr, this._attr.pos.y.value)
             .style('width', this._attr.size.width)
             .style('height', this._attr.size.height);
 
-        // Propagate font to all text
+        // Propagate font style to all text
+        this._dom.container
+            .style('font-family', 'inherit');
         this._dom.container
             .selectAll('.tick > text')
             .attr('stroke-width', 0)
@@ -292,17 +326,13 @@ export class Widget {
             .style('font-size', this._attr.font.size)
             .style('fill', this._attr.font.color);
         this._dom.container
-            .style('font-family', 'inherit');
-        this._dom.container
             .selectAll('g')
             .attr('font-family', 'inherit');
 
         // Update tooltip behavior
         this._dom.container
             .style('pointer-events', this._attr.flags.tooltip ? 'all' : null)
-            .on('mousemove', () => {
-                this._attr.flags.tooltip && this._showTooltip();
-            });
+            .on('mousemove', () => this._attr.flags.tooltip && this._showTooltip());
 
         // Show widget
         this._dom.container
@@ -312,11 +342,11 @@ export class Widget {
 
     /**
      * Enables/disables description for the current widget. A description is a small tooltip that is bound to the
-     * context menu (also disables default event handler). The description disappears once the mouse leaves the
-     * widget. If called without argument, description is disabled.
+     * context menu (also disables default event handler). The description disappears once the mouse leaves the widget.
+     * If called without argument, description is disabled.
      *
      * @method description
-     * @memberOf Widget
+     * @methodOf Widget
      * @param {string=} content Content of the description. Can be HTML formatted. If not provided, description is
      * disabled.
      * @returns {Widget} Reference to the widget.
@@ -364,13 +394,12 @@ export class Widget {
     }
 
     /**
-     * Replaces the widget with a placeholder message positioned in the center of the original widget. If no
-     * placeholder content is provided, the widget is recovered. Note: placeholder is shown even if the widget is
-     * not yet rendered.
+     * Replaces the widget with a placeholder message positioned in the center of the original widget. If no placeholder
+     * content is provided, the widget is recovered. Note: placeholder is shown even if the widget is not yet rendered.
      *
      * @method placeholder
-     * @memberOf Widget
-     * @param {string=} content Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.
+     * @methodOf Widget
+     * @param {string?} content Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.
      * @returns {Widget} Reference to the widget.
      */
     placeholder(content) {
@@ -419,12 +448,12 @@ export class Widget {
     }
 
     /**
-     * Sets the X coordinate of the widget. If negative, the widget's right side is measured from the right side of
-     * the parent, otherwise it is measured from the left side. Default is 0.
+     * Sets the X coordinate of the widget. If negative, the widget's right side is measured from the right side of the
+     * parent, otherwise it is measured from the left side.
      *
      * @method x
-     * @memberOf Widget
-     * @param {number} value Value of the X coordinate. Default value is 0.
+     * @method Widget
+     * @param {number} [value = 0] Value of the X coordinate.
      * @returns {Widget} Reference to the widget.
      */
     x(value = 0) {
@@ -435,11 +464,11 @@ export class Widget {
 
     /**
      * Sets the Y coordinate of the widget. If negative, the widget's bottom side is measured from the bottom of the
-     * parent, otherwise the top side is measured from the top. Default is 0.
+     * parent, otherwise the top side is measured from the top.
      *
      * @method y
-     * @memberOf Widget
-     * @param {number} value Value of the Y coordinate. Default value is 0.
+     * @method Widget
+     * @param {number} [value = 0] Value of the Y coordinate.
      * @returns {Widget} Reference to the widget.
      */
     y(value = 0) {
@@ -449,11 +478,11 @@ export class Widget {
     }
 
     /**
-     * Sets the width of the widget (including it's margins). Default is 300.
+     * Sets the width of the widget (including it's margins). Also updates the inner width of the widget.
      *
      * @method width
-     * @memberOf Widget
-     * @param {number} value Width value. Default is 300.
+     * @method Widget
+     * @param {number} [value = 300] Width value.
      * @returns {Widget} Reference to the widget.
      */
     width(value = 300) {
@@ -463,11 +492,11 @@ export class Widget {
     }
 
     /**
-     * Sets the height of the widget (including it's margins). Default is 200.
+     * Sets the height of the widget (including it's margins). Also updates the inner height of the widget.
      *
      * @method height
-     * @memberOf Widget
-     * @param {number} value Height value. Default is 200.
+     * @methodOf Widget
+     * @param {number} [value = 200] Height value.
      * @returns {Widget} Reference to the widget.
      */
     height(value = 200) {
@@ -478,29 +507,38 @@ export class Widget {
 
     /**
      * Sets widget margins in pixels. Note that margins are included in width and thus height and effectively shrink
-     * the plotting area. Default is 0.
+     * the plotting area.
      *
      * @method margins
-     * @memberOf Widget
-     * @param {(number | object)} [margins = 0] A single number to set all sides or an object specifying some of the sides.
+     * @methodOf Widget
+     * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
+     * sides.
      * @returns {Widget} Reference to the widget.
      */
     margins(margins = 0) {
-        if (typeof margins === 'number') {
-            // Single value for each side
-            this._attr.margins = {
-                left: margins,
-                right: margins,
-                top: margins,
-                bottom: margins
-            };
-        } else {
-            for (let side in this._attr.margins) {
-                if (this._attr.margins.hasOwnProperty(side) && side in margins) {
-                    this._attr.margins[side] = margins[side];
+        switch (typeof margins) {
+            case 'number':
+                // Single value for each side
+                this._attr.margins = {
+                    left: margins,
+                    right: margins,
+                    top: margins,
+                    bottom: margins
+                };
+                break;
+            case 'object':
+                for (let side in this._attr.margins) {
+                    if (this._attr.margins.hasOwnProperty(side) && side in margins) {
+                        this._attr.margins[side] = margins[side];
+                    }
                 }
-            }
+                break;
+            default:
+                // Unknown margin type, send warning
+                break;
         }
+
+        // Update inner size
         this._attr.size.innerWidth = (parseInt(this._attr.size.width)
             - this._attr.margins.left - this._attr.margins.right) + 'px';
         this._attr.size.innerHeight = (parseInt(this._attr.size.height)
@@ -509,11 +547,11 @@ export class Widget {
     }
 
     /**
-     * Sets the main font size. All text elements in the widget are rescaled according to this value. Default is 14px.
+     * Sets the main font size. All text elements in the widget are rescaled according to this value.
      *
      * @method fontSize
-     * @memberOf Widget
-     * @param {number} size Size of the main font in pixels.
+     * @methodOf Widget
+     * @param {number} [size = 14] Size of the main font in pixels.
      * @returns {Widget} Reference to the  widget.
      */
     fontSize(size) {
@@ -522,14 +560,14 @@ export class Widget {
     }
 
     /**
-     * Sets the font color. Axis and other non-plot related elements also use this color. Default is black.
+     * Sets the font color. Axis and other non-plot related elements also use this color.
      *
      * @method fontColor
-     * @memberOf Widget
-     * @param {string} color Font color to set.
+     * @methodOf Widget
+     * @param {string} [color = black] Font color to set.
      * @returns {Widget} Reference to the widget.
      */
-    fontColor(color) {
+    fontColor(color = 'black') {
         this._attr.font.color = color;
         return this;
     }
@@ -537,16 +575,16 @@ export class Widget {
     /**
      * Sets the color policy for the plots. Supported policies:
      * <ul>
-     *     <li>Default color policy (no arguments): the default color scheme is used which is a combination of
-     *     the qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>
+     *     <li>Default color policy (no arguments): the default color scheme is used which is a combination of the
+     *     qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>
      *     <li>Single color (passing {string}): The specified color is used for all plots.</li>
      *     <li>Custom color mapping (passing an {object}): each plot has the color specified as the value for the
      *     property with the same name as the plot's key.</li>
      * </ul>
-     * Default is null, that is the default color scheme.
+     * Defaults to {null}, which creates the default color scheme.
      *
      * @method colors
-     * @memberOf Widget
+     * @methodOf Widget
      * @param {?(string | object)} [policy = null] Color policy to set.
      * @returns {Widget} Reference to the widget.
      */
@@ -569,16 +607,15 @@ export class Widget {
     }
 
     /**
-     * Binds a callback to the event of hovering a widget element. The behavior of this method is specific to the
-     * widget type: for charts, it is bound to the plot elements and the plot's name is passed to the
-     * specified callback as argument. This can be used as a selector for e.g, highlighting elements in the widget.
-     * For the map it is bound to countries and the name of the country is passed as parameter. For standalone
-     * widgets such as a label, it is bound to the widget itself. Default is {null} (no mouseover callback). Default
-     * is null, that is, no callback.
+     * Binds a callback to the event of hovering a widget element. The behavior of this method is specific to the widget
+     * type: for charts, it is bound to the plot elements and the plot's name is passed to the specified callback as
+     * argument. This can be used as a selector for e.g, highlighting elements in the widget. For the map it is bound to
+     * countries and the name of the country is passed as parameter. For standalone widgets such as a label, it is bound
+     * to the widget itself. Default is {null} (no mouseover callback).
      *
      * @method mouseover
-     * @memberOf Widget
-     * @param {?function} [callback = null] Callback to trigger on mouse over.
+     * @methodOf Widget
+     * @param {?Function} [callback = null] Callback to trigger on mouse over.
      * @returns {Widget} Reference to the widget.
      */
     mouseover(callback = null) {
@@ -592,11 +629,11 @@ export class Widget {
      * passed to the specified callback as argument. This can be used as a selector for e.g, highlighting elements
      * in the widget. For the map it is bound to countries and the name of the country is passed as parameter. For
      * standalone widgets such as a label, it is bound to the widget itself. Default is {null} (no mouseleave
-     * callback). Default is null, that is, no callback.
+     * callback).
      *
      * @method mouseleave
-     * @memberOf Widget
-     * @param {?function} [callback = null] Callback to trigger on mouse leave.
+     * @methodOf Widget
+     * @param {?Function} [callback = null] Callback to trigger on mouse leave.
      * @returns {Widget} Reference to the widget.
      */
     mouseleave(callback = null) {
@@ -609,12 +646,11 @@ export class Widget {
      * widget type: for charts, it is bound to the plot elements and the plot's name is passed to the
      * specified callback as argument. This can be used as a selector for e.g, highlighting elements in the widget.
      * For the map it is bound to countries and the name of the country is passed as parameter. For standalone
-     * widgets such as a label, it is bound to the widget itself. Default is {null} (no click callback). Default is
-     * null, that is, no callback.
+     * widgets such as a label, it is bound to the widget itself. Default is {null} (no click callback).
      *
      * @method click
-     * @memberOf Widget
-     * @param {?function} [callback = null] Callback to trigger on click.
+     * @methodOf Widget
+     * @param {?Function} [callback = null] Callback to trigger on click.
      * @returns {Widget} Reference to the widget.
      */
     click(callback = null) {
@@ -623,10 +659,10 @@ export class Widget {
     }
 
     /**
-     * Enables/disables tooltip for the widgets that support this function. Default is false.
+     * Enables/disables tooltip for the widgets that support this function.
      *
      * @method tooltip
-     * @memberOf Widget
+     * @methodOf Widget
      * @param {boolean} [on = false] Whether tooltip should be enabled or not.
      * @returns {Widget} Reference to the widget.
      */

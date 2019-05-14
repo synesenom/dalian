@@ -2,27 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/flow-chart/src/vector2d.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js" afterPath="$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/chart/src/chart.js" afterPath="$PROJECT_DIR$/modules/chart/src/chart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js" afterPath="$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/example.html" afterPath="$PROJECT_DIR$/modules/flow-chart/example.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/package.json" afterPath="$PROJECT_DIR$/modules/flow-chart/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" afterPath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/flow-chart/yarn.lock" afterPath="$PROJECT_DIR$/modules/flow-chart/yarn.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/line-chart/dist/dalian.line-chart.min.js" afterPath="$PROJECT_DIR$/modules/line-chart/dist/dalian.line-chart.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/widget/dist/dalian.widget.min.js" afterPath="$PROJECT_DIR$/modules/widget/dist/dalian.widget.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/widget/package.json" afterPath="$PROJECT_DIR$/modules/widget/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/widget/src/index.js" afterPath="$PROJECT_DIR$/modules/widget/src/index.js" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widget/src/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,21 +17,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="example.html" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/flow-chart/example.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="810">
+              <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flow-chart-edge.js" pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="125" column="14" lean-forward="true" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="14" />
+            <state relative-caret-position="180">
+              <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -52,11 +38,69 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flow-chart-node.js" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/line-chart/example.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/line-chart/src/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2025">
+              <caret line="126" selection-start-line="126" selection-end-line="126" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/widget/src/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="636" column="49" lean-forward="true" selection-start-line="636" selection-start-column="49" selection-end-line="636" selection-end-column="49" />
+              <folding>
+                <element signature="e#12#64#0" expanded="true" />
+                <element signature="n#!!block;n#constructor#0;n#Widget#0" />
+                <element signature="e#2238#3381#0" />
+                <element signature="e#3559#3606#0" />
+                <element signature="e#5174#5236#0" />
+                <element signature="e#5978#9178#0" />
+                <element signature="e#9745#10941#0" />
+                <element signature="e#11400#13143#0" />
+                <element signature="e#13658#15495#0" />
+                <element signature="e#15898#16046#0" />
+                <element signature="e#16450#16598#0" />
+                <element signature="e#16877#17057#0" />
+                <element signature="e#17340#17522#0" />
+                <element signature="e#17950#18782#0" />
+                <element signature="e#19105#19177#0" />
+                <element signature="e#19478#19545#0" />
+                <element signature="e#20376#20941#0" />
+                <element signature="e#22696#22767#0" />
+                <element signature="e#23585#23656#0" />
+                <element signature="e#23975#24042#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+            <state relative-caret-position="1215">
+              <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -79,8 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>require</find>
-      <find>returns</find>
       <find>member</find>
       <find>memberOf</find>
       <find>method</find>
@@ -109,6 +151,8 @@
       <find>this.src</find>
       <find>this.dst</find>
       <find>Vector</find>
+      <find>function</find>
+      <find>object</find>
     </findStrings>
     <replaceStrings>
       <replace>Widget</replace>
@@ -144,7 +188,6 @@
         <option value="$PROJECT_DIR$/modules/widget/webpack.config.js" />
         <option value="$PROJECT_DIR$/modules/widget/dist/dalian.widget.min.js" />
         <option value="$PROJECT_DIR$/modules/chart/src/index.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/modules/widget/example.html" />
         <option value="$PROJECT_DIR$/modules/chart/example.html" />
         <option value="$PROJECT_DIR$/modules/line-chart/example.html" />
@@ -159,7 +202,6 @@
         <option value="$PROJECT_DIR$/modules/line-chart/package.json" />
         <option value="$PROJECT_DIR$/modules/line-chart/src/index.js" />
         <option value="$PROJECT_DIR$/modules/widget/src/utils.ts" />
-        <option value="$PROJECT_DIR$/modules/widget/src/index.js" />
         <option value="$PROJECT_DIR$/modules/widget/package.json" />
         <option value="$PROJECT_DIR$/modules/flow-chart/package.json" />
         <option value="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" />
@@ -167,11 +209,11 @@
         <option value="$PROJECT_DIR$/modules/flow-chart/example.html" />
         <option value="$PROJECT_DIR$/modules/flow-chart/src/vector2d.js" />
         <option value="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" />
+        <option value="$PROJECT_DIR$/modules/widget/src/index.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
     <exe-path />
@@ -179,46 +221,23 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/modules/chart/node_modules" />
-    <handled-path value="$PROJECT_DIR$/modules/flow-chart/node_modules" />
-    <handled-path value="$PROJECT_DIR$/modules/line-chart/node_modules" />
-    <handled-path value="$PROJECT_DIR$/modules/widget/node_modules" />
-  </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/modules/chart/package.json" />
     <dismissed value="$PROJECT_DIR$/modules/flow-chart/package.json" />
     <dismissed value="$PROJECT_DIR$/modules/line-chart/package.json" />
     <dismissed value="$PROJECT_DIR$/modules/widget/package.json" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="728" />
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
-    <option name="width" value="712" />
-    <option name="height" value="801" />
+    <option name="width" value="1440" />
+    <option name="height" value="802" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,55 +250,22 @@
               <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="flow-chart" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="flow-chart" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="flow-chart" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="widget" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dalian-es6" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dalian-es6" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="widget" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
-    <property name="JavaScriptPreferStrict" value="false" />
-    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.10.0" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.10.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
@@ -310,19 +296,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.widget.js">
-    <configuration name="widget.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/modules/widget/src/index.js" working-dir="$PROJECT_DIR$/src" />
+  <component name="RunManager">
+    <configuration name="widget.js" type="NodeJSConfigurationType" temporary="true" path-to-js-file="$PROJECT_DIR$/modules/widget/src/index.js" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.widget.js" />
+      <list>
+        <item itemvalue="Node.js.widget.js" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
   <component name="StructureViewFactory">
     <option name="ACTIVE_ACTIONS" value=",HIDE_INHERITED_FROM_OBJECT,HIDE_INHERITED" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -341,46 +329,42 @@
       <workItem from="1546447504824" duration="16728000" />
       <workItem from="1546945649468" duration="743000" />
       <workItem from="1547152969278" duration="27691000" />
+      <workItem from="1557859675464" duration="3183000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85959000" />
+    <option name="totallyTimeSpent" value="89142000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="728" y="23" width="712" height="801" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="799" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28230336" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32784638" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24900663" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32784638" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39917696" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project Explorer" />
+      <window_info id="Job Explorer" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19027483" />
+      <window_info id="Structure" order="1" weight="0.24900663" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Console" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TypeScript" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32673267" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.3292011" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.39917696" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.27439886" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="8" />
-    </breakpoint-manager>
-    <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/node_modules/d3-format/src/defaultLocale.js">
@@ -408,16 +392,12 @@
     <entry file="file://$PROJECT_DIR$/modules/line-chart/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/widget/node_modules/d3-selection/rollup.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/widget/node_modules/d3-selection/src/selection/on.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -436,81 +416,46 @@
     <entry file="file://$PROJECT_DIR$/modules/widget/dist/dalian.widget.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="0" column="608" lean-forward="false" selection-start-line="0" selection-start-column="602" selection-end-line="0" selection-end-column="608" />
-          <folding />
+          <caret column="608" selection-start-column="602" selection-end-column="608" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/line-chart/node_modules/@dalian/chart/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1215">
-          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="328" column="0" lean-forward="false" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="6667" column="0" lean-forward="false" selection-start-line="6667" selection-start-column="0" selection-end-line="6667" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js" />
     <entry file="file://$PROJECT_DIR$/modules/chart/node_modules/d3-transition/dist/d3-transition.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12595">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+        <state relative-caret-position="-12595" />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/node_modules/d3-selection/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$USER_HOME$/node_modules/d3-selection/src/selection/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="38" column="16" lean-forward="false" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
+          <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/line-chart/dist/dalian.line-chart.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
-          <caret line="0" column="61570" lean-forward="false" selection-start-line="0" selection-start-column="61570" selection-end-line="0" selection-end-column="61570" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <caret column="61570" selection-start-column="61570" selection-end-column="61570" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/.eslintrc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/widget/.eslintrc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -522,15 +467,14 @@
     <entry file="file://$PROJECT_DIR$/modules/chart/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="137">
-          <caret line="0" column="62126" lean-forward="false" selection-start-line="0" selection-start-column="62121" selection-end-line="0" selection-end-column="62126" />
-          <folding />
+          <caret column="62126" selection-start-column="62121" selection-end-column="62126" />
         </state>
       </provider>
     </entry>
@@ -538,21 +482,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/chart/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/chart/src/scale.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="379">
-          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="13" />
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -560,14 +503,7 @@
     <entry file="file://$PROJECT_DIR$/modules/line-chart/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -575,37 +511,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3115">
           <caret line="71" column="28" lean-forward="true" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/chart/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <caret line="7" selection-start-line="7" selection-end-line="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/chart/src/axes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/chart/example.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/line-chart/example.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="12" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="10" selection-end-column="12" />
-          <folding />
+          <caret line="1" selection-start-line="1" selection-end-line="2" />
         </state>
       </provider>
     </entry>
@@ -622,66 +541,36 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="21" column="3" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="21" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-          <folding />
+          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
-          <caret line="0" column="50886" lean-forward="false" selection-start-line="0" selection-start-column="50880" selection-end-line="0" selection-end-column="50886" />
+          <caret column="50886" selection-start-column="50880" selection-end-column="50886" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js" />
+    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/vector2d.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="939" column="9" lean-forward="false" selection-start-line="939" selection-start-column="9" selection-end-line="939" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/line-chart/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="126" column="0" lean-forward="true" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/widget/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="573" column="88" lean-forward="false" selection-start-line="573" selection-start-column="79" selection-end-line="573" selection-end-column="88" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="112" column="30" lean-forward="true" selection-start-line="112" selection-start-column="20" selection-end-line="112" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+        <state relative-caret-position="1215">
+          <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
@@ -690,27 +579,92 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/example.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="810">
+          <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/vector2d.js">
+    <entry file="file://$PROJECT_DIR$/modules/chart/example.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="36" column="23" lean-forward="false" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="135">
+          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/line-chart/example.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/line-chart/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2025">
+          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1845">
+          <caret line="112" column="30" lean-forward="true" selection-start-line="112" selection-start-column="20" selection-end-line="112" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="125" column="14" lean-forward="true" selection-start-line="125" selection-start-column="14" selection-end-line="125" selection-end-column="14" />
+        <state relative-caret-position="180">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/widget/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="636" column="49" lean-forward="true" selection-start-line="636" selection-start-column="49" selection-end-line="636" selection-end-column="49" />
+          <folding>
+            <element signature="e#12#64#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#Widget#0" />
+            <element signature="e#2238#3381#0" />
+            <element signature="e#3559#3606#0" />
+            <element signature="e#5174#5236#0" />
+            <element signature="e#5978#9178#0" />
+            <element signature="e#9745#10941#0" />
+            <element signature="e#11400#13143#0" />
+            <element signature="e#13658#15495#0" />
+            <element signature="e#15898#16046#0" />
+            <element signature="e#16450#16598#0" />
+            <element signature="e#16877#17057#0" />
+            <element signature="e#17340#17522#0" />
+            <element signature="e#17950#18782#0" />
+            <element signature="e#19105#19177#0" />
+            <element signature="e#19478#19545#0" />
+            <element signature="e#20376#20941#0" />
+            <element signature="e#22696#22767#0" />
+            <element signature="e#23585#23656#0" />
+            <element signature="e#23975#24042#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
         </state>
       </provider>
     </entry>
