@@ -37,17 +37,6 @@ export default class Axes {
     }
 
     /**
-     * Returns the axis d3-selection object.
-     *
-     * @property dom
-     * @memberOf Axes
-     * @return {Object} D3 selection.
-     */
-    get dom() {
-        return this._dom;
-    }
-
-    /**
      * Updates axes.
      *
      * @method update

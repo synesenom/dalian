@@ -31,6 +31,11 @@ export default class Chart extends Widget {
             }
         };
 
+        // Chart state
+        this._state = {
+            transition: false
+        };
+
         // Add chart specific dom elements
         this._dom.plots = this._dom.container.append('g')
             .attr('class', 'plots-container');
@@ -88,7 +93,7 @@ export default class Chart extends Widget {
      * Builds a standard axis for charts with two axes.
      *
      * @method _axis
-     * @memberOf Widget
+     * @memberOf Chart
      * @returns {Object} Object containing the axis functions, axes and labels as well as an update method to
      * conveniently update the axes.
      * @static
@@ -161,10 +166,74 @@ export default class Chart extends Widget {
     }
 
     /**
+     * Sets the format function for the ticks.
+     * Default is an SI prefixed number for values above 1 and the number itself below.
+     *
+     * @method tickFormat
+     * @memberOf Chart
+     * @param {Function} format Format function to set.
+     * @returns {Chart} Reference to the current chart.
+     */
+    tickFormat(format) {
+        this._attr.ticks.format.single = format !== null && format !== undefined ? format : Widget.defaultFormat();
+        return this;
+    }
+
+    /**
+     * Sets the format function for the horizontal ticks.
+     * Default is an SI prefixed number for values above 1 and the number itself below.
+     *
+     * @method xTickFormat
+     * @memberOf Chart
+     * @param {Function} format Format function to set.
+     * @returns {Chart} Reference to the current chart.
+     */
+    xTickFormat(format) {
+        this._attr.ticks.format.x = format !== null && format !== undefined ? format : Widget.defaultFormat();
+        return this;
+    }
+
+    /**
+     * Sets the format function for the vertical ticks.
+     * Default is an SI prefixed number for values above 1 and the number itself below.
+     *
+     * @method yTickFormat
+     * @memberOf Chart
+     * @param {Function} format Format function to set.
+     * @returns {Chart} Reference to the current chart.
+     */
+    yTickFormat(format) {
+        this._attr.ticks.format.y = format !== null && format !== undefined ? format : Widget.defaultFormat();
+        return this;
+    }
+
+    /**
+     * Binds data to the chart.
+     *
+     * @method data
+     * @memberOf Chart
+     * @param {Array} values Data as an array of objects.
+     * @returns {Chart} Reference to the current chart.
+     * @ignore
+     */
+    data(values) {
+        // Transform data to the standard internal structure
+        this._data = this._transformData(values);
+
+        // Reset color mapping if it is set to default
+        if (this._attr.colors.policy === null || this._attr.colors.policy === undefined) {
+            this._attr.colors.mapping = Widget.defaultColors();
+        }
+
+        // Switch render flag
+        return this;
+    }
+
+    /**
      * Converts arbitrary data array in the internal data structure. Must be overridden.
      *
      * @method _transformData
-     * @memberOf Widget
+     * @memberOf Chart
      * @param {Array} values Array of values.
      * @returns {Array} Array containing the converted data in the internal structure.
      */
@@ -200,21 +269,21 @@ export default class Chart extends Widget {
     _plotGroups(g, attr) {
         // Select groups
         let groups = g.selectAll('.plot-group')
-            .data(this._data, d => d.name);
+          .data(this._data, d => d.name);
 
         // Exiting groups: simply fade out
         let exit = groups.exit()
-            .transition().duration(700)
-            .style('opacity', 0)
-            .remove();
+          .transition().duration(700)
+          .style('opacity', 0)
+          .remove();
 
         // Entering groups: starting transparent
         let enter = groups.enter().append('g')
-            .attr('class', d => 'plot-group ' + Widget.encode(d.name))
-            .style('shape-rendering', 'geometricPrecision')
-            .style('opacity', 0)
-            .style('fill', 'transparent')
-            .style('stroke', 'transparent');
+          .attr('class', d => `plot-group ${Widget.encode(d.name)}`)
+          .style('shape-rendering', 'geometricPrecision')
+          .style('opacity', 0)
+          .style('fill', 'transparent')
+          .style('stroke', 'transparent');
         if (attr && attr.enter) {
             enter = attr.enter(enter);
         }
@@ -222,36 +291,36 @@ export default class Chart extends Widget {
         // Union: attach mouse events
         let that = this;
         let union = enter.merge(groups)
-            .each(() => {
-                // Disable pointer events before transition
-                g.style('pointer-events', 'none');
-            })
-            .on('mouseover', d => {
-                that.state.current = d;
-                that._attr.mouse.enter && that._attr.mouse.enter(d);
-            })
-            .on('mouseleave', d => {
-                that.state.current = null;
-                that._attr.mouse.leave && that._attr.mouse.leave(d);
-            })
-            .on('click', d => {
-                that._attr.mouse.click && that._attr.mouse.click(d);
-            });
+          .each(() => {
+              // Disable pointer events before transition
+              g.style('pointer-events', 'none');
+              this._state.transition = true;
+          })
+          .on('mouseover', d => {
+              that._attr.mouse.enter && that._attr.mouse.enter(d);
+          })
+          .on('mouseleave', d => {
+              that._attr.mouse.leave && that._attr.mouse.leave(d);
+          })
+          .on('click', d => {
+              that._attr.mouse.click && that._attr.mouse.click(d);
+          });
         if (attr && attr.union && attr.union.before) {
             union = attr.union.before(union);
         }
 
         // Animate new state
         let unionAnimated = union.transition().duration(700)
-            .style('opacity', 1)
-            .style('fill', d => that._attr.colors.mapping(d.name))
-            .style('stroke', d => that._attr.colors.mapping(d.name));
+          .style('opacity', 1)
+          .style('fill', d => that._attr.colors.mapping(d.name))
+          .style('stroke', d => that._attr.colors.mapping(d.name));
         if (attr && attr.union && attr.union.after) {
             unionAnimated = attr.union.after(unionAnimated);
         }
         unionAnimated.on('end', () => {
             // Re-enable pointer events
             g.style('pointer-events', 'all');
+            this._state.transition = false;
         });
 
         return {
@@ -265,14 +334,62 @@ export default class Chart extends Widget {
         };
     }
 
+    /**
+     * Highlight one or more elements in the chart.
+     *
+     * @method highlight
+     * @memberOf Chart
+     * @param {string} selector Selector of the widget elements.
+     * @param {(string|string[])} key Single key or an array of keys of the element(s) to highlight.
+     * @param {number} duration Duration of the highlight animation.
+     * @returns {Chart} Reference to the current chart.
+     * @protected
+     */
+    _highlight(selector, key, duration) {
+        // If currently animated, don't highlight
+        if (this._state.transition) {
+            return this;
+        }
+
+        // Stop current transitions
+        let elems = this._dom.plots.selectAll(selector);
+        elems.transition();
+
+        // Perform highlight
+        if (typeof key === 'string') {
+            // Single key
+            elems.transition().duration(duration ? duration : 0)
+              .style('opacity', function () {
+                  return select(this).classed(Widget.encode(key)) ? 1 : 0.1;
+              });
+        } else if (Array.isArray(key)) {
+            // Multiple keys
+            let keys = key.map(function (d) {
+                return Widget.encode(d);
+            });
+            elems.transition().duration(duration ? duration : 0)
+              .style('opacity', function () {
+                  let elem = select(this);
+                  return keys.reduce(function (s, d) {
+                      return s || elem.classed(d);
+                  }, false) ? 1 : 0.1;
+              });
+        } else {
+            // Remove highlight
+            elems.transition().duration(duration ? duration : 0)
+              .style('opacity', 1);
+        }
+        return this;
+    }
+
     _update() {
         // Chart specific update
         this._chartUpdate();
 
         // Adjust plots container
         this._dom.plots.attr('width', this._attr.size.innerWidth + 'px')
-            .attr('height', this._attr.size.innerHeight + 'px')
-            .attr('transform', 'translate(' + this._attr.margins.left + ',' + this._attr.margins.top + ')');
+          .attr('height', this._attr.size.innerHeight + 'px')
+          .attr('transform', 'translate(' + this._attr.margins.left + ',' + this._attr.margins.top + ')');
     }
 
     _tooltip(mouse) {
@@ -280,19 +397,20 @@ export default class Chart extends Widget {
         if (content === null) {
             return null;
         }
+        console.log(content);
 
         // Erase tooltip content and add title
         let contentNode = select(document.createElement('div'));
         contentNode
-            .style('border-r', '2px')
-            .style('padding', '5px')
-            .append('div')
-            .style('position', 'relative')
-            .style('width', 'calc(100% - 10px)')
-            .style('line-height', '11px')
-            .style('margin', '5px')
-            .style('margin-bottom', '10px')
-            .text(content.title);
+          .style('border-r', '2px')
+          .style('padding', '5px')
+          .append('div')
+          .style('position', 'relative')
+          .style('width', 'calc(100% - 10px)')
+          .style('line-height', '11px')
+          .style('margin', '5px')
+          .style('margin-bottom', '10px')
+          .text(content.title);
 
         // Add color
         contentNode.style('border-left', content.stripe ? 'solid 2px ' + content.stripe : null);
@@ -303,21 +421,21 @@ export default class Chart extends Widget {
                 // List of metrics
                 content.content.data.forEach(function (row) {
                     let entry = contentNode.append('div')
-                        .style('position', 'relative')
-                        .style('display', 'block')
-                        .style('width', 'auto')
-                        .style('height', '10px')
-                        .style('margin', '5px');
+                      .style('position', 'relative')
+                      .style('display', 'block')
+                      .style('width', 'auto')
+                      .style('height', '10px')
+                      .style('margin', '5px');
                     entry.append('div')
-                        .style('position', 'relative')
-                        .style('float', 'left')
-                        .style('color', '#888')
-                        .html(row.label);
+                      .style('position', 'relative')
+                      .style('float', 'left')
+                      .style('color', '#888')
+                      .html(row.label);
                     entry.append('div')
-                        .style('position', 'relative')
-                        .style('float', 'right')
-                        .style('margin-left', '10px')
-                        .html(row.value);
+                      .style('position', 'relative')
+                      .style('float', 'right')
+                      .style('margin-left', '10px')
+                      .html(row.value);
                 });
                 break;
             case 'plots':
@@ -326,92 +444,28 @@ export default class Chart extends Widget {
                     return a.name.localeCompare(b.name);
                 }).forEach(function (plot) {
                     let entry = contentNode.append('div')
-                        .style('position', 'relative')
-                        .style('max-width', '150px')
-                        .style('height', '10px')
-                        .style('margin', '5px')
-                        .style('padding-right', '10px');
+                      .style('position', 'relative')
+                      .style('max-width', '150px')
+                      .style('height', '10px')
+                      .style('margin', '5px')
+                      .style('padding-right', '10px');
                     entry.append('div')
-                        .style('position', 'relative')
-                        .style('width', '9px')
-                        .style('height', '9px')
-                        .style('float', 'left')
-                        .style('background-color', plot.color);
+                      .style('position', 'relative')
+                      .style('width', '9px')
+                      .style('height', '9px')
+                      .style('float', 'left')
+                      .style('background-color', plot.color);
                     entry.append('span')
-                        .style('position', 'relative')
-                        .style('width', 'calc(100% - 20px)')
-                        .style('height', '10px')
-                        .style('float', 'right')
-                        .style('line-height', '11px')
-                        .html(plot.value);
+                      .style('position', 'relative')
+                      .style('width', 'calc(100% - 20px)')
+                      .style('height', '10px')
+                      .style('float', 'right')
+                      .style('line-height', '11px')
+                      .html(plot.value);
                 });
                 break;
         }
 
         return contentNode.node().outerHTML;
-    }
-
-    /**
-     * Sets the format function for the ticks.
-     * Default is an SI prefixed number for values above 1 and the number itself below.
-     *
-     * @method tickFormat
-     * @memberOf Widget
-     * @param {Function} format Format function to set.
-     * @returns {Widget} Reference to the current widget.
-     */
-    tickFormat(format) {
-        this._attr.ticks.format.single = format !== null && format !== undefined ? format : Widget.defaultFormat();
-        return this;
-    }
-
-    /**
-     * Sets the format function for the horizontal ticks.
-     * Default is an SI prefixed number for values above 1 and the number itself below.
-     *
-     * @method xTickFormat
-     * @memberOf Widget
-     * @param {Function} format Format function to set.
-     * @returns {Widget} Reference to the current widget.
-     */
-    xTickFormat(format) {
-        this._attr.ticks.format.x = format !== null && format !== undefined ? format : Widget.defaultFormat();
-        return this;
-    }
-
-    /**
-     * Sets the format function for the vertical ticks.
-     * Default is an SI prefixed number for values above 1 and the number itself below.
-     *
-     * @method yTickFormat
-     * @memberOf Widget
-     * @param {Function} format Format function to set.
-     * @returns {Widget} Reference to the current widget.
-     */
-    yTickFormat(format) {
-        this._attr.ticks.format.y = format !== null && format !== undefined ? format : Widget.defaultFormat();
-        return this;
-    }
-
-    /**
-     * Binds data to the chart.
-     *
-     * @method _bindData
-     * @memberOf Widget
-     * @param {Array} values Data as an array of objects.
-     * @returns {Widget} Reference to the current widget.
-     * @ignore
-     */
-    data(values) {
-        // Transform data to the standard internal structure
-        this._data = this._transformData(values);
-
-        // Reset color mapping if it is set to default
-        if (this._attr.colors.policy === null || this._attr.colors.policy === undefined) {
-            this._attr.colors.mapping = Widget.defaultColors();
-        }
-
-        // Switch render flag
-        return this;
     }
 }
