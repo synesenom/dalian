@@ -225,10 +225,17 @@ export default class Widget {
           my = event.clientY,
           boundingBox = this._dom.container.node().getBoundingClientRect();
 
+        // Get scroll position
+        let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
         // If we are outside the charting area just remove tooltip
-        if (mx < boundingBox.left + this._attr.margins.left || mx > boundingBox.right - this._attr.margins.right
-          || my < boundingBox.top + this._attr.margins.top || my > boundingBox.bottom - this._attr.margins.bottom) {
+        if (mx < boundingBox.left + this._attr.margins.left - scrollLeft
+            || mx > boundingBox.right - this._attr.margins.right + scrollLeft
+            || my < boundingBox.top + this._attr.margins.top - scrollTop
+            || my > boundingBox.bottom - this._attr.margins.bottom + scrollTop) {
             select('#' + tooltipId)
+              .transition().duration(200)
               .style('opacity', 0)
               .remove();
             this._tooltip();
@@ -285,11 +292,11 @@ export default class Widget {
           ty = my + 20;
 
         // Correct for edges
-        if (tx + tw > boundingBox.right - this._attr.margins.right - 5) {
-            tx -= tw + 40;
+        if (tx + tw > boundingBox.right - this._attr.margins.right + scrollLeft - 5) {
+            tx -= tw + scrollLeft + 40;
         }
-        if (ty + th > boundingBox.bottom - this._attr.margins.bottom - 5) {
-            ty = boundingBox.bottom - this._attr.margins.bottom - 10 - th;
+        if (ty + th > boundingBox.bottom - this._attr.margins.bottom + scrollTop - 5) {
+            ty = boundingBox.bottom - this._attr.margins.bottom + scrollTop - 10 - th;
         }
 
         // Set position
