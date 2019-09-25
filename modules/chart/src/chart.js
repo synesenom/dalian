@@ -169,11 +169,11 @@ export default class Chart extends Widget {
      * @returns {Array} Array containing the converted data in the internal structure.
      */
     _transformData(values) {
-        throw Error('_transformData not implemented');
+        throw Error('_transformData is not implemented');
     }
 
     _chartUpdate() {
-        throw Error('_chartUpdate not implemented');
+        throw Error('_chartUpdate is not implemented');
     }
 
     _chartTooltipContent(mouse) {
@@ -228,14 +228,14 @@ export default class Chart extends Widget {
             })
             .on('mouseover', d => {
                 that.state.current = d;
-                that.attr.mouse.enter && that.attr.mouse.enter(d);
+                that._attr.mouse.enter && that._attr.mouse.enter(d);
             })
             .on('mouseleave', d => {
                 that.state.current = null;
-                that.attr.mouse.leave && that.attr.mouse.leave(d);
+                that._attr.mouse.leave && that._attr.mouse.leave(d);
             })
             .on('click', d => {
-                that.attr.mouse.click && that.attr.mouse.click(d);
+                that._attr.mouse.click && that._attr.mouse.click(d);
             });
         if (attr && attr.union && attr.union.before) {
             union = attr.union.before(union);
@@ -244,8 +244,8 @@ export default class Chart extends Widget {
         // Animate new state
         let unionAnimated = union.transition().duration(700)
             .style('opacity', 1)
-            .style('fill', d => that.attr.colors.mapping(d.name))
-            .style('stroke', d => that.attr.colors.mapping(d.name));
+            .style('fill', d => that._attr.colors.mapping(d.name))
+            .style('stroke', d => that._attr.colors.mapping(d.name));
         if (attr && attr.union && attr.union.after) {
             unionAnimated = attr.union.after(unionAnimated);
         }
