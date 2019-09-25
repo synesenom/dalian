@@ -19,7 +19,7 @@ export default {
         },
         file: 'dist/dalian.widget.min.js',
         format: 'umd',
-        name: 'dalian.Widget',
+        name: 'Widget',
         indent: false,
     }
 };
