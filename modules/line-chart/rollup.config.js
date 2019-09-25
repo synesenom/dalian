@@ -4,22 +4,22 @@ import * as meta from "./package.json";
 const copyright = `// ${meta.homepage} v${meta.version} Copyright ${(new Date).getFullYear()} ${meta.author.name}`;
 
 export default {
-    external: [ 'd3-color', 'd3-ease', 'd3-format', 'd3-selection', 'd3-transition' ],
+    external: [ '@dalian/chart', '@dalian/widget', 'd3-array', 'd3-selection', 'd3-shape' ],
     input: 'src/index.js',
     plugins: [
         terser({output: {preamble: copyright}})
     ],
     output: {
         globals: {
-            'd3-color': 'd3',
-            'd3-ease': 'd3',
-            'd3-format': 'd3',
+            '@dalian/chart': 'chart',
+            '@dalian/widget': 'Widget',
+            'd3-array': 'd3',
             'd3-selection': 'd3',
-            'd3-transition': 'd3'
+            'd3-shape': 'd3'
         },
-        file: 'dist/dalian.widget.min.js',
+        file: 'dist/dalian.line-chart.min.js',
         format: 'umd',
-        name: 'Widget',
+        name: 'LineChart',
         indent: false,
     }
 };

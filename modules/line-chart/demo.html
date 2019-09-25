@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://unpkg.com/d3@5.9.2/dist/d3.min.js"></script>
+    <script src="../widget/dist/dalian.widget.min.js"></script>
+    <script src="../chart/dist/dalian.chart.min.js"></script>
     <script src="dist/dalian.line-chart.min.js"></script>
     <title>@dalian/line-chart</title>
     <style>
         html, body {
             font-family: 'Avenir Next', 'Helvetica', sans-serif;
+            height: 2000px;
         }
     </style>
 </head>
 <body>
 <script>
-    let lineChart = new dalian.LineChart('myLineChart')
+    let lineChart = new LineChart('myLineChart')
         .x(100)
         .y(100)
         .width(400)
@@ -20,6 +24,13 @@
         .xLabel("days")
         .yLabel("price")
         .margins(40)
+        .mouseover(k => {
+          lineChart.highlight(k.name, 400);
+        })
+        .mouseleave(() => {
+          lineChart.highlight(null, 400);
+        })
+        .tooltip(true)
         .data([
             {
                 name: "mango",
@@ -51,16 +62,16 @@
         })
         .render();
 
-    /*setTimeout(() => {
+    setTimeout(() => {
         lineChart.data([
             {
                 name: "mango",
                 values: new Array(100).fill(0).map(function (d, i) {
                     return {
                         x: i,
-                        y: Math.pow(i / 20, 2),
-                        lo: i / 100,
-                        hi: i / 150
+                        y: Math.exp(i / 20),
+                        lo: i / 10,
+                        hi: i / 15
                     };
                 })
             },
@@ -70,15 +81,15 @@
                     return {
                         x: i,
                         y: Math.log(i + 3)
-                        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
-                        lo: .4,
-                        hi: .9
+                        * Math.pow(Math.sin(Math.PI * i / 15), 2) + 2,
+                        lo: 4,
+                        hi: 9
                     };
                 })
             }
         ])
             .render();
-    }, 2000);*/
+    }, 2000);
 </script>
 </body>
 </html>
