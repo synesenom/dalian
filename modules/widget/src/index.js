@@ -221,8 +221,8 @@ export default class Widget {
         let tooltipContainerId = 'dalian-widget-tooltip-container';
         let tooltipId = `${this._id}-tooltip`,
           m = mouse(this._dom.container.node()),
-          mx = event.clientX,
-          my = event.clientY,
+          mx = event.pageX,
+          my = event.pageY,
           boundingBox = this._dom.container.node().getBoundingClientRect();
 
         // Get scroll position
@@ -237,7 +237,10 @@ export default class Widget {
             select('#' + tooltipId)
               .transition().duration(200)
               .style('opacity', 0)
-              .remove();
+              .on('end', function() {
+                  select(this)
+                    .style('display', 'none');
+              });
             this._tooltip();
             return;
         }
@@ -267,8 +270,8 @@ export default class Widget {
               .style('font-size', '0.7em')
               .style('color', this._attr.font.color)
               .style('pointer-events', 'none')
-              .style('left', (boundingBox.left + boundingBox.right) / 2 + 'px')
-              .style('top', (boundingBox.top + boundingBox.bottom) / 2 + 'px');
+              .style('left', ((boundingBox.left + boundingBox.right) / 2 + scrollLeft) + 'px')
+              .style('top', ((boundingBox.top + boundingBox.bottom) / 2 + scrollTop) + 'px');
         }
 
         // Create content
@@ -276,8 +279,12 @@ export default class Widget {
         if (!content) {
             // If content is invalid, remove tooltip
             select('#' + tooltipId)
+              .transition().duration(200)
               .style('opacity', 0)
-              .html('');
+              .on('end', function() {
+                  select(this)
+                    .style('display', 'none');
+              });
             this._tooltip();
             return;
         } else {
