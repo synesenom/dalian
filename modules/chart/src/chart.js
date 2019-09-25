@@ -1,7 +1,7 @@
 import { select } from 'd3-selection';
 import { scaleLinear, scaleBand, scalePoint } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
-import { Widget } from '@dalian/widget';
+import Widget from '@dalian/widget';
 
 export default class Chart extends Widget {
     /**
@@ -237,16 +237,11 @@ export default class Chart extends Widget {
      * @param {Array} values Array of values.
      * @returns {Array} Array containing the converted data in the internal structure.
      */
-    _transformData(values) {
-        throw Error('_transformData is not implemented');
-    }
+    _transformData(values) {}
 
-    _chartUpdate() {
-        throw Error('_chartUpdate is not implemented');
-    }
+    _chartUpdate() {}
 
-    _chartTooltipContent(mouse) {
-    }
+    _chartTooltipContent(mouse) {}
 
     /**
      * Generates plot groups from the internal data.
