@@ -1,6 +1,6 @@
 {
   "name": "@dalian/widget",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Abstract class implementing a generic widget element.",
   "author": {
     "name": "Enys Mones",

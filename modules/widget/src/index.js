@@ -308,6 +308,8 @@ export default class Widget {
 
         // Set position
         tooltip
+          .style('display', 'block')
+          .transition().duration(0)
           .style('opacity', 1)
           .transition();
         tooltip
