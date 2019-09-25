@@ -19,7 +19,7 @@ export default {
     },
     file: 'dist/dalian.chart.min.js',
     format: 'umd',
-    name: 'dalian',
+    name: 'chart',
     indent: false,
   }
 };

@@ -389,12 +389,11 @@ export default class Chart extends Widget {
 
     _tooltip(mouse) {
         let content = this._chartTooltipContent(mouse);
-        if (content === null) {
+        if (content === null || typeof content === 'undefined') {
             return null;
         }
-        console.log(content);
 
-        // Erase tooltip content and add title
+        // Erase tooltip content sand add title
         let contentNode = select(document.createElement('div'));
         contentNode
           .style('border-r', '2px')
