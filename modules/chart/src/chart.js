@@ -14,7 +14,7 @@ export default class Chart extends Widget {
      * @param {string} [parent = body] The parent DOM element that this widget will be added.
      * @returns {Chart} Reference to the chart.
      */
-    constructor(type, name, parent) {
+    constructor (type, name, parent) {
         // Call Widget constructor
         super('chart-' + type, name, parent);
 
@@ -22,7 +22,7 @@ export default class Chart extends Widget {
         this._attr.labels = {
             x: '',
             y: '',
-            label: ''
+            single: ''
         };
         this._attr.ticks = {
             format: {
@@ -39,7 +39,7 @@ export default class Chart extends Widget {
 
         // Add chart specific dom elements
         this._dom.plots = this._dom.container.append('g')
-            .attr('class', 'plots-container');
+          .attr('class', 'plots-container');
 
         // Data to plot
         this._data = [];
@@ -50,7 +50,7 @@ export default class Chart extends Widget {
      * @param type
      * @return {{g: (function()), update: (function(*=, *=))}}
      */
-    static scaleFactory(type) {
+    static scaleFactory (type) {
         let _scale;
 
         // Set type and domain
@@ -61,11 +61,11 @@ export default class Chart extends Widget {
                 break;
             case 'band':
                 _scale = scaleBand()
-                    .padding(0.1);
+                  .padding(0.1);
                 break;
             case 'point':
                 _scale = scalePoint()
-                    .padding(0.5);
+                  .padding(0.5);
         }
 
         // Return scale and an update method
@@ -99,34 +99,34 @@ export default class Chart extends Widget {
      * conveniently update the axes.
      * @static
      */
-    static axisFactory(dom) {
+    static axisFactory (dom) {
         let g = dom.container
-            .append('g')
-            .attr('class', 'axis-container');
+          .append('g')
+          .attr('class', 'axis-container');
 
         let axisFn = {
             x: axisBottom(null)
-                .ticks(5),
+              .ticks(5),
             y: axisLeft(null)
-                .ticks(5)
+              .ticks(5)
         };
 
         let axes = {
             x: g.append('g')
-                .attr('class', 'x axis'),
+              .attr('class', 'x axis'),
             y: g.append('g')
-                .attr('class', 'y axis')
+              .attr('class', 'y axis')
         };
 
         let labels = {
             x: g.append('text')
-                .attr('class', 'x axis-label')
-                .attr('text-anchor', 'end')
-                .attr('stroke-width', 0),
+              .attr('class', 'x axis-label')
+              .attr('text-anchor', 'end')
+              .attr('stroke-width', 0),
             y: g.append('text')
-                .attr('class', 'y axis-label')
-                .attr('text-anchor', 'begin')
-                .attr('stroke-width', 0)
+              .attr('class', 'y axis-label')
+              .attr('text-anchor', 'begin')
+              .attr('stroke-width', 0)
         };
 
         return {
@@ -136,15 +136,15 @@ export default class Chart extends Widget {
             update: (attr, scales) => {
                 // Container
                 g.attr('transform', 'translate(' + attr.margins.left + ',' + attr.margins.top + ')')
-                    .style('width', attr.size.innerWidth)
-                    .style('height', attr.size.innerHeight)
-                    .style('pointer-events', 'all');
+                  .style('width', attr.size.innerWidth)
+                  .style('height', attr.size.innerHeight)
+                  .style('pointer-events', 'all');
 
                 // Axes
                 axes.x.transition().duration(700)
-                    .call(axisFn.x.scale(scales.x.g()));
+                  .call(axisFn.x.scale(scales.x.g()));
                 axes.y.transition().duration(700)
-                    .call(axisFn.y.scale(scales.y.g()));
+                  .call(axisFn.y.scale(scales.y.g()));
 
                 axisFn.x.tickFormat(attr.ticks.format.x);
                 axes.x.attr('transform', 'translate(0,' + parseFloat(attr.size.innerHeight) + ')');
@@ -153,15 +153,15 @@ export default class Chart extends Widget {
 
                 // Labels
                 labels.x.attr('x', attr.size.innerWidth)
-                    .attr('y', (parseFloat(attr.size.innerHeight) + 2.2 * parseInt(attr.font.size)) + 'px')
-                    .attr('fill', attr.font.color)
-                    .style('font-size', attr.font.size)
-                    .text(attr.labels.x);
+                  .attr('y', (parseFloat(attr.size.innerHeight) + 2.2 * parseInt(attr.font.size)) + 'px')
+                  .attr('fill', attr.font.color)
+                  .style('font-size', attr.font.size)
+                  .text(attr.labels.x);
                 labels.y.attr('x', 5 + 'px')
-                    .attr('y', (-5) + 'px')
-                    .attr('fill', attr.font.color)
-                    .style('font-size', attr.font.size)
-                    .text(attr.labels.y);
+                  .attr('y', (-5) + 'px')
+                  .attr('fill', attr.font.color)
+                  .style('font-size', attr.font.size)
+                  .text(attr.labels.y);
             }
         };
     }
@@ -174,8 +174,8 @@ export default class Chart extends Widget {
      * @param {string} text Text to set label to.
      * @returns {Chart} Reference to the current chart.
      */
-    label(text) {
-        this._attr.labels.label = text;
+    label (text) {
+        this._attr.labels.single = text;
         return this;
     }
 
@@ -187,7 +187,7 @@ export default class Chart extends Widget {
      * @param {string} text Text to set X label to.
      * @returns {Chart} Reference to the current chart.
      */
-    xLabel(text) {
+    xLabel (text) {
         this._attr.labels.x = text;
         return this;
     }
@@ -200,7 +200,7 @@ export default class Chart extends Widget {
      * @param {string} text Text to set Y label to.
      * @returns {Chart} Reference to the current chart.
      */
-    yLabel(text) {
+    yLabel (text) {
         this._attr.labels.y = text;
         return this;
     }
@@ -214,7 +214,7 @@ export default class Chart extends Widget {
      * @param {Function} format Format function to set.
      * @returns {Chart} Reference to the current chart.
      */
-    tickFormat(format) {
+    tickFormat (format) {
         this._attr.ticks.format.single = format !== null && format !== undefined ? format : Widget.defaultFormat();
         return this;
     }
@@ -228,7 +228,7 @@ export default class Chart extends Widget {
      * @param {Function} format Format function to set.
      * @returns {Chart} Reference to the current chart.
      */
-    xTickFormat(format) {
+    xTickFormat (format) {
         this._attr.ticks.format.x = format !== null && format !== undefined ? format : Widget.defaultFormat();
         return this;
     }
@@ -242,7 +242,7 @@ export default class Chart extends Widget {
      * @param {Function} format Format function to set.
      * @returns {Chart} Reference to the current chart.
      */
-    yTickFormat(format) {
+    yTickFormat (format) {
         this._attr.ticks.format.y = format !== null && format !== undefined ? format : Widget.defaultFormat();
         return this;
     }
@@ -256,7 +256,7 @@ export default class Chart extends Widget {
      * @returns {Chart} Reference to the current chart.
      * @ignore
      */
-    data(plots) {
+    data (plots) {
         // Transform data to the standard internal structure
         this._data = this._transformData(plots);
 
@@ -277,15 +277,15 @@ export default class Chart extends Widget {
      * @param {Array} values Array of values.
      * @returns {Array} Array containing the converted data in the internal structure.
      */
-    _transformData(values) {
+    _transformData (values) {
         console.warn('Chart._transformData(values) is not implemented');
     }
 
-    _chartUpdate() {
+    _chartUpdate () {
         console.warn('Chart._chartUpdate() is not implemented');
     }
 
-    _createTooltipContent(mouse) {
+    _createTooltipContent (mouse) {
         console.warn('Chart._createTooltipContent() is not implemented');
         return null;
     }
@@ -305,17 +305,18 @@ export default class Chart extends Widget {
      *     <li>{Function} union.before Attributes/styles on the union of groups before transition.</li>
      *     <li>{Function} union.after Attributes/styles on the union of groups after transition.</li>
      * </ul>
+     * @param {number} [duration = 700] Duration of the animations in ms.
      * @returns {Object} Object containing four selections of groups: enter, exit, union before transition and union after transition.
      * @protected
      */
-    _plotGroups(g, attr) {
+    _plotGroups (g, attr, duration = 700) {
         // Select groups
         let groups = g.selectAll('.plot-group')
           .data(this._data, d => d.name);
 
         // Exiting groups: simply fade out
         let exit = groups.exit()
-          .transition().duration(700)
+          .transition().duration(duration)
           .style('opacity', 0)
           .remove();
 
@@ -352,7 +353,7 @@ export default class Chart extends Widget {
         }
 
         // Animate new state
-        let unionAnimated = union.transition().duration(700)
+        let unionAnimated = union.transition().duration(duration)
           .style('opacity', 1)
           .style('fill', d => that._attr.colors.mapping(d.name))
           .style('stroke', d => that._attr.colors.mapping(d.name));
@@ -387,7 +388,7 @@ export default class Chart extends Widget {
      * @returns {Chart} Reference to the current chart.
      * @protected
      */
-    _highlight(selector, key, duration) {
+    _highlight (selector, key, duration) {
         // If currently animated, don't highlight
         if (this._state.transition) {
             return this;
@@ -424,9 +425,9 @@ export default class Chart extends Widget {
         return this;
     }
 
-    _update() {
+    _update (duration = 700) {
         // Chart specific update
-        this._chartUpdate();
+        this._chartUpdate(duration);
 
         // Adjust plots container
         this._dom.plots.attr('width', this._attr.size.innerWidth + 'px')
@@ -434,7 +435,7 @@ export default class Chart extends Widget {
           .attr('transform', 'translate(' + this._attr.margins.left + ',' + this._attr.margins.top + ')');
     }
 
-    _tooltip(mouse) {
+    _tooltip (mouse) {
         let content = this._createTooltipContent(mouse);
         if (content === null || typeof content === 'undefined') {
             return null;
