@@ -1,6 +1,6 @@
 {
   "name": "@dalian/chart",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Abstract class implementing a generic chart widget.",
   "author": {
     "name": "Enys Mones",
@@ -12,7 +12,7 @@
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalian/widget": "^0.0.3",
+    "@dalian/widget": "latest",
     "d3-axis": "^1.0.12",
     "d3-scale": "^2.1.2",
     "d3-selection": "^1.3.2",

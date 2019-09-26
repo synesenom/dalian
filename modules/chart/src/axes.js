@@ -43,8 +43,9 @@ export default class Axes {
      * @memberOf Axes
      * @param {Object} attr Object containing the widget attributes.
      * @param {Object} scales Object containing the scales for both axes.
+     * @param {number} [duration = 700] Duration of animation in ms.
      */
-    update(attr, scales) {
+    update(attr, scales, duration = 700) {
         // Container
         this._dom.attr('transform', 'translate(' + attr.margins.left + ',' + attr.margins.top + ')')
             .style('width', attr.size.innerWidth)
@@ -54,7 +55,7 @@ export default class Axes {
         // Axes
         // X
         this._fn.x.tickFormat(attr.ticks.format.x);
-        this._axes.x.transition().duration(700)
+        this._axes.x.transition().duration(duration)
             .call(this._fn.x.scale(scales.x.scale));
         this._axes.x.attr('transform', 'translate(0,' + parseFloat(attr.size.innerHeight) + ')');
         this._axes.x
@@ -66,7 +67,7 @@ export default class Axes {
 
         // Y
         this._fn.y.tickFormat(attr.ticks.format.y);
-        this._axes.y.transition().duration(700)
+        this._axes.y.transition().duration(duration)
             .call(this._fn.y.scale(scales.y.scale));
         this._axes.y.attr('transform', 'translate(0,' + 1 + ')');
         this._axes.y
