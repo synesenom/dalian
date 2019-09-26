@@ -212,13 +212,13 @@ export default class Chart extends Widget {
      *
      * @method data
      * @memberOf Chart
-     * @param {Array} values Data as an array of objects.
+     * @param {Object[]} plots Data as an array of objects.
      * @returns {Chart} Reference to the current chart.
      * @ignore
      */
-    data(values) {
+    data(plots) {
         // Transform data to the standard internal structure
-        this._data = this._transformData(values);
+        this._data = this._transformData(plots);
 
         // Reset color mapping if it is set to default
         if (this._attr.colors.policy === null || this._attr.colors.policy === undefined) {
@@ -245,8 +245,9 @@ export default class Chart extends Widget {
         console.warn('Chart._chartUpdate() is not implemented');
     }
 
-    _chartTooltipContent(mouse) {
-        console.warn('Chart._chartTooltipContent() is not implemented');
+    _createTooltipContent(mouse) {
+        console.warn('Chart._createTooltipContent() is not implemented');
+        return null;
     }
 
     /**
@@ -394,7 +395,7 @@ export default class Chart extends Widget {
     }
 
     _tooltip(mouse) {
-        let content = this._chartTooltipContent(mouse);
+        let content = this._createTooltipContent(mouse);
         if (content === null || typeof content === 'undefined') {
             return null;
         }
