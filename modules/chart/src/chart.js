@@ -237,11 +237,17 @@ export default class Chart extends Widget {
      * @param {Array} values Array of values.
      * @returns {Array} Array containing the converted data in the internal structure.
      */
-    _transformData(values) {}
+    _transformData(values) {
+        console.warn('Chart._transformData(values) is not implemented');
+    }
 
-    _chartUpdate() {}
+    _chartUpdate() {
+        console.warn('Chart._chartUpdate() is not implemented');
+    }
 
-    _chartTooltipContent(mouse) {}
+    _chartTooltipContent(mouse) {
+        console.warn('Chart._chartTooltipContent() is not implemented');
+    }
 
     /**
      * Generates plot groups from the internal data.
@@ -443,12 +449,16 @@ export default class Chart extends Widget {
                       .style('height', '10px')
                       .style('margin', '5px')
                       .style('padding-right', '10px');
-                    entry.append('div')
+                    let square = entry.append('div')
                       .style('position', 'relative')
                       .style('width', '9px')
                       .style('height', '9px')
                       .style('float', 'left')
                       .style('background-color', plot.color);
+                    if (plot.dashed) {
+                        square.style('background',
+                          `repeating-linear-gradient(45deg, transparent, transparent 2px, ${plot.color} 2px, ${plot.color} 4px`);
+                    }
                     entry.append('span')
                       .style('position', 'relative')
                       .style('width', 'calc(100% - 20px)')
