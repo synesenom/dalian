@@ -21,7 +21,8 @@ export default class Chart extends Widget {
         // Add chart specific attributes
         this._attr.labels = {
             x: '',
-            y: ''
+            y: '',
+            label: ''
         };
         this._attr.ticks = {
             format: {
@@ -163,6 +164,45 @@ export default class Chart extends Widget {
                     .text(attr.labels.y);
             }
         };
+    }
+
+    /**
+     * Sets the label of the chart.
+     *
+     * @method label
+     * @methodOf Chart
+     * @param {string} text Text to set label to.
+     * @returns {Chart} Reference to the current chart.
+     */
+    label(text) {
+        this._attr.labels.label = text;
+        return this;
+    }
+
+    /**
+     * Sets the X (horizontal) label of the chart.
+     *
+     * @method xLabel
+     * @methodOf Chart
+     * @param {string} text Text to set X label to.
+     * @returns {Chart} Reference to the current chart.
+     */
+    xLabel(text) {
+        this._attr.labels.x = text;
+        return this;
+    }
+
+    /**
+     * Sets the Y (vertical) label of the chart.
+     *
+     * @method yLabel
+     * @methodOf Chart
+     * @param {string} text Text to set Y label to.
+     * @returns {Chart} Reference to the current chart.
+     */
+    yLabel(text) {
+        this._attr.labels.y = text;
+        return this;
     }
 
     /**

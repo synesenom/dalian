@@ -1,6 +1,6 @@
 {
   "name": "@dalian/chart",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Abstract class implementing a generic chart widget.",
   "author": {
     "name": "Enys Mones",
