@@ -25,12 +25,13 @@
         .yLabel("price")
         .margins(40)
         .mouseover(k => {
-          lineChart.highlight(k.name, 400);
+          lineChart.highlight(k.name);
         })
         .mouseleave(() => {
-          lineChart.highlight(null, 400);
+          lineChart.highlight(null);
         })
         .tooltip(true)
+        .smooth(true)
         .data([
             {
                 name: "mango",
@@ -89,7 +90,7 @@
             }
         ])
             .render();
-    }, 2000);
+    }, 20000000);
 </script>
 </body>
 </html>
