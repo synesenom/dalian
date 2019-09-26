@@ -53,7 +53,7 @@ export default class Axes {
 
         // Axes
         // X
-        this._fn.x.tickFormat(attr.xTickFormat);
+        this._fn.x.tickFormat(attr.ticks.format.x);
         this._axes.x.transition().duration(700)
             .call(this._fn.x.scale(scales.x.scale));
         this._axes.x.attr('transform', 'translate(0,' + parseFloat(attr.size.innerHeight) + ')');
@@ -65,7 +65,7 @@ export default class Axes {
             .style('shape-rendering', 'crispEdges');
 
         // Y
-        this._fn.y.tickFormat(attr.yTickFormat);
+        this._fn.y.tickFormat(attr.ticks.format.y);
         this._axes.y.transition().duration(700)
             .call(this._fn.y.scale(scales.y.scale));
         this._axes.y.attr('transform', 'translate(0,' + 1 + ')');
@@ -75,11 +75,6 @@ export default class Axes {
             .style('stroke', attr.font.color)
             .style('stroke-width', '1px')
             .style('shape-rendering', 'crispEdges');
-
-        // Ticks
-        this._fn.x.tickFormat(attr.ticks.format.x);
-        this._fn.y.tickFormat(attr.ticks.format.y);
-
 
         // Labels
         this._labels.x.attr('x', attr.size.innerWidth)
