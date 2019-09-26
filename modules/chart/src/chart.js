@@ -281,8 +281,8 @@ export default class Chart extends Widget {
         console.warn('Chart._transformData(values) is not implemented');
     }
 
-    _chartUpdate () {
-        console.warn('Chart._chartUpdate() is not implemented');
+    _chartUpdate (duration) {
+        console.warn('Chart._chartUpdate(duration) is not implemented');
     }
 
     _createTooltipContent (mouse) {
@@ -384,11 +384,11 @@ export default class Chart extends Widget {
      * @memberOf Chart
      * @param {string} selector Selector of the widget elements.
      * @param {(string|string[])} key Single key or an array of keys of the element(s) to highlight.
-     * @param {number} duration Duration of the highlight animation.
+     * @param {number} [duration = 0] Duration of the highlight animation.
      * @returns {Chart} Reference to the current chart.
      * @protected
      */
-    _highlight (selector, key, duration) {
+    _highlight (selector, key, duration = 0) {
         // If currently animated, don't highlight
         if (this._state.transition) {
             return this;
@@ -401,7 +401,7 @@ export default class Chart extends Widget {
         // Perform highlight
         if (typeof key === 'string') {
             // Single key
-            elems.transition().duration(duration ? duration : 0)
+            elems.transition().duration(duration)
               .style('opacity', function () {
                   return select(this).classed(Widget.encode(key)) ? 1 : 0.1;
               });
@@ -410,7 +410,7 @@ export default class Chart extends Widget {
             let keys = key.map(function (d) {
                 return Widget.encode(d);
             });
-            elems.transition().duration(duration ? duration : 0)
+            elems.transition().duration(duration)
               .style('opacity', function () {
                   let elem = select(this);
                   return keys.reduce(function (s, d) {
