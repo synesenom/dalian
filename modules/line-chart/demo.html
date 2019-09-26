@@ -64,6 +64,10 @@
         .render();
 
     setTimeout(() => {
+      lineChart.addMarker('foo', 'mango', 31, 60, 'This is a marker');
+    }, 1000);
+
+    setTimeout(() => {
         lineChart.data([
             {
                 name: "mango",
@@ -89,8 +93,8 @@
                 })
             }
         ])
-            .render();
-    }, 20000000);
+            .render(10000);
+    }, 2000);
 </script>
 </body>
 </html>

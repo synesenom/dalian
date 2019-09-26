@@ -5,24 +5,13 @@ import { bisector } from 'd3-array';
 import Widget from '@dalian/widget';
 
 // TODO pin
-// TODO markers
-// TODO xRange
+// TODO Add duration properly to render and all animations
 
 export default class LineChart extends Chart {
     constructor(name, parent) {
         super('line', name, parent);
 
-        // Chart specific attributes
-        this._attr.range = {
-            x: {
-                min: null,
-                max: null
-            }
-        };
-        this._attr.labels = {
-            x: '',
-            y: ''
-        };
+        // Line chart specific attributes
         this._attr.lineStyles = {
             policy: null,
             mapping: () => null
@@ -35,33 +24,12 @@ export default class LineChart extends Chart {
             y: new Scale('linear')
         };
         this._dom.axes = new Axes(this._dom);
+
+        // Paths for finding the tooltip markers
         this._dom.paths = new Map();
-    }
 
-    /**
-     * Sets the X (horizontal) label of the plot.
-     *
-     * @method xLabel
-     * @methodOf LineChart
-     * @param {string} text Text to set X label to.
-     * @returns {LineChart} Reference to the line chart.
-     */
-    xLabel(text) {
-        this._attr.labels.x = text;
-        return this;
-    }
-
-    /**
-     * Sets the Y (vertical) label of the plot.
-     *
-     * @method yLabel
-     * @methodOf LineChart
-     * @param {string} text Text to set Y label to.
-     * @returns {LineChart} Reference to the line chart.
-     */
-    yLabel(text) {
-        this._attr.labels.y = text;
-        return this;
+        // Markers
+        this._dom.markers = new Map();
     }
 
     /**
@@ -140,8 +108,188 @@ export default class LineChart extends Chart {
         this._highlight('.line', key, duration);
         this._highlight('.error', key, duration);
         this._highlight('.tooltip-marker', key, duration);
+        this._highlight('.marker', key, duration);
         return this;
     }
+
+    /**
+     * Adjusts marker position.
+     *
+     * @method _adjustMarker
+     * @methodOf LineChart
+     * @param {string} key Identifier of the marker.
+     * @param {(number | string)} start Start X position of the marker.
+     * @param {(number | string)} end End X position of the marker.
+     * @returns {?Object} New marker descriptor if marker exists and could be adjusted, null otherwise.
+     * @private
+     */
+    _adjustMarker(key, start, end) {
+        // TODO Clean up code to make it es6
+        // Get data
+        let data = this._data.filter(d => d.name === key)[0];
+        if (!data) {
+            return null;
+        }
+
+        // Get marker data point indices
+        let bisect = bisector(d => d.x).left;
+        let i1 = bisect(data.values, start);
+        let i2 = bisect(data.values, end);
+        if (i1 === null || i2 === null) {
+            return null;
+        }
+
+        // Get coordinates and color
+        let x1 = data.values[i1].x,
+          y1 = data.values[i1].y,
+          x2 = data.values[i2].x,
+          y2 = data.values[i2].y;
+        let xCorner = y1 < y2 ? x1 : x2;
+        let yCorner = y1 < y2 ? y2 : y1;
+
+        return {
+            start: {
+                x: x1,
+                y: y1
+            },
+            end: {
+                x: x2,
+                y: y2
+            },
+            corner: {
+                x: xCorner,
+                y: yCorner
+            }
+        };
+    }
+
+    /**
+     * Adds a marker to the specified line. A marker is a text along with a 90-degree angle connecting two points of a
+     * line. If a marker with the specified identifier already exists, the marker is ignored.
+     *
+     * @method addMarker
+     * @methodOf LineChart
+     * @param {string} id Marker identifier.
+     * @param {string} key Key of the line to mark.
+     * @param {(number | string)} start Start X position of the marker.
+     * @param {(number | string)} end End X position of the marker.
+     * @param {string} label Label of the marker.
+     * @returns {?Object} D3 selection of the marker if it could be added, null otherwise.
+     */
+    addMarker (id, key, start, end, label) {
+        // TODO Clean up code to make it es6
+        // Check if marker exists
+        if (this._dom.markers.has(id)) {
+            return null;
+        }
+
+        let pos = this._adjustMarker(key, start, end);
+        let g = this._dom.plots.append('g')
+          .attr('class', 'marker ' + Widget.encode(key));
+        g.append('line')
+          .attr('class', 'horizontal')
+          .attr('x1', this._dom.scales.x.scale(Math.max(pos.start.x, pos.start.x)) + 2)
+          .attr('y1', this._dom.scales.y.scale(pos.corner.y))
+          .attr('x2', this._dom.scales.x.scale(Math.min(pos.end.x, pos.end.x)) + 2)
+          .attr('y2', this._dom.scales.y.scale(pos.corner.y))
+          .style('stroke', this._attr.colors.mapping(key))
+          .style('stroke-dasharray', '3 3')
+          .style('stroke-width', 1);
+        g.append('line')
+          .attr('class', 'vertical')
+          .attr('x1', this._dom.scales.x.scale(pos.corner.x) + 2)
+          .attr('y1', this._dom.scales.y.scale(pos.start.y))
+          .attr('x2', this._dom.scales.x.scale(pos.corner.x) + 2)
+          .attr('y2', this._dom.scales.y.scale(pos.end.y))
+          .style('stroke', this._attr.colors.mapping(key))
+          .style('stroke-dasharray', '3 3')
+          .style('stroke-width', 1);
+        g.append('circle')
+          .attr('class', 'start')
+          .attr('cx', this._dom.scales.x.scale(pos.start.x) + 2)
+          .attr('cy', this._dom.scales.y.scale(pos.start.y))
+          .attr('r', 4)
+          .style('stroke', 'none')
+          .style('fill', this._attr.colors.mapping(key));
+        g.append('circle')
+          .attr('class', 'end')
+          .attr('cx', this._dom.scales.x.scale(pos.end.x) + 2)
+          .attr('cy', this._dom.scales.y.scale(pos.end.y))
+          .attr('r', 4)
+          .style('stroke', 'none')
+          .style('fill', this._attr.colors.mapping(key));
+        g.append('text')
+          .attr('x', this._dom.scales.x.scale(pos.corner.x) + 2)
+          .attr('y', this._dom.scales.y.scale(pos.corner.y))
+          .attr('dy', -5)
+          .attr('text-anchor', pos.start.y < pos.end.y ? 'start' : 'end')
+          .style('fill', this._attr.font.color)
+          .style('font-family', 'inherit')
+          .style('font-size', '0.9em')
+          .text(label);
+
+        let marker = {
+            key: key,
+            g: g,
+            update: duration => {
+                let pos = this._adjustMarker(key, start, end);
+                g.select('.horizontal')
+                  .transition().duration(duration)
+                  .attr('x1', this._dom.scales.x.scale(Math.max(pos.start.x, pos.start.x)) + 2)
+                  .attr('y1', this._dom.scales.y.scale(pos.corner.y))
+                  .attr('x2', this._dom.scales.x.scale(Math.min(pos.end.x, pos.end.x)) + 2)
+                  .attr('y2', this._dom.scales.y.scale(pos.corner.y))
+                  .style('stroke', this._attr.colors.mapping(key));
+                g.select('.vertical')
+                  .transition().duration(duration)
+                  .attr('x1', this._dom.scales.x.scale(pos.corner.x) + 2)
+                  .attr('y1', this._dom.scales.y.scale(pos.start.y))
+                  .attr('x2', this._dom.scales.x.scale(pos.corner.x) + 2)
+                  .attr('y2', this._dom.scales.y.scale(pos.end.y))
+                  .style('stroke', this._attr.colors.mapping(key));
+                g.select('.start')
+                  .transition().duration(duration)
+                  .attr('cx', this._dom.scales.x.scale(pos.start.x) + 2)
+                  .attr('cy', this._dom.scales.y.scale(pos.start.y))
+                  .style('fill', this._attr.colors.mapping(key));
+                g.select('.end')
+                  .transition().duration(duration)
+                  .attr('cx', this._dom.scales.x.scale(pos.end.x) + 2)
+                  .attr('cy', this._dom.scales.y.scale(pos.end.y))
+                  .style('fill', this._attr.colors.mapping(key));
+                g.select('text')
+                  .transition().duration(duration)
+                  .attr('x', this._dom.scales.x.scale(pos.corner.x) + 2)
+                  .attr('y', this._dom.scales.y.scale(pos.corner.y))
+                  .attr('text-anchor', pos.start.y < pos.end.y ? 'start' : 'end')
+                  .style('fill', this._attr.font.color);
+            }
+        };
+
+        // Add to markers
+        this._dom.markers.set(id, marker);
+
+        // Return marker
+        return marker;
+    };
+
+    /**
+     * Removes a marker from the plot.
+     *
+     * @method removeMarker
+     * @memberOf LineChart
+     * @param {string} id Identifier of the marker to remove.
+     * @returns {boolean} True if marker exists and could be removed, false otherwise.
+     */
+    removeMarker (id) {
+        // TODO Clean up code to make it es6
+        if (this._dom.markers.has(id)) {
+            this._dom.markers.get(id).g.remove();
+            delete this._dom.markers.delete(id);
+            return true;
+        }
+        return false;
+    };
 
     /**
      * Transforms the data that is bound to the chart.
@@ -233,6 +381,11 @@ export default class LineChart extends Chart {
                 }
             }
         });
+
+        // Update markers
+        this._dom.markers.forEach(marker => {
+            marker.update(700);
+        });
     }
 
     /**
@@ -273,7 +426,7 @@ export default class LineChart extends Chart {
     }
 
     _createTooltipContent(mouse) {
-        // TODO Clean up code
+        // TODO Clean up code to make it es6
         // Get bisection
         let bisect = bisector(d => {
             return this._dom.scales.x.scale(d.x);
@@ -498,6 +651,26 @@ export default class LineChart extends Chart {
      * @returns {LineChart} Reference to the line chart.
      */
     // data(plots)
+
+    /**
+     * Sets the X (horizontal) label of the plot.
+     *
+     * @method xLabel
+     * @methodOf LineChart
+     * @param {string} text Text to set X label to.
+     * @returns {LineChart} Reference to the line chart.
+     */
+    // xLabel(text)
+
+    /**
+     * Sets the Y (vertical) label of the plot.
+     *
+     * @method yLabel
+     * @methodOf LineChart
+     * @param {string} text Text to set Y label to.
+     * @returns {LineChart} Reference to the line chart.
+     */
+    // yLabel(text)
 
     /**
      * Sets the format function for the horizontal ticks.
