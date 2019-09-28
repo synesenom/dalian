@@ -407,15 +407,11 @@ export default class Chart extends Widget {
               });
         } else if (Array.isArray(key)) {
             // Multiple keys
-            let keys = key.map(function (d) {
-                return Widget.encode(d);
-            });
+            let keys = key.map(d => Widget.encode(d));
             elems.transition().duration(duration)
               .style('opacity', function () {
                   let elem = select(this);
-                  return keys.reduce(function (s, d) {
-                      return s || elem.classed(d);
-                  }, false) ? 1 : 0.1;
+                  return keys.reduce((s, d) => s || elem.classed(d), false) ? 1 : 0.1;
               });
         } else {
             // Remove highlight
@@ -461,7 +457,7 @@ export default class Chart extends Widget {
         switch (content.content.type) {
             case 'metrics':
                 // List of metrics
-                content.content.data.forEach(function (row) {
+                content.content.data.forEach(row => {
                     let entry = contentNode.append('div')
                       .style('position', 'relative')
                       .style('display', 'block')
@@ -482,9 +478,8 @@ export default class Chart extends Widget {
                 break;
             case 'plots':
                 // List of plots
-                content.content.data.sort(function (a, b) {
-                    return a.name.localeCompare(b.name);
-                }).forEach(function (plot) {
+                content.content.data.sort((a, b) => a.name.localeCompare(b.name))
+                  .forEach(plot => {
                     let entry = contentNode.append('div')
                       .style('position', 'relative')
                       .style('max-width', '150px')
