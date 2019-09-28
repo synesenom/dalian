@@ -336,7 +336,6 @@ export default class Widget {
 
         // Update container position and size
         this._dom.container
-          .transition().duration(duration)
           .style(this._attr.pos.x.ignore, null)
           .style(this._attr.pos.x.attr, this._attr.pos.x.value)
           .style(this._attr.pos.y.ignore, null)
