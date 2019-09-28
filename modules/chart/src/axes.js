@@ -47,9 +47,7 @@ export default class Axes {
      */
     update(attr, scales, duration = 700) {
         // Container
-        this._dom
-          .transition().duration(duration)
-            .attr('transform', 'translate(' + attr.margins.left + ',' + attr.margins.top + ')')
+        this._dom.attr('transform', 'translate(' + attr.margins.left + ',' + attr.margins.top + ')')
             .style('width', attr.size.innerWidth)
             .style('height', attr.size.innerHeight)
             .style('pointer-events', 'all');
@@ -80,17 +78,15 @@ export default class Axes {
             .style('shape-rendering', 'crispEdges');
 
         // Labels
-        this._labels.x.text(attr.labels.x)
-            .transition().duration(duration)
-            .attr('x', attr.size.innerWidth)
+        this._labels.x.attr('x', attr.size.innerWidth)
             .attr('y', (parseFloat(attr.size.innerHeight) + 2.2 * parseInt(attr.font.size)) + 'px')
             .attr('fill', attr.font.color)
-            .style('font-size', attr.font.size);
-        this._labels.y.text(attr.labels.y)
-            .transition().duration(duration)
-            .attr('x', 5 + 'px')
+            .style('font-size', attr.font.size)
+            .text(attr.labels.x);
+        this._labels.y.attr('x', 5 + 'px')
             .attr('y', (-5) + 'px')
             .attr('fill', attr.font.color)
-            .style('font-size', attr.font.size);
+            .style('font-size', attr.font.size)
+            .text(attr.labels.y);
     }
 }
