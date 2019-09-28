@@ -195,6 +195,7 @@ export default class Widget {
      * @protected
      */
     _update (duration = 700) {
+        console.warn('Widget._update(duration) is not implemented');
     }
 
     /**
@@ -202,11 +203,12 @@ export default class Widget {
      *
      * @method _tooltip
      * @methodOf Widget
-     * @param {number[]?} mouse Mouse position.
+     * @param {number[]} mouse Mouse position.
      * @returns {string} The tooltip content.
      * @protected
      */
     _tooltip (mouse) {
+        console.warn('Widget._tooltip(mouse) is not implemented');
     }
 
     /**
@@ -227,17 +229,17 @@ export default class Widget {
 
         // Get scroll position
         let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
         // If we are outside the charting area just remove tooltip
         if (mx < boundingBox.left + this._attr.margins.left - scrollLeft
-            || mx > boundingBox.right - this._attr.margins.right + scrollLeft
-            || my < boundingBox.top + this._attr.margins.top - scrollTop
-            || my > boundingBox.bottom - this._attr.margins.bottom + scrollTop) {
+          || mx > boundingBox.right - this._attr.margins.right + scrollLeft
+          || my < boundingBox.top + this._attr.margins.top - scrollTop
+          || my > boundingBox.bottom - this._attr.margins.bottom + scrollTop) {
             select('#' + tooltipId)
               .transition().duration(200)
               .style('opacity', 0)
-              .on('end', function() {
+              .on('end', function () {
                   select(this)
                     .style('display', 'none');
               });
@@ -281,7 +283,7 @@ export default class Widget {
             select('#' + tooltipId)
               .transition().duration(200)
               .style('opacity', 0)
-              .on('end', function() {
+              .on('end', function () {
                   select(this)
                     .style('display', 'none');
               });
@@ -298,6 +300,7 @@ export default class Widget {
           tx = mx + 20,
           ty = my + 20;
 
+        // TODO Make tooltip contained within the widget (left side)
         // Correct for edges
         if (tx + tw > boundingBox.right - this._attr.margins.right + scrollLeft - 5) {
             tx -= tw + scrollLeft + 40;
@@ -333,6 +336,7 @@ export default class Widget {
 
         // Update container position and size
         this._dom.container
+          .transition().duration(duration)
           .style(this._attr.pos.x.ignore, null)
           .style(this._attr.pos.x.attr, this._attr.pos.x.value)
           .style(this._attr.pos.y.ignore, null)
@@ -341,6 +345,7 @@ export default class Widget {
           .style('height', this._attr.size.height);
 
         // Propagate font style to all text
+        // TODO May move this to Chart
         this._dom.container
           .style('font-family', 'inherit');
         this._dom.container
@@ -436,8 +441,8 @@ export default class Widget {
      *
      * @method placeholder
      * @methodOf Widget
-     * @param {string?} content Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.
-     * @param {number} [duration = 700] Duration of the placeholder animation.
+     * @param {string} content Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.
+     * @param {number} [duration = 700] Duration of the placeholder animation in ms.
      * @returns {Widget} Reference to the widget.
      */
     placeholder (content, duration = 700) {
@@ -499,7 +504,7 @@ export default class Widget {
      *
      * @method x
      * @method Widget
-     * @param {number} [value = 0] Value of the X coordinate.
+     * @param {number} [value = 0] Value of the X coordinate in pixels.
      * @returns {Widget} Reference to the widget.
      */
     x (value = 0) {
@@ -515,7 +520,7 @@ export default class Widget {
      *
      * @method y
      * @method Widget
-     * @param {number} [value = 0] Value of the Y coordinate.
+     * @param {number} [value = 0] Value of the Y coordinate in pixels.
      * @returns {Widget} Reference to the widget.
      */
     y (value = 0) {
@@ -530,7 +535,7 @@ export default class Widget {
      *
      * @method width
      * @method Widget
-     * @param {number} [value = 300] Width value.
+     * @param {number} [value = 300] Width value in pixels.
      * @returns {Widget} Reference to the widget.
      */
     width (value = 300) {
@@ -544,7 +549,7 @@ export default class Widget {
      *
      * @method height
      * @methodOf Widget
-     * @param {number} [value = 200] Height value.
+     * @param {number} [value = 200] Height value in pixels.
      * @returns {Widget} Reference to the widget.
      */
     height (value = 200) {
@@ -633,7 +638,7 @@ export default class Widget {
      *
      * @method colors
      * @methodOf Widget
-     * @param {?(string | object)} [policy = null] Color policy to set.
+     * @param {(string | object)} [policy = null] Color policy to set.
      * @returns {Widget} Reference to the widget.
      */
     colors (policy = null) {
@@ -663,7 +668,7 @@ export default class Widget {
      *
      * @method mouseover
      * @methodOf Widget
-     * @param {?Function} [callback = null] Callback to trigger on mouse over.
+     * @param {Function} [callback = null] Callback to trigger on mouse over.
      * @returns {Widget} Reference to the widget.
      */
     mouseover (callback = null) {
@@ -681,7 +686,7 @@ export default class Widget {
      *
      * @method mouseleave
      * @methodOf Widget
-     * @param {?Function} [callback = null] Callback to trigger on mouse leave.
+     * @param {Function} [callback = null] Callback to trigger on mouse leave.
      * @returns {Widget} Reference to the widget.
      */
     mouseleave (callback = null) {
@@ -698,7 +703,7 @@ export default class Widget {
      *
      * @method click
      * @methodOf Widget
-     * @param {?Function} [callback = null] Callback to trigger on click.
+     * @param {Function} [callback = null] Callback to trigger on click.
      * @returns {Widget} Reference to the widget.
      */
     click (callback = null) {
