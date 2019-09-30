@@ -1,7 +1,7 @@
 {
   "name": "@dalian/widget",
-  "version": "0.0.12",
-  "description": "Abstract class implementing a generic widget element.",
+  "version": "0.1.0",
+  "description": "The generic widget component for dalian.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
@@ -12,22 +12,28 @@
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "d3-color": "^1.2.3",
-    "d3-ease": "^1.0.5",
-    "d3-format": "^1.3.2",
-    "d3-selection": "^1.3.2",
-    "d3-transition": "^1.2.0"
+    "d3-selection": "^1.4.0"
   },
   "devDependencies": {
     "eslint-config-standard": "^12.0.0",
     "nodemon": "^1.19.0",
+    "node-sass": "^4.12.0",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
     "rollup": "^1.11.3",
     "rollup-plugin-terser": "^4.0.4",
     "standard": "^12.0.1"
   },
   "scripts": {
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
+    "build:demo:pug": "./node_modules/.bin/pug demo/index.pug",
+    "watch:demo:pug": "./node_modules/.bin/nodemon -x 'npm run build:demo:pug' -w demo -e pug",
+    "build:demo:scss": "./node_modules/.bin/node-sass demo/style.scss > demo/style.css",
+    "watch:demo:scss": "./node_modules/.bin/nodemon -x 'npm run build:demo:scss' -w demo -e scss",
+    "build:demo": "npm run build:demo:pug & npm run build:demo:scss",
+    "watch:demo": "npm run watch:demo:pug & npm run watch:demo:scss",
     "build": "./node_modules/.bin/rollup -c",
-    "dev": "nodemon -x 'npm run build' -w src -e js"
+    "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js",
+    "dev": "npm run watch & npm run watch:demo"
   }
 }

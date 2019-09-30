@@ -1,6 +1,6 @@
 {
   "name": "@dalian/line-chart",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "An interactive line chart.",
   "author": {
     "name": "Enys Mones",
@@ -12,13 +12,14 @@
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalian/chart": "^0.0.5",
-    "@dalian/widget": "^0.0.3",
+    "@dalian/chart": "^0.0.20",
+    "@dalian/widget": "^0.0.13",
     "d3-array": "^2.3.1",
     "d3-selection": "^1.4.0",
     "d3-shape": "^1.2.2"
   },
   "devDependencies": {
+    "documentation": "^12.1.2",
     "eslint-config-standard": "^12.0.0",
     "nodemon": "^1.19.0",
     "rollup": "^1.11.3",
