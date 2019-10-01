@@ -13,9 +13,9 @@ export default {
         globals: {
             'd3-selection': 'd3'
         },
-        file: 'dist/dalian.widget.min.js',
+        file: 'dist/dalian.description.min.js',
         format: 'umd',
-        name: 'dalian.Widget',
+        name: 'Description',
         indent: false,
     }
 }

@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meat charset="utf-8"></meat><script src="https://unpkg.com/d3@5.9.2/dist/d3.min.js"></script><script src="../../widget/dist/dalian.widget.min.js"></script><script src="../../mouse/dist/dalian.mouse.min.js"></script><script src="../dist/dalian.tooltip.min.js"></script><script src="tooltip-widget.js"></script><script src="demo.js"></script><link rel="stylesheet" type="text/css" href="style.css"><title>@dalian/Tooltip</title><style>.dalian-widget {
+    box-shadow: 0 0 10px grey;
+    background-color: royalblue;
+}</style></head><body><div id="widget"></div><div id="controls"><div class="title">Controls</div><div class="buttons"></div></div><script>addControls(
+    TooltipWidget('myTooltipWidget', '#widget')
+        .render(), {
+        x: [0, 100],
+        y: [0, 100],
+        width: [300, 400],
+        height: [200, 300]
+    });</script></body></html>

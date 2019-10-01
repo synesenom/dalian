@@ -4,18 +4,16 @@ import * as meta from "./package.json"
 const copyright = `// ${meta.homepage} v${meta.version} Copyright ${(new Date).getFullYear()} ${meta.author.name}`
 
 export default {
-    external: [ 'd3-selection' ],
+    external: [],
     input: 'src/index.js',
     plugins: [
         terser({output: {preamble: copyright}})
     ],
     output: {
-        globals: {
-            'd3-selection': 'd3'
-        },
-        file: 'dist/dalian.widget.min.js',
+        globals: {},
+        file: 'dist/dalian.placeholder.min.js',
         format: 'umd',
-        name: 'dalian.Widget',
+        name: 'Placeholder',
         indent: false,
     }
 }

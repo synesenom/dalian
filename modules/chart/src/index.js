@@ -7,9 +7,9 @@ import Colors from '../../colors/src/index'
 import Tooltip from '../../tooltip/src/index'
 import Mouse from '../../mouse/src/index'
 
-export default (type, name, parent, elem, _self, _api) => {
+export default (type, name, parent, elem) => {
     // Base component is Widget
-    let { self, api } = Widget(type, name, parent, elem, _self, _api)
+    let { self, api } = Widget(type, name, parent, elem)
 
     // Init default values
     self.chart = {

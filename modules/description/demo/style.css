@@ -1,7 +1,6 @@
 html, body {
   font-family: 'Avenir Next', 'Helvetica', sans-serif;
-  user-select: none;
-}
+  user-select: none; }
 
 #widget {
   display: block;
@@ -9,8 +8,7 @@ html, body {
   float: left;
   width: 500px;
   height: 500px;
-  margin: 50px 50px;
-}
+  margin: 50px 50px; }
 
 #controls {
   display: block;
@@ -18,21 +16,18 @@ html, body {
   float: right;
   width: 300px;
   height: 500px;
-  margin: 50px 50px;
-}
+  margin: 50px 50px; }
 
 #controls .title {
   width: calc(100% - 12px);
   font-weight: bold;
   border-bottom: 3px solid royalblue;
-  margin: 0 6px 6px 6px;
-}
+  margin: 0 6px 6px 6px; }
 
 #controls .buttons {
   width: 100%;
   height: 478px;
-  overflow-y: scroll;
-}
+  overflow-y: scroll; }
 
 #controls .buttons .button {
   position: relative;
@@ -44,25 +39,21 @@ html, body {
   border: 1px solid royalblue;
   text-align: center;
   cursor: pointer;
-  font-size: 10pt;
-}
+  font-size: 10pt; }
 
 #controls .buttons .button:hover {
   background-color: #ccc;
   border-color: #ccc;
-  color: white;
-}
+  color: white; }
 
 #controls .buttons .button:active {
-  background-color: #aaa;
-}
+  background-color: #aaa; }
 
 #controls .buttons .button.on {
   background-color: royalblue;
   border-color: royalblue;
-  color: white;
-}
+  color: white; }
+
 #controls .buttons .button.on:active {
   background-color: #2f509f;
-  border-color: #2f509f;
-}
+  border-color: #2f509f; }

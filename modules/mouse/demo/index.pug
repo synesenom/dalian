@@ -3,10 +3,13 @@ html
     head
         meat(charset='utf-8')
         script(src='https://unpkg.com/d3@5.9.2/dist/d3.min.js')
-        script(src='../dist/dalian.widget.min.js')
+        script(src='../../utils/dist/dalian.utils.min.js')
+        script(src='../../widget/dist/dalian.widget.min.js')
+        script(src='../dist/dalian.mouse.min.js')
+        script(src='demo-widget.js')
         script(src='demo.js')
         link(rel='stylesheet', type='text/css', href='style.css')
-        title @dalian/widget
+        title @dalian/mouse
         style.
             .dalian-widget {
                 box-shadow: 0 0 10px grey;
@@ -19,9 +22,12 @@ html
             .buttons
         script.
             addControls(
-                Widget('generic', 'myWidget', '#widget', 'div').render(), {
+                MouseDemoWidget('myDemo', '#widget')
+                    .render(), {
                     x: [0, 100],
                     y: [0, 100],
                     width: [300, 400],
-                    height: [200, 300]
+                    height: [200, 300],
+                    mouseover: [undefined, g => g.style('background-color', 'firebrick')],
+                    mouseleave: [undefined, g => g.style('background-color', null)]
                 });

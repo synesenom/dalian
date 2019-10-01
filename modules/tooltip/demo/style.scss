@@ -7,7 +7,7 @@ html, body {
   display: block;
   position: relative;
   float: left;
-  width: 500px;
+  width: 600px;
   height: 500px;
   margin: 50px 50px;
 }
@@ -16,16 +16,14 @@ html, body {
   display: block;
   position: relative;
   float: right;
-  width: 300px;
+  width: 200px;
   height: 500px;
   margin: 50px 50px;
 }
 
 #controls .title {
-  width: calc(100% - 12px);
   font-weight: bold;
-  border-bottom: 3px solid royalblue;
-  margin: 0 6px 6px 6px;
+  border-bottom: 2px solid royalblue;
 }
 
 #controls .buttons {
@@ -35,16 +33,13 @@ html, body {
 }
 
 #controls .buttons .button {
-  position: relative;
-  float: left;
   padding: 4px 0;
-  margin: 5px;
-  width: calc(50% - 12px);
+  margin: 10px;
+  width: calc(100% - 22px);
   border-radius: 3px;
   border: 1px solid royalblue;
   text-align: center;
   cursor: pointer;
-  font-size: 10pt;
 }
 
 #controls .buttons .button:hover {

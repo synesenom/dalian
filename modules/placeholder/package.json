@@ -1,14 +1,14 @@
 {
-  "name": "@dalian/mouse",
+  "name": "@dalian/description",
   "version": "0.0.1",
-  "description": "Component implementing mouse functionality for dalian.",
+  "description": "Component implementing the description functionality for dalian.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/mouse",
-  "main": "dist/dalian.mouse.min.js",
+  "homepage": "https://www.npmjs.com/package/@dalian/description",
+  "main": "dist/dalian.description.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "devDependencies": {
