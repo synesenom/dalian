@@ -1,7 +1,7 @@
-export default (_self, _api) => {
+export default (self, api) => {
   // Set default values
-  let self = _self || {}
-  self.colors = {
+  self = self || {}
+  self._colors = {
     policy: undefined,
     mapping: key => _defaultColors(key)
   }
@@ -35,21 +35,21 @@ export default (_self, _api) => {
   }
 
   // Public API
-  let api = _api || {}
+  api = api || {}
   api.colors = policy => {
     // Update color policy
-    self.colors.policy = policy
+    self._colors.policy = policy
 
     // Update color mapping
     if (typeof policy === 'undefined') {
       // No color policy, using default
-      self.colors.mapping = _defaultColors()
+      self._colors.mapping = _defaultColors()
     } else if (typeof policy === 'string') {
       // Single color policy, using the specified color
-      self.colors.mapping = () => policy
+      self._colors.mapping = () => policy
     } else {
       // Color mapping given
-      self.colors.mapping = key => policy[key]
+      self._colors.mapping = key => policy[key]
     }
     return api
   }

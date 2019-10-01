@@ -1,7 +1,6 @@
 {
-  "name": "docs",
-  "version": "1.0.0",
+  "name": "@dalian-es6/docs",
+  "version": "0.0.1",
   "dependencies": {
-    
   }
 }

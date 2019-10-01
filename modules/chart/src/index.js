@@ -1,6 +1,5 @@
-import { easeLinear } from 'd3-ease'
 import { select } from 'd3-selection'
-import { encode } from '../../utils/src/index'
+import { compose, encode } from '../../utils/src/index'
 import Widget from '../../widget/src/index'
 import Font from '../../font/src/index'
 import Colors from '../../colors/src/index'
@@ -9,29 +8,34 @@ import Mouse from '../../mouse/src/index'
 
 export default (type, name, parent, elem) => {
     // Base component is Widget
-    let { self, api } = Widget(type, name, parent, elem)
+    let { self, api } = compose(
+        Widget(type, name, parent, elem),
+        Font,
+        Colors,
+        Mouse,
+        Tooltip
+    )
 
     // Init default values
-    self.chart = {
-        plots: self.widget.dom.container.append('g')
+    self._chart = {
+        plots: self._widget.container.append('g')
             .attr('class', 'plots-container'),
-        data: undefined,
         transition: false
     }
 
     // Private methods
-    self.chart.transformData = () => {
+    self._chart.transformData = () => {
         console.warn('Chart.transformData(data) is not implemented.')
     }
 
-    self.chart.update = () => {
+    self._chart.update = () => {
         console.warn('Chart.update(duration) is not implemented.')
     }
 
-    self.chart.plotGroups = (g, attr, duration = 700) => {
+    self._chart.plotGroups = (g, attr, duration = 700) => {
         // Select groups
         let groups = g.selectAll('.plot-group')
-            .data(self.chart.data, d => d.name);
+            .data(self._chart.data, d => d.name);
 
         // Exiting groups: simply fade out
         let exit = groups.exit()
@@ -55,7 +59,7 @@ export default (type, name, parent, elem) => {
             .each(() => {
                 // Disable pointer events before transition
                 g.style('pointer-events', 'none');
-                self.chart.transition = true;
+                self._chart.transition = true;
             })
             .on('mouseover', d => {
                 typeof self.mouse.enter !== 'undefined' && self.mouse.enter(d);
@@ -81,7 +85,7 @@ export default (type, name, parent, elem) => {
         unionAnimated.on('end', () => {
             // Re-enable pointer events
             g.style('pointer-events', 'all');
-            self.chart.transition = false;
+            self._chart.transition = false;
         });
 
         return {
@@ -95,14 +99,14 @@ export default (type, name, parent, elem) => {
         };
     }
 
-    self.chart.highlight = (selector, key, duration = 0) => {
+    self._chart.highlight = (selector, key, duration = 0) => {
         // If currently animated, don't highlight
-        if (self.chart.transition) {
+        if (self._chart.transition) {
             return api;
         }
 
         // Stop current transitions
-        let elems = self.chart.plots.selectAll(selector);
+        let elems = self._chart.plots.selectAll(selector);
         elems.transition();
 
         // Perform highlight
@@ -129,22 +133,22 @@ export default (type, name, parent, elem) => {
         return api;
     }
 
-    self.widget.update = duration => {
+    self._widget.update = duration => {
         // Chart specific update
-        self.chart.update(duration)
+        self._chart.update(duration)
 
         // Adjust plots container
-        self.chart.plots
-            .attr('width', self.widget.size.innerWidth + 'px')
-            .attr('height', self.widget.size.innerHeight + 'px')
-            .attr('transform', 'translate(' + self.widget.margins.left + ',' + self.widget.margins.top + ')')
+        self._chart.plots
+            .attr('width', self._widget.size.innerWidth + 'px')
+            .attr('height', self._widget.size.innerHeight + 'px')
+            .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
     }
 
     // Public API
     api = api || {}
     api.data = plots => {
         // Transform data to the standard internal structure
-        self.chart.data = self.chart.transformData(plots);
+        self._chart.data = self._chart.transformData(plots);
 
         // Reset color mapping if it is set to default
         api.colors()
@@ -153,11 +157,5 @@ export default (type, name, parent, elem) => {
         return api;
     }
 
-    return Object.assign(
-        api,
-        Colors(self, api),
-        Tooltip(self, api),
-        Mouse(self, api),
-        Font(self, api)
-    )
+    return { self, api }
 }
