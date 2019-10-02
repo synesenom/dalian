@@ -2,23 +2,23 @@ import { easeLinear } from 'd3-ease'
 import { event, mouse, select } from 'd3-selection'
 import { extend } from '@dalian/core'
 
-// TODO Remove dependency on Widget
 export default (self, api) => {
   // Set default values
   self = self || {}
   self._tooltip = {
-    containerId: 'dalian-tooltip-container',
-    containerElem: undefined,
+    container: {
+      id: 'dalian-tooltip-container'
+    },
     id: `${self._widget.id}-tooltip`,
-    elem: undefined,
     on: false
   }
 
+  // Private methods
   const _getContainer = () => {
-    let container = select('#' + self._tooltip.containerId)
+    let container = select('#' + self._tooltip.container.id)
     if (container.empty()) {
       return select('body').append('div')
-        .attr('id', self.tooltip.containerId)
+        .attr('id', self._tooltip.container.id)
     }
   }
 
@@ -26,11 +26,12 @@ export default (self, api) => {
     if (typeof self._tooltip.elem !== 'undefined' && !self._tooltip.elem.empty()) {
       return self._tooltip.elem
     } else {
-      return self._tooltip.containerElem.append('div')
+      return self._tooltip.container.elem.append('div')
         .attr('id', self._tooltip.id)
         .style('position', 'absolute')
         .style('background-color', 'rgba(255, 255, 255, 0.9)')
-        .style('border-r', '2px')
+        .style('border-radius', '2px')
+        .style('padding', '5px')
         .style('box-shadow', '0 0 3px grey')
         .style('font-family', '"Courier", monospace')
         .style('font-size', '0.7em')
@@ -41,22 +42,37 @@ export default (self, api) => {
     }
   }
 
+  const _hideTooltip = () => {
+    if (typeof self._tooltip.elem !== 'undefined') {
+      self._tooltip.elem
+          .transition().duration(200)
+          .style('opacity', 0)
+          .on('end', function () {
+            select(this)
+                .style('display', 'none')
+          })
+    }
+  }
+
   // Extend update method
   const _updateTooltip = () => {
     self._widget.container
         .style('pointer-events', self._tooltip.on ? 'all' : null)
-        .on('mousemove', () => self._tooltip.on && self._tooltip.show());
+        .on('mousemove', () => {
+          self._tooltip.on && self._tooltip.show()
+        })
+        .on('mouseout', _hideTooltip)
   }
-  self._widget.update = extend(self._widget.update, _updateTooltip);
+  self._widget.update = extend(self._widget.update, _updateTooltip)
 
+  // Protected methods
   self._tooltip.createContent = () => {
     console.warn('createTooltip(mouse) is not implemented')
   }
 
-  // Private methods
   self._tooltip.show = () => {
-    // Create container and tooltip ID
-    let m = mouse(self._widget.container.node())
+    console.log('show');
+    // Get mouse position relative to page
 
     let mx = event.pageX
 
@@ -69,40 +85,29 @@ export default (self, api) => {
       left: window.pageXOffset || document.documentElement.scrollLeft,
       top: window.pageYOffset || document.documentElement.scrollTop
     }
-    // If we are outside the charting area just remove tooltip
 
-    if (mx < boundingBox.left + self._widget.margins.left - scroll.left ||
-      mx > boundingBox.right - self._widget.margins.right + scroll.left ||
-      my < boundingBox.top + self._widget.margins.top - scroll.top ||
-      my > boundingBox.bottom - self._widget.margins.bottom + scroll.top) {
-      select('#' + self._tooltip.id)
-        .transition().duration(200)
-        .style('opacity', 0)
-        .on('end', function () {
-          select(this)
-            .style('display', 'none')
-        })
+    // If we are outside the charting area just remove tooltip
+    if (mx < boundingBox.left + self._widget.margins.left - scroll.left
+        || mx > boundingBox.right - self._widget.margins.right + scroll.left
+        || my < boundingBox.top + self._widget.margins.top - scroll.top
+        || my > boundingBox.bottom - self._widget.margins.bottom + scroll.top) {
+      _hideTooltip()
       return
     }
 
     // Get or create container
-    self._tooltip.containerElem = _getContainer()
+    self._tooltip.container.elem = _getContainer()
 
     // Get or create tooltip
     self._tooltip.elem = _getTooltip(boundingBox, scroll)
 
     // Create content
+    let m = mouse(self._widget.container.node())
     let content = self._tooltip.createContent([m[0] - self._widget.margins.left, m[1] - self._widget.margins.top])
     if (typeof content === 'undefined') {
       if (typeof self._tooltip.elem !== 'undefined') {
         // If content is invalid, remove tooltip
-        self._tooltip.elem
-          .transition().duration(200)
-          .style('opacity', 0)
-          .on('end', function () {
-            select(this)
-              .style('display', 'none')
-          })
+        _hideTooltip()
         return
       }
     } else {
@@ -125,6 +130,7 @@ export default (self, api) => {
     // Correct for edges
     if (tx + tw > boundingBox.right - self._widget.margins.right + scroll.left - 5) {
       tx -= tw + scroll.left + 40
+      //tx = boundingBox.right - self._widget.margins.right + scroll.left - 10 - tw
     }
     if (ty + th > boundingBox.bottom - self._widget.margins.bottom + scroll.top - 5) {
       ty = boundingBox.bottom - self._widget.margins.bottom + scroll.top - 10 - th

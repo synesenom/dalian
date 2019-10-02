@@ -2,7 +2,7 @@ const MouseDemoWidget = (name, parent) => {
     let { self, api } = dalian.core.compose(
         dalian.components.Widget('demo', name, parent, 'div'),
         dalian.components.Mouse
-    )
+    );
 
     // Define mouse events
     self._widget.container
