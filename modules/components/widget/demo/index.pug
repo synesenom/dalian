@@ -3,8 +3,10 @@ html
     head
         meat(charset='utf-8')
         script(src='https://unpkg.com/d3@5.9.2/dist/d3.min.js')
-        script(src='../dist/dalian.widget.min.js')
+        script(src='../../../core/dist/dalian.core.min.js')
+        script(src='../dist/dalian.component-widget.min.js')
         script(src='demo.js')
+        script(src='demo-widget.js')
         link(rel='stylesheet', type='text/css', href='style.css')
         title @dalian/widget
         style.
@@ -19,7 +21,7 @@ html
             .buttons
         script.
             addControls(
-                Widget('generic', 'myWidget', '#widget', 'div').render(), {
+                DemoWidget('demo', '#widget').render(), {
                     x: [0, 100],
                     y: [0, 100],
                     width: [300, 400],

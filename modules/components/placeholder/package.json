@@ -12,7 +12,8 @@
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalian/core": "^0.0.2"
+    "@dalian/core": "^0.0.2",
+    "d3-selection": "^1.4.0"
   },
   "devDependencies": {
     "eslint-config-standard": "^12.0.0",

@@ -1,7 +1,7 @@
 {
   "name": "@dalian/component-tooltip",
   "version": "0.0.1",
-  "description": "Component implementing the tooltip functionality for dalian.",
+  "description": "Component implementing the tooltip functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",

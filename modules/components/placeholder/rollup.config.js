@@ -3,7 +3,8 @@ import * as meta from './package.json'
 
 const copyright = `// ${meta.homepage} v${meta.version} Copyright ${(new Date).getFullYear()} ${meta.author.name}`
 const dependencies = {
-    '@dalian/core': 'dalian.core'
+    '@dalian/core': 'dalian.core',
+    'd3-selection': 'd3'
 }
 const lib = meta.name.split('/')[0].slice(1)
 const name = meta.name.split('/')[1].split('-')[1]

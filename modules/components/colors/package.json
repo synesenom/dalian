@@ -1,7 +1,7 @@
 {
   "name": "@dalian/component-colors",
   "version": "0.0.1",
-  "description": "Component implementing various color policies for dalian.",
+  "description": "Component implementing the color policy functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",

@@ -1,48 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Minor refactoring">
-      <change afterPath="$PROJECT_DIR$/modules/chart/demo/demo-widget.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/core/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/core/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/core/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/core/rollup.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/core/src/extend.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/core/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/tooltip/demo/demo-widget.js" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="rollup config improved, globals bug fixed">
+      <change afterPath="$PROJECT_DIR$/modules/components/font/demo/demo-widget.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/font/demo/demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/font/demo/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/font/demo/index.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/font/demo/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/font/demo/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/chart/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/chart/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/chart/demo/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/chart/dist/dalian.chart.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/chart/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/chart/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/colors/dist/dalian.colors.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/colors/dist/dalian.colors.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/colors/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/colors/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/description/dist/dalian.description.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/description/dist/dalian.description.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/description/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/description/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/mouse/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/mouse/demo/demo-widget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/mouse/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/mouse/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/mouse/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/mouse/demo/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/mouse/dist/dalian.mouse.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/mouse/dist/dalian.mouse.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/mouse/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/mouse/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/demo/demo-widget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/demo/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/dist/dalian.placeholder.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/placeholder/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/placeholder/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/tooltip/demo/tooltip-widget.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/tooltip/dist/dalian.tooltip.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/tooltip/dist/dalian.tooltip.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/tooltip/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/tooltip/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/tooltip/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/tooltip/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/dist/dalian.utils.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/utils/dist/dalian.utils.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/utils/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/src/compose.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/core/src/compose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/utils/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widget/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widget/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widget/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/demo/demo-widget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/dist/dalian.component-font.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/dist/dalian.component-font.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/demo/demo-widget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/demo/demo-widget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/dist/dalian.component-placeholder.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/dist/dalian.component-placeholder.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/demo/demo-widget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/demo/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/dist/dalian.component-widget.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/dist/dalian.component-widget.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/dist/dalian.core.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/core/dist/dalian.core.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/src/extend.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/core/src/extend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/dist/dalian.flow-chart.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/example.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-edge.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart-node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/src/flow-chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/src/vector2d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/flow-chart/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/demo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/dist/dalian.line-chart.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/docs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/line-chart/yarn.lock" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,11 +90,6 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/modules/chart/package.json" />
-    <dismissed value="$PROJECT_DIR$/modules/flow-chart/package.json" />
-    <dismissed value="$PROJECT_DIR$/modules/line-chart/package.json" />
-  </component>
   <component name="ProjectId" id="1RJiKJESip4DYNqZgsdqP8SlOlc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -87,7 +99,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.10.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/chart/demo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/components/font" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -97,18 +109,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/components/font" />
       <recent name="$PROJECT_DIR$/modules/chart/demo" />
       <recent name="$PROJECT_DIR$/modules/core" />
       <recent name="$PROJECT_DIR$/demo" />
       <recent name="$PROJECT_DIR$/modules/placeholder" />
-      <recent name="$PROJECT_DIR$/modules/description" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/widgets" />
+      <recent name="$PROJECT_DIR$/modules/components" />
       <recent name="$PROJECT_DIR$/modules/core/src" />
+      <recent name="$PROJECT_DIR$/modules/widget/demo" />
       <recent name="$PROJECT_DIR$/modules/font/src" />
-      <recent name="$PROJECT_DIR$/modules/utils/src" />
-      <recent name="$PROJECT_DIR$/modules/mouse/src" />
-      <recent name="$PROJECT_DIR$/modules/mouse" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -185,7 +197,7 @@
       <workItem from="1569911397799" duration="2428000" />
       <workItem from="1569956103792" duration="7573000" />
       <workItem from="1569966088535" duration="1427000" />
-      <workItem from="1569998354246" duration="6790000" />
+      <workItem from="1569998354246" duration="11098000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -194,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569966836032</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="rollup config improved, globals bug fixed">
+      <created>1570035886830</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1570035886830</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,6 +234,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minor refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor refactoring" />
+    <MESSAGE value="rollup config improved, globals bug fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="rollup config improved, globals bug fixed" />
   </component>
 </project>

@@ -1,7 +1,7 @@
 {
   "name": "@dalian/component-mouse",
   "version": "0.0.1",
-  "description": "Component implementing mouse functionality for dalian.",
+  "description": "Component implementing mouse functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",

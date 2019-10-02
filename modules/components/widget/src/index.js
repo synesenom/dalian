@@ -56,8 +56,9 @@ export default (type, name, parent, elem) => {
     }
   }
   try {
+    // Add widget container
     self._widget.container = self._widget.parent
-      .append(elem)
+      .append('div')
       .attr('id', self._widget.id)
       .attr('class', `dalian-widget dalian-widget-${type}`)
       .style('display', 'none')
@@ -66,6 +67,22 @@ export default (type, name, parent, elem) => {
       .style('height', self._widget.size.height)
       .style('left', self._widget.pos.x + 'px')
       .style('top', self._widget.pos.y + 'px')
+      .style('font-family', 'inherit')
+      .style('font-size', 'inherit')
+      .style('font-color', 'inherit')
+
+    // Add widget content element
+    self._widget.content = self._widget.container.append(elem)
+        .attr('id', `${self._widget.id}-content`)
+        .attr('class', `dalian-widget-content`)
+        .style('position', 'absolute')
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)
+        .style('left', 0)
+        .style('top', 0)
+        .style('font-family', 'inherit')
+        .style('font-size', 'inherit')
+        .style('font-color', 'inherit')
   } catch (e) {
     throw Error('MissingDOMException: DOM is not present.')
   }
@@ -192,7 +209,7 @@ export default (type, name, parent, elem) => {
     // Update widget first
     self._widget.update(duration)
 
-    // Update container position and size
+    // Update container and content
     self._widget.container
       .style(self._widget.pos.x.ignore, null)
       .style(self._widget.pos.x.attr, self._widget.pos.x.value)
@@ -200,6 +217,9 @@ export default (type, name, parent, elem) => {
       .style(self._widget.pos.y.attr, self._widget.pos.y.value)
       .style('width', self._widget.size.width)
       .style('height', self._widget.size.height)
+    self._widget.content
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)
 
     // Show widget
     self._widget.container

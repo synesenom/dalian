@@ -1,3 +1,4 @@
+import { select } from 'd3-selection'
 import { extend } from '@dalian/core'
 
 export default (self, api) => {
@@ -13,10 +14,8 @@ export default (self, api) => {
       self._placeholder.elem
         .style('width', self._widget.size.innerWidth)
         .style('height', self._widget.size.innerHeight)
-        .style(self._widget.pos.x.ignore, null)
-        .style(self._widget.pos.x.attr, self._widget.pos.x.value)
-        .style(self._widget.pos.y.ignore, null)
-        .style(self._widget.pos.y.attr, self._widget.pos.y.value)
+        .style('color', 'inherit')
+        .style('font-size', 'inherit')
     }
   }
   self._widget.update = extend(self._widget.update, _updatePlaceholder)
@@ -25,7 +24,7 @@ export default (self, api) => {
   api.placeholder = (content, duration = 700) => {
     // If no content provided, remove placeholder and show widget
     if (typeof content === 'undefined') {
-      self._widget.container
+      self._widget.content
         .transition().duration(duration)
         .style('opacity', 1)
       if (typeof self._placeholder.elem !== 'undefined' && !self._placeholder.elem.empty()) {
@@ -37,22 +36,21 @@ export default (self, api) => {
       }
     } else {
       // Otherwise hide widget and add placeholder
-      self._widget.container
+      self._widget.content
         .transition().duration(duration)
         .style('opacity', 0)
 
       // Otherwise fade out widget and add placeholder
       if (typeof self._placeholder.elem === 'undefined' || self._placeholder.elem.empty()) {
-        self._placeholder.elem = self._widget.parent.append('div')
+        self._placeholder.elem = self._widget.container.append('div')
           .attr('id', self._placeholder.id)
+          .attr('class', 'dalian-placeholder')
           .style('display', 'table')
           .style('position', 'absolute')
           .style('width', self._widget.size.innerWidth)
           .style('height', self._widget.size.innerHeight)
-          .style(self._widget.pos.x.ignore, null)
-          .style(self._widget.pos.x.attr, self._widget.pos.x.value)
-          .style(self._widget.pos.y.ignore, null)
-          .style(self._widget.pos.y.attr, self._widget.pos.y.value)
+          .style('left', 0)
+          .style('top', 0)
           .style('color', 'inherit')
           .style('font-family', 'inherit')
           .style('font-size', 'inherit')

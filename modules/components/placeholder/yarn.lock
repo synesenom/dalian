@@ -16,7 +16,7 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@dalian/core@^0.0.2s":
+"@dalian/core@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@dalian/core/-/core-0.0.2.tgz#b05eb88640bf58298f015d0a5fca4558333aaa35"
 
@@ -404,6 +404,10 @@ cross-spawn@^6.0.5:
 crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
+
+d3-selection@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.4.0.tgz#ab9ac1e664cf967ebf1b479cc07e28ce9908c474"
 
 debug-log@^1.0.0:
   version "1.0.1"

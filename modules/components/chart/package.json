@@ -1,7 +1,7 @@
 {
   "name": "@dalian/component-chart",
   "version": "0.1.0",
-  "description": "The generic chart component for dalian.",
+  "description": "Component implementing a generic chart.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",

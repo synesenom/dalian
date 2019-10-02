@@ -1,7 +1,7 @@
 {
   "name": "@dalian/component-description",
   "version": "0.0.1",
-  "description": "Component implementing the description functionality for dalian.",
+  "description": "Component implementing the description functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
