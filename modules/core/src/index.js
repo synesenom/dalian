@@ -1,2 +1,3 @@
-export { default as compose } from '../../core/src/compose'
-export { default as extend } from '../../core/src/extend'
+export { default as compose } from '../src/compose'
+export { default as extend } from '../src/extend'
+export { default as encode } from '../src/encode'

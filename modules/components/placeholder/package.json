@@ -1,0 +1,36 @@
+{
+  "name": "@dalian/component-placeholder",
+  "version": "0.0.2",
+  "description": "Component implementing the widget placeholder functionality.",
+  "author": {
+    "name": "Enys Mones",
+    "email": "enys.mones@gmail.com",
+    "url": "enysmones.com"
+  },
+  "homepage": "https://www.npmjs.com/package/@dalian/placeholder",
+  "main": "dist/dalian.placeholder.min.js",
+  "module": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@dalian/core": "^0.0.2"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^12.0.0",
+    "nodemon": "^1.19.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "standard": "^12.0.1"
+  },
+  "scripts": {
+    "standard": "./node_modules/.bin/standard --fix src/**/*.js",
+    "build:demo:pug": "./node_modules/.bin/pug demo/index.pug",
+    "watch:demo:pug": "./node_modules/.bin/nodemon -x 'npm run build:demo:pug' -w demo -e pug",
+    "build:demo:scss": "./node_modules/.bin/node-sass demo/style.scss > demo/style.css",
+    "watch:demo:scss": "./node_modules/.bin/nodemon -x 'npm run build:demo:scss' -w demo -e scss",
+    "build:demo": "npm run build:demo:pug & npm run build:demo:scss",
+    "watch:demo": "npm run watch:demo:pug & npm run watch:demo:scss",
+    "build": "./node_modules/.bin/rollup -c",
+    "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js -w rollup.config.js",
+    "dev": "npm run watch & npm run watch:demo"
+  }
+}
