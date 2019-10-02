@@ -1,10 +1,6 @@
 export default (self, api) => {
   // Set default values
   self = self || {}
-  self._colors = {
-    policy: undefined,
-    mapping: key => _defaultColors(key)
-  }
 
   // Private methods
   const _defaultColors = () => {
@@ -32,6 +28,10 @@ export default (self, api) => {
         '#d9d9d9'
       ][i > -1 ? i : keys.push(key) - 1]
     }
+  }
+  self._colors = {
+    policy: undefined,
+    mapping: _defaultColors()
   }
 
   // Public API

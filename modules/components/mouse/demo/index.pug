@@ -24,10 +24,6 @@ html
             addControls(
                 MouseDemoWidget('myDemo', '#widget')
                     .render(), {
-                    x: [0, 100],
-                    y: [0, 100],
-                    width: [300, 400],
-                    height: [200, 300],
                     mouseover: [undefined, g => g.style('background-color', 'firebrick')],
                     mouseleave: [undefined, g => g.style('background-color', null)]
                 });
