@@ -8,11 +8,11 @@
     "url": "enysmones.com"
   },
   "homepage": "https://www.npmjs.com/package/@dalian/tooltip",
-  "main": "dist/dalian.tooltip.min.js",
+  "main": "dist/dalian.component-tooltip.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalia/core": "^0.0.2",
+    "@dalian/core": "^0.0.2",
     "d3-ease": "^1.0.5",
     "d3-selection": "^1.4.0"
   },

@@ -8,7 +8,7 @@
     "url": "enysmones.com"
   },
   "homepage": "https://www.npmjs.com/package/@dalian/placeholder",
-  "main": "dist/dalian.placeholder.min.js",
+  "main": "dist/dalian.component-placeholder.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {

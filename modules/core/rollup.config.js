@@ -8,13 +8,13 @@ const name = meta.name.split('/')[1]
 
 export default {
     external: Object.keys(dependencies),
-    input: 'src/index.js',
+    input: meta.module,
     plugins: [
         terser({output: {preamble: copyright}})
     ],
     output: {
         globals: dependencies,
-        file: `dist/${lib}.${name}.min.js`,
+        file: meta.main,
         format: 'umd',
         name: `${lib}.${name}`,
         indent: false

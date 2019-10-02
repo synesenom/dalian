@@ -8,7 +8,7 @@
     "url": "enysmones.com"
   },
   "homepage": "https://www.npmjs.com/package/@dalian/font",
-  "main": "dist/dalian.font.min.js",
+  "main": "dist/dalian.component-font.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {

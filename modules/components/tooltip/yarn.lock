@@ -16,11 +16,9 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@dalian/widget@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@dalian/widget/-/widget-0.1.0.tgz#6f2f4c697779fceeb52973683b28da77f84bf059"
-  dependencies:
-    d3-selection "^1.4.0"
+"@dalian/core@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/core/-/core-0.0.2.tgz#b05eb88640bf58298f015d0a5fca4558333aaa35"
 
 "@types/estree@*":
   version "0.0.39"

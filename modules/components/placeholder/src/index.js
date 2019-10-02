@@ -1,4 +1,3 @@
-import { select } from 'd3-selection'
 import { extend } from '@dalian/core'
 
 export default (self, api) => {

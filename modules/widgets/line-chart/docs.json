@@ -1,0 +1,7638 @@
+[
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the line style policy for the plots in a similar fashion as {Widget.colors}. Supported policies:",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 102,
+                  "offset": 101
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 102,
+              "offset": 101
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "html",
+          "value": "<ul>\n    <li>Default line style policy (no arguments): the default line style is used which is solid.</li>\n    <li>Single line style (passing {string}): The specified style is used for all plots. Possible values: solid, dashed, dotted.</li>\n    <li>Custom line style mapping (passing an {object}): each plot has the line style specified as the value for the\n    property with the same name as the plot's key.</li>\n</ul>",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 102
+            },
+            "end": {
+              "line": 7,
+              "column": 6,
+              "offset": 521
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 6,
+          "offset": 521
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 9,
+        "name": "lineStyle"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 10
+      },
+      {
+        "title": "param",
+        "description": "Line style policy to set.",
+        "lineNumber": 11,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "UnionType",
+            "elements": [
+              {
+                "type": "NameExpression",
+                "name": "string"
+              },
+              {
+                "type": "NameExpression",
+                "name": "Object"
+              }
+            ]
+          }
+        },
+        "name": "policy",
+        "default": "null"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 12,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 32,
+        "column": 2
+      },
+      "end": {
+        "line": 45,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 2
+        },
+        "end": {
+          "line": 79,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "policy",
+        "lineNumber": 11,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Line style policy to set.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 26,
+                      "offset": 25
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 26,
+                  "offset": 25
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 26,
+              "offset": 25
+            }
+          }
+        },
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "string"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Object"
+            }
+          ]
+        },
+        "default": "null"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "lineStyle",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "lineStyle",
+        "kind": "function"
+      }
+    ],
+    "namespace": "lineStyle"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Adds smoothing to the curves and error bands. Smoothing is done by using Catmull-Rom splines for each curve.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 109,
+                  "offset": 108
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 109,
+              "offset": 108
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 109,
+          "offset": 108
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "smooth"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Whether to add smoothing to the curves.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "boolean"
+          }
+        },
+        "name": "on",
+        "default": "false"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 81,
+        "column": 2
+      },
+      "end": {
+        "line": 88,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 89,
+          "column": 2
+        },
+        "end": {
+          "line": 92,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "on",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Whether to add smoothing to the curves.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 40,
+                      "offset": 39
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 40,
+                  "offset": 39
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 40,
+              "offset": 39
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "boolean"
+        },
+        "default": "false"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "smooth",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "smooth",
+        "kind": "function"
+      }
+    ],
+    "namespace": "smooth"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Highlights a line plot along with its markers.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 47,
+                  "offset": 46
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 47,
+              "offset": 46
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 47,
+          "offset": 46
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "highlight"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "String or array of strings denoting the line to highlight. If null is\npassed, the highlight is removed.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "UnionType",
+            "elements": [
+              {
+                "type": "NameExpression",
+                "name": "string"
+              },
+              {
+                "type": "TypeApplication",
+                "expression": {
+                  "type": "NameExpression",
+                  "name": "Array"
+                },
+                "applications": [
+                  {
+                    "type": "NameExpression",
+                    "name": "string"
+                  }
+                ]
+              },
+              {
+                "type": "NullLiteral"
+              }
+            ]
+          }
+        },
+        "name": "key"
+      },
+      {
+        "title": "param",
+        "description": "Duration of the rendering animation in ms.",
+        "lineNumber": 7,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "duration",
+        "default": "400"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 94,
+        "column": 2
+      },
+      "end": {
+        "line": 103,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 104,
+          "column": 2
+        },
+        "end": {
+          "line": 110,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "key",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "String or array of strings denoting the line to highlight. If null is\npassed, the highlight is removed.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 34,
+                      "offset": 103
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 34,
+                  "offset": 103
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 34,
+              "offset": 103
+            }
+          }
+        },
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "UnionType",
+            "elements": [
+              {
+                "type": "NameExpression",
+                "name": "string"
+              },
+              {
+                "type": "TypeApplication",
+                "expression": {
+                  "type": "NameExpression",
+                  "name": "Array"
+                },
+                "applications": [
+                  {
+                    "type": "NameExpression",
+                    "name": "string"
+                  }
+                ]
+              },
+              {
+                "type": "NullLiteral"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "title": "param",
+        "name": "duration",
+        "lineNumber": 7,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Duration of the rendering animation in ms.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 43,
+                      "offset": 42
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 43,
+                  "offset": 42
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 43,
+              "offset": 42
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "400"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "highlight",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "highlight",
+        "kind": "function"
+      }
+    ],
+    "namespace": "highlight"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Adds a marker to the specified line. A marker is a text along with a 90-degree angle connecting two points of a\nline. If a marker with the specified identifier already exists, the marker is ignored.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 87,
+                  "offset": 198
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 87,
+              "offset": 198
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 87,
+          "offset": 198
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "addMarker"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Marker identifier.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "id"
+      },
+      {
+        "title": "param",
+        "description": "Key of the line to mark.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "key"
+      },
+      {
+        "title": "param",
+        "description": "Start X position of the marker.",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "number"
+            },
+            {
+              "type": "NameExpression",
+              "name": "string"
+            }
+          ]
+        },
+        "name": "start"
+      },
+      {
+        "title": "param",
+        "description": "End X position of the marker.",
+        "lineNumber": 9,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "number"
+            },
+            {
+              "type": "NameExpression",
+              "name": "string"
+            }
+          ]
+        },
+        "name": "end"
+      },
+      {
+        "title": "param",
+        "description": "Label of the marker.",
+        "lineNumber": 10,
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "label"
+      },
+      {
+        "title": "returns",
+        "description": "D3 selection of the marker if it could be added, null otherwise.",
+        "lineNumber": 11,
+        "type": {
+          "type": "NullableType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Object"
+          },
+          "prefix": true
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 166,
+        "column": 2
+      },
+      "end": {
+        "line": 178,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 179,
+          "column": 2
+        },
+        "end": {
+          "line": 274,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "id",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Marker identifier.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 19,
+                      "offset": 18
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19,
+                  "offset": 18
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 19,
+              "offset": 18
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        }
+      },
+      {
+        "title": "param",
+        "name": "key",
+        "lineNumber": 7,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Key of the line to mark.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 25,
+                      "offset": 24
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 25,
+                  "offset": 24
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 25,
+              "offset": 24
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        }
+      },
+      {
+        "title": "param",
+        "name": "start",
+        "lineNumber": 8,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Start X position of the marker.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 32,
+                      "offset": 31
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 32,
+                  "offset": 31
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 32,
+              "offset": 31
+            }
+          }
+        },
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "number"
+            },
+            {
+              "type": "NameExpression",
+              "name": "string"
+            }
+          ]
+        }
+      },
+      {
+        "title": "param",
+        "name": "end",
+        "lineNumber": 9,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "End X position of the marker.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 30,
+                      "offset": 29
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 30,
+                  "offset": 29
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 30,
+              "offset": 29
+            }
+          }
+        },
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "number"
+            },
+            {
+              "type": "NameExpression",
+              "name": "string"
+            }
+          ]
+        }
+      },
+      {
+        "title": "param",
+        "name": "label",
+        "lineNumber": 10,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Label of the marker.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 21,
+                      "offset": 20
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21,
+                  "offset": 20
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 21,
+              "offset": 20
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "D3 selection of the marker if it could be added, null otherwise.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 65,
+                      "offset": 64
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 65,
+                  "offset": 64
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 65,
+              "offset": 64
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NullableType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Object"
+          },
+          "prefix": true
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "addMarker",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "addMarker",
+        "kind": "function"
+      }
+    ],
+    "namespace": "addMarker"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Removes a marker from the plot.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 32,
+                  "offset": 31
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 32,
+              "offset": 31
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 32,
+          "offset": 31
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "removeMarker"
+      },
+      {
+        "title": "memberOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Identifier of the marker to remove.",
+        "lineNumber": 5,
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "id"
+      },
+      {
+        "title": "returns",
+        "description": "True if marker exists and could be removed, false otherwise.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "boolean"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 276,
+        "column": 2
+      },
+      "end": {
+        "line": 283,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 284,
+          "column": 2
+        },
+        "end": {
+          "line": 292,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "id",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Identifier of the marker to remove.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 36,
+                      "offset": 35
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 36,
+                  "offset": 35
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 36,
+              "offset": 35
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "True if marker exists and could be removed, false otherwise.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 61,
+                      "offset": 60
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 61,
+                  "offset": 60
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 61,
+              "offset": 60
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "boolean"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "removeMarker",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "removeMarker",
+        "kind": "function"
+      }
+    ],
+    "namespace": "removeMarker"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Finds the Y coordinate of a point on a path given its X coordinate.\nSource: ",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 9,
+                  "offset": 76
+                },
+                "indent": [
+                  1
+                ]
+              }
+            },
+            {
+              "type": "link",
+              "title": null,
+              "url": "https://stackoverflow.com/questions/15578146/get-y-coordinate-of-point-along-svg-path-with-given-an-x-coordinate",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://stackoverflow.com/questions/15578146/get-y-coordinate-of-point-along-svg-path-with-given-an-x-coordinate",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "column": 9,
+                      "offset": 76
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 121,
+                      "offset": 188
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 9,
+                  "offset": 76
+                },
+                "end": {
+                  "line": 2,
+                  "column": 121,
+                  "offset": 188
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 121,
+              "offset": 188
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 121,
+          "offset": 188
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "findY"
+      },
+      {
+        "title": "memberOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "SVG path element.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Object"
+        },
+        "name": "path"
+      },
+      {
+        "title": "param",
+        "description": "The X coordinate of the point.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "name": "x"
+      },
+      {
+        "title": "returns",
+        "description": "The corresponding Y coordinate of the point on the path.",
+        "lineNumber": 8,
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "UndefinedLiteral"
+            },
+            {
+              "type": "NameExpression",
+              "name": "number"
+            }
+          ]
+        }
+      },
+      {
+        "title": "static",
+        "description": null,
+        "lineNumber": 9
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 477,
+        "column": 2
+      },
+      "end": {
+        "line": 487,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "path",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "SVG path element.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 18,
+                      "offset": 17
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 18,
+                  "offset": 17
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 18,
+              "offset": 17
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "Object"
+        }
+      },
+      {
+        "title": "param",
+        "name": "x",
+        "lineNumber": 7,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The X coordinate of the point.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 31,
+                      "offset": 30
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 31,
+                  "offset": 30
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 31,
+              "offset": 30
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "The corresponding Y coordinate of the point on the path.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 57,
+                      "offset": 56
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 57,
+                  "offset": 56
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 57,
+              "offset": 56
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "UndefinedLiteral"
+            },
+            {
+              "type": "NameExpression",
+              "name": "number"
+            }
+          ]
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "findY",
+    "scope": "static",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "findY",
+        "kind": "function",
+        "scope": "static"
+      }
+    ],
+    "namespace": ".findY"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the X coordinate of the line chart. If negative, the chart's right side is measured from the right side of\nthe parent, otherwise it is measured from the left side.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 57,
+                  "offset": 168
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 57,
+              "offset": 168
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 57,
+          "offset": 168
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "x"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Value of the X coordinate in pixels.",
+        "lineNumber": 6,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "value",
+        "default": "0"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 514,
+        "column": 2
+      },
+      "end": {
+        "line": 522,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "value",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Value of the X coordinate in pixels.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 37,
+                      "offset": 36
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 37,
+                  "offset": 36
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 37,
+              "offset": 36
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "0"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "x",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "x",
+        "kind": "function"
+      }
+    ],
+    "namespace": "x"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the Y coordinate of the line chart. If negative, the chart's bottom side is measured from the bottom of the\nparent, otherwise the top side is measured from the top.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 57,
+                  "offset": 169
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 57,
+              "offset": 169
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 57,
+          "offset": 169
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "y"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Value of the Y coordinate in pixels.",
+        "lineNumber": 6,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "value",
+        "default": "0"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 525,
+        "column": 2
+      },
+      "end": {
+        "line": 533,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "value",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Value of the Y coordinate in pixels.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 37,
+                      "offset": 36
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 37,
+                  "offset": 36
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 37,
+              "offset": 36
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "0"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "y",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "y",
+        "kind": "function"
+      }
+    ],
+    "namespace": "y"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the width of the line chart (including it's margins). Also updates the inner width of the chart.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 102,
+                  "offset": 101
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 102,
+              "offset": 101
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 102,
+          "offset": 101
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "width"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Width value in pixels.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "value",
+        "default": "300"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 536,
+        "column": 2
+      },
+      "end": {
+        "line": 543,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "value",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Width value in pixels.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 23,
+                      "offset": 22
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 23,
+                  "offset": 22
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 23,
+              "offset": 22
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "300"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "width",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "width",
+        "kind": "function"
+      }
+    ],
+    "namespace": "width"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the height of the line chart (including it's margins). Also updates the inner height of the chart.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 104,
+                  "offset": 103
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 104,
+              "offset": 103
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 104,
+          "offset": 103
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "height"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Height value in pixels.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "value",
+        "default": "200"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 546,
+        "column": 2
+      },
+      "end": {
+        "line": 553,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "value",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Height value in pixels.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 24,
+                      "offset": 23
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 24,
+              "offset": 23
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "200"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "height",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "height",
+        "kind": "function"
+      }
+    ],
+    "namespace": "height"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets line chart's margins in pixels. Note that margins are included in width and thus height and effectively\nshrink the plotting area.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 26,
+                  "offset": 134
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 26,
+              "offset": 134
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 26,
+          "offset": 134
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "margins"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "A single number to set all sides to or an object specifying some of the\nsides.",
+        "lineNumber": 6,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "UnionType",
+            "elements": [
+              {
+                "type": "NameExpression",
+                "name": "number"
+              },
+              {
+                "type": "NameExpression",
+                "name": "Object"
+              }
+            ]
+          }
+        },
+        "name": "margins",
+        "default": "0"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 556,
+        "column": 2
+      },
+      "end": {
+        "line": 565,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "margins",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "A single number to set all sides to or an object specifying some of the\nsides.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 7,
+                      "offset": 78
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 7,
+                  "offset": 78
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 7,
+              "offset": 78
+            }
+          }
+        },
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "number"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Object"
+            }
+          ]
+        },
+        "default": "0"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "margins",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "margins",
+        "kind": "function"
+      }
+    ],
+    "namespace": "margins"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Replaces the widget with a placeholder message positioned in the center of the original widget. If no placeholder\ncontent is provided, the widget is recovered. Note: placeholder is shown even if the widget is not yet rendered.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 113,
+                  "offset": 226
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 113,
+              "offset": 226
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 113,
+          "offset": 226
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "placeholder"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.",
+        "lineNumber": 6,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "string"
+          }
+        },
+        "name": "content"
+      },
+      {
+        "title": "param",
+        "description": "Duration of the placeholder animation in ms.",
+        "lineNumber": 7,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "duration",
+        "default": "700"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 8,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 730,
+        "column": 2
+      },
+      "end": {
+        "line": 739,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "content",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Content of the placeholder. Can be HTML formatted. If omitted, the widget is shown.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 84,
+                      "offset": 83
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 84,
+                  "offset": 83
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 84,
+              "offset": 83
+            }
+          }
+        },
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "string"
+          }
+        }
+      },
+      {
+        "title": "param",
+        "name": "duration",
+        "lineNumber": 7,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Duration of the placeholder animation in ms.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 45,
+                      "offset": 44
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 45,
+                  "offset": 44
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 45,
+              "offset": 44
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "700"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "placeholder",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "placeholder",
+        "kind": "function"
+      }
+    ],
+    "namespace": "placeholder"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the font color. Axis and other non-plot related elements also use this color.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 83,
+                  "offset": 82
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 83,
+              "offset": 82
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 83,
+          "offset": 82
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "fontColor"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Font color to set.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "string"
+          }
+        },
+        "name": "color",
+        "default": "black"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 578,
+        "column": 2
+      },
+      "end": {
+        "line": 585,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "color",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Font color to set.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 19,
+                      "offset": 18
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19,
+                  "offset": 18
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 19,
+              "offset": 18
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "default": "black"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "fontColor",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "fontColor",
+        "kind": "function"
+      }
+    ],
+    "namespace": "fontColor"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the color policy for the lines. Supported policies:",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 57,
+                  "offset": 56
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 57,
+              "offset": 56
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "html",
+          "value": "<ul>\n    <li>Default color policy (no arguments): the default color scheme is used which is a combination of the\n    qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>\n    <li>Single color (passing {string}): The specified color is used for all plots.</li>\n    <li>Custom color mapping (passing an {object}): each plot has the color specified as the value for the\n    property with the same name as the plot's key.</li>\n</ul>\nDefaults to {null}, which creates the default color scheme.",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 57
+            },
+            "end": {
+              "line": 9,
+              "column": 60,
+              "offset": 557
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 60,
+          "offset": 557
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 11,
+        "name": "colors"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 12
+      },
+      {
+        "title": "param",
+        "description": "Color policy to set.",
+        "lineNumber": 13,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "UnionType",
+            "elements": [
+              {
+                "type": "NameExpression",
+                "name": "string"
+              },
+              {
+                "type": "NameExpression",
+                "name": "Object"
+              }
+            ]
+          }
+        },
+        "name": "policy",
+        "default": "null"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 14,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 588,
+        "column": 2
+      },
+      "end": {
+        "line": 603,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "policy",
+        "lineNumber": 13,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Color policy to set.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 21,
+                      "offset": 20
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21,
+                  "offset": 20
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 21,
+              "offset": 20
+            }
+          }
+        },
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "NameExpression",
+              "name": "string"
+            },
+            {
+              "type": "NameExpression",
+              "name": "Object"
+            }
+          ]
+        },
+        "default": "null"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "colors",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "colors",
+        "kind": "function"
+      }
+    ],
+    "namespace": "colors"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Binds a callback to the event of hovering a line.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 50,
+                  "offset": 49
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 50,
+              "offset": 49
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 50,
+          "offset": 49
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "mouseover"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Callback to trigger on mouse over. May accept the line plot data as a\nparameter. The plot data is an object having the {name} and {values} of the line.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Function"
+          }
+        },
+        "name": "callback",
+        "default": "null"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 606,
+        "column": 2
+      },
+      "end": {
+        "line": 614,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "callback",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Callback to trigger on mouse over. May accept the line plot data as a\nparameter. The plot data is an object having the {name} and {values} of the line.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 82,
+                      "offset": 151
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 82,
+                  "offset": 151
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 82,
+              "offset": 151
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        },
+        "default": "null"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "mouseover",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "mouseover",
+        "kind": "function"
+      }
+    ],
+    "namespace": "mouseover"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Binds a callback to the event of the mouse leaving a line.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 59,
+                  "offset": 58
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 59,
+              "offset": 58
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 59,
+          "offset": 58
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "mouseleave"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Callback to trigger on mouse leave. May accept the line plot data as a\nparameter. The plot data is an object having the {name} and {values} of the line.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Function"
+          }
+        },
+        "name": "callback",
+        "default": "null"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 617,
+        "column": 2
+      },
+      "end": {
+        "line": 625,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "callback",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Callback to trigger on mouse leave. May accept the line plot data as a\nparameter. The plot data is an object having the {name} and {values} of the line.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 82,
+                      "offset": 152
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 82,
+                  "offset": 152
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 82,
+              "offset": 152
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        },
+        "default": "null"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "mouseleave",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "mouseleave",
+        "kind": "function"
+      }
+    ],
+    "namespace": "mouseleave"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Binds a callback to the event of clicking on a line.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 53,
+                  "offset": 52
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 53,
+              "offset": 52
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 53,
+          "offset": 52
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "click"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Callback to trigger on mouse leave. May accept the line plot data as a\nparameter. The plot data is an object having the {name} and {values} of the line.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Function"
+          }
+        },
+        "name": "callback",
+        "default": "null"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 628,
+        "column": 2
+      },
+      "end": {
+        "line": 636,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "callback",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Callback to trigger on mouse leave. May accept the line plot data as a\nparameter. The plot data is an object having the {name} and {values} of the line.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 82,
+                      "offset": 152
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 82,
+                  "offset": 152
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 82,
+              "offset": 152
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        },
+        "default": "null"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "click",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "click",
+        "kind": "function"
+      }
+    ],
+    "namespace": "click"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Enables/disables tooltip.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 26,
+                  "offset": 25
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 26,
+              "offset": 25
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 26,
+          "offset": 25
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "tooltip"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Whether tooltip should be enabled or not.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "boolean"
+          }
+        },
+        "name": "on",
+        "default": "false"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 639,
+        "column": 2
+      },
+      "end": {
+        "line": 646,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "on",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Whether tooltip should be enabled or not.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 42,
+                      "offset": 41
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 42,
+                  "offset": 41
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 42,
+              "offset": 41
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "boolean"
+        },
+        "default": "false"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "tooltip",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "tooltip",
+        "kind": "function"
+      }
+    ],
+    "namespace": "tooltip"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Renders the line chart. If called for the first time, the chart is built, otherwise this method updates the chart\nwith the attributes that have been changed since the last rendering.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 69,
+                  "offset": 182
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 69,
+              "offset": 182
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 69,
+          "offset": 182
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "render"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Duration of the rendering animation in ms.",
+        "lineNumber": 6,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "duration",
+        "default": "700"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 649,
+        "column": 2
+      },
+      "end": {
+        "line": 657,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "duration",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Duration of the rendering animation in ms.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 43,
+                      "offset": 42
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 43,
+                  "offset": 42
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 43,
+              "offset": 42
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "700"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "render",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "render",
+        "kind": "function"
+      }
+    ],
+    "namespace": "render"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Updates the data for the line chart.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 37,
+                  "offset": 36
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 37,
+              "offset": 36
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 37,
+          "offset": 36
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "data"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Array of objects with the following properties:\n<ul>\n  <li>{string} name: Name of the line.</li>\n  <li>{Object[]} values: Array of objects representing the data to plot. Each item has an {x} and an {y} property.\n  Optionally they can have properties {lo} and {hi} denoting the error band of the line.</li>\n</ul>",
+        "lineNumber": 5,
+        "type": {
+          "type": "TypeApplication",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Array"
+          },
+          "applications": [
+            {
+              "type": "NameExpression",
+              "name": "Object"
+            }
+          ]
+        },
+        "name": "plots"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 11,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 660,
+        "column": 2
+      },
+      "end": {
+        "line": 672,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "plots",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Array of objects with the following properties:",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 48,
+                      "offset": 47
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 48,
+                  "offset": 47
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "html",
+              "value": "<ul>\n  <li>{string} name: Name of the line.</li>\n  <li>{Object[]} values: Array of objects representing the data to plot. Each item has an {x} and an {y} property.\n  Optionally they can have properties {lo} and {hi} denoting the error band of the line.</li>\n</ul>",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 48
+                },
+                "end": {
+                  "line": 6,
+                  "column": 6,
+                  "offset": 311
+                },
+                "indent": [
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 6,
+              "column": 6,
+              "offset": 311
+            }
+          }
+        },
+        "type": {
+          "type": "TypeApplication",
+          "expression": {
+            "type": "NameExpression",
+            "name": "Array"
+          },
+          "applications": [
+            {
+              "type": "NameExpression",
+              "name": "Object"
+            }
+          ]
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "data",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "data",
+        "kind": "function"
+      }
+    ],
+    "namespace": "data"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the X (horizontal) label of the plot.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 43,
+                  "offset": 42
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 43,
+              "offset": 42
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 43,
+          "offset": 42
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "xLabel"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Text to set X label to.",
+        "lineNumber": 5,
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "text"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 675,
+        "column": 2
+      },
+      "end": {
+        "line": 682,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "text",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Text to set X label to.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 24,
+                      "offset": 23
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 24,
+              "offset": 23
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "xLabel",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "xLabel",
+        "kind": "function"
+      }
+    ],
+    "namespace": "xLabel"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the Y (vertical) label of the plot.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 41,
+                  "offset": 40
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 41,
+              "offset": 40
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 41,
+          "offset": 40
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "yLabel"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Text to set Y label to.",
+        "lineNumber": 5,
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "text"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 685,
+        "column": 2
+      },
+      "end": {
+        "line": 692,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "text",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Text to set Y label to.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 24,
+                      "offset": 23
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 24,
+              "offset": 23
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "yLabel",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "yLabel",
+        "kind": "function"
+      }
+    ],
+    "namespace": "yLabel"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the format function for the horizontal ticks.\nDefault is an SI prefixed number for values above 1 and the number itself below.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 81,
+                  "offset": 131
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 81,
+              "offset": 131
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 81,
+          "offset": 131
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "xTickFormat"
+      },
+      {
+        "title": "memberOf",
+        "description": "Chart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Format function to set.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        },
+        "name": "format"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 695,
+        "column": 2
+      },
+      "end": {
+        "line": 703,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "format",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Format function to set.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 24,
+                      "offset": 23
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 24,
+              "offset": 23
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "xTickFormat",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "xTickFormat",
+        "kind": "function"
+      }
+    ],
+    "namespace": "xTickFormat"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the format function for the vertical ticks.\nDefault is an SI prefixed number for values above 1 and the number itself below.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 81,
+                  "offset": 129
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 81,
+              "offset": 129
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 81,
+          "offset": 129
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 4,
+        "name": "yTickFormat"
+      },
+      {
+        "title": "memberOf",
+        "description": "LineChart",
+        "lineNumber": 5
+      },
+      {
+        "title": "param",
+        "description": "Format function to set.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        },
+        "name": "format"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 7,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 706,
+        "column": 2
+      },
+      "end": {
+        "line": 714,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "format",
+        "lineNumber": 6,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Format function to set.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 24,
+                      "offset": 23
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 24,
+              "offset": 23
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "Function"
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "yTickFormat",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "yTickFormat",
+        "kind": "function"
+      }
+    ],
+    "namespace": "yTickFormat"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Enables/disables description for the line chart. A description is a small tooltip that is bound to the\ncontext menu (also disables default event handler). The description disappears once the mouse leaves the chart.\nIf called without argument, the description is disabled.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 3,
+                  "column": 57,
+                  "offset": 271
+                },
+                "indent": [
+                  1,
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 3,
+              "column": 57,
+              "offset": 271
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 57,
+          "offset": 271
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 5,
+        "name": "description"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 6
+      },
+      {
+        "title": "param",
+        "description": "Content of the description. Can be HTML formatted. If not provided, description is\ndisabled.",
+        "lineNumber": 7,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "string"
+          }
+        },
+        "name": "content"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 9,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 717,
+        "column": 2
+      },
+      "end": {
+        "line": 727,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "content",
+        "lineNumber": 7,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Content of the description. Can be HTML formatted. If not provided, description is\ndisabled.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 10,
+                      "offset": 92
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 10,
+                  "offset": 92
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 10,
+              "offset": 92
+            }
+          }
+        },
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "string"
+          }
+        }
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "description",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "description",
+        "kind": "function"
+      }
+    ],
+    "namespace": "description"
+  },
+  {
+    "description": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Sets the main font size. All text elements in the chart are rescaled according to this value.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 94,
+                  "offset": 93
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 94,
+              "offset": 93
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 94,
+          "offset": 93
+        }
+      }
+    },
+    "tags": [
+      {
+        "title": "method",
+        "description": null,
+        "lineNumber": 3,
+        "name": "fontSize"
+      },
+      {
+        "title": "methodOf",
+        "description": "LineChart",
+        "lineNumber": 4
+      },
+      {
+        "title": "param",
+        "description": "Size of the main font in pixels.",
+        "lineNumber": 5,
+        "type": {
+          "type": "OptionalType",
+          "expression": {
+            "type": "NameExpression",
+            "name": "number"
+          }
+        },
+        "name": "size",
+        "default": "14"
+      },
+      {
+        "title": "returns",
+        "description": "Reference to the line chart.",
+        "lineNumber": 6,
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 568,
+        "column": 2
+      },
+      "end": {
+        "line": 575,
+        "column": 7
+      }
+    },
+    "context": {
+      "loc": {
+        "start": {
+          "line": 488,
+          "column": 2
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      },
+      "file": "/Users/enys/Desktop/dalian-es6/modules/line-chart/src/index.js"
+    },
+    "augments": [],
+    "examples": [],
+    "implements": [],
+    "params": [
+      {
+        "title": "param",
+        "name": "size",
+        "lineNumber": 5,
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Size of the main font in pixels.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 33,
+                      "offset": 32
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 33,
+                  "offset": 32
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 33,
+              "offset": 32
+            }
+          }
+        },
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "default": "14"
+      }
+    ],
+    "properties": [],
+    "returns": [
+      {
+        "description": {
+          "type": "root",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference to the line chart.",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 29,
+              "offset": 28
+            }
+          }
+        },
+        "title": "returns",
+        "type": {
+          "type": "NameExpression",
+          "name": "LineChart"
+        }
+      }
+    ],
+    "sees": [],
+    "throws": [],
+    "todos": [],
+    "yields": [],
+    "kind": "function",
+    "name": "fontSize",
+    "members": {
+      "global": [],
+      "inner": [],
+      "instance": [],
+      "events": [],
+      "static": []
+    },
+    "path": [
+      {
+        "name": "fontSize",
+        "kind": "function"
+      }
+    ],
+    "namespace": "fontSize"
+  }
+]

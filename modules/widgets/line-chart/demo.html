@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/d3@5.9.2/dist/d3.min.js"></script>
+    <script src="../widget/dist/dalian.widget.min.js"></script>
+    <script src="../chart/dist/dalian.chart.min.js"></script>
+    <script src="dist/dalian.line-chart.min.js"></script>
+    <title>@dalian/line-chart</title>
+    <style>
+        html, body {
+            font-family: 'Avenir Next', 'Helvetica', sans-serif;
+        }
+
+        #widget {
+            display: block;
+            position: relative;
+            float: left;
+            width: 600px;
+            height: 500px;
+            margin: 100px 100px;
+        }
+
+        #controls {
+            display: block;
+            position: relative;
+            float: right;
+            width: 200px;
+            height: 500px;
+            margin: 100px 100px;
+        }
+
+        #controls .title {
+            font-weight: bold;
+            border-bottom: 2px solid royalblue;
+        }
+
+        #controls .buttons {
+            width: 100%;
+            height: 478px;
+            overflow-y: scroll;
+        }
+
+        #controls .buttons .button {
+            padding: 4px 0;
+            margin: 10px;
+            width: calc(100% - 22px);
+            border-radius: 3px;
+            border: 1px solid royalblue;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #controls .buttons .button:hover {
+            color: white;
+            background-color: royalblue;
+        }
+
+        #controls .buttons .button:active {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="widget"></div>
+<div id="controls">
+    <div class="title">Controls</div>
+    <div class="buttons"></div>
+</div>
+<script>
+    let state = {
+      _i: {},
+      x: [10, 200],
+      y: [10, 200],
+      width: [400, 600],
+      height: [300, 400],
+      margins: [40, 80],
+      fontSize: [14, 10],
+      fontColor: ['black', 'royalblue'],
+      colors: [undefined, {
+        kiwi: 'orange',
+        mango: 'green'
+      }],
+      mouseover: [undefined, k => alert(`Entering ${k.name}`)],
+      mouseleave: [undefined, k => alert(`Leaving ${k.name}`)],
+      addMarker: [undefined, ['foo', 'mango', 11, 27, 'This is a marker']]
+    }
+
+    let lineChart = new LineChart('lineChart', '#widget')
+        .x(state.x[0])
+        .y(state.y[0])
+        .width(state.width[0])
+        .height(300)
+        .xLabel("days")
+        .yLabel("price")
+        .margins(state.margins[0])
+        .fontSize(state.fontSize[0])
+        .fontColor(state.fontColor[0])
+        .data([
+            {
+                name: "mango",
+                values: new Array(30).fill(0).map(function (d, i) {
+                    return {
+                        x: i,
+                        y: Math.pow(i / 40, 2),
+                        lo: i / 100,
+                        hi: i / 150
+                    };
+                })
+            },
+            {
+                name: "kiwi",
+                values: new Array(30).fill(0).map(function (d, i) {
+                    return {
+                        x: i,
+                        y: Math.log(i + 1)
+                        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+                        lo: .4,
+                        hi: .9
+                    };
+                })
+            }
+        ])
+        .lineStyles({
+            kiwi: 'dashed',
+            mango: 'dotted'
+        })
+        .render();
+
+    setTimeout(() => {
+      lineChart.addMarker('foo', 'mango', 11, 27, 'This is a marker');
+    }, 1000);
+
+    /*
+    setTimeout(() => {
+        lineChart.data([
+            {
+                name: "mango",
+                values: new Array(100).fill(0).map(function (d, i) {
+                    return {
+                        x: i,
+                        y: Math.exp(i / 20),
+                        lo: i / 10,
+                        hi: i / 15
+                    };
+                })
+            },
+            {
+                name: "kiwi",
+                values: new Array(100).fill(0).map(function (d, i) {
+                    return {
+                        x: i,
+                        y: Math.log(i + 3)
+                        * Math.pow(Math.sin(Math.PI * i / 15), 2) + 2,
+                        lo: 4,
+                        hi: 9
+                    };
+                })
+            }
+        ])
+            .render(10000);
+    }, 2000);
+     */
+
+    function toggle(key) {
+      // Update or create index
+      if (typeof state._i[key] === 'undefined') {
+        state._i[key] = 1
+      } else {
+        state._i[key] = 1 - state._i[key];
+      }
+
+      // Update line chart
+      let value = state[key][state._i[key]]
+      if (Array.isArray(value)) {
+        lineChart[key](...state[key][state._i[key]]);
+      } else {
+        lineChart[key](state[key][state._i[key]]);
+      }
+      lineChart.render(700);
+    }
+
+    // Add buttons
+    Object.keys(state).forEach(key => {
+      if (key !== '_i') {
+        d3.select('.buttons').append('div')
+          .attr('class', 'button')
+          .text(key)
+          .on('click', () => {
+            toggle(key);
+          });
+      }
+    });
+</script>
+</body>
+</html>

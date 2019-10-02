@@ -8,7 +8,7 @@
     "url": "enysmones.com"
   },
   "homepage": "https://www.npmjs.com/package/@dalian/chart",
-  "main": "dist/dalian.chart.min.js",
+  "main": "dist/dalian.component-chart.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {

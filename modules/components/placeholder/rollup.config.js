@@ -3,21 +3,20 @@ import * as meta from './package.json'
 
 const copyright = `// ${meta.homepage} v${meta.version} Copyright ${(new Date).getFullYear()} ${meta.author.name}`
 const dependencies = {
-    '@dalian/core': 'dalian.core',
-    'd3-selection': 'd3'
+    '@dalian/core': 'dalian.core'
 }
 const lib = meta.name.split('/')[0].slice(1)
 const name = meta.name.split('/')[1].split('-')[1]
 
 export default {
     external: Object.keys(dependencies),
-    input: 'src/index.js',
+    input: meta.module,
     plugins: [
         terser({output: {preamble: copyright}})
     ],
     output: {
         globals: dependencies,
-        file: `dist/${lib}.component-${name}.min.js`,
+        file: meta.main,
         format: 'umd',
         name: `${lib}.components.${name[0].toUpperCase().concat(name.slice(1))}`,
         indent: false

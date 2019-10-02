@@ -8,7 +8,7 @@
     "url": "enysmones.com"
   },
   "homepage": "https://www.npmjs.com/package/@dalian/widget",
-  "main": "dist/dalian.widget.min.js",
+  "main": "dist/dalian.component-widget.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {

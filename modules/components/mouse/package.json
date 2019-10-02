@@ -8,7 +8,7 @@
     "url": "enysmones.com"
   },
   "homepage": "https://www.npmjs.com/package/@dalian/mouse",
-  "main": "dist/dalian.mouse.min.js",
+  "main": "dist/dalian.component-mouse.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "devDependencies": {
