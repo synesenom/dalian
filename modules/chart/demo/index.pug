@@ -3,11 +3,13 @@ html
     head
         meat(charset='utf-8')
         script(src='https://unpkg.com/d3@5.9.2/dist/d3.min.js')
+        script(src='../../core/dist/dalian.core.min.js')
         script(src='../../widget/dist/dalian.widget.min.js')
         script(src='../dist/dalian.chart.min.js')
+        script(src='demo-widget.js')
         script(src='demo.js')
         link(rel='stylesheet', type='text/css', href='style.css')
-        title @dalian/Chart
+        title @dalian/chart
         style.
             .dalian-widget {
                 box-shadow: 0 0 10px grey;
@@ -20,9 +22,11 @@ html
             .buttons
         script.
             addControls(
-                Chart('generic', 'myChart', '#widget', 'svg').render(), {
+                PlaceholderDemoWidget('myDemo', '#widget')
+                    .render(), {
                     x: [0, 100],
                     y: [0, 100],
                     width: [300, 400],
-                    height: [200, 300]
+                    height: [200, 300],
+                    placeholder: [undefined, 'This is a demo widget']
                 });

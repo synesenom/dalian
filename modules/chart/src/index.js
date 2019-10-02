@@ -1,5 +1,6 @@
 import { select } from 'd3-selection'
-import { compose, encode } from '../../utils/src/index'
+import { compose } from '../../core/src/index'
+import { encode } from '../../utils/src/index'
 import Widget from '../../widget/src/index'
 import Font from '../../font/src/index'
 import Colors from '../../colors/src/index'

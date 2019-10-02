@@ -16,6 +16,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@dalian/core@^0.0.2s":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/core/-/core-0.0.2.tgz#b05eb88640bf58298f015d0a5fca4558333aaa35"
+
 "@types/estree@*":
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"

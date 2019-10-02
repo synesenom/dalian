@@ -1,3 +1,5 @@
+import { extend } from '@dalian/core'
+
 export default (self, api) => {
   // Set default values
   self = self || {}
@@ -5,6 +7,7 @@ export default (self, api) => {
     id: `${self._widget.id}-placeholder`
   }
 
+  // Extend update with placeholder update
   const _updatePlaceholder = () => {
     if (typeof self._placeholder.elem !== 'undefined') {
       self._placeholder.elem
@@ -16,13 +19,7 @@ export default (self, api) => {
         .style(self._widget.pos.y.attr, self._widget.pos.y.value)
     }
   }
-
-  // Append update
-  let updateWidget = self._widget.update
-  self._widget.update = duration => {
-    updateWidget(duration)
-    _updatePlaceholder()
-  }
+  self._widget.update = extend(self._widget.update, _updatePlaceholder)
 
   api = api || {}
   api.placeholder = (content, duration = 700) => {

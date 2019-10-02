@@ -71,9 +71,7 @@ export default (type, name, parent, elem) => {
   }
 
   // Protected methods
-  self._widget.update = () => {
-    console.warn('Widget.update(duration) is not implemented')
-  }
+  self._widget.update = () => {}
 
   // Public API
   let api = {}

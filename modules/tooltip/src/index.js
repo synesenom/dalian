@@ -1,5 +1,6 @@
 import { easeLinear } from 'd3-ease'
 import { event, mouse, select } from 'd3-selection'
+import { extend } from '@dalian/core'
 
 // TODO Remove dependency on Widget
 export default (self, api) => {
@@ -39,6 +40,14 @@ export default (self, api) => {
         .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')
     }
   }
+
+  // Extend update method
+  const _updateTooltip = () => {
+    self._widget.container
+        .style('pointer-events', self._tooltip.on ? 'all' : null)
+        .on('mousemove', () => self._tooltip.on && self._tooltip.show());
+  }
+  self._widget.update = extend(self._widget.update, _updateTooltip);
 
   self._tooltip.createContent = () => {
     console.warn('createTooltip(mouse) is not implemented')
