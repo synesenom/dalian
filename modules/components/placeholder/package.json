@@ -1,13 +1,13 @@
 {
   "name": "@dalian/component-placeholder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Component implementing the widget placeholder functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/placeholder",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-placeholder",
   "main": "dist/dalian.component-placeholder.min.js",
   "module": "src/index.js",
   "license": "MIT",

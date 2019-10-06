@@ -1,17 +1,18 @@
 {
   "name": "@dalian/component-font",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Component implementing the font settings.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/font",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-font",
   "main": "dist/dalian.component-font.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
+    "@dalian/core": "^0.0.3",
     "@dalian/mouse": "^0.0.1",
     "@dalian/tooltip": "^0.0.1",
     "d3-selection": "^1.4.0"

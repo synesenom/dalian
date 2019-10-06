@@ -16,6 +16,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@dalian/core@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@dalian/core/-/core-0.0.3.tgz#6b142acde0bce5a9607c1c1008c86c887d8152df"
+
 "@dalian/mouse@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@dalian/mouse/-/mouse-0.0.1.tgz#6c115ca28aea1e2a40d9e09c949af1fdfcbf9c97"

@@ -1,13 +1,13 @@
 {
   "name": "@dalian/component-widget",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Component implementing a generic widget.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/widget",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-widget",
   "main": "dist/dalian.component-widget.min.js",
   "module": "src/index.js",
   "license": "MIT",

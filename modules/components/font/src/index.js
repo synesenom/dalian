@@ -1,4 +1,4 @@
-import { extend } from '../../../core/src/index'
+import { extend } from '@dalian/core'
 
 export default (self, api) => {
   // Set default values

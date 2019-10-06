@@ -7,7 +7,7 @@
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/description",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-description",
   "main": "dist/dalian.component-description.min.js",
   "module": "src/index.js",
   "license": "MIT",

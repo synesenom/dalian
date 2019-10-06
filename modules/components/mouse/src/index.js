@@ -15,21 +15,25 @@ export default (self, api) => {
 
   // Protected methods
   self._mouse.mouseover = (...args) => {
-    if (typeof self._mouse.callbacks.over !== 'undefined') {
+    if (typeof self._mouse.callbacks.over === 'function') {
       self._mouse.callbacks.over(...args)
     }
   }
 
   self._mouse.mouseleave = (...args) => {
-    if (typeof self._mouse.callbacks.leave !== 'undefined') {
+    if (typeof self._mouse.callbacks.leave === 'function') {
       self._mouse.callbacks.leave(...args)
     }
   }
 
   self._mouse.click = (...args) => {
-    if (typeof self._mouse.callbacks.click !== 'undefined') {
+    if (typeof self._mouse.callbacks.click === 'function') {
       self._mouse.callbacks.click(...args)
     }
+  }
+
+  self._mouse.isEnabled = type => {
+    return typeof self._mouse.callbacks[type] === 'function'
   }
 
   // Public API

@@ -73,22 +73,22 @@ export default (type, name, parent, elem) => {
 
     // Add widget content element
     self._widget.content = self._widget.container.append(elem)
-        .attr('id', `${self._widget.id}-content`)
-        .attr('class', `dalian-widget-content`)
-        .style('position', 'absolute')
-        .style('width', self._widget.size.width)
-        .style('height', self._widget.size.height)
-        .style('left', 0)
-        .style('top', 0)
-        .style('font-family', 'inherit')
-        .style('font-size', 'inherit')
-        .style('font-color', 'inherit')
+      .attr('id', `${self._widget.id}-content`)
+      .attr('class', `dalian-widget-content`)
+      .style('position', 'absolute')
+      .style('width', '100%')
+      .style('height', '100%')
+      .style('left', 0)
+      .style('top', 0)
+      .style('font-family', 'inherit')
+      .style('font-size', 'inherit')
+      .style('font-color', 'inherit')
   } catch (e) {
     throw Error('MissingDOMException: DOM is not present.')
   }
 
   // Protected methods
-  self._widget.update = () => {}
+  self._widget.update = () => undefined
 
   // Public API
   let api = {}
@@ -191,9 +191,9 @@ export default (type, name, parent, elem) => {
 
     // Update inner size
     self._widget.size.innerWidth = (parseInt(self._widget.size.width) -
-        self._widget.margins.left - self._widget.margins.right) + 'px'
+      self._widget.margins.left - self._widget.margins.right) + 'px'
     self._widget.size.innerHeight = (parseInt(self._widget.size.height) -
-        self._widget.margins.top - self._widget.margins.bottom) + 'px'
+      self._widget.margins.top - self._widget.margins.bottom) + 'px'
     return api
   }
 
@@ -215,11 +215,13 @@ export default (type, name, parent, elem) => {
       .style(self._widget.pos.x.attr, self._widget.pos.x.value)
       .style(self._widget.pos.y.ignore, null)
       .style(self._widget.pos.y.attr, self._widget.pos.y.value)
+      .transition().duration(duration)
       .style('width', self._widget.size.width)
       .style('height', self._widget.size.height)
-    self._widget.content
-        .style('width', self._widget.size.width)
-        .style('height', self._widget.size.height)
+    // TODO Should remove this as content size is not updated
+    /*self._widget.content
+      .style('width', self._widget.size.width)
+      .style('height', self._widget.size.height)*/
 
     // Show widget
     self._widget.container

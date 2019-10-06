@@ -16,21 +16,48 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@dalian/colors@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@dalian/colors/-/colors-0.0.1.tgz#ef31feff3c3a6849bca2c6b87f4b77a819a6c615"
+"@dalian/component-colors@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/component-colors/-/component-colors-0.0.2.tgz#cb329de10c265a37660a7608a154d1b0ee1335e4"
   dependencies:
     "@dalian/mouse" "^0.0.1"
     "@dalian/tooltip" "^0.0.1"
     d3-selection "^1.4.0"
 
-"@dalian/font@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@dalian/font/-/font-0.0.1.tgz#723187605a2e1659df5a26712d4c4e1f43419a07"
+"@dalian/component-font@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@dalian/component-font/-/component-font-0.0.4.tgz#d1dc2f31c4ef306b6a34f2ee3b9945abe97b20f2"
   dependencies:
+    "@dalian/core" "^0.0.3"
     "@dalian/mouse" "^0.0.1"
     "@dalian/tooltip" "^0.0.1"
     d3-selection "^1.4.0"
+
+"@dalian/component-mouse@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/component-mouse/-/component-mouse-0.0.2.tgz#08d2519ccd2cdc306cd28d4548ec3eb3beeb4602"
+
+"@dalian/component-tooltip@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/component-tooltip/-/component-tooltip-0.0.2.tgz#874e04d2bd0e34055a9c7ad8b377b1a8c8c5ec35"
+  dependencies:
+    "@dalian/core" "^0.0.2"
+    d3-ease "^1.0.5"
+    d3-selection "^1.4.0"
+
+"@dalian/component-widget@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/component-widget/-/component-widget-0.0.2.tgz#5019155c4470ad98c68b2b0bf1fd759df3e3d642"
+  dependencies:
+    d3-selection "^1.4.0"
+
+"@dalian/core@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dalian/core/-/core-0.0.2.tgz#b05eb88640bf58298f015d0a5fca4558333aaa35"
+
+"@dalian/core@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@dalian/core/-/core-0.0.3.tgz#6b142acde0bce5a9607c1c1008c86c887d8152df"
 
 "@dalian/mouse@^0.0.1":
   version "0.0.1"
@@ -51,12 +78,6 @@
   resolved "https://registry.yarnpkg.com/@dalian/utils/-/utils-0.0.2.tgz#9e38ea313d4c3b7bab8ec1a768e988c4a55c3238"
   dependencies:
     d3-ease "^1.0.5"
-    d3-selection "^1.4.0"
-
-"@dalian/widget@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@dalian/widget/-/widget-0.1.0.tgz#6f2f4c697779fceeb52973683b28da77f84bf059"
-  dependencies:
     d3-selection "^1.4.0"
 
 "@types/babel-types@*", "@types/babel-types@^7.0.0":

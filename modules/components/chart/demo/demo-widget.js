@@ -1,7 +1,6 @@
-const PlaceholderDemoWidget = (name, parent) => {
+const ChartDemoWidget = (name, parent) => {
     let { self, api } = dalian.core.compose(
-        dalian.Widget('demo', name, parent, 'div'),
-        dalian.Placeholder
+        dalian.components.Chart('chart', name, parent, 'div')
     )
 
     return api

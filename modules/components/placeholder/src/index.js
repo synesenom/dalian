@@ -7,23 +7,27 @@ export default (self, api) => {
     id: `${self._widget.id}-placeholder`
   }
 
-  // Extend update with placeholder update
-  const _updatePlaceholder = () => {
+  // Private methods
+  const _updatePlaceholder = duration => {
     if (typeof self._placeholder.elem !== 'undefined') {
       self._placeholder.elem
-        .style('width', self._widget.size.innerWidth)
-        .style('height', self._widget.size.innerHeight)
-        .style('color', 'inherit')
         .style('font-size', 'inherit')
+        .transition().duration(duration)
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)
+        .style('color', 'inherit')
     }
   }
+  // Extend update
   self._widget.update = extend(self._widget.update, _updatePlaceholder)
 
+  // Public methods
   api = api || {}
   api.placeholder = (content, duration = 700) => {
     // If no content provided, remove placeholder and show widget
     if (typeof content === 'undefined') {
       self._widget.content
+        .style('display', 'block')
         .transition().duration(duration)
         .style('opacity', 1)
       if (typeof self._placeholder.elem !== 'undefined' && !self._placeholder.elem.empty()) {
@@ -34,10 +38,13 @@ export default (self, api) => {
         delete self._placeholder.elem
       }
     } else {
-      // Otherwise hide widget and add placeholder
+      // Otherwise hide widget and add placeholders
       self._widget.content
         .transition().duration(duration)
         .style('opacity', 0)
+        .on('end', () => {
+          self._widget.content.style('display', 'none')
+        })
 
       // Otherwise fade out widget and add placeholder
       if (typeof self._placeholder.elem === 'undefined' || self._placeholder.elem.empty()) {
@@ -46,8 +53,8 @@ export default (self, api) => {
           .attr('class', 'dalian-placeholder')
           .style('display', 'table')
           .style('position', 'absolute')
-          .style('width', self._widget.size.innerWidth)
-          .style('height', self._widget.size.innerHeight)
+          .style('width', self._widget.size.width)
+          .style('height', self._widget.size.height)
           .style('left', 0)
           .style('top', 0)
           .style('color', 'inherit')

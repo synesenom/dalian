@@ -1,13 +1,13 @@
 {
   "name": "@dalian/component-tooltip",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Component implementing the tooltip functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/tooltip",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-tooltip",
   "main": "dist/dalian.component-tooltip.min.js",
   "module": "src/index.js",
   "license": "MIT",

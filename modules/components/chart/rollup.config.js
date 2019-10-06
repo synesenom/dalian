@@ -4,12 +4,12 @@ import * as meta from './package.json'
 const copyright = `// ${meta.homepage} v${meta.version} Copyright ${(new Date).getFullYear()} ${meta.author.name}`
 const dependencies = {
     '@dalian/core': 'dalian.core',
-    '@dalian/colors': 'dalian.Colors',
-    '@dalian/font': 'dalian.Font',
-    '@dalian/mouse': 'dalian.Mouse',
-    '@dalian/tooltip': 'dalian.Tooltip',
+    '@dalian/colors': 'dalian.components.Colors',
+    '@dalian/font': 'dalian.components.Font',
+    '@dalian/mouse': 'dalian.components.Mouse',
+    '@dalian/tooltip': 'dalian.components.Tooltip',
     '@dalian/utils': 'dalian.utils',
-    '@dalian/widget': 'dalian.Widget',
+    '@dalian/widget': 'dalian.components.Widget',
     'd3-ease': 'd3',
     'd3-selection': 'd3'
 }

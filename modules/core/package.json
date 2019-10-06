@@ -1,6 +1,6 @@
 {
   "name": "@dalian/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Core structural methods used to build the dalian library.",
   "author": {
     "name": "Enys Mones",
