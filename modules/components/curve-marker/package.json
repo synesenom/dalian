@@ -1,0 +1,32 @@
+{
+  "name": "@dalian/component-curve-marker",
+  "version": "0.0.1",
+  "description": "Component implementing the curve marker functionality.",
+  "author": {
+    "name": "Enys Mones",
+    "email": "enys.mones@gmail.com",
+    "url": "enysmones.com"
+  },
+  "homepage": "https://www.npmjs.com/package/@dalian/component-curve-marker",
+  "main": "dist/dalian.component-curve-marker.min.js",
+  "module": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@dalian/core": "^0.0.2",
+    "d3-ease": "^1.0.5",
+    "d3-selection": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^12.0.0",
+    "nodemon": "^1.19.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "standard": "^12.0.1"
+  },
+  "scripts": {
+    "standard": "./node_modules/.bin/standard --fix src/**/*.js",
+    "build": "./node_modules/.bin/rollup -c",
+    "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js",
+    "dev": "npm run watch"
+  }
+}

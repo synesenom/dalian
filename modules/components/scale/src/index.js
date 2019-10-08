@@ -8,39 +8,40 @@ import { scaleLinear, scaleBand, scalePoint } from 'd3-scale'
  * @param {string} [type = linear] Type of scale: linear.
  */
 export default (kind = 'linear', type = 'linear') => {
-  let self = {
+  // Private members
+  let _ = {
     kind,
-    type
-  }
-
-  // Add domain
-  switch (kind) {
-    default:
-    case 'linear':
-      self.scale = scaleLinear()
-      break
-    case 'band':
-      self.scale = scaleBand().padding(0.1)
-      break
-    case 'point':
-      self.scale = scalePoint().padding(0.5)
+    type,
+    scale: (() => {
+      switch (kind) {
+        default:
+        case 'linear':
+          return scaleLinear()
+        case 'band':
+          return scaleBand().padding(0.1)
+        case 'point':
+          return scalePoint().padding(0.5)
+      }
+    })()
   }
 
   let api = {
-    scale: self.scale,
+    scale: _.scale,
+
     range: (min, max) => {
-      self.scale.range([min, max])
+      _.scale.range([min, max])
       return api
     },
+
     domain: values => {
-      switch (self.kind) {
+      switch (_.kind) {
         default:
         case 'linear':
-          self.scale.domain([Math.min(...values), Math.max(...values)])
+          _.scale.domain([Math.min(...values), Math.max(...values)])
           break
         case 'band':
         case 'point':
-          self.scale.domain(values)
+          _.scale.domain(values)
           break
       }
       return api

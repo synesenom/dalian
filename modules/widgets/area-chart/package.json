@@ -1,24 +1,30 @@
 {
-  "name": "@dalian/component-detector",
-  "version": "0.0.2",
-  "description": "Component implementing the detector functionality.",
+  "name": "@dalian/widget-area-chart",
+  "version": "0.0.1",
+  "description": "The area chart widget.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/component-detector",
-  "main": "dist/dalian.component-detector.min.js",
+  "homepage": "https://www.npmjs.com/package/@dalian/widget-area-chart",
+  "main": "dist/dalian.widget-area-chart.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalian/core": "^0.0.3",
-    "d3-ease": "^1.0.5",
+    "@dalian/component-chart": "^0.1.0",
+    "d3-format": "^1.4.1",
+    "d3-array": "^2.3.2",
+    "d3-shape": "^1.3.5",
     "d3-selection": "^1.4.0"
   },
   "devDependencies": {
+    "d3-ease": "^1.0.5",
     "eslint-config-standard": "^12.0.0",
     "nodemon": "^1.19.0",
+    "node-sass": "^4.12.0",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
     "rollup": "^1.11.3",
     "rollup-plugin-terser": "^4.0.4",
     "standard": "^12.0.1"

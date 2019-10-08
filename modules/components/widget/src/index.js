@@ -24,12 +24,9 @@ import { select } from 'd3-selection'
  *
  */
 export default (type, name, parent, elem) => {
-  // Init internal variables
-  let self = {}
-  self._widget = {
+  // Private members
+  let _ = {
     parent: select(parent),
-    id: `dalian-widget-${type}-${name}`,
-    container: undefined,
     pos: {
       x: {
         attr: 'left',
@@ -42,6 +39,15 @@ export default (type, name, parent, elem) => {
         value: '0px'
       }
     },
+
+  }
+
+  // Protected members
+  let self = {}
+  self._widget = {
+    // Variables
+    id: `dalian-widget-${type}-${name}`,
+    container: undefined,
     size: {
       width: '300px',
       height: '200px',
@@ -53,11 +59,14 @@ export default (type, name, parent, elem) => {
       right: 0,
       top: 0,
       bottom: 0
-    }
+    },
+
+    // Methods
+    update: () => undefined
   }
   try {
     // Add widget container
-    self._widget.container = self._widget.parent
+    self._widget.container = _.parent
       .append('div')
       .attr('id', self._widget.id)
       .attr('class', `dalian-widget dalian-widget-${type}`)
@@ -65,8 +74,8 @@ export default (type, name, parent, elem) => {
       .style('position', 'absolute')
       .style('width', self._widget.size.width)
       .style('height', self._widget.size.height)
-      .style('left', self._widget.pos.x + 'px')
-      .style('top', self._widget.pos.y + 'px')
+      .style('left', _.pos.x + 'px')
+      .style('top', _.pos.y + 'px')
       .style('font-family', 'inherit')
       .style('font-size', 'inherit')
       .style('font-color', 'inherit')
@@ -87,147 +96,144 @@ export default (type, name, parent, elem) => {
     throw Error('MissingDOMException: DOM is not present.')
   }
 
-  // Protected methods
-  self._widget.update = () => undefined
-
   // Public API
-  let api = {}
+  let api = {
+    /**
+     * Sets the X coordinate of the widget. If negative, the widget's right side is measured from the right side of the
+     * parent, otherwise it is measured from the left side.
+     *
+     * @method x
+     * @method Widget
+     * @param {number} [value = 0] Value of the X coordinate in pixels.
+     * @returns {Widget} Reference to the widget.
+     */
+    x: (value = 0) => {
+      _.pos.x.attr = value >= 0 ? 'left' : 'right'
+      _.pos.x.ignore = value >= 0 ? 'right' : 'left'
+      _.pos.x.value = Math.abs(value) + 'px'
+      return api
+    },
 
-  /**
-   * Sets the X coordinate of the widget. If negative, the widget's right side is measured from the right side of the
-   * parent, otherwise it is measured from the left side.
-   *
-   * @method x
-   * @method Widget
-   * @param {number} [value = 0] Value of the X coordinate in pixels.
-   * @returns {Widget} Reference to the widget.
-   */
-  api.x = (value = 0) => {
-    self._widget.pos.x.attr = value >= 0 ? 'left' : 'right'
-    self._widget.pos.x.ignore = value >= 0 ? 'right' : 'left'
-    self._widget.pos.x.value = Math.abs(value) + 'px'
-    return api
-  }
+    /**
+     * Sets the Y coordinate of the widget. If negative, the widget's bottom side is measured from the bottom of the
+     * parent, otherwise the top side is measured from the top.
+     *
+     * @method y
+     * @method Widget
+     * @param {number} [value = 0] Value of the Y coordinate in pixels.
+     * @returns {Widget} Reference to the widget.
+     */
+    y: (value = 0) => {
+      _.pos.y.attr = value >= 0 ? 'top' : 'bottom'
+      _.pos.y.ignore = value >= 0 ? 'bottom' : 'top'
+      _.pos.y.value = Math.abs(value) + 'px'
+      return api
+    },
 
-  /**
-   * Sets the Y coordinate of the widget. If negative, the widget's bottom side is measured from the bottom of the
-   * parent, otherwise the top side is measured from the top.
-   *
-   * @method y
-   * @method Widget
-   * @param {number} [value = 0] Value of the Y coordinate in pixels.
-   * @returns {Widget} Reference to the widget.
-   */
-  api.y = (value = 0) => {
-    self._widget.pos.y.attr = value >= 0 ? 'top' : 'bottom'
-    self._widget.pos.y.ignore = value >= 0 ? 'bottom' : 'top'
-    self._widget.pos.y.value = Math.abs(value) + 'px'
-    return api
-  }
+    /**
+     * Sets the width of the widget (including it's margins). Also updates the inner width of the widget.
+     *
+     * @method width
+     * @method Widget
+     * @param {number} [value = 300] Width value in pixels.
+     * @returns {Widget} Reference to the widget.
+     */
+    width: (value = 300) => {
+      self._widget.size.width = value + 'px'
+      self._widget.size.innerWidth = (value - self._widget.margins.left - self._widget.margins.right) + 'px'
+      return api
+    },
 
-  /**
-   * Sets the width of the widget (including it's margins). Also updates the inner width of the widget.
-   *
-   * @method width
-   * @method Widget
-   * @param {number} [value = 300] Width value in pixels.
-   * @returns {Widget} Reference to the widget.
-   */
-  api.width = (value = 300) => {
-    self._widget.size.width = value + 'px'
-    self._widget.size.innerWidth = (value - self._widget.margins.left - self._widget.margins.right) + 'px'
-    return api
-  }
+    /**
+     * Sets the height of the widget (including it's margins). Also updates the inner height of the widget.
+     *
+     * @method height
+     * @methodOf Widget
+     * @param {number} [value = 200] Height value in pixels.
+     * @returns {Widget} Reference to the widget.
+     */
+    height: (value = 200) => {
+      self._widget.size.height = value + 'px'
+      self._widget.size.innerHeight = (value - self._widget.margins.top - self._widget.margins.bottom) + 'px'
+      return api
+    },
 
-  /**
-   * Sets the height of the widget (including it's margins). Also updates the inner height of the widget.
-   *
-   * @method height
-   * @methodOf Widget
-   * @param {number} [value = 200] Height value in pixels.
-   * @returns {Widget} Reference to the widget.
-   */
-  api.height = (value = 200) => {
-    self._widget.size.height = value + 'px'
-    self._widget.size.innerHeight = (value - self._widget.margins.top - self._widget.margins.bottom) + 'px'
-    return api
-  }
+    /**
+     * Sets widget margins in pixels. Note that margins are included in width and thus height and effectively shrink the
+     * plotting area.
+     *
+     * @method margins
+     * @methodOf Widget
+     * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
+     * sides.
+     * @returns {Widget} Reference to the widget.
+     */
+    margins: margins => {
+      switch (typeof margins) {
+        case 'undefined':
+        default:
+          self._widget.margins = {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+          }
+          break
+        case 'number':
+          // Single value for each side
+          self._widget.margins = {
+            left: margins,
+            right: margins,
+            top: margins,
+            bottom: margins
+          }
+          break
+        case 'object':
+          // Update specified values
+          self._widget.margins = Object.assign(self._widget.margins, margins)
+          break
+      }
 
-  /**
-   * Sets widget margins in pixels. Note that margins are included in width and thus height and effectively shrink the
-   * plotting area.
-   *
-   * @method margins
-   * @methodOf Widget
-   * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
-   * sides.
-   * @returns {Widget} Reference to the widget.
-   */
-  api.margins = margins => {
-    switch (typeof margins) {
-      case 'undefined':
-      default:
-        self._widget.margins = {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0
-        }
-        break
-      case 'number':
-        // Single value for each side
-        self._widget.margins = {
-          left: margins,
-          right: margins,
-          top: margins,
-          bottom: margins
-        }
-        break
-      case 'object':
-        // Update specified values
-        self._widget.margins = Object.assign(self._widget.margins, margins)
-        break
+      // Update inner size
+      self._widget.size.innerWidth = (parseInt(self._widget.size.width) -
+        self._widget.margins.left - self._widget.margins.right) + 'px'
+      self._widget.size.innerHeight = (parseInt(self._widget.size.height) -
+        self._widget.margins.top - self._widget.margins.bottom) + 'px'
+      return api
+    },
+
+    /**
+     * Renders and updates the widget. After any change to the widget, the render method should be called.
+     *
+     * @method render
+     * @methodOf Widget
+     * @param {number} [duration = 700] Duration of the rendering animation in ms.
+     * @returns {Widget} Reference to the widget.
+     */
+    render: duration => {
+      // Update widget first
+      self._widget.update(duration)
+
+      // Update container and content
+      self._widget.container
+        .transition().duration(duration)
+        .style(_.pos.x.ignore, null)
+        .style(_.pos.x.attr, _.pos.x.value)
+        .style(_.pos.y.ignore, null)
+        .style(_.pos.y.attr, _.pos.y.value)
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)
+      // TODO Should remove this as content size is not updated
+      /*self._widget.content
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)*/
+
+      // Show widget
+      self._widget.container
+        .style('display', 'block')
+
+      return api
     }
-
-    // Update inner size
-    self._widget.size.innerWidth = (parseInt(self._widget.size.width) -
-      self._widget.margins.left - self._widget.margins.right) + 'px'
-    self._widget.size.innerHeight = (parseInt(self._widget.size.height) -
-      self._widget.margins.top - self._widget.margins.bottom) + 'px'
-    return api
-  }
-
-  /**
-   * Renders and updates the widget. After any change to the widget, the render method should be called.
-   *
-   * @method render
-   * @methodOf Widget
-   * @param {number} [duration = 700] Duration of the rendering animation in ms.
-   * @returns {Widget} Reference to the widget.
-   */
-  api.render = duration => {
-    // Update widget first
-    self._widget.update(duration)
-
-    // Update container and content
-    self._widget.container
-      .style(self._widget.pos.x.ignore, null)
-      .style(self._widget.pos.x.attr, self._widget.pos.x.value)
-      .style(self._widget.pos.y.ignore, null)
-      .style(self._widget.pos.y.attr, self._widget.pos.y.value)
-      .transition().duration(duration)
-      .style('width', self._widget.size.width)
-      .style('height', self._widget.size.height)
-    // TODO Should remove this as content size is not updated
-    /*self._widget.content
-      .style('width', self._widget.size.width)
-      .style('height', self._widget.size.height)*/
-
-    // Show widget
-    self._widget.container
-      .style('display', 'block')
-
-    return api
   }
 
   return { self, api }

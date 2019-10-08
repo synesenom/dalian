@@ -5,44 +5,40 @@ html
         script(src='../../../../demo/lib/d3.v5.min.js')
         script(src='../../../core/dist/dalian.core.min.js')
         script(src='../../../components/chart/dist/dalian.component-chart.min.js')
-        script(src='../dist/dalian.widget-line-chart.min.js')
+        script(src='../dist/dalian.widget-area-chart.min.js')
         script(src='demo.js')
         link(rel='stylesheet', type='text/css', href='style.css')
-        title @dalian/widget-line-chart
+        title @dalian/widget-area-chart
     body
         #widget
         #controls
             .title Controls
             .buttons
         script.
-            let lineChart
+            let areaChart
             addControls(
-                lineChart = dalian.widgets.LineChart('myDemo', '#widget')
+                areaChart = dalian.widgets.AreaChart('myDemo', '#widget')
                     .margins(40)
                     .data([{
                       name: 'apples',
                       values: Array.from({ length: 20 }, (d, i) => ({
                         x: i,
-                        y: Math.exp(i / 10) / 10 + 0.3,
-                        lo: 0.1,
-                        hi: 0.1
+                        y: Math.exp(i / 10) / 10 + 0.3
                       }))
                     }, {
                       name: 'oranges',
                       values: Array.from({ length: 20 }, (d, i) => ({
                         x: i,
-                        y: Math.sin(i * 200 + 0.6) / 8 + 0.6,
-                        lo: 0.1,
-                        hi: 0.05
+                        y: Math.sin(i * 200 + 0.6) / 8 + 0.6
                       }))
                     }])
                     .xLabel('days')
                     .yLabel('price [USD]')
                     .mouseover(k => {
-                        lineChart.highlight(k.name, 300)
+                        areaChart.highlight(k.name, 300)
                     })
                       .mouseleave(() => {
-                        lineChart.highlight(null, 300)
+                        areaChart.highlight(null, 300)
                       })
                     .tooltip(true)
                     .render(), {
@@ -54,17 +50,13 @@ html
                       name: 'apples',
                       values: Array.from({ length: 20 }, (d, i) => ({
                         x: i,
-                        y: Math.exp(i / 10) / 10 + 0.3,
-                        lo: 0.1,
-                        hi: 0.1
+                        y: Math.exp(i / 10) / 10 + 0.3
                       }))
                     }, {
                       name: 'oranges',
                       values: Array.from({ length: 20 }, (d, i) => ({
                         x: i,
-                        y: Math.sin(i * 200 + 0.6) / 8 + 0.6,
-                        lo: 0.1,
-                        hi: 0.05
+                        y: Math.sin(i * 200 + 0.6) / 8 + 0.6
                       }))
                     }], [{
                       name: 'apples',
@@ -81,22 +73,10 @@ html
                         hi: 0.4
                       }))
                     }]],
-                    smoothing: [false, true],
-                    lineStyles: ['solid', {
-                      apples: 'dashed',
-                      oranges: 'dotted'
-                    }],
+                    smooth: [false, true],
                     xLabel: ['days', 'weeks'],
                     yLabel: ['price [USD]', 'quantity'],
                     xTickFormat: [undefined, x => `week ${x}`],
                     yTickFormat: [undefined, x => x.toFixed(2)],
                     placeholder: [undefined, 'This is a demo widget']
                 });
-
-                setTimeout(() => {
-                  lineChart.addMarker('marker', 'apples', 5, 15, 'This is a marker', 700)
-                }, 100)
-
-                setTimeout(() => {
-                  //lineChart.removeMarker('marker')
-                }, 1000)

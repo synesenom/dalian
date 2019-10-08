@@ -7,73 +7,76 @@
  * @returns {{self: Object, api: Object}} Object representing the extension of the private and public methods.
  */
 export default (self, api) => {
-  // Set default values
-  self = self || {}
-  self._mouse = {
+  // Private members
+  let _ = {
     callbacks: {}
   }
 
-  // Protected methods
-  self._mouse.mouseover = (...args) => {
-    if (typeof self._mouse.callbacks.over === 'function') {
-      self._mouse.callbacks.over(...args)
-    }
-  }
+  // Protected members
+  self = Object.assign(self, {
+    _mouse: {
+      mouseover: (...args) => {
+        if (typeof _.callbacks.over === 'function') {
+          _.callbacks.over(...args)
+        }
+      },
 
-  self._mouse.mouseleave = (...args) => {
-    if (typeof self._mouse.callbacks.leave === 'function') {
-      self._mouse.callbacks.leave(...args)
-    }
-  }
+      mouseleave: (...args) => {
+        if (typeof _.callbacks.leave === 'function') {
+          _.callbacks.leave(...args)
+        }
+      },
 
-  self._mouse.click = (...args) => {
-    if (typeof self._mouse.callbacks.click === 'function') {
-      self._mouse.callbacks.click(...args)
-    }
-  }
+      click: (...args) => {
+        if (typeof _.callbacks.click === 'function') {
+          _.callbacks.click(...args)
+        }
+      },
 
-  self._mouse.isEnabled = type => {
-    return typeof self._mouse.callbacks[type] === 'function'
-  }
+      isEnabled: type => {
+        return typeof _.callbacks[type] === 'function'
+      }
+    }
+  })
 
   // Public API
-  api = api || {}
+  api = Object.assign(api, {
+    /**
+     * Sets the callback for the mouseover event.
+     *
+     * @method mouseover
+     * @param {Function} callback Function to call on mouseover.
+     * @returns {Object} Reference to the current API.
+     */
+    mouseover: callback => {
+      _.callbacks.over = callback
+      return api
+    },
 
-  /**
-   * Sets the callback for the mouseover event.
-   *
-   * @method mouseover
-   * @param {Function} callback Function to call on mouseover.
-   * @returns {Object} Reference to the current API.
-   */
-  api.mouseover = callback => {
-    self._mouse.callbacks.over = callback
-    return api
-  }
+    /**
+     * Sets the callback for the mouseleave event.
+     *
+     * @method mouseleave
+     * @param {Function} callback Function to call on mouseleave.
+     * @returns {Object} Reference to the current API.
+     */
+    mouseleave: callback => {
+      _.callbacks.leave = callback
+      return api
+    },
 
-  /**
-   * Sets the callback for the mouseleave event.
-   *
-   * @method mouseleave
-   * @param {Function} callback Function to call on mouseleave.
-   * @returns {Object} Reference to the current API.
-   */
-  api.mouseleave = callback => {
-    self._mouse.callbacks.leave = callback
-    return api
-  }
-
-  /**
-   * Sets the callback for the click event.
-   *
-   * @method click
-   * @param {Function} callback Function to call on click.
-   * @returns {Object} Reference to the current API.
-   */
-  api.click = callback => {
-    self._mouse.callbacks.click = callback
-    return api
-  }
+    /**
+     * Sets the callback for the click event.
+     *
+     * @method click
+     * @param {Function} callback Function to call on click.
+     * @returns {Object} Reference to the current API.
+     */
+    click: callback => {
+      _.callbacks.click = callback
+      return api
+    }
+  })
 
   return { self, api }
 }

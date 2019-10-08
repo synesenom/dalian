@@ -7,7 +7,7 @@ const TooltipDemoWidget = (name, parent) => {
 
     // Tooltip content
     self._tooltip.createContent = () => {
-        return `<div>Just a tooltip.</div>`
+        return `<div style="padding:5px">Just a tooltip.</div>`
     };
 
     // Define mouse events

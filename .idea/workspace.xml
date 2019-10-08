@@ -1,101 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Demo added to the tooltip component">
-      <change afterPath="$PROJECT_DIR$/demo/lib/d3.v5.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/rollup.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/line-styles/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/line-styles/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/line-styles/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/line-styles/rollup.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/line-styles/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/scale/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/scale/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/scale/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/scale/rollup.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/scale/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/demo-widget.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/demo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/rollup.config.template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dalian-es6.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dalian-es6.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Animation added to widget size changes">
+      <change afterPath="$PROJECT_DIR$/modules/components/curve-marker/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/curve-marker/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/curve-marker/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/curve-marker/rollup.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/curve-marker/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/smoothing/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/smoothing/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/smoothing/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/components/smoothing/rollup.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/demo/demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/demo/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/demo/index.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/demo/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/demo/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/rollup.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/area-chart/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/demo/demo-widget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/demo/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/dist/dalian.chart.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/dist/dalian.component-chart.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/demo/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/colors/dist/dalian.colors.min.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/colors/dist/dalian.component-colors.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/dist/dalian.component-colors.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/colors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/demo/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/description/dist/dalian.description.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/description/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/dist/dalian.component-description.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/dist/dalian.component-description.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/font/dist/dalian.component-font.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/dist/dalian.component-font.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/dist/dalian.font.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/rollup.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/font/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-styles/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/line-styles/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/mouse/dist/dalian.component-mouse.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/dist/dalian.component-mouse.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/mouse/dist/dalian.mouse.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/mouse/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/mouse/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/demo/index.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/placeholder/dist/dalian.component-placeholder.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/dist/dalian.component-placeholder.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/dist/dalian.placeholder.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/scale/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/scale/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/demo-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/demo/demo-widget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/dist/dalian.component-tooltip.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/dist/dalian.component-tooltip.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/tooltip/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/widget/dist/dalian.component-widget.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/dist/dalian.component-widget.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/widget/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/core/dist/dalian.core.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/core/dist/dalian.core.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/core/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/core/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/.eslintrc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/dist/dalian.flow-chart.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/example.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/src/flow-chart-edge.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/src/flow-chart-node.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/src/flow-chart.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/src/vector2d.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/flow-chart/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/.npmignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/dist/dalian.line-chart.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/docs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +86,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.10.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/widgets/line-chart/demo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/components/smoothing" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -145,18 +96,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/demo" />
-      <recent name="$PROJECT_DIR$/modules/components/line-styles" />
-      <recent name="$PROJECT_DIR$/modules/widgets" />
-      <recent name="$PROJECT_DIR$/modules/widgets/line-chart" />
-      <recent name="$PROJECT_DIR$/modules/components/axis" />
+      <recent name="$PROJECT_DIR$/modules/components/smoothing" />
+      <recent name="$PROJECT_DIR$/modules/components/format" />
+      <recent name="$PROJECT_DIR$/modules/components/detector" />
+      <recent name="$PROJECT_DIR$/modules/components/curve-marker" />
+      <recent name="$PROJECT_DIR$/modules/widgets/area-chart" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/components/curve-marker/src" />
+      <recent name="$PROJECT_DIR$/modules/components/curve-marker" />
       <recent name="$PROJECT_DIR$/modules/widgets" />
       <recent name="$PROJECT_DIR$/modules/components" />
       <recent name="$PROJECT_DIR$/modules/core/src" />
-      <recent name="$PROJECT_DIR$/modules/widget/demo" />
-      <recent name="$PROJECT_DIR$/modules/font/src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -235,7 +186,7 @@
       <workItem from="1569966088535" duration="1427000" />
       <workItem from="1569998354246" duration="16257000" />
       <workItem from="1570083389909" duration="14240000" />
-      <workItem from="1570377235321" duration="7101000" />
+      <workItem from="1570377235321" duration="28822000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -272,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570048816765</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Animation added to widget size changes">
+      <created>1570401676168</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1570401676168</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +255,7 @@
     <MESSAGE value="Widget and placeholder improved, demo added to font" />
     <MESSAGE value="Demo added to colors component" />
     <MESSAGE value="Demo added to the tooltip component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Demo added to the tooltip component" />
+    <MESSAGE value="Animation added to widget size changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Animation added to widget size changes" />
   </component>
 </project>
