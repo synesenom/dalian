@@ -71,9 +71,11 @@ export default (name, type, self) => {
         .style('width', self._widget.size.innerWidth)
         .style('height', self._widget.size.innerHeight)
         .style('pointer-events', 'all')
+        .style('font-family', 'inherit')
 
       // Update axis
-      _.axis.transition().duration(duration)
+      _.axis.style('font-family', 'inherit')
+        .transition().duration(duration)
         .call(_.fn)
 
       // Update label

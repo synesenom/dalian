@@ -5,8 +5,8 @@ const TooltipDemoWidget = (name, parent) => {
         dalian.components.Tooltip
     );
 
-    // Tooltip content
-    self._tooltip.createContent = () => {
+    // BaseTooltip content
+    self._tooltip.content = () => {
         return `<div style="padding:5px">Just a tooltip.</div>`
     };
 

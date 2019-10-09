@@ -30,7 +30,7 @@ export default (name, parent) => {
   }
 
   // Protected
-  self._tooltip.createContent = () => {
+  self._tooltip.builder = () => {
     // TODO
     return 'Hello world!'
   }

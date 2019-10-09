@@ -1,14 +1,14 @@
 {
-  "name": "@dalian/component-line-styles",
-  "version": "0.0.2",
-  "description": "Component implementing the line style policy functionality.",
+  "name": "@dalian/component-line-style",
+  "version": "0.0.1",
+  "description": "Component implementing the line style functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/component-line-styles",
-  "main": "dist/dalian.component-line-styles.min.js",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-line-style",
+  "main": "dist/dalian.component-line-style.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "devDependencies": {

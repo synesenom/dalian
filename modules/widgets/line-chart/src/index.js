@@ -7,8 +7,10 @@ import Chart from '../../../components/chart/src/index'
 import Scale from '../../../components/scale/src/index'
 import Axis from '../../../components/axis/src/index'
 import Smoothing from '../../../components/smoothing/src/index'
-import LineStyles from '../../../components/line-styles/src/index'
+import LineStyle from '../../../components/line-style/src/index'
 import CurveMarker from '../../../components/curve-marker/src/index'
+import { PointTooltip } from '../../../components/tooltip/src/index'
+import Highlight from '../../../components/highlight/src/index'
 
 /**
  * The line chart widget.
@@ -21,9 +23,11 @@ export default (name, parent = 'body') => {
   // Build widget from components
   let { self, api } = compose(
     Chart('line-chart', name, parent, 'svg'),
-    LineStyles,
+    LineStyle,
     CurveMarker,
-    Smoothing
+    Smoothing,
+    PointTooltip,
+    Highlight
   )
 
   // Private members
@@ -39,6 +43,7 @@ export default (name, parent = 'body') => {
     },
     paths: new Map(),
     // TODO Make markers a component
+    // TODO Make marker animation better when data is changing
     markers: new Map(),
 
     // Methods
@@ -181,8 +186,9 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Protected members
-  // TODO (there should not be any, since this is a final widget)
+  // Overrides
+  self._highlight.container = self._chart.plots
+  self._highlight.selectors = ['.line', '.error-band', '.tooltip-marker', '.marker']
 
   self._lineChart = {
     // TODO Make label a component
@@ -200,9 +206,8 @@ export default (name, parent = 'body') => {
   // TODO Don't mix tooltip behavior with markers
   // TODO Create getXY method for obtaining plot coordinates of mouse
   // Extend inherited method
-  self._chart.tooltipContent = mouse => {
+  self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
-
       self._curveMarker.remove()
       return
     }
@@ -251,8 +256,6 @@ export default (name, parent = 'body') => {
     }
   }
 
-  self._chart.plotSelectors = ['.line', '.error-band', '.tooltip-marker', '.marker']
-
   self._chart.transformData = data => {
     return data.map(d => ({
       name: d.name,
@@ -283,38 +286,38 @@ export default (name, parent = 'body') => {
         .attr('class', 'marker ' + encode(key))
       g.append('line')
         .attr('class', 'horizontal')
-        .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)) + 2)
+        .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))
         .attr('y1', scaleY(pos.corner.y))
-        .attr('x2', scaleX(Math.min(pos.end.x, pos.end.x)) + 2)
+        .attr('x2', scaleX(Math.min(pos.end.x, pos.end.x)))
         .attr('y2', scaleY(pos.corner.y))
         .style('stroke', self._colors.mapping(key))
         .style('stroke-dasharray', '3 3')
         .style('stroke-width', 1)
       g.append('line')
         .attr('class', 'vertical')
-        .attr('x1', scaleX(pos.corner.x) + 2)
+        .attr('x1', scaleX(pos.corner.x))
         .attr('y1', scaleY(pos.start.y))
-        .attr('x2', scaleX(pos.corner.x) + 2)
+        .attr('x2', scaleX(pos.corner.x))
         .attr('y2', scaleY(pos.end.y))
         .style('stroke', self._colors.mapping(key))
         .style('stroke-dasharray', '3 3')
         .style('stroke-width', 1)
       g.append('circle')
         .attr('class', 'start')
-        .attr('cx', scaleX(pos.start.x) + 2)
+        .attr('cx', scaleX(pos.start.x))
         .attr('cy', scaleY(pos.start.y))
         .attr('r', 4)
         .style('stroke', 'none')
         .style('fill', self._colors.mapping(key))
       g.append('circle')
         .attr('class', 'end')
-        .attr('cx', scaleX(pos.end.x) + 2)
+        .attr('cx', scaleX(pos.end.x))
         .attr('cy', scaleY(pos.end.y))
         .attr('r', 4)
         .style('stroke', 'none')
         .style('fill', self._colors.mapping(key))
       g.append('text')
-        .attr('x', scaleX(pos.corner.x) + 2)
+        .attr('x', scaleX(pos.corner.x))
         .attr('y', scaleY(pos.corner.y))
         .attr('dy', -5)
         .attr('text-anchor', pos.start.y < pos.end.y ? 'start' : 'end')
@@ -337,33 +340,33 @@ export default (name, parent = 'body') => {
           let pos = _.adjustMarker(key, start, end)
           g.select('.horizontal')
             .transition().duration(duration)
-            .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)) + 2)
+            .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))
             .attr('y1', scaleY(pos.corner.y))
-            .attr('x2', scaleX(Math.min(pos.end.x, pos.end.x)) + 2)
+            .attr('x2', scaleX(Math.min(pos.end.x, pos.end.x)))
             .attr('y2', scaleY(pos.corner.y))
             .style('stroke', self._colors.mapping(key))
           g.select('.vertical')
             .transition().duration(duration)
-            .attr('x1', scaleX(pos.corner.x) + 2)
+            .attr('x1', scaleX(pos.corner.x))
             .attr('y1', scaleY(pos.start.y))
-            .attr('x2', scaleX(pos.corner.x) + 2)
+            .attr('x2', scaleX(pos.corner.x))
             .attr('y2', scaleY(pos.end.y))
             .style('stroke', self._colors.mapping(key))
           g.select('.start')
             .transition().duration(duration)
-            .attr('cx', scaleX(pos.start.x) + 2)
+            .attr('cx', scaleX(pos.start.x))
             .attr('cy', scaleY(pos.start.y))
             .style('fill', self._colors.mapping(key))
           g.select('.end')
             .transition().duration(duration)
-            .attr('cx', scaleX(pos.end.x) + 2)
+            .attr('cx', scaleX(pos.end.x))
             .attr('cy', scaleY(pos.end.y))
             .style('fill', self._colors.mapping(key))
           g.select('text')
             .style('font-size', self._font.size)
             .style('fill', self._font.color)
             .attr('text-anchor', pos.start.y < pos.end.y ? 'start' : 'end')
-            .attr('x', scaleX(pos.corner.x) + 2)
+            .attr('x', scaleX(pos.corner.x))
             .transition().duration(duration)
             .attr('y', scaleY(pos.corner.y))
         }

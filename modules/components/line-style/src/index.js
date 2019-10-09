@@ -1,7 +1,7 @@
 /**
  * Component implementing line style features.
  *
- * @class LineStyles
+ * @class LineStyle
  * @param {Object} self Object containing the protected variables and methods.
  * @param {Object} api Object containing the public API methods.
  * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
@@ -33,7 +33,7 @@ export default (self, api) => {
        * Returns the stroke dasharray CSS property value for a specific key.
        *
        * @method strokeDashArray
-       * @methodOf LineStyles
+       * @methodOf LineStyle
        * @param {string} key Key to return stroke dasharray for.
        * @returns {(null | string)} The stroke dasharray value if policy is defined by a string or an object, null
        * otherwise (no stroke dasharray).
@@ -57,7 +57,7 @@ export default (self, api) => {
        * Returns the style for a specific key.
        *
        * @method style
-       * @methodOf LineStyles
+       * @methodOf LineStyle
        * @param {string} key Key to return style for.
        * @returns {string} The style associated with the key.
        * @protected
@@ -79,7 +79,7 @@ export default (self, api) => {
        * Returns the background CSS property value for a specific line style.
        *
        * @method background
-       * @methodOf LinkStyles
+       * @methodOf LinkStyle
        * @param {string} lineStyle Line style to return background pattern for.
        * @param {string} color Color to use for the background pattern.
        * @returns {string} The background CSS property value.
@@ -107,11 +107,11 @@ export default (self, api) => {
      * styles.
      *
      * @method lineStyle
-     * @methodOf LineStyles
+     * @methodOf LineStyle
      * @param {(string | Object)} [policy] Policy to set line styles to.
      * @returns {Object} Reference to the current component's public API.
      */
-    lineStyles: policy => {
+    lineStyle: policy => {
       _.policy = policy
       return api
     }
