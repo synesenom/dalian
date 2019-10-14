@@ -1,14 +1,14 @@
 {
-  "name": "@dalian/component-curve-marker",
+  "name": "@dalian/component-plot-marker",
   "version": "0.0.1",
-  "description": "Component implementing the curve marker functionality.",
+  "description": "Component implementing the plot marker functionality.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/component-curve-marker",
-  "main": "dist/dalian.component-curve-marker.min.js",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-plot-marker",
+  "main": "dist/dalian.component-plot-marker.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {

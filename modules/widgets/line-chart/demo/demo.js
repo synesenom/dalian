@@ -34,3 +34,11 @@ function toggle (key, widget) {
   widget[key](state[key][state._i[key]]);
   widget.render(700);
 }
+
+function special (key, callback) {
+  d3.select('.buttons').append('div')
+    .attr('id', key)
+    .attr('class', 'button')
+    .text(key)
+    .on('click', callback);
+}

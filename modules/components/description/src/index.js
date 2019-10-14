@@ -39,7 +39,7 @@ export default (self, api) => {
   }
 
   // Public API
-  api = Object.assign(api, {
+  api = Object.assign(api || {}, {
     description: content => {
       // If content is empty, disable description
       if (typeof content === 'undefined') {

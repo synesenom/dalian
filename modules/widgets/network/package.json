@@ -1,26 +1,20 @@
 {
-  "name": "@dalian/component-chart",
-  "version": "0.1.0",
-  "description": "Component implementing a generic chart.",
+  "name": "@dalian/component-widget",
+  "version": "0.0.2",
+  "description": "Component implementing a generic widget.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/component-chart",
-  "main": "dist/dalian.component-chart.min.js",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-widget",
+  "main": "dist/dalian.component-widget.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalian/component-colors": "^0.0.2",
-    "@dalian/core": "^0.0.3",
-    "@dalian/component-font": "^0.0.4",
-    "@dalian/component-mouse": "^0.0.2",
-    "@dalian/component-placeholder": "^0.0.3",
-    "@dalian/component-widget": "^0.0.2"
+    "d3-selection": "^1.4.0"
   },
   "devDependencies": {
-    "d3-ease": "^1.0.5",
     "eslint-config-standard": "^12.0.0",
     "nodemon": "^1.19.0",
     "node-sass": "^4.12.0",

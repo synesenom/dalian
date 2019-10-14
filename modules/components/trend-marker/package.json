@@ -1,14 +1,14 @@
 {
-  "name": "@dalian/component-marker",
+  "name": "@dalian/component-trend-marker",
   "version": "0.0.1",
-  "description": "Component implementing the marker feature.",
+  "description": "Component implementing the trend marker feature.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
     "url": "enysmones.com"
   },
-  "homepage": "https://www.npmjs.com/package/@dalian/component-marker",
-  "main": "dist/dalian.component-marker.min.js",
+  "homepage": "https://www.npmjs.com/package/@dalian/component-trend-marker",
+  "main": "dist/dalian.component-trend-marker.min.js",
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {

@@ -4,26 +4,23 @@ export default (self, api) => {
   // Private members
   let _ = {
     // Variables
-    id: `${self._widget.id}-placeholder`,
-
-    // Methods
-    updatePlaceholder: duration => {
-      if (typeof _.elem !== 'undefined') {
-        _.elem
-          .style('font-size', 'inherit')
-          .transition().duration(duration)
-          .style('width', self._widget.size.width)
-          .style('height', self._widget.size.height)
-          .style('color', 'inherit')
-      }
-    }
+    id: `${self._widget.id}-placeholder`
   }
 
   // Extend update
-  self._widget.update = extend(self._widget.update, _.updatePlaceholder)
+  self._widget.update = extend(self._widget.update, duration => {
+    if (typeof _.elem !== 'undefined') {
+      _.elem
+        .style('font-size', 'inherit')
+        .transition().duration(duration)
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)
+        .style('color', 'inherit')
+    }
+  })
 
   // Public methods
-  api = Object.assign(api, {
+  api = Object.assign(api || {}, {
     placeholder: (content, duration = 700) => {
       // If no content provided, remove placeholder and show widget
       if (typeof content === 'undefined') {
@@ -31,6 +28,7 @@ export default (self, api) => {
           .style('display', 'block')
           .transition().duration(duration)
           .style('opacity', 1)
+        self._widget.disable(false)
         if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
           _.elem
             .transition().duration(duration)
@@ -46,6 +44,7 @@ export default (self, api) => {
           .on('end', () => {
             self._widget.content.style('display', 'none')
           })
+        self._widget.disable(true)
 
         // Otherwise fade out widget and add placeholder
         if (typeof _.elem === 'undefined' || _.elem.empty()) {

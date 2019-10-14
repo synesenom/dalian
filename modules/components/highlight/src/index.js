@@ -1,6 +1,14 @@
 import { select } from 'd3-selection'
 import { encode } from '../../../core/src/index'
 
+/**
+ * Component implementing the highlight feature.
+ *
+ * @class Highlight
+ * @param {Object} self Object containing the protected variables and methods.
+ * @param {Object} api Object containing the public API methods.
+ * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
+ */
 export default (self, api) => {
   // Private members
   let _ = {
@@ -17,39 +25,38 @@ export default (self, api) => {
      * @private
      */
     highlightSelection: (selector, keys, duration) => {
-      // TODO If currently animated, don't highlight
-      /*if (_.transition) {
+      if (self._widget.transition) {
         return
-      }*/
+      }
 
       // Stop current transitions
-      let elems = self._highlight.container.selectAll(selector)
-      elems.transition()
+      let selection = self._highlight.container.selectAll(selector)
+      selection.transition()
 
       // Perform highlight
       if (typeof keys === 'string') {
         // Single key
-        elems.transition().duration(duration)
+        selection.transition().duration(duration)
           .style('opacity', function () {
             return select(this).classed(encode(keys)) ? 1 : 0.1
           })
       } else if (Array.isArray(keys)) {
         // Multiple keys
         let keys = keys.map(d => encode(d))
-        elems.transition().duration(duration)
+        selection.transition().duration(duration)
           .style('opacity', function () {
             let elem = select(this)
             return keys.reduce((s, d) => s || elem.classed(d), false) ? 1 : 0.1
           })
       } else {
         // Remove highlight
-        elems.transition().duration(duration || 0)
+        selection.transition().duration(duration || 0)
           .style('opacity', 1)
       }
     }
   }
 
-  // Protected methods
+  // Protected members
   self = Object.assign(self || {}, {
     _highlight: {
       container: undefined,

@@ -14,13 +14,13 @@ import { select } from 'd3-selection'
  * @example
  *
  * // Create an SVG widget and append it to the body as an SVG
- * let chart1 = new Widget('fancy-chart-type', 'chart-1')
+ * let chart1 = Widget('fancy-chart-type', 'chart-1')
  *
  * // Create an SVG widget and append it to a div selected by it's id
- * let chart2 = new Widget('fancy-chart-type', 'chart-2', '#container')
+ * let chart2 = Widget('fancy-chart-type', 'chart-2', '#container')
  *
  * // Create a DIV widget an append it to the first div selected by class
- * let chart3 = new Widget('fancy-chart-type', 'chart-3', '.container', 'div')
+ * let chart3 = Widget('fancy-chart-type', 'chart-3', '.container', 'div')
  *
  */
 export default (type, name, parent, elem) => {
@@ -38,8 +38,7 @@ export default (type, name, parent, elem) => {
         ignore: 'bottom',
         value: '0px'
       }
-    },
-
+    }
   }
 
   // Protected members
@@ -60,9 +59,27 @@ export default (type, name, parent, elem) => {
       top: 0,
       bottom: 0
     },
+    transition: false,
+    disabled: false,
 
     // Methods
-    update: () => undefined
+    update: duration => {
+      // Update container and content
+      self._widget.container
+        .transition().duration(duration)
+        .style(_.pos.x.ignore, null)
+        .style(_.pos.x.attr, _.pos.x.value)
+        .style(_.pos.y.ignore, null)
+        .style(_.pos.y.attr, _.pos.y.value)
+        .style('width', self._widget.size.width)
+        .style('height', self._widget.size.height)
+
+      // Show widget
+      self._widget.container
+        .style('display', 'block')
+    },
+
+    disable: on => self._widget.disabled = on
   }
   try {
     // Add widget container
@@ -105,7 +122,7 @@ export default (type, name, parent, elem) => {
      * @method x
      * @method Widget
      * @param {number} [value = 0] Value of the X coordinate in pixels.
-     * @returns {Widget} Reference to the widget.
+     * @returns {Object} Reference to the Widget API.
      */
     x: (value = 0) => {
       _.pos.x.attr = value >= 0 ? 'left' : 'right'
@@ -121,7 +138,7 @@ export default (type, name, parent, elem) => {
      * @method y
      * @method Widget
      * @param {number} [value = 0] Value of the Y coordinate in pixels.
-     * @returns {Widget} Reference to the widget.
+     * @returns {Object} Reference to the Widget API.
      */
     y: (value = 0) => {
       _.pos.y.attr = value >= 0 ? 'top' : 'bottom'
@@ -136,7 +153,7 @@ export default (type, name, parent, elem) => {
      * @method width
      * @method Widget
      * @param {number} [value = 300] Width value in pixels.
-     * @returns {Widget} Reference to the widget.
+     * @returns {Object} Reference to the Widget API.
      */
     width: (value = 300) => {
       self._widget.size.width = value + 'px'
@@ -150,7 +167,7 @@ export default (type, name, parent, elem) => {
      * @method height
      * @methodOf Widget
      * @param {number} [value = 200] Height value in pixels.
-     * @returns {Widget} Reference to the widget.
+     * @returns {Object} Reference to the Widget API.
      */
     height: (value = 200) => {
       self._widget.size.height = value + 'px'
@@ -166,7 +183,7 @@ export default (type, name, parent, elem) => {
      * @methodOf Widget
      * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
      * sides.
-     * @returns {Widget} Reference to the widget.
+     * @returns {Object} Reference to the Widget API.
      */
     margins: margins => {
       switch (typeof margins) {
@@ -208,30 +225,10 @@ export default (type, name, parent, elem) => {
      * @method render
      * @methodOf Widget
      * @param {number} [duration = 700] Duration of the rendering animation in ms.
-     * @returns {Widget} Reference to the widget.
+     * @returns {Object} Reference to the Widget API.
      */
     render: duration => {
-      // Update widget first
       self._widget.update(duration)
-
-      // Update container and content
-      self._widget.container
-        .transition().duration(duration)
-        .style(_.pos.x.ignore, null)
-        .style(_.pos.x.attr, _.pos.x.value)
-        .style(_.pos.y.ignore, null)
-        .style(_.pos.y.attr, _.pos.y.value)
-        .style('width', self._widget.size.width)
-        .style('height', self._widget.size.height)
-      // TODO Should remove this as content size is not updated
-      /*self._widget.content
-        .style('width', self._widget.size.width)
-        .style('height', self._widget.size.height)*/
-
-      // Show widget
-      self._widget.container
-        .style('display', 'block')
-
       return api
     }
   }

@@ -10,7 +10,6 @@ import Axis from '../../../components/axis/src/index'
 export default (name, parent) => {
   let { self, api } = Chart('line-chart', name, parent, 'svg')
   self._areaChart = {
-    // TODO make smooth a component
     smooth: false,
     // TODO Make label a component
     xLabel: '',
@@ -87,7 +86,7 @@ export default (name, parent) => {
           .style('stroke', 'none')
           .style('fill-opacity', 0.2)
           .each(d => {
-            // Take paths for tooltip marker
+            // Take paths for tooltip trend-marker
             self._areaChart.paths.set(d.name, select(`.line.${encode(d.name)}`).node())
           })
         return g
@@ -101,8 +100,6 @@ export default (name, parent) => {
         }
       }
     }, duration)
-
-    // TODO Add markers
   }
 
   self._widget.update = extend(self._widget.update, _updateLineChart)

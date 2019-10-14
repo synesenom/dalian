@@ -33,14 +33,14 @@ export default (self, api) => {
   }
 
   // Protected members
-  self = Object.assign(self, {
+  self = Object.assign(self || {}, {
     _colors: {
       mapping: key => _.mapping(key)
     }
   })
 
   // Public API
-  api = Object.assign(api, {
+  api = Object.assign(api || {}, {
     colors: policy => {
       // Update color policy
       _.policy = policy

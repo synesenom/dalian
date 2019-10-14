@@ -2,39 +2,58 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import 'd3-transition';
 
 /**
- * Component implementing an axis.
+ * Factory implementing the axis component.
  *
- * @class Axis
- * @param name
- * @param type
- * @param self
+ * @function Axis
+ * @param {string} name Name of the axis. Typically x or y.
+ * @param {string} type Axis type. Supported values: left, bottom.
+ * @param {Object} self Object containing the protected members of the component that inherits from this component.
  */
-export default (name, type, self) => {
+export default (name, type, parent) => {
   // Private members
   let _ = (() => {
-    let container = self._widget.content.append('g')
+    // Container: an SVG group that contains all axis related DOM elements
+    let container = parent.append('g')
       .attr('class', `dalian-axis-container ${name}`)
+      .style('font-family', 'inherit')
+      .style('font-size', 'inherit')
 
+    // The axis group
     let axis = container.append('g')
       .attr('class', `${name} axis`)
+      .style('font-family', 'inherit')
+      .style('font-size', 'inherit')
 
+    // Axis label
     let label = container.append('text')
       .attr('class', `axis-label ${name}`)
       .attr('stroke-width', 0)
+      .attr('fill', 'currentColor')
+      .style('font-size', '1em')
       .text('')
 
+    // Axis functionality
     let fn
     switch (type) {
       case 'bottom':
         fn = axisBottom()
         label = label.attr('text-anchor', 'end')
+          .attr('dy', '2.2em')
         break
       case 'left':
         fn = axisLeft()
         label = label.attr('text-anchor', 'begin')
+          .attr('x', 5 + 'px')
+          .attr('y', (-5) + 'px')
         break
     }
     fn.ticks(5)
+
+    axis.selectAll('path')
+      .style('fill', 'none')
+      .style('stroke-width', '1px')
+      .style('shape-rendering', 'crispEdges')
+      .style('stroke', 'currentColor')
 
     return {
       container,
@@ -46,35 +65,61 @@ export default (name, type, self) => {
 
   // Public API
   let api = {
+    /**
+     * Sets the scale of the axis.
+     *
+     * @method scale
+     * @methodOf Axis
+     * @param {Object} scale Object representing the axis scale.
+     * @returns {Object} Reference to the axis API.
+     */
     scale: scale => {
       _.fn.scale(scale)
       return api
     },
 
+    /**
+     * Sets the axis tick format.
+     *
+     * @method tickFormat
+     * @methodOf Axis
+     * @param {Function} format Function to use as the tick formatter.
+     * @returns {Object} Reference to the axis API.
+     */
     tickFormat: format => {
       _.fn.tickFormat(format)
       return api
     },
 
+    /**
+     * Sets the axis label.
+     *
+     * @method label
+     * @methodOf Axis
+     * @param {string} text Text to set axis label to. Cannot be HTML formatted.
+     * @returns {Object} Reference to the axis API.
+     */
     label: text => {
       _.label.text(text)
       return api
     },
 
-    update: duration => {
-      // Set font attributes
-      let fontColor = typeof self._font !== 'undefined' ? self._font.color : 'black'
-      let fontSize = typeof self._font !== 'undefined' ? self._font.size : '12px'
-
+    /**
+     * Updates the axis.
+     *
+     * @method update
+     * @methodOf Axis
+     * @param {number} duration Duration of the update animation in ms.
+     * @returns {Object} Reference to the axis API.
+     */
+    update: (duration, size, margins) => {
       // Update container
-      _.container.attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
-        .style('width', self._widget.size.innerWidth)
-        .style('height', self._widget.size.innerHeight)
-        .style('pointer-events', 'all')
-        .style('font-family', 'inherit')
+      _.container.attr('transform', 'translate(' + margins.left + ',' + margins.top + ')')
+        .style('width', size.innerWidth)
+        .style('height', size.innerHeight)
 
       // Update axis
-      _.axis.style('font-family', 'inherit')
+      _.axis
         .transition().duration(duration)
         .call(_.fn)
 
@@ -82,30 +127,18 @@ export default (name, type, self) => {
       switch (type) {
         case 'bottom': {
           _.axis.transition().duration(duration)
-            .attr('transform', 'translate(0,' + parseFloat(self._widget.size.innerHeight) + ')')
+            .attr('transform', 'translate(0,' + parseFloat(size.innerHeight) + ')')
           _.label.transition().duration(duration)
-            .attr('x', self._widget.size.innerWidth)
-            .attr('y', (parseFloat(self._widget.size.innerHeight) + 2.2 * parseInt(fontSize)) + 'px')
-          break
-        }
-        case 'left': {
-          _.label.transition().duration(duration)
-            .attr('x', 5 + 'px')
-            .attr('y', (-5) + 'px')
+            .attr('x', size.innerWidth)
+            .attr('y', parseFloat(size.innerHeight) + 'px')
           break
         }
       }
-      _.axis.selectAll('path')
-        .style('fill', 'none')
-        .style('stroke', fontColor)
-        .style('stroke-width', '1px')
-        .style('shape-rendering', 'crispEdges')
-      _.label.attr('fill', fontColor)
-        .style('font-size', fontSize)
 
       return api
     }
   }
 
+  // Return public API
   return api
 }

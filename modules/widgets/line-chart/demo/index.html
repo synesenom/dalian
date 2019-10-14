@@ -21,18 +21,14 @@ addControls(
         }])
         .xLabel('days')
         .yLabel('price [USD]')
-        .mouseover(k => {
-            lineChart.highlight(k.name, 300)
-        })
-          .mouseleave(() => {
-            lineChart.highlight(null, 300)
-          })
-        .tooltip(true)
         .render(), {
+        // Widget
         x: [0, 100],
         y: [0, 100],
         width: [300, 400],
         height: [200, 300],
+        margins: [40, 60],
+        // Chart
         data: [[{
           name: 'apples',
           values: Array.from({ length: 20 }, (d, i) => ({
@@ -51,35 +47,56 @@ addControls(
           }))
         }], [{
           name: 'apples',
-          values: Array.from({ length: 20 }, (d, i) => ({
+          values: Array.from({ length: 30 }, (d, i) => ({
             x: i,
             y: Math.cos(i / 10) / 2 + 0.3
           }))
         }, {
           name: 'oranges',
-          values: Array.from({ length: 20 }, (d, i) => ({
+          values: Array.from({ length: 30 }, (d, i) => ({
             x: i,
             y: Math.sin(i / 10 + 0.6) / 8 + 0.6,
             lo: 0.3,
             hi: 0.4
           }))
         }]],
-        smoothing: [false, true],
+        // Colors
+        colors: [undefined, {
+          apples: 'yellowgreen',
+          oranges: 'orange'
+        }],
+        // Description
+        description: [undefined, 'This chart shows data on some fruit'],
+        // Font
+        fontSize: [12, 14],
+        fontColor: ['black', 'royalblue'],
+        // Line style
         lineStyle: ['solid', {
           apples: 'dashed',
           oranges: 'dotted'
         }],
+        // Mouse
+        mouseover: [undefined, k => lineChart.highlight(k.name)],
+        mouseleave: [undefined, () => lineChart.highlight(null, 700)],
+        // Placeholder
+        placeholder: [undefined, 'Data is not available.'],
+        // Smoothing
+        smoothing: [false, true],
+        // Tooltip
+        tooltip: [false, true],
+        tooltipTitleFormat: [undefined, x => `Day ${x}`],
+        tooltipYFormat: [undefined, x => x.toFixed(2)],
+        // Trend marker
         xLabel: ['days', 'weeks'],
         yLabel: ['price [USD]', 'quantity'],
         xTickFormat: [undefined, x => `week ${x}`],
-        yTickFormat: [undefined, x => x.toFixed(2)],
-        placeholder: [undefined, 'This is a demo widget']
+        yTickFormat: [undefined, x => x.toFixed(2)]
     });
 
-    setTimeout(() => {
-      lineChart.addMarker('marker', 'apples', 5, 15, 'This is a marker', 700)
-    }, 100)
+    special('addMarker', () => {
+      lineChart.addMarker('marker', 'apples', 5, 15, 'This is a trend-marker', 700)
+    })
 
-    setTimeout(() => {
-      //lineChart.removeMarker('marker')
-    }, 1000)</script></body></html>
+    special('removeMarker', () => {
+      lineChart.removeMarker('marker')
+    })</script></body></html>

@@ -1,13 +1,14 @@
 import { encode } from '../../../core/src/index'
 
 export default (self, api) => {
-  self = self || {}
-  self._curveMarker = {
-    markers: new Map(),
-    paths: new Map()
-  }
+  self = Object.assign(self || {}, {
+    _plotMarker: {
+      markers: new Map(),
+      paths: new Map()
+    }
+  })
 
-  self._curveMarker.findY = (path, x) => {
+  self._plotMarker.findY = (path, x) => {
     if (typeof path === 'undefined') {
       return
     }
@@ -33,13 +34,13 @@ export default (self, api) => {
     }
   }
 
-  self._curveMarker.add = (paths, name, x) => {
-    let y = self._curveMarker.findY(paths.get(name), x)
+  self._plotMarker.add = (paths, name, x) => {
+    let y = self._plotMarker.findY(paths.get(name), x)
     if (typeof y === 'number') {
-      let marker = self._curveMarker.markers.get(name)
-      self._curveMarker.markers.set(name, marker || self._chart.plots.append('circle'))
-      self._curveMarker.markers.get(name)
-        .attr('class', `tooltip-marker ${encode(name)}`)
+      let marker = self._plotMarker.markers.get(name)
+      self._plotMarker.markers.set(name, marker || self._chart.plots.append('circle'))
+      self._plotMarker.markers.get(name)
+        .attr('class', `plot-marker ${encode(name)}`)
         .attr('cx', x)
         .attr('cy', y)
         .attr('r', 4)
@@ -48,15 +49,12 @@ export default (self, api) => {
     }
   }
 
-  self._curveMarker.remove = name => {
-    self._curveMarker.markers.forEach((d, k) => {
+  self._plotMarker.remove = name => {
+    self._plotMarker.markers.forEach((d, k) => {
       d.remove()
-      self._curveMarker.markers.delete(k)
+      self._plotMarker.markers.delete(k)
     })
   }
-
-  api = api || {}
-
 
   return {self, api}
 }

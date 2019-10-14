@@ -13,7 +13,7 @@ export default (self, api) => {
   }
 
   // Protected members
-  self = Object.assign(self, {
+  self = Object.assign(self || {}, {
     _mouse: {
       mouseover: (...args) => {
         if (typeof _.callbacks.over === 'function') {
@@ -40,7 +40,7 @@ export default (self, api) => {
   })
 
   // Public API
-  api = Object.assign(api, {
+  api = Object.assign(api || {}, {
     /**
      * Sets the callback for the mouseover event.
      *

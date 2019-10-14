@@ -51,16 +51,7 @@ export default (self, api) => {
       }
     },
 
-    updateTooltip: () => {
-      self._widget.container
-        .style('pointer-events', _.on ? 'all' : null)
-        .on('mousemove', () => {
-          _.on && _.show()
-        })
-        .on('mouseout', _.hideTooltip)
-    },
-
-    show: () => {
+    showTooltip: () => {
 
       let mx = event.pageX
 
@@ -79,7 +70,6 @@ export default (self, api) => {
         || mx > boundingBox.right - self._widget.margins.right + scroll.left
         || my < boundingBox.top + self._widget.margins.top - scroll.top
         || my > boundingBox.bottom - self._widget.margins.bottom + scroll.top) {
-        // TODO Remove this, use Detector.outside instead
         self._tooltip.builder()
         _.hideTooltip()
         return
@@ -142,10 +132,15 @@ export default (self, api) => {
   }
 
   // Extend update method
-  self._widget.update = extend(self._widget.update, _.updateTooltip)
+  self._widget.update = extend(self._widget.update, () => {
+    self._widget.container
+      .style('pointer-events', _.on ? 'all' : null)
+      .on('mousemove', () => _.on && !self._widget.disabled && _.showTooltip())
+      .on('mouseout', _.hideTooltip)
+  })
 
   // Protected members
-  self = Object.assign(self, {
+  self = Object.assign(self || {}, {
     _tooltip: {
       content: () => console.warn('content(mouse) is not implemented'),
       builder: () => console.warn('builder(mouse) is not implemented'),
@@ -154,13 +149,22 @@ export default (self, api) => {
   })
 
   // Public API
-  api = Object.assign(api, {
-    tooltip: on => {
+  api = Object.assign(api || {}, {
+    tooltip: (on = false) => {
       _.on = on
       return api
     },
 
-    tooltipTitleFormat: format => {
+    /**
+     * Sets the format of the tooltip title.
+     *
+     * @method tooltipTitleFormat
+     * @methodOf PointTooltip
+     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the tooltip title and
+     * must return a string. The return value can be HTML formatted.
+     * @returns {Object} Reference to the current component's public API.
+     */
+    tooltipTitleFormat: (format = x => x) => {
       self._tooltip.titleFormat = format
       return api
     }

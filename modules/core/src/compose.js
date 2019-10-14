@@ -9,10 +9,10 @@
 export default (baseComponent, ...components) => {
   let { self, api } = baseComponent
   return components.reduce((obj, component) => {
-    let { s, a } = component(obj.self, obj.api)
+    let mixin = component(obj.self, obj.api)
     return {
-      self: Object.assign(self, s),
-      api: Object.assign(api, a)
+      self: Object.assign(self, mixin.self),
+      api: Object.assign(api, mixin.api)
     }
   }, { self, api })
 }

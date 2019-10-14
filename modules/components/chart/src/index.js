@@ -1,10 +1,10 @@
-import { select } from 'd3-selection'
-import { compose, encode, extend } from '../../../core/src/index'
-import Widget from '../../widget/src/index'
-import Font from '../../font/src/index'
 import Colors from '../../colors/src/index'
+import { compose, encode, extend } from '../../../core/src/index'
+import Description from '../../description/src/index'
+import Font from '../../font/src/index'
 import Mouse from '../../mouse/src/index'
 import Placeholder from '../../placeholder/src/index'
+import Widget from '../../widget/src/index'
 
 /**
  * Component implementing a generic chart widget.
@@ -20,17 +20,15 @@ export default (type, name, parent, elem) => {
   // Build component from other components
   let { self, api } = compose(
     Widget(type, name, parent, elem),
-    Font,
     Colors,
-    Mouse,
-    Placeholder
+    Description,
+    Placeholder,
+    Font,
+    Mouse
   )
 
   // Private members
   let _ = {
-    // Variables
-    transition: false,
-
     // Methods
     update: () => {
       // Adjust plots container
@@ -51,8 +49,6 @@ export default (type, name, parent, elem) => {
 
       // Methods
       transformData: () => undefined,
-
-      tooltipContent: () => undefined,
 
       plotGroups: (attr, duration = 700) => {
         // Select groups
@@ -81,7 +77,7 @@ export default (type, name, parent, elem) => {
           .each(() => {
             // Disable pointer events before transition
             self._chart.plots.style('pointer-events', 'none')
-            _.transition = true
+            self._widget.transition = true
           })
           .on('mouseover', self._mouse.mouseover)
           .on('mouseleave', self._mouse.mouseleave)
@@ -101,7 +97,7 @@ export default (type, name, parent, elem) => {
         unionAnimated.on('end', () => {
           // Re-enable pointer events
           self._chart.plots.style('pointer-events', 'all')
-          _.transition = false
+          self._widget.transition = false
         })
 
         return {
@@ -125,9 +121,6 @@ export default (type, name, parent, elem) => {
     data: plots => {
       // Transform data to the standard internal structure
       self._chart.data = self._chart.transformData(plots)
-
-      // Reset color mapping if it is set to default
-      // TODO Is color mapping reset necessary?
 
       // Switch render flag
       return api
