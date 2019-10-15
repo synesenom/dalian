@@ -10,12 +10,6 @@ export default (self, api, name, scale) => {
     dy: '2.2em'
   })
 
-  // Private members
-  let _ = {
-    label: '',
-    tickFormat: x => x
-  }
-
   // Extend base axis update
   base.api.update = extend(base.api.update, duration => {
     base.self.axis.transition().duration(duration)

@@ -1,5 +1,3 @@
-import extend from '../../../core/src/extend'
-
 export default (name, parent, axisFn, scale) => {
   // Private members
   // Container: an SVG group that contains all axis related DOM elements

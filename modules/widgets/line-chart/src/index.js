@@ -1,12 +1,11 @@
-import { format } from 'd3-format'
+import { bisector } from 'd3-array'
+import { interpolatePath } from 'd3-interpolate-path'
 import { select } from 'd3-selection'
 import { line, area } from 'd3-shape'
-import { bisector } from 'd3-array'
 import { compose, encode, extend } from '../../../core/src/index'
 import Chart from '../../../components/chart/src/index'
 import Scale from '../../../components/scale/src/index'
-import LeftAxis from '../../../components/axis/src/left-axis'
-import BottomAxis from '../../../components/axis/src/bottom-axis'
+import { LeftAxis, BottomAxis } from '../../../components/axis/src/index'
 import Smoothing from '../../../components/smoothing/src/index'
 import LineStyle from '../../../components/line-style/src/index'
 import PlotMarker from '../../../components/plot-marker/src/index'
@@ -93,7 +92,6 @@ export default (name, parent = 'body') => {
           g.append('path')
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
-
             .style('stroke-width', '2px')
             .style('fill', 'none')
             .each(d => {
@@ -107,11 +105,20 @@ export default (name, parent = 'body') => {
           after: g => {
             // Update error bands
             g.select('.error-band')
-              .attr('d', d => errorFn(d.values))
+              //.attr('d', d => errorFn(d.values))
+              .attrTween('d', function(d) {
+                let previous = select(this).attr('d')
+                let current = errorFn(d.values)
+                return interpolatePath(previous, current)
+              })
 
             // Update lines
             g.select('.line')
-              .attr('d', d => lineFn(d.values))
+              .attrTween('d', function(d) {
+                let previous = select(this).attr('d')
+                let current = lineFn(d.values)
+                return interpolatePath(previous, current)
+              })
               .style('stroke-dasharray', d => self._lineStyles.strokeDashArray(d.name))
             return g
           }

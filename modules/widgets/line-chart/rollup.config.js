@@ -6,6 +6,7 @@ const dependencies = {
     '@dalian/core': 'dalian.core',
     '@dalian/component-chart': 'dalian.components.Chart',
     'd3-array': 'd3',
+    'd3-interpolate-path': 'd3',
     'd3-shape': 'd3',
     'd3-selection': 'd3', // TODO Remove this
     'd3-ease': 'd3', // TODO Remove this
