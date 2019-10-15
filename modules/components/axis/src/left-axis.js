@@ -18,6 +18,12 @@ export default (self, api, name, scale) => {
     }
   })
 
+  // Extend update
+  self._widget.update = extend(
+    self._widget.update,
+      duration => base.api.update(duration, self._widget.size, self._widget.margins)
+  )
+
   // Public API
   api = Object.assign(api || {}, {
     yLabel: label => {

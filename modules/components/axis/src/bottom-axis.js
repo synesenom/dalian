@@ -16,7 +16,7 @@ export default (self, api, name, scale) => {
     tickFormat: x => x
   }
 
-  // Extend update
+  // Extend base axis update
   base.api.update = extend(base.api.update, duration => {
     base.self.axis.transition().duration(duration)
       .attr('transform', 'translate(0,' + parseFloat(self._widget.size.innerHeight) + ')')
@@ -24,6 +24,12 @@ export default (self, api, name, scale) => {
       .attr('x', self._widget.size.innerWidth)
       .attr('y', parseFloat(self._widget.size.innerHeight) + 'px')
   })
+
+  // Extend widget update
+  self._widget.update = extend(
+    self._widget.update,
+    duration => base.api.update(duration, self._widget.size, self._widget.margins)
+  )
 
   // Protected members
   self = Object.assign(self || {}, {

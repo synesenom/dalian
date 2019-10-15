@@ -1,46 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Tooltip improvements">
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/src/base-axis.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/network/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/network/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/network/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/network/rollup.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/network/src/layer.js" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Axis simplified, separate left and bottom axes components added">
+      <change afterPath="$PROJECT_DIR$/modules/widgets/network/src/layout-layer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/colors/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/curve-marker/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/plot-marker/.eslintrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/curve-marker/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/plot-marker/.npmignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/curve-marker/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/plot-marker/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/curve-marker/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/plot-marker/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/curve-marker/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/plot-marker/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/description/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/highlight/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/highlight/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/marker/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/.eslintrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/marker/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/.npmignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/marker/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/marker/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/marker/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/mouse/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/mouse/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/core/src/compose.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/core/src/compose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/area-chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/demo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/network/src/layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/network/src/display-layer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +149,7 @@
       <workItem from="1569998354246" duration="16257000" />
       <workItem from="1570083389909" duration="14240000" />
       <workItem from="1570377235321" duration="29060000" />
-      <workItem from="1570600992637" duration="39316000" />
+      <workItem from="1570600992637" duration="40751000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -240,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570639797086</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Axis simplified, separate left and bottom axes components added">
+      <created>1571087905473</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1571087905473</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,6 +242,7 @@
     <MESSAGE value="Animation added to widget size changes" />
     <MESSAGE value="LineChart finished" />
     <MESSAGE value="Tooltip improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tooltip improvements" />
+    <MESSAGE value="Axis simplified, separate left and bottom axes components added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Axis simplified, separate left and bottom axes components added" />
   </component>
 </project>

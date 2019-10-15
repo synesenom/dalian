@@ -68,15 +68,6 @@ export default (name, parent = 'body') => {
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
         .domain(flatData.map(d => d.y))
 
-      // Update axes
-      /*_.axes.x.label(self._lineChart.xLabel)
-        .scale(_.scales.x.scale)
-        .tickFormat(self._lineChart.xTickFormat)
-        .update(duration, self._widget.size, self._widget.margins)*/
-      // TODO Move this into LeftAxis somehow
-      self._axisBottom.update(duration, self._widget.size, self._widget.margins)
-      self._axisLeft.update(duration, self._widget.size, self._widget.margins)
-
       // Create line and error path functions
       const lineFn = line()
         .x(d => _.scales.x.scale(d.x))
@@ -181,6 +172,7 @@ export default (name, parent = 'body') => {
       }
     }
   }
+
   self._chart.transformData = data => {
     return data.map(d => ({
       name: d.name,
@@ -196,26 +188,8 @@ export default (name, parent = 'body') => {
 
   // Extend widget update
   // Update plot before widget update because the trend markers need the data update
-  // TODO Fix this
   self._widget.update = extend(self._widget.update, _.update, true)
 
-  self._lineChart = {
-    // TODO Make label a component
-    xLabel: '',
-    yLabel: '',
-    // TODO Make tick format a component to encapsulate default format
-    xTickFormat: v => typeof v === 'number' && v > 1 ? format('.2s')(v) : v + '',
-    yTickFormat: v => typeof v === 'number' && v > 1 ? format('.2s')(v) : v + ''
-  }
-
-  // Protected
-  // TODO Create separate method for mouse move
-  // TODO Don't mix tooltip behavior with markers
-  // TODO Create getXY method for obtaining plot coordinates of mouse
-
   // Public API
-  api = Object.assign(api, {
-  })
-
   return api
 }
