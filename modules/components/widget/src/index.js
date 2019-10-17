@@ -1,16 +1,14 @@
 import { select } from 'd3-selection'
 
 /**
- * The widget class, implementing a generic widget.
+ * The widget factory, implementing a generic widget.
  *
- * @class Widget
- * @constructor
+ * @function Widget
  * @param {string} type Widget type. This should be set by the child widget class.
  * @param {string} name The name of the current widget object. This is used as a unique identifier for the widget.
  * @param {string} [parent = body] The parent DOM element that this widget will be added.
  * @param {string} [elem = svg] The HTML tag of the topmost level container for the widget. This should be set by the
  * child widget class.
- * @constructor
  * @example
  *
  * // Create an SVG widget and append it to the body as an SVG
@@ -120,7 +118,7 @@ export default (type, name, parent, elem) => {
      * parent, otherwise it is measured from the left side.
      *
      * @method x
-     * @method Widget
+     * @methodOf Widget
      * @param {number} [value = 0] Value of the X coordinate in pixels.
      * @returns {Object} Reference to the Widget API.
      */
@@ -136,7 +134,7 @@ export default (type, name, parent, elem) => {
      * parent, otherwise the top side is measured from the top.
      *
      * @method y
-     * @method Widget
+     * @methodOf Widget
      * @param {number} [value = 0] Value of the Y coordinate in pixels.
      * @returns {Object} Reference to the Widget API.
      */
@@ -151,7 +149,7 @@ export default (type, name, parent, elem) => {
      * Sets the width of the widget (including it's margins). Also updates the inner width of the widget.
      *
      * @method width
-     * @method Widget
+     * @methodOf Widget
      * @param {number} [value = 300] Width value in pixels.
      * @returns {Object} Reference to the Widget API.
      */
@@ -176,7 +174,7 @@ export default (type, name, parent, elem) => {
     },
 
     /**
-     * Sets widget margins in pixels. Note that margins are included in width and thus height and effectively shrink the
+     * Sets widget margins in pixels. Margins are included in width and height and thus effectively shrink the
      * plotting area.
      *
      * @method margins

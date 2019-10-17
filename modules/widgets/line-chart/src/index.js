@@ -14,10 +14,10 @@ import Highlight from '../../../components/highlight/src/index'
 import TrendMarker from '../../../components/trend-marker/src/index'
 
 /**
- * The line chart widget.
+ * An interactive line chart widget.
  *
- * @class LineChart
- * @param {string} name Name of the widget. Should be a unique identifier.
+ * @function LineChart
+ * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
 export default (name, parent = 'body') => {
@@ -46,14 +46,6 @@ export default (name, parent = 'body') => {
     paths: new Map(),
 
     // Methods
-    /**
-     * The line chart's update method.
-     *
-     * @method update
-     * @methodOf LineChart
-     * @param {number} [duration] Duration of the update animation in ms.
-     * @private
-     */
     update: duration => {
       // Collect all data points
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
@@ -199,4 +191,295 @@ export default (name, parent = 'body') => {
 
   // Public API
   return api
+
+  // Documentation
+  /**
+   * Adds a trend marker to the chart. A trend marker is a labeled pair of dots indicating changes in the plot. If the
+   * marker ID already exists, no further markers are added.
+   *
+   * @method addMarker
+   * @methodOf LineChart
+   * @param {string} id Unique identifier of the trend marker.
+   * @param {string} key Key of the plot to add the trend marker to.
+   * @param {number} start Starting (left side) value of the trend marker.
+   * @param {number} end Ending (right side) value of the trend marker.
+   * @param {string} label Label to display on the marker.
+   * @param {number} [duration = 700] Duration of the animation of adding the marker.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the callback for the click event. The click event is triggered when clicking on any line or error band.
+   *
+   * @method click
+   * @methodOf LineChart
+   * @param {Function} callback Function to call on click.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the color policy for the plots. Supported policies:
+   * <ul>
+   *     <li>Default color policy (no arguments): the default color scheme is used which is a combination of the
+   *     qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>
+   *     <li>Single color (passing {string}): The specified color is used for all plots.</li>
+   *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
+   *     property with the same name as the plot's key.</li>
+   * </ul>
+   *
+   * @method colors
+   * @methodOf LineChart
+   * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
+   * @returns {Widget} Reference to the LineChart API.
+   */
+
+  /**
+   * Set/updates the data that is shown in the line chart.
+   *
+   * @method data
+   * @methodOf LineChart
+   * @param {Object[]} plots Array of objects representing the lines to show. Each plot has two properties:
+   * <ul>
+   *   <li>{string} name: Name of the plot.</li>
+   *   <li>{Object[]} values: Plot data.</li>
+   * </ul>
+   * The {values} property is an array of objects of the following structure:
+   * <dl>
+   *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
+   *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
+   *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
+   *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
+   * </dl>
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Enables/disables description for the line chart. A description is a small tooltip that is bound to the context menu
+   * (also disables default event handler). The description disappears once the mouse leaves the chart. If called
+   * without argument, description is disabled.
+   *
+   * @method description
+   * @methodOf LineChart
+   * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
+   * disabled.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the font size of the line chart in pixels.
+   *
+   * @method fontSize
+   * @methodOf LineChart
+   * @param {number} size Size of the font in pixels.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the font color of the line chart. The axis lines and ticks are also shown in this color.
+   *
+   * @method fontColor
+   * @methodOf LineChart
+   * @param {string} color Color to set as font color.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the height of the line chart (including it's margins).
+   *
+   * @method height
+   * @methodOf LineChart
+   * @param {number} [value = 200] Height value in pixels.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Highlights a single plot or multiple plots.
+   *
+   * @method highlight
+   * @methodOf LineChart
+   * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the plots to highlight. If key
+   * is {null} or {undefined}, the highlight is removed (all plots become visible).
+   * @param {number} [duration = 700] Duration of the highlight animation in ms.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the line style policy. Supported policies:
+   * <ul>
+   *     <li>Default line style policy (no arguments): the default line style is used which is solid for all plots.</li>
+   *     <li>Single line style (passing {string}): The specified line style is used for all plots. Supported styles
+   *     are: solid, dashed, dotted.</li>
+   *     <li>Custom line style mapping (passing an {Object}): each plot has the line style specified as the value for
+   *     the property with the same name as the plot's key.</li>
+   * </ul>
+   *
+   * @method lineStyle
+   * @methodOf LineChart
+   * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the chart margins in pixels. Margins are included in width and height and thus effectively shrink the
+   * plotting area.
+   *
+   * @method margins
+   * @methodOf LineChart
+   * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
+   * sides.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the callback for the mouseleave event. The mouseleave event is triggered when leaving any line or error band.
+   *
+   * @method mouseleave
+   * @methodOf LineChart
+   * @param {Function} callback Function to call on mouseleave.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the callback for the mouseover event. The mouseover event is triggered when hovering over any line or error
+   * band.
+   *
+   * @method mouseover
+   * @methodOf LineChart
+   * @param {Function} callback Function to call on mouseover.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Replaces the chart with a placeholder message positioned in the center of the original chart. If no placeholder
+   * content is provided, the chart is recovered.
+   *
+   * @method placeholder
+   * @methodOf LineChart
+   * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
+   * @param {number} [duration = 700] Duration of the placeholder animation in ms.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Removes a trend marker from the chart.
+   *
+   * @method removeMarker
+   * @methodOf LineChart
+   * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
+   * not exist, no change is applied.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Renders the line chart. If called for the first time, the chart is built, otherwise this method updates the chart
+   * with the attributes and styles that have been changed since the last rendering.
+   *
+   * @method render
+   * @methodOf LineChart
+   * @param {number} [duration = 700] Duration of the rendering animation in ms.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Enables/disables polygon smoothing.
+   *
+   * @method smoothing
+   * @methodOf LineChart
+   * @param {boolean} on Whether to enable polygon smoothing. If not specified, smoothing is disabled.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Enables/disables tooltip for the line chart.
+   *
+   * @method tooltip
+   * @methodOf LineChart
+   * @param {boolean} [on = false] Whether tooltip should be enabled or not.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the format of the X component's value in the tooltip.
+   *
+   * @method tooltipXFormat
+   * @methodOf LineChart
+   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
+   * and must return a string. The return value can be HTML formatted.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the format of the Y component's value in the tooltip.
+   *
+   * @method tooltipYFormat
+   * @methodOf LineChart
+   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
+   * and must return a string. The return value can be HTML formatted.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the width of the line chart (including it's margins).
+   *
+   * @method width
+   * @methodOf LineChart
+   * @param {number} [value = 300] Width value in pixels.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the X coordinate of the line chart. If negative, the chart's right side is measured from the right side of the
+   * parent, otherwise it is measured from the left side.
+   *
+   * @method x
+   * @methodOf LineChart
+   * @param {number} [value = 0] Value of the X coordinate in pixels.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the X label for the chart.
+   *
+   * @method xLabel
+   * @methodOf LineChart
+   * @param {string} label Text to set as the label.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the X tick format of the chart.
+   *
+   * @method xTickFormat
+   * @methodOf LineChart
+   * @param {Function} format Function to set as formatter.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the Y coordinate of the line chart. If negative, the chart's bottom side is measured from the bottom of the
+   * parent, otherwise the top side is measured from the top.
+   *
+   * @method y
+   * @methodOf LineChart
+   * @param {number} [value = 0] Value of the Y coordinate in pixels.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the Y label for the chart.
+   *
+   * @method yLabel
+   * @methodOf LineChart
+   * @param {string} label Text to set as the label.
+   * @returns {Object} Reference to the LineChart API.
+   */
+
+  /**
+   * Sets the Y tick format of the chart.
+   *
+   * @method yTickFormat
+   * @methodOf LineChart
+   * @param {Function} format Function to set as formatter.
+   * @returns {Object} Reference to the LineChart API.
+   */
 }

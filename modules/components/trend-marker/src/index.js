@@ -1,24 +1,21 @@
 import { bisector } from 'd3-array'
 import { encode, extend } from '../../../core/src/index'
 
+/**
+ * Factory of the trend marker feature.
+ *
+ * @function TrendMarker
+ * @param {Object} self Object containing the protected variables and methods.
+ * @param {Object} api Object containing the public API methods.
+ * @param {Object} scales Object containing the X and Y scales.
+ * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
+ */
 // TODO Get rid of the scales parameter
 export default (self, api, scales) => {
   // Private members
   let _ = {
     markers: new Map(),
 
-    /**
-     * Adjusts trend-marker. Sets position of handles and corner based on the start and end coordinates.
-     *
-     * @method adjustMarker
-     * @methodOf LineChart
-     * @param {string} key Identifier of the trend-marker.
-     * @param {(number | string)} start Start X position of the trend-marker.
-     * @param {(number | string)} end End X position of the trend-marker.
-     * @returns {(Object | undefined)} Object containing the trend-marker positions if trend-marker exists and could be adjusted,
-     * undefined otherwise.
-     * @private
-     */
     adjustMarker: (key, start, end) => {
       let data = self._chart.data.find(d => d.name === key)
       if (typeof data === 'undefined') {
@@ -64,7 +61,21 @@ export default (self, api, scales) => {
 
   // Public API
   api = Object.assign(api || {}, {
-    addMarker: (id, key, start, end, label, duration) => {
+    /**
+     * Adds a trend marker to the chart. A trend marker is a labeled pair of dots indicating changes in the plot. If the
+     * marker ID already exists, no further markers are added.
+     *
+     * @method addMarker
+     * @methodOf TrendMarker
+     * @param {string} id Unique identifier of the trend marker.
+     * @param {string} key Key of the plot to add the trend marker to.
+     * @param {number} start Starting (left side) value of the trend marker.
+     * @param {number} end Ending (right side) value of the trend marker.
+     * @param {string} label Label to display on the marker.
+     * @param {number} [duration = 700] Duration of the animation of adding the marker.
+     * @returns {Object} Reference to the TrendMarker API.
+     */
+    addMarker: (id, key, start, end, label, duration = 700) => {
       // Check if trend-marker exists
       if (_.markers.has(id)) {
         return
@@ -188,6 +199,16 @@ export default (self, api, scales) => {
       _.markers.set(id, marker)
       return api
     },
+
+    /**
+     * Removes a trend marker from the chart.
+     *
+     * @method removeMarker
+     * @methodOf TrendMarker
+     * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
+     * not exist, no change is applied.
+     * @returns {Object} Reference to the TrendMarker API.
+     */
     removeMarker: id => {
       if (_.markers.has(id)) {
         _.markers.get(id).remove()

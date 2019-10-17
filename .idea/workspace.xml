@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Axis update moved to axis component">
-      <change afterPath="$PROJECT_DIR$/demo/lib/d3-interpolate-path.min.js" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="d3-interpolate-path added to fix ugly data update">
+      <change afterPath="$PROJECT_DIR$/docs/js/highlight.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/js/search-menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lib/block-parser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lib/dfs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lib/module-parser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lib/param-parser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lib/type-parser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/atelier-lakeside-light.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/templates/api-reference.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/templates/github-banner.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/base-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/base-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/highlight/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/highlight/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-style/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/line-style/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" afterDir="false" />
     </list>
@@ -23,12 +44,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="package_json" />
         <option value="TypeScript File" />
         <option value="package.json" />
         <option value="Pug File" />
         <option value="SCSS File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -51,9 +73,9 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.10.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/widgets/network" />
-    <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
@@ -62,19 +84,19 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/modules/components/marker/src" />
-      <recent name="$PROJECT_DIR$/modules/components/curve-marker/src" />
-      <recent name="$PROJECT_DIR$/modules/components/curve-marker" />
-      <recent name="$PROJECT_DIR$/modules/widgets" />
-      <recent name="$PROJECT_DIR$/modules/components" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/modules/widgets/network" />
       <recent name="$PROJECT_DIR$/modules/components/highlight" />
       <recent name="$PROJECT_DIR$/modules/components/marker" />
       <recent name="$PROJECT_DIR$/modules/components/smoothing" />
       <recent name="$PROJECT_DIR$/modules/components/format" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/js" />
+      <recent name="$PROJECT_DIR$/docs/lib" />
+      <recent name="$PROJECT_DIR$/modules/components/marker/src" />
+      <recent name="$PROJECT_DIR$/modules/components/curve-marker/src" />
+      <recent name="$PROJECT_DIR$/modules/components/curve-marker" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -89,7 +111,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.build:demo">
+  <component name="RunManager" selected="Node.js.index.js">
     <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/modules/widget2/src">
       <method v="2" />
     </configuration>
@@ -111,9 +133,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.index.js" />
         <item itemvalue="npm.build:demo" />
         <item itemvalue="Node.js.index.js (1)" />
-        <item itemvalue="Node.js.index.js" />
         <item itemvalue="Node.js.widget.js" />
       </list>
     </recent_temporary>
@@ -154,7 +176,11 @@
       <workItem from="1569998354246" duration="16257000" />
       <workItem from="1570083389909" duration="14240000" />
       <workItem from="1570377235321" duration="29060000" />
-      <workItem from="1570600992637" duration="42676000" />
+      <workItem from="1570600992637" duration="51337000" />
+      <workItem from="1571242659357" duration="39000" />
+      <workItem from="1571242733153" duration="4000" />
+      <workItem from="1571242981613" duration="736000" />
+      <workItem from="1571247806855" duration="19071000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -226,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571119886508</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="d3-interpolate-path added to fix ugly data update">
+      <created>1571164320388</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1571164320388</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,6 +289,7 @@
     <MESSAGE value="Tooltip improvements" />
     <MESSAGE value="Axis simplified, separate left and bottom axes components added" />
     <MESSAGE value="Axis update moved to axis component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Axis update moved to axis component" />
+    <MESSAGE value="d3-interpolate-path added to fix ugly data update" />
+    <option name="LAST_COMMIT_MESSAGE" value="d3-interpolate-path added to fix ugly data update" />
   </component>
 </project>

@@ -150,6 +150,14 @@ export default (self, api) => {
 
   // Public API
   api = Object.assign(api || {}, {
+    /**
+     * Enables/disables tooltip for the line chart.
+     *
+     * @method tooltip
+     * @methodOf BaseTooltip
+     * @param {boolean} [on = false] Whether tooltip should be enabled or not.
+     * @returns {Object} Reference to the BaseTooltip API.
+     */
     tooltip: (on = false) => {
       _.on = on
       return api
@@ -162,7 +170,7 @@ export default (self, api) => {
      * @methodOf PointTooltip
      * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the tooltip title and
      * must return a string. The return value can be HTML formatted.
-     * @returns {Object} Reference to the current component's public API.
+     * @returns {Object} Reference to the PointTooltip API.
      */
     tooltipTitleFormat: (format = x => x) => {
       self._tooltip.titleFormat = format

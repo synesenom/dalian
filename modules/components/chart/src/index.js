@@ -118,6 +118,25 @@ export default (type, name, parent, elem) => {
 
   // Public API
   api = Object.assign(api, {
+    /**
+     * Set/updates the data that is shown in the chart.
+     *
+     * @method data
+     * @methodOf Chart
+     * @param {Object[]} plots Array of objects representing the plots to show. Each plot has two properties:
+     * <ul>
+     *   <li>{string} name: Name of the plot.</li>
+     *   <li>{Object[]} values: Plot data.</li>
+     * </ul>
+     * The {values} property is an array of objects of the following structure:
+     * <ul>
+     *   <li>{number} x: X coordinate of the data point.</li>
+     *   <li>{number} y: Y coordinate of the data point.</li>
+     *   <li>{number} [lo]: Optional lower error of the data point.</li>
+     *   <li>{number} [hi]: Optional upper error of the data point.</li>
+     * </ul>
+     * @returns {Object} Reference to the Chart API.
+     */
     data: plots => {
       // Transform data to the standard internal structure
       self._chart.data = self._chart.transformData(plots)

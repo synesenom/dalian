@@ -38,10 +38,10 @@ export default (self, api) => {
         .style('line-height', '11px')
         .style('margin', '5px')
         .style('margin-bottom', '10px')
-        .text(self._tooltip.titleFormat(content.title))
+        .text(self._tooltip.xFormat(content.title))
 
-      // Add color
-      contentNode.style('border-left', content.stripe ? 'solid 2px ' + content.stripe : null)
+      // TODO Remove this
+      // contentNode.style('border-left', content.stripe ? 'solid 2px ' + content.stripe : null)
 
       // Add content
       content.content.data.sort((a, b) => a.name.localeCompare(b.name))
@@ -82,9 +82,9 @@ export default (self, api) => {
      *
      * @method tooltipXFormat
      * @methodOf PointTooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the tooltip title and
-     * must return a string. The return value can be HTML formatted.
-     * @returns {Object} Reference to the current component's public API.
+     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
+     * and must return a string. The return value can be HTML formatted.
+     * @returns {Object} Reference to the PointTooltip API.
      */
     tooltipXFormat: (format = x => x) => {
       self._tooltip.xFormat = format
@@ -96,9 +96,9 @@ export default (self, api) => {
      *
      * @method tooltipYFormat
      * @methodOf PointTooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the tooltip title and
-     * must return a string. The return value can be HTML formatted.
-     * @returns {Object} Reference to the current component's public API.
+     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
+     * and must return a string. The return value can be HTML formatted.
+     * @returns {Object} Reference to the PointTooltip API.
      */
     tooltipYFormat: (format = x => x) => {
       self._tooltip.yFormat = format

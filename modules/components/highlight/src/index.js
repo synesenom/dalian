@@ -12,18 +12,6 @@ import { encode } from '../../../core/src/index'
 export default (self, api) => {
   // Private members
   let _ = {
-    /**
-     * Highlights elements by a single selector. The selector and the key(s) (identifiers) of the elements are used
-     * together to select parts of the widget to highlight.
-     *
-     * @method highlightSelection
-     * @methodOf Highlight
-     * @param {string} selector Selector for the elements to highlight.
-     * @param {(string | string[])} keys Single key or array of keys to highlight elements for. If key is null or
-     * undefined, the highlight is reversed (all elements become visible).
-     * @param {number} duration Duration of the highlight animation in ms.
-     * @private
-     */
     highlightSelection: (selector, keys, duration) => {
       if (self._widget.transition) {
         return
@@ -71,12 +59,12 @@ export default (self, api) => {
      *
      * @method highlight
      * @methodOf Highlight
-     * @param {(string | string[])} keys Single key or array of keys to highlight elements for. If key is null or
-     * undefined, the highlight is reversed (all elements become visible).
-     * @param {number} [duration = 400] Duration of the highlight animation in ms.
-     * @returns {Object} Reference to the API of the component.
+     * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the elements to highlight. If key is
+     * is {null} or {undefined}, the highlight is removed (all plots become visible).
+     * @param {number} [duration = 700] Duration of the highlight animation in ms.
+     * @returns {Object} Reference to the Highlight API.
      */
-    highlight: (keys, duration = 400) => {
+    highlight: (keys, duration = 700) => {
       // Check if container is specified
       if (typeof self._highlight.container === 'undefined') {
         throw Error('Highlight.container is not specified')

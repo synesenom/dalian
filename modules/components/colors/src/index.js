@@ -41,6 +41,21 @@ export default (self, api) => {
 
   // Public API
   api = Object.assign(api || {}, {
+    /**
+     * Sets the color policy. Supported policies:
+     * <ul>
+     *     <li>Default color policy (no arguments): the default color scheme is used which is a combination of the
+     *     qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>
+     *     <li>Single color (passing {string}): The specified color is used for all plots.</li>
+     *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
+     *     property with the same name as the plot's key.</li>
+     * </ul>
+     *
+     * @method colors
+     * @methodOf Widget
+     * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
+     * @returns {Widget} Reference to the widget API.
+     */
     colors: policy => {
       // Update color policy
       _.policy = policy

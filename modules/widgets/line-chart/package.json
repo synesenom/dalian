@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "d3-ease": "^1.0.5",
+    "documentation": "^12.1.2",
     "eslint-config-standard": "^12.0.0",
     "nodemon": "^1.19.0",
     "node-sass": "^4.12.0",

@@ -101,15 +101,19 @@ export default (self, api) => {
   // Public API
   api = Object.assign(api || {}, {
     /**
-     * Sets the line style policy to the specified value. If policy is not specified, line style is set to 'solid' for
-     * all plots. If policy is a string representing the line style, it is set to all plots. If policy is an object with
-     * keys as plot names and values as line style values, the object is used as a mapping from plot names to line
-     * styles.
+     * Sets the line style policy. Supported policies:
+     * <ul>
+     *     <li>Default line style policy (no arguments): the default line style is used which is solid for all plots.</li>
+     *     <li>Single line style (passing {string}): The specified line style is used for all plots. Supported styles
+     *     are: solid, dashed, dotted.</li>
+     *     <li>Custom line style mapping (passing an {Object}): each plot has the line style specified as the value for
+     *     the property with the same name as the plot's key.</li>
+     * </ul>
      *
      * @method lineStyle
      * @methodOf LineStyle
-     * @param {(string | Object)} [policy] Policy to set line styles to.
-     * @returns {Object} Reference to the current component's public API.
+     * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
+     * @returns {Object} Reference to the LineStyle API.
      */
     lineStyle: policy => {
       _.policy = policy

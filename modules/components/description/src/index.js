@@ -40,6 +40,17 @@ export default (self, api) => {
 
   // Public API
   api = Object.assign(api || {}, {
+    /**
+     * Enables/disables description for the current widget. A description is a small tooltip that is bound to the
+     * context menu (also disables default event handler). The description disappears once the mouse leaves the widget.
+     * If called without argument, description is disabled.
+     *
+     * @method description
+     * @methodOf Widget
+     * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
+     * disabled.
+     * @returns {Object} Reference to the widget API.
+     */
     description: content => {
       // If content is empty, disable description
       if (typeof content === 'undefined') {

@@ -1,0 +1,75 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat:200,400,700')
+        style #{styles.base}
+        link(rel='stylesheet', type='text/css', href='../style/atelier-lakeside-light.css')
+        script(src='../js/highlight.min.js')
+        script.
+            hljs.initHighlightingOnLoad();
+    body
+        != html.gitHubBanner
+        aside
+            .menu-title methods
+            ul.methods
+                each method in content.menu
+                    li
+                        a(id='toc-' + method, href='#' + method) #{method}
+        main
+            h1 LineChart
+            p The line chart widget.
+
+            h1 install in node
+            pre.install
+                code.bash npm install @dalian/widget-line-chart
+
+            h1 use in browser
+            pre.install
+                code.html
+                    = '<script type="text/javascript" src="dalian.min.js"></script>'
+
+            h1 demo
+            p
+                a(href='https://' + content.example) #{content.demo}
+
+            h1 example
+            p
+                a(href='https://' + content.example) #{content.example}
+
+            h1 api reference
+            each method in content.reference
+                .card
+                    pre.title(id=method.id) #{method.signature}
+                    .desc
+                        != method.description
+                    if method.params
+                        h3 Parameters
+                        table
+                            thead
+                                tr
+                                    th.param-name Name
+                                    th.param-type Type
+                                    th.param-desc Description
+                            tbody
+                                each param in method.params
+                                    tr
+                                        td
+                                            i #{param.name}
+                                        td.param-type
+                                            each type in param.type
+                                                code #{type}
+                                        td
+                                            if param.optional
+                                                span.param-optional optional
+                                            != param.desc
+                                            if typeof param.default !== 'undefined'
+                                                | &nbsp;Default value is #{param.default}.
+                    if method.returns
+                        h3 Returns
+                        .returns
+                            .return-type
+                                each type in method.returns.type
+                                    code #{type}
+                            .return-desc #{method.returns.desc}

@@ -21,6 +21,16 @@ export default (self, api) => {
 
   // Public methods
   api = Object.assign(api || {}, {
+    /**
+     * Replaces the widget with a placeholder message positioned in the center of the original widget. If no placeholder
+     * content is provided, the widget is recovered.
+     *
+     * @method placeholder
+     * @methodOf Placeholder
+     * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
+     * @param {number} [duration = 700] Duration of the placeholder animation in ms.
+     * @returns {Widget} Reference to the Placeholder API.
+     */
     placeholder: (content, duration = 700) => {
       // If no content provided, remove placeholder and show widget
       if (typeof content === 'undefined') {

@@ -34,11 +34,27 @@ export default (self, api, name, scale) => {
 
   // Public API
   api = Object.assign(api || {}, {
+    /**
+     * Sets the X label for the chart.
+     *
+     * @method xLabel
+     * @methodOf BottomAxis
+     * @param {string} label Text to set as the label.
+     * @returns {Object} Reference to the BottomAxis API.
+     */
     xLabel: label => {
       base.api.label(label)
       return api
     },
 
+    /**
+     * Sets the X tick format of the chart.
+     *
+     * @method xTickFormat
+     * @methodOf BottomAxis
+     * @param {Function} format Function to set as formatter.
+     * @returns {Object} Reference to the BottomAxis API.
+     */
     xTickFormat: format => {
       base.api.tickFormat(format)
       return api
