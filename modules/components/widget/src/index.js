@@ -222,7 +222,7 @@ export default (type, name, parent, elem) => {
      *
      * @method render
      * @methodOf Widget
-     * @param {number} [duration = 700] Duration of the rendering animation in ms.
+     * @param {number} [duration = 400] Duration of the rendering animation in ms.
      * @returns {Object} Reference to the Widget API.
      */
     render: duration => {

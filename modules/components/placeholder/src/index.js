@@ -28,10 +28,10 @@ export default (self, api) => {
      * @method placeholder
      * @methodOf Placeholder
      * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
-     * @param {number} [duration = 700] Duration of the placeholder animation in ms.
+     * @param {number} [duration = 400] Duration of the placeholder animation in ms.
      * @returns {Widget} Reference to the Placeholder API.
      */
-    placeholder: (content, duration = 700) => {
+    placeholder: (content, duration = 400) => {
       // If no content provided, remove placeholder and show widget
       if (typeof content === 'undefined') {
         self._widget.content

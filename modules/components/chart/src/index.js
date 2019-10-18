@@ -50,7 +50,7 @@ export default (type, name, parent, elem) => {
       // Methods
       transformData: () => undefined,
 
-      plotGroups: (attr, duration = 700) => {
+      plotGroups: (attr, duration = 400) => {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)

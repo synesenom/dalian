@@ -1,5 +1,5 @@
 const documentation = require('documentation')
-const ModuleParser = require('./lib/module-parser')
+const ModuleParser = require('./src/module-parser')
 const ArgumentParser = require('argparse').ArgumentParser
 const version = require('./package').version
 
@@ -20,6 +20,8 @@ const build = async (category, name) => {
       // Parse docs and build pages
       ModuleParser(JSON.parse(docs), meta)
         .buildReferencePage('reference')
+        .buildDemoPage('demo')
+        .buildExamplePage('examples')
     })
 }
 

@@ -61,10 +61,10 @@ export default (self, api) => {
      * @methodOf Highlight
      * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the elements to highlight. If key is
      * is {null} or {undefined}, the highlight is removed (all plots become visible).
-     * @param {number} [duration = 700] Duration of the highlight animation in ms.
+     * @param {number} [duration = 400] Duration of the highlight animation in ms.
      * @returns {Object} Reference to the Highlight API.
      */
-    highlight: (keys, duration = 700) => {
+    highlight: (keys, duration = 400) => {
       // Check if container is specified
       if (typeof self._highlight.container === 'undefined') {
         throw Error('Highlight.container is not specified')

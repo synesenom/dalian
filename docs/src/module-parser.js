@@ -2,6 +2,7 @@ const fs = require('fs')
 const BlockParser = require('./block-parser')
 const pug = require('pug')
 const sass = require('node-sass')
+const ncp = require('ncp')
 
 
 module.exports = (docs, meta) => {
@@ -16,8 +17,27 @@ module.exports = (docs, meta) => {
   let blocks = docs.map(BlockParser)
     .sort((a, b) => a.id() === factory ? -1 : a.id().localeCompare(b.id()))
 
+  const createDir = path => {
+    if (!fs.existsSync(path)) {
+      fs.mkdirSync(path)
+    }
+  }
+
+  const createPath = path => {
+    let dirs = path.split('/')
+    dirs.reduce((current, dir) => {
+      current += '/' + dir
+      createDir(current)
+      return current
+    }, '.')
+  }
+
   let api = {
-    buildReferencePage: path => {
+    buildReferencePage: dir => {
+      console.log('  API reference page')
+      let path = `${dir}/${category}s`
+      createDir(path)
+
       // Compile style file
       const style = fs.readFileSync('./style/style.scss', {encoding: 'utf-8'})
       const baseStyle = sass.renderSync({
@@ -28,8 +48,8 @@ module.exports = (docs, meta) => {
       // Github banner
       const gitHubBanner = fs.readFileSync('./templates/github-banner.html', {encoding: 'utf-8'})
 
-      const template = pug.compileFile('./templates/api-reference.pug')
-      fs.writeFileSync(`${path}/${category}s/${moduleName}.html`, template({
+      const template = pug.compileFile('./templates/reference.pug')
+      fs.writeFileSync(`${path}/${moduleName}.html`, template({
         html: {
           gitHubBanner
         },
@@ -53,11 +73,45 @@ module.exports = (docs, meta) => {
       }))
       return api
     },
-    buildDemoPage: path => {
+    buildDemoPage: dir => {
+      console.log('  Demo page')
+      const path = `${dir}/${category}s/${moduleName}`
+      createPath(path)
+
+      // Copy module specific files
+      fs.copyFileSync('../modules/widgets/line-chart/demo/content.js', 'demo/widgets/line-chart/content.js')
+
+      // Compile demo page
+      const template = pug.compileFile('./templates/demo.pug')
+      fs.writeFileSync(`demo/widgets/line-chart/index.html`, template({
+        config: {
+          root: '../../',
+          name: `${lib}/${packageName}`,
+          libs: [
+            'd3.v5.min.js',
+            'd3-interpolate-path.min.js',
+            'demo.js'
+          ],
+          dalian: [
+            'https://unpkg.com/@dalian/core',
+            'https://unpkg.com/@dalian/component-chart',
+            '../../../../modules/widgets/line-chart/dist/dalian.widget-line-chart.min.js'
+          ],
+          content: 'content.js',
+          styles: [
+            '../../style/style.css'
+          ]
+        }
+      }))
+
       return api
     },
-    buildExamplePage: path => {
+    buildExamplePage: dir => {
+      console.log('  Example page')
+      const path = `${dir}/${category}s/${moduleName}`
 
+      // TODO
+      createPath(path)
     }
   }
 

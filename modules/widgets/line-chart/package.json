@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@dalian/component-chart": "^0.1.0",
+    "@dalian/core": "^0.0.3",
     "d3-array": "^2.3.2",
     "d3-format": "^1.4.1",
     "d3-interpolate-path": "^2.1.1",
@@ -33,12 +34,10 @@
   },
   "scripts": {
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
-    "build:demo:pug": "./node_modules/.bin/pug demo/index.pug",
-    "watch:demo:pug": "./node_modules/.bin/nodemon -x 'npm run build:demo:pug' -w demo -e pug",
-    "build:demo:scss": "./node_modules/.bin/node-sass demo/style.scss > demo/style.css",
-    "watch:demo:scss": "./node_modules/.bin/nodemon -x 'npm run build:demo:scss' -w demo -e scss",
-    "build:demo": "npm run build:demo:pug & npm run build:demo:scss",
-    "watch:demo": "npm run watch:demo:pug & npm run watch:demo:scss",
+    "build:demo:pug": "./node_modules/.bin/pug --obj demo/config.js ../../../docs/templates/demo.pug --out demo",
+    "watch:demo:pug": "./node_modules/.bin/nodemon -x 'npm run build:demo:pug' -w demo -w . -e pug",
+    "build:demo": "npm run build:demo:pug",
+    "watch:demo": "npm run watch:demo:pug",
     "build": "./node_modules/.bin/rollup -c",
     "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js",
     "dev": "npm run watch & npm run watch:demo"

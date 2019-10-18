@@ -5,6 +5,7 @@
     "argparse": "^1.0.10",
     "documentation": "^12.1.2",
     "lodash.flattendeep": "^4.4.0",
+    "ncp": "^2.0.0",
     "node-sass": "^4.12.0",
     "pug": "^2.0.4"
   }

@@ -1,39 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="d3-interpolate-path added to fix ugly data update">
-      <change afterPath="$PROJECT_DIR$/docs/js/highlight.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/js/search-menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/lib/block-parser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/lib/dfs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/lib/module-parser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/lib/param-parser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/lib/type-parser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/atelier-lakeside-light.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/templates/api-reference.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/templates/github-banner.html" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Documentation script added, API reference page builder implemented">
+      <change afterPath="$PROJECT_DIR$/docs/templates/demo.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/lib/d3-interpolate-path.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/demo/lib/d3-interpolate-path.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/lib/d3.v5.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/demo/lib/d3.v5.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/js/search-menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/search-menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/lib/block-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/block-parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/lib/dfs.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/dfs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/lib/module-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/module-parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/lib/param-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/param-parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/lib/type-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/type-parser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/templates/api-reference.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/reference.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/.npmignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/demo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/dist/dalian.chart.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/dist/dalian.chart.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/src/axes.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/axes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/src/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/src/scale.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/scale.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/yarn-error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/chart-deprecated/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/colors/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/colors/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/description/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/description/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/font/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/font/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/highlight/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/highlight/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/line-style/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/line-style/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/trend-marker/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/components/widget/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/widget/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/demo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/dist/dalian.widget.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widget-deprecated/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/area-chart/demo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/demo/lib/demo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/docs/demo/style/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,29 +91,29 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/widgets/network" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/src" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="standardjs.codestyle.accepted" value="true" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/src" />
+      <recent name="$PROJECT_DIR$/docs/demo/template" />
+      <recent name="$PROJECT_DIR$/docs/demo/style" />
+      <recent name="$PROJECT_DIR$/docs/demo/lib" />
       <recent name="$PROJECT_DIR$/modules/widgets/network" />
-      <recent name="$PROJECT_DIR$/modules/components/highlight" />
-      <recent name="$PROJECT_DIR$/modules/components/marker" />
-      <recent name="$PROJECT_DIR$/modules/components/smoothing" />
-      <recent name="$PROJECT_DIR$/modules/components/format" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs/js" />
-      <recent name="$PROJECT_DIR$/docs/lib" />
-      <recent name="$PROJECT_DIR$/modules/components/marker/src" />
-      <recent name="$PROJECT_DIR$/modules/components/curve-marker/src" />
-      <recent name="$PROJECT_DIR$/modules/components/curve-marker" />
+      <recent name="$PROJECT_DIR$/docs/reference" />
+      <recent name="$PROJECT_DIR$/docs/templates" />
+      <recent name="$PROJECT_DIR$/modules/.deprecated" />
+      <recent name="$PROJECT_DIR$/docs/src" />
+      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/demo" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -180,7 +197,7 @@
       <workItem from="1571242659357" duration="39000" />
       <workItem from="1571242733153" duration="4000" />
       <workItem from="1571242981613" duration="736000" />
-      <workItem from="1571247806855" duration="19071000" />
+      <workItem from="1571247806855" duration="29378000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -259,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571164320388</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Documentation script added, API reference page builder implemented">
+      <created>1571349393722</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1571349393722</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +314,7 @@
     <MESSAGE value="Axis simplified, separate left and bottom axes components added" />
     <MESSAGE value="Axis update moved to axis component" />
     <MESSAGE value="d3-interpolate-path added to fix ugly data update" />
-    <option name="LAST_COMMIT_MESSAGE" value="d3-interpolate-path added to fix ugly data update" />
+    <MESSAGE value="Documentation script added, API reference page builder implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation script added, API reference page builder implemented" />
   </component>
 </project>

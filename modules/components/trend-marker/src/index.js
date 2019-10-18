@@ -72,10 +72,10 @@ export default (self, api, scales) => {
      * @param {number} start Starting (left side) value of the trend marker.
      * @param {number} end Ending (right side) value of the trend marker.
      * @param {string} label Label to display on the marker.
-     * @param {number} [duration = 700] Duration of the animation of adding the marker.
+     * @param {number} [duration = 400] Duration of the animation of adding the marker.
      * @returns {Object} Reference to the TrendMarker API.
      */
-    addMarker: (id, key, start, end, label, duration = 700) => {
+    addMarker: (id, key, start, end, label, duration = 400) => {
       // Check if trend-marker exists
       if (_.markers.has(id)) {
         return
@@ -146,7 +146,7 @@ export default (self, api, scales) => {
         .style('opacity', 1)
 
       let marker = {
-        remove: (duration = 700) => {
+        remove: (duration = 400) => {
           g.transition().duration(duration)
             .style('opacity', 0)
             .on('end', () => {
@@ -188,8 +188,8 @@ export default (self, api, scales) => {
             .style('fill', self._colors.mapping(key))
           text
             .style('font-size', self._font.size)
-            .transition().duration(duration)
             .style('fill', self._font.color)
+            .transition().duration(duration)
             .attr('x', scaleX(pos.start.x))
             .attr('y', scaleY(pos.plateau))
         }
