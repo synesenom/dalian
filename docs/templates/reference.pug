@@ -4,13 +4,15 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat:200,400,700')
-        style #{styles.base}
+        link(rel='stylesheet', type='text/css', href='../../style/common.css')
+        link(rel='stylesheet', type='text/css', href='../style/reference.css')
         link(rel='stylesheet', type='text/css', href='../../style/atelier-lakeside-light.css')
         script(src='../../js/highlight.min.js')
         script.
             hljs.initHighlightingOnLoad();
+        title #{content.title}
     body
-        != html.gitHubBanner
+        != gitHubBanner
         aside
             .menu-title methods
             ul.methods
@@ -18,21 +20,21 @@ html(lang='en')
                     li
                         a(id='toc-' + method, href='#' + method) #{method}
         main
-            h1 LineChart
-            p The line chart widget.
+            h1 #{content.heading}
+            p #{content.description}
 
             h1 install in node
             pre.install
-                code.bash npm install @dalian/widget-line-chart
+                code.bash npm install #{install.node}
 
             h1 use in browser
             pre.install
                 code.html
                     = '<script type="text/javascript" src="dalian.min.js"></script>'
 
-            h1 demo
-            p
-                a(href='https://' + content.example) #{content.demo}
+            //- h1 demo
+            //- p
+            //-     a(href='https://' + content.example) #{content.demo}
 
             h1 example
             p

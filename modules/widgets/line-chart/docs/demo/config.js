@@ -13,6 +13,6 @@ exports.config = {
   ],
   content: 'content.js',
   styles: [
-    'style.css'
+    'demo.css'
   ]
 }

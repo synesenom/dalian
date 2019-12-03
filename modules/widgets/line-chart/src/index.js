@@ -14,7 +14,7 @@ import Highlight from '../../../components/highlight/src/index'
 import TrendMarker from '../../../components/trend-marker/src/index'
 
 /**
- * An interactive line chart widget.
+ * The line chart widget.
  *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -43,7 +43,6 @@ export default (name, parent = 'body') => {
   let _ = {
     // Variables
     scales,
-    paths: new Map(),
 
     // Methods
     update: duration => {
@@ -86,10 +85,6 @@ export default (name, parent = 'body') => {
             .attr('d', d => lineFn(d.values))
             .style('stroke-width', '2px')
             .style('fill', 'none')
-            .each(d => {
-              // Take paths for plot-marker
-              _.paths.set(d.name, select(`.line.${encode(d.name)}`).node())
-            })
           return g
         },
         union: {
@@ -154,7 +149,7 @@ export default (name, parent = 'body') => {
       x = point.x
 
       // Marker
-      self._plotMarker.add(_.paths, d.name, mouse[0])
+      self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name)
 
       return {
         name: d.name,
@@ -171,7 +166,6 @@ export default (name, parent = 'body') => {
       }
     }
   }
-
   self._chart.transformData = data => {
     return data.map(d => ({
       name: d.name,
@@ -186,7 +180,7 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update
-  // Update plot before widget update because the trend markers need the data update
+  // Update plot before widget update because trend markers need the data update
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API
@@ -205,7 +199,7 @@ export default (name, parent = 'body') => {
    * @param {number} end Ending (right side) value of the trend marker.
    * @param {string} label Label to display on the marker.
    * @param {number} [duration = 700] Duration of the animation of adding the marker.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -214,7 +208,7 @@ export default (name, parent = 'body') => {
    * @method click
    * @methodOf LineChart
    * @param {Function} callback Function to call on click.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -230,7 +224,7 @@ export default (name, parent = 'body') => {
    * @method colors
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
-   * @returns {Widget} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -240,17 +234,17 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {Object[]} plots Array of objects representing the lines to show. Each plot has two properties:
    * <ul>
-   *   <li>{string} name: Name of the plot.</li>
-   *   <li>{Object[]} values: Plot data.</li>
+   *   <li>{string} <i>name</i>: Name of the plot.</li>
+   *   <li>{Object[]} <i>values</i>: Plot data.</li>
    * </ul>
-   * The {values} property is an array of objects of the following structure:
+   * The <i>values</i> property is an array of objects of the following structure:
    * <dl>
    *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
    *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
    *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
    *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
    * </dl>
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -262,7 +256,7 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
    * disabled.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -271,7 +265,7 @@ export default (name, parent = 'body') => {
    * @method fontSize
    * @methodOf LineChart
    * @param {number} size Size of the font in pixels.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -280,7 +274,7 @@ export default (name, parent = 'body') => {
    * @method fontColor
    * @methodOf LineChart
    * @param {string} color Color to set as font color.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -289,7 +283,7 @@ export default (name, parent = 'body') => {
    * @method height
    * @methodOf LineChart
    * @param {number} [value = 200] Height value in pixels.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -300,7 +294,7 @@ export default (name, parent = 'body') => {
    * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the plots to highlight. If key
    * is {null} or {undefined}, the highlight is removed (all plots become visible).
    * @param {number} [duration = 700] Duration of the highlight animation in ms.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -316,7 +310,7 @@ export default (name, parent = 'body') => {
    * @method lineStyle
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -327,7 +321,7 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
    * sides.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -336,7 +330,7 @@ export default (name, parent = 'body') => {
    * @method mouseleave
    * @methodOf LineChart
    * @param {Function} callback Function to call on mouseleave.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -346,7 +340,7 @@ export default (name, parent = 'body') => {
    * @method mouseover
    * @methodOf LineChart
    * @param {Function} callback Function to call on mouseover.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -357,7 +351,7 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
    * @param {number} [duration = 700] Duration of the placeholder animation in ms.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -367,7 +361,7 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
    * not exist, no change is applied.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -377,7 +371,7 @@ export default (name, parent = 'body') => {
    * @method render
    * @methodOf LineChart
    * @param {number} [duration = 700] Duration of the rendering animation in ms.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -386,7 +380,7 @@ export default (name, parent = 'body') => {
    * @method smoothing
    * @methodOf LineChart
    * @param {boolean} on Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -395,7 +389,7 @@ export default (name, parent = 'body') => {
    * @method tooltip
    * @methodOf LineChart
    * @param {boolean} [on = false] Whether tooltip should be enabled or not.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -405,7 +399,7 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
    * and must return a string. The return value can be HTML formatted.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -415,7 +409,7 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
    * and must return a string. The return value can be HTML formatted.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -424,7 +418,7 @@ export default (name, parent = 'body') => {
    * @method width
    * @methodOf LineChart
    * @param {number} [value = 300] Width value in pixels.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -434,7 +428,7 @@ export default (name, parent = 'body') => {
    * @method x
    * @methodOf LineChart
    * @param {number} [value = 0] Value of the X coordinate in pixels.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -443,7 +437,7 @@ export default (name, parent = 'body') => {
    * @method xLabel
    * @methodOf LineChart
    * @param {string} label Text to set as the label.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -452,7 +446,7 @@ export default (name, parent = 'body') => {
    * @method xTickFormat
    * @methodOf LineChart
    * @param {Function} format Function to set as formatter.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -462,7 +456,7 @@ export default (name, parent = 'body') => {
    * @method y
    * @methodOf LineChart
    * @param {number} [value = 0] Value of the Y coordinate in pixels.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -471,7 +465,7 @@ export default (name, parent = 'body') => {
    * @method yLabel
    * @methodOf LineChart
    * @param {string} label Text to set as the label.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 
   /**
@@ -480,6 +474,6 @@ export default (name, parent = 'body') => {
    * @method yTickFormat
    * @methodOf LineChart
    * @param {Function} format Function to set as formatter.
-   * @returns {Object} Reference to the LineChart API.
+   * @returns {LineChart} The LineChart itself.
    */
 }

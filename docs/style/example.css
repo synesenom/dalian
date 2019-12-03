@@ -1,0 +1,45 @@
+::selection {
+    color: white;
+    background-color: royalblue;
+}
+
+html, body {
+    width: 100%;
+}
+
+main {
+    margin: 10%;
+    width: 80%;
+}
+
+@media screen and (min-width: 600px) {
+    main {
+        width: 600px;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
+
+h1 {
+    border-left: 5px solid royalblue;
+    margin-left: -21px;
+    margin-top: 50px;
+    padding: 10px 16px;
+    font-size: 1.6em;
+    font-weight: normal;
+}
+
+code {
+    padding: 15px !important;
+    width: calc(100% - 30px);
+    background-color: #f9f9f9 !important;
+    font-size: 0.9em;
+}
+
+#widget,
+.widget {
+    display: block;
+    position: relative;
+    width: 100%;
+}

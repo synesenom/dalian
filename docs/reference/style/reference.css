@@ -1,38 +1,3 @@
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: white;
-}
-::-webkit-scrollbar-thumb {
-  background: #eee;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #ccc;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  line-height: 1.4em;
-}
-
-a,
-a:visited{
-  text-decoration: none;
-  color: royalblue;
-  border-bottom: 3px solid transparent;
-  transition: border-bottom .2s;
-}
-a:hover {
-  border-bottom: 3px solid royalblue;
-  transition: border-bottom .2s;
-}
-
 aside {
   position: absolute;
   width: calc(240px - 2px);
@@ -172,11 +137,11 @@ tr {
 
 td {
   padding-top: 10px;
+}
 
-  code {
-    display: inline-block;
-    margin: 2px;
-  }
+td code {
+  display: inline-block;
+  margin: 2px;
 }
 
 .param-optional {

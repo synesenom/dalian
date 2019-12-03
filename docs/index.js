@@ -19,8 +19,8 @@ const build = async (category, name) => {
     .then(docs => {
       // Parse docs and build pages
       ModuleParser(JSON.parse(docs), meta)
-        .buildReferencePage('reference')
-        .buildDemoPage('demo')
+        //.buildReferencePage('reference')
+        // TODO .buildDemoPage('demo')
         .buildExamplePage('examples')
     })
 }

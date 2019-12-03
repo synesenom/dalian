@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="dalian.core" level="application" />
+    <orderEntry type="library" name="mobile-detect" level="application" />
   </component>
 </module>

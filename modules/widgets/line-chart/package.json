@@ -34,12 +34,8 @@
   },
   "scripts": {
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
-    "build:demo:pug": "./node_modules/.bin/pug --obj demo/config.js ../../../docs/templates/demo.pug --out demo",
-    "watch:demo:pug": "./node_modules/.bin/nodemon -x 'npm run build:demo:pug' -w demo -w . -e pug",
-    "build:demo": "npm run build:demo:pug",
-    "watch:demo": "npm run watch:demo:pug",
     "build": "./node_modules/.bin/rollup -c",
     "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js",
-    "dev": "npm run watch & npm run watch:demo"
+    "dev": "npm run watch"
   }
 }
