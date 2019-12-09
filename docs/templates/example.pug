@@ -50,22 +50,10 @@ html(lang='en')
                 div(id=div.i, class=div.c)
             h1 description
             #desc !{config.description}
+            a(href='https://github.com/synesenom/dalian/blob/master/src/modules/widgets/line-chart.js') source
+            a(href='https://unpkg.com/@dalian/widget-line-chart') min.js
+            a(href='../../../reference/widgets/line-chart.html') docs
             #code-doc
-            include ../../modules/widgets/line-chart/docs/example
+            include ../../modules/widgets/line-chart/docs/example/code
     script.
         resize();
-    // main
-        #widget(style=(style? style : ""))
-        if div
-            div(id=div.i, class=div.c)
-        h1 description
-        #desc !{description}
-        #code-doc
-        if links
-            #doc-link
-                if links.minjs
-                    a.margined(href='../dl/' + links.minjs + '.min.js') min.js
-                if links.docs
-                    a.margined(href='../api/' + links.docs + '.html') docs
-                if links.source
-                    a(href='https://github.com/synesenom/dashboard-utils/blob/master/src/' + links.source + '.js') source

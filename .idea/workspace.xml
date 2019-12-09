@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Demo page builder added to docs script">
-      <change afterPath="$PROJECT_DIR$/docs/js/codedoc.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/common.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/example.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/highlight.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/templates/example.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/widgets/line-chart/docs/example.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dalian-es6.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dalian-es6.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Example page builder works">
+      <change afterPath="$PROJECT_DIR$/docs/js/d3.v5.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/demo/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/demo/style/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/demo/lib/d3-interpolate-path.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/demo/lib/d3.v5.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/demo/lib/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/demo/style/demo.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/reference/style/reference.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/reference.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/src/module-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/module-parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/docs/reference/style/reference.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/style/example.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/example.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/templates/example.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/example.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/templates/reference.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/reference.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/plot-marker/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/plot-marker/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/.npmignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/docs/demo/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/demo/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/docs/demo/content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/docs/example.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/docs/example/code.pug" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +31,8 @@
         <option value="SCSS File" />
         <option value="HTML File" />
         <option value="Pug File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -75,11 +66,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs/example" />
+      <recent name="$PROJECT_DIR$/docs/style" />
       <recent name="$PROJECT_DIR$/docs/examples/style" />
       <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs" />
       <recent name="$PROJECT_DIR$/docs/demo/style" />
-      <recent name="$PROJECT_DIR$/docs/demo/lib" />
-      <recent name="$PROJECT_DIR$/docs/reference/style" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs/style" />
@@ -176,7 +167,8 @@
       <workItem from="1572535112839" duration="1756000" />
       <workItem from="1573420288083" duration="157000" />
       <workItem from="1573420614225" duration="76000" />
-      <workItem from="1575392079767" duration="7212000" />
+      <workItem from="1575392079767" duration="13040000" />
+      <workItem from="1575835419842" duration="351000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -269,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571437563533</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Example page builder works">
+      <created>1575414692144</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1575414692145</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,6 +301,7 @@
     <MESSAGE value="d3-interpolate-path added to fix ugly data update" />
     <MESSAGE value="Documentation script added, API reference page builder implemented" />
     <MESSAGE value="Demo page builder added to docs script" />
-    <option name="LAST_COMMIT_MESSAGE" value="Demo page builder added to docs script" />
+    <MESSAGE value="Example page builder works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Example page builder works" />
   </component>
 </project>

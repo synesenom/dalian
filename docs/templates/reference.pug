@@ -1,13 +1,15 @@
+- var rootDir = '../../../';
+
 doctype html
 html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat:200,400,700')
-        link(rel='stylesheet', type='text/css', href='../../style/common.css')
-        link(rel='stylesheet', type='text/css', href='../style/reference.css')
-        link(rel='stylesheet', type='text/css', href='../../style/atelier-lakeside-light.css')
-        script(src='../../js/highlight.min.js')
+        link(rel='stylesheet', type='text/css', href=rootDir + 'style/common.css')
+        link(rel='stylesheet', type='text/css', href=rootDir + 'style/reference.css')
+        link(rel='stylesheet', type='text/css', href=rootDir + 'style/atelier-lakeside-light.css')
+        script(src=rootDir + 'js/highlight.min.js')
         script.
             hljs.initHighlightingOnLoad();
         title #{content.title}

@@ -5,22 +5,20 @@ const version = require('./package').version
 
 
 const build = async (category, name) => {
-  console.log(`Building docs for: ${category}/${name}...`)
-  const SRC_DIR = '../modules'
-  const dir = `${SRC_DIR}/${category}s/${name}`
-
-  // Read package.json
-  let meta = require(`${dir}/package`)
+  console.log(`Building docs for: ${category}/${name}`)
+  const config = {
+    srcPath: `../modules/${category}s/${name}/src/index.js`,
+    metaPath: `../../modules/${category}s/${name}/package.json`
+  }
 
   // Build documentation content
-  documentation.build([`../modules/${category}s/${name}/src/index.js`], {
+  documentation.build([config.srcPath], {
     shallow: true
   }).then(documentation.formats.json)
     .then(docs => {
       // Parse docs and build pages
-      ModuleParser(JSON.parse(docs), meta)
-        //.buildReferencePage('reference')
-        // TODO .buildDemoPage('demo')
+      ModuleParser(JSON.parse(docs), config)
+        .buildReferencePage('reference')
         .buildExamplePage('examples')
     })
 }
@@ -32,13 +30,15 @@ const parser = new ArgumentParser({
 })
 parser.addArgument(
   ['-c', '--category'], {
-    help: 'Module category. Supported categories: component, widget.'
+    help: 'Module category. Supported categories: widget.'
   }
 )
 parser.addArgument(
   ['-m', '--module'], {
     help: 'Module name.'
   }
-)
+);
 
-build('widget', 'line-chart')
+['line-chart'].forEach(m => {
+  build('widget', m)
+})
