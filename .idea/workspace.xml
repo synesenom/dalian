@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Example page builder works">
-      <change afterPath="$PROJECT_DIR$/docs/js/d3.v5.min.js" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Safety commit">
+      <change afterPath="$PROJECT_DIR$/docs/js/d3-interpolate-path.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-Bold.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-ExtraLight.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-Light.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-Regular.otf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/demo/lib/d3-interpolate-path.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/demo/lib/d3.v5.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/demo/lib/demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/demo/style/demo.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/reference/style/reference.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/reference.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/src/module-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/module-parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/example.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/example.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/templates/example.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/example.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/templates/reference.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/reference.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/docs/example.pug" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/docs/example/code.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/style/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/common.css" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +41,11 @@
   </component>
   <component name="ProjectId" id="1RJiKJESip4DYNqZgsdqP8SlOlc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
@@ -65,13 +63,6 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs/example" />
-      <recent name="$PROJECT_DIR$/docs/style" />
-      <recent name="$PROJECT_DIR$/docs/examples/style" />
-      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs" />
-      <recent name="$PROJECT_DIR$/docs/demo/style" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs/style" />
       <recent name="$PROJECT_DIR$/docs/js" />
@@ -79,18 +70,13 @@
       <recent name="$PROJECT_DIR$/docs/src" />
       <recent name="$PROJECT_DIR$/docs/demo/template" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/style/fonts" />
+      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs/example" />
+      <recent name="$PROJECT_DIR$/docs/style" />
+      <recent name="$PROJECT_DIR$/docs/examples/style" />
+      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs" />
+    </key>
   </component>
   <component name="RunManager" selected="Node.js.index.js">
     <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/modules/widget2/src">
@@ -120,6 +106,18 @@
         <item itemvalue="Node.js.widget.js" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="StructureViewFactory">
     <option name="ACTIVE_ACTIONS" value=",HIDE_INHERITED_FROM_OBJECT,HIDE_INHERITED" />
@@ -169,6 +167,8 @@
       <workItem from="1573420614225" duration="76000" />
       <workItem from="1575392079767" duration="13040000" />
       <workItem from="1575835419842" duration="351000" />
+      <workItem from="1575870186239" duration="39000" />
+      <workItem from="1575916407792" duration="663000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -268,7 +268,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575414692145</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Safety commit">
+      <created>1575870207197</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1575870207197</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,6 +309,13 @@
     <MESSAGE value="Documentation script added, API reference page builder implemented" />
     <MESSAGE value="Demo page builder added to docs script" />
     <MESSAGE value="Example page builder works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Example page builder works" />
+    <MESSAGE value="Safety commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Safety commit" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1575916548446">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1575916548446" />
   </component>
 </project>
