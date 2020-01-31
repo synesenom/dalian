@@ -20,13 +20,11 @@ html(lang='en')
         each css in ['common', 'highlight.min', 'example']
             link(rel='stylesheet', type='text/css', href='../../../style/' + css + '.css')
         script(type='text/javascript', src='https://unpkg.com/mobile-detect@1.4.4/mobile-detect.js')
-        each lib in config.libs
-            script(type='text/javascript', src='https://unpkg.com/' + lib)
-        each module in ['@dalian/core', '@dalian/component-chart']
-            script(type='text/javascript', src='https://unpkg.com/' + module)
-        script(type='text/javascript', src='../../../../modules/widgets/line-chart/dist/dalian.widget-line-chart.min.js')
-        script(src='../../../js/codedoc.min.js')
-        script(src='../../../js/highlight.min.js')
+        each lib in ['codedoc.min', 'highlight.min']
+            script(type='text/javascript', src='../../../js/' + lib + '.js')
+        each dependency in dependencies
+            script(type='text/javascript', src='../../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
+        script(type='text/javascript', src='../../../../dist/dalian.min.js')
         script(type='text/javascript').
           codedoc.heading()
             .callback(function() {
@@ -39,21 +37,21 @@ html(lang='en')
             const width = parseFloat(d3.select('#widget').style('width'));
             const aspect = md.mobile() === null ? 2 : 1.5;
             const height = width / aspect;
-            console.log(width, height);
             return { width, height };
           }
-        title LineChart | dalian
+        title #{title} | dalian
     body
         main
             #widget
             if div
                 div(id=div.i, class=div.c)
             h1 description
-            #desc !{config.description}
-            a(href='https://github.com/synesenom/dalian/blob/master/src/modules/widgets/line-chart.js') source
-            a(href='https://unpkg.com/@dalian/widget-line-chart') min.js
-            a(href='../../../reference/widgets/line-chart.html') docs
+            #desc !{description}
+            a(href='https://github.com/synesenom/dalian/blob/master/src/modules/widgets/' + widgetName + '.js') source
+            a(href='../../../api/widgets/' + widgetName + '.html') docs
+            a(href='' + minjs) min.js
             #code-doc
-            include ../../modules/widgets/line-chart/docs/example/code
+            | !{example}
+            +resize('' + variableName)
     script.
         resize();

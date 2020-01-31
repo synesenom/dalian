@@ -1,5 +1,3 @@
-- var rootDir = '../../../';
-
 doctype html
 html(lang='en')
     head
@@ -7,43 +5,47 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat:200,400,700')
         link(rel='stylesheet', type='text/css', href=rootDir + 'style/common.css')
-        link(rel='stylesheet', type='text/css', href=rootDir + 'style/reference.css')
+        link(rel='stylesheet', type='text/css', href=rootDir + 'style/api.css')
         link(rel='stylesheet', type='text/css', href=rootDir + 'style/atelier-lakeside-light.css')
         script(src=rootDir + 'js/highlight.min.js')
         script.
             hljs.initHighlightingOnLoad();
-        title #{content.title}
+        title #{pageTitle}
     body
         != gitHubBanner
         aside
             .menu-title methods
             ul.methods
-                each method in content.menu
+                each method in menu
                     li
                         a(id='toc-' + method, href='#' + method) #{method}
         main
-            h1 #{content.heading}
-            p #{content.description}
+            h1 #{mainHeading}
+            p
 
-            h1 install in node
+            h2 install in node
             pre.install
                 code.bash npm install #{install.node}
 
-            h1 use in browser
+            h2 use in browser
             pre.install
                 code.html
-                    = '<script type="text/javascript" src="dalian.min.js"></script>'
+                    | #{'<!-- Dependencies -->'}
+                    | #{install.browser.dependencies}
+                    |
+                    | #{'<!-- Load module from unpkg.com ... -->'}
+                    | #{install.browser.module.unpkg}
+                    |
+                    | #{'<!-- ... or from a local copy -->'}
+                    | #{install.browser.module.local}
+            p For local usage, you can download the latest minified version of the library #[a(href='../../dl/dalian.min.js') here].
 
-            //- h1 demo
-            //- p
-            //-     a(href='https://' + content.example) #{content.demo}
-
-            h1 example
+            h2 example
             p
-                a(href='https://' + content.example) #{content.example}
+                a(href='https://' + exampleUrl) #{exampleUrl}
 
-            h1 api reference
-            each method in content.reference
+            h2 api reference
+            each method in reference
                 .card
                     pre.title(id=method.id) #{method.signature}
                     .desc

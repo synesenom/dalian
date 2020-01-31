@@ -58,7 +58,7 @@ export default (name, parent) => {
               // Node ID
               index: d.index,
 
-              // Copy reference to position
+              // Copy api to position
               pos: d.pos,
 
               // Deep copy style
@@ -80,7 +80,7 @@ export default (name, parent) => {
                 // Link ID
                 index: d.index,
 
-                // Copy reference to source and target
+                // Copy api to source and target
                 source: d.source,
                 target: d.target,
 

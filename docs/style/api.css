@@ -70,10 +70,26 @@ main {
 
 h1 {
   display: inline-block;
-  margin: 60px 20px 10px 20px;
-  font-size: 1.5em;
+  margin: 50px 20px 10px 20px;
+  font-size: 1.6em;
+  font-weight: 100;
+  color: #555;
+}
+
+h2 {
+  display: inline-block;
+  margin: 40px 20px 15px 20px;
+  font-size: 1.4em;
   font-weight: normal;
   color: #555;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 6px;
+  margin-top: 30px;
+  font-variant: all-small-caps;
 }
 
 p {
@@ -84,19 +100,11 @@ p {
 
 pre.install {
   width: calc(100% - 40px);
-  margin: 0 20px;
+  margin: 0 20px 10px 20px;
 }
 
 pre.install code {
   padding: 20px !important;
-}
-
-h3 {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 6px;
-  margin-top: 30px;
-  font-variant: all-small-caps;
 }
 
 dl dd {

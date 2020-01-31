@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Safety commit">
-      <change afterPath="$PROJECT_DIR$/docs/js/d3-interpolate-path.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-Bold.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-ExtraLight.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-Light.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/fonts/Montserrat-Regular.otf" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Online dependencies removed from test example page for line-chart">
+      <change afterPath="$PROJECT_DIR$/docs/catalogue/widgets/line-chart/description.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/js/d3-interpolate-path.2.1.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/js/d3.5.15.0.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/mouse.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/js/d3-interpolate-path.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/js/d3-interpolate-path.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/js/highlight.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/js/highlight.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/src/module-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/module-parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/style/example.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/example.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/style/reference.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/api.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/templates/example.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/example-page.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/templates/reference.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/api-page.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/network/src/display-layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/widgets/network/src/display-layer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,10 +30,10 @@
         <option value="TypeScript File" />
         <option value="package.json" />
         <option value="SCSS File" />
-        <option value="HTML File" />
         <option value="Pug File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -53,7 +61,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/style" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/js" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -64,18 +72,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs/style" />
       <recent name="$PROJECT_DIR$/docs/js" />
-      <recent name="$PROJECT_DIR$/docs/demo/style" />
-      <recent name="$PROJECT_DIR$/docs/src" />
-      <recent name="$PROJECT_DIR$/docs/demo/template" />
+      <recent name="$PROJECT_DIR$/dist" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/components/tooltip" />
+      <recent name="$PROJECT_DIR$/src/components/axis" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/widgets/flow-chart" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/components/" />
       <recent name="$PROJECT_DIR$/docs/style/fonts" />
-      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs/example" />
-      <recent name="$PROJECT_DIR$/docs/style" />
-      <recent name="$PROJECT_DIR$/docs/examples/style" />
-      <recent name="$PROJECT_DIR$/modules/widgets/line-chart/docs" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.index.js">
@@ -168,7 +176,12 @@
       <workItem from="1575392079767" duration="13040000" />
       <workItem from="1575835419842" duration="351000" />
       <workItem from="1575870186239" duration="39000" />
-      <workItem from="1575916407792" duration="663000" />
+      <workItem from="1575916407792" duration="1470000" />
+      <workItem from="1577994275714" duration="260000" />
+      <workItem from="1578149161643" duration="2920000" />
+      <workItem from="1579074538908" duration="10038000" />
+      <workItem from="1579622211052" duration="3637000" />
+      <workItem from="1580193766486" duration="4292000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -275,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575870207197</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Online dependencies removed from test example page for line-chart">
+      <created>1575917244545</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1575917244545</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,12 +330,49 @@
     <MESSAGE value="Demo page builder added to docs script" />
     <MESSAGE value="Example page builder works" />
     <MESSAGE value="Safety commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Safety commit" />
+    <MESSAGE value="Online dependencies removed from test example page for line-chart" />
+    <option name="LAST_COMMIT_MESSAGE" value="Online dependencies removed from test example page for line-chart" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1575916548446">
+    <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579629610937">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1575916548446" />
+    <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.801@0.23.1440.801" timestamp="1579629610937" />
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1575917244242">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1575917244242" />
+    <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.0.bottom/0.23.1440.801@0.23.1440.801" timestamp="1579438677233" />
+    <state width="1419" height="216" key="GridCell.Tab.0.center" timestamp="1579438677231">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.0.center/0.23.1440.801@0.23.1440.801" timestamp="1579438677231" />
+    <state width="1419" height="216" key="GridCell.Tab.0.left" timestamp="1579438677230">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.0.left/0.23.1440.801@0.23.1440.801" timestamp="1579438677230" />
+    <state width="1419" height="216" key="GridCell.Tab.0.right" timestamp="1579438677232">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1579438677232" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1575917246243">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1575917246243" />
+    <state x="386" y="180" width="667" height="486" key="find.popup" timestamp="1579124555409">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="386" y="180" width="667" height="486" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1579124555409" />
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1579108829304">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1579108829304" />
+    <state x="450" y="268" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1579124946468">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="450" y="268" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.23.1440.801@0.23.1440.801" timestamp="1579124946468" />
   </component>
 </project>

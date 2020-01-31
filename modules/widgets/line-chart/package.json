@@ -1,7 +1,7 @@
 {
   "name": "@dalian/widget-line-chart",
   "version": "0.0.1",
-  "description": "A line chart widget.",
+  "description": "A simple and minimalistic line chart widget.",
   "author": {
     "name": "Enys Mones",
     "email": "enys.mones@gmail.com",
@@ -12,13 +12,13 @@
   "module": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "@dalian/component-chart": "^0.1.0",
-    "@dalian/core": "^0.0.3",
     "d3-array": "^2.3.2",
     "d3-format": "^1.4.1",
     "d3-interpolate-path": "^2.1.1",
     "d3-shape": "^1.3.5",
-    "d3-selection": "^1.4.0"
+    "d3-selection": "^1.4.0",
+    "@dalian/component-chart": "^0.1.0",
+    "@dalian/core": "^0.0.3"
   },
   "devDependencies": {
     "d3-ease": "^1.0.5",

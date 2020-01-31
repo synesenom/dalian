@@ -19,70 +19,85 @@ const createPath = path => {
 }
 
 
-module.exports = (docs, config) => {
-  // Read package.json
-  const meta = require(config.metaPath)
+// TODO Get rid of config parameter
+module.exports = (meta, docs, widgetName) => {
+  const factoryName = widgetName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 
-  // Naming
-  const libraryName = meta.name.split('/')[0].slice(1)
-  const packageName = meta.name.split('/')[1]
-  const category = packageName.split('-')[0]
-  const moduleName = packageName.split('-').slice(1).join('-')
-  const factoryName = moduleName.split('-').map(d => d[0].toUpperCase() + d.slice(1)).join('')
+  // Dependencies
+  const dependencies = Object.entries(meta.dependencies).map(d => ({
+    lib: d[0],
+    version: d[1].match(/(\d+.\d+.\d+)$/)[0]
+  }))
 
   // Parse documentation blocks and sort them alphabetically
   let blocks = docs.map(BlockParser)
     .sort((a, b) => a.id() === factoryName ? -1 : a.id().localeCompare(b.id()))
 
   let api = {
-    buildReferencePage: outputDir => {
-      console.log('  API reference page')
-      const path = `${outputDir}/${category}s/${moduleName}`
+    // TODO Remove hard-coded content
+    buildReferencePage: () => {
+      const path = 'api/widgets'
       createPath(path)
 
       // Build template
-      const template = pug.compileFile('./templates/reference.pug')
-      fs.writeFileSync(`${path}/index.html`, template({
+      const template = pug.compileFile('./templates/api-page.pug')
+      fs.writeFileSync(`${path}/${widgetName}.html`, template({
+        // Documentation root directory
+        rootDir: '../../',
+
+        // GitHub banner
         gitHubBanner: fs.readFileSync('./templates/github-banner.html', {encoding: 'utf-8'}),
+
+        // Install commands
         install: {
-          node: `@${libraryName}/${packageName}`
-        },
-        content: {
-          title: `${moduleName} | ${libraryName}`,
-          heading: factoryName,
-          description: meta.description,
-          menu: blocks.map(d => d.id()),
-          reference: blocks.map(d => {
-            return {
-              id: d.id(),
-              signature: `${factoryName}.${d.signature()}`,
-              description: d.description(),
-              params: d.params(),
-              returns: d.returns()
+          node: `dalian.min.js`,
+          browser: {
+            dependencies: dependencies
+              .map(d => `<script src="https://unpkg.com/${d.lib}@${d.version}"></script>`).join('\n'),
+            module: {
+              unpkg: `<script src="https://unpkg.com/${meta.name}"></script>`,
+              local: `<script src="${meta.name}.min.js"></script>`
             }
-          }),
-          example: `synesenom.github.io/${libraryName}/examples/${category}s/${moduleName}`
-        }
+          }
+        },
+
+        // Content
+        pageTitle: `${factoryName} | dalian`,
+        mainHeading: factoryName,
+        menu: blocks.map(d => d.id()),
+        reference: blocks.map(d => {
+          return {
+            id: d.id(),
+            signature: `${factoryName}.${d.signature()}`,
+            description: d.description(),
+            params: d.params(),
+            returns: d.returns()
+          }
+        }),
+
+        exampleUrl: `synesenom.github.io/dalian/catalogue/widgets/${widgetName}`
       }))
       return api
     },
 
-    buildExamplePage: outputDir => {
-      console.log(config)
-      console.log('  Example page')
-      createPath(`${outputDir}/${category}s/${moduleName}`)
+    buildExamplePage: () => {
+      const path = 'catalogue/widgets'
+      createPath(path)
 
-      // Compile demo page
-      const template = pug.compileFile('./templates/example.pug')
-      fs.writeFileSync(`examples/widgets/line-chart/index.html`, template({
-        config: {
-          name: 'line-chart',
-          libs: ['d3', 'd3-interpolate-path'],
-          description: 'Line charts are most commonly used to show <span class="good">temporal changes</span> or trends in quantitative data. As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each other.',
-          widget: 'lineChart',
-        }
+      // Build template
+      const template = pug.compileFile('./templates/example-page.pug')
+      const description = fs.readFileSync(`catalogue/widgets/${widgetName}/description.html`, {encoding: 'utf8'})
+      const example = fs.readFileSync(`catalogue/widgets/${widgetName}/example.html`, {encoding: 'utf8'})
+
+      fs.writeFileSync(`${path}/${widgetName}/index.html`, template({
+        title: factoryName,
+        dependencies,
+        description,
+        example,
+        minjs: '../../../dl/dalian.min.js',
+        widgetName,
+        variableName: factoryName.charAt(0).toLowerCase() + factoryName.substring(1)
       }))
-
       return api
     }
   }

@@ -361,7 +361,7 @@
   function extend(commandsToExtend, referenceCommands, excludeSegment) {
     // compute insertion points:
     // number of segments in the path to extend
-    var numSegmentsToExtend = commandsToExtend.length - 1; // number of segments in the reference path.
+    var numSegmentsToExtend = commandsToExtend.length - 1; // number of segments in the api path.
 
     var numReferenceSegments = referenceCommands.length - 1; // this value is always between [0, 1].
 
