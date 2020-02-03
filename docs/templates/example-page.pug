@@ -16,11 +16,9 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat:200,300,700')
-        each css in ['common', 'highlight.min', 'example']
+        each css in ['fonts', 'base', 'scrollbar', 'heading', 'code', 'example', 'link', 'atelier-lakeside-light', 'marker', 'main']
             link(rel='stylesheet', type='text/css', href='../../../style/' + css + '.css')
-        script(type='text/javascript', src='https://unpkg.com/mobile-detect@1.4.4/mobile-detect.js')
-        each lib in ['codedoc.min', 'highlight.min']
+        each lib in ['codedoc.min', 'highlight.min', 'mobile-detect.1.4.4.min']
             script(type='text/javascript', src='../../../js/' + lib + '.js')
         each dependency in dependencies
             script(type='text/javascript', src='../../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
@@ -42,16 +40,17 @@ html(lang='en')
         title #{title} | dalian
     body
         main
-            #widget
-            if div
-                div(id=div.i, class=div.c)
-            h1 description
-            #desc !{description}
-            a(href='https://github.com/synesenom/dalian/blob/master/src/modules/widgets/' + widgetName + '.js') source
-            a(href='../../../api/widgets/' + widgetName + '.html') docs
-            a(href='' + minjs) min.js
-            #code-doc
-            | !{example}
-            +resize('' + variableName)
+            .main-content-centered
+                #widget
+                if div
+                    div(id=div.i, class=div.c)
+                h1 description
+                p#desc !{description}
+                a.right(href='https://github.com/synesenom/dalian/blob/master/src/modules/widgets/' + widgetName + '.js') source
+                a.right(href='../../../api/charts/' + widgetName + '.html') docs
+                a.right(href='' + minjs) min.js
+                #code-doc
+                | !{example}
+                +resize('' + variableName)
     script.
         resize();

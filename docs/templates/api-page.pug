@@ -3,16 +3,13 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat:200,400,700')
-        link(rel='stylesheet', type='text/css', href=rootDir + 'style/common.css')
-        link(rel='stylesheet', type='text/css', href=rootDir + 'style/api.css')
-        link(rel='stylesheet', type='text/css', href=rootDir + 'style/atelier-lakeside-light.css')
+        each css in ['fonts', 'base', 'link', 'heading', 'scrollbar', 'atelier-lakeside-light', 'main', 'api']
+            link(rel='stylesheet', type='text/css', href=rootDir + 'style/' + css + '.css')
         script(src=rootDir + 'js/highlight.min.js')
         script.
             hljs.initHighlightingOnLoad();
         title #{pageTitle}
     body
-        != gitHubBanner
         aside
             .menu-title methods
             ul.methods
@@ -20,62 +17,44 @@ html(lang='en')
                     li
                         a(id='toc-' + method, href='#' + method) #{method}
         main
-            h1 #{mainHeading}
-            p
+            .main-content-padded
+                h1 #{mainHeading}
+                p
 
-            h2 install in node
-            pre.install
-                code.bash npm install #{install.node}
+                h2 example
+                p
+                    a(href='https://' + exampleUrl) #{exampleUrl}
 
-            h2 use in browser
-            pre.install
-                code.html
-                    | #{'<!-- Dependencies -->'}
-                    | #{install.browser.dependencies}
-                    |
-                    | #{'<!-- Load module from unpkg.com ... -->'}
-                    | #{install.browser.module.unpkg}
-                    |
-                    | #{'<!-- ... or from a local copy -->'}
-                    | #{install.browser.module.local}
-            p For local usage, you can download the latest minified version of the library #[a(href='../../dl/dalian.min.js') here].
-
-            h2 example
-            p
-                a(href='https://' + exampleUrl) #{exampleUrl}
-
-            h2 api reference
-            each method in reference
-                .card
-                    pre.title(id=method.id) #{method.signature}
-                    .desc
-                        != method.description
-                    if method.params
-                        h3 Parameters
-                        table
-                            thead
-                                tr
-                                    th.param-name Name
-                                    th.param-type Type
-                                    th.param-desc Description
-                            tbody
-                                each param in method.params
+                h2 api reference
+                each method in reference
+                    .card
+                        pre.title(id=method.id) #{method.signature}
+                        .desc
+                            != method.description
+                        if method.params
+                            h3 Parameters
+                            table
+                                thead
                                     tr
-                                        td
-                                            i #{param.name}
-                                        td.param-type
-                                            each type in param.type
-                                                code #{type}
-                                        td
-                                            if param.optional
-                                                span.param-optional optional
-                                            != param.desc
-                                            if typeof param.default !== 'undefined'
-                                                | &nbsp;Default value is #{param.default}.
-                    if method.returns
-                        h3 Returns
-                        .returns
-                            .return-type
-                                each type in method.returns.type
-                                    code #{type}
-                            .return-desc #{method.returns.desc}
+                                        th.param-name Name
+                                        th.param-type Type
+                                        th.param-desc Description
+                                tbody
+                                    each param in method.params
+                                        tr
+                                            td
+                                                i #{param.name}
+                                            td.param-type #{param.type.join(', ')}
+                                            td
+                                                if param.optional
+                                                    span.param-optional optional
+                                                != param.desc
+                                                if typeof param.default !== 'undefined'
+                                                    | &nbsp;Default value is #{param.default}.
+                        if method.returns
+                            h3 Returns
+                            .returns
+                                .return-type
+                                    each type in method.returns.type
+                                        code #{type}
+                                .return-desc #{method.returns.desc}

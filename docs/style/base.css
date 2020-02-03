@@ -1,0 +1,13 @@
+::selection {
+    color: white;
+    background-color: royalblue;
+}
+
+html, body {
+    width: 100%;
+    background-color: #f5f5f5;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11pt;
+    line-height: 1.4em;
+    margin: 0;
+}

@@ -36,7 +36,8 @@ module.exports = (meta, docs, widgetName) => {
   let api = {
     // TODO Remove hard-coded content
     buildReferencePage: () => {
-      const path = 'api/widgets'
+      console.log(`Building: API reference page (${widgetName})`)
+      const path = 'api/charts'
       createPath(path)
 
       // Build template
@@ -45,22 +46,6 @@ module.exports = (meta, docs, widgetName) => {
         // Documentation root directory
         rootDir: '../../',
 
-        // GitHub banner
-        gitHubBanner: fs.readFileSync('./templates/github-banner.html', {encoding: 'utf-8'}),
-
-        // Install commands
-        install: {
-          node: `dalian.min.js`,
-          browser: {
-            dependencies: dependencies
-              .map(d => `<script src="https://unpkg.com/${d.lib}@${d.version}"></script>`).join('\n'),
-            module: {
-              unpkg: `<script src="https://unpkg.com/${meta.name}"></script>`,
-              local: `<script src="${meta.name}.min.js"></script>`
-            }
-          }
-        },
-
         // Content
         pageTitle: `${factoryName} | dalian`,
         mainHeading: factoryName,
@@ -68,26 +53,30 @@ module.exports = (meta, docs, widgetName) => {
         reference: blocks.map(d => {
           return {
             id: d.id(),
-            signature: `${factoryName}.${d.signature()}`,
+            signature: (() => {
+              const s = d.signature()
+              return s.startsWith(factoryName) ? s : `${factoryName}.${s}`
+            })(),
             description: d.description(),
             params: d.params(),
             returns: d.returns()
           }
         }),
 
-        exampleUrl: `synesenom.github.io/dalian/catalogue/widgets/${widgetName}`
+        exampleUrl: `synesenom.github.io/dalian/catalogue/charts/${widgetName}`
       }))
       return api
     },
 
     buildExamplePage: () => {
-      const path = 'catalogue/widgets'
+      console.log(`Building: Example page (${widgetName})`)
+      const path = 'catalogue/charts'
       createPath(path)
 
       // Build template
       const template = pug.compileFile('./templates/example-page.pug')
-      const description = fs.readFileSync(`catalogue/widgets/${widgetName}/description.html`, {encoding: 'utf8'})
-      const example = fs.readFileSync(`catalogue/widgets/${widgetName}/example.html`, {encoding: 'utf8'})
+      const description = fs.readFileSync(`catalogue/charts/${widgetName}/description.html`, {encoding: 'utf8'})
+      const example = fs.readFileSync(`catalogue/charts/${widgetName}/example.html`, {encoding: 'utf8'})
 
       fs.writeFileSync(`${path}/${widgetName}/index.html`, template({
         title: factoryName,

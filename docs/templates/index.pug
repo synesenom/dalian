@@ -1,0 +1,53 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        each css in ['fonts', 'base', 'link', 'heading', 'code', 'list', 'scrollbar', 'main', 'atelier-lakeside-light']
+            link(rel='stylesheet', type='text/css', href='style/' + css + '.css')
+        script(src='js/highlight.min.js')
+        script.
+            hljs.initHighlightingOnLoad();
+        title dalian
+    body
+        != gitHubBanner
+        main
+            .main-content-centered
+                h1 dalian
+                p Minimalistic library for building interactive dashboards.
+
+                h2 download
+                ul
+                    li static: #[a(href='dl/dalian.min.js') dalian.min.js]
+                    li dynamic: #[a(href='https://www.jsdelivr.com/package/npm/dalian') CDN]
+
+                h2 install
+                h3 node
+                pre.install
+                    code.bash npm install dalian
+
+                h3 browser
+                pre.install
+                    code.html
+                        | #{'<!-- Dependencies -->'}
+                        | #{install.browser.dependencies}
+                        |
+                        | #{'<!-- Load module -->'}
+                        | #{install.browser.module.local}
+                p For local usage, you can download the latest minified version of the library #[a(href='../../dl/dalian.min.js') here].
+
+                h2 why using dalian?
+                p Out of the box you get:
+                    ul
+                        li #[strong &rarr;] A clean, minimalistic design.
+                        li #[strong &rarr;] A simple API.
+                        li #[strong &rarr;] Fully interactive charts.
+                p
+                    | By default, dalian conforms to the style of the page by inheriting font styles.
+                    | However, it is highly customizable in a clear and documented manner due to the specific API methods for each chart.
+
+                h2 examples
+                p The #[a(href='catalogue') catalogue] contains examples for all charts that dalian provides.
+
+                h2 api reference
+                p You can find the documentation #[a(href='api') here].

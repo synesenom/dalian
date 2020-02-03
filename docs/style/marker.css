@@ -1,0 +1,8 @@
+.good {
+    color: yellowgreen;
+    font-weight: bold;
+}
+
+.bad {
+    color: crimson;
+}

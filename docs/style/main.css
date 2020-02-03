@@ -1,0 +1,25 @@
+main {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+}
+
+.main-content {
+    position: relative;
+    width: 60%;
+    max-width: 620px;
+    margin: 50px auto;
+}
+
+.main-content-centered {
+    width: 600px;
+    margin: 40px auto;
+}
+
+.main-content-padded {
+    width: calc(100% - 60px);
+    padding: 30px;
+}

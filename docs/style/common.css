@@ -1,9 +1,11 @@
+/* TODO Remove, use fonts.css */
 @font-face {
     font-family: 'Montserrat';
     font-weight: 200;
     src: url('fonts/Montserrat-Regular.otf');
 }
 
+/* TODO Remove, use scrollbar.css */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -18,10 +20,12 @@
     background: #ccc;
 }
 
+/* TODO Remove, use base.css */
 ::selection {
     background-color: royalblue;
 }
 
+/* TODO Remove, use base.css */
 html, body {
     margin: 0;
     padding: 0;
@@ -29,16 +33,4 @@ html, body {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     line-height: 1.4em;
-}
-
-a,
-a:visited{
-    text-decoration: none;
-    color: royalblue;
-    border-bottom: 3px solid transparent;
-    transition: border-bottom .2s;
-}
-a:hover {
-    border-bottom: 3px solid royalblue;
-    transition: border-bottom .2s;
 }

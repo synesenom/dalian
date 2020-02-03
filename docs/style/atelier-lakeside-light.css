@@ -55,7 +55,7 @@
 .hljs {
     display: block;
     overflow-x: auto;
-    background: #ebf8ff;
+    background: rgba(74, 118, 255, 0.09);
     color: #516d7b;
     padding: 0.5em;
 }

@@ -3,7 +3,7 @@ import BaseTooltip from './base-tooltip'
 
 /**
  * Factory implementing the point tooltip component. The point tooltip is a pre-formatted tooltip that takes an array of
- * plot data and displays it in the tooltip as a list of plots with colored square markers. Can be used in widgets where
+ * plot data and displays it in the tooltip as a list of plots with colored square markers. Can be used in charts where
  * the tooltip displays info at a specific point of the widget (hence the name), such as line charts or heat maps.
  *
  * @function PointTooltip
