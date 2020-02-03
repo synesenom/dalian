@@ -74,9 +74,10 @@ module.exports = (meta, docs, widgetName) => {
       createPath(path)
 
       // Build template
+      // TODO Merge card.html and description.html into page.html somehow
       const template = pug.compileFile('./templates/example-page.pug')
       const description = fs.readFileSync(`catalogue/charts/${widgetName}/description.html`, {encoding: 'utf8'})
-      const example = fs.readFileSync(`catalogue/charts/${widgetName}/example.html`, {encoding: 'utf8'})
+      const example = fs.readFileSync(`catalogue/charts/${widgetName}/page.html`, {encoding: 'utf8'})
 
       fs.writeFileSync(`${path}/${widgetName}/index.html`, template({
         title: factoryName,

@@ -1,33 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Major refactoring">
-      <change afterPath="$PROJECT_DIR$/docs/api/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/catalogue/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/js/mobile-detect.1.4.4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/base.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/code.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/fonts.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/heading.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/link.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/marker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/style/scrollbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/templates/api-index.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/templates/index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="More documentation pages added.">
+      <change afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/style/catalogue.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/templates/catalogue-index.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/line-chart/description.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/description.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/src/module-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/module-parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/api.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/api.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/atelier-lakeside-light.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/atelier-lakeside-light.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/common.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/example.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/example.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/templates/api-page.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/api-page.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/templates/example-page.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/example-page.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +22,9 @@
         <option value="TypeScript File" />
         <option value="package.json" />
         <option value="SCSS File" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
         <option value="Pug File" />
+        <option value="HTML File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -192,7 +173,7 @@
       <workItem from="1578149161643" duration="2920000" />
       <workItem from="1579074538908" duration="10038000" />
       <workItem from="1579622211052" duration="3637000" />
-      <workItem from="1580193766486" duration="18553000" />
+      <workItem from="1580193766486" duration="21109000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -313,7 +294,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580507470710</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="More documentation pages added.">
+      <created>1580751588091</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1580751588091</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +338,8 @@
     <MESSAGE value="Safety commit" />
     <MESSAGE value="Online dependencies removed from test example page for line-chart" />
     <MESSAGE value="Major refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major refactoring" />
+    <MESSAGE value="More documentation pages added." />
+    <option name="LAST_COMMIT_MESSAGE" value="More documentation pages added." />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579629610937">
@@ -361,10 +350,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580751070143" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1580507469924">
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1580751587769">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1580507469924" />
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1580751587768" />
     <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -381,18 +370,18 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state width="1419" height="216" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1579438677232" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1580507474783">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1580751591034">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1580507474783" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1580751591034" />
     <state x="386" y="180" width="667" height="486" key="find.popup" timestamp="1579124555409">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="386" y="180" width="667" height="486" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1579124555409" />
-    <state x="385" y="192" key="run.anything.popup" timestamp="1580556835448">
+    <state x="385" y="192" key="run.anything.popup" timestamp="1580752188680">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="192" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1580556835448" />
+    <state x="385" y="192" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1580752188680" />
     <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1580750257441">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

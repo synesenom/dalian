@@ -1,0 +1,24 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        each css in ['fonts', 'base', 'heading', 'list', 'scrollbar', 'main', 'catalogue']
+            link(rel='stylesheet', type='text/css', href='../style/' + css + '.css')
+        each dependency in dependencies
+            script(type='text/javascript', src='../js/' + dependency.lib + '.' + dependency.version + '.min.js')
+        script(type='text/javascript', src='../../dist/dalian.min.js')
+        title catalogue
+    body
+        main
+            .main-content-centered
+                h1 catalogue
+                p
+
+                .section
+                    h2 charts
+                    each chart in charts
+                        a.card(href='charts/' + chart.name)
+                            .card-title #{chart.factory}
+                            .card-content(id='' + chart.name)
+                            | !{chart.script}
