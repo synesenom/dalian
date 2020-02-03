@@ -1,9 +1,8 @@
 .section {
     display: block;
     position: relative;
-    width: calc(100% - 30px);
-    padding: 15px;
-    background-color: #eee;
+    width: 100%;
+    background-color: transparent;
     margin: 30px 0 15px 0;
 }
 
@@ -15,17 +14,18 @@
 .card {
     display: inline-block;
     position: relative;
-    width: calc(240px - 42px);
-    height: calc(240px - 42px);
+    width: calc(260px - 62px);
+    height: calc(260px - 62px);
+    margin: 0 20px 20px 0;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border-radius: 3px;
     border: 1px solid #ddd;
     box-shadow: 0 0 0 #ccc;
     cursor: pointer;
     filter: grayscale(100%);
     opacity: 0.7;
-    transition: filter .3s, opacity .3s, box-shadow .3s;
+    transition: filter .2s, opacity .2s, box-shadow .2s;
     text-decoration: none;
     color: black;
 }
@@ -33,7 +33,7 @@
     box-shadow: 0 0 20px #ccc;
     filter: grayscale(0%);
     opacity: 1;
-    transition: filter .3s, opacity .3s, box-shadow .3s;
+    transition: filter .2s, opacity .2s, box-shadow .2s;
 }
 
 .card-title {
@@ -45,5 +45,5 @@
     display: block;
     position: relative;
     width: 100%;
-    height: calc(240px - 42px - 30px);
+    height: calc(260px - 62px - 30px);
 }

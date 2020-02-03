@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../../dist/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+  .callback(function() {
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+  });</script><script>function getSize () {
+  const md = new MobileDetect(window.navigator.userAgent);
+  const width = parseFloat(d3.select('#widget').style('width'));
+  const aspect = md.mobile() === null ? 2 : 1.5;
+  const height = width / aspect;
+  return { width, height };
+}</script><title>LineChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">Line charts are most commonly used to show <span class="good">temporal changes</span> or trends in quantitative data.
+As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each other.</p><a class="right" href="https://github.com/synesenom/dalian/blob/master/src/modules/widgets/line-chart.js">source</a><a class="right" href="../../../api/charts/line-chart.html">docs</a><a class="right" href="../../../dl/dalian.min.js">min.js</a><div id="code-doc"></div><script class="doc">
+  // create chart
+  let { width, height } = getSize()     // Not part of dalian
+  const lineChart = dalian.LineChart('myChart', '#widget')
+    .data([{
+        name: 'mango',
+        values: Array.from({length: 100}, (d, i) => ({
+            x: i,
+            y: Math.pow(i / 40, 2),
+            lo: i / 100,
+            hi: i / 150
+          }))
+      }, {
+      name: 'kiwi',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.log(i + 1)
+          * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+        lo: .4,
+        hi: .9
+      }))
+    }])
+    .width(width)
+    .height(height)
+    .margins(40)
+    .fontSize(14)
+    .xLabel('days')
+    .yLabel('price')
+    .smoothing(true)
+    .lineStyle({
+      mango: 'dashed'
+    })
+    .tooltip(true)
+    .tooltipYFormat(d => d.toFixed(2))
+    .render()
+</script>
+<script class="doc">
+  // update data
+  setInterval(() => {
+    const tau = 2 * Math.random()
+    const phi = 5 * Math.random() + 10
+    lineChart.data([{
+      name: 'mango',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.pow(i / 40, tau),
+        lo: i / 100,
+        hi: i / 150
+      }))
+    }, {
+      name: 'kiwi',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.log(i + 1)
+          * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2,
+        lo: .4,
+        hi: .6
+      }))
+    }]).render()
+  }, 20000)
+</script>
+<script class="doc">
+  // add marker
+  lineChart.addMarker('myMarker', 'mango', 34, 87, 'trend')
+</script><script>function resize() {
+  const { width, height } = getSize();
+  document.getElementById('widget').style.paddingTop = height + 'px';
+  lineChart
+    .width(width)
+    .height(height)
+    .render();
+}
+window.onresize = resize;
+</script></div></main></body><script>resize();</script></html>

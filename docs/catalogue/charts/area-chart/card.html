@@ -1,0 +1,36 @@
+<script>
+  (() => {
+    const width = 240 - 42;
+    const height = 240 - 42 - 30;
+    dalian.AreaChart('area-chart-card', '#area-chart')
+      .data([{
+        name: 'normal',
+        values: Array.from({ length: 100 }, (d, i) => ({
+          x: i / 10,
+          y: new ranjs.dist.Normal(5, 2).pdf(i / 10)
+        }))
+      }, {
+        name: 'exponential',
+        values: Array.from({ length: 100 }, (d, i) => ({
+          x: i / 10,
+          y: new ranjs.dist.Exponential(1).pdf(i / 10)
+        }))
+      }])
+      .x(0)
+      .y(0)
+      .width(width)
+      .height(height)
+      .margins({left: 30, right: 0, top: 20, bottom: 30})
+      .fontSize(11)
+      .xLabel('value')
+      .yLabel('density')
+      .opacity(0.2)
+      .colors({
+        normal: 'yellowgreen',
+        exponential: 'royalblue'
+      })
+      .smoothing(true)
+      .tooltipYFormat(d => d.toFixed(2))
+      .render()
+  })()
+</script>

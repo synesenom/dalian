@@ -5,10 +5,16 @@ const fs = require('fs')
 const pug = require('pug')
 
 
-const CHARTS = [{
-  name: 'line-chart'
-}]
+const CHARTS = [
+  'area-chart',
+  'line-chart'
+]
 
+
+function getFileSizeInBytes(path) {
+  const stats = fs.statSync(path)
+  return stats.size
+}
 
 function toFactory(name) {
   return name.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('');
@@ -21,6 +27,18 @@ const dependencies = Object.entries(meta.dependencies).map(d => ({
 }))
 buildFromTemplate('Docs index page', 'index', 'index.html', {
   gitHubBanner: fs.readFileSync('./templates/github-banner.html', {encoding: 'utf-8'}),
+
+  // Download links
+  download: {
+    minjs: {
+      url: 'dl/dalian.min.js',
+      size: Math.round(getFileSizeInBytes('dl/dalian.min.js') / 1000)
+    },
+    gzip: {
+      url: 'dl/dalian.min.js.gz',
+      size: Math.round(getFileSizeInBytes('dl/dalian.min.js.gz') / 1000)
+    }
+  },
 
   // Install commands
   install: {
@@ -47,8 +65,8 @@ function buildFromTemplate(name, templateName, outputPath, config) {
 // Build API root page
 buildFromTemplate('API index page', 'api-index', 'api/index.html', {
   charts: CHARTS.map(d => ({
-    name: d.name,
-    factory: toFactory(d.name)
+    name: d,
+    factory: toFactory(d)
   }))
 })
 
@@ -56,22 +74,22 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
   charts: CHARTS.map(d => {
-    const script = fs.readFileSync(`catalogue/charts/${d.name}/card.html`, {encoding: 'utf8'})
+    const script = fs.readFileSync(`catalogue/charts/${d}/card.html`, {encoding: 'utf8'})
     return {
-      name: d.name,
-      factory: toFactory(d.name),
+      name: d,
+      factory: toFactory(d),
       script
     }
   })
 })
 
 // TODO List chart modules automatically
-CHARTS.map(d => d.name).forEach(async name => {
-  const docs = await documentation.build([`../src/charts/${name}.js`], {
+CHARTS.forEach(async d => {
+  const docs = await documentation.build([`../src/charts/${d}.js`], {
     shallow: true
   }).then(documentation.formats.json)
     .then(JSON.parse)
-  ModuleParser(meta, docs, name)
+  ModuleParser(meta, docs, d)
     .buildReferencePage()
     .buildExamplePage()
 })

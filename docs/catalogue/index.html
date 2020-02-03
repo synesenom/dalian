@@ -1,38 +1,76 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../style/fonts.css"><link rel="stylesheet" type="text/css" href="../style/base.css"><link rel="stylesheet" type="text/css" href="../style/heading.css"><link rel="stylesheet" type="text/css" href="../style/list.css"><link rel="stylesheet" type="text/css" href="../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../style/main.css"><link rel="stylesheet" type="text/css" href="../style/catalogue.css"><script type="text/javascript" src="../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../dist/dalian.min.js"></script><title>catalogue</title></head><body><main><div class="main-content-centered"><h1>catalogue</h1><p></p><div class="section"><h2>charts</h2><a class="card" href="charts/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="doc">
-  const width = 240 - 42;
-  const height = 240 - 42 - 30;
-  const lineChart = dalian.LineChart('line-chart-card', '#line-chart')
-    .data([{
-      name: 'mango',
-      values: Array.from({length: 100}, (d, i) => ({
-        x: i,
-        y: Math.pow(i / 40, 2),
-        lo: i / 100,
-        hi: i / 150
-      }))
-    }, {
-      name: 'kiwi',
-      values: Array.from({ length: 100 }, (d, i) => ({
-        x: i,
-        y: Math.log(i + 1)
-          * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
-        lo: .4,
-        hi: .9
-      }))
-    }])
-    .x(0)
-    .y(0)
-    .width(width)
-    .height(height)
-    .margins({left: 20, right: 0, top: 20, bottom: 30})
-    .fontSize(11)
-    .xLabel('days')
-    .yLabel('price')
-    .smoothing(true)
-    .lineStyle({
-      mango: 'dashed'
-    })
-    .tooltipYFormat(d => d.toFixed(2))
-    .render()
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../style/fonts.css"><link rel="stylesheet" type="text/css" href="../style/base.css"><link rel="stylesheet" type="text/css" href="../style/heading.css"><link rel="stylesheet" type="text/css" href="../style/list.css"><link rel="stylesheet" type="text/css" href="../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../style/main.css"><link rel="stylesheet" type="text/css" href="../style/catalogue.css"><script type="text/javascript" src="../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../js/ranjs.min.js"></script><script type="text/javascript" src="../../dist/dalian.min.js"></script><title>catalogue</title></head><body><main><div class="main-content-centered"><h1>catalogue</h1><p></p><div class="section"><h2>charts</h2><a class="card" href="charts/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script>
+  (() => {
+    const width = 240 - 42;
+    const height = 240 - 42 - 30;
+    dalian.AreaChart('area-chart-card', '#area-chart')
+      .data([{
+        name: 'normal',
+        values: Array.from({ length: 100 }, (d, i) => ({
+          x: i / 10,
+          y: new ranjs.dist.Normal(5, 2).pdf(i / 10)
+        }))
+      }, {
+        name: 'exponential',
+        values: Array.from({ length: 100 }, (d, i) => ({
+          x: i / 10,
+          y: new ranjs.dist.Exponential(1).pdf(i / 10)
+        }))
+      }])
+      .x(0)
+      .y(0)
+      .width(width)
+      .height(height)
+      .margins({left: 30, right: 0, top: 20, bottom: 30})
+      .fontSize(11)
+      .xLabel('value')
+      .yLabel('density')
+      .opacity(0.2)
+      .colors({
+        normal: 'yellowgreen',
+        exponential: 'royalblue'
+      })
+      .smoothing(true)
+      .tooltipYFormat(d => d.toFixed(2))
+      .render()
+  })()
+</script>
+</a><a class="card" href="charts/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script>
+  (() => {
+    const width = 240 - 42;
+    const height = 240 - 42 - 30;
+    dalian.LineChart('line-chart-card', '#line-chart')
+      .data([{
+        name: 'mango',
+        values: Array.from({ length: 100 }, (d, i) => ({
+          x: i,
+          y: Math.pow(i / 40, 2),
+          lo: i / 100,
+          hi: i / 150
+        }))
+      }, {
+        name: 'kiwi',
+        values: Array.from({ length: 100 }, (d, i) => ({
+          x: i,
+          y: Math.log(i + 1)
+            * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+          lo: .4,
+          hi: .9
+        }))
+      }])
+      .x(0)
+      .y(0)
+      .width(width)
+      .height(height)
+      .margins({ left: 20, right: 0, top: 20, bottom: 30 })
+      .fontSize(11)
+      .xLabel('days')
+      .yLabel('price')
+      .smoothing(true)
+      .lineStyle({
+        mango: 'dashed'
+      })
+      .tooltipYFormat(d => d.toFixed(2))
+      .render()
+  })()
 </script>
 </a></div></div></main></body></html>

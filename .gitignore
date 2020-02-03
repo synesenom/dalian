@@ -1,6 +1,7 @@
 # Node modules
-docs/node_modules
-modules/**/node_modules
+node_modules
+/docs/node_modules/
+/modules/**/node_modules
 
 # .idea
 .idea/

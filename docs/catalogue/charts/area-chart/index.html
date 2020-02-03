@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../../dist/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+  .callback(function() {
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+  });</script><script>function getSize () {
+  const md = new MobileDetect(window.navigator.userAgent);
+  const width = parseFloat(d3.select('#widget').style('width'));
+  const aspect = md.mobile() === null ? 2 : 1.5;
+  const height = width / aspect;
+  return { width, height };
+}</script><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">Area charts can be used to show <span class="good">volume</span> data or data that has a specific integral such as <span class="good">distributions</span>.
+Neighboring points are not connected but they are spatially related.</p><a class="right" href="https://github.com/synesenom/dalian/blob/master/src/modules/widgets/area-chart.js">source</a><a class="right" href="../../../api/charts/area-chart.html">docs</a><a class="right" href="../../../dl/dalian.min.js">min.js</a><div id="code-doc"></div><script class="doc">
+  // create chart
+  let { width, height } = getSize()     // Not part of dalian
+  const areaChart = dalian.AreaChart('myChart', '#widget')
+    // Data is generated with ranjs:
+    // https://synesenom.github.io/ran/
+    .data([{
+      name: 'normal',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i / 10,
+        y: new ranjs.dist.Normal(5, 2).pdf(i / 10)
+      }))
+    }, {
+      name: 'exponential',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i / 10,
+        y: new ranjs.dist.Exponential(1).pdf(i / 10)
+      }))
+    }])
+    .width(width)
+    .height(height)
+    .margins(40)
+    .fontSize(14)
+    .xLabel('value')
+    .yLabel('density')
+    .smoothing(true)
+    .colors({
+      normal: 'yellowgreen',
+      exponential: 'royalblue'
+    })
+    .tooltip(true)
+    .tooltipYFormat(d => d.toFixed(2))
+    .render()
+</script>
+<script class="doc">
+  // update data
+  setInterval(() => {
+    const mu = 5 * Math.random() + 2
+    const sigma = 3 * Math.random()
+    const lambda = 3 * Math.random()
+    areaChart.data([{
+      name: 'normal',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i / 10,
+        y: new ranjs.dist.Normal(mu, sigma).pdf(i / 10)
+      }))
+    }, {
+      name: 'exponential',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i / 10,
+        y: new ranjs.dist.Exponential(lambda).pdf(i / 10)
+      }))
+    }]).render()
+  }, 20000)
+</script>
+<script>function resize() {
+  const { width, height } = getSize();
+  document.getElementById('widget').style.paddingTop = height + 'px';
+  areaChart
+    .width(width)
+    .height(height)
+    .render();
+}
+window.onresize = resize;
+</script></div></main></body><script>resize();</script></html>
