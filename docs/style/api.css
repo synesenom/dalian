@@ -139,7 +139,7 @@ td code {
   background-color: rgba(74, 118, 255, 0.09);
 }
 
-.param-type {
+td.param-type {
   font-family: 'Courier', monospace;
 }
 

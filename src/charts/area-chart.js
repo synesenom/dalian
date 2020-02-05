@@ -34,7 +34,7 @@ export default (name, parent) => {
     Smoothing,
     PointTooltip,
     Highlight,
-    (s, a) => LeftAxis(s, a,'y', scales.y),
+    (s, a) => LeftAxis(s, a, 'y', scales.y),
     (s, a) => BottomAxis(s, a, 'x', scales.x)
   )
 
@@ -52,7 +52,8 @@ export default (name, parent) => {
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(flatData.map(d => d.x))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(flatData.map(d => d.y))
+        // Make sure scale starts at 0
+        .domain(flatData.map(d => d.y).concat(0))
 
       // Create line and error path functions
       const areaFn = area()
@@ -64,7 +65,7 @@ export default (name, parent) => {
       // Add plots
       self._chart.plotGroups({
         enter: g => {
-          // Add areas
+          // Add area plots
           g.append('path')
             .attr('class', d => `area ${encode(d.name)}`)
             .attr('d', d => areaFn(d.values))
@@ -74,9 +75,9 @@ export default (name, parent) => {
         },
         union: {
           after: g => {
-            // Update areas
+            // Update area plots
             g.select('.area')
-              .attrTween('d', function(d) {
+              .attrTween('d', function (d) {
                 let previous = select(this).attr('d')
                 let current = areaFn(d.values)
                 return interpolatePath(previous, current, null)
@@ -173,9 +174,10 @@ export default (name, parent) => {
   /**
    * Sets the color policy for the plots. Supported policies:
    * <ul>
-   *     <li>Default color policy (no arguments): the default color scheme is used which is a combination of the
-   *     qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>
-   *     <li>Single color (passing {string}): The specified color is used for all plots.</li>
+   *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
+   *     qualitative color scheme Set 1 from Color Brewer.</li>
+   *     <li>Single color or shades of a color (passing {string}): Either the specified color is used for all plots or a
+   *     palette is generated from its shades (see {size}).</li>
    *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
    *     property with the same name as the plot's key.</li>
    * </ul>
@@ -183,6 +185,8 @@ export default (name, parent) => {
    * @method colors
    * @methodOf AreaChart
    * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
+   * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
+   * the color specified for {policy} is used for all plots.
    * @returns {AreaChart} The AreaChart itself.
    */
 
@@ -191,7 +195,7 @@ export default (name, parent) => {
    *
    * @method data
    * @methodOf AreaChart
-   * @param {Object[]} plots Array of objects representing the areas to show. Each plot has two properties:
+   * @param {Object[]} plots Array of objects representing the area plots to show. Each plot has two properties:
    * <ul>
    *   <li>{string} <i>name</i>: Name of the plot.</li>
    *   <li>{Object[]} <i>values</i>: Plot data.</li>
@@ -286,7 +290,7 @@ export default (name, parent) => {
    */
 
   /**
-   * Sets the fill opacity of the areas.
+   * Sets the fill opacity of the area plots.
    *
    * @method opacity
    * @methodOf AreaChart

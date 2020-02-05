@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../js/d3.v5.min.js"></script>
+  <style>
+    #palette {
+      display: block;
+      position: absolute;
+      width: 400px;
+      height: 20px;
+    }
+
+    .tile {
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+  <title>colors | demo</title>
+</head>
+<body>
+<div id="palette"></div>
+<script>
+const tiles = Array.from({length: 10}, (d, i) => {
+  const div = document.createElement('div')
+  div.classList.add('tile')
+  div.style.marginTop = (i * 20) + 'px'
+  document.getElementById('palette').appendChild(div)
+  return div
+});
+
+const tiles2 = Array.from({length: 10}, (d, i) => {
+  const div = document.createElement('div')
+  div.classList.add('tile')
+  div.style.marginLeft = '25px'
+  div.style.marginTop = (i * 20) + 'px'
+  document.getElementById('palette').appendChild(div)
+  return div
+});
+
+function getColorHsl(color, i) {
+  let c = d3.hsl(color);
+  let dl = Math.min(c.l, 1 - c.l) / 5;
+  c.l += (i - 4) * dl;
+  return c;
+}
+
+function getColorLab(color, i) {
+  let c = d3.lab(color);
+  let dl = Math.min(c.l, 1 - c.l) / 5;
+  c.l -= (i - 4) * dl;
+  return c;
+}
+
+console.log(d3.hsl(COLOR))
+Array.from({length : 9}).forEach((d, i) => tiles[i].style.backgroundColor = getColorHsl(COLOR, i));
+Array.from({length : 9}).forEach((d, i) => tiles2[i].style.backgroundColor = getColorLab(COLOR, i));
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<p id="desc">
+Area charts can be used to show <span class="good">volume</span> data or data that has a specific integral such as <span class="good">distributions</span>, and where neighboring points are only spatially related.
+As such, the lower vertical boundary of the area chart is always zero.
+</p>
+
+<script class="card-example">
+dalian.AreaChart('area-chart-card', '#area-chart')
+  .data([{
+    name: 'normal',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: new ranjs.dist.Normal(5, 2).pdf(i / 10)
+    }))
+  }, {
+    name: 'exponential',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: new ranjs.dist.Exponential(1).pdf(i / 10)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 0, top: 20, bottom: 30 })
+  .fontSize(11)
+  .xLabel('value')
+  .yLabel('density')
+  .opacity(0.2)
+  .colors({
+    normal: 'yellowgreen',
+    exponential: 'royalblue'
+  })
+  .smoothing(true)
+  .tooltipYFormat(d => d.toFixed(2))
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+// Data is generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  const mu = 5 * Math.random() + 2
+  const sigma = 1 + 3 * Math.random()
+  const lambda = 3 * Math.random()
+  return [{
+    name: 'normal',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: new ranjs.dist.Normal(mu, sigma).pdf(i / 10)
+    }))
+  }, {
+    name: 'exponential',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: new ranjs.dist.Exponential(lambda).pdf(i / 10)
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const areaChart = dalian.AreaChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .fontSize(14)
+  .xLabel('value')
+  .yLabel('density')
+  .smoothing(true)
+  .colors({
+    normal: 'yellowgreen',
+    exponential: 'royalblue'
+  })
+  .tooltip(true)
+  .tooltipYFormat(d => d.toFixed(2))
+  .render()
+</script>
+
+<script class="doc">
+// update data
+setInterval(() => {
+  areaChart.data(getData()).render()
+}, 20000)
+</script>

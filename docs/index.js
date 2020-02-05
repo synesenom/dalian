@@ -3,7 +3,7 @@ const ModuleParser = require('./src/module-parser')
 const meta = require('../package')
 const fs = require('fs')
 const pug = require('pug')
-
+const { JSDOM } = require('jsdom')
 
 const CHARTS = [
   'area-chart',
@@ -74,7 +74,9 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
   charts: CHARTS.map(d => {
-    const script = fs.readFileSync(`catalogue/charts/${d}/card.html`, {encoding: 'utf8'})
+    const content = fs.readFileSync(`catalogue/charts/${d}/content.html`, {encoding: 'utf8'})
+    const document = new JSDOM(content).window.document
+    const script = document.getElementsByClassName('card-example')[0].outerHTML
     return {
       name: d,
       factory: toFactory(d),

@@ -213,9 +213,10 @@ export default (name, parent = 'body') => {
   /**
    * Sets the color policy for the plots. Supported policies:
    * <ul>
-   *     <li>Default color policy (no arguments): the default color scheme is used which is a combination of the
-   *     qualitative color schemes Set 1 and Set 3 from Color Brewer.</li>
-   *     <li>Single color (passing {string}): The specified color is used for all plots.</li>
+   *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
+   *     qualitative color scheme Set 1 from Color Brewer.</li>
+   *     <li>Single color or shades of a color (passing {string}): Either the specified color is used for all plots or a
+   *     palette is generated from its shades (see {size}).</li>
    *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
    *     property with the same name as the plot's key.</li>
    * </ul>
@@ -223,6 +224,8 @@ export default (name, parent = 'body') => {
    * @method colors
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
+   * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
+   * the color specified for {policy} is used for all plots.
    * @returns {LineChart} The LineChart itself.
    */
 
