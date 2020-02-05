@@ -35,7 +35,7 @@
     "build:demo": "npm run build:demo:pug & npm run build:demo:scss",
     "watch:demo": "npm run watch:demo:pug & npm run watch:demo:scss",
     "build:docs": "cd docs; npm run build; cd ..",
-    "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/ && npm run build:docs",
+    "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
     "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js",
     "dev": "npm run watch & npm run watch:demo"
   }

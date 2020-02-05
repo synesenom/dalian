@@ -62,6 +62,7 @@ export default (name, parent, axisFn, scale) => {
       _.fn.scale(_.scale.scale)
         .tickFormat(_.format)
       self.axis
+        // FIXME Axis transition not working
         .transition().duration(duration)
         .call(_.fn)
 

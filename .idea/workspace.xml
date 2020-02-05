@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Area chart added.">
-      <change afterPath="$PROJECT_DIR$/docs/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/catalogue/charts/area-chart/content.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/demo/colors.html" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Shades of a color added to Colors component policy">
+      <change afterPath="$PROJECT_DIR$/docs/catalogue/charts/bar-chart/content.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/.bin/JSONStream" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/.bin/acorn" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/.bin/ansi-html" afterDir="false" />
@@ -11592,33 +11590,27 @@
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/node_modules/strip-ansi/readme.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/package.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/yargs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/charts/bar-chart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/tooltip/element-tooltip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/dalian.min.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api/charts/line-chart.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api/charts/line-chart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/area-chart/card.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/area-chart/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/area-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/area-chart/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/area-chart/page.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/card.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/description.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/content.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/catalogue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/src/module-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/module-parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/style/api.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/api.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/templates/catalogue-index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/catalogue-index.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/templates/catalogue-page.pug" beforeDir="false" afterPath="$PROJECT_DIR$/docs/templates/catalogue-page.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/docs/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/charts/area-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/area-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/line-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/line-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/axis/base-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/base-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/plot-marker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plot-marker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tooltip/base-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tooltip/base-tooltip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tooltip/point-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tooltip/point-tooltip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11634,8 +11626,8 @@
         <option value="SCSS File" />
         <option value="Pug File" />
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -11662,8 +11654,9 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/catalogue/charts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -11674,11 +11667,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
       <recent name="$PROJECT_DIR$/docs/catalogue/charts" />
       <recent name="$PROJECT_DIR$/docs/js" />
       <recent name="$PROJECT_DIR$/dist" />
       <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/components/tooltip" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/widgets/flow-chart" />
@@ -11783,7 +11776,7 @@
       <workItem from="1578149161643" duration="2920000" />
       <workItem from="1579074538908" duration="10038000" />
       <workItem from="1579622211052" duration="3637000" />
-      <workItem from="1580193766486" duration="38700000" />
+      <workItem from="1580193766486" duration="45908000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -11925,7 +11918,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580770289414</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Shades of a color added to Colors component policy">
+      <created>1580938983931</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1580938983931</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -11965,7 +11965,8 @@
     <MESSAGE value="More documentation pages added." />
     <MESSAGE value="Catalogue index page added" />
     <MESSAGE value="Area chart added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Area chart added." />
+    <MESSAGE value="Shades of a color added to Colors component policy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Shades of a color added to Colors component policy" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579629610937">
@@ -11976,10 +11977,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580763033830" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1580938614076">
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1580946393505">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1580938614076" />
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1580946393505" />
     <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -12000,18 +12001,18 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1580770292285">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1580938986169">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1580770292285" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1580938986169" />
     <state x="386" y="180" width="667" height="486" key="find.popup" timestamp="1579124555409">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="386" y="180" width="667" height="486" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1579124555409" />
-    <state x="385" y="192" key="run.anything.popup" timestamp="1580752188680">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1580946324919">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="192" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1580752188680" />
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1580946324919" />
     <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1580750257441">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

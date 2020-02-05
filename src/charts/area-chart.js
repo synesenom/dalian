@@ -91,8 +91,11 @@ export default (name, parent) => {
 
   // Overrides
   self._highlight.container = self._chart.plots
+
   self._highlight.selectors = ['.area', '.plot-marker']
+
   self._tooltip.content = mouse => {
+    // If outside the plot, hide tooltip
     if (typeof mouse === 'undefined') {
       self._plotMarker.remove()
       return
@@ -141,6 +144,7 @@ export default (name, parent) => {
       }
     }
   }
+
   self._chart.transformData = data => {
     return data.map(d => ({
       name: d.name,

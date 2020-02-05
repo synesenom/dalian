@@ -1,0 +1,51 @@
+<p id="desc">
+TODO
+</p>
+
+<script class="card-example">
+
+</script>
+
+<script class="doc">
+// generate data
+// Data is generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  return [
+    {name: "plum", value: 13 * Math.random()},
+    {name: "banana", value: 4 * Math.random()},
+    {name: "mango", value: 6 * Math.random()},
+    {name: "orange", value: 2 * Math.random()},
+  ].concat(Math.random() > 0.5 ? [
+    {name: "melon", value: 11 * Math.random()},
+    {name: "kiwi", value: 7 * Math.random()}
+  ] : [])
+  .concat([{name: "pear", value: 3 * Math.random()}])
+}
+</script>
+
+<script class="doc">
+// create chart
+const barChart = dalian.BarChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .fontSize(14)
+  .xLabel('fruit')
+  .yLabel('stock')
+  .mouseover(k => {
+    barChart.highlight(k.name)
+  })
+  .mouseleave(() => barChart.highlight())
+  .tooltip(true)
+  .tooltipYFormat(x => x.toFixed(2))
+  .render()
+</script>
+
+<script class="doc">
+// update data
+setInterval(() => {
+  barChart.data(getData()).render()
+}, 20000)
+</script>

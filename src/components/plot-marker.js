@@ -16,6 +16,7 @@ export default (self, api) => {
         .attr('cx', x)
         .attr('cy', y)
         .attr('r', 4)
+        .style('stroke', 'white')
         .style('fill', self._colors.mapping(name))
         .style('pointer-events', 'none')
     }

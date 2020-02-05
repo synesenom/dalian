@@ -1,16 +1,6 @@
 import { select } from 'd3'
 import BaseTooltip from './base-tooltip'
 
-/**
- * Factory implementing the point tooltip component. The point tooltip is a pre-formatted tooltip that takes an array of
- * plot data and displays it in the tooltip as a list of plots with colored square markers. Can be used in charts where
- * the tooltip displays info at a specific point of the widget (hence the name), such as line charts or heat maps.
- *
- * @function PointTooltip
- * @param {Object} self Object containing the protected variables and methods.
- * @param {Object} api Object containing the public API methods.
- * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
- */
 export default (self, api) => {
   // Inherit from base tooltip
   let base = BaseTooltip(self, api)
@@ -29,6 +19,7 @@ export default (self, api) => {
         .style('border-radius', '2px')
         .style('padding', '5px')
         .style('font-family', 'inherit')
+        .style('border-left', content.stripe ? 'solid 4px ' + content.stripe : null)
 
       // Add title
       contentNode
@@ -40,30 +31,22 @@ export default (self, api) => {
         .style('margin-bottom', '10px')
         .text(self._tooltip.xFormat(content.title))
 
-      // TODO Remove this: add to ElementTooltip
-
       // Add content
-      content.content.data.sort((a, b) => a.name.localeCompare(b.name))
-        .forEach(plot => {
+      content.content.data.forEach(item => {
           let entry = contentNode.append('div')
             .style('position', 'relative')
-            .style('max-width', '150px')
             .style('height', '10px')
             .style('margin', '5px')
             .style('padding-right', '10px')
           entry.append('div')
             .style('position', 'relative')
-            .style('width', '9px')
-            .style('height', '9px')
             .style('float', 'left')
-            .style('background', plot.background)
+            .style('margin-right', '10px')
+            .text(item.name + ':')
           entry.append('span')
             .style('position', 'relative')
-            .style('width', 'calc(100% - 20px)')
-            .style('height', '10px')
-            .style('float', 'right')
-            .style('line-height', '11px')
-            .html(self._tooltip.yFormat(plot.value))
+            .style('float', 'left')
+            .html(self._tooltip.yFormat(item.value))
         })
 
       return contentNode.node().outerHTML

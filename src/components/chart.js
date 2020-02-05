@@ -8,6 +8,9 @@ import Mouse from './mouse'
 import Placeholder from './placeholder'
 import Widget from './widget'
 
+// TODO Add xDomain(number[])
+// TODO Add yDomain(number[])
+
 /**
  * Component implementing a generic chart widget.
  *
@@ -49,9 +52,10 @@ export default (type, name, parent, elem) => {
         .attr('class', 'dalian-plots-container'),
       plotSelectors: [],
 
-      // Methods
-      transformData: () => undefined,
+      // Transform data: default is identity
+      transformData: data => data,
 
+      // Create plot groups
       plotGroups: (attr, duration = 400) => {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
