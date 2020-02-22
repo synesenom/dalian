@@ -3,7 +3,21 @@ TODO
 </p>
 
 <script class="card-example">
-
+const barChart = dalian.BarChart('bar-chart-card', '#bar-chart')
+  .data([
+    {name: "plum", value: 13 * Math.random()},
+    {name: "mango", value: 6 * Math.random()},
+    {name: "kiwi", value: 2 * Math.random()}
+  ])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 0, top: 20, bottom: 30 })
+  .fontSize(11)
+  .xLabel('fruit')
+  .yLabel('stock')
+  .render()
 </script>
 
 <script class="doc">
