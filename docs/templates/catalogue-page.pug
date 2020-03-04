@@ -22,7 +22,7 @@ html(lang='en')
             script(type='text/javascript', src='../../../js/' + lib + '.js')
         each dependency in dependencies
             script(type='text/javascript', src='../../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
-        script(type='text/javascript', src='../../../../dist/dalian.min.js')
+        script(type='text/javascript', src='../../../dl/dalian.min.js')
         script(type='text/javascript').
           codedoc.heading()
             .callback(function() {
