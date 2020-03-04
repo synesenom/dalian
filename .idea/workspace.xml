@@ -11589,7 +11589,11 @@
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/node_modules/strip-ansi/readme.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/package.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/yargs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/charts/line-chart.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api/charts/line-chart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/.eslintrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/.npmignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/demo.html" beforeDir="false" />
@@ -11776,8 +11780,6 @@
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/area-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/area-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/bar-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/bar-chart.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11816,6 +11818,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ChangesTree.GroupingKeys" value="directory" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
@@ -11945,7 +11948,7 @@
       <workItem from="1579622211052" duration="3637000" />
       <workItem from="1580193766486" duration="81566000" />
       <workItem from="1582645556253" duration="564000" />
-      <workItem from="1583355488336" duration="6317000" />
+      <workItem from="1583355488336" duration="6541000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -12108,7 +12111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583361932090</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Docs updated">
+      <created>1583362080603</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1583362080603</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -12151,7 +12161,8 @@
     <MESSAGE value="Shades of a color added to Colors component policy" />
     <MESSAGE value="BarChart added, not yet fully implemented" />
     <MESSAGE value="Chart.plotGroups simplified (using d3.selection.join)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chart.plotGroups simplified (using d3.selection.join)" />
+    <MESSAGE value="Docs updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Docs updated" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579629610937">
@@ -12162,10 +12173,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580763033830" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583361908092">
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583362064641">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583361908092" />
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583362064641" />
     <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -12186,14 +12197,18 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583361934222">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583362169108">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583361934222" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583362169108" />
     <state x="386" y="180" width="667" height="486" key="find.popup" timestamp="1579124555409">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="386" y="180" width="667" height="486" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1579124555409" />
+    <state x="414" y="222" key="git4idea.merge.GitPullDialog" timestamp="1583362382329">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="414" y="222" key="git4idea.merge.GitPullDialog/0.23.1440.801@0.23.1440.801" timestamp="1583362382329" />
     <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1581364932889">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

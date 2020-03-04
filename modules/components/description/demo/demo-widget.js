@@ -1,8 +1,0 @@
-const DescriptionDemoWidget = (name, parent) => {
-    let { self, api } = dalian.core.compose(
-        dalian.components.Widget('demo', name, parent, 'div'),
-        dalian.components.Description
-    )
-
-    return api
-};
