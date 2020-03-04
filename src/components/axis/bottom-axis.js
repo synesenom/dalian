@@ -7,7 +7,7 @@ export default (self, api, name, scale) => {
   let base = BaseAxis(name, self._widget.content, axisBottom, scale)
   base.api.adjustLabel({
     'text-anchor': 'end',
-    dy: '2.2em'
+    dy: '2.4em'
   })
 
   // Extend base axis update
@@ -28,7 +28,8 @@ export default (self, api, name, scale) => {
   // Protected members
   self = Object.assign(self || {}, {
     _axisBottom: {
-      update: base.api.update
+      update: base.api.update,
+      scale: base.api.scale
     }
   })
 
@@ -42,7 +43,7 @@ export default (self, api, name, scale) => {
      * @param {string} label Text to set as the label.
      * @returns {Object} Reference to the BottomAxis API.
      */
-    xLabel: label => {
+    xLabel: (label = '') => {
       base.api.label(label)
       return api
     },

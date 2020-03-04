@@ -64,27 +64,19 @@ export default (name, parent) => {
 
       // Add plots
       self._chart.plotGroups({
-        enter: g => {
-          // Add area plots
-          g.append('path')
-            .attr('class', d => `area ${encode(d.name)}`)
-            .attr('d', d => areaFn(d.values))
-            .style('stroke', 'none')
-            .style('fill-opacity', self._opacity.value())
-          return g
-        },
-        union: {
-          after: g => {
-            // Update area plots
-            g.select('.area')
-              .attrTween('d', function (d) {
-                let previous = select(this).attr('d')
-                let current = areaFn(d.values)
-                return interpolatePath(previous, current, null)
-              })
-            return g
-          }
-        }
+        enter: g => g.append('path')
+          .attr('class', d => `area ${encode(d.name)}`)
+          .attr('d', d => areaFn(d.values))
+          .style('stroke', 'none')
+          .style('fill-opacity', 0),
+        update: g => g.select('.area')
+          .attrTween('d', function (d) {
+            let previous = select(this).attr('d')
+            let current = areaFn(d.values)
+            return interpolatePath(previous, current, null)
+          })
+          .style('fill-opacity', self._opacity.value()),
+        exit: g => g.style('opacity', 0)
       }, duration)
     }
   }

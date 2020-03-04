@@ -11,7 +11,7 @@
 }</script><title>LineChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
 Line charts are most commonly used to show <span class="good">temporal changes</span> or trends in quantitative data.
 As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each other.
-</p><a class="right" href="https://github.com/synesenom/dalian/blob/master/src/modules/widgets/line-chart.js">source</a><a class="right" href="../../../api/charts/line-chart.html">docs</a><a class="right" href="../../../dl/dalian.min.js">min.js</a><div id="code-doc"></div><script class="doc">
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/line-chart.js">source</a><a class="right footnote" href="../../../api/charts/line-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   const tau = 2 * Math.random()
@@ -24,7 +24,7 @@ function getData () {
       lo: i / 100,
       hi: i / 150
     }))
-  }, {
+  }].concat(Math.random() > 0.5 ? [{
     name: 'kiwi',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
@@ -33,11 +33,11 @@ function getData () {
       lo: .4,
       hi: .6
     }))
-  }]
+  }] : [])
 }
 </script><script class="doc">
 // create chart
-const lineChart = dalian.LineChart('myChart', '#widget')
+const lineChart = dalian.LineChart('line-chart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
@@ -49,6 +49,7 @@ const lineChart = dalian.LineChart('myChart', '#widget')
   .lineStyle({
     mango: 'dashed'
   })
+  .mouseover(k => console.log(k))
   .tooltip(true)
   .tooltipYFormat(d => d.toFixed(2))
   .render()

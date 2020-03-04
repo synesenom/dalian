@@ -14,3 +14,7 @@ a.right {
     margin-left: 20px;
     float: right;
 }
+
+a.footnote {
+    margin-top: 10px;
+}

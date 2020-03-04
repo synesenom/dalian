@@ -38,6 +38,7 @@ export default (self, api) => {
             .style('height', '10px')
             .style('margin', '5px')
             .style('padding-right', '10px')
+            .style('line-height', '11px')
           entry.append('div')
             .style('position', 'relative')
             .style('float', 'left')

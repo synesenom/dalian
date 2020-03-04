@@ -21,6 +21,7 @@ import TrendMarker from '../components/trend-marker'
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
+// TODO Add API .pin
 export default (name, parent = 'body') => {
   // Build widget from components
   // TODO Fix this separate declaration of scales (needed by the TrendMarker)
@@ -78,37 +79,39 @@ export default (name, parent = 'body') => {
             .attr('class', d => `error-band ${encode(d.name)}`)
             .attr('d', d => errorFn(d.values))
             .style('stroke', 'none')
-            .style('fill-opacity', 0.2)
+            .style('fill-opacity', 0)
 
           // Add lines
           g.append('path')
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
             .style('stroke-width', '2px')
+            .style('opacity', 0)
             .style('fill', 'none')
           return g
         },
-        union: {
-          after: g => {
-            // Update error bands
-            g.select('.error-band')
-              .attrTween('d', function(d) {
-                let previous = select(this).attr('d')
-                let current = errorFn(d.values)
-                return interpolatePath(previous, current, null)
-              })
+        update: g => {
+          // Update error bands
+          g.select('.error-band')
+            .attrTween('d', function(d) {
+              let previous = select(this).attr('d')
+              let current = errorFn(d.values)
+              return interpolatePath(previous, current, null)
+            })
+            .style('fill-opacity', 0.2)
 
-            // Update lines
-            g.select('.line')
-              .attrTween('d', function(d) {
-                let previous = select(this).attr('d')
-                let current = lineFn(d.values)
-                return interpolatePath(previous, current, null)
-              })
-              .style('stroke-dasharray', d => self._lineStyles.strokeDashArray(d.name))
-            return g
-          }
-        }
+          // Update lines
+          g.select('.line')
+            .attrTween('d', function(d) {
+              let previous = select(this).attr('d')
+              let current = lineFn(d.values)
+              return interpolatePath(previous, current, null)
+            })
+            .style('opacity', 1)
+            .style('stroke-dasharray', d => self._lineStyles.strokeDashArray(d.name))
+          return g
+        },
+        exit: g => g.style('opacity', 0)
       }, duration)
     }
   }
@@ -206,7 +209,7 @@ export default (name, parent = 'body') => {
    *
    * @method click
    * @methodOf LineChart
-   * @param {Function} callback Function to call on click.
+   * @param {Function} callback Function to call on click. The line data (name and values) is passed to it as parameter.
    * @returns {LineChart} The LineChart itself.
    */
 
@@ -331,7 +334,8 @@ export default (name, parent = 'body') => {
    *
    * @method mouseleave
    * @methodOf LineChart
-   * @param {Function} callback Function to call on mouseleave.
+   * @param {Function} callback Function to call on mouseleave. The line data (name and values) is passed to it as
+   * parameter.
    * @returns {LineChart} The LineChart itself.
    */
 
@@ -341,7 +345,8 @@ export default (name, parent = 'body') => {
    *
    * @method mouseover
    * @methodOf LineChart
-   * @param {Function} callback Function to call on mouseover.
+   * @param {Function} callback Function to call on mouseover. The line data (name and values) is passed to it as
+   * parameter.
    * @returns {LineChart} The LineChart itself.
    */
 

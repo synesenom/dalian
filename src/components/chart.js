@@ -10,6 +10,9 @@ import Widget from './widget'
 
 // TODO Add xDomain(number[])
 // TODO Add yDomain(number[])
+// FIXME When highlight is on, newly entering plots are visible
+// TODO Update plotGroups to use .join()
+// TODO Bind mouse events to enter and update
 
 /**
  * Component implementing a generic chart widget.
@@ -55,66 +58,41 @@ export default (type, name, parent, elem) => {
       // Transform data: default is identity
       transformData: data => data,
 
-      // Create plot groups
       plotGroups: (attr, duration = 400) => {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)
-
-        // Exiting groups: simply fade out
-        let exit = groups.exit()
-          .transition().duration(duration)
-          .style('opacity', 0)
-          .remove()
-
-        // Entering groups: starting transparent
-        let enter = groups.enter().append('g')
-          .attr('class', d => `plot-group ${encode(d.name)}`)
-          .style('shape-rendering', 'geometricPrecision')
-          .style('opacity', 0)
-          .style('fill', 'transparent')
-          .style('stroke', 'transparent')
-        if (attr && attr.enter) {
-          enter = attr.enter(enter)
-        }
-
-        // Union: attach mouse events
-        let union = enter.merge(groups)
+          .join(
+            enter => {
+              let g = enter.append('g')
+                .attr('class', d => `plot-group ${encode(d.name)}`)
+                .style('shape-rendering', 'geometricPrecision')
+                .style('fill', d => self._colors.mapping(d.name))
+                .style('stroke', d => self._colors.mapping(d.name))
+              return attr.enter ? attr.enter(g) : g
+            },
+            update => update,
+            exit => exit.call(exit => {
+              let g = exit.transition().duration(duration)
+              g = attr.exit ? attr.exit(g) : g
+              g.remove()
+            })
+          )
+          .on('mouseover', self._mouse.mouseover)
+          .on('mouseleave', self._mouse.mouseleave)
+          .on('click', self._mouse.click)
           .each(() => {
             // Disable pointer events before transition
             self._chart.plots.style('pointer-events', 'none')
             self._widget.transition = true
           })
-          .on('mouseover', self._mouse.mouseover)
-          .on('mouseleave', self._mouse.mouseleave)
-          .on('click', self._mouse.click)
-        if (attr && attr.union && attr.union.before) {
-          union = attr.union.before(union)
-        }
-
-        // Animate new state
-        let unionAnimated = union.transition().duration(duration)
-          .style('opacity', 1)
-          .style('fill', d => self._colors.mapping(d.name))
-          .style('stroke', d => self._colors.mapping(d.name))
-        if (attr && attr.union && attr.union.after) {
-          unionAnimated = attr.union.after(unionAnimated)
-        }
-        unionAnimated.on('end', () => {
+          .transition().duration(duration)
+        groups = attr.update ? attr.update(groups) : groups
+        groups.on('end', () => {
           // Re-enable pointer events
           self._chart.plots.style('pointer-events', 'all')
           self._widget.transition = false
         })
-
-        return {
-          groups: groups,
-          enter: enter,
-          exit: exit,
-          union: {
-            before: union,
-            after: unionAnimated
-          }
-        }
       }
     }
   })
@@ -124,25 +102,6 @@ export default (type, name, parent, elem) => {
 
   // Public API
   api = Object.assign(api, {
-    /**
-     * Set/updates the data that is shown in the chart.
-     *
-     * @method data
-     * @methodOf Chart
-     * @param {Object[]} plots Array of objects representing the plots to show. Each plot has two properties:
-     * <ul>
-     *   <li>{string} name: Name of the plot.</li>
-     *   <li>{Object[]} values: Plot data.</li>
-     * </ul>
-     * The {values} property is an array of objects of the following structure:
-     * <ul>
-     *   <li>{number} x: X coordinate of the data point.</li>
-     *   <li>{number} y: Y coordinate of the data point.</li>
-     *   <li>{number} [lo]: Optional lower error of the data point.</li>
-     *   <li>{number} [hi]: Optional upper error of the data point.</li>
-     * </ul>
-     * @returns {Object} Reference to the Chart API.
-     */
     data: plots => {
       // Transform data to the standard internal structure
       self._chart.data = self._chart.transformData(plots)

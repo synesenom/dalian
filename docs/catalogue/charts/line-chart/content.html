@@ -27,7 +27,7 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
-  .margins({ left: 20, right: 0, top: 20, bottom: 30 })
+  .margins({ left: 20, right: 2, top: 20, bottom: 30 })
   .fontSize(11)
   .xLabel('days')
   .yLabel('price')
@@ -35,7 +35,6 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .lineStyle({
     mango: 'dashed'
   })
-  .tooltipYFormat(d => d.toFixed(2))
   .render()
 </script>
 
@@ -52,7 +51,7 @@ function getData () {
       lo: i / 100,
       hi: i / 150
     }))
-  }, {
+  }].concat(Math.random() > 0.5 ? [{
     name: 'kiwi',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
@@ -61,13 +60,13 @@ function getData () {
       lo: .4,
       hi: .6
     }))
-  }]
+  }] : [])
 }
 </script>
 
 <script class="doc">
 // create chart
-const lineChart = dalian.LineChart('myChart', '#widget')
+const lineChart = dalian.LineChart('line-chart', '#widget')
   .data(getData())
   .width(600)
   .height(300)

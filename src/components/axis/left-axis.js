@@ -14,7 +14,8 @@ export default (self, api, name, scale) => {
   // Protected members
   self = Object.assign(self || {}, {
     _axisLeft: {
-      update: base.api.update
+      update: base.api.update,
+      scale: base.api.scale
     }
   })
 

@@ -1,9 +1,31 @@
 <p id="desc">
-TODO
+  Bar charts display <span class="good">categorical data</span> usually with <span class="good">no causal</span>
+  connection between the consecutive data points, such as a counting process (histograms).
+  They are good in showing small differences, and therefore are an alternative to pie charts.
 </p>
 
 <script class="card-example">
-
+dalian.BarChart('bar-chart-card', '#bar-chart')
+  .data([
+    {name: "plum", value: 13},
+    {name: "banana", value: 4},
+    {name: "mango", value: 6},
+    {name: "orange", value: 2},
+    {name: "kiwi", value: 7},
+    {name: "pear", value: 3}
+  ])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 50, right: 2, top: 20, bottom: 30 })
+  .fontSize(11)
+  .xLabel('stock')
+  .yLabel('fruit')
+  .horizontal(true)
+  .values(true)
+  .colors('royalblue')
+  .render()
 </script>
 
 <script class="doc">
@@ -12,32 +34,33 @@ TODO
 // https://synesenom.github.io/ran/
 function getData () {
   return [
-    {name: "plum", value: 13 * Math.random()},
-    {name: "banana", value: 4 * Math.random()},
-    {name: "mango", value: 6 * Math.random()},
-    {name: "orange", value: 2 * Math.random()},
+    {name: "plum", value: 130 * Math.random()},
+    {name: "banana", value: 40 * Math.random()},
+    {name: "mango", value: 60 * Math.random()},
+    {name: "orange", value: 20 * Math.random()},
   ].concat(Math.random() > 0.5 ? [
-    {name: "melon", value: 11 * Math.random()},
-    {name: "kiwi", value: 7 * Math.random()}
+    {name: "melon", value: 110 * Math.random()},
+    {name: "kiwi", value: 70 * Math.random()}
   ] : [])
-  .concat([{name: "pear", value: 3 * Math.random()}])
+  .concat([{name: "pear", value: 30 * Math.random()}])
 }
 </script>
 
 <script class="doc">
 // create chart
-const barChart = dalian.BarChart('myChart', '#widget')
+const barChart = dalian.BarChart('bar-chart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  .margins(40)
+  .margins({left: 70, top: 40, bottom: 40, right: 40})
   .fontSize(14)
-  .xLabel('fruit')
-  .yLabel('stock')
-  .mouseover(k => {
-    barChart.highlight(k.name)
-  })
+  .xLabel('stock')
+  .yLabel('fruit')
+  .colors('royalblue')
+  .mouseover(k => barChart.highlight(k.name))
   .mouseleave(() => barChart.highlight())
+  .horizontal(true)
+  .values(true)
   .tooltip(true)
   .tooltipYFormat(x => x.toFixed(2))
   .render()

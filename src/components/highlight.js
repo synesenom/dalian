@@ -1,6 +1,8 @@
 import { select } from 'd3'
 import encode from '../core/encode'
 
+// FIXME Plots entering are not affected by the highlight
+
 /**
  * Component implementing the highlight feature.
  *

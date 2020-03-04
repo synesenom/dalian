@@ -45,6 +45,20 @@ export default (kind = 'linear', type = 'linear') => {
           break
       }
       return api
+    },
+
+    kind: value => {
+      switch (value) {
+        default:
+        case 'linear':
+          _.scale = scaleLinear()
+          break
+        case 'band':
+          _.scale = scaleBand().padding(0.1)
+          break
+        case 'point':
+          _.scale = scalePoint().padding(0.5)
+      }
     }
   }
 

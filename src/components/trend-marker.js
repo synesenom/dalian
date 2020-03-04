@@ -12,6 +12,7 @@ import extend from '../core/extend'
  * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
  */
 // TODO Get rid of the scales parameter
+// TODO Add API .text()
 export default (self, api, scales) => {
   // Private members
   let _ = {

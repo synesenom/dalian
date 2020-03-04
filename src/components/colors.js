@@ -1,5 +1,7 @@
 import { hsl } from 'd3'
 
+// TODO Add value dependent color scheme
+
 const COLOR_SCHEMA_BREWER = [
   '#e41a1c',
   '#377eb8',

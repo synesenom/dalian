@@ -40,9 +40,9 @@ export default (name, parent, axisFn, scale) => {
       return api
     },
 
-    label: (text = '') => {
-      _.label = text
-      return api
+    label: text => {
+        _.label = text
+        return api
     },
 
     adjustLabel: attr => {
@@ -68,6 +68,11 @@ export default (name, parent, axisFn, scale) => {
 
       // Update label
       self.label.text(_.label)
+    },
+
+    scale: scaleObj => {
+      _.scale = scaleObj
+      return api
     }
   }
 

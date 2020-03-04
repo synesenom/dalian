@@ -8,7 +8,8 @@ const { JSDOM } = require('jsdom')
 const CHARTS = [
   'area-chart',
   'bar-chart',
-  'line-chart'
+  'line-chart',
+  'pie-chart'
 ]
 
 
