@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../../dist/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+  .callback(function() {
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+  });</script><script>function getSize () {
+  const md = new MobileDetect(window.navigator.userAgent);
+  const width = parseFloat(d3.select('#widget').style('width'));
+  const aspect = md.mobile() === null ? 2 : 1.5;
+  const height = width / aspect;
+  return { width, height };
+}</script><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+  Bar charts display <span class="good">categorical data</span> usually with <span class="good">no causal</span>
+  connection between the consecutive data points, such as a counting process (histograms).
+  They are good in showing small differences, and therefore are an alternative to pie charts.
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/bar-chart.js">source</a><a class="right footnote" href="../../../api/charts/bar-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+// generate data
+// Data is generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  return [
+    {name: "plum", value: 130 * Math.random()},
+    {name: "banana", value: 40 * Math.random()},
+    {name: "mango", value: 60 * Math.random()},
+    {name: "orange", value: 20 * Math.random()},
+  ].concat(Math.random() > 0.5 ? [
+    {name: "melon", value: 110 * Math.random()},
+    {name: "kiwi", value: 70 * Math.random()}
+  ] : [])
+  .concat([{name: "pear", value: 30 * Math.random()}])
+}
+</script><script class="doc">
+// create chart
+const barChart = dalian.BarChart('bar-chart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 70, top: 40, bottom: 40, right: 40})
+  .fontSize(14)
+  .xLabel('stock')
+  .yLabel('fruit')
+  .colors('royalblue')
+  .mouseover(k => barChart.highlight(k.name))
+  .mouseleave(() => barChart.highlight())
+  .horizontal(true)
+  .values(true)
+  .tooltip(true)
+  .tooltipYFormat(x => x.toFixed(2))
+  .render()
+</script><script class="doc">
+// update data
+setInterval(() => {
+  barChart.data(getData()).render()
+}, 20000)
+</script><script>function resize() {
+  const { width, height } = getSize();
+  document.getElementById('widget').style.paddingTop = height + 'px';
+  barChart
+    .width(width)
+    .height(height)
+    .render();
+}
+window.onresize = resize;
+</script></div></main></body><script>resize();</script></html>
