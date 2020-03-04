@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Shades of a color added to Colors component policy">
-      <change afterPath="$PROJECT_DIR$/docs/catalogue/charts/bar-chart/content.html" afterDir="false" />
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Chart.plotGroups simplified (using d3.selection.join)">
       <change afterPath="$PROJECT_DIR$/docs/node_modules/.bin/JSONStream" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/.bin/acorn" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/.bin/ansi-html" afterDir="false" />
@@ -11590,27 +11589,195 @@
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/node_modules/strip-ansi/readme.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/package.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/node_modules/yargs/yargs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/charts/bar-chart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/tooltip/element-tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/dalian.min.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/demo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/dist/dalian.chart.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/axes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/src/scale.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/yarn-error.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/.deprecated/chart-deprecated/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/base-axis.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/bottom-axis.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/axis/src/left-axis.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/chart/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/dist/dalian.component-colors.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/colors/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/dist/dalian.component-description.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/description/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/dist/dalian.component-font.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/font/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/highlight/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/highlight/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/highlight/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/highlight/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/highlight/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-style/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-style/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-style/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-style/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/line-style/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/dist/dalian.component-mouse.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/mouse/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/dist/dalian.component-placeholder.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/placeholder/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/plot-marker/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/plot-marker/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/plot-marker/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/plot-marker/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/plot-marker/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/rollup.config.template.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/scale/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/scale/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/scale/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/scale/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/scale/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/smoothing/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/smoothing/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/smoothing/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/smoothing/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/dist/dalian.component-tooltip.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/base-tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/src/point-tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/yarn-error.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/tooltip/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/trend-marker/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/demo-widget.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/dist/dalian.component-widget.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/components/widget/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/dist/dalian.core.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/src/compose.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/src/encode.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/src/extend.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/core/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/demo/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/demo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/demo/index.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/demo/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/demo/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/area-chart/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/docs/demo/config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/docs/demo/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/docs/example/code.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/rollup.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/widgets/line-chart/yarn.lock" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/charts/area-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/area-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/axis/base-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/base-axis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/plot-marker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plot-marker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tooltip/base-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tooltip/base-tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tooltip/point-tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tooltip/point-tooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/bar-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/bar-chart.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11656,7 +11823,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -11667,11 +11834,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
       <recent name="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
       <recent name="$PROJECT_DIR$/docs/catalogue/charts" />
       <recent name="$PROJECT_DIR$/docs/js" />
       <recent name="$PROJECT_DIR$/dist" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/widgets/flow-chart" />
@@ -11681,7 +11848,7 @@
       <recent name="$PROJECT_DIR$/docs/style/fonts" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.index.js">
+  <component name="RunManager" selected="Node.js.widget.js">
     <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/modules/widget2/src">
       <method v="2" />
     </configuration>
@@ -11776,7 +11943,9 @@
       <workItem from="1578149161643" duration="2920000" />
       <workItem from="1579074538908" duration="10038000" />
       <workItem from="1579622211052" duration="3637000" />
-      <workItem from="1580193766486" duration="45908000" />
+      <workItem from="1580193766486" duration="81566000" />
+      <workItem from="1582645556253" duration="564000" />
+      <workItem from="1583355488336" duration="6317000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -11925,7 +12094,21 @@
       <option name="project" value="LOCAL" />
       <updated>1580938983931</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="BarChart added, not yet fully implemented">
+      <created>1580946550000</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1580946550000</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Chart.plotGroups simplified (using d3.selection.join)">
+      <created>1583361932090</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1583361932090</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -11966,7 +12149,9 @@
     <MESSAGE value="Catalogue index page added" />
     <MESSAGE value="Area chart added." />
     <MESSAGE value="Shades of a color added to Colors component policy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Shades of a color added to Colors component policy" />
+    <MESSAGE value="BarChart added, not yet fully implemented" />
+    <MESSAGE value="Chart.plotGroups simplified (using d3.selection.join)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chart.plotGroups simplified (using d3.selection.join)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579629610937">
@@ -11977,10 +12162,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580763033830" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1580946393505">
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583361908092">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1580946393505" />
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583361908092" />
     <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -12001,18 +12186,18 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1580938986169">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583361934222">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1580938986169" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583361934222" />
     <state x="386" y="180" width="667" height="486" key="find.popup" timestamp="1579124555409">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="386" y="180" width="667" height="486" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1579124555409" />
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1580946324919">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1581364932889">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1580946324919" />
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1581364932889" />
     <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1580750257441">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

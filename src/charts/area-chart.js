@@ -163,7 +163,7 @@ export default (name, parent) => {
    *
    * @method click
    * @methodOf AreaChart
-   * @param {Function} callback Function to call on click.
+   * @param {Function} callback Function to call on click. The area data (name and values) is passed to it as parameter.
    * @returns {AreaChart} The AreaChart itself.
    */
 
@@ -272,7 +272,8 @@ export default (name, parent) => {
    *
    * @method mouseleave
    * @methodOf AreaChart
-   * @param {Function} callback Function to call on mouseleave.
+   * @param {Function} callback Function to call on mouseleave. The area data (name and values) is passed to it as
+   * parameter.
    * @returns {AreaChart} The AreaChart itself.
    */
 
@@ -281,7 +282,8 @@ export default (name, parent) => {
    *
    * @method mouseover
    * @methodOf AreaChart
-   * @param {Function} callback Function to call on mouseover.
+   * @param {Function} callback Function to call on mouseover. The area data (name and values) is passed to it as
+   * parameter.
    * @returns {AreaChart} The AreaChart itself.
    */
 

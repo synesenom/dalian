@@ -248,7 +248,7 @@ export default (name, parent) => {
    *
    * @method click
    * @methodOf BarChart
-   * @param {Function} callback Function to call on click.
+   * @param {Function} callback Function to call on click. The bar data (name and value) is passed to it as parameter.
    * @returns {BarChart} The BarChart itself.
    */
 
@@ -360,7 +360,8 @@ export default (name, parent) => {
    *
    * @method mouseleave
    * @methodOf BarChart
-   * @param {Function} callback Function to call on mouseleave.
+   * @param {Function} callback Function to call on mouseleave. The bar data (name and values) is passed to it as
+   * parameter.
    * @returns {BarChart} The BarChart itself.
    */
 
@@ -369,7 +370,8 @@ export default (name, parent) => {
    *
    * @method mouseover
    * @methodOf BarChart
-   * @param {Function} callback Function to call on mouseover.
+   * @param {Function} callback Function to call on mouseover. The bar data (name and values) is passed to it as
+   * parameter.
    * @returns {BarChart} The BarChart itself.
    */
 
