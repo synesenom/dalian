@@ -22,12 +22,11 @@ dalian.AreaChart('area-chart-card', '#area-chart')
   .fontSize(11)
   .xLabel('value')
   .yLabel('density')
-  .opacity(0.2)
+  .smoothing(true)
   .colors({
     normal: 'yellowgreen',
     exponential: 'royalblue'
   })
-  .smoothing(true)
   .render()
 </script></a><a class="card" href="charts/bar-chart"><div class="card-title">BarChart</div><div class="card-content" id="bar-chart"></div><script class="card-example">
 dalian.BarChart('bar-chart-card', '#bar-chart')
