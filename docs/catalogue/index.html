@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../style/fonts.css"><link rel="stylesheet" type="text/css" href="../style/base.css"><link rel="stylesheet" type="text/css" href="../style/heading.css"><link rel="stylesheet" type="text/css" href="../style/list.css"><link rel="stylesheet" type="text/css" href="../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../style/main.css"><link rel="stylesheet" type="text/css" href="../style/catalogue.css"><script type="text/javascript" src="../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../js/ranjs.min.js"></script><script type="text/javascript" src="../../dist/dalian.min.js"></script><title>catalogue</title></head><body><script>const WIDTH = 280 - 42;
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../style/fonts.css"><link rel="stylesheet" type="text/css" href="../style/base.css"><link rel="stylesheet" type="text/css" href="../style/heading.css"><link rel="stylesheet" type="text/css" href="../style/list.css"><link rel="stylesheet" type="text/css" href="../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../style/main.css"><link rel="stylesheet" type="text/css" href="../style/catalogue.css"><script type="text/javascript" src="../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../js/ranjs.min.js"></script><script type="text/javascript" src="../dl/dalian.min.js"></script><title>catalogue</title></head><body><script>const WIDTH = 280 - 42;
 const HEIGHT = 280 - 42 - 30;</script><main><div class="main-content-centered"><h1>catalogue</h1><p></p><div class="section"><h2>charts</h2><a class="card" href="charts/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
 dalian.AreaChart('area-chart-card', '#area-chart')
   .data([{
@@ -28,7 +28,6 @@ dalian.AreaChart('area-chart-card', '#area-chart')
     exponential: 'royalblue'
   })
   .smoothing(true)
-  .tooltipYFormat(d => d.toFixed(2))
   .render()
 </script></a><a class="card" href="charts/bar-chart"><div class="card-title">BarChart</div><div class="card-content" id="bar-chart"></div><script class="card-example">
 dalian.BarChart('bar-chart-card', '#bar-chart')
@@ -84,25 +83,5 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .lineStyle({
     mango: 'dashed'
   })
-  .render()
-</script></a><a class="card" href="charts/pie-chart"><div class="card-title">PieChart</div><div class="card-content" id="pie-chart"></div><script class="card-example">
-dalian.PieChart('pie-chart-card', '#pie-chart')
-  .data([
-    {name: "plum", value: 13},
-    {name: "banana", value: 4},
-    {name: "mango", value: 6},
-    {name: "kiwi", value: 7},
-    {name: "pear", value: 3}
-  ])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 50, right: 10, top: 20, bottom: 30 })
-  .fontSize(11)
-  .xLabel('stock')
-  .yLabel('fruit')
-  .values(true)
-  .colors('royalblue')
   .render()
 </script></a></div></div></main></body></html>

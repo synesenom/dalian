@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Chart.plotGroups simplified (using d3.selection.join)">
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="Doc files added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/bar-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/bar-chart/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +176,7 @@
       <workItem from="1579622211052" duration="3637000" />
       <workItem from="1580193766486" duration="81566000" />
       <workItem from="1582645556253" duration="564000" />
-      <workItem from="1583355488336" duration="6923000" />
+      <workItem from="1583355488336" duration="7998000" />
     </task>
     <task id="LOCAL-00001" summary="Minor refactoring">
       <created>1569966836032</created>
@@ -349,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583362491143</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Doc files added">
+      <created>1583363022500</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1583363022500</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,7 +404,8 @@
     <MESSAGE value="BarChart added, not yet fully implemented" />
     <MESSAGE value="Docs updated" />
     <MESSAGE value="Chart.plotGroups simplified (using d3.selection.join)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chart.plotGroups simplified (using d3.selection.join)" />
+    <MESSAGE value="Doc files added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Doc files added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="89" key="#Notifications" timestamp="1583362915594">
@@ -408,10 +420,14 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580763033830" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583362485176">
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583390004587">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583362485176" />
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583390004587" />
+    <state x="144" y="92" key="DiffContextDialog" timestamp="1583363562844">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="144" y="92" key="DiffContextDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363562844" />
     <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -428,14 +444,22 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state width="1419" height="216" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1579438677232" />
+    <state x="144" y="92" key="MergeDialog" timestamp="1583363072738">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="144" y="92" key="MergeDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363072738" />
+    <state x="433" y="146" key="MultipleFileMergeDialog" timestamp="1583363480385">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="433" y="146" key="MultipleFileMergeDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363480385" />
     <state x="229" y="62" key="SettingsEditor" timestamp="1580835200628">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583362502533">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583363575484">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583362502533" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583363575484" />
     <state x="509" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583362906140">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -444,14 +468,18 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="386" y="180" width="667" height="486" key="find.popup/0.23.1440.801@0.23.1440.801" timestamp="1579124555409" />
-    <state x="484" y="143" key="git4idea.branch.GitSmartOperationDialog" timestamp="1583362930968">
+    <state x="484" y="143" key="git4idea.branch.GitSmartOperationDialog" timestamp="1583363467251">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="484" y="143" key="git4idea.branch.GitSmartOperationDialog/0.23.1440.801@0.23.1440.801" timestamp="1583362930968" />
+    <state x="484" y="143" key="git4idea.branch.GitSmartOperationDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363467251" />
     <state x="414" y="222" key="git4idea.merge.GitPullDialog" timestamp="1583362382329">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="414" y="222" key="git4idea.merge.GitPullDialog/0.23.1440.801@0.23.1440.801" timestamp="1583362382329" />
+    <state x="480" y="262" key="git4idea.ui.GitUnstashDialog" timestamp="1583363500895">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="480" y="262" key="git4idea.ui.GitUnstashDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363500895" />
     <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1581364932889">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
