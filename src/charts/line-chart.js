@@ -35,7 +35,7 @@ export default (name, parent = 'body') => {
     PlotMarker,
     Smoothing,
     PointTooltip,
-    Highlight,
+    Highlight(['.line', '.error-band', '.plot-marker', '.trend-marker']),
     (s, a) => TrendMarker(s, a, scales),
     (s, a) => LeftAxis(s, a,'y', scales.y),
     (s, a) => BottomAxis(s, a, 'x', scales.x)
@@ -118,7 +118,6 @@ export default (name, parent = 'body') => {
 
   // Overrides
   self._highlight.container = self._chart.plots
-  self._highlight.selectors = ['.line', '.error-band', '.plot-marker', '.trend-marker']
   self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
       self._plotMarker.remove()

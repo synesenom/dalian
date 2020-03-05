@@ -20,7 +20,7 @@ import Highlight from '../components/highlight'
  * @param {string} [parent = body] Parent element to append widget to.
  */
 export default (name, parent) => {
-// Build widget from components
+  // Build widget from components
   // TODO Fix this separate declaration of scales (needed by the axis components)
   let scales = {
     x: Scale('band'),
@@ -29,7 +29,7 @@ export default (name, parent) => {
   let { self, api } = compose(
     Chart('bar-chart', name, parent, 'svg'),
     ElementTooltip,
-    Highlight,
+    Highlight(['.bar', '.bar-value']),
     (s, a) => LeftAxis(s, a, 'y', scales.y),
     (s, a) => BottomAxis(s, a, 'x', scales.x)
   )
@@ -182,8 +182,6 @@ export default (name, parent) => {
 
   // Overrides
   self._highlight.container = self._chart.plots
-
-  self._highlight.selectors = ['.bar', '.bar-value']
 
   self._tooltip.content = () => {
     // If no bar is hovered, hide tooltip

@@ -33,7 +33,7 @@ export default (name, parent) => {
     Opacity,
     Smoothing,
     PointTooltip,
-    Highlight,
+    Highlight(['.area', '.plot-marker']),
     (s, a) => LeftAxis(s, a, 'y', scales.y),
     (s, a) => BottomAxis(s, a, 'x', scales.x)
   )
@@ -89,8 +89,6 @@ export default (name, parent) => {
 
   // Overrides
   self._highlight.container = self._chart.plots
-
-  self._highlight.selectors = ['.area', '.plot-marker']
 
   self._tooltip.content = mouse => {
     // If outside the plot, hide tooltip
