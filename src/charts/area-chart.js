@@ -34,8 +34,8 @@ export default (name, parent) => {
     Smoothing,
     PointTooltip,
     Highlight(['.area', '.plot-marker']),
-    (s, a) => LeftAxis(s, a, 'y', scales.y),
-    (s, a) => BottomAxis(s, a, 'x', scales.x)
+    LeftAxis('y', scales.y),
+    BottomAxis('x', scales.x)
   )
 
   // Private members

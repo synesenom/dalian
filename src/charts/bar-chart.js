@@ -30,8 +30,8 @@ export default (name, parent) => {
     Chart('bar-chart', name, parent, 'svg'),
     ElementTooltip,
     Highlight(['.bar', '.bar-value']),
-    (s, a) => LeftAxis(s, a, 'y', scales.y),
-    (s, a) => BottomAxis(s, a, 'x', scales.x)
+    LeftAxis('y', scales.y),
+    BottomAxis('x', scales.x)
   )
 
   // Private members

@@ -36,9 +36,9 @@ export default (name, parent = 'body') => {
     Smoothing,
     PointTooltip,
     Highlight(['.line', '.error-band', '.plot-marker', '.trend-marker']),
-    (s, a) => TrendMarker(s, a, scales),
-    (s, a) => LeftAxis(s, a,'y', scales.y),
-    (s, a) => BottomAxis(s, a, 'x', scales.x)
+    TrendMarker(scales),
+    LeftAxis('y', scales.y),
+    BottomAxis('x', scales.x)
   )
 
   // Private members
