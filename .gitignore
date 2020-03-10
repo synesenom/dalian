@@ -5,3 +5,7 @@ node_modules/
 # .idea
 .idea/
 /docs/node_modules/
+
+# Builds
+dist/dalian.min.js.gz
+docs/dl/dalian.min.js.gz

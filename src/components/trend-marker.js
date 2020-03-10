@@ -78,7 +78,7 @@ export default scales => (() => {
       addMarker: (id, key, start, end, label, duration = 400) => {
         // Check if trend-marker exists
         if (_.markers.has(id)) {
-          return
+          return api
         }
 
         // Get marker positions
@@ -87,10 +87,10 @@ export default scales => (() => {
         let pos = _.adjustMarker(key, start, end)
 
         // Build group without showing it
-        let g = self._chart.plots.append('g')
+        const g = self._chart.plots.append('g')
           .attr('class', 'trend-marker ' + encode(key))
           .style('opacity', 0)
-        let horizontal = g.append('line')
+        const horizontal = g.append('line')
           .attr('class', 'horizontal')
           .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))
           .attr('y1', scaleY(pos.plateau))
@@ -99,7 +99,7 @@ export default scales => (() => {
           .style('stroke', self._colors.mapping(key))
           .style('stroke-dasharray', '3 3')
           .style('stroke-width', 1)
-        let verticalStart = g.append('line')
+        const verticalStart = g.append('line')
           .attr('class', 'vertical-start')
           .attr('x1', scaleX(pos.start.x))
           .attr('y1', scaleY(pos.start.y))
@@ -108,14 +108,14 @@ export default scales => (() => {
           .style('stroke', self._colors.mapping(key))
           .style('stroke-dasharray', '3 3')
           .style('stroke-width', 1)
-        let circleStart = g.append('circle')
+        const circleStart = g.append('circle')
           .attr('class', 'start')
           .attr('cx', scaleX(pos.start.x))
           .attr('cy', scaleY(pos.start.y))
           .attr('r', 4)
           .style('stroke', 'none')
           .style('fill', self._colors.mapping(key))
-        let verticalEnd = g.append('line')
+        const verticalEnd = g.append('line')
           .attr('class', 'vertical-end')
           .attr('x1', scaleX(pos.end.x))
           .attr('y1', scaleY(pos.end.y))
@@ -124,14 +124,14 @@ export default scales => (() => {
           .style('stroke', self._colors.mapping(key))
           .style('stroke-dasharray', '3 3')
           .style('stroke-width', 1)
-        let circleEnd = g.append('circle')
+        const circleEnd = g.append('circle')
           .attr('class', 'end')
           .attr('cx', scaleX(pos.end.x))
           .attr('cy', scaleY(pos.end.y))
           .attr('r', 4)
           .style('stroke', 'none')
           .style('fill', self._colors.mapping(key))
-        let text = g.append('text')
+        const text = g.append('text')
           .attr('x', scaleX(pos.start.x))
           .attr('y', scaleY(pos.plateau))
           .attr('dy', -5)
@@ -145,8 +145,8 @@ export default scales => (() => {
         g.transition().duration(duration)
           .style('opacity', 1)
 
-        let marker = {
-          remove: (duration = 400) => {
+        const marker = {
+          remove: duration => {
             g.transition().duration(duration)
               .style('opacity', 0)
               .on('end', () => {
@@ -154,7 +154,7 @@ export default scales => (() => {
               })
           },
           update: duration => {
-            let pos = _.adjustMarker(key, start, end)
+            const pos = _.adjustMarker(key, start, end)
             horizontal
               .transition().duration(duration)
               .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))
@@ -207,11 +207,12 @@ export default scales => (() => {
        * @methodOf TrendMarker
        * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
        * not exist, no change is applied.
+       * @param {number} duration Duration of the remove animation.
        * @returns {Object} Reference to the TrendMarker API.
        */
-      removeMarker: id => {
+      removeMarker: (id, duration) => {
         if (_.markers.has(id)) {
-          _.markers.get(id).remove()
+          _.markers.get(id).remove(duration)
           _.markers.delete(id)
         }
         return api

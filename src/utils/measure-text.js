@@ -1,5 +1,4 @@
 const canvas = document.createElement('canvas')
-canvas.style.fontFamily = 'inherit'
 const context = canvas.getContext('2d')
 
 

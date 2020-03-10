@@ -13,6 +13,7 @@ import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
 import Highlight from '../components/highlight'
 import TrendMarker from '../components/trend-marker'
+import Pin from '../components/pin'
 
 /**
  * The line chart widget.
@@ -31,14 +32,15 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('line-chart', name, parent, 'svg'),
+    LeftAxis('y', scales.y),
+    BottomAxis('x', scales.x),
     LineStyle,
     PlotMarker,
     Smoothing,
     PointTooltip,
     Highlight(['.line', '.error-band', '.plot-marker', '.trend-marker']),
     TrendMarker(scales),
-    LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x)
+    Pin(scales)
   )
 
   // Private members
@@ -200,6 +202,25 @@ export default (name, parent = 'body') => {
    * @param {number} end Ending (right side) value of the trend marker.
    * @param {string} label Label to display on the marker.
    * @param {number} [duration = 700] Duration of the animation of adding the marker.
+   * @returns {LineChart} The LineChart itself.
+   */
+
+  /**
+   * Adds a pin to the chart. A pin is a vertical line with a circle on the top and an optional text label to
+   * describe the pin. If the  marker ID already exists, no further markers are added.
+   *
+   * @method addPin
+   * @methodOf Pin
+   * @param {string} id Unique identifier of the pin.
+   * @param {number} position Horizontal position.
+   * @param {Object} options Pin design options. Supported values:
+   * <ul>
+   *   <li>{string} <i>color</i>: Pin color.</li>
+   *   <li>{number} <i>size</i>: Size of the pin head in pixels.</li>
+   *   <li>{number} <i>height</i>: Pin height relative to the Y range.</li>
+   *   <li>{string} <i>text</i>: Label to add to the pin. The label is visible when hovering over the pin.</li>
+   * </ul>
+   * @param {number} [duration = 400] Duration of the animation of adding the pin.
    * @returns {LineChart} The LineChart itself.
    */
 
@@ -367,6 +388,17 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
    * not exist, no change is applied.
+   * @returns {LineChart} The LineChart itself.
+   */
+
+  /**
+   * Removes a pin from the chart.
+   *
+   * @method removePin
+   * @methodOf Pin
+   * @param {string} id Identifier of the pin to remove. If pin with the specified identifier does not exist, no
+   * change is applied.
+   * @param {number} duration Duration of the remove animation.
    * @returns {LineChart} The LineChart itself.
    */
 
