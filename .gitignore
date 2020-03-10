@@ -4,6 +4,7 @@ node_modules/
 
 # .idea
 .idea/
+.idea/workspace.xml
 /docs/node_modules/
 
 # Builds
