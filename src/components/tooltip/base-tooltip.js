@@ -46,7 +46,6 @@ export default (self, api) => {
     },
 
     hideTooltip: () => {
-      return
       if (typeof _.elem !== 'undefined') {
         _.elem
           .transition().duration(200)
