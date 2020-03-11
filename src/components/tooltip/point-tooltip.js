@@ -26,7 +26,7 @@ export default (self, api) => {
 
       // Create content node
       let contentNode = select(document.createElement('div'))
-        .style('width', '100%')
+        .style('width', 'min-content')
 
       // Add title
       contentNode.append('div')
@@ -44,7 +44,7 @@ export default (self, api) => {
           let entry = contentNode.append('div')
             .style('display', 'inline-block')
             .style('position', 'relative')
-            .style('width', '100%')
+            .style('width', 'max-content')
             .style('margin-top', '5px')
           entry.append('div')
             .style('display', 'inline-block')
@@ -52,12 +52,14 @@ export default (self, api) => {
             .style('width', '9px')
             .style('height', '9px')
             .style('float', 'left')
+            .style('margin-right', '10px')
             .style('background', plot.background)
           entry.append('div')
             .style('display', 'inline-block')
             .style('position', 'relative')
-            .style('width', 'calc(100% - 20px)')
-            .style('float', 'right')
+            .style('width', 'max-content')
+            .style('max-width', '120px')
+            .style('float', 'left')
             .html(self._tooltip.yFormat(plot.value))
         })
 

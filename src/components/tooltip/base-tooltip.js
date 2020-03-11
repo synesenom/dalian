@@ -37,8 +37,7 @@ export default (self, api) => {
           .style('color', 'black')
           .style('pointer-events', 'none')
           .style('font-family', 'inherit')
-          .style('min-width', '100px')
-          .style('max-width', '150px')
+          .style('width', 'auto')
           .style('padding', '10px')
           .style('line-height', '1')
           .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
@@ -47,6 +46,7 @@ export default (self, api) => {
     },
 
     hideTooltip: () => {
+      return
       if (typeof _.elem !== 'undefined') {
         _.elem
           .transition().duration(200)
