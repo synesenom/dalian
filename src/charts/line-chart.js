@@ -54,7 +54,7 @@ export default (name, parent = 'body') => {
     update: duration => {
       // Collect all data points
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
-      const yData = flatData.map(d => d.y)
+      const yData = flatData.map(d => d.y).filter(d => d !== null)
       const yMin = Math.min(...yData)
       const yMax = Math.max(...yData)
 
@@ -62,7 +62,7 @@ export default (name, parent = 'body') => {
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(flatData.map(d => d.x))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(flatData.map(d => d.y))
+        .domain(yData)
 
       // Create line and error path functions
       const lineFn = line()
