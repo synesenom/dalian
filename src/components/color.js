@@ -82,14 +82,14 @@ export default (self, api) => {
      *     property with the same name as the plot's key.</li>
      * </ul>
      *
-     * @method colors
+     * @method color
      * @methodOf Widget
      * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
      * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
      * the color specified for {policy} is used for all plots.
      * @returns {Widget} Reference to the widget API.
      */
-    colors: (policy, size) => {
+    color: (policy, size) => {
       // Update color policy
       _.policy = policy
 

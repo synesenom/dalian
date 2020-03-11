@@ -1,4 +1,4 @@
-import Colors from './colors'
+import Colors from './color'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'

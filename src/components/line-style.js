@@ -103,11 +103,11 @@ export default (self, api) => {
     /**
      * Sets the line style policy. Supported policies:
      * <ul>
-     *     <li>Default line style policy (no arguments): the default line style is used which is solid for all plots.</li>
+     *     <li>Default line style policy (no arguments): The default line style is used which is solid for all plots.</li>
      *     <li>Single line style (passing {string}): The specified line style is used for all plots. Supported styles
      *     are: solid, dashed, dotted.</li>
-     *     <li>Custom line style mapping (passing an {Object}): each plot has the line style specified as the value for
-     *     the property with the same name as the plot's key.</li>
+     *     <li>Custom line style mapping (passing an {Object}): Plots that are listed as property name have the line
+     *     style specified as the value for.</li>
      * </ul>
      *
      * @method lineStyle

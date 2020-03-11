@@ -8,6 +8,7 @@ import Scale from '../components/scale'
 import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
 import Smoothing from '../components/smoothing'
+import LineWidth from '../components/line-width'
 import LineStyle from '../components/line-style'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
@@ -35,6 +36,7 @@ export default (name, parent = 'body') => {
     LeftAxis('y', scales.y),
     BottomAxis('x', scales.x),
     LineStyle,
+    LineWidth,
     PlotMarker,
     Smoothing,
     PointTooltip,
@@ -87,7 +89,7 @@ export default (name, parent = 'body') => {
           g.append('path')
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
-            .style('stroke-width', '2px')
+            .style('stroke-width', d => self._lineWidth.mapping(d.name) || '2px')
             .style('opacity', 0)
             .style('fill', 'none')
           return g
@@ -244,7 +246,7 @@ export default (name, parent = 'body') => {
    *     property with the same name as the plot's key.</li>
    * </ul>
    *
-   * @method colors
+   * @method color
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
    * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
@@ -335,6 +337,21 @@ export default (name, parent = 'body') => {
    * @method lineStyle
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
+   * @returns {LineChart} The LineChart itself.
+   */
+
+  /**
+   * Sets the line width policy. Supported policies:
+   * <ul>
+   *     <li>Default line width policy (no arguments): The default line width is used which is 2px for all lines.</li>
+   *     <li>Single number or (passing {number}): The specified line width is used for all lines.</li>
+   *     <li>Custom line width mapping (passing an {Object}): Plots that are listed as property name have the line
+   *     width specified as the value for.</li>
+   * </ul>
+   *
+   * @method lineWidth
+   * @methodOf LineChart
+   * @param {(string | Object)} [policy] Line width policy to set. If not specified, the default policy is set.
    * @returns {LineChart} The LineChart itself.
    */
 
