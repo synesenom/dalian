@@ -3,10 +3,9 @@ node_modules/
 /modules/**/node_modules
 
 # .idea
-.idea/
-.idea/workspace.xml
 /docs/node_modules/
 
 # Builds
 dist/dalian.min.js.gz
 docs/dl/dalian.min.js.gz
+/.idea/
