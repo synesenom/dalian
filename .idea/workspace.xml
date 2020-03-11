@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ Files added to gitignore">
-      <change afterPath="$PROJECT_DIR$/src/components/line-width.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/dalian.min.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/area-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/area-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/bar-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/bar-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/line-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/line-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/color.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/line-style.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/line-style.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -411,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583883379123</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="↗️ Build">
+      <created>1583950415419</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1583950415419</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,10 +502,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583883690994">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583950427155">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583883690994" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583950427155" />
     <state x="509" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583362906140">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
