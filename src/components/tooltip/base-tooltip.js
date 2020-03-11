@@ -47,7 +47,6 @@ export default (self, api) => {
     },
 
     hideTooltip: () => {
-      return
       if (typeof _.elem !== 'undefined') {
         _.elem
           .transition().duration(200)
@@ -80,7 +79,7 @@ export default (self, api) => {
         || my > boundingBox.bottom - self._widget.margins.bottom + scroll.top) {
         self._tooltip.builder()
         _.hideTooltip()
-        //return
+        return
       }
 
       // Get or create container
@@ -98,7 +97,7 @@ export default (self, api) => {
         if (typeof _.elem !== 'undefined') {
           // If content is invalid, remove tooltip
           _.hideTooltip()
-          //return
+          return
         }
       } else {
         // Otherwise, set content
