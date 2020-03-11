@@ -1,4 +1,6 @@
 import { getTextWidth } from '../utils/measure-text'
+import luminance from '../utils/luminance'
+import extend from '../core/extend'
 
 export default scales => (() => {
   return (self, api) => {
@@ -6,6 +8,11 @@ export default scales => (() => {
     let _ = {
       pins: new Map()
     }
+
+    // Extend widget update
+    self._widget.update = extend(self._widget.update, duration => {
+      _.pins.forEach(pin => pin.update(duration))
+    })
 
     // Public API
     api = Object.assign(api, {
@@ -36,26 +43,70 @@ export default scales => (() => {
         // Get marker positions
         let scaleX = scales.x.scale
         let scaleY = scales.y.scale
+        const color = options.color || self._font.color
         const height = (1 - (options.height || 1)) * scaleY.range()[0]
         const text = options.text || ''
-        const style = window.getComputedStyle(self._widget.container.node())
-        const length = getTextWidth(text, {
-          size: options.fontSize || self._font.size,
-          family: style.fontFamily
-        })
 
-        // Add pin
+        // Add pin group
         const g = self._chart.plots.append('g')
           .attr('class', 'pin')
           .style('opacity', 0)
+
+        // Pin label
+        const label = g.append('g')
+          .attr('class', 'pin-label')
+          .style('opacity', 0)
+
+        // Label text
+        const labelText = label.append('text')
+          .attr('class', 'pin-label-text')
+          .attr('y', height - (options.size || 6) - 10)
+          .attr('text-anchor', 'start')
+          .attr('stroke', 'none')
+          .attr('fill', luminance(color) > 0.179 ? '#000' : '#fff')
+          .text(text)
+
+        // Compute text length, adjust text
+        const length = labelText.node().getComputedTextLength() * 1.05
+        labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length * 1.2))
+          .attr('textLength', length)
+
+        // Label box
+        let bbox = labelText.node().getBBox()
+        const labelBox = label.append('rect')
+          .attr('class', 'pin-label-box')
+          .attr('x', bbox.x - 5)
+          .attr('y', bbox.y - 5)
+          .attr('width', bbox.width + 10)
+          .attr('height', bbox.height + 10)
+          .attr('rx', 2)
+          .attr('stroke', 'none')
+          .attr('fill', text === '' ? 'none' : color)
+        // Move box behind text
+        label.node().insertBefore(labelBox.node(), labelText.node())
+
+        // Updates
+        const mouseover = () => label.transition().duration(300).style('opacity', 1)
+        const mousemove = () => {
+          g.remove()
+          self._chart.plots.node().appendChild(g.node())
+        }
+        const mouseleave = () => label.transition().duration(300).style('opacity', 0)
+
+        // Pin needle with mouse interactions
         g.append('line')
           .attr('class', 'pin-needle')
           .attr('x1', scaleX(position) + 1)
           .attr('y1', scaleY.range()[0])
           .attr('x2', scaleX(position) + 1)
           .attr('y2', height)
-          .style('stroke', options.color || self._font.color)
+          .style('stroke', color)
           .style('stroke-width', '2px')
+          .on('mouseover', mouseover)
+          .on('mousemove', mousemove)
+          .on('mouseleave', mouseleave)
+
+        // Pin head with mouse interactions
         g.append('circle')
           .attr('class', 'pin-head')
           .attr('cx', scaleX(position) + 1)
@@ -63,22 +114,10 @@ export default scales => (() => {
           .attr('r', (options.size || 6) + 'px')
           .style('stroke', 'white')
           .style('stroke-width', '1px')
-          .style('fill', options.color || self._font.color)
-          .on('mouseover', () => {
-            label.transition().duration(300)
-              .style('opacity', 1)
-          })
-          .on('mouseleave', () => {
-            label.transition().duration(300)
-              .style('opacity', 0)
-          })
-        const label = g.append('text')
-          .attr('class', 'pin-label')
-          .attr('x', Math.min(scaleX(position), scaleX.range()[1] - length * 1.2) - 5)
-          .attr('y', height - (options.size || 6) - 10)
-          .attr('text-anchor', 'start')
-          .style('opacity', 0)
-          .text(text)
+          .style('fill', color)
+          .on('mouseover', mouseover)
+          .on('mousemove', mousemove)
+          .on('mouseleave', mouseleave)
 
         // Show pin
         g.transition().duration(duration)
@@ -96,14 +135,14 @@ export default scales => (() => {
           update: duration => {
             g.select('.pin-needle')
               .transition().duration(duration)
-              .attr('x1', scaleX(position) + 2)
+              .attr('x1', scaleX(position) + 1)
               .attr('y1', scaleY.range()[0])
-              .attr('x2', scaleX(position) + 2)
-              .attr('y2', (1 - (height || 1)) * scaleY.range()[0])
+              .attr('x2', scaleX(position) + 1)
+              .attr('y2', height)
             g.select('.pin-head')
               .transition().duration(duration)
-              .attr('cx', scaleX(position) + 2)
-              .attr('cy', (1 - (height || 1)) * scaleY.range()[0])
+              .attr('cx', scaleX(position) + 1)
+              .attr('cy', height)
             g.select('.pin-label')
               .transition().duration(duration)
               .attr('x', Math.min(scaleX(position), scaleX.range()[1] - length * 1.2) - 5)
