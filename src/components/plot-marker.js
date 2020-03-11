@@ -23,10 +23,15 @@ export default (self, api) => {
   }
 
   self._plotMarker.remove = name => {
-    self._plotMarker.markers.forEach((d, k) => {
-      d.remove()
-      self._plotMarker.markers.delete(k)
-    })
+    if (typeof name === 'undefined') {
+      self._plotMarker.markers.forEach((d, k) => {
+        d.remove()
+        self._plotMarker.markers.delete(k)
+      })
+    } else if (self._plotMarker.markers.has(name)) {
+      self._plotMarker.markers.get(name).remove()
+      self._plotMarker.markers.delete(name)
+    }
   }
 
   return {self, api}

@@ -36,12 +36,18 @@ export default (self, api) => {
           .style('font-size', '0.7em')
           .style('color', 'black')
           .style('pointer-events', 'none')
+          .style('font-family', 'inherit')
+          .style('min-width', '100px')
+          .style('max-width', '150px')
+          .style('padding', '10px')
+          .style('line-height', '1')
           .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
           .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')
       }
     },
 
     hideTooltip: () => {
+      return
       if (typeof _.elem !== 'undefined') {
         _.elem
           .transition().duration(200)
@@ -74,7 +80,7 @@ export default (self, api) => {
         || my > boundingBox.bottom - self._widget.margins.bottom + scroll.top) {
         self._tooltip.builder()
         _.hideTooltip()
-        return
+        //return
       }
 
       // Get or create container
@@ -92,7 +98,7 @@ export default (self, api) => {
         if (typeof _.elem !== 'undefined') {
           // If content is invalid, remove tooltip
           _.hideTooltip()
-          return
+          //return
         }
       } else {
         // Otherwise, set content

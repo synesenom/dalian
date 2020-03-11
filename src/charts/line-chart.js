@@ -66,10 +66,12 @@ export default (name, parent = 'body') => {
 
       // Create line and error path functions
       const lineFn = line()
+        .defined(d => d.y !== null)
         .x(d => _.scales.x.scale(d.x))
         .y(d => _.scales.y.scale(d.y))
         .curve(self._smoothing.curve())
       const errorFn = area()
+        .defined(d => d.y !== null)
         .x(d => _.scales.x.scale(d.x))
         .y0(d => _.scales.y.scale(Math.max(yMin, d.y - d.lo)))
         .y1(d => _.scales.y.scale(Math.min(yMax, d.y + d.hi)))
@@ -154,7 +156,11 @@ export default (name, parent = 'body') => {
       x = point.x
 
       // Marker
-      self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name)
+      if (point.y !== null) {
+        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name)
+      } else {
+        self._plotMarker.remove(d.name)
+      }
 
       return {
         name: d.name,

@@ -26,18 +26,14 @@ export default (self, api) => {
 
       // Create content node
       let contentNode = select(document.createElement('div'))
-        .style('border-radius', '2px')
-        .style('padding', '5px')
-        .style('font-family', 'inherit')
+        .style('width', '100%')
 
       // Add title
-      contentNode
-        .append('div')
+      contentNode.append('div')
+        .style('display', 'inline-block')
         .style('position', 'relative')
-        .style('width', 'calc(100% - 10px)')
-        .style('line-height', '11px')
-        .style('margin', '5px')
-        .style('margin-bottom', '10px')
+        .style('width', '100%')
+        .style('margin-bottom', '8px')
         .text(self._tooltip.xFormat(content.title))
 
       // TODO Remove this: add to ElementTooltip
@@ -46,23 +42,22 @@ export default (self, api) => {
       content.content.data.sort((a, b) => a.name.localeCompare(b.name))
         .forEach(plot => {
           let entry = contentNode.append('div')
+            .style('display', 'inline-block')
             .style('position', 'relative')
-            .style('max-width', '150px')
-            .style('height', '10px')
-            .style('margin', '5px')
-            .style('padding-right', '10px')
+            .style('width', '100%')
+            .style('margin-top', '5px')
           entry.append('div')
+            .style('display', 'inline-block')
             .style('position', 'relative')
             .style('width', '9px')
             .style('height', '9px')
             .style('float', 'left')
             .style('background', plot.background)
-          entry.append('span')
+          entry.append('div')
+            .style('display', 'inline-block')
             .style('position', 'relative')
             .style('width', 'calc(100% - 20px)')
-            .style('height', '10px')
             .style('float', 'right')
-            .style('line-height', '11px')
             .html(self._tooltip.yFormat(plot.value))
         })
 

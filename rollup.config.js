@@ -12,8 +12,8 @@ export default {
     external: Object.keys(dependencies),
     input: meta.module,
     plugins: [
-        terser({output: {preamble: copyright}}),
-        gzipPlugin()
+        terser({output: {preamble: copyright}})
+        // gzipPlugin()
     ],
     output: {
         globals: dependencies,
