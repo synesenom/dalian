@@ -107,6 +107,7 @@ export default (type, name, parent, elem) => {
       .style('font-family', 'inherit')
       .style('font-size', 'inherit')
       .style('font-color', 'inherit')
+      .style('pointer-events', 'none')
   } catch (e) {
     throw Error('MissingDOMException: DOM is not present.')
   }

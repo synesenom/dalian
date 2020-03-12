@@ -103,7 +103,7 @@ export default (type, name, parent, elem) => {
         groups = attr.update ? attr.update(groups) : groups
         groups.on('end', () => {
           // Re-enable pointer events
-          self._chart.plots.style('pointer-events', 'all')
+          self._chart.plots.style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
           self._widget.transition = false
         })
       }

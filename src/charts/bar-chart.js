@@ -213,13 +213,8 @@ export default (name, parent) => {
       self._barChart.horizontal = on
 
       // Assign scales
-      if (on) {
-        _.scales.x = scales.y
-        _.scales.y = scales.x
-      } else {
-        _.scales.x = scales.x
-        _.scales.y = scales.y
-      }
+      _.scales.x = on ? scales.y : scales.x
+      _.scales.y = on ? scales.x : scales.y
 
       // Update axes
       self._axisBottom.scale(_.scales.x)

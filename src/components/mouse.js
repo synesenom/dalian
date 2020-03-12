@@ -35,7 +35,9 @@ export default (self, api) => {
 
       isEnabled: type => {
         return typeof _.callbacks[type] === 'function'
-      }
+      },
+
+      hasAny: () => Object.values(_.callbacks).reduce((has, d) => has || typeof d === 'function', false)
     }
   })
 
