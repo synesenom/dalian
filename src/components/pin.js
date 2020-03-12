@@ -68,7 +68,7 @@ export default scales => (() => {
 
         // Compute text length, adjust text
         const length = labelText.node().getComputedTextLength() * 1.05
-        labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length * 1.2))
+        labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length))
           .attr('textLength', length)
 
         // Label box
@@ -86,12 +86,30 @@ export default scales => (() => {
         label.node().insertBefore(labelBox.node(), labelText.node())
 
         // Updates
-        const mouseover = () => label.transition().duration(300).style('opacity', 1)
+        const mouseover = function () {
+          // Show label
+          label.transition().duration(300).style('opacity', 1)
+
+          // Hide other pins
+          _.pins.forEach(p => {
+            p.g.transition().duration(300)
+              .style('opacity', p.g === g ? 1 : 0.1)
+          })
+        }
         const mousemove = () => {
           g.remove()
           self._chart.plots.node().appendChild(g.node())
         }
-        const mouseleave = () => label.transition().duration(300).style('opacity', 0)
+        const mouseleave = () => {
+          // Hide label
+          label.transition().duration(300).style('opacity', 0)
+
+          // Show other pins
+          _.pins.forEach(p => {
+            p.g.transition().duration(300)
+              .style('opacity', 1)
+          })
+        }
 
         // Pin needle with mouse interactions
         g.append('line')

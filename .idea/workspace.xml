@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ Files added to gitignore">
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ Pin label improved">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -406,7 +408,21 @@
       <option name="project" value="LOCAL" />
       <updated>1583950415419</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="↗️ Build added">
+      <created>1583950611881</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1583950611881</updated>
+    </task>
+    <task id="LOCAL-00035" summary="↗️ Pin label improved">
+      <created>1583969763632</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1583969763632</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,8 +442,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Animation added to widget size changes" />
-    <MESSAGE value="LineChart finished" />
     <MESSAGE value="Tooltip improvements" />
     <MESSAGE value="Axis simplified, separate left and bottom axes components added" />
     <MESSAGE value="Axis update moved to axis component" />
@@ -451,7 +465,9 @@
     <MESSAGE value="↗️ TrendMarker, LeftAxis, BottomAxis converted to a component generator" />
     <MESSAGE value="↗️ Pin component added to LineChart" />
     <MESSAGE value="↗️ Files added to gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="↗️ Files added to gitignore" />
+    <MESSAGE value="↗️ Build added" />
+    <MESSAGE value="↗️ Pin label improved" />
+    <option name="LAST_COMMIT_MESSAGE" value="↗️ Pin label improved" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="89" key="#Notifications" timestamp="1583362915594">
@@ -466,10 +482,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580763033830" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583934141430">
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583969763295">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583934141430" />
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583969763295" />
     <state x="144" y="92" key="DiffContextDialog" timestamp="1583883672661">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -502,10 +518,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583950427155">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583969765506">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583950427155" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583969765506" />
     <state x="509" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583362906140">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
