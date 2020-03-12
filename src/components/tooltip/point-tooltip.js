@@ -27,6 +27,7 @@ export default (self, api) => {
       // Create content node
       let contentNode = select(document.createElement('div'))
         .style('width', 'min-content')
+        .style('padding', '10px')
 
       // Add title
       contentNode.append('div')

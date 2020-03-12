@@ -38,7 +38,6 @@ export default (self, api) => {
           .style('pointer-events', 'none')
           .style('font-family', 'inherit')
           .style('width', 'auto')
-          .style('padding', '10px')
           .style('line-height', '1')
           .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
           .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')

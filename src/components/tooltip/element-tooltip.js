@@ -17,7 +17,7 @@ export default (self, api) => {
       // Create content node
       let contentNode = select(document.createElement('div'))
         .style('border-radius', '2px')
-        .style('padding', '5px')
+        .style('padding', '10px')
         .style('font-family', 'inherit')
         .style('border-left', content.stripe ? 'solid 4px ' + content.stripe : null)
 
@@ -27,7 +27,7 @@ export default (self, api) => {
         .style('position', 'relative')
         .style('width', 'calc(100% - 10px)')
         .style('line-height', '11px')
-        .style('margin', '5px')
+        .style('margin', '2px')
         .style('margin-bottom', '10px')
         .text(self._tooltip.xFormat(content.title))
 
@@ -36,7 +36,7 @@ export default (self, api) => {
           let entry = contentNode.append('div')
             .style('position', 'relative')
             .style('height', '10px')
-            .style('margin', '5px')
+            .style('margin', '2px')
             .style('padding-right', '10px')
             .style('line-height', '11px')
           entry.append('div')

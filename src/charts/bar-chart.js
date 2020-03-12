@@ -123,6 +123,7 @@ export default (name, parent) => {
               .style('font-size', self._font.size)
               .style('fill', self._font.color)
               .style('stroke', 'none')
+              .style('pointer-events', 'none')
               .text(d => self._barChart.valueFormat(d.value))
               .each(d => Object.assign(d, { _m: measure(d, bandwidth, font) }))
               .style('fill', d => d._m.color)
