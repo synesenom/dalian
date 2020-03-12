@@ -50,8 +50,18 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
     mango: 'dashed'
   })
   .tooltip(true)
-  .tooltipYFormat(d => d === null ? 'No data.' : d.toFixed(2))
+  .tooltipYFormat(d => d === null ? 'No data' : d.toFixed(2))
   .render()
+lineChart.addPin('pin', 30, {
+  height: 0.8,
+  color: 'royalblue',
+  text: 'Foo bar'
+})
+lineChart.addPin('pin2', 35, {
+  height: 0.88,
+  color: 'orange',
+  text: 'Lorem ipsum'
+})
 </script><script class="doc">
 // update data
 setInterval(() => {

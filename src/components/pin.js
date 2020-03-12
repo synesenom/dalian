@@ -56,6 +56,7 @@ export default scales => (() => {
         const label = g.append('g')
           .attr('class', 'pin-label')
           .style('opacity', 0)
+          .style('pointer-events', 'none')
 
         // Label text
         const labelText = label.append('text')
@@ -112,7 +113,7 @@ export default scales => (() => {
         }
 
         // Pin needle with mouse interactions
-        g.append('line')
+        const needle = g.append('line')
           .attr('class', 'pin-needle')
           .attr('x1', scaleX(position) + 1)
           .attr('y1', scaleY.range()[0])
@@ -125,7 +126,7 @@ export default scales => (() => {
           .on('mouseleave', mouseleave)
 
         // Pin head with mouse interactions
-        g.append('circle')
+        const head = g.append('circle')
           .attr('class', 'pin-head')
           .attr('cx', scaleX(position) + 1)
           .attr('cy', height)
@@ -151,20 +152,23 @@ export default scales => (() => {
               })
           },
           update: duration => {
-            g.select('.pin-needle')
-              .transition().duration(duration)
+            needle.transition().duration(duration)
               .attr('x1', scaleX(position) + 1)
               .attr('y1', scaleY.range()[0])
               .attr('x2', scaleX(position) + 1)
               .attr('y2', height)
-            g.select('.pin-head')
-              .transition().duration(duration)
+            head.transition().duration(duration)
               .attr('cx', scaleX(position) + 1)
               .attr('cy', height)
-            g.select('.pin-label')
-              .transition().duration(duration)
-              .attr('x', Math.min(scaleX(position), scaleX.range()[1] - length * 1.2) - 5)
+            labelText.transition().duration(duration)
+              .attr('x', Math.min(scaleX(position), scaleX.range()[1] - length))
               .attr('y', height - (options.size || 6) - 10)
+            bbox = labelText.node().getBBox()
+            labelBox.transition().duration(duration)
+              .attr('x', bbox.x - 5)
+              .attr('y', bbox.y - 5)
+              .attr('width', bbox.width + 10)
+              .attr('height', bbox.height + 10)
           }
         }
 
