@@ -47,13 +47,7 @@ export default (self, api) => {
 
     hideTooltip: () => {
       if (typeof _.elem !== 'undefined') {
-        _.elem
-          .transition().duration(200)
-          .style('opacity', 0)
-          .on('end', function () {
-            select(this)
-              .style('display', 'none')
-          })
+        _.elem.style('opacity', 0)
       }
     },
 
@@ -126,14 +120,9 @@ export default (self, api) => {
 
       // Set position
       _.elem
-        .style('display', 'block')
-        .transition().duration(0)
-        .style('opacity', 1)
-        .transition()
-      _.elem
-        .transition().duration(200).ease(easeLinear)
         .style('left', tx + 'px')
         .style('top', ty + 'px')
+        .style('opacity', 1)
     }
   }
 
