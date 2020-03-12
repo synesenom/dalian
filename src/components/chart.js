@@ -37,8 +37,20 @@ export default (type, name, parent, elem) => {
 
   // Private members
   let _ = {
+    clip: self._widget.content.append('defs').append('clipPath')
+      .attr('id', `${name}-dalian-plots-clipper`)
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', self._widget.size.innerWidth)
+      .attr('height', self._widget.size.innerHeight),
+
     // Methods
     update: () => {
+      // Adjust clipper
+      _.clip.attr('width', self._widget.size.innerWidth)
+        .attr('height', self._widget.size.innerHeight)
+
       // Adjust plots container
       self._chart.plots
         .attr('width', self._widget.size.innerWidth + 'px')
@@ -61,6 +73,7 @@ export default (type, name, parent, elem) => {
       plotGroups: (attr, duration = 400) => {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
+          .attr('clip-path', `url(#${name}-dalian-plots-clipper)`)
           .data(self._chart.data, d => d.name)
           .join(
             enter => {

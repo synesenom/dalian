@@ -55,9 +55,11 @@ export default (name, parent = 'body') => {
 
     // Methods
     update: duration => {
-      // Collect all data points
+      // Determine boundaries
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
-      const yData = flatData.map(d => d.y).filter(d => d !== null)
+      const yData = flatData.map(d => d.y - d.lo)
+        .concat(flatData.map(d => d.y + d.hi))
+        .filter(d => d !== null)
       const yMin = self._yRange.min(yData)
       const yMax = self._yRange.max(yData)
 
@@ -76,8 +78,8 @@ export default (name, parent = 'body') => {
       const errorFn = area()
         .defined(d => d.y !== null)
         .x(d => _.scales.x.scale(d.x))
-        .y0(d => _.scales.y.scale(Math.max(yMin, d.y - d.lo)))
-        .y1(d => _.scales.y.scale(Math.min(yMax, d.y + d.hi)))
+        .y0(d => _.scales.y.scale(d.y - d.lo))
+        .y1(d => _.scales.y.scale(d.y + d.hi))
         .curve(self._smoothing.curve())
 
       // Add plots
@@ -276,7 +278,7 @@ export default (name, parent = 'body') => {
    * The <i>values</i> property is an array of objects of the following structure:
    * <dl>
    *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
-   *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
+   *   <dt>y {number}</dt> <dd>Y coordinate of the data point. For missing data, this value can be null.</dd>
    *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
    *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
    * </dl>
