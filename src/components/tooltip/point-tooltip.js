@@ -32,7 +32,7 @@ export default (self, api) => {
       contentNode.append('div')
         .style('display', 'inline-block')
         .style('position', 'relative')
-        .style('width', '100%')
+        .style('width', 'max-content')
         .style('margin-bottom', '4px')
         .text(self._tooltip.xFormat(content.title))
 
@@ -51,6 +51,7 @@ export default (self, api) => {
             .style('position', 'relative')
             .style('width', '9px')
             .style('height', '9px')
+            .style('top', '1px')
             .style('float', 'left')
             .style('margin-right', '10px')
             .style('background', plot.background)
