@@ -48,7 +48,7 @@ export default (type, name, parent, elem) => {
   }
 
   // Protected members
-  self = Object.assign(self, {
+  self = Object.assign(self || {}, {
     _chart: {
       // Variables
       plots: self._widget.content.append('g')

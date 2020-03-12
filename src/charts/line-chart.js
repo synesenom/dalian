@@ -7,6 +7,7 @@ import Chart from '../components/chart'
 import Scale from '../components/scale'
 import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
+import YRange from '../components/range/y-range'
 import Smoothing from '../components/smoothing'
 import LineWidth from '../components/line-width'
 import LineStyle from '../components/line-style'
@@ -15,6 +16,7 @@ import PointTooltip from '../components/tooltip/point-tooltip'
 import Highlight from '../components/highlight'
 import TrendMarker from '../components/trend-marker'
 import Pin from '../components/pin'
+
 
 /**
  * The line chart widget.
@@ -35,6 +37,7 @@ export default (name, parent = 'body') => {
     Chart('line-chart', name, parent, 'svg'),
     LeftAxis('y', scales.y),
     BottomAxis('x', scales.x),
+    YRange,
     LineStyle,
     LineWidth,
     PlotMarker,
@@ -55,14 +58,14 @@ export default (name, parent = 'body') => {
       // Collect all data points
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
       const yData = flatData.map(d => d.y).filter(d => d !== null)
-      const yMin = Math.min(...yData)
-      const yMax = Math.max(...yData)
+      const yMin = self._yRange.min(yData)
+      const yMax = self._yRange.max(yData)
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(flatData.map(d => d.x))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(yData)
+        .domain([yMin, yMax])
 
       // Create line and error path functions
       const lineFn = line()
@@ -526,6 +529,24 @@ export default (name, parent = 'body') => {
    * @method yLabel
    * @methodOf LineChart
    * @param {string} label Text to set as the label.
+   * @returns {LineChart} The LineChart itself.
+   */
+
+  /**
+   * Sets the lower boundary for the plot if it is lower than the calculated lower boundary.
+   *
+   * @method yMin
+   * @methodOf LineChart
+   * @param {number} value The lower boundary to set.
+   * @returns {LineChart} The LineChart itself.
+   */
+
+  /**
+   * Sets the upper boundary for the plot if it is greater than the calculated upper boundary.
+   *
+   * @method yMax
+   * @methodOf LineChart
+   * @param {number} value The upper boundary to set.
    * @returns {LineChart} The LineChart itself.
    */
 
