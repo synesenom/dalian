@@ -99,6 +99,8 @@ export default (name, parent = 'body') => {
             .style('stroke-width', d => self._lineWidth.mapping(d.name) || '2px')
             .style('opacity', 0)
             .style('fill', 'none')
+            .style('stroke-linejoin', 'round')
+            .style('stroke-linecap', 'round')
           return g
         },
         update: g => {
