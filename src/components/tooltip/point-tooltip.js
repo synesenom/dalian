@@ -33,7 +33,7 @@ export default (self, api) => {
         .style('display', 'inline-block')
         .style('position', 'relative')
         .style('width', '100%')
-        .style('margin-bottom', '8px')
+        .style('margin-bottom', '4px')
         .text(self._tooltip.xFormat(content.title))
 
       // TODO Remove this: add to ElementTooltip
@@ -45,7 +45,7 @@ export default (self, api) => {
             .style('display', 'inline-block')
             .style('position', 'relative')
             .style('width', 'max-content')
-            .style('margin-top', '5px')
+            .style('margin-top', '3px')
           entry.append('div')
             .style('display', 'inline-block')
             .style('position', 'relative')

@@ -33,7 +33,7 @@ export default (self, api) => {
           .style('background-color', 'rgba(255, 255, 255, 0.95)')
           .style('border-radius', '2px')
           .style('box-shadow', '0 0 2px #aaa')
-          .style('font-size', '0.7em')
+          .style('font-size', '0.85em')
           .style('color', 'black')
           .style('pointer-events', 'none')
           .style('font-family', 'inherit')
