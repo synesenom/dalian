@@ -73,6 +73,14 @@ export default (name, parent, axisFn, scale) => {
     scale: scaleObj => {
       _.scale = scaleObj
       return api
+    },
+
+    hideTicks: on => {
+      if (on) {
+        self.axis.selectAll('.tick line')
+          .style('visibility', 'hidden')
+      }
+      return api
     }
   }
 

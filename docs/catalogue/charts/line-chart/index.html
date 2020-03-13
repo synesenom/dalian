@@ -52,6 +52,24 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
   .tooltip(true)
   .tooltipYFormat(d => d === null ? 'No data' : d.toFixed(2))
   .render()
+
+
+const lineChart2 = dalian.LineChart('line-chart', '#widget')
+  .data(getData())
+  .y(300)
+  .width(600)
+  .height(300)
+  .margins(40)
+  .fontSize(14)
+  .xLabel('days')
+  .yLabel('price')
+  .smoothing(false)
+  .lineStyle({
+    mango: 'dashed'
+  })
+  .tooltip(true)
+  .tooltipYFormat(d => d === null ? 'No data' : d.toFixed(2))
+  .render()
 </script><script class="doc">
 // update data
 setInterval(() => {

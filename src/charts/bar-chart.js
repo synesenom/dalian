@@ -218,7 +218,9 @@ export default (name, parent) => {
 
       // Update axes
       self._axisBottom.scale(_.scales.x)
+        .hideTicks(_.scales.x.kind() !== 'linear')
       self._axisLeft.scale(_.scales.y)
+        .hideTicks(_.scales.y.kind() !== 'linear')
 
       return api
     },

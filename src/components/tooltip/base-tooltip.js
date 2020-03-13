@@ -20,6 +20,8 @@ export default (self, api) => {
       if (container.empty()) {
         return select('body').append('div')
           .attr('id', _.container.id)
+      } else {
+        return container
       }
     },
 
