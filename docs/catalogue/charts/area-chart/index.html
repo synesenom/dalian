@@ -44,12 +44,12 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
   .xLabel('value')
   .yLabel('density')
   .smoothing(true)
-  .colors({
+  .color({
     normal: 'yellowgreen',
     exponential: 'royalblue'
   })
-  .tooltip(true)
-  .tooltipYFormat(d => d.toFixed(2))
+  .tooltip.on(true)
+  .tooltip.yFormat(d => d.toFixed(2))
   .render()
 </script><script class="doc">
 // update data

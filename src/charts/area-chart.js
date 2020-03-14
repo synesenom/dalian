@@ -14,7 +14,8 @@ import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
 
 /**
- * The area chart widget.
+ * The area chart widget. It extends the following components: [PointTooltip]{@link ../components/point-tooltip.html}
+ * under {.tooltip}.
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -327,35 +328,6 @@ export default (name, parent) => {
    * @method smoothing
    * @methodOf AreaChart
    * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Enables/disables tooltip for the area chart.
-   *
-   * @method tooltip
-   * @methodOf AreaChart
-   * @param {boolean} [on = false] Whether tooltip should be enabled or not.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the format of the X component's value in the tooltip.
-   *
-   * @method tooltipXFormat
-   * @methodOf AreaChart
-   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
-   * and must return a string. The return value can be HTML formatted.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the format of the Y component's value in the tooltip.
-   *
-   * @method tooltipYFormat
-   * @methodOf AreaChart
-   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
-   * and must return a string. The return value can be HTML formatted.
    * @returns {AreaChart} The AreaChart itself.
    */
 

@@ -4,6 +4,12 @@ import extend from '../../core/extend'
 // TODO Add more liberty in setting tooltipTitle based on current data point or element
 // TODO Add more liberty in setting tooltipContent based on current data point or element
 
+/**
+ * Component implementing the tooltip feature. When this component is available in a widget, it is accessible through
+ * the {.tooltip} namespace.
+ *
+ * @function Tooltip
+ */
 export default (self, api) => {
   // Private members
   let _ = {
@@ -140,39 +146,54 @@ export default (self, api) => {
     _tooltip: {
       content: () => console.warn('content(mouse) is not implemented'),
       builder: () => console.warn('builder(mouse) is not implemented'),
-      titleFormat: x => x
+      xFormat: x => x,
+      yFormat: x => x
     }
   })
 
   // Public API
-  api = Object.assign(api || {}, {
+  api.tooltip = {
     /**
-     * Enables/disables tooltip for the line chart.
+     * Enables/disables tooltip.
      *
-     * @method tooltip
-     * @methodOf BaseTooltip
+     * @method on
+     * @methodOf Tooltip
      * @param {boolean} [on = false] Whether tooltip should be enabled or not.
-     * @returns {Object} Reference to the BaseTooltip API.
+     * @returns {Widget} Reference to the Widget API.
      */
-    tooltip: (on = false) => {
+    on: (on = false) => {
       _.on = on
       return api
     },
 
     /**
-     * Sets the format of the tooltip title.
+     * Sets the format of the X component's value in the tooltip.
      *
-     * @method tooltipTitleFormat
-     * @methodOf PointTooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the tooltip title and
-     * must return a string. The return value can be HTML formatted.
-     * @returns {Object} Reference to the PointTooltip API.
+     * @method xFormat
+     * @methodOf Tooltip
+     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
+     * and must return a string. The return value can be HTML formatted.
+     * @returns {Widget} Reference to the Widget API.
      */
-    tooltipTitleFormat: (format = x => x) => {
-      self._tooltip.titleFormat = format
+    xFormat: (format = x => x) => {
+      self._tooltip.xFormat = format
+      return api
+    },
+
+    /**
+     * Sets the format of the Y component's value in the tooltip.
+     *
+     * @method yFormat
+     * @methodOf Tooltip
+     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
+     * and must return a string. The return value can be HTML formatted.
+     * @returns {Widget} Reference to the Widget API.
+     */
+    yFormat: (format = x => x) => {
+      self._tooltip.yFormat = format
       return api
     }
-  })
+  }
 
   return { self, api }
 }

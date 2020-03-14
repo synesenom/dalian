@@ -6,7 +6,7 @@ import PlotMarker from '../components/plot-marker'
 import Smoothing from '../components/smoothing'
 import PointTooltip from '../components/tooltip/point-tooltip'
 import Highlight from '../components/highlight'
-import TrendMarker from '../components/trend-marker'
+import TrendMarker from '../components/trend'
 import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
 

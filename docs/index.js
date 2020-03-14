@@ -5,6 +5,15 @@ const fs = require('fs')
 const pug = require('pug')
 const { JSDOM } = require('jsdom')
 
+
+const COMPONENTS = [
+  'pin',
+  'trend',
+  'tooltip/tooltip',
+  'tooltip/point-tooltip',
+  'tooltip/element-tooltip'
+]
+
 const CHARTS = [
   'area-chart',
   'bar-chart',
@@ -65,6 +74,10 @@ function buildFromTemplate(name, templateName, outputPath, config) {
 
 // Build API root page
 buildFromTemplate('API index page', 'api-index', 'api/index.html', {
+  components: COMPONENTS.map(d => ({
+    name: d.split('/').slice(-1)[0],
+    factory: toFactory(d.split('/').slice(-1)[0])
+  })),
   charts: CHARTS.map(d => ({
     name: d,
     factory: toFactory(d)
@@ -87,12 +100,21 @@ buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.ht
 })
 
 // TODO List chart modules automatically
+COMPONENTS.forEach(async d => {
+  const docs = await documentation.build([`../src/components/${d}.js`], {
+    shallow: true
+  }).then(documentation.formats.json)
+    .then(JSON.parse)
+  ModuleParser(meta, docs, d)
+    .buildReferencePage('component')
+})
+
 CHARTS.forEach(async d => {
   const docs = await documentation.build([`../src/charts/${d}.js`], {
     shallow: true
   }).then(documentation.formats.json)
     .then(JSON.parse)
   ModuleParser(meta, docs, d)
-    .buildReferencePage()
+    .buildReferencePage('chart')
     .buildExamplePage()
 })

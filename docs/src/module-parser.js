@@ -20,9 +20,9 @@ const createPath = path => {
 }
 
 
-// TODO Get rid of config parameter
-module.exports = (meta, docs, widgetName) => {
-  const factoryName = widgetName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
+module.exports = (meta, docs, modulePath) => {
+  const moduleName = modulePath.split('/').slice(-1)[0]
+  const factoryName = moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 
   // Dependencies
   const dependencies = Object.entries(meta.dependencies).map(d => ({
@@ -36,16 +36,19 @@ module.exports = (meta, docs, widgetName) => {
 
   let api = {
     // TODO Remove hard-coded content
-    buildReferencePage: () => {
-      console.log(`Building: API reference page (${widgetName})`)
-      const path = 'api/charts'
+    buildReferencePage: type => {
+      console.log(`Building: API reference page (${moduleName})`)
+      const path = `api/${type}s`
       createPath(path)
 
       // Build template
       const template = pug.compileFile('./templates/api-page.pug')
-      fs.writeFileSync(`${path}/${widgetName}.html`, template({
+      fs.writeFileSync(`${path}/${moduleName}.html`, template({
         // Documentation root directory
         rootDir: '../../',
+
+        // Type
+        type,
 
         // Content
         pageTitle: `${factoryName} | dalian`,
@@ -64,28 +67,28 @@ module.exports = (meta, docs, widgetName) => {
           }
         }),
 
-        exampleUrl: `synesenom.github.io/dalian/catalogue/charts/${widgetName}`
+        exampleUrl: `synesenom.github.io/dalian/catalogue/${type}s/${moduleName}`
       }))
       return api
     },
 
     buildExamplePage: () => {
-      console.log(`Building: Example page (${widgetName})`)
+      console.log(`Building: Example page (${moduleName})`)
       const path = 'catalogue/charts'
       createPath(path)
 
       // Build template
       const template = pug.compileFile('./templates/catalogue-page.pug')
-      const content = fs.readFileSync(`catalogue/charts/${widgetName}/content.html`, {encoding: 'utf8'})
+      const content = fs.readFileSync(`catalogue/charts/${moduleName}/content.html`, {encoding: 'utf8'})
       const document = new JSDOM(content).window.document
 
-      fs.writeFileSync(`${path}/${widgetName}/index.html`, template({
+      fs.writeFileSync(`${path}/${moduleName}/index.html`, template({
         title: factoryName,
         dependencies,
         description: document.getElementById('desc').innerHTML,
         code: Array.from(document.getElementsByClassName('doc')).map(d => d.outerHTML).join(''),
         minjs: '../../../dl/dalian.min.js',
-        widgetName,
+        widgetName: moduleName,
         variableName: factoryName.charAt(0).toLowerCase() + factoryName.substring(1)
       }))
       return api

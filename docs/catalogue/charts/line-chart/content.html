@@ -78,8 +78,8 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
   .lineStyle({
     mango: 'dashed'
   })
-  .tooltip(true)
-  .tooltipYFormat(d => d.toFixed(2))
+  .tooltip.on(true)
+  .tooltip.yFormat(d => d.toFixed(2))
   .render()
 </script>
 
@@ -92,5 +92,5 @@ setInterval(() => {
 
 <script class="doc">
 // add marker
-lineChart.addMarker('myMarker', 'mango', 34, 87, 'trend')
+lineChart.trend.add('myMarker', 'mango', 34, 87, 'trend')
 </script>

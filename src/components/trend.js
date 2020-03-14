@@ -2,27 +2,27 @@ import { bisector } from 'd3'
 import encode from '../core/encode'
 import extend from '../core/extend'
 
+
 /**
- * Component generator implementing the trend marker feature.
+ * Component implementing the trend feature. A trend is a labeled pair of dots indicating changes in the plot. When this
+ * component is available in a widget, it is accessible through the {.trend} namespace.
  *
- * @function TrendMarker
- * @param {Object} scales Object containing the X and Y scales.
- * @returns {Function} Function representing the trend marker component.
+ * @function Trend
  */
 // TODO Add API .text()
 export default scales => (() => {
   return (self, api) => {
     // Private members
     let _ = {
-      markers: new Map(),
+      trends: new Map(),
 
-      adjustMarker: (key, start, end) => {
+      adjustTrend: (key, start, end) => {
         let data = self._chart.data.find(d => d.name === key)
         if (typeof data === 'undefined') {
           return
         }
 
-        // Get trend-marker data point indices
+        // Get trend data point indices
         let bisect = bisector(d => d.x).left
         let i1 = bisect(data.values, start)
         let i2 = bisect(data.values, end)
@@ -56,39 +56,39 @@ export default scales => (() => {
 
     // Extend widget update
     self._widget.update = extend(self._widget.update, duration => {
-      _.markers.forEach(marker => marker.update(duration))
+      _.trends.forEach(trend => trend.update(duration))
     })
 
     // Public API
-    api = Object.assign(api || {}, {
+    api.trend = {
       /**
-       * Adds a trend marker to the chart. A trend marker is a labeled pair of dots indicating changes in the plot. If the
-       * marker ID already exists, no further markers are added.
+       * Adds a trend to the chart. If the trend ID already exists, no further trends are added.
        *
-       * @method addMarker
-       * @methodOf TrendMarker
-       * @param {string} id Unique identifier of the trend marker.
-       * @param {string} key Key of the plot to add the trend marker to.
-       * @param {number} start Starting (left side) value of the trend marker.
-       * @param {number} end Ending (right side) value of the trend marker.
-       * @param {string} label Label to display on the marker.
-       * @param {number} [duration = 400] Duration of the animation of adding the marker.
-       * @returns {Object} Reference to the TrendMarker API.
+       * @method add
+       * @methodOf Trend
+       * @param {string} id Unique identifier of the trends.
+       * @param {string} key Key of the plot to add the trend to.
+       * @param {number} start Starting (left side) value of the trend.
+       * @param {number} end Ending (right side) value of the trend.
+       * @param {string} label Label to display on the trend.
+       * @param {number} [duration = 400] Duration of the animation of adding the trend.
+       * @returns {Object} The object representing the trend. This object contains the DOM group containing the trend
+       * and update/remove methods.
        */
-      addMarker: (id, key, start, end, label, duration = 400) => {
-        // Check if trend-marker exists
-        if (_.markers.has(id)) {
+      add: (id, key, start, end, label, duration = 400) => {
+        // Check if trend exists
+        if (_.trends.has(id)) {
           return api
         }
 
-        // Get marker positions
+        // Get trend positions
         let scaleX = scales.x.scale
         let scaleY = scales.y.scale
-        let pos = _.adjustMarker(key, start, end)
+        let pos = _.adjustTrend(key, start, end)
 
         // Build group without showing it
         const g = self._chart.plots.append('g')
-          .attr('class', 'trend-marker ' + encode(key))
+          .attr('class', 'trend ' + encode(key))
           .style('opacity', 0)
         const horizontal = g.append('line')
           .attr('class', 'horizontal')
@@ -141,11 +141,12 @@ export default scales => (() => {
           .style('font-size', self._font.size)
           .text(label)
 
-        // Show marker
+        // Show trend
         g.transition().duration(duration)
           .style('opacity', 1)
 
-        const marker = {
+        const trend = {
+          g,
           remove: duration => {
             g.transition().duration(duration)
               .style('opacity', 0)
@@ -154,7 +155,7 @@ export default scales => (() => {
               })
           },
           update: duration => {
-            const pos = _.adjustMarker(key, start, end)
+            const pos = _.adjustTrend(key, start, end)
             horizontal
               .transition().duration(duration)
               .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))
@@ -195,29 +196,33 @@ export default scales => (() => {
           }
         }
 
-        // Add to markers
-        _.markers.set(id, marker)
+        // Add to trends
+        _.trends.set(id, trend)
         return api
       },
 
       /**
-       * Removes a trend marker from the chart.
+       * Removes one or all trends from the chart.
        *
-       * @method removeMarker
-       * @methodOf TrendMarker
-       * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
-       * not exist, no change is applied.
-       * @param {number} duration Duration of the remove animation.
-       * @returns {Object} Reference to the TrendMarker API.
+       * @method remove
+       * @methodOf Trend
+       * @param {string} [id = undefined] Identifier of the trend to remove. If trend with the specified identifier does
+       * not exist, no change is applied. If it is not specified, all trends are removed from the current chart.
+       * @param {number} [duration = 400] Duration of the remove animation.
        */
-      removeMarker: (id, duration) => {
-        if (_.markers.has(id)) {
-          _.markers.get(id).remove(duration)
-          _.markers.delete(id)
+      remove: (id, duration) => {
+        // If id is not specified, remove all trends
+        if (typeof id === 'undefined') {
+          _.trends.forEach(pin => pin.remove())
+          _.trends.clear()
         }
-        return api
+        if (_.trends.has(id)) {
+          // Otherwise, remove trend if it exists
+          _.trends.get(id).remove(duration)
+          _.trends.delete(id)
+        }
       },
-    })
+    }
 
     return { self, api }
   }

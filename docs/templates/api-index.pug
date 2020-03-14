@@ -12,6 +12,11 @@ html(lang='en')
                 h1 API reference
                 p
 
+                h2 components
+                ul.indented
+                    each component in components
+                        li #[a(href='components/' + component.name + '.html') #{component.factory}]
+
                 h2 charts
                 ul.indented
                     each chart in charts

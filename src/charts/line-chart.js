@@ -14,12 +14,16 @@ import LineStyle from '../components/line-style'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
 import Highlight from '../components/highlight'
-import TrendMarker from '../components/trend-marker'
+import TrendMarker from '../components/trend'
 import Pin from '../components/pin'
+
+// TODO Add Reference to Pin documentation
 
 
 /**
- * The line chart widget.
+ * The line chart widget. It extends the following components: [Pin]{@link ../components/pin.html} under {.pin},
+ * [Trend]{@link ../components/trend.html} under {.trend}, [PointTooltip]{@link ../components/point-tooltip.html} under
+ * {.tooltip}.
  *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -206,40 +210,6 @@ export default (name, parent = 'body') => {
 
   // Documentation
   /**
-   * Adds a trend marker to the chart. A trend marker is a labeled pair of dots indicating changes in the plot. If the
-   * marker ID already exists, no further markers are added.
-   *
-   * @method addMarker
-   * @methodOf LineChart
-   * @param {string} id Unique identifier of the trend marker.
-   * @param {string} key Key of the plot to add the trend marker to.
-   * @param {number} start Starting (left side) value of the trend marker.
-   * @param {number} end Ending (right side) value of the trend marker.
-   * @param {string} label Label to display on the marker.
-   * @param {number} [duration = 700] Duration of the animation of adding the marker.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Adds a pin to the chart. A pin is a vertical line with a circle on the top and an optional text label to
-   * describe the pin. If the  marker ID already exists, no further markers are added.
-   *
-   * @method addPin
-   * @methodOf Pin
-   * @param {string} id Unique identifier of the pin.
-   * @param {number} position Horizontal position.
-   * @param {Object} options Pin design options. Supported values:
-   * <ul>
-   *   <li>{string} <i>color</i>: Pin color.</li>
-   *   <li>{number} <i>size</i>: Size of the pin head in pixels.</li>
-   *   <li>{number} <i>height</i>: Pin height relative to the Y range.</li>
-   *   <li>{string} <i>text</i>: Label to add to the pin. The label is visible when hovering over the pin.</li>
-   * </ul>
-   * @param {number} [duration = 400] Duration of the animation of adding the pin.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
    * Sets the callback for the click event. The click event is triggered when clicking on any line or error band.
    *
    * @method click
@@ -412,27 +382,6 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Removes a trend marker from the chart.
-   *
-   * @method removeMarker
-   * @methodOf LineChart
-   * @param {string} id Identifier of the trend marker to remove. If trend marker with the specified identifier does
-   * not exist, no change is applied.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Removes a pin from the chart.
-   *
-   * @method removePin
-   * @methodOf Pin
-   * @param {string} id Identifier of the pin to remove. If pin with the specified identifier does not exist, no
-   * change is applied.
-   * @param {number} duration Duration of the remove animation.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
    * Renders the line chart. If called for the first time, the chart is built, otherwise this method updates the chart
    * with the attributes and styles that have been changed since the last rendering.
    *
@@ -448,35 +397,6 @@ export default (name, parent = 'body') => {
    * @method smoothing
    * @methodOf LineChart
    * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Enables/disables tooltip for the line chart.
-   *
-   * @method tooltip
-   * @methodOf LineChart
-   * @param {boolean} [on = false] Whether tooltip should be enabled or not.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the format of the X component's value in the tooltip.
-   *
-   * @method tooltipXFormat
-   * @methodOf LineChart
-   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
-   * and must return a string. The return value can be HTML formatted.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the format of the Y component's value in the tooltip.
-   *
-   * @method tooltipYFormat
-   * @methodOf LineChart
-   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
-   * and must return a string. The return value can be HTML formatted.
    * @returns {LineChart} The LineChart itself.
    */
 

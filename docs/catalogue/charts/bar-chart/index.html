@@ -43,8 +43,8 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .mouseleave(() => barChart.highlight())
   .horizontal(true)
   .values(true)
-  .tooltip(true)
-  .tooltipYFormat(x => x.toFixed(2))
+  .tooltip.on(true)
+  .tooltip.yFormat(x => x.toFixed(2))
   .render()
 </script><script class="doc">
 // update data

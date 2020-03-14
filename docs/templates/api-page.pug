@@ -21,9 +21,10 @@ html(lang='en')
                 h1 #{mainHeading}
                 p
 
-                h2 example
-                p
-                    a(href='https://' + exampleUrl) #{exampleUrl}
+                if type === 'chart'
+                    h2 example
+                    p
+                        a(href='https://' + exampleUrl) #{exampleUrl}
 
                 h2 api reference
                 each method in reference
@@ -31,7 +32,7 @@ html(lang='en')
                         pre.title(id=method.id) #{method.signature}
                         .desc
                             != method.description
-                        if method.params
+                        if method.params.length > 0
                             h3 Parameters
                             table
                                 thead
@@ -50,7 +51,7 @@ html(lang='en')
                                                     span.param-optional optional
                                                 != param.desc
                                                 if typeof param.default !== 'undefined'
-                                                    | &nbsp;Default value is #{param.default}.
+                                                    | &nbsp;Default value is #[code #{param.default}].
                         if method.returns
                             h3 Returns
                             .returns

@@ -13,7 +13,8 @@ import Highlight from '../components/highlight'
 
 
 /**
- * The bar chart widget.
+ * The bar chart widget. It extends the following components: [ElementTooltip]{@link ../components/element-tooltip.html}
+ * under {.tooltip}.
  *
  * @function BarChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -389,35 +390,6 @@ export default (name, parent) => {
    * @method render
    * @methodOf BarChart
    * @param {number} [duration = 700] Duration of the rendering animation in ms.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Enables/disables tooltip for the bar chart.
-   *
-   * @method tooltip
-   * @methodOf BarChart
-   * @param {boolean} [on = false] Whether tooltip should be enabled or not.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the format of the X component's value in the tooltip (category name).
-   *
-   * @method tooltipXFormat
-   * @methodOf BarChart
-   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
-   * and must return a string. The return value can be HTML formatted.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the format of the Y component's value in the tooltip (category value).
-   *
-   * @method tooltipYFormat
-   * @methodOf BarChart
-   * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
-   * and must return a string. The return value can be HTML formatted.
    * @returns {BarChart} The BarChart itself.
    */
 

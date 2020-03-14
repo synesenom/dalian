@@ -1,7 +1,13 @@
-import { getTextWidth } from '../utils/measure-text'
 import luminance from '../utils/luminance'
 import extend from '../core/extend'
 
+
+/**
+ * Component implementing the pin feature. A pin is a vertical line with a circle on the top and an optional text label
+ * as description. When this component is available in a widget, it is accessible through the {.pin} namespace.
+ *
+ * @function Pin
+ */
 export default scales => (() => {
   return (self, api) => {
     // Private members
@@ -15,16 +21,15 @@ export default scales => (() => {
     })
 
     // Public API
-    api = Object.assign(api, {
+    api.pin = {
       /**
-       * Adds a pin to the chart. A pin is a vertical line with a circle on the top and an optional text label to
-       * describe the pin. If the  marker ID already exists, no further markers are added.
+       * Adds a pin to the chart. If the  marker ID already exists, no further markers are added.
        *
-       * @method addPin
+       * @method add
        * @methodOf Pin
        * @param {string} id Unique identifier of the pin.
-       * @param {number} position Horizontal position.
-       * @param {Object} options Pin design options. Supported values:
+       * @param {number} position Value to add pin to.
+       * @param {Object} [options = {}] Pin design options. Supported values:
        * <ul>
        *   <li>{string} <i>color</i>: Pin color.</li>
        *   <li>{number} <i>size</i>: Size of the pin head in pixels.</li>
@@ -32,9 +37,10 @@ export default scales => (() => {
        *   <li>{string} <i>text</i>: Label to add to the pin. The label is visible when hovering over the pin.</li>
        * </ul>
        * @param {number} [duration = 400] Duration of the animation of adding the pin.
-       * @returns {Object} Reference to the Pin API.
+       * @returns {Object} The object representing the pin. This object contains the DOM group containing the pin and
+       * update/remove methods.
        */
-      addPin: (id, position, options = {}, duration = 400) => {
+      add: (id, position, options = {}, duration = 400) => {
         // Check if pin exists
         if (_.pins.has(id)) {
           return
@@ -121,6 +127,7 @@ export default scales => (() => {
           .attr('y2', height)
           .style('stroke', color)
           .style('stroke-width', '2px')
+          .style('pointer-events', 'all')
           .on('mouseover', mouseover)
           .on('mousemove', mousemove)
           .on('mouseleave', mouseleave)
@@ -134,6 +141,7 @@ export default scales => (() => {
           .style('stroke', 'white')
           .style('stroke-width', '1px')
           .style('fill', color)
+          .style('pointer-events', 'all')
           .on('mouseover', mouseover)
           .on('mousemove', mousemove)
           .on('mouseleave', mouseleave)
@@ -143,7 +151,7 @@ export default scales => (() => {
           .style('opacity', 1)
 
         const pin = {
-          g: g,
+          g,
           remove: duration => {
             g.transition().duration(duration)
               .style('opacity', 0)
@@ -178,23 +186,27 @@ export default scales => (() => {
       },
 
       /**
-       * Removes a pin from the chart.
+       * Removes one or all pins from the chart.
        *
-       * @method removePin
+       * @method remove
        * @methodOf Pin
-       * @param {string} id Identifier of the pin to remove. If pin with the specified identifier does not exist, no
-       * change is applied.
-       * @param {number} duration Duration of the remove animation.
-       * @returns {Object} Reference to the Pin API.
+       * @param {string} [id = undefined] Identifier of the pin to remove. If pin with the specified identifier does not
+       * exist, no change is applied. If it is not specified, all pins are removed from the current chart.
+       * @param {number} [duration = 400] Duration of the remove animation.
        */
-      removePin: (id, duration = 400) => {
+      remove: (id, duration = 400) => {
+        // If id is not specified, remove all pins
+        if (typeof id === 'undefined') {
+          _.pins.forEach(pin => pin.remove())
+          _.pins.clear()
+        }
         if (_.pins.has(id)) {
+          // Otherwise, remove pin if it exists
           _.pins.get(id).remove(duration)
           _.pins.delete(id)
         }
-        return api
       }
-    })
+    }
 
     return { self, api }
   }

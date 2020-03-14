@@ -27,7 +27,7 @@ dalian.AreaChart('area-chart-card', '#area-chart')
   .xLabel('value')
   .yLabel('density')
   .smoothing(true)
-  .colors({
+  .color({
     normal: 'yellowgreen',
     exponential: 'royalblue'
   })
@@ -69,12 +69,12 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
   .xLabel('value')
   .yLabel('density')
   .smoothing(true)
-  .colors({
+  .color({
     normal: 'yellowgreen',
     exponential: 'royalblue'
   })
-  .tooltip(true)
-  .tooltipYFormat(d => d.toFixed(2))
+  .tooltip.on(true)
+  .tooltip.yFormat(d => d.toFixed(2))
   .render()
 </script>
 
