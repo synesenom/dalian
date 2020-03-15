@@ -19,18 +19,21 @@ const MODULES = [
 ]
 
 
+function getModuleCategory (path) {
+  return path.split('/')[0]
+}
+
+function getModuleName (path) {
+  return path.split('/').slice(-1)[0]
+}
+
 function getFileSizeInBytes(path) {
   const stats = fs.statSync(path)
   return stats.size
 }
 
-function toFactory(name) {
-  // Get module name
-  return name.split('/').slice(-1)[0]
-    // Remove dash from name, convert to CamelCase
-    .split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1))
-    // Join tokens back
-    .join('')
+function kebabToCamel(moduleName) {
+  return moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 }
 
 // Build root page
@@ -78,13 +81,13 @@ function buildFromTemplate(name, templateName, outputPath, config) {
 // Build API root page
 buildFromTemplate('API index page', 'api-index', 'api/index.html', {
   modules: Object.entries(MODULES.reduce((acc, d) => {
-    const category = d.split('/')[0]
+    const category = getModuleCategory(d)
     if (typeof acc[category] === 'undefined') {
       acc[category] = []
     }
     acc[category].push({
-      name: d.split('/').slice(-1)[0],
-      factory: toFactory(d.split('/').slice(-1)[0])
+      name: getModuleName(d),
+      factory: kebabToCamel(getModuleName(d))
     })
     return acc
   }, {})).map(d => ({
@@ -96,14 +99,14 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
 // Build catalogue index
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
-  charts: MODULES.filter(d => d.split('/')[0] === 'charts').map(d => {
+  charts: MODULES.filter(d => getModuleCategory(d) === 'charts').map(d => {
     const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
     const document = new JSDOM(content).window.document
     const script = document.getElementsByClassName('card-example')[0].outerHTML
     return {
-      category: d.split('/')[0],
-      name: d.split('/').slice(-1)[0],
-      factory: toFactory(d),
+      category: getModuleCategory(d),
+      name: getModuleName(d),
+      factory: kebabToCamel(getModuleName(d)),
       script
     }
   })
