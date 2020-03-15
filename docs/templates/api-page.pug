@@ -3,7 +3,7 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        each css in ['fonts', 'base', 'link', 'heading', 'scrollbar', 'atelier-lakeside-light', 'main', 'api']
+        each css in ['fonts', 'base', 'link', 'code', 'heading', 'scrollbar', 'atelier-lakeside-light', 'main', 'api']
             link(rel='stylesheet', type='text/css', href=rootDir + 'style/' + css + '.css')
         script(src=rootDir + 'js/highlight.min.js')
         script.
@@ -21,7 +21,7 @@ html(lang='en')
                 h1 #{mainHeading}
                 p
 
-                if type === 'chart'
+                if type === 'charts' || type === 'misc'
                     h2 example
                     p
                         a(href='https://' + exampleUrl) #{exampleUrl}

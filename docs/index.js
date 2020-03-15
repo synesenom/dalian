@@ -6,18 +6,16 @@ const pug = require('pug')
 const { JSDOM } = require('jsdom')
 
 
-const COMPONENTS = [
-  'pin',
-  'trend',
-  'tooltip/tooltip',
-  'tooltip/point-tooltip',
-  'tooltip/element-tooltip'
-]
-
-const CHARTS = [
-  'area-chart',
-  'bar-chart',
-  'line-chart'
+const MODULES = [
+  'components/pin',
+  'components/trend',
+  'components/tooltip/tooltip',
+  'components/tooltip/point-tooltip',
+  'components/tooltip/element-tooltip',
+  'charts/area-chart',
+  'charts/bar-chart',
+  'charts/line-chart',
+  'misc/map'
 ]
 
 
@@ -27,7 +25,12 @@ function getFileSizeInBytes(path) {
 }
 
 function toFactory(name) {
-  return name.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('');
+  // Get module name
+  return name.split('/').slice(-1)[0]
+    // Remove dash from name, convert to CamelCase
+    .split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1))
+    // Join tokens back
+    .join('')
 }
 
 // Build root page
@@ -74,25 +77,32 @@ function buildFromTemplate(name, templateName, outputPath, config) {
 
 // Build API root page
 buildFromTemplate('API index page', 'api-index', 'api/index.html', {
-  components: COMPONENTS.map(d => ({
-    name: d.split('/').slice(-1)[0],
-    factory: toFactory(d.split('/').slice(-1)[0])
-  })),
-  charts: CHARTS.map(d => ({
-    name: d,
-    factory: toFactory(d)
+  modules: Object.entries(MODULES.reduce((acc, d) => {
+    const category = d.split('/')[0]
+    if (typeof acc[category] === 'undefined') {
+      acc[category] = []
+    }
+    acc[category].push({
+      name: d.split('/').slice(-1)[0],
+      factory: toFactory(d.split('/').slice(-1)[0])
+    })
+    return acc
+  }, {})).map(d => ({
+    category: d[0],
+    entries: d[1]
   }))
 })
 
 // Build catalogue index
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
-  charts: CHARTS.map(d => {
-    const content = fs.readFileSync(`catalogue/charts/${d}/content.html`, {encoding: 'utf8'})
+  charts: MODULES.filter(d => d.split('/')[0] === 'charts').map(d => {
+    const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
     const document = new JSDOM(content).window.document
     const script = document.getElementsByClassName('card-example')[0].outerHTML
     return {
-      name: d,
+      category: d.split('/')[0],
+      name: d.split('/').slice(-1)[0],
       factory: toFactory(d),
       script
     }
@@ -100,21 +110,13 @@ buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.ht
 })
 
 // TODO List chart modules automatically
-COMPONENTS.forEach(async d => {
-  const docs = await documentation.build([`../src/components/${d}.js`], {
+MODULES.forEach(async d => {
+  const docs = await documentation.build([`../src/${d}.js`], {
     shallow: true
   }).then(documentation.formats.json)
     .then(JSON.parse)
-  ModuleParser(meta, docs, d)
-    .buildReferencePage('component')
-})
-
-CHARTS.forEach(async d => {
-  const docs = await documentation.build([`../src/charts/${d}.js`], {
-    shallow: true
-  }).then(documentation.formats.json)
-    .then(JSON.parse)
-  ModuleParser(meta, docs, d)
-    .buildReferencePage('chart')
-    .buildExamplePage()
+  const parser = ModuleParser(meta, docs, d).buildReferencePage()
+  if (d.split('/')[0] !== 'components') {
+    parser.buildExamplePage()
+  }
 })

@@ -1,4 +1,4 @@
-import Colors from './color'
+import Color from './color'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
@@ -28,7 +28,7 @@ export default (type, name, parent, elem) => {
   // Build component from other components
   let { self, api } = compose(
     Widget(type, name, parent, elem),
-    Colors,
+    Color,
     Description,
     Placeholder,
     Font,

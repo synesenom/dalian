@@ -21,6 +21,7 @@ const createPath = path => {
 
 
 module.exports = (meta, docs, modulePath) => {
+  const type = modulePath.split('/')[0]
   const moduleName = modulePath.split('/').slice(-1)[0]
   const factoryName = moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 
@@ -36,9 +37,9 @@ module.exports = (meta, docs, modulePath) => {
 
   let api = {
     // TODO Remove hard-coded content
-    buildReferencePage: type => {
+    buildReferencePage: () => {
       console.log(`Building: API reference page (${moduleName})`)
-      const path = `api/${type}s`
+      const path = `api/${type}`
       createPath(path)
 
       // Build template
@@ -67,19 +68,19 @@ module.exports = (meta, docs, modulePath) => {
           }
         }),
 
-        exampleUrl: `synesenom.github.io/dalian/catalogue/${type}s/${moduleName}`
+        exampleUrl: `synesenom.github.io/dalian/catalogue/${type}/${moduleName}`
       }))
       return api
     },
 
     buildExamplePage: () => {
       console.log(`Building: Example page (${moduleName})`)
-      const path = 'catalogue/charts'
+      const path = `catalogue/${type}`
       createPath(path)
 
       // Build template
       const template = pug.compileFile('./templates/catalogue-page.pug')
-      const content = fs.readFileSync(`catalogue/charts/${moduleName}/content.html`, {encoding: 'utf8'})
+      const content = fs.readFileSync(`catalogue/${type}/${moduleName}/content.html`, {encoding: 'utf8'})
       const document = new JSDOM(content).window.document
 
       fs.writeFileSync(`${path}/${moduleName}/index.html`, template({
