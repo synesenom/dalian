@@ -51,12 +51,12 @@ function getData () {
       lo: i / 100,
       hi: i / 150
     }))
-  }].concat(Math.random() > 0.5 ? [{
+  }].concat(Math.random() > 0.0 ? [{
     name: 'kiwi',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
-      y: Math.log(i + 1)
-        * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2,
+      y: i < 70 ? Math.log(i + 1)
+        * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2 : null,
       lo: .4,
       hi: .6
     }))

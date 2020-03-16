@@ -21,7 +21,7 @@ import PlotMarker from '../components/plot-marker'
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
-export default (name, parent) => {
+export default (name, parent = 'body') => {
   // Build widget from components
   // TODO Fix this separate declaration of scales (needed by the axis components)
   let scales = {

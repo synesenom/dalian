@@ -17,8 +17,6 @@ import Highlight from '../components/highlight'
 import TrendMarker from '../components/trend'
 import Pin from '../components/pin'
 
-// TODO Add Reference to Pin documentation
-
 
 /**
  * The line chart widget. It extends the following components: [Pin]{@link ../components/pin.html} under {.pin},
@@ -29,7 +27,6 @@ import Pin from '../components/pin'
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
-// TODO Add API .pin
 export default (name, parent = 'body') => {
   // Build widget from components
   // TODO Fix this separate declaration of scales (needed by the TrendMarker)
@@ -61,9 +58,9 @@ export default (name, parent = 'body') => {
     update: duration => {
       // Determine boundaries
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
+        .filter(d => d.y !== null)
       const yData = flatData.map(d => d.y - d.lo)
         .concat(flatData.map(d => d.y + d.hi))
-        .filter(d => d !== null)
       const yMin = self._yRange.min(yData)
       const yMax = self._yRange.max(yData)
 

@@ -20,7 +20,7 @@ import Highlight from '../components/highlight'
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
-export default (name, parent) => {
+export default (name, parent = 'body') => {
   // Build widget from components
   // TODO Fix this separate declaration of scales (needed by the axis components)
   let scales = {
@@ -205,7 +205,6 @@ export default (name, parent) => {
   }
 
   // Extend widget update
-  // Update plot before widget
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API

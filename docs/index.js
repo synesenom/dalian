@@ -15,7 +15,8 @@ const MODULES = [
   'charts/area-chart',
   'charts/bar-chart',
   'charts/line-chart',
-  'misc/map'
+  //'charts/scatter-plot',
+  //'misc/map'
 ]
 
 
