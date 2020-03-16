@@ -148,9 +148,10 @@ export default (name, parent = 'body') => {
       return
     }
 
-    // Get plots
+    // Get plots, only those that are not ignored
     let x = _.scales.x.scale.invert(mouse[0])
-    let plots = self._chart.data.map((d, i) => {
+    let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
+      .map((d, i) => {
       // Data point
       let j = index[i]
 

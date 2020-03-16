@@ -147,7 +147,8 @@ export default (self, api) => {
       content: () => console.warn('content(mouse) is not implemented'),
       builder: () => console.warn('builder(mouse) is not implemented'),
       xFormat: x => x,
-      yFormat: x => x
+      yFormat: x => x,
+      ignore: []
     }
   })
 
@@ -163,6 +164,20 @@ export default (self, api) => {
      */
     on: (on = false) => {
       _.on = on
+      return api
+    },
+
+    /**
+     * Sets the array of keys that are ignored by the tooltip. Ignored keys are not shown in the tooltip and they don't
+     * have plot markers.
+     *
+     * @method ignore
+     * @methodOf Tooltip
+     * @param {string[]} keys Keys of plots to ignore in the tooltip.
+     * @returns {Widget} Reference to the Widget API.
+     */
+    ignore: keys => {
+      self._tooltip.ignore = keys
       return api
     },
 
