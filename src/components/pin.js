@@ -92,31 +92,38 @@ export default scales => (() => {
         // Move box behind text
         label.node().insertBefore(labelBox.node(), labelText.node())
 
-        // Updates
-        const mouseover = function () {
-          // Show label
-          label.transition().duration(300).style('opacity', 1)
+        // Click event handler
+        const click = (() => {
+          let isClicked = false
 
-          // Hide other pins
-          _.pins.forEach(p => {
-            p.g.transition().duration(300)
-              .style('opacity', p.g === g ? 1 : 0.1)
-          })
-        }
-        const mousemove = () => {
-          g.remove()
-          self._chart.plots.node().appendChild(g.node())
-        }
-        const mouseleave = () => {
-          // Hide label
-          label.transition().duration(300).style('opacity', 0)
+          return () => {
+            if (isClicked) {
+              // Hide label
+              label.transition().duration(300).style('opacity', 0)
 
-          // Show other pins
-          _.pins.forEach(p => {
-            p.g.transition().duration(300)
-              .style('opacity', 1)
-          })
-        }
+              // Show other pins
+              _.pins.forEach(p => {
+                p.g.transition().duration(300)
+                  .style('opacity', 1)
+              })
+
+              // Update click status
+              isClicked = false
+            } else {
+              // Show label
+              label.transition().duration(300).style('opacity', 1)
+
+              // Hide other pins
+              _.pins.forEach(p => {
+                p.g.transition().duration(300)
+                  .style('opacity', p.g === g ? 1 : 0.1)
+              })
+
+              // Update click status
+              isClicked = true
+            }
+          }
+        })()
 
         // Pin needle with mouse interactions
         const needle = g.append('line')
@@ -128,9 +135,8 @@ export default scales => (() => {
           .style('stroke', color)
           .style('stroke-width', '2px')
           .style('pointer-events', 'all')
-          .on('mouseover', mouseover)
-          .on('mousemove', mousemove)
-          .on('mouseleave', mouseleave)
+          .style('cursor', 'pointer')
+          .on('click', click)
 
         // Pin head with mouse interactions
         const head = g.append('circle')
@@ -142,9 +148,8 @@ export default scales => (() => {
           .style('stroke-width', '1px')
           .style('fill', color)
           .style('pointer-events', 'all')
-          .on('mouseover', mouseover)
-          .on('mousemove', mousemove)
-          .on('mouseleave', mouseleave)
+          .style('cursor', 'pointer')
+          .on('click', click)
 
         // Show pin
         g.transition().duration(duration)
