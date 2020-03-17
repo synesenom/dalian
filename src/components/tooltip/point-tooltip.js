@@ -27,41 +27,38 @@ export default (self, api) => {
 
       // Create content node
       let contentNode = select(document.createElement('div'))
-        .style('width', 'min-content')
+        .style('display', 'table')
         .style('padding', '10px')
 
       // Add title
       contentNode.append('div')
-        .style('display', 'inline-block')
+        .style('display', 'table-row')
         .style('position', 'relative')
-        .style('width', 'max-content')
-        .style('margin-bottom', '4px')
         .text(self._tooltip.xFormat(content.title))
 
       // TODO Remove this: add to ElementTooltip
 
       // Add content
       content.content.data.sort((a, b) => a.name.localeCompare(b.name))
-        .forEach(plot => {
+        .forEach((plot, i) => {
           let entry = contentNode.append('div')
-            .style('display', 'inline-block')
+            .style('display', 'table-row')
             .style('position', 'relative')
-            .style('width', 'max-content')
-            .style('margin-top', '3px')
           entry.append('div')
-            .style('display', 'inline-block')
+            .style('display', 'table-cell')
             .style('position', 'relative')
             .style('width', '9px')
             .style('height', '9px')
             .style('top', '1px')
             .style('float', 'left')
+            .style('margin-top', (i === 0 ? 6 : 3) + 'px')
             .style('margin-right', '10px')
             .style('background', plot.background)
           entry.append('div')
-            .style('display', 'inline-block')
+            .style('display', 'table-cell')
             .style('position', 'relative')
-            .style('width', 'max-content')
             .style('max-width', '120px')
+            .style('margin-top', (i === 0 ? 6 : 3) + 'px')
             .style('float', 'left')
             .html(self._tooltip.yFormat(plot.value))
         })
