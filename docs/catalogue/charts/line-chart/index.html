@@ -45,6 +45,7 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
   .fontSize(14)
   .xLabel('days')
   .yLabel('price')
+  .noXTicks(true)
   .smoothing(true)
   .lineStyle({
     mango: 'dashed'
@@ -52,10 +53,6 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
   .tooltip.on(true)
   .tooltip.yFormat(d => d === null ? 'No data' : d.toFixed(2))
   .render()
-lineChart.pin.add('pin', 30, {
-  text: 'Foo bar lorem ipsum'
-})
-setTimeout(() => lineChart.width(700).render(), 1000)
 </script><script class="doc">
 // update data
 setInterval(() => {

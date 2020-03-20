@@ -60,6 +60,11 @@ export default (name, scale) => (() => {
       xTickFormat: format => {
         base.api.tickFormat(format)
         return api
+      },
+
+      noXTicks: on => {
+        base.api.noTicks(on)
+        return api
       }
     })
 

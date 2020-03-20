@@ -46,13 +46,14 @@ export default (type, name, parent, elem) => {
       .attr('height', self._widget.size.innerHeight),
 
     // Methods
-    update: () => {
+    update: duration => {
       // Adjust clipper
-      _.clip.attr('width', self._widget.size.innerWidth)
+      _.clip.transition().duration(duration)
+        .attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight)
 
       // Adjust plots container
-      self._chart.plots
+      self._chart.plots.transition().duration(duration)
         .attr('width', self._widget.size.innerWidth + 'px')
         .attr('height', self._widget.size.innerHeight + 'px')
         .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
@@ -70,7 +71,7 @@ export default (type, name, parent, elem) => {
       // Transform data: default is identity
       transformData: data => data,
 
-      plotGroups: (attr, duration = 400) => {
+      plotGroups: (attr, duration) => {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
           .attr('clip-path', `url(#${name}-dalian-plots-clipper)`)

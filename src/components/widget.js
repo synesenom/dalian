@@ -71,10 +71,7 @@ export default (type, name, parent, elem) => {
         .style(_.pos.y.attr, _.pos.y.value)
         .style('width', self._widget.size.width)
         .style('height', self._widget.size.height)
-
-      // Show widget
-      self._widget.container
-        .style('display', 'block')
+        .on('end', () => self._widget.container.style('display', 'block'))
     },
 
     disable: on => self._widget.disabled = on

@@ -20,7 +20,8 @@ export default (name, parent, axisFn, scale) => {
     format: x => x,
     scale,
     container,
-    fn: axisFn().ticks(5)
+    fn: axisFn().ticks(5),
+    ticks: true
   }
 
   let self = {
@@ -61,6 +62,8 @@ export default (name, parent, axisFn, scale) => {
       // Update axis
       _.fn.scale(_.scale.scale)
         .tickFormat(_.format)
+        .tickSize(_.ticks ? 6 : 0)
+        .tickPadding(10)
       self.axis
         // FIXME Axis transition not working
         .transition().duration(duration)
@@ -75,11 +78,8 @@ export default (name, parent, axisFn, scale) => {
       return api
     },
 
-    hideTicks: on => {
-      if (on) {
-        self.axis.selectAll('.tick line')
-          .style('visibility', 'hidden')
-      }
+    noTicks: on => {
+      _.ticks = !on
       return api
     }
   }
