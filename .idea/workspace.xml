@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ Pin label improved">
+    <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ ElementTooltip fixed">
+      <change afterPath="$PROJECT_DIR$/docs/catalogue/charts/scatter-plot/content.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/range/x-range.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/misc/map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/axis/base-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/base-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/axis/bottom-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/bottom-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/axis/left-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/left-axis.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +27,8 @@
         <option value="SCSS File" />
         <option value="Pug File" />
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -53,7 +59,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/range" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -63,13 +69,6 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
-      <recent name="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
-      <recent name="$PROJECT_DIR$/docs/catalogue/charts" />
-      <recent name="$PROJECT_DIR$/docs/js" />
-      <recent name="$PROJECT_DIR$/dist" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/widgets/flow-chart" />
       <recent name="$PROJECT_DIR$/src" />
@@ -77,8 +76,18 @@
       <recent name="$PROJECT_DIR$/src/components/" />
       <recent name="$PROJECT_DIR$/docs/style/fonts" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/range" />
+      <recent name="$PROJECT_DIR$/docs/catalogue/misc/map" />
+      <recent name="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
+      <recent name="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
+      <recent name="$PROJECT_DIR$/docs/catalogue/charts" />
+    </key>
   </component>
-  <component name="RunManager" selected="Node.js.widget.js">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/dalian-es6/docs/catalogue/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/modules/widget2/src">
       <method v="2" />
     </configuration>
@@ -100,6 +109,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="Node.js.index.js" />
         <item itemvalue="npm.build:demo" />
         <item itemvalue="Node.js.index.js (1)" />
@@ -176,69 +186,9 @@
       <workItem from="1580193766486" duration="81566000" />
       <workItem from="1582645556253" duration="564000" />
       <workItem from="1583355488336" duration="18707000" />
-    </task>
-    <task id="LOCAL-00001" summary="Minor refactoring">
-      <created>1569966836032</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1569966836032</updated>
-    </task>
-    <task id="LOCAL-00002" summary="rollup config improved, globals bug fixed">
-      <created>1570035886830</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1570035886830</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Widget and placeholder improved, demo added to font">
-      <created>1570040231963</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1570040231963</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Demo added to colors component">
-      <created>1570041020793</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1570041020793</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Demo added to the tooltip component">
-      <created>1570048816765</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1570048816765</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Animation added to widget size changes">
-      <created>1570401676168</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1570401676168</updated>
-    </task>
-    <task id="LOCAL-00007" summary="LineChart finished">
-      <created>1570571392168</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1570571392168</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Tooltip improvements">
-      <created>1570639797086</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1570639797086</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Axis simplified, separate left and bottom axes components added">
-      <created>1571087905473</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1571087905473</updated>
+      <workItem from="1584300644165" duration="12789000" />
+      <workItem from="1584450368863" duration="1982000" />
+      <workItem from="1584717576501" duration="5600000" />
     </task>
     <task id="LOCAL-00010" summary="Axis update moved to axis component">
       <created>1571119886508</created>
@@ -422,7 +372,168 @@
       <option name="project" value="LOCAL" />
       <updated>1583969763632</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="↗️ Pins are highlighted when hovered over">
+      <created>1584004483336</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1584004483336</updated>
+    </task>
+    <task id="LOCAL-00037" summary="↗️ YRange component added to LineChart">
+      <created>1584018706410</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1584018706410</updated>
+    </task>
+    <task id="LOCAL-00038" summary="↗️ Tooltip floating animation removed">
+      <created>1584021919037</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1584021919037</updated>
+    </task>
+    <task id="LOCAL-00039" summary="↗️ Tooltip font size increased">
+      <created>1584022117758</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1584022117758</updated>
+    </task>
+    <task id="LOCAL-00040" summary="↗️ Plots are clipped outside axes">
+      <created>1584046690862</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1584046690862</updated>
+    </task>
+    <task id="LOCAL-00041" summary="↗️ Pin labels don't consume pointer events">
+      <created>1584047281849</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1584047281849</updated>
+    </task>
+    <task id="LOCAL-00042" summary="↗️ Minor adjustments in tooltip content">
+      <created>1584047549576</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1584047549576</updated>
+    </task>
+    <task id="LOCAL-00043" summary="↗️ Stroke line join and cap set to round in LineChart lines">
+      <created>1584047923037</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1584047923037</updated>
+    </task>
+    <task id="LOCAL-00044" summary="↗️ ElementTooltip fixed">
+      <created>1584053552161</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1584053552161</updated>
+    </task>
+    <task id="LOCAL-00045" summary="↗️ Highlight animation made faster, plots have pointer-events:none if no mouse interactions attached.">
+      <created>1584054431793</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1584054431793</updated>
+    </task>
+    <task id="LOCAL-00046" summary="↗️ Bug with tooltip when multiple charts are present fixed">
+      <created>1584124076915</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1584124076915</updated>
+    </task>
+    <task id="LOCAL-00047" summary="↗️ Some components separated from main API and moved under own namespace">
+      <created>1584216203037</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1584216203037</updated>
+    </task>
+    <task id="LOCAL-00048" summary="📖 Component docs pages added">
+      <created>1584216445227</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1584216445227</updated>
+    </task>
+    <task id="LOCAL-00049" summary="↗️ Documentation generation improved">
+      <created>1584303782807</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1584303782807</updated>
+    </task>
+    <task id="LOCAL-00050" summary="↗️ Docs generation further cleaned up">
+      <created>1584304086984</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1584304086985</updated>
+    </task>
+    <task id="LOCAL-00051" summary="🐛 Bug with line chart missing data fixed">
+      <created>1584358487754</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1584358487754</updated>
+    </task>
+    <task id="LOCAL-00052" summary="↗️ Tooltip.ignore added to ignore some plots">
+      <created>1584376025271</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1584376025271</updated>
+    </task>
+    <task id="LOCAL-00053" summary="📖 Component docs added">
+      <created>1584376097801</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1584376097801</updated>
+    </task>
+    <task id="LOCAL-00054" summary="↗️ Dashed line style improved a bit">
+      <created>1584380741544</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1584380741544</updated>
+    </task>
+    <task id="LOCAL-00055" summary="↗️ Label box update fixed in Pin.update">
+      <created>1584450713316</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1584450713317</updated>
+    </task>
+    <task id="LOCAL-00056" summary="↗️ Tooltip CSS updated to work with MS Edge as well">
+      <created>1584458348743</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1584458348743</updated>
+    </task>
+    <task id="LOCAL-00057" summary="↗️ Pin reacts to click only now">
+      <created>1584460812945</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1584460812945</updated>
+    </task>
+    <task id="LOCAL-00058" summary="🐛 Bug with transition of component updates solved">
+      <created>1584726465073</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1584726465074</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,32 +553,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Tooltip improvements" />
-    <MESSAGE value="Axis simplified, separate left and bottom axes components added" />
-    <MESSAGE value="Axis update moved to axis component" />
-    <MESSAGE value="d3-interpolate-path added to fix ugly data update" />
-    <MESSAGE value="Documentation script added, API reference page builder implemented" />
-    <MESSAGE value="Demo page builder added to docs script" />
-    <MESSAGE value="Example page builder works" />
-    <MESSAGE value="Safety commit" />
-    <MESSAGE value="Online dependencies removed from test example page for line-chart" />
-    <MESSAGE value="Major refactoring" />
-    <MESSAGE value="More documentation pages added." />
-    <MESSAGE value="Catalogue index page added" />
-    <MESSAGE value="Area chart added." />
-    <MESSAGE value="Shades of a color added to Colors component policy" />
-    <MESSAGE value="BarChart added, not yet fully implemented" />
-    <MESSAGE value="Chart.plotGroups simplified (using d3.selection.join)" />
-    <MESSAGE value="Doc files added" />
-    <MESSAGE value="Docs updated" />
-    <MESSAGE value=" Bug with area chart update fixed" />
-    <MESSAGE value="↗️ ._highlight.selectors eliminated in Highlight component" />
-    <MESSAGE value="↗️ TrendMarker, LeftAxis, BottomAxis converted to a component generator" />
-    <MESSAGE value="↗️ Pin component added to LineChart" />
-    <MESSAGE value="↗️ Files added to gitignore" />
-    <MESSAGE value="↗️ Build added" />
     <MESSAGE value="↗️ Pin label improved" />
-    <option name="LAST_COMMIT_MESSAGE" value="↗️ Pin label improved" />
+    <MESSAGE value="↗️ Pins are highlighted when hovered over" />
+    <MESSAGE value="↗️ YRange component added to LineChart" />
+    <MESSAGE value="↗️ Tooltip floating animation removed" />
+    <MESSAGE value="↗️ Tooltip font size increased" />
+    <MESSAGE value="↗️ Plots are clipped outside axes" />
+    <MESSAGE value="↗️ Pin labels don't have pointer events" />
+    <MESSAGE value="↗️ Pin labels don't consume pointer events" />
+    <MESSAGE value="↗️ Minor adjustments in tooltip content" />
+    <MESSAGE value="↗️ Stroke line join and cap set to round in LineChart lines" />
+    <MESSAGE value="↗️ ElementTooltip fixed" />
+    <MESSAGE value="↗️ Highlight animation made faster, plots have pointer-events:none if no mouse interactions attached." />
+    <MESSAGE value="↗️ Bug with tooltip when multiple charts are present fixed" />
+    <MESSAGE value="↗️ Some components separated from main API and moved under own namespace" />
+    <MESSAGE value=" Component docs pages added" />
+    <MESSAGE value="↗️ Documentation generation improved" />
+    <MESSAGE value="↗️ Docs generation further cleaned up" />
+    <MESSAGE value=" Bug with line chart missing data fixed" />
+    <MESSAGE value="↗️ Tooltip.ignore added to ignore some plots" />
+    <MESSAGE value=" Component docs added" />
+    <MESSAGE value="↗️ Dashed line style improved a bit" />
+    <MESSAGE value="↗️ Label box update fixed in Pin.update" />
+    <MESSAGE value="↗️ Tooltip CSS updated to work with MS Edge as well" />
+    <MESSAGE value="↗️ Pin reacts to click only now" />
+    <MESSAGE value=" Bug with transition of component updates solved" />
+    <option name="LAST_COMMIT_MESSAGE" value=" Bug with transition of component updates solved" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="89" key="#Notifications" timestamp="1583362915594">
@@ -478,34 +589,50 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.801@0.23.1440.801" timestamp="1579629610937" />
-    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580763033830">
+    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584302004833">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1580763033830" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1583969763295">
+    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1584302004833" />
+    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1584726464554">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1583969763295" />
-    <state x="144" y="92" key="DiffContextDialog" timestamp="1583883672661">
+    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1584726464554" />
+    <state x="144" y="92" key="DiffContextDialog" timestamp="1584303762946">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="144" y="92" key="DiffContextDialog/0.23.1440.801@0.23.1440.801" timestamp="1583883672661" />
-    <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1579438677233">
+    <state x="144" y="92" key="DiffContextDialog/0.23.1440.801@0.23.1440.801" timestamp="1584303762946" />
+    <state width="1419" height="216" key="GridCell.Tab.0.bottom" timestamp="1584395453860">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state width="1419" height="216" key="GridCell.Tab.0.bottom/0.23.1440.801@0.23.1440.801" timestamp="1579438677233" />
-    <state width="1419" height="216" key="GridCell.Tab.0.center" timestamp="1579438677231">
+    <state width="1419" height="216" key="GridCell.Tab.0.bottom/0.23.1440.801@0.23.1440.801" timestamp="1584395453860" />
+    <state width="1419" height="216" key="GridCell.Tab.0.center" timestamp="1584395453855">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state width="1419" height="216" key="GridCell.Tab.0.center/0.23.1440.801@0.23.1440.801" timestamp="1579438677231" />
-    <state width="1419" height="216" key="GridCell.Tab.0.left" timestamp="1579438677230">
+    <state width="1419" height="216" key="GridCell.Tab.0.center/0.23.1440.801@0.23.1440.801" timestamp="1584395453855" />
+    <state width="1419" height="216" key="GridCell.Tab.0.left" timestamp="1584395453849">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state width="1419" height="216" key="GridCell.Tab.0.left/0.23.1440.801@0.23.1440.801" timestamp="1579438677230" />
-    <state width="1419" height="216" key="GridCell.Tab.0.right" timestamp="1579438677232">
+    <state width="1419" height="216" key="GridCell.Tab.0.left/0.23.1440.801@0.23.1440.801" timestamp="1584395453849" />
+    <state width="1419" height="216" key="GridCell.Tab.0.right" timestamp="1584395453858">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state width="1419" height="216" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1579438677232" />
+    <state width="1419" height="216" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1584395453858" />
+    <state width="1419" height="216" key="GridCell.Tab.1.bottom" timestamp="1584395453864">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.1.bottom/0.23.1440.801@0.23.1440.801" timestamp="1584395453864" />
+    <state width="1419" height="216" key="GridCell.Tab.1.center" timestamp="1584395453862">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.1.center/0.23.1440.801@0.23.1440.801" timestamp="1584395453862" />
+    <state width="1419" height="216" key="GridCell.Tab.1.left" timestamp="1584395453861">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.1.left/0.23.1440.801@0.23.1440.801" timestamp="1584395453861" />
+    <state width="1419" height="216" key="GridCell.Tab.1.right" timestamp="1584395453863">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1419" height="216" key="GridCell.Tab.1.right/0.23.1440.801@0.23.1440.801" timestamp="1584395453863" />
     <state x="144" y="92" key="MergeDialog" timestamp="1583363072738">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -518,10 +645,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1583969765506">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1584460822174">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1583969765506" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1584460822174" />
     <state x="509" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583362906140">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -542,10 +669,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="480" y="262" key="git4idea.ui.GitUnstashDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363500895" />
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1581364932889">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1584719246168">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1581364932889" />
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1584719246168" />
     <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1580750257441">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

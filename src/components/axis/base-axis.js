@@ -21,36 +21,29 @@ export default (name, parent, axisFn, scale) => {
     scale,
     container,
     fn: axisFn().ticks(5),
-    ticks: true
+    ticks: true,
+    axisLine: true
   }
 
   let self = {
+    // Variables
     axis,
-    label: container.append('text')
+    axisLabel: container.append('text')
       .attr('class', `axis-label ${name}`)
       .attr('stroke-width', 0)
       .attr('fill', 'currentColor')
       .style('font-size', '1em')
-      .text('')
-  }
+      .text(''),
 
-  // Public API
-  let api = {
-    tickFormat: (format = x => x) => {
-      _.format = format
-      return api
-    },
-
-    label: text => {
-        _.label = text
-        return api
+    // Methods
+    scale: scaleObj => {
+      _.scale = scaleObj
     },
 
     adjustLabel: attr => {
       Object.entries(attr).forEach(d => {
-        self.label.attr(d[0], d[1])
+        self.axisLabel.attr(...d)
       })
-      return api
     },
 
     update: (duration, size, margins) => {
@@ -68,21 +61,22 @@ export default (name, parent, axisFn, scale) => {
         // FIXME Axis transition not working
         .transition().duration(duration)
         .call(_.fn)
+        .selectAll('path')
+        .style('opacity', _.axisLine ? 1 : 0)
 
       // Update label
-      self.label.text(_.label)
+      self.axisLabel.text(_.label)
     },
 
-    scale: scaleObj => {
-      _.scale = scaleObj
-      return api
-    },
+    hideAxisLine: on => _.axisLine = !on,
 
-    noTicks: on => {
-      _.ticks = !on
-      return api
-    }
+    hideTicks: on => _.ticks = !on,
+
+    tickFormat: (format = x => x) => _.format = format,
+
+    label: text => _.label = text
   }
 
+  let api = {}
   return {self, api}
 }

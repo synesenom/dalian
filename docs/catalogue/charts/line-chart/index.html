@@ -43,9 +43,10 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
   .height(300)
   .margins(40)
   .fontSize(14)
-  .xLabel('days')
-  .yLabel('price')
-  .noXTicks(true)
+  .bottomAxis.label('days')
+  .leftAxis.hideAxisLine(true)
+  .leftAxis.hideTicks(true)
+  .leftAxis.label('price')
   .smoothing(true)
   .lineStyle({
     mango: 'dashed'
