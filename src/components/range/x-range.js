@@ -1,52 +1,50 @@
-// TODO Merge with XRange to a BaseRange
-// TODO Add documentation
 export default (self, api) => {
   // Private members
   let _ = {
-    yMin: undefined,
-    yMax: undefined
+    xMin: undefined,
+    xMax: undefined
   }
 
   // Protected members
   self = Object.assign(self || {}, {
-    _yRange: {
+    _xRange: {
       min: data => {
         let dataMin = Math.min(...data)
-        return typeof _.yMin !== 'undefined' ? _.yMin : dataMin
+        return typeof _.xMin !== 'undefined' ? _.xMin : dataMin
       },
 
       max: data => {
         let dataMax = Math.max(...data)
-        return typeof _.yMax !== 'undefined' ? _.yMax : dataMax
+        return typeof _.xMax !== 'undefined' ? _.xMax : dataMax
       }
     }
   })
 
   api = Object.assign(api, {
-    yRange: {
+    xRange: {
       /**
        * Sets the lower boundary for the plot.
        *
-       * @method min
-       * @methodOf YRange
+       * @method xMin
+       * @methodOf XRange
        * @param {number} value The lower boundary to set.
        * @returns {Widget} Reference to the Widget's API.
        */
       min: value => {
-        _.yMin = value
+        _.xMin = value
         return api
       },
 
       /**
        * Sets the upper boundary for the plot.
        *
-       * @method yMax
-       * @methodOf YRange
+       * @method xMax
+       * @methodOf XRange
        * @param {number} value The upper boundary to set.
        * @returns {Widget} Reference to the Widget's API.
        */
       max: value => {
-        _.yMax = value
+        _.xMax = value
         return api
       }
     }

@@ -9,6 +9,7 @@ import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
 import XGrid from '../components/grid/x-grid'
 import YGrid from '../components/grid/y-grid'
+import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 import Smoothing from '../components/smoothing'
 import LineWidth from '../components/line-width'
@@ -43,6 +44,7 @@ export default (name, parent = 'body') => {
     BottomAxis('x', scales.x),
     XGrid,
     YGrid,
+    XRange,
     YRange,
     LineStyle,
     LineWidth,
@@ -58,22 +60,30 @@ export default (name, parent = 'body') => {
   let _ = {
     // Variables
     scales,
+    // TODO Get rid of these duplicated variables, move them to XRange/YRange.
+    xMin: undefined,
+    xMax: undefined,
+    yMin: undefined,
+    yMax: undefined,
 
     // Methods
     update: duration => {
       // Determine boundaries
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
         .filter(d => d.y !== null)
+      const xData = flatData.map(d => d.x)
+      _.xMin = self._xRange.min(xData)
+      _.xMax = self._xRange.max(xData)
       const yData = flatData.map(d => d.y - d.lo)
         .concat(flatData.map(d => d.y + d.hi))
-      const yMin = self._yRange.min(yData)
-      const yMax = self._yRange.max(yData)
+      _.yMin = self._yRange.min(yData)
+      _.yMax = self._yRange.max(yData)
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(flatData.map(d => d.x))
+        .domain([_.xMin, _.xMax])
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain([yMin, yMax])
+        .domain([_.yMin, _.yMax])
 
       // Create line and error path functions
       const lineFn = line()
@@ -170,7 +180,7 @@ export default (name, parent = 'body') => {
       x = point.x
 
       // Marker
-      if (point.y !== null) {
+      if (point.y !== null && point.y >= _.yMin && point.y <= _.yMax) {
         self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name)
       } else {
         self._plotMarker.remove(d.name)
@@ -422,23 +432,6 @@ export default (name, parent = 'body') => {
    * @returns {LineChart} The LineChart itself.
    */
 
-  /**
-   * Sets the X label for the chart.
-   *
-   * @method xLabel
-   * @methodOf LineChart
-   * @param {string} label Text to set as the label.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the X tick format of the chart.
-   *
-   * @method xTickFormat
-   * @methodOf LineChart
-   * @param {Function} format Function to set as formatter.
-   * @returns {LineChart} The LineChart itself.
-   */
 
   /**
    * Sets the Y coordinate of the line chart. If negative, the chart's bottom side is measured from the bottom of the
@@ -447,15 +440,6 @@ export default (name, parent = 'body') => {
    * @method y
    * @methodOf LineChart
    * @param {number} [value = 0] Value of the Y coordinate in pixels.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the Y label for the chart.
-   *
-   * @method yLabel
-   * @methodOf LineChart
-   * @param {string} label Text to set as the label.
    * @returns {LineChart} The LineChart itself.
    */
 
@@ -474,15 +458,6 @@ export default (name, parent = 'body') => {
    * @method yMax
    * @methodOf LineChart
    * @param {number} value The upper boundary to set.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the Y tick format of the chart.
-   *
-   * @method yTickFormat
-   * @methodOf LineChart
-   * @param {Function} format Function to set as formatter.
    * @returns {LineChart} The LineChart itself.
    */
 }

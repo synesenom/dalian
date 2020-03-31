@@ -42,9 +42,9 @@ export default type => {
             .style('stroke-width', (_.lineWidth || 1) + 'px')
             .style('stroke-dasharray', _.lineStyle || null)
         } else {
-          if (_.grid !== null) {
+          if (typeof _.grid !== 'undefined') {
             _.grid.remove()
-            _.grid = null
+            _.grid = undefined
           }
         }
       }
