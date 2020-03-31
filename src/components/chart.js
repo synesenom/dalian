@@ -77,6 +77,7 @@ export default (type, name, parent, elem) => {
           .attr('clip-path', `url(#${name}-dalian-plots-clipper)`)
           .data(self._chart.data, d => d.name)
           .join(
+            // Entering groups
             enter => {
               let g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
@@ -85,23 +86,30 @@ export default (type, name, parent, elem) => {
                 .style('stroke', d => self._colors.mapping(d.name))
               return attr.enter ? attr.enter(g) : g
             },
+            // Group update: do nothing
             update => update,
-            exit => exit.call(exit => {
+            exit => {
               let g = exit.transition().duration(duration)
               g = attr.exit ? attr.exit(g) : g
               g.remove()
             })
-          )
           .on('mouseover', self._mouse.mouseover)
           .on('mouseleave', self._mouse.mouseleave)
           .on('click', self._mouse.click)
           .each(() => {
-            // Disable pointer events before transition
+            // Disable pointer events before transition.
             self._chart.plots.style('pointer-events', 'none')
             self._widget.transition = true
           })
-          .transition().duration(duration)
+        // TODO Move this to .join(update)?
+        // Update group before transition.
+        groups = attr.updateBefore ? attr.updateBefore(groups) : groups
+
+        // Transition update.
+        groups = groups.transition().duration(duration)
         groups = attr.update ? attr.update(groups) : groups
+
+        // At the end, restore pointer events.
         groups.on('end', () => {
           // Re-enable pointer events
           self._chart.plots.style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')

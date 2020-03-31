@@ -26,12 +26,12 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('scatter-plot', name, parent, 'svg'),
-    ElementTooltip,
-    Highlight(['.dot-group']),
     LeftAxis('y', scales.y),
     BottomAxis('x', scales.x),
     YRange,
-    XRange
+    XRange,
+    ElementTooltip,
+    Highlight(['.dot-group'])
   )
 
   // Private members
@@ -43,6 +43,7 @@ export default (name, parent = 'body') => {
     // Methods
     update: duration => {
       // Determine boundaries
+      // TODO Add these methods to utils as they are duplicated everywhere
       const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
       const xData = flatData.map(d => d.x)
       const yData = flatData.map(d => d.y)
@@ -58,7 +59,6 @@ export default (name, parent = 'body') => {
         .domain([yMin, yMax])
 
       // Add plots
-      let dots;
       self._chart.plotGroups({
         enter: g => {
           // Init group
@@ -66,66 +66,36 @@ export default (name, parent = 'body') => {
             .style('fill-opacity', 0)
 
           // Add dots
-          dots = g.selectAll('circle')
-            .data(d => d.values)
-
-          dots.enter().append('circle')
+          g.selectAll('circle').data(d => d.values)
+            .enter().append('circle')
             .attr('class', d => `dot ${encode(d.name)}`)
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
             .attr('r', self._scatterPlot.size)
 
-          /*g.selectAll('circle')
-            .data(d => d.values)
-            .join(
-              enter => {
-                /*enter.append('circle')
-                  .attr('class', d => `dot ${encode(d.name)}`)
-                  .attr('cx', d => _.scales.x.scale(d.x))
-                  .attr('cy', d => _.scales.y.scale(d.y))
-                  .attr('r', self._scatterPlot.size)
-                  .style('opacity', 0)
-                console.log(enter)
-                return enter
-              }/*,
-              update: gg => {
-                gg.selectAll('.dot')
-                  .transition().duration(duration)
-                  .attr('cx', d => _.scales.x.scale(d.x))
-                  .attr('cy', d => _.scales.y.scale(d.y))
-                  .style('opacity', 1)
-                return gg
-              },
-              exit: gg => {
-                gg.selectAll('.dot')
-                  .transition().duration(duration)
-                  .style('opacity', 0)
-                  .remove()
-                return gg
-              }
-            )*/
-            //.transition().duration(duration)
-            //.style('opacity', 1)
-
           return g
         },
-        update: g => {
+        updateBefore: g => {
           g.style('fill-opacity', 1)
 
-          dots = dots.data(d => {
-            console.log(d)
-            return d.values
-          })
-
-          dots.exit()
+          g.selectAll('circle').data(d => d.values)
+            .join(
+              enter => enter.append('circle')
+                .attr('class', d => `dot ${encode(d.name)}`)
+                .attr('cx', d => _.scales.x.scale(d.x))
+                .attr('cy', d => _.scales.y.scale(d.y))
+                .attr('r', self._scatterPlot.size)
+                .style('opacity', 0),
+              update => update,
+              exit => exit.transition().duration(duration)
+                .style('opacity', 0)
+                .remove()
+            )
             .transition().duration(duration)
-            .style('opacity', 0)
-            .remove()
-
-          dots.enter().append('circle')
-            .attr('class', d => `dot ${encode(d.name)}`)
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
+            .attr('r', self._scatterPlot.size)
+            .style('opacity', 1)
 
           return g
         },
