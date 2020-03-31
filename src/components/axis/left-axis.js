@@ -2,6 +2,12 @@ import { axisLeft } from 'd3'
 import BaseAxis from './base-axis'
 import extend from '../../core/extend'
 
+/**
+ * Component implementing the left axis for charts. When this component is available for a widget, its API is exposed
+ * via the {.leftAxis} namespace.
+ *
+ * @function LeftAxis
+ */
 export default (name, scale) => (() => {
   return (self, api) => {
     // Base class
@@ -12,19 +18,28 @@ export default (name, scale) => (() => {
       y: (-5) + 'px'
     })
 
+    // Private members
+    let _ = {
+      grid: null,
+      gridStyle: null,
+
+      update: duration => {
+        // Update base axis
+        base.self.update(duration, self._widget.size, self._widget.margins)
+      }
+    }
+
     // Protected members
     self = Object.assign(self || {}, {
       _axisLeft: {
+        axis: base.self.fn,
         update: base.self.update,
         scale: base.self.scale
       }
     })
 
     // Extend update
-    self._widget.update = extend(
-      self._widget.update,
-      duration => base.self.update(duration, self._widget.size, self._widget.margins)
-    )
+    self._widget.update = extend(self._widget.update, _.update, true)
 
     // Public API
     api = Object.assign(api || {}, {
@@ -55,11 +70,27 @@ export default (name, scale) => (() => {
           return self
         },
 
+        /**
+         * Hides the tick lines on the axis.
+         *
+         * @method hideTicks
+         * @methodOf BottomAxis
+         * @param {boolean} on Whether hiding ticks is on.
+         * @returns {Widget} Reference to the Widget's API.
+         */
         hideTicks: on => {
           base.self.hideTicks(on)
           return api
         },
 
+        /**
+         * Hides the axis line on the axis.
+         *
+         * @method hideAxisLine
+         * @methodOf BottomAxis
+         * @param {boolean} on Whether hiding the axis line is on.
+         * @returns {Widget} Reference to the Widget's API.
+         */
         hideAxisLine: on => {
           base.self.hideAxisLine(on)
           return api

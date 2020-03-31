@@ -3,8 +3,8 @@ import BaseTooltip from './tooltip'
 
 /**
  * Component implementing the element tooltip feature. The element tooltip is a pre-formatted tooltip that takes a
- * data point and displays it in the tooltip with a colored left border. Can be used in charts where the tooltip
- * displays info for a specific element in the widget (hence the name), such as bar charts or pie charts. It inherits
+ * data point and displays it in the tooltip with a colored left border. Can be used in widgets where the tooltip
+ * displays info for a specific element in the widget (hence the name), such as bar widgets or pie widgets. It inherits
  * all methods from the [Tooltip]{@link ../components/tooltip.html} component. Relevant API methods:
  * [on]{@link ../components/tooltip.html#on}, [xFormat]{@link ../components/tooltip.html#xFormat},
  * [yFormat]{@link ../components/tooltip.html#yFormat}.

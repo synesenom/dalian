@@ -20,13 +20,13 @@ export default (name, parent, axisFn, scale) => {
     format: x => x,
     scale,
     container,
-    fn: axisFn().ticks(5),
     ticks: true,
     axisLine: true
   }
 
   let self = {
     // Variables
+    fn: axisFn().ticks(5),
     axis,
     axisLabel: container.append('text')
       .attr('class', `axis-label ${name}`)
@@ -53,14 +53,12 @@ export default (name, parent, axisFn, scale) => {
         .style('height', size.innerHeight)
 
       // Update axis
-      _.fn.scale(_.scale.scale)
+      self.fn.scale(_.scale.scale)
         .tickFormat(_.format)
         .tickSize(_.ticks ? 6 : 0)
-        .tickPadding(10)
       self.axis
-        // FIXME Axis transition not working
         .transition().duration(duration)
-        .call(_.fn)
+        .call(self.fn)
         .selectAll('path')
         .style('opacity', _.axisLine ? 1 : 0)
 

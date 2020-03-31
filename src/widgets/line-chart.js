@@ -7,6 +7,8 @@ import Chart from '../components/chart'
 import Scale from '../components/scale'
 import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
+import XGrid from '../components/grid/x-grid'
+import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 import Smoothing from '../components/smoothing'
 import LineWidth from '../components/line-width'
@@ -19,9 +21,10 @@ import Pin from '../components/pin'
 
 
 /**
- * The line chart widget. It extends the following components: [Pin]{@link ../components/pin.html} under {.pin},
- * [Trend]{@link ../components/trend.html} under {.trend}, [PointTooltip]{@link ../components/point-tooltip.html} under
- * {.tooltip}.
+ * The line chart widget. It extends the following components: [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html}, [Pin]{@link ../components/pin.html},
+ * [PointTooltip]{@link ../components/point-tooltip.html}, [Trend]{@link ../components/trend.html},
+ * [XGrid]{@link ../components/x-grid.html}, [YGrid]{@link ../components/y-grid.html}.
  *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -38,6 +41,8 @@ export default (name, parent = 'body') => {
     Chart('line-chart', name, parent, 'svg'),
     LeftAxis('y', scales.y),
     BottomAxis('x', scales.x),
+    XGrid,
+    YGrid,
     YRange,
     LineStyle,
     LineWidth,

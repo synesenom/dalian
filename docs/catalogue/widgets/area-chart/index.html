@@ -11,7 +11,7 @@
 }</script><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
 Area charts can be used to show <span class="good">volume</span> data or data that has a specific integral such as <span class="good">distributions</span>, and where neighboring points are only spatially related.
 As such, the lower vertical boundary of the area chart is always zero.
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/area-chart.js">source</a><a class="right footnote" href="../../../api/charts/area-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/area-chart.js">source</a><a class="right footnote" href="../../../api/widgets/area-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Data is generated with ranjs:
 // https://synesenom.github.io/ran/
@@ -41,8 +41,8 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
   .height(300)
   .margins(40)
   .fontSize(14)
-  .xLabel('value')
-  .yLabel('density')
+  .bottomAxis.label('value')
+  .leftAxis.label('density')
   .smoothing(true)
   .color({
     normal: 'yellowgreen',

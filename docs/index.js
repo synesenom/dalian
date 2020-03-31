@@ -7,16 +7,19 @@ const { JSDOM } = require('jsdom')
 
 
 const MODULES = [
+  'components/axis/bottom-axis',
+  'components/axis/left-axis',
   'components/pin',
   'components/trend',
   'components/tooltip/tooltip',
   'components/tooltip/point-tooltip',
   'components/tooltip/element-tooltip',
-  'charts/area-chart',
-  'charts/bar-chart',
-  'charts/line-chart',
-  //'charts/scatter-plot',
-  //'misc/map'
+  'components/grid/base-grid',
+  'components/grid/x-grid',
+  'components/grid/y-grid',
+  'widgets/area-chart',
+  'widgets/bar-chart',
+  'widgets/line-chart'
 ]
 
 
@@ -100,7 +103,7 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
 // Build catalogue index
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
-  charts: MODULES.filter(d => getModuleCategory(d) === 'charts').map(d => {
+  widgets: MODULES.filter(d => getModuleCategory(d) === 'widgets').map(d => {
     const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
     const document = new JSDOM(content).window.document
     const script = document.getElementsByClassName('card-example')[0].outerHTML

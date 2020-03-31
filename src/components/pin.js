@@ -4,7 +4,7 @@ import extend from '../core/extend'
 
 /**
  * Component implementing the pin feature. A pin is a vertical line with a circle on the top and an optional text label
- * as description. When this component is available in a widget, it is accessible through the {.pin} namespace.
+ * as description. When this component is available for a widget, its API is exposed via the {.pin} namespace.
  *
  * @function Pin
  */

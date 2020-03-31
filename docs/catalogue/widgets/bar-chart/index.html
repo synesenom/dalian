@@ -12,7 +12,7 @@
   Bar charts display <span class="good">categorical data</span> usually with <span class="good">no causal</span>
   connection between the consecutive data points, such as a counting process (histograms).
   They are good in showing small differences, and therefore are an alternative to pie charts.
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/bar-chart.js">source</a><a class="right footnote" href="../../../api/charts/bar-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/bar-chart.js">source</a><a class="right footnote" href="../../../api/widgets/bar-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Data is generated with ranjs:
 // https://synesenom.github.io/ran/
@@ -36,8 +36,8 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .height(300)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .fontSize(14)
-  .xLabel('stock')
-  .yLabel('fruit')
+  .bottomAxis.label('stock')
+  .leftAxis.label('fruit')
   .color('royalblue')
   .mouseover(k => barChart.highlight(k.name))
   .mouseleave(() => barChart.highlight())
