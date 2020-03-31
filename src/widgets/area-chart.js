@@ -14,8 +14,8 @@ import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
 
 /**
- * The area chart widget. It extends the following components: [PointTooltip]{@link ../components/point-tooltip.html}
- * under {.tooltip}.
+ * The area chart widget. It extends the following components: [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html}, [PointTooltip]{@link ../components/point-tooltip.html}
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -30,13 +30,13 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('area-chart', name, parent, 'svg'),
+    LeftAxis('y', scales.y),
+    BottomAxis('x', scales.x),
     PlotMarker,
     Opacity,
     Smoothing,
     PointTooltip,
-    Highlight(['.area', '.plot-marker']),
-    LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x)
+    Highlight(['.area', '.plot-marker'])
   )
 
   // Private members

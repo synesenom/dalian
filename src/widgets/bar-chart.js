@@ -13,8 +13,8 @@ import Highlight from '../components/highlight'
 
 
 /**
- * The bar chart widget. It extends the following components: [ElementTooltip]{@link ../components/element-tooltip.html}
- * under {.tooltip}.
+ * The bar chart widget. It extends the following components: [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html}, [ElementTooltip]{@link ../components/element-tooltip.html}.
  *
  * @function BarChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -29,10 +29,10 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('bar-chart', name, parent, 'svg'),
-    ElementTooltip,
-    Highlight(['.bar', '.bar-value']),
     LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x)
+    BottomAxis('x', scales.x),
+    ElementTooltip,
+    Highlight(['.bar', '.bar-value'])
   )
 
   // Private members
