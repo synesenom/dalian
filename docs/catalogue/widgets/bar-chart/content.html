@@ -1,7 +1,8 @@
 <p id="desc">
-  Bar charts display <span class="good">categorical data</span> usually with <span class="good">no causal</span>
-  connection between the consecutive data points, such as a counting process (histograms).
-  They are good in showing small differences, and therefore are an alternative to pie charts.
+  A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
+  <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
+  process. Also, it can handle <span class="good">more categories</span> than a pie chart.
+  <br><br>Press <code>U</code> to update the data in the demo chart.
 </p>
 
 <script class="card-example">
@@ -67,8 +68,10 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 </script>
 
 <script class="doc">
-// update data
-setInterval(() => {
-  barChart.data(getData()).render()
-}, 20000)
+// update data on keypress
+window.addEventListener('keydown', e => {
+  if (e.key === 'u') {
+    barChart.data(getData()).render(1000)
+  }
+})
 </script>

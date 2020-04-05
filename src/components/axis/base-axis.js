@@ -16,7 +16,6 @@ export default (name, parent, axisFn, scale) => {
     .style('shape-rendering', 'crispEdges')
     .style('stroke', 'currentColor')
   let _ = {
-    label: '',
     format: x => x,
     scale,
     container,
@@ -26,6 +25,7 @@ export default (name, parent, axisFn, scale) => {
 
   let self = {
     // Variables
+    label: '',
     fn: axisFn().ticks(5),
     axis,
     axisLabel: container.append('text')
@@ -63,7 +63,7 @@ export default (name, parent, axisFn, scale) => {
         .style('opacity', _.axisLine ? 1 : 0)
 
       // Update label
-      self.axisLabel.text(_.label)
+      self.axisLabel.text(self.label)
     },
 
     hideAxisLine: on => _.axisLine = !on,
@@ -72,7 +72,7 @@ export default (name, parent, axisFn, scale) => {
 
     tickFormat: (format = x => x) => _.format = format,
 
-    label: text => _.label = text
+    setLabel: text => self.label = text,
   }
 
   let api = {}

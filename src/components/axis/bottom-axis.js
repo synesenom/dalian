@@ -38,10 +38,11 @@ export default (name, scale) => (() => {
 
     // Protected members
     self = Object.assign(self || {}, {
-      _axisBottom: {
+      _bottomAxis: {
         axis: base.self.fn,
         update: base.self.update,
-        scale: base.self.scale
+        scale: base.self.scale,
+        label: () => base.self.label
       }
     })
 
@@ -57,7 +58,7 @@ export default (name, scale) => (() => {
          * @returns {Widget} Reference to the Widget's API.
          */
         label: (label = '') => {
-          base.self.label(label)
+          base.self.setLabel(label)
           return api
         },
 

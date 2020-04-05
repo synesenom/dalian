@@ -19,7 +19,8 @@ const MODULES = [
   'components/grid/y-grid',
   'widgets/area-chart',
   'widgets/bar-chart',
-  'widgets/line-chart'
+  'widgets/line-chart',
+  'widgets/scatter-plot'
 ]
 
 

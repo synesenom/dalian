@@ -1,5 +1,8 @@
 <p id="desc">
-  Scatter plots charts are ...
+  A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
+  <span class="good">monotonic relationship</span> between two quantities, such as
+  <span class="good">correlations</span>.
+  <br><br>Press <code>U</code> to update the data in the demo chart.
 </p>
 
 <script class="card-example">
@@ -56,15 +59,17 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
   .height(300)
   .margins(40)
   .fontSize(14)
-  .xLabel('X')
-  .yLabel('Y')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
   .tooltip.on(true)
   .render()
 </script>
 
 <script class="doc">
-// update data
-setInterval(() => {
-  scatterPlot.data(getData()).render()
-}, 20000)
+// update data on keypress
+window.addEventListener('keydown', e => {
+  if (e.key === 'u') {
+    scatterPlot.data(getData()).render(1000)
+  }
+})
 </script>

@@ -7,7 +7,7 @@ export default (self, api) => {
     }
   })
 
-  self._plotMarker.add = (x, y, name) => {
+  self._plotMarker.add = (x, y, name, size) => {
     if (typeof x === 'number') {
       let marker = self._plotMarker.markers.get(name)
       self._plotMarker.markers.set(name, marker || self._chart.plots.append('circle'))
@@ -15,7 +15,7 @@ export default (self, api) => {
         .attr('class', `plot-marker ${encode(name)}`)
         .attr('cx', x)
         .attr('cy', y)
-        .attr('r', 4)
+        .attr('r', size || 4)
         .style('stroke', 'white')
         .style('fill', self._colors.mapping(name))
         .style('pointer-events', 'none')

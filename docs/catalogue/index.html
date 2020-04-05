@@ -83,4 +83,29 @@ dalian.LineChart('line-chart-card', '#line-chart')
     mango: 'dashed'
   })
   .render()
+</script></a><a class="card" href="widgets/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
+dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
+  .data([{
+    name: 'mango',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.pow(i / 40, 2)
+    }))
+  }, {
+    name: 'kiwi',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.pow(i / 40, 0.5)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 20, right: 2, top: 20, bottom: 30 })
+  .fontSize(11)
+  .xLabel('X')
+  .yLabel('Y')
+  .tooltip.on(true)
+  .render()
 </script></a></div></div></main></body></html>

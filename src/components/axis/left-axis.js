@@ -31,10 +31,11 @@ export default (name, scale) => (() => {
 
     // Protected members
     self = Object.assign(self || {}, {
-      _axisLeft: {
+      _leftAxis: {
         axis: base.self.fn,
         update: base.self.update,
-        scale: base.self.scale
+        scale: base.self.scale,
+        label: () => base.self.label
       }
     })
 
@@ -53,7 +54,7 @@ export default (name, scale) => (() => {
          * @returns {Object} Reference to the LeftAxis API.
          */
         label: label => {
-          base.self.label(label)
+          base.self.setLabel(label)
           return api
         },
 

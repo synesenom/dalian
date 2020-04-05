@@ -9,13 +9,16 @@
   const height = width / aspect;
   return { width, height };
 }</script><title>ScatterPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
-  Scatter plots charts are ...
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/scatter-plot.js">source</a><a class="right footnote" href="../../../api/charts/scatter-plot.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+  A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
+  <span class="good">monotonic relationship</span> between two quantities, such as
+  <span class="good">correlations</span>.
+  <br><br>Press <code>U</code> to update the data in the demo chart.
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/scatter-plot.js">source</a><a class="right footnote" href="../../../api/widgets/scatter-plot.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [{
     name: 'mango',
-    values: Array.from({ length: 20 + Math.floor(80 * Math.random()) }, (d, i) => ({
+    values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
       x: i + Math.random() - 0.5,
       y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
     }))
@@ -40,10 +43,12 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
   .tooltip.on(true)
   .render()
 </script><script class="doc">
-// update data
-setInterval(() => {
-  scatterPlot.data(getData()).render()
-}, 20000)
+// update data on keypress
+window.addEventListener('keydown', e => {
+  if (e.key === 'u') {
+    scatterPlot.data(getData()).render(1000)
+  }
+})
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

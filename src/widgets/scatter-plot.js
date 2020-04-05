@@ -2,6 +2,7 @@ import Scale from '../components/scale'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import Chart from '../components/chart'
+import PlotMarker from '../components/plot-marker'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
@@ -11,6 +12,7 @@ import YRange from '../components/range/y-range'
 import encode from '../core/encode'
 
 
+// TODO Add tooltip
 /**
  * The scatter plot widget. It extends the following components: [ElementTooltip]{@link ../components/point-tooltip.html}
  * under {.tooltip}.
@@ -30,6 +32,7 @@ export default (name, parent = 'body') => {
     BottomAxis('x', scales.x),
     YRange,
     XRange,
+    PlotMarker,
     ElementTooltip,
     Highlight(['.dot-group'])
   )
@@ -37,7 +40,7 @@ export default (name, parent = 'body') => {
   // Private members
   let _ = {
     // Variables
-    current: undefined,
+    diagram: undefined,
     scales,
 
     // Methods
@@ -101,6 +104,18 @@ export default (name, parent = 'body') => {
         },
         exit: g => g.style('opacity', 0)
       })
+
+      // Update Voronoi tessellation
+      const sites = [];
+      self._chart.data.forEach(function (d) {
+        d.values.forEach(function (dd) {
+          let site = [_.scales.x.scale(dd.x), _.scales.y.scale(dd.y)];
+          site.name = d.name;
+          sites.push(site);
+        });
+      });
+      _.diagram = d3.voronoi()
+        .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(sites)
     }
   }
 
@@ -114,20 +129,33 @@ export default (name, parent = 'body') => {
   // Overrides
   self._highlight.container = self._chart.plots
 
-  self._tooltip.content = () => {
-    // If no bar is hovered, hide tooltip
-    if (typeof _.current === 'undefined') {
+  self._tooltip.content = mouse => {
+    if (typeof mouse === 'undefined') {
+      self._plotMarker.remove()
       return
     }
 
+    // Find closest sites
+    const site = _.diagram.find(mouse[0], mouse[1], 10)
+    if (!site) {
+      self._plotMarker.remove()
+      return
+    } else {
+      // TODO Update marker only
+      self._plotMarker.add(site.data[0], site.data[1], site.data.name, 1.5 * self._scatterPlot.size)
+    }
+
     return {
-      title: _.current.name,
-      stripe: self._colors.mapping(_.current.name),
+      title: site.data.name,
+      stripe: self._colors.mapping(site.data.name),
       content: {
         type: 'plots',
         data: [{
-          name: 'value',
-          value: _.current.value
+          name: self._bottomAxis.label(),
+          value: site.data[0]
+        }, {
+          name: self._leftAxis.label(),
+          value: site.data[1]
         }]
       }
     }
