@@ -61,8 +61,8 @@ export default (name, parent = 'body') => {
           g.append('path')
             .attr('class', d => `slice ${encode(d.name)}`)
             .style('stroke', 'none')
-            .on('mouseover', d => _.current = d)
-            .on('mouseleave', () => _.current = undefined)
+            .on('over', d => _.current = d)
+            .on('leave', () => _.current = undefined)
             .attr('d', arcFn)
           return g
         },

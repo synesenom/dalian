@@ -2,15 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ ElementTooltip fixed">
-      <change afterPath="$PROJECT_DIR$/docs/catalogue/charts/scatter-plot/content.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/range/x-range.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/misc/layers/canvas-layer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/misc/layers/webgl-layer.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/misc/map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/misc/network.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/charts/line-chart/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/dl/dalian.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/dl/dalian.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/axis/base-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/base-axis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/axis/bottom-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/bottom-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/pie-chart/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/pie-chart/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/pie-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/pie-chart/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/flow-chart-edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/flow-chart-edge.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/flow-chart-node.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/flow-chart-node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/flow-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/flow-chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/vector2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/vector2d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/charts/pie-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/pie-chart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/axis/left-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/left-axis.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +31,8 @@
         <option value="SCSS File" />
         <option value="Pug File" />
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -59,10 +63,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/range" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/grid" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
     <property name="standardjs.codestyle.accepted" value="true" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
@@ -70,18 +75,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/misc" />
+      <recent name="$PROJECT_DIR$/docs/api/widgets" />
+      <recent name="$PROJECT_DIR$/src/components/grid" />
+      <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/widgets/flow-chart" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/components/" />
-      <recent name="$PROJECT_DIR$/docs/style/fonts" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/grid" />
       <recent name="$PROJECT_DIR$/src/components/range" />
       <recent name="$PROJECT_DIR$/docs/catalogue/misc/map" />
       <recent name="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
       <recent name="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
-      <recent name="$PROJECT_DIR$/docs/catalogue/charts" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
@@ -188,56 +193,11 @@
       <workItem from="1583355488336" duration="18707000" />
       <workItem from="1584300644165" duration="12789000" />
       <workItem from="1584450368863" duration="1982000" />
-      <workItem from="1584717576501" duration="5600000" />
-    </task>
-    <task id="LOCAL-00010" summary="Axis update moved to axis component">
-      <created>1571119886508</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1571119886508</updated>
-    </task>
-    <task id="LOCAL-00011" summary="d3-interpolate-path added to fix ugly data update">
-      <created>1571164320388</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1571164320388</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Documentation script added, API reference page builder implemented">
-      <created>1571349393722</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1571349393722</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Demo page builder added to docs script">
-      <created>1571437563533</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1571437563533</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Example page builder works">
-      <created>1575414692144</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1575414692145</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Safety commit">
-      <created>1575870207197</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1575870207197</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Online dependencies removed from test example page for line-chart">
-      <created>1575917244545</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1575917244545</updated>
+      <workItem from="1584717576501" duration="11668000" />
+      <workItem from="1584964410054" duration="575000" />
+      <workItem from="1585302287048" duration="1784000" />
+      <workItem from="1585677458988" duration="10653000" />
+      <workItem from="1585938685655" duration="15698000" />
     </task>
     <task id="LOCAL-00017" summary="Major refactoring">
       <created>1580507470710</created>
@@ -533,7 +493,56 @@
       <option name="project" value="LOCAL" />
       <updated>1584726465074</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="↗️ hideAxisLine added to BaseAxis component">
+      <created>1584729360828</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1584729360828</updated>
+    </task>
+    <task id="LOCAL-00060" summary="↗️ Axis and grid components added to API documentation">
+      <created>1585684876367</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1585684876367</updated>
+    </task>
+    <task id="LOCAL-00061" summary="📖️ More docs added to BarChart and AreaChart">
+      <created>1585687150534</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1585687150534</updated>
+    </task>
+    <task id="LOCAL-00062" summary="↗️ X and Y ranges added to LineChart">
+      <created>1585688981893</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1585688981894</updated>
+    </task>
+    <task id="LOCAL-00063" summary="🆕️ ScatterPlot added">
+      <created>1585691843018</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1585691843018</updated>
+    </task>
+    <task id="LOCAL-00064" summary="↗️ Tooltip added to scatter plot">
+      <created>1586090491641</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1586090491642</updated>
+    </task>
+    <task id="LOCAL-00065" summary="📖 More docs added to components">
+      <created>1586377020719</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1586377020719</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -553,13 +562,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="↗️ Pin label improved" />
-    <MESSAGE value="↗️ Pins are highlighted when hovered over" />
-    <MESSAGE value="↗️ YRange component added to LineChart" />
-    <MESSAGE value="↗️ Tooltip floating animation removed" />
-    <MESSAGE value="↗️ Tooltip font size increased" />
-    <MESSAGE value="↗️ Plots are clipped outside axes" />
-    <MESSAGE value="↗️ Pin labels don't have pointer events" />
     <MESSAGE value="↗️ Pin labels don't consume pointer events" />
     <MESSAGE value="↗️ Minor adjustments in tooltip content" />
     <MESSAGE value="↗️ Stroke line join and cap set to round in LineChart lines" />
@@ -578,7 +580,14 @@
     <MESSAGE value="↗️ Tooltip CSS updated to work with MS Edge as well" />
     <MESSAGE value="↗️ Pin reacts to click only now" />
     <MESSAGE value=" Bug with transition of component updates solved" />
-    <option name="LAST_COMMIT_MESSAGE" value=" Bug with transition of component updates solved" />
+    <MESSAGE value="↗️ hideAxisLine added to BaseAxis component" />
+    <MESSAGE value="↗️ Axis and grid components added to API documentation" />
+    <MESSAGE value="️ More docs added to BarChart and AreaChart" />
+    <MESSAGE value="↗️ X and Y ranges added to LineChart" />
+    <MESSAGE value="️ ScatterPlot added" />
+    <MESSAGE value="↗️ Tooltip added to scatter plot" />
+    <MESSAGE value=" More docs added to components" />
+    <option name="LAST_COMMIT_MESSAGE" value=" More docs added to components" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="89" key="#Notifications" timestamp="1583362915594">
@@ -589,14 +598,18 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="184" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.801@0.23.1440.801" timestamp="1579629610937" />
-    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584302004833">
+    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586088695269">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1584302004833" />
-    <state x="350" y="26" key="CommitChangelistDialog2" timestamp="1584726464554">
+    <state x="458" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1586088695269" />
+    <state x="468" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1586088665533">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="350" y="26" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1584726464554" />
+    <state x="468" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.801@0.23.1440.801" timestamp="1586088665533" />
+    <state x="312" y="23" key="CommitChangelistDialog2" timestamp="1586377308852">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="312" y="23" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1586377308852" />
     <state x="144" y="92" key="DiffContextDialog" timestamp="1584303762946">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -645,10 +658,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1584460822174">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1586090493323">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1584460822174" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1586090493323" />
     <state x="509" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583362906140">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -669,14 +682,14 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="480" y="262" key="git4idea.ui.GitUnstashDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363500895" />
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1584719246168">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1585683515567">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1584719246168" />
-    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1580750257441">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1585683515567" />
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1586288663257">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1580750257441" />
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1586288663257" />
     <state x="450" y="268" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1579124946468">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

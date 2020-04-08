@@ -67,7 +67,7 @@ export default scale => (() => {
          * @returns {Object} Reference to the LeftAxis API.
          */
         tickFormat: format => {
-          base.api.tickFormat(format)
+          base.self.tickFormat(format)
           return self
         },
 
