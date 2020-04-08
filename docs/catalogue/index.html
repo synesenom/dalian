@@ -75,7 +75,7 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 20, right: 2, top: 20, bottom: 30 })
-  .fontSize(11)
+  .font.size(11)
   .bottomAxis.label('days')
   .leftAxis.label('price')
   .smoothing(true)
@@ -86,13 +86,13 @@ dalian.LineChart('line-chart-card', '#line-chart')
 </script></a><a class="card" href="widgets/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
 dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .data([{
-    name: 'mango',
+    name: 'blueberry',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
       y: Math.pow(i / 40, 2)
     }))
   }, {
-    name: 'kiwi',
+    name: 'cherry',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
       y: Math.pow(i / 40, 0.5)
@@ -103,9 +103,9 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 20, right: 2, top: 20, bottom: 30 })
-  .fontSize(11)
-  .xLabel('X')
-  .yLabel('Y')
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
   .tooltip.on(true)
   .render()
 </script></a></div></div></main></body></html>

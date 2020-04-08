@@ -3,29 +3,35 @@ import { interpolatePath } from 'd3-interpolate-path'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
-import Chart from '../components/chart'
-import Scale from '../components/scale'
-import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
-import XGrid from '../components/grid/x-grid'
-import YGrid from '../components/grid/y-grid'
-import XRange from '../components/range/x-range'
-import YRange from '../components/range/y-range'
-import Smoothing from '../components/smoothing'
-import LineWidth from '../components/line-width'
+import Chart from '../components/chart'
+import Highlight from '../components/highlight'
+import LeftAxis from '../components/axis/left-axis'
 import LineStyle from '../components/line-style'
+import LineWidth from '../components/line-width'
+import Pin from '../components/pin'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
-import Highlight from '../components/highlight'
-import TrendMarker from '../components/trend'
-import Pin from '../components/pin'
+import Scale from '../components/scale'
+import Smoothing from '../components/smoothing'
+import Trend from '../components/trend'
+import XGrid from '../components/grid/x-grid'
+import XRange from '../components/range/x-range'
+import YGrid from '../components/grid/y-grid'
+import YRange from '../components/range/y-range'
 
-
+// TODO Add range to docs.
+// TODO Add reference to components: Highlight, LineStyle, LineWidth, Smoothing, XRange, YRange.
 /**
- * The line chart widget. It extends the following components: [BottomAxis]{@link ../components/bottom-axis.html},
- * [LeftAxis]{@link ../components/left-axis.html}, [Pin]{@link ../components/pin.html},
- * [PointTooltip]{@link ../components/point-tooltip.html}, [Trend]{@link ../components/trend.html},
- * [XGrid]{@link ../components/x-grid.html}, [YGrid]{@link ../components/y-grid.html}.
+ * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
+ * available API. Furthermore, it extends the following components:
+ * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html},
+ * [Pin]{@link ../components/pin.html},
+ * [PointTooltip]{@link ../components/point-tooltip.html},
+ * [Trend]{@link ../components/trend.html},
+ * [XGrid]{@link ../components/x-grid.html},
+ * [YGrid]{@link ../components/y-grid.html}.
  *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -33,15 +39,15 @@ import Pin from '../components/pin'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  // TODO Fix this separate declaration of scales (needed by the TrendMarker)
+  // TODO Fix this separate declaration of scales (needed by the Trend)
   let scales = {
     x: Scale('linear'),
     y: Scale('linear')
   }
   let { self, api } = compose(
     Chart('line-chart', name, parent, 'svg'),
-    LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x),
+    LeftAxis(scales.y),
+    BottomAxis(scales.x),
     XGrid,
     YGrid,
     XRange,
@@ -52,7 +58,7 @@ export default (name, parent = 'body') => {
     PlotMarker,
     PointTooltip,
     Highlight(['.line', '.error-band', '.plot-marker', '.trend-marker']),
-    TrendMarker(scales),
+    Trend(scales),
     Pin(scales)
   )
 
@@ -181,7 +187,7 @@ export default (name, parent = 'body') => {
 
       // Marker
       if (point.y !== null && point.y >= _.yMin && point.y <= _.yMax) {
-        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name)
+        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
       } else {
         self._plotMarker.remove(d.name)
       }
@@ -222,14 +228,6 @@ export default (name, parent = 'body') => {
   return api
 
   // Documentation
-  /**
-   * Sets the callback for the click event. The click event is triggered when clicking on any line or error band.
-   *
-   * @method click
-   * @methodOf LineChart
-   * @param {Function} callback Function to call on click. The line data (name and values) is passed to it as parameter.
-   * @returns {LineChart} The LineChart itself.
-   */
 
   /**
    * Sets the color policy for the plots. Supported policies:
@@ -279,24 +277,6 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
    * disabled.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the font size of the line chart in pixels.
-   *
-   * @method fontSize
-   * @methodOf LineChart
-   * @param {number} size Size of the font in pixels.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the font color of the line chart. The axis lines and ticks are also shown in this color.
-   *
-   * @method fontColor
-   * @methodOf LineChart
-   * @param {string} color Color to set as font color.
    * @returns {LineChart} The LineChart itself.
    */
 
@@ -359,27 +339,6 @@ export default (name, parent = 'body') => {
    * @methodOf LineChart
    * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
    * sides.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the callback for the mouseleave event. The mouseleave event is triggered when leaving any line or error band.
-   *
-   * @method mouseleave
-   * @methodOf LineChart
-   * @param {Function} callback Function to call on mouseleave. The line data (name and values) is passed to it as
-   * parameter.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the callback for the mouseover event. The mouseover event is triggered when hovering over any line or error
-   * band.
-   *
-   * @method mouseover
-   * @methodOf LineChart
-   * @param {Function} callback Function to call on mouseover. The line data (name and values) is passed to it as
-   * parameter.
    * @returns {LineChart} The LineChart itself.
    */
 

@@ -1,10 +1,8 @@
 /**
- * Factory implementing the component handling mouse interactions.
+ * Component implementing the mouse features. When this component is available for a widget, its API is exposed via the
+ * {.mouse} namespace.
  *
- * @class Mouse
- * @param {Object} self Object containing the private members.
- * @param {Object} api Object containing the public methods.
- * @returns {{self: Object, api: Object}} Object representing the extension of the private and public methods.
+ * @function Font
  */
 export default (self, api) => {
   // Private members
@@ -15,13 +13,13 @@ export default (self, api) => {
   // Protected members
   self = Object.assign(self || {}, {
     _mouse: {
-      mouseover: (...args) => {
+      over: (...args) => {
         if (typeof _.callbacks.over === 'function') {
           _.callbacks.over(...args)
         }
       },
 
-      mouseleave: (...args) => {
+      leave: (...args) => {
         if (typeof _.callbacks.leave === 'function') {
           _.callbacks.leave(...args)
         }
@@ -43,40 +41,45 @@ export default (self, api) => {
 
   // Public API
   api = Object.assign(api || {}, {
-    /**
-     * Sets the callback for the mouseover event.
-     *
-     * @method mouseover
-     * @param {Function} callback Function to call on mouseover.
-     * @returns {Object} Reference to the current API.
-     */
-    mouseover: callback => {
-      _.callbacks.over = callback
-      return api
-    },
+    mouse: {
+      /**
+       * Sets the callback for the over event.
+       *
+       * @method over
+       * @methodOf Mouse
+       * @param {Function} callback Function to call on over.
+       * @returns {Widget} Reference to the Widget API.
+       */
+      over: callback => {
+        _.callbacks.over = callback
+        return api
+      },
 
-    /**
-     * Sets the callback for the mouseleave event.
-     *
-     * @method mouseleave
-     * @param {Function} callback Function to call on mouseleave.
-     * @returns {Object} Reference to the current API.
-     */
-    mouseleave: callback => {
-      _.callbacks.leave = callback
-      return api
-    },
+      /**
+       * Sets the callback for the leave event.
+       *
+       * @method leave
+       * @methodOf Mouse
+       * @param {Function} callback Function to call on leave.
+       * @returns {Widget} Reference to the Widget API.
+       */
+      leave: callback => {
+        _.callbacks.leave = callback
+        return api
+      },
 
-    /**
-     * Sets the callback for the click event.
-     *
-     * @method click
-     * @param {Function} callback Function to call on click.
-     * @returns {Object} Reference to the current API.
-     */
-    click: callback => {
-      _.callbacks.click = callback
-      return api
+      /**
+       * Sets the callback for the click event.
+       *
+       * @method click
+       * @methodOf Mouse
+       * @param {Function} callback Function to call on click.
+       * @returns {Widget} Reference to the Widget API.
+       */
+      click: callback => {
+        _.callbacks.click = callback
+        return api
+      }
     }
   })
 

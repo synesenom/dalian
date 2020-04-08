@@ -1,21 +1,24 @@
-import Scale from '../components/scale'
 import compose from '../core/compose'
+import encode from '../core/encode'
 import extend from '../core/extend'
 import Chart from '../components/chart'
-import PlotMarker from '../components/plot-marker'
+import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
-import BottomAxis from '../components/axis/bottom-axis'
+import PlotMarker from '../components/plot-marker'
+import Scale from '../components/scale'
 import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
-import encode from '../core/encode'
 
 
-// TODO Add tooltip
+// TODO Add all components to docs: Highlight, XRange, YRange
 /**
- * The scatter plot widget. It extends the following components: [ElementTooltip]{@link ../components/point-tooltip.html}
- * under {.tooltip}.
+ * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
+ * available API. Furthermore, it extends the following components:
+ * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html},
+ * [ElementTooltip]{@link ../components/point-tooltip.html}.
  *
  * @function ScatterPlot
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -28,8 +31,8 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('scatter-plot', name, parent, 'svg'),
-    LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x),
+    LeftAxis(scales.y),
+    BottomAxis(scales.x),
     YRange,
     XRange,
     PlotMarker,
@@ -42,6 +45,19 @@ export default (name, parent = 'body') => {
     // Variables
     diagram: undefined,
     scales,
+
+    computeDiagram: data => {
+      const sites = data.map(plot => plot.values.map(d => ({
+          name: plot.name,
+          x: d.x,
+          y: d.y,
+        })
+      )).flat()
+      return d3.voronoi()
+        .x(d => _.scales.x.scale(d.x))
+        .y(d => _.scales.y.scale(d.y))
+        .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(sites)
+    },
 
     // Methods
     update: duration => {
@@ -106,16 +122,7 @@ export default (name, parent = 'body') => {
       })
 
       // Update Voronoi tessellation
-      const sites = [];
-      self._chart.data.forEach(function (d) {
-        d.values.forEach(function (dd) {
-          let site = [_.scales.x.scale(dd.x), _.scales.y.scale(dd.y)];
-          site.name = d.name;
-          sites.push(site);
-        });
-      });
-      _.diagram = d3.voronoi()
-        .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(sites)
+      _.diagram = _.computeDiagram(self._chart.data)
     }
   }
 
@@ -141,8 +148,8 @@ export default (name, parent = 'body') => {
       self._plotMarker.remove()
       return
     } else {
-      // TODO Update marker only
-      self._plotMarker.add(site.data[0], site.data[1], site.data.name, 1.5 * self._scatterPlot.size)
+      self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker',
+        site.data.name, 1.5 * self._scatterPlot.size)
     }
 
     return {
@@ -152,10 +159,10 @@ export default (name, parent = 'body') => {
         type: 'plots',
         data: [{
           name: self._bottomAxis.label(),
-          value: site.data[0]
+          value: site.data.x
         }, {
           name: self._leftAxis.label(),
-          value: site.data[1]
+          value: site.data.y
         }]
       }
     }

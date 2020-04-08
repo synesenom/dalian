@@ -1,20 +1,23 @@
 import { max, select, interpolateNumber } from 'd3'
 import { getTextWidth } from '../utils/measure-text'
-import luminance from '../utils/luminance'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
+import luminance from '../utils/luminance'
 import Chart from '../components/chart'
-import Scale from '../components/scale'
-import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
+import LeftAxis from '../components/axis/left-axis'
+import Scale from '../components/scale'
 
-
+// TODO Add reference to all components: Highlight
 /**
- * The bar chart widget. It extends the following components: [BottomAxis]{@link ../components/bottom-axis.html},
- * [LeftAxis]{@link ../components/left-axis.html}, [ElementTooltip]{@link ../components/element-tooltip.html}.
+ * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
+ * available API. Furthermore, it extends the following components:
+ * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html},
+ * [ElementTooltip]{@link ../components/element-tooltip.html}.
  *
  * @function BarChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -29,8 +32,8 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('bar-chart', name, parent, 'svg'),
-    LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x),
+    LeftAxis(scales.y),
+    BottomAxis(scales.x),
     ElementTooltip,
     Highlight(['.bar', '.bar-value'])
   )
@@ -217,8 +220,8 @@ export default (name, parent = 'body') => {
       _.scales.y = on ? scales.x : scales.y
 
       // Update axes
-      self._axisBottom.scale(_.scales.x)
-      self._axisLeft.scale(_.scales.y)
+      self._bottomAxis.scale(_.scales.x)
+      self._leftAxis.scale(_.scales.y)
 
       return api
     },
@@ -237,15 +240,6 @@ export default (name, parent = 'body') => {
   return api
 
   // Documentation
-  /**
-   * Sets the callback for the click event. The click event is triggered when clicking on any bar.
-   *
-   * @method click
-   * @methodOf BarChart
-   * @param {Function} callback Function to call on click. The bar data (name and value) is passed to it as parameter.
-   * @returns {BarChart} The BarChart itself.
-   */
-
   /**
    * Sets the color policy for the plots. Supported policies:
    * <ul>
@@ -291,25 +285,6 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Sets the font size of the bar chart in pixels.
-   *
-   * @method fontSize
-   * @methodOf BarChart
-   * @param {number} size Size of the font in pixels.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the font color of the bar chart. The axis lines, ticks and bar values outside the bars are also shown in this
-   * color.
-   *
-   * @method fontColor
-   * @methodOf BarChart
-   * @param {string} color Color to set as font color.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
    * Sets the height of the bar chart (including it's margins).
    *
    * @method height
@@ -346,26 +321,6 @@ export default (name, parent = 'body') => {
    * @methodOf BarChart
    * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
    * sides.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the callback for the mouseleave event. The mouseleave event is triggered when leaving any bar.
-   *
-   * @method mouseleave
-   * @methodOf BarChart
-   * @param {Function} callback Function to call on mouseleave. The bar data (name and values) is passed to it as
-   * parameter.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the callback for the mouseover event. The mouseover event is triggered when hovering over any bar.
-   *
-   * @method mouseover
-   * @methodOf BarChart
-   * @param {Function} callback Function to call on mouseover. The bar data (name and values) is passed to it as
-   * parameter.
    * @returns {BarChart} The BarChart itself.
    */
 

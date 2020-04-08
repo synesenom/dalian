@@ -1,12 +1,15 @@
-import Color from './color'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
+import Color from './color'
 import Description from './description'
 import Font from './font'
 import Mouse from './mouse'
 import Placeholder from './placeholder'
 import Widget from './widget'
+
+// TODO Add documentation for components: Color, Description, Font, Mouse, Placholder, Widget.
+// TODO Add to docs.
 
 // TODO Add xDomain(number[])
 // TODO Add yDomain(number[])
@@ -15,14 +18,15 @@ import Widget from './widget'
 // TODO Bind mouse events to enter and update
 
 /**
- * Component implementing a generic chart widget.
+ * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget} component with all
+ * of its exposed API. It extends the following components:
+ * [Color]{@link ../components/color.html}
+ * [Description]{@link ../components/description.html}
+ * [Font]{@link ../components/font.html}
+ * [Mouse]{@link ../components/mouse.html}
+ * [Placeholder]{@link ../components/placeholder.html}
  *
- * @class Chart
- * @param type
- * @param name
- * @param parent
- * @param elem
- * @returns {{self: *, api: *}}
+ * @function Chart
  */
 export default (type, name, parent, elem) => {
   // Build component from other components
@@ -93,8 +97,8 @@ export default (type, name, parent, elem) => {
               g = attr.exit ? attr.exit(g) : g
               g.remove()
             })
-          .on('mouseover', self._mouse.mouseover)
-          .on('mouseleave', self._mouse.mouseleave)
+          .on('mouseover', self._mouse.over)
+          .on('mouseleave', self._mouse.leave)
           .on('click', self._mouse.click)
           .each(() => {
             // Disable pointer events before transition.
@@ -107,6 +111,8 @@ export default (type, name, parent, elem) => {
 
         // Transition update.
         groups = groups.transition().duration(duration)
+          .style('fill', d => self._colors.mapping(d.name))
+          .style('stroke', d => self._colors.mapping(d.name))
         groups = attr.update ? attr.update(groups) : groups
 
         // At the end, restore pointer events.

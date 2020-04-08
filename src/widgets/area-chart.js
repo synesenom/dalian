@@ -1,27 +1,31 @@
 import { area, bisector, select } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
-import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
+import compose from '../core/compose'
 import Chart from '../components/chart'
-import Scale from '../components/scale'
-import LeftAxis from '../components/axis/left-axis'
 import BottomAxis from '../components/axis/bottom-axis'
-import Smoothing from '../components/smoothing'
-import PointTooltip from '../components/tooltip/point-tooltip'
 import Highlight from '../components/highlight'
+import LeftAxis from '../components/axis/left-axis'
 import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
+import PointTooltip from '../components/tooltip/point-tooltip'
+import Scale from '../components/scale'
+import Smoothing from '../components/smoothing'
 
+// TODO Add reference to all components: Highlight, Opacity, Smoothing
+// TODO Add top stroke to area.
 /**
- * The area chart widget. It extends the following components: [BottomAxis]{@link ../components/bottom-axis.html},
- * [LeftAxis]{@link ../components/left-axis.html}, [PointTooltip]{@link ../components/point-tooltip.html}
+ * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
+ * available API. FUrthermore it extends the following components:
+ * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [LeftAxis]{@link ../components/left-axis.html},
+ * [PointTooltip]{@link ../components/point-tooltip.html}
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
-// TODO Add boundary line
 export default (name, parent = 'body') => {
   // Build widget from components
   // TODO Fix this separate declaration of scales (needed by the axis components)
@@ -31,8 +35,8 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('area-chart', name, parent, 'svg'),
-    LeftAxis('y', scales.y),
-    BottomAxis('x', scales.x),
+    LeftAxis(scales.y),
+    BottomAxis(scales.x),
     PlotMarker,
     Opacity,
     Smoothing,
@@ -166,15 +170,6 @@ export default (name, parent = 'body') => {
 
   // Documentation
   /**
-   * Sets the callback for the click event. The click event is triggered when clicking on any area.
-   *
-   * @method click
-   * @methodOf AreaChart
-   * @param {Function} callback Function to call on click. The area data (name and values) is passed to it as parameter.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
    * Sets the color policy for the plots. Supported policies:
    * <ul>
    *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
@@ -226,24 +221,6 @@ export default (name, parent = 'body') => {
   // TODO Add fillStyle policy hee
 
   /**
-   * Sets the font size of the area chart in pixels.
-   *
-   * @method fontSize
-   * @methodOf AreaChart
-   * @param {number} size Size of the font in pixels.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the font color of the area chart. The axis lines and ticks are also shown in this color.
-   *
-   * @method fontColor
-   * @methodOf AreaChart
-   * @param {string} color Color to set as font color.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
    * Sets the height of the area chart (including it's margins).
    *
    * @method height
@@ -271,26 +248,6 @@ export default (name, parent = 'body') => {
    * @methodOf AreaChart
    * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
    * sides.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the callback for the mouseleave event. The mouseleave event is triggered when leaving any area.
-   *
-   * @method mouseleave
-   * @methodOf AreaChart
-   * @param {Function} callback Function to call on mouseleave. The area data (name and values) is passed to it as
-   * parameter.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the callback for the mouseover event. The mouseover event is triggered when hovering over any area.
-   *
-   * @method mouseover
-   * @methodOf AreaChart
-   * @param {Function} callback Function to call on mouseover. The area data (name and values) is passed to it as
-   * parameter.
    * @returns {AreaChart} The AreaChart itself.
    */
 
@@ -353,48 +310,12 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Sets the X label for the chart.
-   *
-   * @method xLabel
-   * @methodOf AreaChart
-   * @param {string} label Text to set as the label.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the X tick format of the chart.
-   *
-   * @method xTickFormat
-   * @methodOf AreaChart
-   * @param {Function} format Function to set as formatter.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
    * Sets the Y coordinate of the area chart. If negative, the chart's bottom side is measured from the bottom of the
    * parent, otherwise the top side is measured from the top.
    *
    * @method y
    * @methodOf AreaChart
    * @param {number} [value = 0] Value of the Y coordinate in pixels.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the Y label for the chart.
-   *
-   * @method yLabel
-   * @methodOf AreaChart
-   * @param {string} label Text to set as the label.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the Y tick format of the chart.
-   *
-   * @method yTickFormat
-   * @methodOf AreaChart
-   * @param {Function} format Function to set as formatter.
    * @returns {AreaChart} The AreaChart itself.
    */
 }

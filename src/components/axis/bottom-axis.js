@@ -8,10 +8,10 @@ import extend from '../../core/extend'
  *
  * @function BottomAxis
  */
-export default (name, scale) => (() => {
+export default scale => (() => {
   return (self, api) => {
     // Base class
-    let base = BaseAxis(name, self._widget.content, axisBottom, scale)
+    let base = BaseAxis('y', self._widget.content, axisBottom, scale)
     base.self.adjustLabel({
       'text-anchor': 'end',
       dy: '2.5em'
