@@ -26,3 +26,11 @@ html(lang='en')
                             .card-title #{widget.factory}
                             .card-content(id='' + widget.name)
                             | !{widget.script}
+
+                .section
+                    h2 components
+                    each component in components
+                        a.card(href=component.category + '/' + component.name)
+                            .card-title #{component.factory}
+                            .card-content(id='' + component.name)
+                            | !{component.script}

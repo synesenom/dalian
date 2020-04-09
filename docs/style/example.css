@@ -4,3 +4,25 @@
     position: relative;
     width: 100%;
 }
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    margin-top: 4px;
+}
+
+span.desc-button {
+    display: inline-block;
+    background-color: royalblue;
+    color: white;
+    margin-right: 6px;
+    padding: 2px 4px;
+    width: 14px;
+    height: 18px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: .8em;
+}

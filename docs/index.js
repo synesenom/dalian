@@ -32,6 +32,15 @@ const MODULES = [
   'widgets/line-chart',
   'widgets/scatter-plot'
 ]
+const MODULES_2 = [
+  'components/axis/bottom-axis',
+  'components/axis/left-axis',
+  'widgets/area-chart',
+  'widgets/bar-chart',
+  'widgets/line-chart',
+  'widgets/scatter-plot'
+]
+
 
 
 function getModuleCategory (path) {
@@ -111,10 +120,22 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
   }))
 })
 
+
 // Build catalogue index
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
-  widgets: MODULES.filter(d => getModuleCategory(d) === 'widgets').map(d => {
+  components: MODULES_2.filter(d => getModuleCategory(d) === 'components').map(d => {
+    const content = fs.readFileSync(`catalogue/${getModuleCategory(d)}/${getModuleName(d)}/content.html`, {encoding: 'utf8'})
+    const document = new JSDOM(content).window.document
+    const script = document.getElementsByClassName('card-example')[0].outerHTML
+    return {
+      category: getModuleCategory(d),
+      name: getModuleName(d),
+      factory: kebabToCamel(getModuleName(d)),
+      script
+    }
+  }),
+  widgets: MODULES_2.filter(d => getModuleCategory(d) === 'widgets').map(d => {
     const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
     const document = new JSDOM(content).window.document
     const script = document.getElementsByClassName('card-example')[0].outerHTML
@@ -127,13 +148,14 @@ buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.ht
   })
 })
 
-MODULES.forEach(async d => {
+MODULES_2.forEach(async d => {
   const docs = await documentation.build([`../src/${d}.js`], {
     shallow: true
   }).then(documentation.formats.json)
     .then(JSON.parse)
-  const parser = ModuleParser(meta, docs, d).buildReferencePage()
-  if (d.split('/')[0] !== 'components') {
-    parser.buildExamplePage()
-  }
+
+  // Build API reference and example pages.
+  ModuleParser(meta, docs, d)
+    .buildReferencePage()
+    .buildExamplePage()
 })

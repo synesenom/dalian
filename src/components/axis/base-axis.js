@@ -56,6 +56,7 @@ export default (name, parent, axisFn, scale) => {
       api.fn.scale(_.scale.scale)
         .tickFormat(_.format)
         .tickSize(_.ticks ? 6 : 0)
+        .tickPadding(_.ticks ? 3 : 9)
       api.axis
         .transition().duration(duration)
         .call(api.fn)

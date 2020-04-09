@@ -1,0 +1,97 @@
+<div id="desc">
+  <p>
+    The BottomAxis component represents the bottom horizontal axis of some charts. In this example you can explore all
+    methods and their behavior by pressing the following keys:
+  </p>
+  <ul>
+    <li><span class="desc-button">D</span>- Change data.</li>
+    <li><span class="desc-button">L</span>- Change axis label.</li>
+    <li><span class="desc-button">F</span>- Change tick format.</li>
+    <li><span class="desc-button">T</span>- Show/hide ticks.</li>
+    <li><span class="desc-button">A</span>- Show/hide axis line.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.LineChart('bottom-axis-card', '#bottom-axis')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: Math.exp(i / 100)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('Bottom axis')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  const length = Math.floor(500 * Math.random()) + 500
+  const lambda = 100 * Math.random() + 50
+  return [{
+    name: 'trend',
+    values: Array.from({ length }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / lambda)
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time')
+  .leftAxis.label('Temperature')
+  .render()
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      // Update data.
+      chart.data(getData()).render(1000)
+      break
+    case 'l':
+      // Change label.
+      this.l = this.l || 0
+      chart.bottomAxis.label(['Elapsed time', 'Age'][(++this.l) % 2])
+        .render()
+      break
+    case 'f':
+      // Change tick format.
+      this.f = this.f || 0
+      chart.bottomAxis.tickFormat([x => x, x => x + 'h'][(++this.f) % 2])
+        .render()
+      break
+    case 't':
+      this.t = this.t || 0
+      chart.bottomAxis.hideTicks([false, true][(++this.t) % 2])
+        .render()
+      break
+    case 'a':
+      this.a = this.a || 0
+      chart.bottomAxis.hideAxisLine([false, true][(++this.a) % 2])
+        .render()
+      break
+    default:
+      break
+  }
+})
+</script>

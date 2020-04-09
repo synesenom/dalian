@@ -84,13 +84,15 @@ module.exports = (meta, docs, modulePath) => {
       const document = new JSDOM(content).window.document
 
       fs.writeFileSync(`${path}/${moduleName}/index.html`, template({
+        type,
+        modulePath,
         title: factoryName,
         dependencies,
         description: document.getElementById('desc').innerHTML,
         code: Array.from(document.getElementsByClassName('doc')).map(d => d.outerHTML).join(''),
         minjs: '../../../dl/dalian.min.js',
         widgetName: moduleName,
-        variableName: factoryName.charAt(0).toLowerCase() + factoryName.substring(1)
+        variableName: type === 'widgets' ? factoryName.charAt(0).toLowerCase() + factoryName.substring(1) : 'chart'
       }))
       return api
     }
