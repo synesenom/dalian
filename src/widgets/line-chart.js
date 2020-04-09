@@ -20,7 +20,6 @@ import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 
-// TODO Add range to docs.
 // TODO Add reference to components: Highlight, LineStyle, LineWidth, Smoothing.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its

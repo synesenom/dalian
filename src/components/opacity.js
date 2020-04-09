@@ -1,10 +1,8 @@
 /**
- * Component implementing the opacity feature.
+ * Component implementing the opacity feature. This component allows for setting the opacity value of a widget's
+ * elements. When this component is available, its API is exposed directly via the widget's own namespace.
  *
- * @class Opacity
- * @param {Object} self Object containing the protected variables and methods.
- * @param {Object} api Object containing the public API methods.
- * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
+ * @function Opacity
  */
 export default (self, api) => {
   // Private members
@@ -15,14 +13,6 @@ export default (self, api) => {
   // Protected members
   self = Object.assign(self || {}, {
     _opacity: {
-      /**
-       * Returns the current opacity value.
-       *
-       * @method value
-       * @methodOf Opacity
-       * @returns {number} The current opacity value to use.
-       * @protected
-       */
       value: () => _.value
     }
   })
@@ -30,12 +20,12 @@ export default (self, api) => {
   // Public API
   api = Object.assign(api || {}, {
     /**
-     * Sets the opacity value.
+     * Sets the opacity value of the widget's elements.
      *
      * @method opacity
      * @methodOf Opacity
      * @param {number} value The opacity value to set.
-     * @returns {Object} Reference to the Opacity API.
+     * @returns {Widget} Reference to the Widget's API.
      */
     opacity: value => {
       _.value = value

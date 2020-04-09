@@ -6,6 +6,7 @@ import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
+import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
 import Scale from '../components/scale'
 import XRange from '../components/range/x-range'
@@ -34,13 +35,14 @@ export default (name, parent = 'body') => {
   }
   let { self, api } = compose(
     Chart('scatter-plot', name, parent, 'svg'),
-    LeftAxis(scales.y),
     BottomAxis(scales.x),
-    YRange,
-    XRange,
-    PlotMarker,
     ElementTooltip,
-    Highlight(['.dot-group'])
+    Highlight(['.dot-group']),
+    LeftAxis(scales.y),
+    Opacity,
+    PlotMarker,
+    XRange,
+    YRange
   )
 
   // Private members
@@ -85,7 +87,7 @@ export default (name, parent = 'body') => {
         enter: g => {
           // Init group
           g.style('stroke', 'none')
-            .style('fill-opacity', 0)
+            .style('opacity', 0)
 
           // Add dots
           g.selectAll('circle').data(d => d.values)
@@ -98,7 +100,7 @@ export default (name, parent = 'body') => {
           return g
         },
         updateBefore: g => {
-          g.style('fill-opacity', 1)
+          g.style('opacity', self._opacity.value())
 
           g.selectAll('circle').data(d => d.values)
             .join(

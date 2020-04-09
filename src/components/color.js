@@ -36,7 +36,7 @@ const createPalette = palette => {
 
 /**
  * Component implementing various color scheming features. When this component is available for a widget, its API is
- * exposed directly via the widget's own API.
+ * exposed directly via the widget's own namespace.
  *
  * @function Color
  */

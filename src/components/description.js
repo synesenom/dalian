@@ -3,7 +3,7 @@ import { event, select } from 'd3'
 /**
  * Component implementing the widget description feature. A description is a static pop-up label shown when the context
  * menu is opened (historically on right mouse click). The description disappears once the mouse leaves the widget. When
- * this component is available for a widget, its API is exposed directly via the widget's own API.
+ * this component is available for a widget, its API is exposed directly via the widget's own namespace.
  *
  * @function Description
  */
