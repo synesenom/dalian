@@ -19,8 +19,9 @@ import YRange from '../components/range/y-range'
  * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
- * [LeftAxis]{@link ../components/left-axis.html},
  * [ElementTooltip]{@link ../components/point-tooltip.html},
+ * [LeftAxis]{@link ../components/left-axis.html},
+ * [Opacity]{@link ../components/opacity.html},
  * [XRange]{@link ../components/x-range.html},
  * [YRange]{@link ../components/y-range.html}.
  *

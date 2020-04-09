@@ -17,6 +17,7 @@ const MODULES = [
   'components/grid/x-grid',
   'components/grid/y-grid',
   'components/mouse',
+  'components/opacity',
   'components/pin',
   'components/placeholder',
   'components/range/x-range',

@@ -43,7 +43,7 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
   .width(600)
   .height(300)
   .margins(40)
-  .fontSize(14)
+  .font.size(14)
   .bottomAxis.label('value')
   .leftAxis.label('density')
   .smoothing(true)
@@ -52,7 +52,7 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
     exponential: 'royalblue'
   })
   .tooltip.on(true)
-  .tooltip.yFormat(d => d.toFixed(2))
+  .tooltip.yFormat(y => y.toFixed(2))
   .render()
 </script><script class="doc">
 // update data on keypress

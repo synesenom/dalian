@@ -1,4 +1,4 @@
-import { area, bisector, select } from 'd3'
+import { area, bisector, line, select } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import encode from '../core/encode'
 import extend from '../core/extend'
@@ -13,14 +13,13 @@ import PointTooltip from '../components/tooltip/point-tooltip'
 import Scale from '../components/scale'
 import Smoothing from '../components/smoothing'
 
-// TODO Add reference to all components: Highlight, Opacity, Smoothing
-// TODO Add top stroke to area.
-// TODO Add more components: XGrid, YGrid.
+// TODO Add reference to all components: Highlight, Smoothing
 /**
  * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. FUrthermore it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [LeftAxis]{@link ../components/left-axis.html},
+ * [Opacity]{@link ../components/opacity.html},
  * [PointTooltip]{@link ../components/point-tooltip.html}
  *
  * @function AreaChart
@@ -42,7 +41,7 @@ export default (name, parent = 'body') => {
     Opacity,
     Smoothing,
     PointTooltip,
-    Highlight(['.area', '.plot-marker'])
+    Highlight(['.area', '.line', '.plot-marker'])
   )
 
   // Private members
@@ -62,24 +61,37 @@ export default (name, parent = 'body') => {
         // Make sure scale starts at 0
         .domain(flatData.map(d => d.y).concat(0))
 
-      // Create line and error path functions
+      // Create area and line.
       const areaFn = area()
         .x(d => _.scales.x.scale(d.x))
         .y0(() => _.scales.y.scale(0))
         .y1(d => _.scales.y.scale(d.y))
         .curve(self._smoothing.curve())
+      const lineFn = line()
+        .x(d => _.scales.x.scale(d.x))
+        .y(d => _.scales.y.scale(d.y))
+        .curve(self._smoothing.curve())
 
       // Add plots
       self._chart.plotGroups({
         enter: g => {
+          // Add area.
           g.append('path')
             .attr('class', d => `area ${encode(d.name)}`)
             .attr('d', d => areaFn(d.values))
-            .style('stroke', 'none')
+            .attr('stroke', 'none')
             .style('fill-opacity', 0)
+
+          // Add line.
+          g.append('path')
+            .attr('class', d => `line ${encode(d.name)}`)
+            .attr('d', d => lineFn(d.values))
+            .attr('fill', 'none')
+            .style('stroke-opacity', 0)
           return g
         },
         update: g => {
+          // Update area.
           g.select('.area')
             .attrTween('d', function (d) {
               let previous = select(this).attr('d')
@@ -87,6 +99,15 @@ export default (name, parent = 'body') => {
               return interpolatePath(previous, current, null)
             })
             .style('fill-opacity', self._opacity.value())
+
+          // Update line.
+          g.select('.line')
+            .attrTween('d', function (d) {
+              let previous = select(this).attr('d')
+              let current = lineFn(d.values)
+              return interpolatePath(previous, current, null)
+            })
+            .style('stroke-opacity', 1)
           return g
         },
         exit: g => g.style('opacity', 0)
@@ -131,7 +152,7 @@ export default (name, parent = 'body') => {
       x = point.x
 
       // Marker
-      self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name)
+      self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
 
       return {
         name: d.name,
@@ -198,15 +219,6 @@ export default (name, parent = 'body') => {
    * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the plots to highlight. If key
    * is {null} or {undefined}, the highlight is removed (all plots become visible).
    * @param {number} [duration = 700] Duration of the highlight animation in ms.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the fill opacity of the area plots.
-   *
-   * @method opacity
-   * @methodOf AreaChart
-   * @param {number} value The opacity value to set.
    * @returns {AreaChart} The AreaChart itself.
    */
 
