@@ -15,20 +15,20 @@ html(lang='en')
           const WIDTH = 280 - 42;
           const HEIGHT = 280 - 42 - 30;
         main
-            .main-content-centered
+            .main-content-wide
                 h1 catalogue
-                p
+                p Here you can explore all available widgets, their APIs and related components that make up the library.
 
-                .section
-                    h2 widgets
+                h2 widgets
+                .card-container
                     each widget in widgets
                         a.card(href=widget.category + '/' + widget.name)
                             .card-title #{widget.factory}
                             .card-content(id='' + widget.name)
                             | !{widget.script}
 
-                .section
-                    h2 components
+                h2 components
+                .card-container
                     each component in components
                         a.card(href=component.category + '/' + component.name)
                             .card-title #{component.factory}

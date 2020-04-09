@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../style/fonts.css"><link rel="stylesheet" type="text/css" href="../style/base.css"><link rel="stylesheet" type="text/css" href="../style/heading.css"><link rel="stylesheet" type="text/css" href="../style/list.css"><link rel="stylesheet" type="text/css" href="../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../style/main.css"><link rel="stylesheet" type="text/css" href="../style/catalogue.css"><script type="text/javascript" src="../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../js/ranjs.min.js"></script><script type="text/javascript" src="../dl/dalian.min.js"></script><title>catalogue</title></head><body><script>const WIDTH = 280 - 42;
-const HEIGHT = 280 - 42 - 30;</script><main><div class="main-content-centered"><h1>catalogue</h1><p></p><div class="section"><h2>widgets</h2><a class="card" href="widgets/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
+const HEIGHT = 280 - 42 - 30;</script><main><div class="main-content-wide"><h1>catalogue</h1><p>Here you can explore all available widgets, their APIs and related components that make up the library.</p><h2>widgets</h2><div class="card-container"><a class="card" href="widgets/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
 dalian.AreaChart('area-chart-card', '#area-chart')
   .data([{
     name: 'normal',
@@ -108,13 +108,13 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .leftAxis.label('Y')
   .size(2)
   .render()
-</script></a></div><div class="section"><h2>components</h2><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
+</script></a></div><h2>components</h2><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
 dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .data([{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
+    values: Array.from({ length: 1000 }, (d, i) => ({
       x: i / 10,
-      y: Math.exp(i / 100)
+      y: Math.sin(i / 100)
     }))
   }])
   .x(0)
@@ -130,9 +130,9 @@ dalian.LineChart('bottom-axis-card', '#bottom-axis')
 dalian.LineChart('left-axis-card', '#left-axis')
   .data([{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
+    values: Array.from({ length: 1000 }, (d, i) => ({
       x: i / 10,
-      y: Math.exp(i / 100)
+      y: Math.sin(i / 100)
     }))
   }])
   .x(0)

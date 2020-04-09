@@ -16,9 +16,9 @@
 dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .data([{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
+    values: Array.from({ length: 1000 }, (d, i) => ({
       x: i / 10,
-      y: Math.exp(i / 100)
+      y: Math.sin(i / 100)
     }))
   }])
   .x(0)

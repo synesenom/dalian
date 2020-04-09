@@ -1,14 +1,18 @@
 export default (self, api) => {
   // Private members
   let _ = {
-    policy: undefined,
+    // Default behavior.
     mapping: () => '2px'
   }
 
   // Protected members
   self = Object.assign(self || {}, {
     _lineWidth: {
-      mapping: key => _.mapping(key)
+      // Mapping used internally.
+      mapping: key => _.mapping(key),
+
+      // Returns the maximum line width for a set of keys.
+      maxLineWidth: keys => Math.max(...keys.map(d => parseInt(_.mapping(d))))
     }
   })
 
@@ -29,9 +33,6 @@ export default (self, api) => {
      * @returns {Widget} Reference to the widget API.
      */
     lineWidth: policy => {
-      // Update line width policy
-      _.policy = policy
-
       // Update line width mapping
       if (typeof policy === 'undefined') {
         // No line width policy, using default
@@ -40,8 +41,8 @@ export default (self, api) => {
           // Single line width policy, using the specified line width
           _.mapping = () => policy + 'px'
       } else {
-        // Line width mapping given
-        _.mapping = key => policy[key] + 'px'
+        // Line width mapping given. Try to get line width for specified key, or use 2px if missing.
+        _.mapping = key => (policy[key] || 2) + 'px'
       }
       return api
     }

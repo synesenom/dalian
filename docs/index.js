@@ -9,24 +9,24 @@ const { JSDOM } = require('jsdom')
 const MODULES = [
   'components/axis/bottom-axis',
   'components/axis/left-axis',
-  'components/chart',
-  'components/color',
-  'components/description',
-  'components/font',
-  'components/grid/base-grid',
-  'components/grid/x-grid',
-  'components/grid/y-grid',
-  'components/mouse',
-  'components/opacity',
-  'components/pin',
-  'components/placeholder',
-  'components/range/x-range',
-  'components/range/y-range',
-  'components/trend',
-  'components/tooltip/tooltip',
-  'components/tooltip/point-tooltip',
-  'components/tooltip/element-tooltip',
-  'components/widget',
+  'components/chart', // TODO example
+  'components/color', // TODO example
+  'components/description', // TODO example
+  'components/font', // TODO example
+  'components/grid/base-grid', // TODO example
+  'components/grid/x-grid', // TODO example
+  'components/grid/y-grid', // TODO example
+  'components/mouse', // TODO example
+  'components/opacity', // TODO example
+  'components/pin', // TODO example
+  'components/placeholder', // TODO example
+  'components/range/x-range', // TODO example
+  'components/range/y-range', // TODO example
+  'components/trend', // TODO example
+  'components/tooltip/tooltip', // TODO example
+  'components/tooltip/point-tooltip', // TODO example
+  'components/tooltip/element-tooltip', // TODO example
+  'components/widget', // TODO example
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',

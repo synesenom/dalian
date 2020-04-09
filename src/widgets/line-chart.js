@@ -74,9 +74,10 @@ export default (name, parent = 'body') => {
         .filter(d => d.y !== null)
 
       // Update scales
+      const buffer = self._lineWidth.maxLineWidth(self._chart.data.map(d => d.name))
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(self._xRange.range(flatData.map(d => d.x)))
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range(parseInt(self._widget.size.innerHeight), buffer)
         .domain(self._yRange.range(flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))))
 
       // Create line and error path functions
@@ -106,7 +107,7 @@ export default (name, parent = 'body') => {
           g.append('path')
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
-            .style('stroke-width', d => self._lineWidth.mapping(d.name) || '2px')
+            .style('stroke-width', d => self._lineWidth.mapping(d.name))
             .style('opacity', 0)
             .style('fill', 'none')
             .style('stroke-linejoin', 'round')
