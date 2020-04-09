@@ -1,4 +1,5 @@
 import { event, select } from 'd3'
+import styles from '../utils/styles'
 
 /**
  * Component implementing the widget description feature. A description is a static pop-up label shown when the context
@@ -18,22 +19,22 @@ export default (self, api) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem
       } else {
-        return select('body').append('div')
-          .attr('id', _.id)
-          .style('position', 'absolute')
-          .style('left', (event.pageX + 20) + 'px')
-          .style('top', (event.pageY - 20) + 'px')
-          .style('width', 'auto')
-          .style('max-width', '500px')
-          .style('padding', '10px')
-          .style('background', 'white')
-          .style('box-shadow', '0 0 3px black')
-          .style('border-radius', '3px')
-          .style('color', 'black')
-          .style('font-size', '0.8em')
-          .style('font-family', 'inherit')
-          .style('line-height', '1.35em')
-          .style('pointer-events', 'none')
+        return styles(select('body').append('div').attr('id', _.id), {
+          position: 'absolute',
+          left: (event.pageX + 20) + 'px',
+          top: (event.pageY - 20) + 'px',
+          width: 'auto',
+          'max-width': '500px',
+          padding: '10px',
+          background: '#fff',
+          'box-shadow': '0 0 3px #000',
+          'border-radius': '3px',
+          color: '#000',
+          'font-size': '.8em',
+          'font-family': 'inherit',
+          'line-height': '1.35em',
+          'pointer-events': 'none'
+        })
       }
     },
 

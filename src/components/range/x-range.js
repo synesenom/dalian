@@ -11,8 +11,8 @@ export default (self, api) => {
 
   self = Object.assign(self || {}, {
     _xRange: {
-      min: base.min,
-      max: base.max
+      range: base.range,
+      contains: base.contains
     }
   })
 
@@ -27,7 +27,7 @@ export default (self, api) => {
        * @returns {Widget} Reference to the Widget's API.
        */
       min: value => {
-        base.setMin(value)
+        base.min(value)
         return api
       },
 
@@ -40,7 +40,7 @@ export default (self, api) => {
        * @returns {Widget} Reference to the Widget's API.
        */
       max: value => {
-        base.setMax(value)
+        base.max(value)
         return api
       }
     }

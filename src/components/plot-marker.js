@@ -8,6 +8,7 @@ export default (self, api) => {
   })
 
   self._plotMarker.add = (x, y, id, name, size) => {
+    // TODO Use attributes/styles methods to set properties.
     let marker = self._plotMarker.markers.get(id)
     self._plotMarker.markers.set(id, marker || self._chart.plots.append('circle'))
     self._plotMarker.markers.get(id)

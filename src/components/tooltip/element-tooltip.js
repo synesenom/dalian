@@ -1,4 +1,5 @@
 import { select } from 'd3'
+import styles from '../../utils/styles'
 import BaseTooltip from './tooltip'
 
 /**
@@ -26,39 +27,40 @@ export default (self, api) => {
       }
 
       // Create content node
-      let contentNode = select(document.createElement('div'))
-        .style('border-radius', '2px')
-        .style('padding', '10px')
-        .style('font-family', 'inherit')
-        .style('border-left', content.stripe ? 'solid 4px ' + content.stripe : null)
+      let contentNode = styles(select(document.createElement('div')), {
+        'border-radius': '2px',
+        padding: '10px',
+        'font-family': 'inherit',
+        'border-left': content.stripe ? 'solid 4px ' + content.stripe : null
+      })
 
       // Add title
-      contentNode
-        .append('div')
-        .style('position', 'relative')
-        .style('width', 'calc(100% - 10px)')
-        .style('line-height', '11px')
-        .style('margin', '2px')
-        .style('margin-bottom', '10px')
-        .text(self._tooltip.titleFormat(content.title))
+      styles(contentNode.append('div'), {
+        position: 'relative',
+        width: 'calc(100% - 10px)',
+        'line-height': '11px',
+        margin: '2px',
+        'margin-bottom': '10px'
+      }).text(self._tooltip.titleFormat(content.title))
 
       // Add content
       content.content.data.forEach(item => {
-          let entry = contentNode.append('div')
-            .style('position', 'relative')
-            .style('height', '10px')
-            .style('margin', '2px')
-            .style('padding-right', '10px')
-            .style('line-height', '11px')
-          entry.append('div')
-            .style('position', 'relative')
-            .style('float', 'left')
-            .style('margin-right', '10px')
-            .text(item.name + ':')
-          entry.append('span')
-            .style('position', 'relative')
-            .style('float', 'left')
-            .html(self._tooltip.rowFormat(item.value))
+          let entry = styles(contentNode.append('div'), {
+            position: 'relative',
+            height: '10px',
+            margin: '2px',
+            'padding-right': '10px',
+            'line-height': '11px'
+          })
+          styles(entry.append('div'), {
+            position: 'relative',
+            float: 'left',
+            'margin-right': '10px'
+          }).text(item.name + ':')
+          styles(entry.append('span'), {
+            position: 'relative',
+            float: 'left'
+          }).html(self._tooltip.rowFormat(item.value))
         })
 
       return contentNode.node().outerHTML

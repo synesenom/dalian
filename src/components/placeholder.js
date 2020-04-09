@@ -1,4 +1,5 @@
 import extend from '../core/extend'
+import styles from '../utils/styles'
 
 /**
  * Component implementing the placeholder feature. The placeholder is a blank div with a message in the middle that
@@ -69,26 +70,28 @@ export default (self, api) => {
           _.elem = self._widget.container.append('div')
             .attr('id', _.id)
             .attr('class', 'dalian-placeholder')
-            .style('display', 'table')
-            .style('position', 'absolute')
-            .style('width', self._widget.size.width)
-            .style('height', self._widget.size.height)
-            .style('left', 0)
-            .style('top', 0)
-            .style('color', 'inherit')
-            .style('font-family', 'inherit')
-            .style('font-size', 'inherit')
-            .style('pointer-events', 'none')
-          _.elem.append('span')
-            .style('display', 'table-cell')
-            .style('vertical-align', 'middle')
-            .style('line-height', 'normal')
-            .style('text-align', 'center')
-            .style('color', 'inherit')
-            .style('font-family', 'inherit')
-            .style('font-size', 'inherit')
-            .style('opacity', 0)
-            .html(content)
+          styles(_.elem, {
+            display: 'table',
+            position: 'absolute',
+            width: self._widget.size.width,
+            height: self._widget.size.height,
+            left: 0,
+            top: 0,
+            color: 'inherit',
+            'font-family': 'inherit',
+            'font-size': 'inherit',
+            'pointer-events': 'none'
+          })
+          styles(_.elem.append('span'), {
+            display: 'table-cell',
+            'vertical-align': 'middle',
+            'line-height': 'normal',
+            'text-align': 'center',
+            color: 'inherit',
+            'font-family': 'inherit',
+            'font-size': 'inherit',
+            opacity: 0
+          }).html(content)
             .transition().duration(duration)
             .style('opacity', 1)
         }

@@ -127,7 +127,6 @@ buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.ht
   })
 })
 
-// TODO List chart modules automatically
 MODULES.forEach(async d => {
   const docs = await documentation.build([`../src/${d}.js`], {
     shallow: true

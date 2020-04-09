@@ -6,6 +6,7 @@ import { select } from 'd3'
  *
  * @function Widget
  */
+// TODO Use attributes/styles methods.
 export default (type, name, parent, elem) => {
   // Private members
   let _ = {

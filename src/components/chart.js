@@ -8,15 +8,8 @@ import Mouse from './mouse'
 import Placeholder from './placeholder'
 import Widget from './widget'
 
-// TODO Add documentation for components: Color, Description, Font, Mouse, Placholder, Widget.
-// TODO Add to docs.
-
-// TODO Add xDomain(number[])
-// TODO Add yDomain(number[])
 // FIXME When highlight is on, newly entering plots are visible
-// TODO Update plotGroups to use .join()
-// TODO Bind mouse events to enter and update
-
+// TODO Use attributes/styles methods.
 /**
  * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget.html} component
  * with all of its exposed API. It extends the following components:

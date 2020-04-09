@@ -1,4 +1,5 @@
 import { select } from 'd3'
+import styles from '../../utils/styles'
 import Tooltip from './tooltip'
 
 
@@ -27,41 +28,42 @@ export default (self, api) => {
       }
 
       // Create content node
-      let contentNode = select(document.createElement('div'))
-        .style('display', 'table')
-        .style('padding', '10px')
+      let contentNode = styles(select(document.createElement('div')), {
+          display: 'table',
+          padding: '10px'
+        })
 
       // Add title
-      contentNode.append('div')
-        .style('display', 'table-row')
-        .style('position', 'relative')
-        .text(self._tooltip.xFormat(content.title))
-
-      // TODO Remove this: add to ElementTooltip
+      styles(contentNode.append('div'), {
+        display: 'table-row',
+        position: 'relative'
+      }).text(self._tooltip.xFormat(content.title))
 
       // Add content
       content.content.data.sort((a, b) => a.name.localeCompare(b.name))
         .forEach((plot, i) => {
-          let entry = contentNode.append('div')
-            .style('display', 'table-row')
-            .style('position', 'relative')
-          entry.append('div')
-            .style('display', 'table-cell')
-            .style('position', 'relative')
-            .style('width', '9px')
-            .style('height', '9px')
-            .style('top', '1px')
-            .style('float', 'left')
-            .style('margin-top', (i === 0 ? 6 : 3) + 'px')
-            .style('margin-right', '10px')
-            .style('background', plot.background)
-          entry.append('div')
-            .style('display', 'table-cell')
-            .style('position', 'relative')
-            .style('max-width', '120px')
-            .style('margin-top', (i === 0 ? 6 : 3) + 'px')
-            .style('float', 'left')
-            .html(self._tooltip.yFormat(plot.value))
+          let entry = styles(contentNode.append('div'), {
+            display: 'table-row',
+            position: 'relative'
+          })
+          styles(entry.append('div'), {
+            display: 'table-cell',
+            position: 'relative',
+            width: '9px',
+            height: '9px',
+            top: '1px',
+            float: 'left',
+            'margin-top': (i === 0 ? 6 : 3) + 'px',
+            'margin-right': '10px',
+            background: plot.background
+          })
+          styles(entry.append('div'), {
+            display: 'table-cell',
+            position: 'relative',
+            'max-width': '120px',
+            'margin-top': (i === 0 ? 6 : 3) + 'px',
+            float: 'left'
+          }).html(self._tooltip.yFormat(plot.value))
         })
 
       return contentNode.node().outerHTML

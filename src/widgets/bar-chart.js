@@ -12,7 +12,6 @@ import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
 
 // TODO Add reference to all components: Highlight
-// TODO Add more components: XGrid.
 /**
  * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
@@ -26,7 +25,6 @@ import Scale from '../components/scale'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  // TODO Fix this separate declaration of scales (needed by the axis components)
   let scales = {
     x: Scale('band'),
     y: Scale('linear')

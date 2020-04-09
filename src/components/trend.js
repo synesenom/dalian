@@ -91,6 +91,7 @@ export default scales => (() => {
         const g = self._chart.plots.append('g')
           .attr('class', 'trend ' + encode(key))
           .style('opacity', 0)
+        // TODO Use attributes/styles methods to set properties
         const horizontal = g.append('line')
           .attr('class', 'horizontal')
           .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))

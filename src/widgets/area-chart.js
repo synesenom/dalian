@@ -28,7 +28,6 @@ import Smoothing from '../components/smoothing'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  // TODO Fix this separate declaration of scales (needed by the axis components)
   let scales = {
     x: Scale('linear'),
     y: Scale('linear')
@@ -52,13 +51,13 @@ export default (name, parent = 'body') => {
     // Methods
     update: duration => {
       // Collect all data points
-      const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
+      const flatData = self._chart.data.map(d => d.values).flat()
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(flatData.map(d => d.x))
+      // Make sure scale starts at 0
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        // Make sure scale starts at 0
         .domain(flatData.map(d => d.y).concat(0))
 
       // Create area and line.
@@ -208,8 +207,6 @@ export default (name, parent = 'body') => {
    * </dl>
    * @returns {AreaChart} The AreaChart itself.
    */
-
-  // TODO Add fillStyle policy hee
 
   /**
    * Highlights a single plot or multiple plots.

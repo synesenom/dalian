@@ -68,20 +68,13 @@ export default (name, parent = 'body') => {
     // Methods
     update: duration => {
       // Determine boundaries
-      // TODO Add these methods to utils as they are duplicated everywhere
-      const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
-      const xData = flatData.map(d => d.x)
-      const yData = flatData.map(d => d.y)
-      const xMin = self._xRange.min(xData) - self._scatterPlot.size
-      const xMax = self._xRange.max(xData) + self._scatterPlot.size
-      const yMin = self._yRange.min(yData) - self._scatterPlot.size
-      const yMax = self._yRange.max(yData) + self._scatterPlot.size
+      const flatData = self._chart.data.map(d => d.values).flat()
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain([xMin, xMax])
+        .domain(self._xRange.range(flatData.map(d => d.x)))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain([yMin, yMax])
+        .domain(self._yRange.range(flatData.map(d => d.y)))
 
       // Add plots
       self._chart.plotGroups({
@@ -149,13 +142,13 @@ export default (name, parent = 'body') => {
     }
 
     // Find closest sites
-    const site = _.diagram.find(mouse[0], mouse[1], 10)
+    const site = _.diagram.find(mouse[0], mouse[1], 20)
     if (!site) {
       self._plotMarker.remove()
       return
     } else {
-      self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker',
-        site.data.name, 1.5 * self._scatterPlot.size)
+      self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker', site.data.name,
+        Math.max(5, 1.5 * self._scatterPlot.size))
     }
 
     return {
@@ -179,6 +172,14 @@ export default (name, parent = 'body') => {
 
   // Public API
   api = Object.assign(api, {
+    /**
+     * Sets the circles' radius in pixels.
+     *
+     * @method size
+     * @methodOf ScatterPlot
+     * @param {number} [value = 4] Radius of the circles to set in pixels
+     * @returns {Object} Reference to the ScattePlot's API.
+     */
     size: value => {
       self._scatterPlot.size = value
       return api

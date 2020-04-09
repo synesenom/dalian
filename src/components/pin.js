@@ -8,6 +8,7 @@ import extend from '../core/extend'
  *
  * @function Pin
  */
+// TODO Use attributes/styles methods.
 export default scales => (() => {
   return (self, api) => {
     // Private members

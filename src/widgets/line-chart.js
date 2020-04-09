@@ -40,7 +40,6 @@ import YRange from '../components/range/y-range'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  // TODO Fix this separate declaration of scales (needed by the Trend)
   let scales = {
     x: Scale('linear'),
     y: Scale('linear')
@@ -67,30 +66,18 @@ export default (name, parent = 'body') => {
   let _ = {
     // Variables
     scales,
-    // TODO Get rid of these duplicated variables, move them to XRange/YRange.
-    xMin: undefined,
-    xMax: undefined,
-    yMin: undefined,
-    yMax: undefined,
 
     // Methods
     update: duration => {
       // Determine boundaries
-      const flatData = self._chart.data.reduce((acc, d) => acc.concat(d.values), [])
+      const flatData = self._chart.data.map(d => d.values).flat()
         .filter(d => d.y !== null)
-      const xData = flatData.map(d => d.x)
-      _.xMin = self._xRange.min(xData)
-      _.xMax = self._xRange.max(xData)
-      const yData = flatData.map(d => d.y - d.lo)
-        .concat(flatData.map(d => d.y + d.hi))
-      _.yMin = self._yRange.min(yData)
-      _.yMax = self._yRange.max(yData)
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain([_.xMin, _.xMax])
+        .domain(self._xRange.range(flatData.map(d => d.x)))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain([_.yMin, _.yMax])
+        .domain(self._yRange.range(flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))))
 
       // Create line and error path functions
       const lineFn = line()
@@ -187,7 +174,7 @@ export default (name, parent = 'body') => {
       x = point.x
 
       // Marker
-      if (point.y !== null && point.y >= _.yMin && point.y <= _.yMax) {
+      if (point.y !== null && self._yRange.contains(point.y)) {
         self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
       } else {
         self._plotMarker.remove(d.name)
