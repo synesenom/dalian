@@ -12,6 +12,7 @@ import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
 
 // TODO Add reference to all components: Highlight
+// TODO Add more components: XGrid.
 /**
  * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
@@ -241,25 +242,6 @@ export default (name, parent = 'body') => {
 
   // Documentation
   /**
-   * Sets the color policy for the plots. Supported policies:
-   * <ul>
-   *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
-   *     qualitative color scheme Set 1 from Color Brewer.</li>
-   *     <li>Single color or shades of a color (passing {string}): Either the specified color is used for all plots or a
-   *     palette is generated from its shades (see {size}).</li>
-   *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
-   *     property with the same name as the plot's key.</li>
-   * </ul>
-   *
-   * @method color
-   * @methodOf BarChart
-   * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
-   * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
-   * the color specified for {policy} is used for all plots.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
    * Set/updates the data that is shown in the bar chart.
    *
    * @method data
@@ -269,27 +251,6 @@ export default (name, parent = 'body') => {
    *   <li>{string} <i>name</i>: Category name.</li>
    *   <li>{number} <i>value</i>: Category value.</li>
    * </ul>
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Enables/disables description for the bar chart. A description is a small tooltip that is bound to the context menu
-   * (also disables default event handler). The description disappears once the mouse leaves the chart. If called
-   * without argument, description is disabled.
-   *
-   * @method description
-   * @methodOf BarChart
-   * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
-   * disabled.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the height of the bar chart (including it's margins).
-   *
-   * @method height
-   * @methodOf BarChart
-   * @param {number} [value = 200] Height value in pixels.
    * @returns {BarChart} The BarChart itself.
    */
 
@@ -314,38 +275,6 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Sets the chart margins in pixels. Margins are included in width and height and thus effectively shrink the
-   * plotting area.
-   *
-   * @method margins
-   * @methodOf BarChart
-   * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
-   * sides.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Replaces the chart with a placeholder message positioned in the center of the original chart. If no placeholder
-   * content is provided, the chart is recovered.
-   *
-   * @method placeholder
-   * @methodOf BarChart
-   * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
-   * @param {number} [duration = 700] Duration of the placeholder animation in ms.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Renders the bar chart. If called for the first time, the chart is built, otherwise this method updates the chart
-   * with the attributes and styles that have been changed since the last rendering.
-   *
-   * @method render
-   * @methodOf BarChart
-   * @param {number} [duration = 700] Duration of the rendering animation in ms.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
    * Shows the values at the top of the bars.
    *
    * @method value
@@ -360,71 +289,6 @@ export default (name, parent = 'body') => {
    * @method valueFormat
    * @methodOf BarChart
    * @param {Function} format The format to use for the values shown on the top of the bars.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the width of the bar chart (including it's margins).
-   *
-   * @method width
-   * @methodOf BarChart
-   * @param {number} [value = 300] Width value in pixels.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the X coordinate of the bar chart. If negative, the chart's right side is measured from the right side of the
-   * parent, otherwise it is measured from the left side.
-   *
-   * @method x
-   * @methodOf BarChart
-   * @param {number} [value = 0] Value of the X coordinate in pixels.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the X label for the chart.
-   *
-   * @method xLabel
-   * @methodOf BarChart
-   * @param {string} label Text to set as the label.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the X tick format of the chart.
-   *
-   * @method xTickFormat
-   * @methodOf BarChart
-   * @param {Function} format Function to set as formatter.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the Y coordinate of the bar chart. If negative, the chart's bottom side is measured from the bottom of the
-   * parent, otherwise the top side is measured from the top.
-   *
-   * @method y
-   * @methodOf BarChart
-   * @param {number} [value = 0] Value of the Y coordinate in pixels.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the Y label for the chart.
-   *
-   * @method yLabel
-   * @methodOf BarChart
-   * @param {string} label Text to set as the label.
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Sets the Y tick format of the chart.
-   *
-   * @method yTickFormat
-   * @methodOf BarChart
-   * @param {Function} format Function to set as formatter.
    * @returns {BarChart} The BarChart itself.
    */
 }

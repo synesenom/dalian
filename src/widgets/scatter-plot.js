@@ -12,13 +12,16 @@ import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 
 
-// TODO Add all components to docs: Highlight, XRange, YRange
+// TODO Add all components to docs: Highlight
+// TODO Add more components: XGrid, YGrid.
 /**
  * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [LeftAxis]{@link ../components/left-axis.html},
- * [ElementTooltip]{@link ../components/point-tooltip.html}.
+ * [ElementTooltip]{@link ../components/point-tooltip.html},
+ * [XRange]{@link ../components/x-range.html},
+ * [YRange]{@link ../components/y-range.html}.
  *
  * @function ScatterPlot
  * @param {string} name Name of the chart. Should be a unique identifier.

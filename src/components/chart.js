@@ -18,13 +18,13 @@ import Widget from './widget'
 // TODO Bind mouse events to enter and update
 
 /**
- * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget} component with all
- * of its exposed API. It extends the following components:
- * [Color]{@link ../components/color.html}
- * [Description]{@link ../components/description.html}
- * [Font]{@link ../components/font.html}
- * [Mouse]{@link ../components/mouse.html}
- * [Placeholder]{@link ../components/placeholder.html}
+ * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget.html} component
+ * with all of its exposed API. It extends the following components:
+ * [Color]{@link ../components/color.html},
+ * [Description]{@link ../components/description.html},
+ * [Font]{@link ../components/font.html},
+ * [Mouse]{@link ../components/mouse.html},
+ * [Placeholder]{@link ../components/placeholder.html}.
  *
  * @function Chart
  */

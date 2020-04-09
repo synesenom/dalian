@@ -230,26 +230,6 @@ export default (name, parent = 'body') => {
   return api
 
   // Documentation
-
-  /**
-   * Sets the color policy for the plots. Supported policies:
-   * <ul>
-   *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
-   *     qualitative color scheme Set 1 from Color Brewer.</li>
-   *     <li>Single color or shades of a color (passing {string}): Either the specified color is used for all plots or a
-   *     palette is generated from its shades (see {size}).</li>
-   *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
-   *     property with the same name as the plot's key.</li>
-   * </ul>
-   *
-   * @method color
-   * @methodOf LineChart
-   * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
-   * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
-   * the color specified for {policy} is used for all plots.
-   * @returns {LineChart} The LineChart itself.
-   */
-
   /**
    * Set/updates the data that is shown in the line chart.
    *
@@ -267,27 +247,6 @@ export default (name, parent = 'body') => {
    *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
    *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
    * </dl>
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Enables/disables description for the line chart. A description is a small tooltip that is bound to the context menu
-   * (also disables default event handler). The description disappears once the mouse leaves the chart. If called
-   * without argument, description is disabled.
-   *
-   * @method description
-   * @methodOf LineChart
-   * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
-   * disabled.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the height of the line chart (including it's margins).
-   *
-   * @method height
-   * @methodOf LineChart
-   * @param {number} [value = 200] Height value in pixels.
    * @returns {LineChart} The LineChart itself.
    */
 
@@ -334,73 +293,11 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Sets the chart margins in pixels. Margins are included in width and height and thus effectively shrink the
-   * plotting area.
-   *
-   * @method margins
-   * @methodOf LineChart
-   * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
-   * sides.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Replaces the chart with a placeholder message positioned in the center of the original chart. If no placeholder
-   * content is provided, the chart is recovered.
-   *
-   * @method placeholder
-   * @methodOf LineChart
-   * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
-   * @param {number} [duration = 700] Duration of the placeholder animation in ms.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Renders the line chart. If called for the first time, the chart is built, otherwise this method updates the chart
-   * with the attributes and styles that have been changed since the last rendering.
-   *
-   * @method render
-   * @methodOf LineChart
-   * @param {number} [duration = 700] Duration of the rendering animation in ms.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
    * Enables/disables polygon smoothing.
    *
    * @method smoothing
    * @methodOf LineChart
    * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the width of the line chart (including it's margins).
-   *
-   * @method width
-   * @methodOf LineChart
-   * @param {number} [value = 300] Width value in pixels.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the X coordinate of the line chart. If negative, the chart's right side is measured from the right side of the
-   * parent, otherwise it is measured from the left side.
-   *
-   * @method x
-   * @methodOf LineChart
-   * @param {number} [value = 0] Value of the X coordinate in pixels.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-
-  /**
-   * Sets the Y coordinate of the line chart. If negative, the chart's bottom side is measured from the bottom of the
-   * parent, otherwise the top side is measured from the top.
-   *
-   * @method y
-   * @methodOf LineChart
-   * @param {number} [value = 0] Value of the Y coordinate in pixels.
    * @returns {LineChart} The LineChart itself.
    */
 }

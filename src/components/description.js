@@ -1,5 +1,12 @@
 import { event, select } from 'd3'
 
+/**
+ * Component implementing the widget description feature. A description is a static pop-up label shown when the context
+ * menu is opened (historically on right mouse click). The description disappears once the mouse leaves the widget. When
+ * this component is available for a widget, its API is exposed directly via the widget's own API.
+ *
+ * @function Description
+ */
 export default (self, api) => {
   // Private members
   let _ = {
@@ -41,15 +48,13 @@ export default (self, api) => {
   // Public API
   api = Object.assign(api || {}, {
     /**
-     * Enables/disables description for the current widget. A description is a small tooltip that is bound to the
-     * context menu (also disables default event handler). The description disappears once the mouse leaves the widget.
-     * If called without argument, description is disabled.
+     * Enables/disables description for the current widget.
      *
      * @method description
-     * @methodOf Widget
+     * @methodOf Description
      * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
      * disabled.
-     * @returns {Object} Reference to the widget API.
+     * @returns {Widget} Reference to the Widget's API.
      */
     description: content => {
       // If content is empty, disable description

@@ -2,7 +2,7 @@
  * Component implementing the mouse features. When this component is available for a widget, its API is exposed via the
  * {.mouse} namespace.
  *
- * @function Font
+ * @function Mouse
  */
 export default (self, api) => {
   // Private members

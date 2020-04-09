@@ -15,6 +15,7 @@ import Smoothing from '../components/smoothing'
 
 // TODO Add reference to all components: Highlight, Opacity, Smoothing
 // TODO Add top stroke to area.
+// TODO Add more components: XGrid, YGrid.
 /**
  * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. FUrthermore it extends the following components:
@@ -170,25 +171,6 @@ export default (name, parent = 'body') => {
 
   // Documentation
   /**
-   * Sets the color policy for the plots. Supported policies:
-   * <ul>
-   *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
-   *     qualitative color scheme Set 1 from Color Brewer.</li>
-   *     <li>Single color or shades of a color (passing {string}): Either the specified color is used for all plots or a
-   *     palette is generated from its shades (see {size}).</li>
-   *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
-   *     property with the same name as the plot's key.</li>
-   * </ul>
-   *
-   * @method color
-   * @methodOf AreaChart
-   * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
-   * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
-   * the color specified for {policy} is used for all plots.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
    * Set/updates the data that is shown in the area chart.
    *
    * @method data
@@ -206,28 +188,7 @@ export default (name, parent = 'body') => {
    * @returns {AreaChart} The AreaChart itself.
    */
 
-  /**
-   * Enables/disables description for the area chart. A description is a small tooltip that is bound to the context menu
-   * (also disables default event handler). The description disappears once the mouse leaves the chart. If called
-   * without argument, description is disabled.
-   *
-   * @method description
-   * @methodOf AreaChart
-   * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
-   * disabled.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
   // TODO Add fillStyle policy hee
-
-  /**
-   * Sets the height of the area chart (including it's margins).
-   *
-   * @method height
-   * @methodOf AreaChart
-   * @param {number} [value = 200] Height value in pixels.
-   * @returns {AreaChart} The AreaChart itself.
-   */
 
   /**
    * Highlights a single plot or multiple plots.
@@ -241,17 +202,6 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Sets the chart margins in pixels. Margins are included in width and height and thus effectively shrink the
-   * plotting area.
-   *
-   * @method margins
-   * @methodOf AreaChart
-   * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
-   * sides.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
    * Sets the fill opacity of the area plots.
    *
    * @method opacity
@@ -261,61 +211,11 @@ export default (name, parent = 'body') => {
    */
 
   /**
-   * Replaces the chart with a placeholder message positioned in the center of the original chart. If no placeholder
-   * content is provided, the chart is recovered.
-   *
-   * @method placeholder
-   * @methodOf AreaChart
-   * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
-   * @param {number} [duration = 700] Duration of the placeholder animation in ms.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Renders the area chart. If called for the first time, the chart is built, otherwise this method updates the chart
-   * with the attributes and styles that have been changed since the last rendering.
-   *
-   * @method render
-   * @methodOf AreaChart
-   * @param {number} [duration = 700] Duration of the rendering animation in ms.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
    * Enables/disables polygon smoothing.
    *
    * @method smoothing
    * @methodOf AreaChart
    * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the width of the area chart (including it's margins).
-   *
-   * @method width
-   * @methodOf AreaChart
-   * @param {number} [value = 300] Width value in pixels.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the X coordinate of the area chart. If negative, the chart's right side is measured from the right side of the
-   * parent, otherwise it is measured from the left side.
-   *
-   * @method x
-   * @methodOf AreaChart
-   * @param {number} [value = 0] Value of the X coordinate in pixels.
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Sets the Y coordinate of the area chart. If negative, the chart's bottom side is measured from the bottom of the
-   * parent, otherwise the top side is measured from the top.
-   *
-   * @method y
-   * @methodOf AreaChart
-   * @param {number} [value = 0] Value of the Y coordinate in pixels.
    * @returns {AreaChart} The AreaChart itself.
    */
 }

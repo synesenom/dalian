@@ -1,5 +1,12 @@
 import extend from '../core/extend'
 
+/**
+ * Component implementing the placeholder feature. The placeholder is a blank div with a message in the middle that
+ * replaces the widget. It is useful when no data is available, or when the widgets needs to be hidden/shown
+ * dynamically. When this component is available for a widget, its API is exposed directly via the widget's own API.
+ *
+ * @function Placeholder
+ */
 export default (self, api) => {
   // Private members
   let _ = {
@@ -22,14 +29,14 @@ export default (self, api) => {
   // Public methods
   api = Object.assign(api || {}, {
     /**
-     * Replaces the widget with a placeholder message positioned in the center of the original widget. If no placeholder
-     * content is provided, the widget is recovered.
+     * Shows/hides the placeholder. If no placeholder content is provided, the widget is recovered.
      *
      * @method placeholder
      * @methodOf Placeholder
-     * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is removed.
+     * @param {string} [content] Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is
+     * removed. Note that the content can be an empty string in which case the widget is simply hidden.
      * @param {number} [duration = 400] Duration of the placeholder animation in ms.
-     * @returns {Widget} Reference to the Placeholder API.
+     * @returns {Widget} Reference to the Widget's API.
      */
     placeholder: (content, duration = 400) => {
       // If no content provided, remove placeholder and show widget

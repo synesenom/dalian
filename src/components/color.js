@@ -1,27 +1,6 @@
 import { hsl } from 'd3'
 
 // TODO Add value dependent color scheme
-
-const COLOR_SCHEMA_BREWER = [
-  '#e41a1c',
-  '#377eb8',
-  '#4daf4a',
-  '#984ea3',
-  '#ff7f00',
-  '#ffff33',
-  '#a65628',
-  '#f781bf',
-  '#999999',
-  '#8dd3c7',
-  '#ffffb3',
-  '#bebada',
-  '#fb8072',
-  '#80b1d3',
-  '#fdb462',
-  '#b3de69',
-  '#fccde5',
-  '#d9d9d9'
-]
 const COLOR_PALETTE_DALIAN = [
   'royalblue',
   '#e41a1c',
@@ -55,10 +34,16 @@ const createPalette = palette => {
   }
 }
 
+/**
+ * Component implementing various color scheming features. When this component is available for a widget, its API is
+ * exposed directly via the widget's own API.
+ *
+ * @function Color
+ */
 export default (self, api) => {
   // Private members
   let _ = {
-    policy: undefined,
+    // The actual color mapping.
     mapping: createPalette(COLOR_PALETTE_DALIAN)
   }
 
@@ -83,16 +68,13 @@ export default (self, api) => {
      * </ul>
      *
      * @method color
-     * @methodOf Widget
+     * @methodOf Color
      * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
      * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
      * the color specified for {policy} is used for all plots.
-     * @returns {Widget} Reference to the widget API.
+     * @returns {Widget} Reference to the Widget's API.
      */
     color: (policy, size) => {
-      // Update color policy
-      _.policy = policy
-
       // Update color mapping
       if (typeof policy === 'undefined') {
         // No color policy, using default
