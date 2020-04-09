@@ -21,7 +21,7 @@ import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 
 // TODO Add range to docs.
-// TODO Add reference to components: Highlight, LineStyle, LineWidth, Smoothing, XRange, YRange.
+// TODO Add reference to components: Highlight, LineStyle, LineWidth, Smoothing.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
@@ -31,7 +31,9 @@ import YRange from '../components/range/y-range'
  * [PointTooltip]{@link ../components/point-tooltip.html},
  * [Trend]{@link ../components/trend.html},
  * [XGrid]{@link ../components/x-grid.html},
- * [YGrid]{@link ../components/y-grid.html}.
+ * [XRange]{@link ../components/x-range.html},
+ * [YGrid]{@link ../components/y-grid.html},
+ * [YRange]{@link ../components/y-range.html}.
  *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -399,24 +401,6 @@ export default (name, parent = 'body') => {
    * @method y
    * @methodOf LineChart
    * @param {number} [value = 0] Value of the Y coordinate in pixels.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the lower boundary for the plot if it is lower than the calculated lower boundary.
-   *
-   * @method yMin
-   * @methodOf LineChart
-   * @param {number} value The lower boundary to set.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Sets the upper boundary for the plot if it is greater than the calculated upper boundary.
-   *
-   * @method yMax
-   * @methodOf LineChart
-   * @param {number} value The upper boundary to set.
    * @returns {LineChart} The LineChart itself.
    */
 }

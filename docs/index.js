@@ -15,6 +15,8 @@ const MODULES = [
   'components/grid/y-grid',
   'components/mouse',
   'components/pin',
+  'components/range/x-range',
+  'components/range/y-range',
   'components/trend',
   'components/tooltip/tooltip',
   'components/tooltip/point-tooltip',

@@ -1,31 +1,25 @@
-// TODO Merge with XRange to a BaseRange
-// TODO Add documentation
-export default (self, api) => {
-  // Private members
-  let _ = {
-    yMin: undefined,
-    yMax: undefined
-  }
+import BaseRange from './base-range'
 
-  // Protected members
+/**
+ * Component implementing the Y range constraints. This component enables setting the vertical min/max boundaries for a
+ * chart. When this component is available for a widget, its API is exposed via the {.yRange} namespace.
+ *
+ * @function YRange
+ */
+export default (self, api) => {
+  let base = BaseRange()
+
   self = Object.assign(self || {}, {
     _yRange: {
-      min: data => {
-        let dataMin = Math.min(...data)
-        return typeof _.yMin !== 'undefined' ? _.yMin : dataMin
-      },
-
-      max: data => {
-        let dataMax = Math.max(...data)
-        return typeof _.yMax !== 'undefined' ? _.yMax : dataMax
-      }
+      min: base.min,
+      max: base.max
     }
   })
 
-  api = Object.assign(api, {
+  api = Object.assign(api || {}, {
     yRange: {
       /**
-       * Sets the lower boundary for the plot.
+       * Sets the lower boundary for the Y axis.
        *
        * @method min
        * @methodOf YRange
@@ -33,20 +27,20 @@ export default (self, api) => {
        * @returns {Widget} Reference to the Widget's API.
        */
       min: value => {
-        _.yMin = value
+        base.setMin(value)
         return api
       },
 
       /**
-       * Sets the upper boundary for the plot.
+       * Sets the upper boundary for the Y axis.
        *
-       * @method yMax
+       * @method max
        * @methodOf YRange
        * @param {number} value The upper boundary to set.
        * @returns {Widget} Reference to the Widget's API.
        */
       max: value => {
-        _.yMax = value
+        base.setMax(value)
         return api
       }
     }

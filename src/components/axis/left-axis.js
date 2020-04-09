@@ -12,7 +12,7 @@ export default scale => (() => {
   return (self, api) => {
     // Base class
     let base = BaseAxis('x', self._widget.content, axisLeft, scale)
-    base.self.adjustLabel({
+    base.adjustLabel({
       'text-anchor': 'begin',
       x: 5 + 'px',
       y: (-5) + 'px'
@@ -25,17 +25,17 @@ export default scale => (() => {
 
       update: duration => {
         // Update base axis
-        base.self.update(duration, self._widget.size, self._widget.margins)
+        base.update(duration, self._widget.size, self._widget.margins)
       }
     }
 
     // Protected members
     self = Object.assign(self || {}, {
       _leftAxis: {
-        axis: base.self.fn,
-        update: base.self.update,
-        scale: base.self.scale,
-        label: () => base.self.label
+        axis: base.fn,
+        update: base.update,
+        scale: base.scale,
+        label: () => base.label
       }
     })
 
@@ -54,7 +54,7 @@ export default scale => (() => {
          * @returns {Object} Reference to the LeftAxis API.
          */
         label: label => {
-          base.self.setLabel(label)
+          base.setLabel(label)
           return api
         },
 
@@ -67,8 +67,8 @@ export default scale => (() => {
          * @returns {Object} Reference to the LeftAxis API.
          */
         tickFormat: format => {
-          base.self.tickFormat(format)
-          return self
+          base.tickFormat(format)
+          return api
         },
 
         /**
@@ -80,7 +80,7 @@ export default scale => (() => {
          * @returns {Widget} Reference to the Widget's API.
          */
         hideTicks: on => {
-          base.self.hideTicks(on)
+          base.hideTicks(on)
           return api
         },
 
@@ -93,7 +93,7 @@ export default scale => (() => {
          * @returns {Widget} Reference to the Widget's API.
          */
         hideAxisLine: on => {
-          base.self.hideAxisLine(on)
+          base.hideAxisLine(on)
           return api
         }
       }

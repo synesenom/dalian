@@ -23,7 +23,7 @@ export default (name, parent, axisFn, scale) => {
     axisLine: true
   }
 
-  let self = {
+  let api = {
     // Variables
     label: '',
     fn: axisFn().ticks(5),
@@ -42,7 +42,7 @@ export default (name, parent, axisFn, scale) => {
 
     adjustLabel: attr => {
       Object.entries(attr).forEach(d => {
-        self.axisLabel.attr(...d)
+        api.axisLabel.attr(...d)
       })
     },
 
@@ -53,17 +53,17 @@ export default (name, parent, axisFn, scale) => {
         .style('height', size.innerHeight)
 
       // Update axis
-      self.fn.scale(_.scale.scale)
+      api.fn.scale(_.scale.scale)
         .tickFormat(_.format)
         .tickSize(_.ticks ? 6 : 0)
-      self.axis
+      api.axis
         .transition().duration(duration)
-        .call(self.fn)
+        .call(api.fn)
         .selectAll('path')
         .style('opacity', _.axisLine ? 1 : 0)
 
       // Update label
-      self.axisLabel.text(self.label)
+      api.axisLabel.text(api.label)
     },
 
     hideAxisLine: on => _.axisLine = !on,
@@ -72,9 +72,8 @@ export default (name, parent, axisFn, scale) => {
 
     tickFormat: (format = x => x) => _.format = format,
 
-    setLabel: text => self.label = text,
+    setLabel: text => api.label = text,
   }
 
-  let api = {}
-  return {self, api}
+  return api
 }
