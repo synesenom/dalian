@@ -9,10 +9,15 @@
   const height = width / aspect;
   return { width, height };
 }</script><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
-  A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
-  <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
-  process. Also, it can handle <span class="good">more categories</span> than a pie chart.
-  <br><br>Press <code>U</code> to update the data in the demo chart.
+  <p>
+    A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
+    <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
+    process. Also, it can handle <span class="good">more categories</span> than a pie chart.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+  </ul>
 </p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/bar-chart.js">source</a><a class="right footnote" href="../../../api/widgets/bar-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Data is generated with ranjs:
@@ -48,10 +53,13 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .tooltip.rowFormat(y => y.toFixed(2))
   .render()
 </script><script class="doc">
+// api methods
+const changeData = () => barChart.data(getData()).render(1000)
+</script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'u') {
-    barChart.data(getData()).render(1000)
+  if (e.key === 'd') {
+    changeData()
   }
 })
 </script><script>function resize() {

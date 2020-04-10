@@ -1,0 +1,90 @@
+<div id="desc">
+  <p>
+    The Color component manages various color scheme policies for widgets.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="defaultColors()">D</span>- Default colors.</li>
+    <li><span class="desc-button" onclick="constantColor()">C</span>- Constant color.</li>
+    <li><span class="desc-button" onclick="shadedColor()">S</span>- Shades of the same color.</li>
+    <li><span class="desc-button" onclick="plotSpecificColor()">P</span>- Plot specific color.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.BarChart('color-card', '#color')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random()
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.BarChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .tooltip.on(true)
+  .tooltip.yFormat(y => y.toFixed(2))
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+const defaultColors = () => chart.color().render(1000)
+const constantColor = () => chart.color('grey').render(1000)
+const shadedColor = () => chart.color('red', 5).render(1000)
+const plotSpecificColor = () => chart.color({
+  plot1: 'red',
+  plot2: 'orange',
+  plot3: 'yellow',
+  plot4: 'green',
+  plot5: 'blue'
+}).render(1000)
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      defaultColors()
+      break
+    case 'c':
+      constantColor()
+      break
+    case 's':
+      shadedColor()
+      break
+    case 'p':
+      plotSpecificColor()
+      break
+    default:
+      break
+  }
+})
+</script>

@@ -1,9 +1,14 @@
-<p id="desc">
-  A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
-  <span class="good">monotonic relationship</span> between two quantities, such as
-  <span class="good">correlations</span>.
-  <br><br>Press <code>U</code> to update the data in the demo chart.
-</p>
+<div id="desc">
+  <p>
+    A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
+    <span class="good">monotonic relationship</span> between two quantities, such as
+    <span class="good">correlations</span>.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+  </ul>
+</div>
 
 <script class="card-example">
 dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
@@ -68,10 +73,15 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
 </script>
 
 <script class="doc">
+// api methods
+const changeData = () => scatterPlot.data(getData()).render(1000)
+</script>
+
+<script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'u') {
-    scatterPlot.data(getData()).render(1000)
+  if (e.key === 'd') {
+    changeData()
   }
 })
 </script>

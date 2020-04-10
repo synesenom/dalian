@@ -25,4 +25,5 @@ span.desc-button {
     text-align: center;
     border-radius: 2px;
     font-size: .8em;
+    cursor: pointer;
 }

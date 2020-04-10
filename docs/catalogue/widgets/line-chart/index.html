@@ -9,10 +9,15 @@
   const height = width / aspect;
   return { width, height };
 }</script><title>LineChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
-  Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
-  As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
-  other.
-  <br><br>Press <code>U</code> to update the data in the demo chart.
+  <p>
+    Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
+    As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
+    other.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+  </ul>
 </p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/line-chart.js">source</a><a class="right footnote" href="../../../api/widgets/line-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
@@ -56,10 +61,13 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
   .tooltip.yFormat(d => d === null ? 'No data' : d.toFixed(2))
   .render()
 </script><script class="doc">
+// api methods
+const changeData = () => lineChart.data(getData()).render(1000)
+</script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'u') {
-    lineChart.data(getData()).render(1000)
+  if (e.key === 'd') {
+    changeData()
   }
 })
 </script><script>function resize() {

@@ -2,20 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7a1c1fc-d704-4bca-9234-b82cbf28a181" name="Default" comment="↗️ ElementTooltip fixed">
-      <change afterPath="$PROJECT_DIR$/src/misc/layers/canvas-layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/misc/layers/webgl-layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/misc/map.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/misc/network.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/catalogue/components/color/content.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/pie-chart/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/pie-chart/content.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/catalogue/charts/pie-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/pie-chart/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/flow-chart-edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/flow-chart-edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/flow-chart-node.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/flow-chart-node.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/flow-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/flow-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/flow-chart/vector2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/flow-chart/vector2d.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/pie-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/pie-chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/axis/left-axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/axis/left-axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/components/bottom-axis/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/components/bottom-axis/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/components/bottom-axis/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/components/bottom-axis/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/components/left-axis/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/components/left-axis/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/components/left-axis/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/components/left-axis/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/area-chart/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/area-chart/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/area-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/area-chart/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/bar-chart/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/bar-chart/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/bar-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/bar-chart/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/line-chart/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/line-chart/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/line-chart/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/line-chart/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/scatter-plot/content.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/scatter-plot/content.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/catalogue/widgets/scatter-plot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/catalogue/widgets/scatter-plot/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/style/example.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/style/example.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +34,8 @@
         <option value="SCSS File" />
         <option value="Pug File" />
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -63,7 +66,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/grid" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/catalogue/components/left-axis" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -74,19 +77,19 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/catalogue/components/left-axis" />
+      <recent name="$PROJECT_DIR$/docs/catalogue/components/bottom-axis" />
+      <recent name="$PROJECT_DIR$/src/components/grid" />
+      <recent name="$PROJECT_DIR$/src/components/range" />
+      <recent name="$PROJECT_DIR$/docs/catalogue/misc/map" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/misc" />
       <recent name="$PROJECT_DIR$/docs/api/widgets" />
       <recent name="$PROJECT_DIR$/src/components/grid" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/widgets/flow-chart" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/components/grid" />
-      <recent name="$PROJECT_DIR$/src/components/range" />
-      <recent name="$PROJECT_DIR$/docs/catalogue/misc/map" />
-      <recent name="$PROJECT_DIR$/docs/catalogue/charts/pie-chart" />
-      <recent name="$PROJECT_DIR$/docs/catalogue/charts/bar-chart" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
@@ -198,27 +201,6 @@
       <workItem from="1585302287048" duration="1784000" />
       <workItem from="1585677458988" duration="10653000" />
       <workItem from="1585938685655" duration="15698000" />
-    </task>
-    <task id="LOCAL-00017" summary="Major refactoring">
-      <created>1580507470710</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1580507470710</updated>
-    </task>
-    <task id="LOCAL-00018" summary="More documentation pages added.">
-      <created>1580751588091</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1580751588091</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Catalogue index page added">
-      <created>1580754160610</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1580754160610</updated>
     </task>
     <task id="LOCAL-00020" summary="Area chart added.">
       <created>1580770289414</created>
@@ -542,7 +524,28 @@
       <option name="project" value="LOCAL" />
       <updated>1586377020719</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="↗️ attributes and styles methods added for setting multiple properties">
+      <created>1586446069298</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1586446069298</updated>
+    </task>
+    <task id="LOCAL-00067" summary="📖 Example pages added for axis components">
+      <created>1586450670910</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1586450670913</updated>
+    </task>
+    <task id="LOCAL-00068" summary="📖 Catalogue css improved">
+      <created>1586467405140</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1586467405141</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,8 +565,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="↗️ Pin labels don't consume pointer events" />
-    <MESSAGE value="↗️ Minor adjustments in tooltip content" />
+    <option name="SHOW_UNVERSIONED_FILES_WHILE_COMMIT" value="false" />
     <MESSAGE value="↗️ Stroke line join and cap set to round in LineChart lines" />
     <MESSAGE value="↗️ ElementTooltip fixed" />
     <MESSAGE value="↗️ Highlight animation made faster, plots have pointer-events:none if no mouse interactions attached." />
@@ -587,7 +589,9 @@
     <MESSAGE value="️ ScatterPlot added" />
     <MESSAGE value="↗️ Tooltip added to scatter plot" />
     <MESSAGE value=" More docs added to components" />
-    <option name="LAST_COMMIT_MESSAGE" value=" More docs added to components" />
+    <MESSAGE value=" Example pages added for axis components" />
+    <MESSAGE value=" Catalogue css improved" />
+    <option name="LAST_COMMIT_MESSAGE" value=" Catalogue css improved" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="89" key="#Notifications" timestamp="1583362915594">
@@ -606,10 +610,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="468" y="286" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.801@0.23.1440.801" timestamp="1586088665533" />
-    <state x="312" y="23" key="CommitChangelistDialog2" timestamp="1586377308852">
+    <state x="312" y="23" key="CommitChangelistDialog2" timestamp="1586467404854">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="312" y="23" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1586377308852" />
+    <state x="312" y="23" key="CommitChangelistDialog2/0.23.1440.801@0.23.1440.801" timestamp="1586467404854" />
     <state x="144" y="92" key="DiffContextDialog" timestamp="1584303762946">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -658,10 +662,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="62" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1580835200628" />
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1586090493323">
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2" timestamp="1586467407389">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1586090493323" />
+    <state x="320" y="163" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1586467407389" />
     <state x="509" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583362906140">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -682,14 +686,14 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="480" y="262" key="git4idea.ui.GitUnstashDialog/0.23.1440.801@0.23.1440.801" timestamp="1583363500895" />
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1585683515567">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup" timestamp="1586448622977">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1585683515567" />
-    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1586288663257">
+    <state x="385" y="192" width="670" height="675" key="run.anything.popup/0.23.1440.801@0.23.1440.801" timestamp="1586448622977" />
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup" timestamp="1586506784432">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
-    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1586288663257" />
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801@0.23.1440.801" timestamp="1586506784432" />
     <state x="450" y="268" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1579124946468">
       <screen x="0" y="23" width="1440" height="801" />
     </state>

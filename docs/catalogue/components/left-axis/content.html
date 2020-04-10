@@ -1,14 +1,14 @@
 <div id="desc">
   <p>
-    The LeftAxis component represents the left vertical axis of some charts. In this example you can explore all methods
-    and their behavior by pressing the following keys:
+    The LeftAxis component represents the left vertical axis of some charts.
+    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li><span class="desc-button">D</span>- Change data.</li>
-    <li><span class="desc-button">L</span>- Change axis label.</li>
-    <li><span class="desc-button">F</span>- Change tick format.</li>
-    <li><span class="desc-button">T</span>- Show/hide ticks.</li>
-    <li><span class="desc-button">A</span>- Show/hide axis line.</li>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+    <li><span class="desc-button" onclick="changeLabel()">L</span>- Change axis label.</li>
+    <li><span class="desc-button" onclick="changeTickFormat()">F</span>- Change tick format.</li>
+    <li><span class="desc-button" onclick="toggleTicks()">T</span>- Show/hide ticks.</li>
+    <li><span class="desc-button" onclick="toggleAxisLine()">A</span>- Show/hide axis line.</li>
   </ul>
 </div>
 
@@ -61,34 +61,48 @@ const chart = dalian.LineChart('myChart', '#widget')
 </script>
 
 <script class="doc">
+// api methods
+const changeData = () => chart.data(getData()).render(1000)
+const changeLabel = () => {
+  this.l = this.l || 0
+  chart.leftAxis.label(['Temperature [C]', 'Pressure [Pa]'][(++this.l) % 2])
+    .render()
+}
+const changeTickFormat = () => {
+  this.f = this.f || 0
+  chart.leftAxis.tickFormat([x => x, x => 10 * x][(++this.f) % 2])
+    .render()
+}
+const toggleTicks = () => {
+  this.t = this.t || 0
+  chart.leftAxis.hideTicks([false, true][(++this.t) % 2])
+    .render()
+}
+const toggleAxisLine = () => {
+  this.a = this.a || 0
+  chart.leftAxis.hideAxisLine([false, true][(++this.a) % 2])
+    .render()
+}
+</script>
+
+<script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
     case 'd':
-      // Update data.
-      chart.data(getData()).render(1000)
+      changeData()
       break
     case 'l':
-      // Change label.
-      this.l = this.l || 0
-      chart.leftAxis.label(['Temperature [C]', 'Pressure [Pa]'][(++this.l) % 2])
-        .render()
+      changeLabel()
       break
     case 'f':
-      // Change tick format.
-      this.f = this.f || 0
-      chart.leftAxis.tickFormat([x => x, x => 100 * x][(++this.f) % 2])
-        .render()
+      changeTickFormat()
       break
     case 't':
-      this.t = this.t || 0
-      chart.leftAxis.hideTicks([false, true][(++this.t) % 2])
-        .render()
+      toggleTicks()
       break
     case 'a':
-      this.a = this.a || 0
-      chart.leftAxis.hideAxisLine([false, true][(++this.a) % 2])
-        .render()
+      toggleAxisLine()
       break
     default:
       break

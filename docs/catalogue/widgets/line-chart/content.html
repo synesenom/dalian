@@ -1,9 +1,14 @@
-<p id="desc">
-  Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
-  As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
-  other.
-  <br><br>Press <code>U</code> to update the data in the demo chart.
-</p>
+<div id="desc">
+  <p>
+    Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
+    As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
+    other.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+  </ul>
+</div>
 
 <script class="card-example">
 dalian.LineChart('line-chart-card', '#line-chart')
@@ -87,10 +92,15 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
 </script>
 
 <script class="doc">
+// api methods
+const changeData = () => lineChart.data(getData()).render(1000)
+</script>
+
+<script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'u') {
-    lineChart.data(getData()).render(1000)
+  if (e.key === 'd') {
+    changeData()
   }
 })
 </script>

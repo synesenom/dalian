@@ -1,10 +1,15 @@
-<p id="desc">
-  Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
-  relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
-  distribution of some quantity (probability density).Due to its transparent nature, only a
-  <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
-  <br><br>Press <code>U</code> to update the data in the demo chart.
-</p>
+<div id="desc">
+  <p>
+    Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
+    relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
+    distribution of some quantity (probability density).Due to its transparent nature, only a
+    <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+  </ul>
+</div>
 
 <script class="card-example">
 dalian.AreaChart('area-chart-card', '#area-chart')
@@ -82,10 +87,15 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
 </script>
 
 <script class="doc">
+// api methods
+const changeData = () => areaChart.data(getData()).render(1000)
+</script>
+
+<script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'u') {
-    areaChart.data(getData()).render(1000)
+  if (e.key === 'd') {
+    changeData()
   }
 })
 </script>

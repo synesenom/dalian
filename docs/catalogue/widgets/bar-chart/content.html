@@ -1,9 +1,14 @@
-<p id="desc">
-  A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
-  <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
-  process. Also, it can handle <span class="good">more categories</span> than a pie chart.
-  <br><br>Press <code>U</code> to update the data in the demo chart.
-</p>
+<div id="desc">
+  <p>
+    A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
+    <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
+    process. Also, it can handle <span class="good">more categories</span> than a pie chart.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li><span class="desc-button" onclick="changeData()">D</span>- Change data.</li>
+  </ul>
+</div>
 
 <script class="card-example">
 dalian.BarChart('bar-chart-card', '#bar-chart')
@@ -68,10 +73,15 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 </script>
 
 <script class="doc">
+// api methods
+const changeData = () => barChart.data(getData()).render(1000)
+</script>
+
+<script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'u') {
-    barChart.data(getData()).render(1000)
+  if (e.key === 'd') {
+    changeData()
   }
 })
 </script>
