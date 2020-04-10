@@ -1,0 +1,90 @@
+<div id="desc">
+  <p>
+    The Description component binds a pop-up tooltip to the context menu.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li id="toggleDescription" onclick="toggleDescription()">
+      <span class="desc-button">D</span>
+      <span class="desc-button-label">- Enable description.</span>
+    </li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.LineChart('description-card', '#description')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return [{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time')
+  .leftAxis.label('Temperature [C]')
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleDescription = () => {
+  this.d = ((this.d || 0) + 1) % 2
+  chart.description([undefined, 'This is a simple line chart.'][this.d])
+    .render()
+}
+</script>
+
+<script class="doc-hidden">
+// Override toggle to change button color.
+const _toggleDescription = toggleDescription
+toggleDescription = () => {
+  _toggleDescription()
+  d3.select('#toggleDescription .desc-button').classed('on', this.d === 1)
+  d3.select('#toggleDescription .desc-button-label').text(this.d === 1 ? '- Disable description' : '- Enable description')
+}
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      toggleDescription()
+      break
+    default:
+      break
+  }
+})
+</script>

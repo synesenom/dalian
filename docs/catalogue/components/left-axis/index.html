@@ -14,11 +14,17 @@
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li onclick="changeData()"><span class="desc-button">D</span>- Change data.</li>
-    <li onclick="changeLabel()"><span class="desc-button">L</span>- Change axis label.</li>
-    <li onclick="changeTickFormat()"><span class="desc-button">F</span>- Change tick format.</li>
-    <li onclick="toggleTicks()"><span class="desc-button">T</span>- Show/hide ticks.</li>
-    <li onclick="toggleAxisLine()"><span class="desc-button">A</span>- Show/hide axis line.</li>
+    <li onclick="changeData()"><span class="desc-button">D</span>- Change data</li>
+    <li onclick="changeLabel()"><span class="desc-button">L</span>- Change axis label</li>
+    <li onclick="changeTickFormat()"><span class="desc-button">F</span>- Change tick format</li>
+    <li id="toggleTicks" onclick="toggleTicks()">
+      <span class="desc-button">T</span>
+      <span class="desc-button-label">- Hide ticks</span>
+    </li>
+    <li id="toggleAxisLine" onclick="toggleAxisLine()">
+      <span class="desc-button">A</span>
+      <span class="desc-button-label">- Hide axis line</span>
+    </li>
   </ul>
 </p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/axis/left-axis.js">source</a><a class="right footnote" href="../../../api/components/left-axis.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
@@ -46,26 +52,24 @@ const chart = dalian.LineChart('myChart', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-const changeData = () => chart.data(getData()).render(1000)
-const changeLabel = () => {
+let changeData = () => chart.data(getData()).render(1000)
+let changeLabel = () => {
   this.l = this.l || 0
   chart.leftAxis.label(['Temperature [C]', 'Pressure [Pa]'][(++this.l) % 2])
     .render()
 }
-const changeTickFormat = () => {
+let changeTickFormat = () => {
   this.f = this.f || 0
   chart.leftAxis.tickFormat([x => x, x => 10 * x][(++this.f) % 2])
     .render()
 }
-const toggleTicks = () => {
-  this.t = this.t || 0
-  chart.leftAxis.hideTicks([false, true][(++this.t) % 2])
-    .render()
+let toggleTicks = () => {
+  this.t = !(this.t || 0)
+  chart.leftAxis.hideTicks(this.t).render()
 }
-const toggleAxisLine = () => {
-  this.a = this.a || 0
-  chart.leftAxis.hideAxisLine([false, true][(++this.a) % 2])
-    .render()
+let toggleAxisLine = () => {
+  this.a = !(this.a || 0)
+  chart.leftAxis.hideAxisLine(this.a).render()
 }
 </script><script class="doc">
 // update data on keypress
@@ -90,6 +94,21 @@ window.addEventListener('keydown', e => {
       break
   }
 })
+</script><script class="doc-hidden">
+// Modify toggle buttons
+const _toggleTicks = toggleTicks
+toggleTicks = () => {
+  _toggleTicks()
+  d3.select('#toggleTicks .desc-button').classed('on', this.t)
+  d3.select('#toggleTicks .desc-button-label').text(this.t ? '- Show ticks' : '- Hide ticks')
+}
+
+const _toggleAxisLine = toggleAxisLine
+toggleAxisLine = () => {
+  _toggleAxisLine()
+  d3.select('#toggleAxisLine .desc-button').classed('on', this.a)
+  d3.select('#toggleAxisLine .desc-button-label').text(this.a ? '- Show axis line' : '- Hide axis line')
+}
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

@@ -35,7 +35,8 @@ const MODULES = [
 const MODULES_2 = [
   'components/axis/bottom-axis',
   'components/axis/left-axis',
-  'components/color', // TODO example
+  'components/color',
+  'components/description', // TODO example
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',

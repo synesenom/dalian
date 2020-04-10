@@ -15,6 +15,7 @@ li {
     cursor: pointer;
     color: #555;
     user-select: none;
+    line-height: 18px;
 }
 li:hover {
     color: #888;
@@ -22,14 +23,20 @@ li:hover {
 li:hover .desc-button {
     background-color: #4b74ff;
 }
+li:hover .desc-button.on {
+    background-color: #cf2222;
+}
 li:active {
     color: black;
 }
 li:active .desc-button {
     background-color: #3559b1;
 }
+li:active .desc-button.on {
+    background-color: #832020;
+}
 
-span.desc-button {
+.desc-button {
     display: inline-block;
     background-color: royalblue;
     color: white;
@@ -37,14 +44,12 @@ span.desc-button {
     padding: 2px 4px;
     width: 14px;
     height: 18px;
+    line-height: 18px;
     text-align: center;
     border-radius: 2px;
-    font-size: .8em;
+    font-size: .9em;
     cursor: pointer;
 }
-.desc-button:hover {
-    background-color: #4b74ff;
-}
-.desc-button:active {
-    background-color: #3559b1;
+.desc-button.on {
+    background-color: firebrick;
 }
