@@ -4,10 +4,10 @@
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li><span class="desc-button" onclick="defaultColors()">D</span>- Default colors.</li>
-    <li><span class="desc-button" onclick="constantColor()">C</span>- Constant color.</li>
-    <li><span class="desc-button" onclick="shadedColor()">S</span>- Shades of the same color.</li>
-    <li><span class="desc-button" onclick="plotSpecificColor()">P</span>- Plot specific color.</li>
+    <li onclick="defaultColors()"><span class="desc-button">D</span>- Default colors.</li>
+    <li onclick="constantColor()"><span class="desc-button">C</span>- Constant color.</li>
+    <li onclick="shadedColor()"><span class="desc-button">S</span>- Shades of the same color.</li>
+    <li onclick="plotSpecificColor()"><span class="desc-button">P</span>- Plot specific color.</li>
   </ul>
 </div>
 
@@ -33,7 +33,7 @@ dalian.BarChart('color-card', '#color')
 function getData () {
   return Array.from({ length: 5 }, (d, i) => ({
     name: 'plot' + (i + 1),
-    value: Math.random()
+    value: Math.random() + 0.5
   }))
 }
 </script>

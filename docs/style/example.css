@@ -10,8 +10,23 @@ ul {
     list-style: none;
 }
 
-ul li {
-    margin-top: 4px;
+li {
+    margin-top: 8px;
+    cursor: pointer;
+    color: #555;
+    user-select: none;
+}
+li:hover {
+    color: #888;
+}
+li:hover .desc-button {
+    background-color: #4b74ff;
+}
+li:active {
+    color: black;
+}
+li:active .desc-button {
+    background-color: #3559b1;
 }
 
 span.desc-button {
@@ -26,4 +41,10 @@ span.desc-button {
     border-radius: 2px;
     font-size: .8em;
     cursor: pointer;
+}
+.desc-button:hover {
+    background-color: #4b74ff;
+}
+.desc-button:active {
+    background-color: #3559b1;
 }
