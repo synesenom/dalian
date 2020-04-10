@@ -2,7 +2,7 @@ import { hsl } from 'd3'
 
 // TODO Add value dependent color scheme
 const COLOR_PALETTE_DALIAN = [
-  'royalblue',
+  '#0066dd',
   '#e41a1c',
   'yellowgreen',
   'gold',

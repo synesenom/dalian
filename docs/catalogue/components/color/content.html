@@ -3,11 +3,11 @@
     The Color component manages various color scheme policies for widgets.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul>
-    <li onclick="defaultColors()"><span class="desc-button">D</span>- Default colors.</li>
-    <li onclick="constantColor()"><span class="desc-button">C</span>- Constant color.</li>
-    <li onclick="shadedColor()"><span class="desc-button">S</span>- Shades of the same color.</li>
-    <li onclick="plotSpecificColor()"><span class="desc-button">P</span>- Plot specific color.</li>
+  <ul id="colors">
+    <li onclick="defaultColors()"><span class="button radio on">D</span>- Default colors.</li>
+    <li onclick="constantColor()"><span class="button radio">C</span>- Constant color.</li>
+    <li onclick="shadedColor()"><span class="button radio">S</span>- Shades of the same color.</li>
+    <li onclick="plotSpecificColor()"><span class="button radio">P</span>- Plot specific color.</li>
   </ul>
 </div>
 
@@ -55,16 +55,22 @@ const chart = dalian.BarChart('myChart', '#widget')
 
 <script class="doc">
 // api methods
-const defaultColors = () => chart.color().render(1000)
-const constantColor = () => chart.color('grey').render(1000)
-const shadedColor = () => chart.color('red', 5).render(1000)
-const plotSpecificColor = () => chart.color({
-  plot1: 'red',
-  plot2: 'orange',
-  plot3: 'yellow',
-  plot4: 'green',
-  plot5: 'blue'
+let defaultColors = () => chart.color().render(1000)
+let constantColor = () => chart.color('grey').render(1000)
+let shadedColor = () => chart.color('royalblue', 5).render(1000)
+let plotSpecificColor = () => chart.color({
+  plot1: '#ef4767',
+  plot2: '#ffd166',
+  plot3: '#06d6a0',
+  plot4: '#118ab2',
+  plot5: '#073b4c'
 }).render(1000)
+</script>
+
+<script class="doc-hidden">
+// Modify radio buttons
+[defaultColors, constantColor, shadedColor, plotSpecificColor] = radio('colors',
+  [defaultColors, constantColor, shadedColor, plotSpecificColor])
 </script>
 
 <script class="doc">

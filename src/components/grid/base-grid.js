@@ -9,17 +9,22 @@ export default type => {
   return (self, api) => {
     // Private members
     let _ = {
+      defaults: {
+        color: '#aaa',
+        lineWidth: 1,
+        lineStyle: '4 8'
+      },
       on: false,
       grid: undefined,
       color: undefined,
-      lineWidth: 1,
-      lineStyle: '4 8',
+      lineWidth: undefined,
+      lineStyle: undefined,
 
       update: duration => {
         // Add grid
         if (_.on) {
           if (typeof _.grid === 'undefined') {
-            const axis = type === 'x' ? self._axisBottom.axis : self._axisLeft.axis
+            const axis = type === 'x' ? self._bottomAxis.axis : self._leftAxis.axis
             const length = type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
             _.grid = self._chart.plots.insert('g', ':first-child')
               .attr('class', 'grid')
@@ -28,22 +33,23 @@ export default type => {
                 axis.tickSizeInner(length)
                   .tickFormat('')
               )
-              .style('color', _.color || '#ccc')
-              .style('stroke-width', (_.lineWidth || 1) + 'px')
-              .style('stroke-dasharray', _.lineStyle || null)
+              .style('color', _.color || _.defaults.color)
+              .style('stroke-width', (_.lineWidth || _.defaults.lineWidth) + 'px')
+              .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
             _.grid.select('path').remove()
-
-            // Show grid
-            _.grid.transition().duration(duration)
-              .style('opacity', 1)
           }
+
+          // Update grid.
           _.grid.transition().duration(duration)
-            .style('color', _.color || '#ccc')
-            .style('stroke-width', (_.lineWidth || 1) + 'px')
-            .style('stroke-dasharray', _.lineStyle || null)
+            .style('color', _.color || _.defaults.color)
+            .style('stroke-width', (_.lineWidth || _.defaults.lineWidth) + 'px')
+            .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
+            .style('opacity', 1)
         } else {
           if (typeof _.grid !== 'undefined') {
-            _.grid.remove()
+            _.grid.transition().duration(duration)
+              .style('opacity', 0)
+              .remove()
             _.grid = undefined
           }
         }
@@ -68,7 +74,7 @@ export default type => {
       },
 
       /**
-       * Sets the grid line's color. The default color is #ccc.
+       * Sets the grid line's color. Default color is #aaa.
        *
        * @method color
        * @methodOf BaseGrid
@@ -81,7 +87,7 @@ export default type => {
       },
 
       /**
-       * Sets the grid line's line width in pixels. The default line width is 1px.
+       * Sets the grid line's line width in pixels. Default line width is 1px.
        *
        * @method lineWidth
        * @methodOf BaseGrid
@@ -94,7 +100,7 @@ export default type => {
       },
 
       /**
-       * Sets the grid line's line style.
+       * Sets the grid line's line style. Default line style is dashed.
        *
        * @method lineStyle
        * @methodOf BaseGrid
@@ -104,10 +110,10 @@ export default type => {
       lineStyle: style => {
         switch (style) {
           case 'solid':
-          default:
-            _.lineStyle = null
+            _.lineStyle = '1 0'
             break
           case 'dashed':
+          default:
             _.lineStyle = '4 8'
             break
           case 'dotted':

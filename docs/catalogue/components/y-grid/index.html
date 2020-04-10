@@ -8,71 +8,92 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}</script><title>YGrid | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
-    Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
-    relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
-    distribution of some quantity (probability density).Due to its transparent nature, only a
-    <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
+    The YGrid component adds horizontal grid lines to a chart (grid to the Y axis).
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li id="toggleGrid" onclick="toggleGrid()">
+      <span class="button checkbox">T</span>
+      <span class="label">- Show grid lines.</span>
+    </li>
+    <li onclick="changeColor()"><span class="button">C</span>- Change grid color.</li>
+    <li onclick="changeLineWidth()"><span class="button">L</span>- Change grid line width.</li>
+    <li onclick="changeLineStyle()"><span class="button">S</span>- Change grid line style.</li>
   </ul>
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/area-chart.js">source</a><a class="right footnote" href="../../../api/widgets/area-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/grid/y-grid.js">source</a><a class="right footnote" href="../../../api/components/y-grid.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
-// Data is generated with ranjs:
-// https://synesenom.github.io/ran/
 function getData () {
-  const mu = 5 * Math.random() + 2
-  const sigma = 1 + 3 * Math.random()
-  const lambda = 3 * Math.random()
+  const tau = 500 * Math.random() + 500
+  const lambda = 100 * Math.random() + 50
   return [{
-    name: 'normal',
-    values: Array.from({ length: 100 }, (d, i) => ({
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
       x: i / 10,
-      y: new ranjs.dist.Normal(mu, sigma).pdf(i / 10)
-    }))
-  }, {
-    name: 'exponential',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i / 10,
-      y: new ranjs.dist.Exponential(lambda).pdf(i / 10)
+      y: Math.exp(i / tau) * Math.sin(i / lambda) + 10
     }))
   }]
 }
 </script><script class="doc">
 // create chart
-const areaChart = dalian.AreaChart('myChart', '#widget')
+const chart = dalian.LineChart('myChart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
   .margins(40)
   .font.size(14)
-  .bottomAxis.label('value')
-  .leftAxis.label('density')
-  .smoothing(true)
-  .color({
-    normal: 'yellowgreen',
-    exponential: 'royalblue'
-  })
-  .tooltip.on(true)
-  .tooltip.yFormat(y => y.toFixed(2))
+  .bottomAxis.label('Elapsed time')
+  .leftAxis.label('Temperature [C]')
   .render()
 </script><script class="doc">
 // api methods
-const changeData = () => areaChart.data(getData()).render(1000)
+let toggleGrid = () => {
+  this.t = !(this.t || 0)
+  chart.yGrid.on(this.t).render(400)
+}
+let changeColor = () => {
+  this.c = ((this.c || 0) + 1) % 3
+  chart.yGrid.color([undefined, 'red', 'blue'][this.c])
+    .render(400)
+}
+let changeLineWidth = () => {
+  this.l = ((this.l || 0) + 1) % 3
+  chart.yGrid.lineWidth([undefined, 2, 4][this.l])
+    .render(400)
+}
+let changeLineStyle = () => {
+  this.s = ((this.s || 0) + 1) % 3
+  chart.yGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
+    .render()
+}
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
+  switch (e.key) {
+    case 't':
+      toggleGrid()
+      break
+    case 'c':
+      changeColor()
+      break
+    case 'l':
+      changeLineWidth()
+      break
+    case 's':
+      changeLineStyle()
+      break
+    default:
+      break
   }
 })
+</script><script class="doc-hidden">
+// Modify toggle buttons
+toggleGrid = checkbox(toggleGrid, 'toggleGrid', 't', ['Hide grid lines', 'Show grid lines'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';
-  areaChart
+  chart
     .width(width)
     .height(height)
     .render();

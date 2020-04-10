@@ -5,8 +5,8 @@
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li onclick="toggleFontSize()"><span class="desc-button">D</span>- Change font size.</li>
-    <li onclick="toggleFontColor()"><span class="desc-button">C</span>- Change font color.</li>
+    <li onclick="toggleFontSize()"><span class="button">D</span>- Change font size.</li>
+    <li onclick="toggleFontColor()"><span class="button">C</span>- Change font color.</li>
   </ul>
 </div>
 
@@ -55,12 +55,12 @@ const chart = dalian.BarChart('myChart', '#widget')
 <script class="doc">
 // api methods
 const toggleFontSize = () => {
-  this.s = !(this.s || 0)
-  chart.font.size(this.s ? 18 : 14).render()
+  this.s = ((this.s || 0) + 1) % 3
+  chart.font.size([undefined, 10, 16][this.s]).render()
 }
 const toggleFontColor = () => {
-  this.c = !(this.c || 0)
-  chart.font.color(this.c ? 'royalblue' : 'black').render()
+  this.c = ((this.c || 0) + 1) % 3
+  chart.font.color([undefined, 'royalblue', 'grey'][this.c]).render()
 }
 </script>
 

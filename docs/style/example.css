@@ -13,30 +13,18 @@ ul {
 li {
     margin-top: 8px;
     cursor: pointer;
-    color: #555;
     user-select: none;
     line-height: 18px;
+    opacity: 0.95;
 }
 li:hover {
-    color: #888;
-}
-li:hover .desc-button {
-    background-color: #4b74ff;
-}
-li:hover .desc-button.on {
-    background-color: #cf2222;
+    opacity: 0.8;
 }
 li:active {
-    color: black;
-}
-li:active .desc-button {
-    background-color: #3559b1;
-}
-li:active .desc-button.on {
-    background-color: #832020;
+    opacity: 1;
 }
 
-.desc-button {
+.button {
     display: inline-block;
     background-color: royalblue;
     color: white;
@@ -50,6 +38,19 @@ li:active .desc-button.on {
     font-size: .9em;
     cursor: pointer;
 }
-.desc-button.on {
+.button.checkbox {
     background-color: firebrick;
+}
+.button.checkbox.on {
+    background-color: yellowgreen;
+}
+.button.radio {
+    background-color: #aaa;
+}
+.button.radio.on {
+    background-color: royalblue;
+}
+
+.label {
+    margin-left: -4px;
 }

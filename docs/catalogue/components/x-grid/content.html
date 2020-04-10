@@ -1,0 +1,113 @@
+<div id="desc">
+  <p>
+    The XGrid component adds vertical grid lines to a chart (grid to the X axis).
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li id="toggleGrid" onclick="toggleGrid()">
+      <span class="button checkbox">T</span>
+      <span class="label">- Show grid lines.</span>
+    </li>
+    <li onclick="changeColor()"><span class="button">C</span>- Change grid color.</li>
+    <li onclick="changeLineWidth()"><span class="button">L</span>- Change grid line width.</li>
+    <li onclick="changeLineStyle()"><span class="button">S</span>- Change grid line style.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.LineChart('x-grid-card', '#x-grid')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Left axis')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  const tau = 500 * Math.random() + 500
+  const lambda = 100 * Math.random() + 50
+  return [{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.exp(i / tau) * Math.sin(i / lambda) + 10
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time')
+  .leftAxis.label('Temperature [C]')
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleGrid = () => {
+  this.t = !(this.t || 0)
+  chart.xGrid.on(this.t).render(400)
+}
+let changeColor = () => {
+  this.c = ((this.c || 0) + 1) % 3
+  chart.xGrid.color([undefined, 'red', 'blue'][this.c])
+    .render(400)
+}
+let changeLineWidth = () => {
+  this.l = ((this.l || 0) + 1) % 3
+  chart.xGrid.lineWidth([undefined, 2, 4][this.l])
+    .render(400)
+}
+let changeLineStyle = () => {
+  this.s = ((this.s || 0) + 1) % 3
+  chart.xGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
+    .render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleGrid = checkbox(toggleGrid, 'toggleGrid', 't', ['Hide grid lines', 'Show grid lines'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 't':
+      toggleGrid()
+      break
+    case 'c':
+      changeColor()
+      break
+    case 'l':
+      changeLineWidth()
+      break
+    case 's':
+      changeLineStyle()
+      break
+    default:
+      break
+  }
+})
+</script>

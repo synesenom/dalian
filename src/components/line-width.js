@@ -10,9 +10,6 @@ export default (self, api) => {
     _lineWidth: {
       // Mapping used internally.
       mapping: key => _.mapping(key),
-
-      // Returns the maximum line width for a set of keys.
-      maxLineWidth: keys => Math.max(...keys.map(d => parseInt(_.mapping(d))))
     }
   })
 

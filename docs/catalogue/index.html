@@ -192,4 +192,40 @@ dalian.BarChart('font-card', '#font')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
+</script></a><a class="card" href="components/x-grid"><div class="card-title">XGrid</div><div class="card-content" id="x-grid"></div><script class="card-example">
+dalian.LineChart('x-grid-card', '#x-grid')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Left axis')
+  .render()
+</script></a><a class="card" href="components/y-grid"><div class="card-title">YGrid</div><div class="card-content" id="y-grid"></div><script class="card-example">
+dalian.LineChart('y-grid-card', '#y-grid')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Left axis')
+  .render()
 </script></a></div></div></main></body></html>

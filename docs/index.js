@@ -12,15 +12,15 @@ const MODULES = [
   'components/chart', // TODO example
   'components/color',
   'components/description',
-  'components/font', // TODO example
-  'components/grid/base-grid', // TODO example
-  'components/grid/x-grid', // TODO example
-  'components/grid/y-grid', // TODO example
+  'components/font',
+  'components/grid/base-grid',
+  'components/grid/x-grid',
+  'components/grid/y-grid',
   'components/mouse', // TODO example
   'components/opacity', // TODO example
   'components/pin', // TODO example
   'components/placeholder', // TODO example
-  'components/range/x-range', // TODO example
+  'components/range/x-range',
   'components/range/y-range', // TODO example
   'components/trend', // TODO example
   'components/tooltip/tooltip', // TODO example
@@ -37,13 +37,15 @@ const MODULES_2 = [
   'components/axis/left-axis',
   'components/color',
   'components/description',
-  'components/font', // TODO example
+  'components/font',
+  'components/grid/x-grid',
+  'components/grid/y-grid',
+  //'components/range/x-range', // TODO example
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',
   'widgets/scatter-plot'
 ]
-
 
 
 function getModuleCategory (path) {

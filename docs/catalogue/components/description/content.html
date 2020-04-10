@@ -5,8 +5,8 @@
   </p>
   <ul>
     <li id="toggleDescription" onclick="toggleDescription()">
-      <span class="desc-button">D</span>
-      <span class="desc-button-label">- Enable description.</span>
+      <span class="button checkbox">D</span>
+      <span class="label">- Enable description.</span>
     </li>
   </ul>
 </div>
@@ -68,7 +68,7 @@ let toggleDescription = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleDescription = toggle(toggleDescription, 'toggleDescription', 'd', ['Disable description', 'Enable description'])
+toggleDescription = checkbox(toggleDescription, 'toggleDescription', 'd', ['Disable description', 'Enable description'])
 </script>
 
 <script class="doc">
