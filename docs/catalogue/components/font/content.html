@@ -1,0 +1,81 @@
+<div id="desc">
+  <p>
+    The Font component manages font properties such as size and color. Note that changing font color also affects the
+    color of the axes.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li onclick="toggleFontSize()"><span class="desc-button">D</span>- Change font size.</li>
+    <li onclick="toggleFontColor()"><span class="desc-button">C</span>- Change font color.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.BarChart('font-card', '#font')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random() + 0.5
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.BarChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 40, right: 40, top: 40, bottom: 50})
+  .font.size(14)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .tooltip.on(true)
+  .tooltip.yFormat(y => y.toFixed(2))
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+const toggleFontSize = () => {
+  this.s = !(this.s || 0)
+  chart.font.size(this.s ? 18 : 14).render()
+}
+const toggleFontColor = () => {
+  this.c = !(this.c || 0)
+  chart.font.color(this.c ? 'royalblue' : 'black').render()
+}
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 's':
+      toggleFontSize()
+      break
+    case 'c':
+      toggleFontColor()
+      break
+    default:
+      break
+  }
+})
+</script>

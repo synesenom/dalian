@@ -11,7 +11,7 @@ const MODULES = [
   'components/axis/left-axis',
   'components/chart', // TODO example
   'components/color',
-  'components/description', // TODO example
+  'components/description',
   'components/font', // TODO example
   'components/grid/base-grid', // TODO example
   'components/grid/x-grid', // TODO example
@@ -36,7 +36,8 @@ const MODULES_2 = [
   'components/axis/bottom-axis',
   'components/axis/left-axis',
   'components/color',
-  'components/description', // TODO example
+  'components/description',
+  'components/font', // TODO example
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',

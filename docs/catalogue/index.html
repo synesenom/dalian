@@ -177,4 +177,19 @@ dalian.LineChart('description-card', '#description')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
+</script></a><a class="card" href="components/font"><div class="card-title">Font</div><div class="card-content" id="font"></div><script class="card-example">
+dalian.BarChart('font-card', '#font')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
 </script></a></div></div></main></body></html>
