@@ -60,20 +60,15 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let toggleDescription = () => {
-  this.d = ((this.d || 0) + 1) % 2
-  chart.description([undefined, 'This is a simple line chart.'][this.d])
+  this.d = !(this.d || 0)
+  chart.description(this.d ? 'This is a simple line chart.' : undefined)
     .render()
 }
 </script>
 
 <script class="doc-hidden">
-// Override toggle to change button color.
-const _toggleDescription = toggleDescription
-toggleDescription = () => {
-  _toggleDescription()
-  d3.select('#toggleDescription .desc-button').classed('on', this.d === 1)
-  d3.select('#toggleDescription .desc-button-label').text(this.d === 1 ? '- Disable description' : '- Enable description')
-}
+// Modify toggle buttons
+toggleDescription = toggle(toggleDescription, 'toggleDescription', 'd', ['Disable description', 'Enable description'])
 </script>
 
 <script class="doc">

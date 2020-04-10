@@ -9,11 +9,11 @@
     <li onclick="changeTickFormat()"><span class="desc-button">F</span>- Change tick format.</li>
     <li id="toggleTicks" onclick="toggleTicks()">
       <span class="desc-button">T</span>
-      <span class="desc-button-label">- Hide ticks</span>
+      <span class="desc-button-label">- Hide ticks.</span>
     </li>
     <li id="toggleAxisLine" onclick="toggleAxisLine()">
       <span class="desc-button">A</span>
-      <span class="desc-button-label">- Hide axis line</span>
+      <span class="desc-button-label">- Hide axis line.</span>
     </li>
   </ul>
 </div>
@@ -91,19 +91,8 @@ let toggleAxisLine = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-const _toggleTicks = toggleTicks
-toggleTicks = () => {
-  _toggleTicks()
-  d3.select('#toggleTicks .desc-button').classed('on', this.t)
-  d3.select('#toggleTicks .desc-button-label').text(this.t ? '- Show ticks' : '- Hide ticks')
-}
-
-const _toggleAxisLine = toggleAxisLine
-toggleAxisLine = () => {
-  _toggleAxisLine()
-  d3.select('#toggleAxisLine .desc-button').classed('on', this.a)
-  d3.select('#toggleAxisLine .desc-button-label').text(this.a ? '- Show axis line' : '- Hide axis line')
-}
+toggleTicks = toggle(toggleTicks, 'toggleTicks', 't', ['Show ticks', 'Hide ticks'])
+toggleAxisLine = toggle(toggleAxisLine, 'toggleAxisLine', 't', ['Show axis line', 'Hide axis line'])
 </script>
 
 <script class="doc">
