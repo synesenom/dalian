@@ -33,29 +33,34 @@ export default (type, name, parent, elem) => {
   )
 
   // Private members
-  let _ = {
-    clip: self._widget.content.append('defs').append('clipPath')
-      .attr('id', `${name}-dalian-plots-clipper`)
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', self._widget.size.innerWidth)
-      .attr('height', self._widget.size.innerHeight),
+  let _ = (() => {
+    const clipPathId = `${name}-dalian-plots-clipper`
 
-    // Methods
-    update: duration => {
-      // Adjust clipper
-      _.clip.transition().duration(duration)
+    return {
+      clipPathId,
+      clip: self._widget.content.append('defs').append('clipPath')
+        .attr('id', clipPathId)
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
         .attr('width', self._widget.size.innerWidth)
-        .attr('height', self._widget.size.innerHeight)
+        .attr('height', self._widget.size.innerHeight),
 
-      // Adjust plots container
-      self._chart.plots.transition().duration(duration)
-        .attr('width', self._widget.size.innerWidth + 'px')
-        .attr('height', self._widget.size.innerHeight + 'px')
-        .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
+      // Methods
+      update: duration => {
+        // Adjust clipper
+        _.clip.transition().duration(duration)
+          .attr('width', self._widget.size.innerWidth)
+          .attr('height', self._widget.size.innerHeight)
+
+        // Adjust plots container
+        self._chart.plots.transition().duration(duration)
+          .attr('width', self._widget.size.innerWidth + 'px')
+          .attr('height', self._widget.size.innerHeight + 'px')
+          .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
+      }
     }
-  }
+  })()
 
   // Protected members
   self = Object.assign(self || {}, {
@@ -71,13 +76,13 @@ export default (type, name, parent, elem) => {
       plotGroups: (attr, duration) => {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
-          .attr('clip-path', `url(#${name}-dalian-plots-clipper)`)
           .data(self._chart.data, d => d.name)
           .join(
             // Entering groups
             enter => {
               let g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
+                .attr('clip-path', `url(#${_.clipPathId})`)
                 .style('shape-rendering', 'geometricPrecision')
                 .style('fill', d => self._colors.mapping(d.name))
                 .style('stroke', d => self._colors.mapping(d.name))
@@ -110,8 +115,11 @@ export default (type, name, parent, elem) => {
 
         // At the end, restore pointer events.
         groups.on('end', () => {
-          // Re-enable pointer events
-          self._chart.plots.style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
+          // Enable pointer events if any of the followings hold:
+          // - Mouse events are enabled.
+          // - Tooltip is enabled.
+          self._chart.plots.style('pointer-events',
+            ((self._tooltip && self._tooltip.isOn()) || self._mouse.hasAny()) ? 'all' : 'none')
           self._widget.transition = false
         })
       }

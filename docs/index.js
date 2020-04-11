@@ -40,7 +40,8 @@ const MODULES_2 = [
   'components/font',
   'components/grid/x-grid',
   'components/grid/y-grid',
-  //'components/range/x-range', // TODO example
+  'components/range/x-range',
+  'components/range/y-range',
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',

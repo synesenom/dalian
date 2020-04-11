@@ -14,7 +14,7 @@
 <script class="card-example">
 dalian.BarChart('color-card', '#color')
   .data(Array.from({ length: 5 }, (d, i) => ({
-    name: 'plot' + (i + 1),
+    name: 'ABCDE'.charAt(i),
     value: Math.random()
   })))
   .x(0)
@@ -22,7 +22,9 @@ dalian.BarChart('color-card', '#color')
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .color('royalblue')
   .font.size(11)
+  .font.color('#ccc')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()

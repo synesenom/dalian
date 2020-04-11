@@ -22,9 +22,9 @@
 dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .data([{
     name: 'trend',
-    values: Array.from({ length: 1000 }, (d, i) => ({
-      x: i / 10,
-      y: Math.sin(i / 100)
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
     }))
   }])
   .x(0)
@@ -33,8 +33,14 @@ dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .font.color('royalblue')
+  .color('#ccc')
   .bottomAxis.label('Bottom axis')
   .leftAxis.label('Y')
+  .leftAxis.label('')
+  .leftAxis.tickFormat(() => '')
+  .leftAxis.hideTicks(true)
+  .leftAxis.hideAxisLine(true)
   .render()
 </script>
 

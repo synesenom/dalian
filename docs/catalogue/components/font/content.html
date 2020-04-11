@@ -13,7 +13,7 @@
 <script class="card-example">
 dalian.BarChart('font-card', '#font')
   .data(Array.from({ length: 5 }, (d, i) => ({
-    name: 'plot' + (i + 1),
+    name: 'ABCDE'.charAt(i),
     value: Math.random()
   })))
   .x(0)
@@ -22,8 +22,14 @@ dalian.BarChart('font-card', '#font')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .font.color('royalblue')
   .bottomAxis.label('X')
+  .bottomAxis.hideTicks(true)
+  .bottomAxis.hideAxisLine(true)
   .leftAxis.label('Y')
+  .leftAxis.hideTicks(true)
+  .leftAxis.hideAxisLine(true)
+  .color('#ccc')
   .render()
 </script>
 
@@ -45,10 +51,11 @@ const chart = dalian.BarChart('myChart', '#widget')
   .height(300)
   .margins({left: 40, right: 40, top: 40, bottom: 50})
   .font.size(14)
+  .color('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .tooltip.on(true)
-  .tooltip.yFormat(y => y.toFixed(2))
+  .tooltip.rowFormat(y => y.toFixed(2))
   .render()
 </script>
 
@@ -60,7 +67,7 @@ const toggleFontSize = () => {
 }
 const toggleFontColor = () => {
   this.c = ((this.c || 0) + 1) % 3
-  chart.font.color([undefined, 'royalblue', 'grey'][this.c]).render()
+  chart.font.color([undefined, 'firebrick', 'grey'][this.c]).render()
 }
 </script>
 

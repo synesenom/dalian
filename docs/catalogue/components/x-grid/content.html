@@ -4,6 +4,7 @@
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
+    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
     <li id="toggleGrid" onclick="toggleGrid()">
       <span class="button checkbox">T</span>
       <span class="label">- Show grid lines.</span>
@@ -18,9 +19,9 @@
 dalian.LineChart('x-grid-card', '#x-grid')
   .data([{
     name: 'trend',
-    values: Array.from({ length: 1000 }, (d, i) => ({
-      x: i / 10,
-      y: Math.sin(i / 100)
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
     }))
   }])
   .x(0)
@@ -29,21 +30,25 @@ dalian.LineChart('x-grid-card', '#x-grid')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .font.color('#ccc')
+  .color('#ccc')
   .bottomAxis.label('X')
   .leftAxis.label('Left axis')
+  .xGrid.on(true)
+  .xGrid.color('royalblue')
   .render()
 </script>
 
 <script class="doc">
 // generate data
 function getData () {
-  const tau = 500 * Math.random() + 500
-  const lambda = 100 * Math.random() + 50
+  const length = 50 + Math.floor(50 * Math.random())
+  const lambda = 10 * Math.random() + 5
   return [{
     name: 'trend',
-    values: Array.from({ length: 1000 }, (d, i) => ({
-      x: i / 10,
-      y: Math.exp(i / tau) * Math.sin(i / lambda) + 10
+    values: Array.from({ length }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / lambda) + 10
     }))
   }]
 }
@@ -64,6 +69,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 
 <script class="doc">
 // api methods
+let changeData = () => chart.data(getData()).render(1000)
 let toggleGrid = () => {
   this.t = !(this.t || 0)
   chart.xGrid.on(this.t).render(400)
@@ -94,6 +100,9 @@ toggleGrid = checkbox(toggleGrid, 'toggleGrid', 't', ['Hide grid lines', 'Show g
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
+    case 'd':
+      changeData()
+      break
     case 't':
       toggleGrid()
       break

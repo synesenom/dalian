@@ -4,6 +4,7 @@ import extend from '../../core/extend'
 // TODO Add more liberty in setting tooltipTitle based on current data point or element
 // TODO Add more liberty in setting tooltipContent based on current data point or element
 
+// TODO Tooltip not working when mouse events are not attached. Attach tooltip to mousemove
 /**
  * Component implementing the tooltip feature. When this component is available for a widget, its API is exposed via the
  * {.tooltip} namespace.
@@ -22,13 +23,18 @@ export default (self, api) => {
 
     // Methods
     getContainer: () => {
+      // Get or create container.
       let container = select('#' + _.container.id)
       if (container.empty()) {
-        return select('body').append('div')
+        container = select('body').append('div')
           .attr('id', _.container.id)
-      } else {
-        return container
       }
+
+      // Update relevant style.
+      container.style('color', self._font.color)
+
+      // Return container.
+      return container
     },
 
     getTooltip: (bbox, scroll) => {
@@ -42,7 +48,7 @@ export default (self, api) => {
           .style('border-radius', '2px')
           .style('box-shadow', '0 0 2px #aaa')
           .style('font-size', '0.85em')
-          .style('color', 'black')
+          .style('color', 'currentColor')
           .style('pointer-events', 'none')
           .style('font-family', 'inherit')
           .style('width', 'auto')
@@ -144,6 +150,7 @@ export default (self, api) => {
   // Protected members
   self = Object.assign(self || {}, {
     _tooltip: {
+      isOn: () => _.on,
       content: () => console.warn('content(mouse) is not implemented'),
       builder: () => console.warn('builder(mouse) is not implemented'),
       titleFormat: x => x,

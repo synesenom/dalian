@@ -79,8 +79,8 @@ export default (type, name, parent, elem) => {
 
     // Add widget content element
     self._widget.content = self._widget.container.append(elem)
-      .attr('id', `${self._widget.id}-content`)
-      .attr('class', `dalian-widget-content`)
+      .attr('id', `${self._widget.id}-container`)
+      .attr('class', `dalian-widget-container`)
       .style('position', 'absolute')
       .style('width', '100%')
       .style('height', '100%')

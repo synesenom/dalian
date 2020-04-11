@@ -8,30 +8,29 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>YGrid | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}</script><title>XRange | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
-    The YGrid component adds horizontal grid lines to a chart (grid to the Y axis).
+    The XRange component allows for constraining the X axis lower/upper boundaries separately.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li id="toggleGrid" onclick="toggleGrid()">
-      <span class="button checkbox">T</span>
-      <span class="label">- Show grid lines.</span>
+    <li id="toggleMin" onclick="toggleMin()">
+      <span class="button checkbox">L</span>
+      <span class="label">- Set lower boundary.</span>
     </li>
-    <li onclick="changeColor()"><span class="button">C</span>- Change grid color.</li>
-    <li onclick="changeLineWidth()"><span class="button">L</span>- Change grid line width.</li>
-    <li onclick="changeLineStyle()"><span class="button">S</span>- Change grid line style.</li>
+    <li id="toggleMax" onclick="toggleMax()">
+      <span class="button checkbox">U</span>
+      <span class="label">- Set upper boundary.</span>
+    </li>
   </ul>
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/grid/y-grid.js">source</a><a class="right footnote" href="../../../api/components/y-grid.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/range/x-range.js">source</a><a class="right footnote" href="../../../api/components/x-range.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
-  const tau = 50 * Math.random() + 50
   return [{
     name: 'trend',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
-      y: Math.exp(i / tau) * Math.sin(i / 5) + 10
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
     }))
   }]
 }
@@ -43,49 +42,28 @@ const chart = dalian.LineChart('myChart', '#widget')
   .height(300)
   .margins(40)
   .font.size(14)
-  .bottomAxis.label('Elapsed time')
+  .bottomAxis.label('Elapsed time [h]')
   .leftAxis.label('Temperature [C]')
   .render()
 </script><script class="doc">
 // api methods
-let changeData = () => chart.data(getData()).render(1000)
-let toggleGrid = () => {
-  this.t = !(this.t || 0)
-  chart.yGrid.on(this.t).render(400)
+let toggleMin = () => {
+  this.l = !(this.l || 0)
+  chart.xRange.min(this.l ? 30 : undefined).render(400)
 }
-let changeColor = () => {
-  this.c = ((this.c || 0) + 1) % 3
-  chart.yGrid.color([undefined, 'red', 'blue'][this.c])
-    .render(400)
-}
-let changeLineWidth = () => {
-  this.l = ((this.l || 0) + 1) % 3
-  chart.yGrid.lineWidth([undefined, 2, 4][this.l])
-    .render(400)
-}
-let changeLineStyle = () => {
-  this.s = ((this.s || 0) + 1) % 3
-  chart.yGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
-    .render()
+let toggleMax = () => {
+  this.u = !(this.u || 0)
+  chart.xRange.max(this.u ? 70 : undefined).render(400)
 }
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 't':
-      toggleGrid()
-      break
-    case 'c':
-      changeColor()
-      break
     case 'l':
-      changeLineWidth()
+      toggleMin()
       break
-    case 's':
-      changeLineStyle()
+    case 'u':
+      toggleMax()
       break
     default:
       break
@@ -93,7 +71,8 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleGrid = checkbox(toggleGrid, 'toggleGrid', 't', ['Hide grid lines', 'Show grid lines'])
+toggleMin = checkbox(toggleMin, 'toggleMin', 'l', ['Remove lower boundary', 'Set lower boundary'])
+toggleMax = checkbox(toggleMax, 'toggleMax', 'u', ['Remove upper boundary', 'Set upper boundary'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

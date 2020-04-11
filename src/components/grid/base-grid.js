@@ -24,27 +24,27 @@ export default type => {
         // Add grid
         if (_.on) {
           if (typeof _.grid === 'undefined') {
-            const axis = type === 'x' ? self._bottomAxis.axis : self._leftAxis.axis
-            const length = type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
+            // If not yet added, create grid.
             _.grid = self._chart.plots.insert('g', ':first-child')
               .attr('class', 'grid')
               .style('opacity', 0)
-              .call(
-                axis.tickSizeInner(length)
-                  .tickFormat('')
-              )
-              .style('color', _.color || _.defaults.color)
-              .style('stroke-width', (_.lineWidth || _.defaults.lineWidth) + 'px')
-              .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
-            _.grid.select('path').remove()
           }
 
           // Update grid.
+          const axis = type === 'x' ? self._bottomAxis.axis : self._leftAxis.axis
+          const length = type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
           _.grid.transition().duration(duration)
+            .call(
+              axis.tickSizeInner(length)
+                .tickFormat('')
+            )
             .style('color', _.color || _.defaults.color)
             .style('stroke-width', (_.lineWidth || _.defaults.lineWidth) + 'px')
             .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
             .style('opacity', 1)
+
+          // Remove path.
+          _.grid.select('path').remove()
         } else {
           if (typeof _.grid !== 'undefined') {
             _.grid.transition().duration(duration)
