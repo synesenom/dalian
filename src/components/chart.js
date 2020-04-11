@@ -76,6 +76,7 @@ export default (type, name, parent, elem) => {
 
       plotGroups: (attr, duration) => {
         // Select groups
+        // TODO Set color in group and use currentColor in charts.
         let groups = self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)
           .join(

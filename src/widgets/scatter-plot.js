@@ -40,7 +40,7 @@ export default (name, parent = 'body') => {
     ElementTooltip,
     Highlight(['.dot-group']),
     LeftAxis(scales.y),
-    Opacity,
+    Opacity(0.5),
     PlotMarker,
     XRange,
     YRange
@@ -80,8 +80,7 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           // Init group
-          g.style('stroke', 'none')
-            .style('opacity', 0)
+          g.style('opacity', 0)
 
           // Add dots
           g.selectAll('circle').data(d => d.values)
@@ -94,7 +93,7 @@ export default (name, parent = 'body') => {
           return g
         },
         updateBefore: g => {
-          g.style('opacity', self._opacity.value())
+          g.style('opacity', 1)
 
           g.selectAll('circle').data(d => d.values)
             .join(
@@ -113,7 +112,8 @@ export default (name, parent = 'body') => {
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
             .attr('r', self._scatterPlot.size)
-            .style('opacity', 1)
+            // TODO Remove this once Chart uses color instead of fill and stroke
+            .style('opacity', self._opacity.value())
 
           return g
         },
@@ -173,7 +173,7 @@ export default (name, parent = 'body') => {
   // Public API
   api = Object.assign(api, {
     /**
-     * Sets the circles' radius in pixels.
+     * Sets the circles' radius in pixels. Default value is 4.
      *
      * @method size
      * @methodOf ScatterPlot
@@ -181,7 +181,7 @@ export default (name, parent = 'body') => {
      * @returns {Object} Reference to the ScattePlot's API.
      */
     size: value => {
-      self._scatterPlot.size = value
+      self._scatterPlot.size = value || 4
       return api
     }
   })

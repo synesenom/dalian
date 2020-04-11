@@ -275,6 +275,32 @@ dalian.BarChart('mouse-card', '#mouse')
   .leftAxis.label('Y')
   .color('royalblue')
   .render()
+</script></a><a class="card" href="components/opacity"><div class="card-title">Opacity</div><div class="card-content" id="opacity"></div><script class="card-example">
+dalian.AreaChart('opacity-card', '#opacity')
+  .data([{
+    name: 'plot 1',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 30) / 10, 2))
+    }))
+  }, {
+    name: 'plot 2',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 60) / 20, 2)) / 3
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('#ccc')
+  .render()
 </script></a><a class="card" href="components/pin"><div class="card-title">Pin</div><div class="card-content" id="pin"></div><script class="card-example">
 let pinCard = dalian.LineChart('pin-card', '#pin')
   .data([{

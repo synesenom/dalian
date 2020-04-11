@@ -4,34 +4,36 @@
  *
  * @function Opacity
  */
-export default (self, api) => {
-  // Private members
-  let _ = {
-    value: 0.5
+export default defaultValue => {
+  return (self, api) => {
+    // Private members
+    let _ = {
+      value: defaultValue
+    }
+
+    // Protected members
+    self = Object.assign(self || {}, {
+      _opacity: {
+        value: () => _.value
+      }
+    })
+
+    // Public API
+    api = Object.assign(api || {}, {
+      /**
+       * Sets the opacity value of the widget's elements.
+       *
+       * @method opacity
+       * @methodOf Opacity
+       * @param {number} value The opacity value to set.
+       * @returns {Widget} Reference to the Widget's API.
+       */
+      opacity: value => {
+        _.value = value || defaultValue
+        return api
+      }
+    })
+
+    return { self, api }
   }
-
-  // Protected members
-  self = Object.assign(self || {}, {
-    _opacity: {
-      value: () => _.value
-    }
-  })
-
-  // Public API
-  api = Object.assign(api || {}, {
-    /**
-     * Sets the opacity value of the widget's elements.
-     *
-     * @method opacity
-     * @methodOf Opacity
-     * @param {number} value The opacity value to set.
-     * @returns {Widget} Reference to the Widget's API.
-     */
-    opacity: value => {
-      _.value = value
-      return api
-    }
-  })
-
-  return {self, api}
 }

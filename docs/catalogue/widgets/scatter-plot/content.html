@@ -7,6 +7,7 @@
   </p>
   <ul>
     <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li onclick="toggleSize()"><span class="button">S</span>- Change size.</li>
   </ul>
 </div>
 
@@ -75,13 +76,24 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
 <script class="doc">
 // api methods
 const changeData = () => scatterPlot.data(getData()).render(1000)
+const toggleSize = () => {
+  this.s = !(this.s || 0)
+  scatterPlot.size(this.s ? 6 : undefined).render(1000)
+}
 </script>
 
 <script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 's':
+      toggleSize()
+      break
+    default:
+      break
   }
 })
 </script>

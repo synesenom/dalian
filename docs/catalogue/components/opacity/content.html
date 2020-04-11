@@ -1,0 +1,91 @@
+<div id="desc">
+  <p>
+    The Opacity component manages the opacity of the plot entities.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li onclick="toggleOpacity()"><span class="button">O</span>- Change opacity.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.AreaChart('opacity-card', '#opacity')
+  .data([{
+    name: 'plot 1',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 30) / 10, 2))
+    }))
+  }, {
+    name: 'plot 2',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 60) / 20, 2)) / 3
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('#ccc')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return [{
+    name: 'plot 1',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 30) / 10, 2))
+    }))
+  }, {
+    name: 'plot 2',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 60) / 20, 2)) / 3
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.AreaChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 40, right: 40, top: 40, bottom: 50})
+  .font.size(14)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .yRange.max(null, 0.01)
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+const toggleOpacity = () => {
+  this.o = !(this.o || 0)
+  chart.opacity(this.o ? 0.8 : undefined).render(1000)
+}
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'o':
+      toggleOpacity()
+      break
+    default:
+      break
+  }
+})
+</script>

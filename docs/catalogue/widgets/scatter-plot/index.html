@@ -17,6 +17,7 @@
   </p>
   <ul>
     <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li onclick="toggleSize()"><span class="button">S</span>- Change size.</li>
   </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/scatter-plot.js">source</a><a class="right footnote" href="../../../api/widgets/scatter-plot.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
@@ -52,11 +53,22 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
 </script><script class="doc">
 // api methods
 const changeData = () => scatterPlot.data(getData()).render(1000)
+const toggleSize = () => {
+  this.s = !(this.s || 0)
+  scatterPlot.size(this.s ? 6 : undefined).render(1000)
+}
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 's':
+      toggleSize()
+      break
+    default:
+      break
   }
 })
 </script><script>function resize() {

@@ -12,6 +12,7 @@ import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
 import Scale from '../components/scale'
 import Smoothing from '../components/smoothing'
+import YRange from '../components/range/y-range'
 
 // TODO Add reference to all components: Highlight, Smoothing
 /**
@@ -37,10 +38,11 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     PlotMarker,
-    Opacity,
+    Opacity(0.4),
     Smoothing,
     PointTooltip,
-    Highlight(['.area', '.line', '.plot-marker'])
+    Highlight(['.area', '.line', '.plot-marker']),
+    YRange
   )
 
   // Private members
@@ -58,7 +60,7 @@ export default (name, parent = 'body') => {
         .domain(flatData.map(d => d.x))
       // Make sure scale starts at 0
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(flatData.map(d => d.y).concat(0))
+        .domain(self._yRange.range(flatData.map(d => d.y).concat(0)))
 
       // Create area and line.
       const areaFn = area()

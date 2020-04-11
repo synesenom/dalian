@@ -8,86 +8,60 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>Trend | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}</script><title>Opacity | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
-    The Trend component adds a trend marker to the chart. This example shows the available methods for the component and
-    demonstrates its behavior when various properties of the chart are changed.
+    The Opacity component manages the opacity of the plot entities.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li id="toggleXRange" onclick="toggleXRange()">
-      <span class="button checkbox">X</span>
-      <span class="label">- Set X constraint.</span>
-    </li>
-    <li id="toggleTrend" onclick="toggleTrend()">
-      <span class="button checkbox">T</span>
-      <span class="label">- Add trend.</span>
-    </li>
+    <li onclick="toggleOpacity()"><span class="button">O</span>- Change opacity.</li>
   </ul>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/trend.js">source</a><a class="right footnote" href="../../../api/components/trend.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/opacity.js">source</a><a class="right footnote" href="../../../api/components/opacity.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
-  const length = 50 + Math.floor(50 * Math.random())
-  const tau = 50 * Math.random() + 50
   return [{
-    name: 'trend',
-    values: Array.from({ length }, (d, i) => ({
+    name: 'plot 1',
+    values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
-      y: Math.exp(i / tau) * Math.sin(i / 5) + 10
+      y: Math.exp(-0.5 * Math.pow((i - 30) / 10, 2))
+    }))
+  }, {
+    name: 'plot 2',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(-0.5 * Math.pow((i - 60) / 20, 2)) / 3
     }))
   }]
 }
 </script><script class="doc">
 // create chart
-const chart = dalian.LineChart('myChart', '#widget')
+const chart = dalian.AreaChart('myChart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  .margins(40)
+  .margins({left: 40, right: 40, top: 40, bottom: 50})
   .font.size(14)
-  .bottomAxis.label('Elapsed time')
-  .leftAxis.label('Temperature [C]')
-  .yRange.max(null, 0.1)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .yRange.max(null, 0.01)
   .render()
 </script><script class="doc">
 // api methods
-let changeData = () => chart.data(getData()).render(1000)
-let toggleTrend = () => {
-  this.t = !(this.t || 0)
-  if (this.t) {
-    chart.trend.add('marker', 'trend', 10, 40, 'Change in 30 hours.', 1000)
-  } else {
-    chart.trend.remove('marker', 1000)
-  }
-}
-let toggleXRange = () => {
-  this.x = !(this.x || 0)
-  chart.xRange.min(this.x ? 8 : undefined)
-    .xRange.max(this.x ? 35 : undefined)
-    .render(1000)
+const toggleOpacity = () => {
+  this.o = !(this.o || 0)
+  chart.opacity(this.o ? 0.8 : undefined).render(1000)
 }
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 't':
-      toggleTrend()
-      break
-    case 'x':
-      toggleXRange()
+    case 'o':
+      toggleOpacity()
       break
     default:
       break
   }
 })
-</script><script class="doc-hidden">
-// Modify toggle buttons
-toggleTrend = checkbox(toggleTrend, 'toggleTrend', 't', ['Remove trend', 'Add trend'])
-toggleXRange = checkbox(toggleXRange, 'toggleXRange', 'x', ['Remove x constraint', 'Set x constraint'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';
