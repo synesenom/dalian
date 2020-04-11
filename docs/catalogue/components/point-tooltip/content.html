@@ -1,0 +1,132 @@
+<div id="desc">
+  <p>
+    The PointTooltip component adds a pre-formatted tooltip to the chart. This example shows the available methods for
+    the component and demonstrates its behavior when various properties of the chart are changed.
+    <br><br>Press the following keys or click on the buttons to explore the component:
+  </p>
+  <ul>
+    <li id="toggleTooltip" onclick="toggleTooltip()">
+      <span class="button checkbox">T</span>
+      <span class="label">- Show tooltip.</span>
+    </li>
+    <li onclick="changeXFormat()"><span class="button">X</span>- Change X format.</li>
+    <li onclick="changeYFormat()"><span class="button">Y</span>- Change Y format.</li>
+    <li id="toggleIgnore" onclick="toggleIgnore()">
+      <span class="button checkbox">I</span>
+      <span class="label">- Ignore trend 2.</span>
+    </li>
+    <li onclick="changeFontColor()"><span class="button">F</span>- Change font color.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.LineChart('point-tooltip-card', '#point-tooltip')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return [{
+    name: 'trend 1',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }, {
+    name: 'trend 2',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.cos(i / 100)
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time [h]')
+  .leftAxis.label('Temperature [C]')
+  .yRange.max(null, 0.01)
+  .tooltip.yFormat(y => y.toFixed(2))
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleTooltip = () => {
+  this.t = !(this.t || 0)
+  chart.tooltip.on(this.t).render()
+}
+let changeXFormat = () => {
+  this.x = !(this.x || 0)
+  chart.tooltip.xFormat(this.x ? x => x + ' h' : x => x)
+    .render()
+}
+let changeYFormat = () => {
+  this.y = !(this.y || 0)
+  chart.tooltip.yFormat(this.y ? y => y.toPrecision(2) + ' C' : y => y.toFixed(2))
+    .render()
+}
+let toggleIgnore = () => {
+  this.i = !(this.i || 0)
+  chart.tooltip.ignore(this.i ? ['trend 2'] : undefined)
+    .render()
+}
+let changeFontColor = () => {
+  this.f = !(this.f || 0)
+  chart.font.color(this.f ? 'grey' : undefined).render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleTooltip = checkbox(toggleTooltip, 'toggleTooltip', 't', ['Hide tooltip', 'Show tooltip'])
+toggleIgnore = checkbox(toggleIgnore, 'toggleIgnore', 'i', ['Include trend 2', 'Ignore trend 2'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 't':
+      toggleTooltip()
+      break
+    case 'x':
+      changeXFormat()
+      break
+    case 'y':
+      changeYFormat()
+      break
+    case 'i':
+      toggleIgnore()
+      break
+    case 'f':
+      changeFontColor()
+      break
+    default:
+      break
+  }
+})
+</script>

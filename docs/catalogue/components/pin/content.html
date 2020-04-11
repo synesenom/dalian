@@ -1,22 +1,23 @@
 <div id="desc">
   <p>
-    The YGrid component adds horizontal grid lines to a chart (grid to the Y axis).
+    The Pin component adds pin markers to a chart.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
     <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li onclick="changeFontColor()"><span class="button">F</span>- Change font color.</li>
-    <li id="toggleGrid" onclick="toggleGrid()">
-      <span class="button checkbox">T</span>
-      <span class="label">- Show grid lines.</span>
+    <li id="toggleXRange" onclick="toggleXRange()">
+      <span class="button checkbox">X</span>
+      <span class="label">- Set X constraint.</span>
     </li>
-    <li onclick="changeOpacity()"><span class="button">O</span>- Change grid opacity.</li>
-    <li onclick="changeLineStyle()"><span class="button">S</span>- Change grid line style.</li>
+    <li id="togglePin" onclick="togglePin()">
+      <span class="button checkbox">P</span>
+      <span class="label">- Add pin.</span>
+    </li>
   </ul>
 </div>
 
 <script class="card-example">
-dalian.LineChart('y-grid-card', '#y-grid')
+let pinCard = dalian.LineChart('pin-card', '#pin')
   .data([{
     name: 'trend',
     values: Array.from({ length: 100 }, (d, i) => ({
@@ -31,24 +32,27 @@ dalian.LineChart('y-grid-card', '#y-grid')
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
   .font.color('#ccc')
-  .color('#ccc')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .yGrid.on(true)
-  .yGrid.opacity(1)
+  .color('#ccc')
   .render()
 
-// Highlight component
-d3.select('#y-grid .grid').style('color', 'royalblue')
+// Add trend.
+pinCard.pin.add('marker', 30, {
+  color: 'royalblue',
+  height: 0.8,
+  size: 5
+})
 </script>
 
 <script class="doc">
 // generate data
 function getData () {
+  const length = 50 + Math.floor(50 * Math.random())
   const tau = 50 * Math.random() + 50
   return [{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
+    values: Array.from({ length }, (d, i) => ({
       x: i,
       y: Math.exp(i / tau) * Math.sin(i / 5) + 10
     }))
@@ -66,35 +70,37 @@ const chart = dalian.LineChart('myChart', '#widget')
   .font.size(14)
   .bottomAxis.label('Elapsed time')
   .leftAxis.label('Temperature [C]')
+  .yRange.max(null, 0.1)
   .render()
 </script>
 
 <script class="doc">
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
-let changeFontColor = () => {
-  this.f = !(this.f || 0)
-  chart.font.color(this.f ? 'red' : undefined).render(400)
+let togglePin = () => {
+  this.p = !(this.p || 0)
+  if (this.p) {
+    chart.pin.add('marker', 40, {
+      color: 'firebrick',
+      'height': 0.7,
+      text: 'Measurement started'
+    }, 1000)
+  } else {
+    chart.pin.remove('marker', 1000)
+  }
 }
-let toggleGrid = () => {
-  this.t = !(this.t || 0)
-  chart.yGrid.on(this.t).render(400)
-}
-let changeOpacity = () => {
-  this.c = ((this.c || 0) + 1) % 3
-  chart.yGrid.color([undefined, 0.2, 1][this.c])
-    .render(400)
-}
-let changeLineStyle = () => {
-  this.s = ((this.s || 0) + 1) % 3
-  chart.yGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
-    .render()
+let toggleXRange = () => {
+  this.x = !(this.x || 0)
+  chart.xRange.min(this.x ? 8 : undefined)
+    .xRange.max(this.x ? 35 : undefined)
+    .render(1000)
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleGrid = checkbox(toggleGrid, 'toggleGrid', 't', ['Hide grid lines', 'Show grid lines'])
+togglePin = checkbox(togglePin, 'togglePin', 'p', ['Remove pin', 'Add pin'])
+toggleXRange = checkbox(toggleXRange, 'toggleXRange', 'x', ['Remove x constraint', 'Set x constraint'])
 </script>
 
 <script class="doc">
@@ -104,17 +110,11 @@ window.addEventListener('keydown', e => {
     case 'd':
       changeData()
       break
-    case 'f':
-      changeFontColor()
+    case 'p':
+      togglePin()
       break
-    case 't':
-      toggleGrid()
-      break
-    case 'o':
-      changeOpacity()
-      break
-    case 's':
-      changeLineStyle()
+    case 'x':
+      toggleXRange()
       break
     default:
       break

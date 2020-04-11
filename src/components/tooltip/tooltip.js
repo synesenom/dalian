@@ -186,7 +186,7 @@ export default (self, api) => {
      * @returns {Widget} Reference to the Widget API.
      */
     ignore: keys => {
-      self._tooltip.ignore = keys
+      self._tooltip.ignore = keys || []
       return api
     },
 

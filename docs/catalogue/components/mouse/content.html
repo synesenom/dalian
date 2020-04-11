@@ -1,0 +1,107 @@
+<div id="desc">
+  <p>
+    The Mouse component allows for binding callbacks to basic mouse events.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li id="toggleMouseover" onclick="toggleMouseover()">
+      <span class="button checkbox">O</span>
+      <span class="label">- Bind mouseover callback.</span>
+    </li>
+    <li id="toggleMouseleave" onclick="toggleMouseleave()">
+      <span class="button checkbox">L</span>
+      <span class="label">- Bind mouseleave callback.</span>
+    </li>
+    <li id="toggleClick" onclick="toggleClick()">
+      <span class="button checkbox">C</span>
+      <span class="label">- Bind click callback.</span>
+    </li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.BarChart('mouse-card', '#mouse')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('royalblue')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random() + 0.5
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.BarChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 40, right: 40, top: 40, bottom: 50})
+  .font.size(14)
+  .color('royalblue')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleMouseover = () => {
+  this.o = !(this.o || 0)
+  chart.mouse.over(this.o ? k => chart.highlight(k.name) : undefined)
+    .render()
+}
+let toggleMouseleave = () => {
+  this.l = !(this.l || 0)
+  chart.mouse.leave(this.l ? () => chart.highlight() : undefined)
+    .render()
+}
+let toggleClick = () => {
+  this.c = !(this.c || 0)
+  chart.mouse.click(this.c ? k => alert(`You clicked on ${k.name}`) : undefined)
+    .render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleMouseover = checkbox(toggleMouseover, 'toggleMouseover', 'o', ['Remove mouseover callback', 'Bind mouseover callback'])
+toggleMouseleave = checkbox(toggleMouseleave, 'toggleMouseleave', 'l', ['Remove mouseleave callback', 'Bind mouseleave callback'])
+toggleClick = checkbox(toggleClick, 'toggleClick', 'c', ['Remove click callback', 'Bind click callback'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'o':
+      toggleMouseover()
+      break
+    case 'l':
+      toggleMouseleave()
+      break
+    case 'c':
+      toggleClick()
+      break
+    default:
+      break
+  }
+})
+</script>

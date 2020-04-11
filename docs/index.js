@@ -16,55 +16,35 @@ const MODULES = [
   'components/grid/base-grid',
   'components/grid/x-grid',
   'components/grid/y-grid',
-  'components/mouse', // TODO example
+  'components/mouse',
   'components/opacity', // TODO example
-  'components/pin', // TODO example
-  'components/placeholder', // TODO example
+  'components/pin',
+  'components/placeholder',
   'components/range/x-range',
-  'components/range/y-range', // TODO example
-  'components/trend', // TODO example
-  'components/tooltip/tooltip', // TODO example
-  'components/tooltip/point-tooltip', // TODO example
-  'components/tooltip/element-tooltip', // TODO example
+  'components/range/y-range',
+  'components/tooltip/tooltip',
+  'components/tooltip/point-tooltip',
+  'components/tooltip/element-tooltip',
+  'components/trend',
   'components/widget', // TODO example
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',
   'widgets/scatter-plot'
 ]
-const MODULES_2 = [
-  'components/axis/bottom-axis',
-  'components/axis/left-axis',
-  'components/color',
-  'components/description',
-  'components/font',
-  'components/grid/x-grid',
-  'components/grid/y-grid',
-  'components/range/x-range',
-  'components/range/y-range',
-  'widgets/area-chart',
-  'widgets/bar-chart',
-  'widgets/line-chart',
-  'widgets/scatter-plot'
-]
 
 
-function getModuleCategory (path) {
-  return path.split('/')[0]
-}
+const getModuleCategory = path => path.split('/')[0]
 
-function getModuleName (path) {
-  return path.split('/').slice(-1)[0]
-}
+const getModuleName = path => path.split('/').slice(-1)[0]
 
-function getFileSizeInBytes(path) {
-  const stats = fs.statSync(path)
-  return stats.size
-}
+const getFileSizeInBytes = path => fs.statSync(path).size
 
-function kebabToCamel(moduleName) {
-  return moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
-}
+const getExamplePath = d => `catalogue/${getModuleCategory(d)}/${getModuleName(d)}/content.html`
+
+const hasExamplePage = d => fs.existsSync(getExamplePath(d))
+
+const kebabToCamel = moduleName => moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 
 // Build root page
 const dependencies = Object.entries(meta.dependencies).map(d => ({
@@ -88,7 +68,7 @@ buildFromTemplate('Docs index page', 'index', 'index.html', {
 
   // Install commands
   install: {
-    node: `dalian.min.js`,
+    node: 'dalian.min.js',
     browser: {
       dependencies: dependencies
         .map(d => `<script src="https://unpkg.com/${d.lib}@${d.version}"></script>`).join('\n'),
@@ -130,18 +110,20 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
 // Build catalogue index
 buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
   dependencies,
-  components: MODULES_2.filter(d => getModuleCategory(d) === 'components').map(d => {
-    const content = fs.readFileSync(`catalogue/${getModuleCategory(d)}/${getModuleName(d)}/content.html`, {encoding: 'utf8'})
-    const document = new JSDOM(content).window.document
-    const script = document.getElementsByClassName('card-example')[0].outerHTML
-    return {
-      category: getModuleCategory(d),
-      name: getModuleName(d),
-      factory: kebabToCamel(getModuleName(d)),
-      script
-    }
-  }),
-  widgets: MODULES_2.filter(d => getModuleCategory(d) === 'widgets').map(d => {
+  components: MODULES.filter(d => getModuleCategory(d) === 'components')
+    .filter(hasExamplePage)
+    .map(d => {
+      const content = fs.readFileSync(getExamplePath(d), { encoding: 'utf8' })
+      const document = new JSDOM(content).window.document
+      const script = document.getElementsByClassName('card-example')[0].outerHTML
+      return {
+        category: getModuleCategory(d),
+        name: getModuleName(d),
+        factory: kebabToCamel(getModuleName(d)),
+        script
+      }
+    }),
+  widgets: MODULES.filter(d => getModuleCategory(d) === 'widgets').map(d => {
     const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
     const document = new JSDOM(content).window.document
     const script = document.getElementsByClassName('card-example')[0].outerHTML
@@ -154,14 +136,18 @@ buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.ht
   })
 })
 
-MODULES_2.forEach(async d => {
+MODULES.forEach(async d => {
   const docs = await documentation.build([`../src/${d}.js`], {
     shallow: true
   }).then(documentation.formats.json)
     .then(JSON.parse)
 
   // Build API reference and example pages.
-  ModuleParser(meta, docs, d)
+  const parser = ModuleParser(meta, docs, d)
     .buildReferencePage()
-    .buildExamplePage()
+
+  // TODO Move catalogue path checking to ModuleParser.
+  if (hasExamplePage(d)) {
+    parser.buildExamplePage()
+  }
 })

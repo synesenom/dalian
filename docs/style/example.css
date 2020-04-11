@@ -11,6 +11,8 @@ ul {
 }
 
 li {
+    width: 50%;
+    float: left;
     margin-top: 8px;
     cursor: pointer;
     user-select: none;
@@ -53,4 +55,10 @@ li:active {
 
 .label {
     margin-left: -4px;
+}
+
+.links {
+    display: inline-block;
+    position: relative;
+    width: 100%;
 }

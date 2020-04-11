@@ -9,6 +9,7 @@ import extend from '../core/extend'
  * @function Pin
  */
 // TODO Use attributes/styles methods.
+// TODO Add options.fix to show label all the time.
 export default scales => (() => {
   return (self, api) => {
     // Private members
@@ -37,11 +38,11 @@ export default scales => (() => {
        *   <li>{number} <i>height</i>: Pin height relative to the Y range.</li>
        *   <li>{string} <i>text</i>: Label to add to the pin. The label is visible when hovering over the pin.</li>
        * </ul>
-       * @param {number} [duration = 400] Duration of the animation of adding the pin.
+       * @param {number} duration Duration of the animation of adding the pin.
        * @returns {Object} The object representing the pin. This object contains the DOM group containing the pin and
        * update/remove methods.
        */
-      add: (id, position, options = {}, duration = 400) => {
+      add: (id, position, options = {}, duration) => {
         // Check if pin exists
         if (_.pins.has(id)) {
           return
@@ -93,7 +94,29 @@ export default scales => (() => {
         // Move box behind text
         label.node().insertBefore(labelBox.node(), labelText.node())
 
-        // Click event handler
+        // Mouse event handlers
+        const mouseover = () => {
+          // Show label
+          label.transition().duration(300).style('opacity', 1)
+
+          // Hide other pins
+          _.pins.forEach(p => {
+            p.g.transition().duration(300)
+              .style('opacity', p.g === g ? 1 : 0.1)
+          })
+        }
+
+        const mouseleave = () => {
+          // Hide label
+          label.transition().duration(300).style('opacity', 0)
+
+          // Show other pins
+          _.pins.forEach(p => {
+            p.g.transition().duration(300)
+              .style('opacity', 1)
+          })
+
+        }
         const click = (() => {
           let isClicked = false
 
@@ -136,8 +159,9 @@ export default scales => (() => {
           .style('stroke', color)
           .style('stroke-width', '2px')
           .style('pointer-events', 'all')
-          .style('cursor', 'pointer')
           .on('click', click)
+          .on('mouseover', mouseover)
+          .on('mouseleave', mouseleave)
 
         // Pin head with mouse interactions
         const head = g.append('circle')
@@ -149,8 +173,8 @@ export default scales => (() => {
           .style('stroke-width', '1px')
           .style('fill', color)
           .style('pointer-events', 'all')
-          .style('cursor', 'pointer')
-          .on('click', click)
+          .on('mouseover', mouseover)
+          .on('mouseleave', mouseleave)
 
         // Show pin
         g.transition().duration(duration)
@@ -196,9 +220,9 @@ export default scales => (() => {
        * @methodOf Pin
        * @param {string} [id = undefined] Identifier of the pin to remove. If pin with the specified identifier does not
        * exist, no change is applied. If it is not specified, all pins are removed from the current chart.
-       * @param {number} [duration = 400] Duration of the remove animation.
+       * @param {number} duration Duration of the remove animation.
        */
-      remove: (id, duration = 400) => {
+      remove: (id, duration) => {
         // If id is not specified, remove all pins
         if (typeof id === 'undefined') {
           _.pins.forEach(pin => pin.remove())

@@ -33,15 +33,14 @@ dalian.LineChart('left-axis-card', '#left-axis')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .font.color('royalblue')
+  .font.color('#ccc')
   .color('#ccc')
   .bottomAxis.label('X')
-  .bottomAxis.label('')
-  .bottomAxis.tickFormat(() => '')
-  .bottomAxis.hideTicks(true)
-  .bottomAxis.hideAxisLine(true)
-  .leftAxis.label('Left axis')
+  .leftAxis.label('Y')
   .render()
+
+// Highlight component
+d3.select('#left-axis .dalian-axis-container.y').style('color', 'royalblue')
 </script>
 
 <script class="doc">

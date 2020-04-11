@@ -123,15 +123,14 @@ dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .font.color('royalblue')
+  .font.color('#ccc')
   .color('#ccc')
-  .bottomAxis.label('Bottom axis')
+  .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .leftAxis.label('')
-  .leftAxis.tickFormat(() => '')
-  .leftAxis.hideTicks(true)
-  .leftAxis.hideAxisLine(true)
   .render()
+
+// Highlight component
+d3.select('#bottom-axis .dalian-axis-container.x').style('color', 'royalblue')
 </script></a><a class="card" href="components/left-axis"><div class="card-title">LeftAxis</div><div class="card-content" id="left-axis"></div><script class="card-example">
 dalian.LineChart('left-axis-card', '#left-axis')
   .data([{
@@ -147,15 +146,14 @@ dalian.LineChart('left-axis-card', '#left-axis')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .font.color('royalblue')
+  .font.color('#ccc')
   .color('#ccc')
   .bottomAxis.label('X')
-  .bottomAxis.label('')
-  .bottomAxis.tickFormat(() => '')
-  .bottomAxis.hideTicks(true)
-  .bottomAxis.hideAxisLine(true)
-  .leftAxis.label('Left axis')
+  .leftAxis.label('Y')
   .render()
+
+// Highlight component
+d3.select('#left-axis .dalian-axis-container.y').style('color', 'royalblue')
 </script></a><a class="card" href="components/color"><div class="card-title">Color</div><div class="card-content" id="color"></div><script class="card-example">
 dalian.BarChart('color-card', '#color')
   .data(Array.from({ length: 5 }, (d, i) => ({
@@ -203,15 +201,14 @@ dalian.BarChart('font-card', '#font')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .font.color('royalblue')
+  .font.color('#ccc')
   .bottomAxis.label('X')
-  .bottomAxis.hideTicks(true)
-  .bottomAxis.hideAxisLine(true)
   .leftAxis.label('Y')
-  .leftAxis.hideTicks(true)
-  .leftAxis.hideAxisLine(true)
   .color('#ccc')
   .render()
+
+// Highlight component
+d3.selectAll('#font text').style('color', 'royalblue')
 </script></a><a class="card" href="components/x-grid"><div class="card-title">XGrid</div><div class="card-content" id="x-grid"></div><script class="card-example">
 dalian.LineChart('x-grid-card', '#x-grid')
   .data([{
@@ -230,10 +227,13 @@ dalian.LineChart('x-grid-card', '#x-grid')
   .font.color('#ccc')
   .color('#ccc')
   .bottomAxis.label('X')
-  .leftAxis.label('Left axis')
+  .leftAxis.label('Y')
   .xGrid.on(true)
-  .xGrid.color('royalblue')
+  .xGrid.opacity(1)
   .render()
+
+// Highlight component
+d3.select('#x-grid .grid').style('color', 'royalblue')
 </script></a><a class="card" href="components/y-grid"><div class="card-title">YGrid</div><div class="card-content" id="y-grid"></div><script class="card-example">
 dalian.LineChart('y-grid-card', '#y-grid')
   .data([{
@@ -252,9 +252,73 @@ dalian.LineChart('y-grid-card', '#y-grid')
   .font.color('#ccc')
   .color('#ccc')
   .bottomAxis.label('X')
-  .leftAxis.label('Left axis')
+  .leftAxis.label('Y')
   .yGrid.on(true)
-  .yGrid.color('royalblue')
+  .yGrid.opacity(1)
+  .render()
+
+// Highlight component
+d3.select('#y-grid .grid').style('color', 'royalblue')
+</script></a><a class="card" href="components/mouse"><div class="card-title">Mouse</div><div class="card-content" id="mouse"></div><script class="card-example">
+dalian.BarChart('mouse-card', '#mouse')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('royalblue')
+  .render()
+</script></a><a class="card" href="components/pin"><div class="card-title">Pin</div><div class="card-content" id="pin"></div><script class="card-example">
+let pinCard = dalian.LineChart('pin-card', '#pin')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('#ccc')
+  .render()
+
+// Add trend.
+pinCard.pin.add('marker', 30, {
+  color: 'royalblue',
+  height: 0.8,
+  size: 5
+})
+</script></a><a class="card" href="components/placeholder"><div class="card-title">Placeholder</div><div class="card-content" id="placeholder"></div><script class="card-example">
+dalian.LineChart('placeholder-card', '#placeholder')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
   .render()
 </script></a><a class="card" href="components/x-range"><div class="card-title">XRange</div><div class="card-content" id="x-range"></div><script class="card-example">
 dalian.LineChart('x-range-card', '#x-range')
@@ -300,4 +364,64 @@ dalian.LineChart('y-range-card', '#y-range')
   .yRange.min(8)
   .yRange.max(14)
   .render()
+</script></a><a class="card" href="components/point-tooltip"><div class="card-title">PointTooltip</div><div class="card-content" id="point-tooltip"></div><script class="card-example">
+dalian.LineChart('point-tooltip-card', '#point-tooltip')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script></a><a class="card" href="components/element-tooltip"><div class="card-title">ElementTooltip</div><div class="card-content" id="element-tooltip"></div><script class="card-example">
+dalian.BarChart('element-tooltip-card', '#element-tooltip')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('royalblue')
+  .render()
+</script></a><a class="card" href="components/trend"><div class="card-title">Trend</div><div class="card-content" id="trend"></div><script class="card-example">
+let trendCard = dalian.LineChart('trend-card', '#trend')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('#ccc')
+  .render()
+
+// Add trend.
+trendCard.trend.add('marker', 'trend', 10, 70, 'Trend', 0)
+d3.selectAll('#trend .trend circle').style('fill', 'royalblue')
+d3.selectAll('#trend .trend line').style('stroke', 'royalblue')
+d3.selectAll('#trend .trend text').style('fill', 'royalblue')
 </script></a></div></div></main></body></html>

@@ -34,12 +34,12 @@ export default (type, name, parent, elem) => {
 
   // Private members
   let _ = (() => {
-    const clipPathId = `${name}-dalian-plots-clipper`
+    const clipId = `${name}-dalian-plots-clipper`
 
     return {
-      clipPathId,
+      clipId,
       clip: self._widget.content.append('defs').append('clipPath')
-        .attr('id', clipPathId)
+        .attr('id', clipId)
         .append('rect')
         .attr('x', 0)
         .attr('y', 0)
@@ -69,6 +69,7 @@ export default (type, name, parent, elem) => {
       plots: self._widget.content.append('g')
         .attr('class', 'dalian-plots-container'),
       plotSelectors: [],
+      clipId: _.clipId,
 
       // Transform data: default is identity
       transformData: data => data,
@@ -82,7 +83,7 @@ export default (type, name, parent, elem) => {
             enter => {
               let g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
-                .attr('clip-path', `url(#${_.clipPathId})`)
+                .attr('clip-path', `url(#${_.clipId})`)
                 .style('shape-rendering', 'geometricPrecision')
                 .style('fill', d => self._colors.mapping(d.name))
                 .style('stroke', d => self._colors.mapping(d.name))

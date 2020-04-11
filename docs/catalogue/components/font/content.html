@@ -22,15 +22,14 @@ dalian.BarChart('font-card', '#font')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .font.color('royalblue')
+  .font.color('#ccc')
   .bottomAxis.label('X')
-  .bottomAxis.hideTicks(true)
-  .bottomAxis.hideAxisLine(true)
   .leftAxis.label('Y')
-  .leftAxis.hideTicks(true)
-  .leftAxis.hideAxisLine(true)
   .color('#ccc')
   .render()
+
+// Highlight component
+d3.selectAll('#font text').style('color', 'royalblue')
 </script>
 
 <script class="doc">
@@ -54,8 +53,6 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .tooltip.on(true)
-  .tooltip.rowFormat(y => y.toFixed(2))
   .render()
 </script>
 

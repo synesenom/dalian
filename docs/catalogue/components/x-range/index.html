@@ -22,8 +22,12 @@
       <span class="button checkbox">U</span>
       <span class="label">- Set upper boundary.</span>
     </li>
+    <li id="toggleStretch" onclick="toggleStretch()">
+      <span class="button checkbox">S</span>
+      <span class="label">- Stretch boundary.</span>
+    </li>
   </ul>
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/range/x-range.js">source</a><a class="right footnote" href="../../../api/components/x-range.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/range/x-range.js">source</a><a class="right footnote" href="../../../api/components/x-range.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [{
@@ -55,6 +59,12 @@ let toggleMax = () => {
   this.u = !(this.u || 0)
   chart.xRange.max(this.u ? 70 : undefined).render(400)
 }
+let toggleStretch = () => {
+  this.s = !(this.s || 0)
+  chart.xRange.min(this.l ? 30 : undefined, this.s ? 0.1 : undefined)
+    .xRange.max(this.u ? 70 : undefined, this.s ? 0.1 : undefined)
+    .render(400)
+}
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
@@ -65,6 +75,9 @@ window.addEventListener('keydown', e => {
     case 'u':
       toggleMax()
       break
+    case 's':
+      toggleStretch()
+      break
     default:
       break
   }
@@ -73,6 +86,7 @@ window.addEventListener('keydown', e => {
 // Modify toggle buttons
 toggleMin = checkbox(toggleMin, 'toggleMin', 'l', ['Remove lower boundary', 'Set lower boundary'])
 toggleMax = checkbox(toggleMax, 'toggleMax', 'u', ['Remove upper boundary', 'Set upper boundary'])
+toggleStretch = checkbox(toggleStretch, 'toggleStretch', 's', ['Relax range', 'Stretch range'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

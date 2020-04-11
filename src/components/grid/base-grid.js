@@ -10,14 +10,12 @@ export default type => {
     // Private members
     let _ = {
       defaults: {
-        color: '#aaa',
-        lineWidth: 1,
+        opacity: 0.3,
         lineStyle: '4 8'
       },
       on: false,
       grid: undefined,
-      color: undefined,
-      lineWidth: undefined,
+      opacity: undefined,
       lineStyle: undefined,
 
       update: duration => {
@@ -28,6 +26,8 @@ export default type => {
             _.grid = self._chart.plots.insert('g', ':first-child')
               .attr('class', 'grid')
               .style('opacity', 0)
+              .style('stroke', 'currentColor')
+              .style('stroke-width', '1px')
           }
 
           // Update grid.
@@ -38,8 +38,7 @@ export default type => {
               axis.tickSizeInner(length)
                 .tickFormat('')
             )
-            .style('color', _.color || _.defaults.color)
-            .style('stroke-width', (_.lineWidth || _.defaults.lineWidth) + 'px')
+            .style('stroke-opacity', _.opacity || _.defaults.opacity)
             .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
             .style('opacity', 1)
 
@@ -74,28 +73,15 @@ export default type => {
       },
 
       /**
-       * Sets the grid line's color. Default color is #aaa.
+       * Sets the grid line's opacity. The grid color is the same as the axis color. Default opacity is 0.3.
        *
-       * @method color
+       * @method opacity
        * @methodOf BaseGrid
-       * @param {string} color String representing the color.
+       * @param {number} value The opacity value.
        * @returns {Widget} Reference to the Widget's API.
        */
-      color: color => {
-        _.color = color
-        return api
-      },
-
-      /**
-       * Sets the grid line's line width in pixels. Default line width is 1px.
-       *
-       * @method lineWidth
-       * @methodOf BaseGrid
-       * @param {number} value Line width in pixels.
-       * @returns {Widget} Reference to the Widget's API.
-       */
-      lineWidth: value => {
-        _.lineWidth = value
+      opacity: value => {
+        _.opacity = value
         return api
       },
 

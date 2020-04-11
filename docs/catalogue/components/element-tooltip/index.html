@@ -8,21 +8,26 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>Font | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}</script><title>ElementTooltip | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
-    The Font component manages font properties such as size and color. Note that changing font color also affects the
-    color of the axes.
-    <br><br>Press the following keys or click on the buttons to explore the API:
+    The ElementTooltip component adds a pre-formatted tooltip to the chart. This example shows the available methods for
+    the component and demonstrates its behavior when various properties of the chart are changed.
+    <br><br>Press the following keys or click on the buttons to explore the component:
   </p>
   <ul>
-    <li onclick="toggleFontSize()"><span class="button">D</span>- Change font size.</li>
-    <li onclick="toggleFontColor()"><span class="button">C</span>- Change font color.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">
+      <span class="button checkbox">T</span>
+      <span class="label">- Show tooltip.</span>
+    </li>
+    <li onclick="changeTitleFormat()"><span class="button">I</span>- Change title format.</li>
+    <li onclick="changeRowFormat()"><span class="button">R</span>- Change row format.</li>
+    <li onclick="changeFontColor()"><span class="button">F</span>- Change font color.</li>
   </ul>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/font.js">source</a><a class="right footnote" href="../../../api/components/font.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/tooltip/element-tooltip.js">source</a><a class="right footnote" href="../../../api/components/element-tooltip.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return Array.from({ length: 5 }, (d, i) => ({
-    name: 'plot' + (i + 1),
+    name: 'ABCDE'.charAt(i),
     value: Math.random() + 0.5
   }))
 }
@@ -37,31 +42,52 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
+  .tooltip.rowFormat(x => x.toFixed(2))
   .render()
 </script><script class="doc">
 // api methods
-const toggleFontSize = () => {
-  this.s = ((this.s || 0) + 1) % 3
-  chart.font.size([undefined, 10, 16][this.s]).render()
+let toggleTooltip = () => {
+  this.t = !(this.t || 0)
+  chart.tooltip.on(this.t).render()
 }
-const toggleFontColor = () => {
-  this.c = ((this.c || 0) + 1) % 3
-  chart.font.color([undefined, 'firebrick', 'grey'][this.c]).render()
+let changeTitleFormat = () => {
+  this.i = !(this.i || 0)
+  chart.tooltip.titleFormat(this.i ? x => 'Name: ' + x.toUpperCase() : x => x)
+    .render()
 }
+let changeRowFormat = () => {
+  this.r = !(this.r || 0)
+  chart.tooltip.rowFormat(this.r ? y => y.toPrecision(2) + ' per capita' : y => y.toFixed(2))
+    .render()
+}
+let changeFontColor = () => {
+  this.f = !(this.f || 0)
+  chart.font.color(this.f ? 'grey' : undefined).render()
+}
+// TODO ignore, xFormat, yFormat
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 's':
-      toggleFontSize()
+    case 't':
+      toggleTooltip()
       break
-    case 'c':
-      toggleFontColor()
+    case 'i':
+      changeTitleFormat()
+      break
+    case 'r':
+      changeRowFormat()
+      break
+    case 'f':
+      changeFontColor()
       break
     default:
       break
   }
 })
+</script><script class="doc-hidden">
+// Modify toggle buttons
+toggleTooltip = checkbox(toggleTooltip, 'toggleTooltip', 't', ['Hide tooltip', 'Show tooltip'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

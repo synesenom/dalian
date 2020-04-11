@@ -11,7 +11,7 @@ import extend from '../../core/extend'
 export default scale => (() => {
   return (self, api) => {
     // Base class
-    let base = BaseAxis('y', self._widget.content, axisBottom, scale)
+    let base = BaseAxis('x', self._widget.content, axisBottom, scale)
     base.adjustLabel({
       'text-anchor': 'end',
       dy: '2.5em'

@@ -89,9 +89,11 @@ export default scales => (() => {
 
         // Build group without showing it
         const g = self._chart.plots.append('g')
-          .attr('class', 'trend ' + encode(key))
+          .attr('class', 'trend trend-' + encode(key))
+          .attr('clip-path', `url(#${self._chart.clipId})`)
           .style('opacity', 0)
         // TODO Use attributes/styles methods to set properties
+        // TODO Replace these lines with a single path.
         const horizontal = g.append('line')
           .attr('class', 'horizontal')
           .attr('x1', scaleX(Math.max(pos.start.x, pos.start.x)))
