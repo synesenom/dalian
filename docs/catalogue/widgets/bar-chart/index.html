@@ -17,6 +17,15 @@
   </p>
   <ul>
     <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li id="toggleHorizontal" onclick="toggleHorizontal()">
+      <span class="button checkbox">H</span>
+      <span class="label">- Change to horizontal.</span>
+    </li>
+    <li id="toggleValues" onclick="toggleValues()">
+      <span class="button checkbox">V</span>
+      <span class="label">- Show values.</span>
+    </li>
+    <li onclick="changeValueFormat()"><span class="button">F</span>- Change value format.</li>
   </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/bar-chart.js">source</a><a class="right footnote" href="../../../api/widgets/bar-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
@@ -47,21 +56,48 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .color('royalblue')
   .mouse.over(k => barChart.highlight(k.name))
   .mouse.leave(() => barChart.highlight())
-  .horizontal(true)
-  .values(true)
   .tooltip.on(true)
-  .tooltip.rowFormat(y => y.toFixed(2))
+  .tooltip.rowFormat(y => y.toFixed(1))
   .render()
 </script><script class="doc">
 // api methods
-const changeData = () => barChart.data(getData()).render(1000)
+let changeData = () => barChart.data(getData()).render(1000)
+let toggleHorizontal = () => {
+  this.h = !(this.h || 0)
+  barChart.horizontal(this.h).render()
+}
+let toggleValues = () => {
+  this.v = !(this.v || 0)
+  barChart.values(this.v).render()
+}
+let changeValueFormat = () => {
+  this.f = !(this.f || 0)
+  barChart.valueFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
+    .render()
+}
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'h':
+      toggleHorizontal()
+      break
+    case 'v':
+      toggleValues()
+      break
+    case 'f':
+      changeValueFormat()
+      break
+    default:
   }
 })
+</script><script class="doc-hidden">
+// Modify toggle buttons
+toggleHorizontal = checkbox(toggleHorizontal, 'toggleHorizontal', 'h', ['Change to vertical', 'Change to horizontal'])
+toggleValues = checkbox(toggleValues, 'toggleValues', 'v', ['Hide values', 'Show values'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

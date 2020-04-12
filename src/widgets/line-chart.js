@@ -208,6 +208,7 @@ export default (name, parent = 'body') => {
       }
     }
   }
+
   self._chart.transformData = data => {
     return data.map(d => ({
       name: d.name,

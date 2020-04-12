@@ -10,7 +10,6 @@ import extend from '../core/extend'
  * @function Trend
  */
 // TODO Add API .text()
-// TODO Sync with XRange and YRange.
 export default scales => (() => {
   return (self, api) => {
     // Private members

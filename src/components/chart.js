@@ -76,7 +76,6 @@ export default (type, name, parent, elem) => {
 
       plotGroups: (attr, duration) => {
         // Select groups
-        // TODO Use currentColor in charts.
         let groups = self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)
           .join(
@@ -104,7 +103,6 @@ export default (type, name, parent, elem) => {
             self._chart.plots.style('pointer-events', 'none')
             self._widget.transition = true
           })
-        // TODO Move this to .join(update)?
         // Update group before transition.
         groups = attr.updateBefore ? attr.updateBefore(groups) : groups
 

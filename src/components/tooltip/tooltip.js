@@ -4,7 +4,6 @@ import extend from '../../core/extend'
 // TODO Add more liberty in setting tooltipTitle based on current data point or element
 // TODO Add more liberty in setting tooltipContent based on current data point or element
 
-// TODO Tooltip not working when mouse events are not attached. Attach tooltip to mousemove
 /**
  * Component implementing the tooltip feature. When this component is available for a widget, its API is exposed via the
  * {.tooltip} namespace.

@@ -56,7 +56,7 @@ export default (name, parent = 'body') => {
       const flatData = self._chart.data.map(d => d.values).flat()
 
       // Add some buffer one sided to the vertical range.
-      const yData = flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))
+      const yData = flatData.map(d => d.y)
       const yRange = d3.extent(yData)
       const yBuffer = 0.01 * (yRange[1] - yRange[0])
       yRange[1] += yBuffer
@@ -187,9 +187,7 @@ export default (name, parent = 'body') => {
       values: d.values.sort((a, b) => a.x - b.x)
         .map(dd => ({
           x: dd.x,
-          y: dd.y,
-          lo: dd.lo || 0,
-          hi: dd.hi || 0
+          y: dd.y
         }))
     }))
   }

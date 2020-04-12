@@ -117,7 +117,6 @@ export default (name, parent = 'body') => {
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
             .attr('r', self._scatterPlot.size)
-            // TODO Remove this once Chart uses color instead of fill and stroke
             .style('opacity', self._opacity.value())
 
           return g
@@ -125,7 +124,7 @@ export default (name, parent = 'body') => {
         exit: g => g.style('opacity', 0)
       })
 
-      // Update Voronoi tessellation
+      // Update Voronoi tessellation.
       _.diagram = _.computeDiagram(self._chart.data)
     }
   }

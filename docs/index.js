@@ -9,7 +9,7 @@ const { JSDOM } = require('jsdom')
 const MODULES = [
   'components/axis/bottom-axis',
   'components/axis/left-axis',
-  'components/chart', // TODO example
+  'components/chart',
   'components/color',
   'components/description',
   'components/font',
