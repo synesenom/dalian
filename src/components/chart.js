@@ -76,7 +76,7 @@ export default (type, name, parent, elem) => {
 
       plotGroups: (attr, duration) => {
         // Select groups
-        // TODO Set color in group and use currentColor in charts.
+        // TODO Use currentColor in charts.
         let groups = self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)
           .join(
@@ -85,9 +85,8 @@ export default (type, name, parent, elem) => {
               let g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
                 .attr('clip-path', `url(#${_.clipId})`)
+                .style('color', d => self._colors.mapping(d.name))
                 .style('shape-rendering', 'geometricPrecision')
-                .style('fill', d => self._colors.mapping(d.name))
-                .style('stroke', d => self._colors.mapping(d.name))
               return attr.enter ? attr.enter(g) : g
             },
             // Group update: do nothing
@@ -111,8 +110,7 @@ export default (type, name, parent, elem) => {
 
         // Transition update.
         groups = groups.transition().duration(duration)
-          .style('fill', d => self._colors.mapping(d.name))
-          .style('stroke', d => self._colors.mapping(d.name))
+          .style('color', d => self._colors.mapping(d.name))
         groups = attr.update ? attr.update(groups) : groups
 
         // At the end, restore pointer events.

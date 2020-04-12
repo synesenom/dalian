@@ -84,6 +84,8 @@ export default (name, parent = 'body') => {
         enter: g => {
           // Init group
           g.style('opacity', 0)
+            .attr('stroke', 'none')
+            .attr('fill', 'currentColor')
 
           // Add dots
           g.selectAll('circle').data(d => d.values)

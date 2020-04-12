@@ -52,13 +52,14 @@ const chart = dalian.BarChart('myChart', '#widget')
   .leftAxis.label('Y')
   .tooltip.on(true)
   .tooltip.yFormat(y => y.toFixed(2))
+  .values(true)
   .render()
 </script>
 
 <script class="doc">
 // api methods
 let defaultColors = () => chart.color().render(1000)
-let constantColor = () => chart.color('grey').render(1000)
+let constantColor = () => chart.color('#555').render(1000)
 let shadedColor = () => chart.color('royalblue', 5).render(1000)
 let plotSpecificColor = () => chart.color({
   plot1: '#ef4767',

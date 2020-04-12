@@ -105,22 +105,25 @@ export default (name, parent = 'body') => {
       // Add plots
       self._chart.plotGroups({
         enter: g => {
+          g.style('opacity', 0)
+
           // Add error bands
           g.append('path')
             .attr('class', d => `error-band ${encode(d.name)}`)
             .attr('d', d => errorFn(d.values))
-            .style('stroke', 'none')
-            .style('fill-opacity', 0)
+            .attr('stroke', 'none')
+            .attr('fill', 'currentColor')
+            .style('fill-opacity', 0.2)
 
           // Add lines
           g.append('path')
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
-            .style('stroke-width', d => self._lineWidth.mapping(d.name))
-            .style('opacity', 0)
-            .style('fill', 'none')
-            .style('stroke-linejoin', 'round')
-            .style('stroke-linecap', 'round')
+            .attr('stroke', 'currentColor')
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
+            .attr('fill', 'none')
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke-linecap', 'round')
           return g
         },
         update: g => {
@@ -131,7 +134,6 @@ export default (name, parent = 'body') => {
               let current = errorFn(d.values)
               return interpolatePath(previous, current, null)
             })
-            .style('fill-opacity', 0.2)
 
           // Update lines
           g.select('.line')
@@ -140,8 +142,9 @@ export default (name, parent = 'body') => {
               let current = lineFn(d.values)
               return interpolatePath(previous, current, null)
             })
-            .style('opacity', 1)
             .style('stroke-dasharray', d => self._lineStyles.strokeDashArray(d.name))
+
+          g.style('opacity', 1)
           return g
         },
         exit: g => g.style('opacity', 0)

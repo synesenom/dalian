@@ -82,19 +82,21 @@ export default (name, parent = 'body') => {
       // Add plots
       self._chart.plotGroups({
         enter: g => {
+          g.style('opacity', 0)
+
           // Add area.
           g.append('path')
             .attr('class', d => `area ${encode(d.name)}`)
             .attr('d', d => areaFn(d.values))
             .attr('stroke', 'none')
-            .style('fill-opacity', 0)
+            .attr('fill', 'currentColor')
 
           // Add line.
           g.append('path')
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
-            .style('stroke-opacity', 0)
+            .attr('stroke', 'currentColor')
           return g
         },
         update: g => {
@@ -114,7 +116,9 @@ export default (name, parent = 'body') => {
               let current = lineFn(d.values)
               return interpolatePath(previous, current, null)
             })
-            .style('stroke-opacity', 1)
+
+          g.style('opacity', 1)
+
           return g
         },
         exit: g => g.style('opacity', 0)

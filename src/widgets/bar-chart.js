@@ -101,7 +101,7 @@ export default (name, parent = 'body') => {
           // Add bars
           const rect = g.append('rect')
             .attr('class', d => `bar ${encode(d.name)}`)
-            .style('stroke-with', '2px')
+            .attr('fill', 'currentColor')
             .on('mouseover', d => _.current = d)
             .on('mouseleave', () => _.current = undefined)
           if (self._barChart.horizontal) {
@@ -180,7 +180,7 @@ export default (name, parent = 'body') => {
     _barChart: {
       horizontal: false,
       values: false,
-      valueFormat: Math.round
+      valueFormat: x => x.toFixed(2)
     }
   })
 
