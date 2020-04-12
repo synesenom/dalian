@@ -72,6 +72,7 @@ export default scales => (() => {
         // Add pin group
         const g = _.getContainer().append('g')
           .attr('class', 'pin')
+          .style('color', color)
           .style('opacity', 0)
 
         // Pin label
@@ -170,8 +171,8 @@ export default scales => (() => {
           .attr('y1', scaleY.range()[0])
           .attr('x2', scaleX(position) + 1)
           .attr('y2', height)
-          .style('stroke', color)
-          .style('stroke-width', '2px')
+          .attr('stroke', 'currentColor')
+          .attr('stroke-width', '2px')
           .style('pointer-events', 'all')
           .on('click', click)
           .on('mouseover', mouseover)
@@ -183,9 +184,9 @@ export default scales => (() => {
           .attr('cx', scaleX(position) + 1)
           .attr('cy', height)
           .attr('r', (options.size || 6) + 'px')
-          .style('stroke', 'white')
-          .style('stroke-width', '1px')
-          .style('fill', color)
+          .attr('stroke', 'white')
+          .attr('stroke-width', '1px')
+          .attr('fill', 'currentColor')
           .style('pointer-events', 'all')
           .on('mouseover', mouseover)
           .on('mouseleave', mouseleave)
