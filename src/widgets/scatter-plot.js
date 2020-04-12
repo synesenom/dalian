@@ -1,3 +1,4 @@
+import { extent } from 'd3'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
@@ -71,10 +72,12 @@ export default (name, parent = 'body') => {
       const flatData = self._chart.data.map(d => d.values).flat()
 
       // Update scales
+      const xRange = extent(flatData.map(d => d.x))
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(self._xRange.range(flatData.map(d => d.x)))
+        .domain(self._xRange.range([xRange[0] - self._scatterPlot.size, xRange[1] + self._scatterPlot.size]))
+      const yRange = extent(flatData.map(d => d.y))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(self._yRange.range(flatData.map(d => d.y)))
+        .domain(self._yRange.range([yRange[0] - self._scatterPlot.size, yRange[1] + self._scatterPlot.size]))
 
       // Add plots
       self._chart.plotGroups({

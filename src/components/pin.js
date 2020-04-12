@@ -1,5 +1,6 @@
 import luminance from '../utils/luminance'
 import extend from '../core/extend'
+import { select } from 'd3'
 
 
 /**
@@ -14,7 +15,20 @@ export default scales => (() => {
   return (self, api) => {
     // Private members
     let _ = {
-      pins: new Map()
+      // Variables
+      container: undefined,
+      pins: new Map(),
+
+      // Methods
+      getContainer: () => {
+        // Get or create container.
+        if (typeof _.container === 'undefined') {
+          _.container = self._chart.plots.append('g')
+            .attr('class', 'pin-container')
+            .attr('clip-path', `url(#${self._chart.clipId})`)
+        }
+        return _.container
+      }
     }
 
     // Extend widget update
@@ -56,7 +70,7 @@ export default scales => (() => {
         const text = options.text || ''
 
         // Add pin group
-        const g = self._chart.plots.append('g')
+        const g = _.getContainer().append('g')
           .attr('class', 'pin')
           .style('opacity', 0)
 

@@ -15,7 +15,20 @@ export default scales => (() => {
   return (self, api) => {
     // Private members
     let _ = {
+      // Variables.
+      container: undefined,
       trends: new Map(),
+
+      // Methods
+      getContainer: () => {
+        // Get or create container.
+        if (typeof _.container === 'undefined') {
+          _.container = self._chart.plots.append('g')
+            .attr('class', 'trend-container')
+            .attr('clip-path', `url(#${self._chart.clipId})`)
+        }
+        return _.container
+      },
 
       adjustTrend: (key, start, end) => {
         let data = self._chart.data.find(d => d.name === key)
@@ -88,9 +101,8 @@ export default scales => (() => {
         let pos = _.adjustTrend(key, start, end)
 
         // Build group without showing it
-        const g = self._chart.plots.append('g')
+        const g = _.getContainer().append('g')
           .attr('class', 'trend trend-' + encode(key))
-          .attr('clip-path', `url(#${self._chart.clipId})`)
           .style('opacity', 0)
         // TODO Use attributes/styles methods to set properties
         // TODO Replace these lines with a single path.

@@ -26,7 +26,7 @@ const MODULES = [
   'components/tooltip/point-tooltip',
   'components/tooltip/element-tooltip',
   'components/trend',
-  'components/widget', // TODO example
+  'components/widget',
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',

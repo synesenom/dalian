@@ -34,6 +34,9 @@ import YRange from '../components/range/y-range'
  * [YGrid]{@link ../components/y-grid.html},
  * [YRange]{@link ../components/y-range.html}.
  *
+ * Note that the line chart automatically adds a small extension to the vertical axis, which can of be overwritten by
+ * the YRange component API.
+ *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
@@ -69,15 +72,22 @@ export default (name, parent = 'body') => {
 
     // Methods
     update: duration => {
-      // Determine boundaries
+      // Create flat data.
       const flatData = self._chart.data.map(d => d.values).flat()
         .filter(d => d.y !== null)
+
+      // Add some buffer to the vertical range.
+      const yData = flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))
+      const yRange = d3.extent(yData)
+      const yBuffer = 0.01 * (yRange[1] - yRange[0])
+      yRange[1] += yBuffer
+      yRange[0] -= yBuffer
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(self._xRange.range(flatData.map(d => d.x)))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(self._yRange.range(flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))))
+        .domain(self._yRange.range(yRange))
 
       // Create line and error path functions
       const lineFn = line()

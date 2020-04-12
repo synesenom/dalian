@@ -1,0 +1,107 @@
+<div id="desc">
+  <p>
+    The Widget component is the basis of all widgets (charts, etc). This example shows the available methods for this
+    base component.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul>
+    <li onclick="changeX()"><span class="button">X</span>- Change X position.</li>
+    <li onclick="changeY()"><span class="button">Y</span>- Change Y position.</li>
+    <li onclick="changeWidth()"><span class="button">W</span>- Change width.</li>
+    <li onclick="changeHeight()"><span class="button">H</span>- Change height.</li>
+    <li onclick="changeMargins()"><span class="button">M</span>- Change margins.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.LineChart('widget-card', '#widget')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return [{
+    name: 'trend',
+    values: Array.from({ length: 1000 }, (d, i) => ({
+      x: i / 10,
+      y: Math.sin(i / 100)
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time [h]')
+  .leftAxis.label('Temperature [C]')
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let changeX = () => {
+  this.x = !(this.x || 0)
+  chart.x(this.x ? 100 : undefined).render(1000)
+}
+let changeY = () => {
+  this.y = !(this.y || 0)
+  chart.y(this.y ? 50 : undefined).render(1000)
+}
+let changeWidth = () => {
+  this.w = !(this.w || 0)
+  chart.width(this.w ? 400 : 600).render(1000)
+}
+let changeHeight = () => {
+  this.h = !(this.h || 0)
+  chart.height(this.h ? 240 : 300).render(1000)
+}
+let changeMargins = () => {
+  this.m = !(this.m || 0)
+  chart.margins(this.m ? {left: 60, right: 70, top: 80, bottom: 90} : 40).render(1000)
+}
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'x':
+      changeX()
+      break
+    case 'y':
+      changeY()
+      break
+    case 'w':
+      changeWidth()
+      break
+    case 'h':
+      changeHeight()
+      break
+    case 'm':
+      changeMargins()
+      break
+    default:
+      break
+  }
+})
+</script>

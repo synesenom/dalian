@@ -48,7 +48,8 @@ export default (name, parent, axisFn, scale) => {
 
     update: (duration, size, margins) => {
       // Update container
-      _.container.attr('transform', 'translate(' + margins.left + ',' + margins.top + ')')
+      _.container.transition().duration(duration)
+        .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')')
         .style('width', size.innerWidth)
         .style('height', size.innerHeight)
 

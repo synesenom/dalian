@@ -48,7 +48,6 @@ const chart = dalian.LineChart('myChart', '#widget')
   .font.size(14)
   .bottomAxis.label('Elapsed time')
   .leftAxis.label('Temperature [C]')
-  .yRange.max(null, 0.1)
   .render()
 </script><script class="doc">
 // api methods
@@ -56,7 +55,7 @@ let changeData = () => chart.data(getData()).render(1000)
 let togglePin = () => {
   this.p = !(this.p || 0)
   if (this.p) {
-    chart.pin.add('marker', 40, {
+    chart.pin.add('marker', 10 + 30 * Math.random(), {
       color: 'firebrick',
       'height': 0.7,
       text: 'Measurement started'
@@ -67,7 +66,7 @@ let togglePin = () => {
 }
 let toggleXRange = () => {
   this.x = !(this.x || 0)
-  chart.xRange.min(this.x ? 8 : undefined)
+  chart.xRange.min(this.x ? 20 : undefined)
     .xRange.max(this.x ? 35 : undefined)
     .render(1000)
 }

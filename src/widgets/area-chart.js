@@ -55,12 +55,18 @@ export default (name, parent = 'body') => {
       // Collect all data points
       const flatData = self._chart.data.map(d => d.values).flat()
 
+      // Add some buffer one sided to the vertical range.
+      const yData = flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))
+      const yRange = d3.extent(yData)
+      const yBuffer = 0.01 * (yRange[1] - yRange[0])
+      yRange[1] += yBuffer
+
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(flatData.map(d => d.x))
       // Make sure scale starts at 0
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(self._yRange.range(flatData.map(d => d.y).concat(0)))
+        .domain(self._yRange.range(yRange))
 
       // Create area and line.
       const areaFn = area()

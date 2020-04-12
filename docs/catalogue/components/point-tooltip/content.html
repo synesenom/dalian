@@ -68,7 +68,6 @@ const chart = dalian.LineChart('myChart', '#widget')
   .font.size(14)
   .bottomAxis.label('Elapsed time [h]')
   .leftAxis.label('Temperature [C]')
-  .yRange.max(null, 0.01)
   .tooltip.yFormat(y => y.toFixed(2))
   .render()
 </script>

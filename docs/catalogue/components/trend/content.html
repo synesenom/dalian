@@ -49,7 +49,7 @@ d3.selectAll('#trend .trend text').style('fill', 'royalblue')
 // generate data
 function getData () {
   const length = 50 + Math.floor(50 * Math.random())
-  const tau = 50 * Math.random() + 50
+  const tau = 50 + 50 * Math.random()
   return [{
     name: 'trend',
     values: Array.from({ length }, (d, i) => ({
