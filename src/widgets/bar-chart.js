@@ -12,11 +12,11 @@ import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
 
 // TODO Add components: Mouse, YGrid, XGrid
-// TODO Add reference to all components: Highlight
 /**
  * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [Highlight]{@link ../components/highlight.html},
  * [LeftAxis]{@link ../components/left-axis.html},
  * [ElementTooltip]{@link ../components/element-tooltip.html}.
  *
@@ -35,7 +35,7 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.bar', '.bar-value'])
+    Highlight(['.plot-group'])
   )
 
   // Private members
@@ -268,7 +268,8 @@ export default (name, parent = 'body') => {
 
   // Documentation
   /**
-   * Set/updates the data that is shown in the bar chart.
+   * Set/updates the data that is shown in the bar chart. For the bar chart, each bar is itself a plot group, so all
+   * methods that operate on plot groups are applied on the bar level.
    *
    * @method data
    * @methodOf BarChart

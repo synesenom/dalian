@@ -9,15 +9,13 @@ export default () => {
 
   // Public API
   return {
-    min: (value, stretch) => {
-      _.min = value
-      _.scaleMin = Math.abs(stretch || 0)
-    },
+    min: value => _.min = value,
 
-    max: (value, stretch) => {
-      _.max = value
-      _.scaleMax = Math.abs(stretch || 0)
-    },
+    max: value => _.max = value,
+
+    expandMin: value => _.scaleMin = Math.abs(value || 0),
+
+    expandMax: value => _.scaleMax = Math.abs(value || 0),
 
     range: data => {
       // Determine final boundaries.

@@ -265,6 +265,26 @@ dalian.LineChart('y-grid-card', '#y-grid')
 
 // Highlight component
 d3.select('#y-grid .grid').style('color', 'royalblue')
+</script></a><a class="card" href="components/highlight"><div class="card-title">Highlight</div><div class="card-content" id="highlight"></div><script class="card-example">
+const highlightChart = dalian.BarChart('highlight-card', '#highlight')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('#ccc')
+  .render()
+
+// Highlight bar.
+d3.select('#highlight .plot-group.B rect').style('fill', 'royalblue')
 </script></a><a class="card" href="components/mouse"><div class="card-title">Mouse</div><div class="card-content" id="mouse"></div><script class="card-example">
 dalian.BarChart('mouse-card', '#mouse')
   .data(Array.from({ length: 5 }, (d, i) => ({

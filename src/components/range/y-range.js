@@ -24,12 +24,26 @@ export default (self, api) => {
        * @method min
        * @methodOf YRange
        * @param {(number|null)} value The lower boundary to set. If null, the plot's own lower boundary is used.
-       * @param {number} [extend = 0] Scaling factor to stretch the lower boundary with. If not zero, the lower boundary
-       * is extended with the specified fraction of the entire Y domain of the real plot area.
+       * is extended with the specified fraction of the entire Y range of the real plot area.
        * @returns {Widget} Reference to the Widget's API.
        */
-      min: (value, extend) => {
-        base.min(value, extend)
+      min: value => {
+        base.min(value)
+        return api
+      },
+
+      /**
+       * Sets an expansion to the lower boundary. This method expands the Y range to the lower boundary with the
+       * specified of the total range. Default value
+       *
+       * @method expandMin
+       * @methodOf XRange
+       * @param {number} [value = 0] Scaling factor to expand the lower boundary with. If not zero, the lower boundary
+       * is extended with the specified fraction of the entire Y range of the current plot area.
+       * @returns {Widget} Reference to the Widget's API.
+       */
+      expandMin: value => {
+        base.expandMin(value)
         return api
       },
 
@@ -39,14 +53,28 @@ export default (self, api) => {
        * @method max
        * @methodOf YRange
        * @param {(number|null)} value The upper boundary to set. If null, the plot's own upper boundary is used.
-       * @param {number} [extend = 0] Scaling factor to extend the upper boundary with. If not zero, the upper boundary
-       * is extended with the specified fraction of the entire Y domain of the real plot area.
+       * is extended with the specified fraction of the entire Y range of the real plot area.
        * @returns {Widget} Reference to the Widget's API.
        */
-      max: (value, extend) => {
-        base.max(value, extend)
+      max: value => {
+        base.max(value)
         return api
-      }
+      },
+
+      /**
+       * Sets an expansion to the lower boundary. This method expands the Y range to the upper boundary with the
+       * specified of the total range. Default value
+       *
+       * @method expandMax
+       * @methodOf XRange
+       * @param {number} [value = 0] Scaling factor to expand the upper boundary with. If not zero, the upper boundary
+       * is extended with the specified fraction of the entire Y range of the current plot area.
+       * @returns {Widget} Reference to the Widget's API.
+       */
+      expandMax: value => {
+        base.expandMax(value)
+        return api
+      },
     }
   })
 

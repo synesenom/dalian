@@ -81,8 +81,8 @@ let toggleMax = () => {
 }
 let toggleStretch = () => {
   this.s = !(this.s || 0)
-  chart.xRange.min(this.l ? 30 : undefined, this.s ? 0.1 : undefined)
-    .xRange.max(this.u ? 70 : undefined, this.s ? 0.1 : undefined)
+  chart.xRange.expandMin(this.s ? 0.1 : undefined)
+    .xRange.expandMax(this.s ? 0.1 : undefined)
     .render(400)
 }
 </script>

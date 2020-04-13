@@ -14,13 +14,13 @@ import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 
 
-// TODO Add all components to docs: Highlight
 // TODO Add more components: XGrid, YGrid.
 /**
  * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [ElementTooltip]{@link ../components/point-tooltip.html},
+ * [Highlight]{@link ../components/highlight.html},
  * [LeftAxis]{@link ../components/left-axis.html},
  * [Opacity]{@link ../components/opacity.html},
  * [XRange]{@link ../components/x-range.html},
@@ -39,7 +39,7 @@ export default (name, parent = 'body') => {
     Chart('scatter-plot', name, parent, 'svg'),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.dot-group']),
+    Highlight(['.plot-group']),
     LeftAxis(scales.y),
     Opacity(0.5),
     PlotMarker,

@@ -20,13 +20,14 @@ import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 
-// TODO Add reference to components: Highlight, LineStyle, LineWidth, Smoothing.
+// TODO Add reference to components: LineStyle, LineWidth, Smoothing.
 // TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [LeftAxis]{@link ../components/left-axis.html},
+ * [Highlight]{@link ../components/highlight.html},
  * [Pin]{@link ../components/pin.html},
  * [PointTooltip]{@link ../components/point-tooltip.html},
  * [Trend]{@link ../components/trend.html},
@@ -61,7 +62,7 @@ export default (name, parent = 'body') => {
     Smoothing,
     PlotMarker,
     PointTooltip,
-    Highlight(['.line', '.error-band', '.plot-marker', '.trend-marker']),
+    Highlight(['.plot-group', '.plot-marker', '.trend-marker']),
     Trend(scales),
     Pin(scales)
   )

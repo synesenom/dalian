@@ -1,0 +1,89 @@
+<div id="desc">
+  <p>
+    The Mouse component allows for binding callbacks to basic mouse events.
+    <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+  <ul id="highlights">
+    <li onclick="highlightSingle()"><span class="button radio">S</span>- Highlight single plot.</li>
+    <li onclick="highlightMultiple()"><span class="button radio">M</span>- Highlight multiple plots.</li>
+    <li onclick="removeHighlight()"><span class="button radio on">N</span>- No highlight.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+const highlightChart = dalian.BarChart('highlight-card', '#highlight')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: Math.random()
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color('#ccc')
+  .render()
+
+// Highlight bar.
+d3.select('#highlight .plot-group.B rect').style('fill', 'royalblue')
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random() + 0.5
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.BarChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 40, right: 40, top: 40, bottom: 50})
+  .font.size(14)
+  .color('royalblue')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .values(true)
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let highlightSingle = () => chart.highlight('plot1', 1000)
+let highlightMultiple = () => chart.highlight(['plot3', 'plot4'], 1000)
+let removeHighlight = () => chart.highlight(undefined, 1000)
+</script>
+
+<script class="doc-hidden">
+// Modify radio buttons
+[highlightSingle, highlightMultiple, removeHighlight] = radio('highlights',
+  [highlightSingle, highlightMultiple, removeHighlight])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 's':
+      highlightSingle()
+      break
+    case 'm':
+      highlightMultiple()
+      break
+    case 'r':
+      removeHighlight()
+      break
+    default:
+  }
+})
+</script>

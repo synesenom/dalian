@@ -14,14 +14,15 @@ import Scale from '../components/scale'
 import Smoothing from '../components/smoothing'
 import YRange from '../components/range/y-range'
 
-// TODO Add reference to all components: Highlight, Smoothing
+// TODO Add reference to all components: Smoothing
 /**
  * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. FUrthermore it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [Highlight]{@link ../components/highlight.html},
  * [LeftAxis]{@link ../components/left-axis.html},
  * [Opacity]{@link ../components/opacity.html},
- * [PointTooltip]{@link ../components/point-tooltip.html}
+ * [PointTooltip]{@link ../components/point-tooltip.html}.
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -41,7 +42,7 @@ export default (name, parent = 'body') => {
     Opacity(0.4),
     Smoothing,
     PointTooltip,
-    Highlight(['.area', '.line', '.plot-marker']),
+    Highlight(['.plot-group', '.plot-marker']),
     YRange
   )
 
