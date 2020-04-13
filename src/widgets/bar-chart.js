@@ -1,9 +1,9 @@
-import { max, select, interpolateNumber } from 'd3'
+import { max, interpolateNumber } from 'd3'
 import { getTextWidth } from '../utils/measure-text'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
-import luminance from '../utils/luminance'
+import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -47,8 +47,6 @@ export default (name, parent = 'body') => {
       y: scales.y
     },
 
-    backgroundAdjustedColor: color => luminance(color) > 0.179 ? '#000' : '#fff',
-
     measureX: (d, bandwidth, font) => {
       const tw = getTextWidth(self._barChart.valueFormat(d.value), font)
       const dx = Math.max((bandwidth - parseFloat(font.size)) / 2, 5)
@@ -58,7 +56,7 @@ export default (name, parent = 'body') => {
         inside,
         x: inside ? x - dx : x + dx + tw,
         y: _.scales.y.scale(d.name) + bandwidth / 2,
-        color: inside ? _.backgroundAdjustedColor(self._colors.mapping(d.name)) : font.color
+        color: inside ? luminanceAdjustedColor(self._colors.mapping(d.name)) : font.color
       }
     },
 
@@ -72,7 +70,7 @@ export default (name, parent = 'body') => {
         inside,
         x: _.scales.x.scale(d.name) + bandwidth / 2,
         y: inside ? y + dy : y - dy - th,
-        color: inside ? _.backgroundAdjustedColor(self._colors.mapping(d.name)) : font.color
+        color: inside ? luminanceAdjustedColor(self._colors.mapping(d.name)) : font.color
       }
     },
 
