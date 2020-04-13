@@ -128,10 +128,13 @@ export default (name, parent = 'body') => {
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
             .text(d => self._barChart.valueFormat(d.value))
-            .each(d => Object.assign(d, { _m: measure(d, bandwidth, font) }))
-            .attr('fill', d => d._m.color)
-            .attr('x', d => self._barChart.horizontal ? _.scales.x.scale(0) : d._m.x)
-            .attr('y', d => self._barChart.horizontal ? d._m.y : _.scales.y.scale(0))
+            .each(function (d) {
+              this._current = 0
+              return Object.assign(d, { _measures: measure(d, bandwidth, font) })
+            })
+            .attr('fill', d => d._measures.color)
+            .attr('x', d => self._barChart.horizontal ? _.scales.x.scale(0) : d._measures.x)
+            .attr('y', d => self._barChart.horizontal ? d._measures.y : _.scales.y.scale(0))
 
           return g
         },
@@ -160,15 +163,15 @@ export default (name, parent = 'body') => {
             .attr('font-size', self._font.size)
             .attr('fill', self._font.color)
             .textTween(function (d) {
-              // TODO Save actual value not just parse it from the text.
-              let prev = parseFloat(select(this).text())
+              let prev = this._current
+              this._current = d.value
               let i = interpolateNumber(prev, d.value)
               return t => self._barChart.valueFormat(i(t))
             })
-            .each(d => Object.assign(d, { _m: measure(d, bandwidth, font) }))
-            .attr('fill', d => d._m.color)
-            .attr('x', d => d._m.x)
-            .attr('y', d => d._m.y)
+            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, font) }))
+            .attr('fill', d => d._measures.color)
+            .attr('x', d => d._measures.x)
+            .attr('y', d => d._measures.y)
             .style('display', self._barChart.values ? null : 'none')
 
           return g

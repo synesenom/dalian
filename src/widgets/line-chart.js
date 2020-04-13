@@ -21,6 +21,7 @@ import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 
 // TODO Add reference to components: Highlight, LineStyle, LineWidth, Smoothing.
+// TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
  * available API. Furthermore, it extends the following components:
