@@ -14,10 +14,9 @@ import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 
 
-// TODO Add more components: XGrid, YGrid.
 /**
- * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
- * available API. Furthermore, it extends the following components:
+ * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
+ * its available APIs. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [ElementTooltip]{@link ../components/point-tooltip.html},
  * [Highlight]{@link ../components/highlight.html},
@@ -191,3 +190,5 @@ export default (name, parent = 'body') => {
   })
   return api
 }
+
+// TODO Data

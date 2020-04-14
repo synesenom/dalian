@@ -12,7 +12,7 @@ import Widget from './widget'
 // TODO Use attributes/styles methods.
 /**
  * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget.html} component
- * with all of its exposed API. It extends the following components:
+ * with all of its available APIs. It extends the following components:
  * [Color]{@link ../components/color.html},
  * [Description]{@link ../components/description.html},
  * [Font]{@link ../components/font.html},
@@ -95,9 +95,9 @@ export default (type, name, parent, elem) => {
               g = attr.exit ? attr.exit(g) : g
               g.remove()
             })
-          .on('mouseover', self._mouse.over)
-          .on('mouseleave', self._mouse.leave)
-          .on('click', self._mouse.click)
+          .on('mouseover.mouse', self._mouse.over)
+          .on('mouseleave.mouse', self._mouse.leave)
+          .on('click.mouse', self._mouse.click)
           .each(() => {
             // Disable pointer events before transition.
             self._chart.plots.style('pointer-events', 'none')

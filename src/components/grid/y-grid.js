@@ -6,4 +6,12 @@ import BaseGrid from './base-grid'
  *
  * @function YGrid
  */
-export default BaseGrid('y')
+export default (self, api) => {
+  let base = BaseGrid('y')(self, api)
+
+  self = Object.assign(self || {}, {
+    _yGrid: base.baseSelf
+  })
+
+  return { self, api: base.api }
+}

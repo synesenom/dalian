@@ -13,6 +13,7 @@ export default type => {
         opacity: 0.3,
         lineStyle: '4 8'
       },
+      type,
       on: false,
       grid: undefined,
       opacity: undefined,
@@ -31,8 +32,8 @@ export default type => {
           }
 
           // Update grid.
-          const axis = type === 'x' ? self._bottomAxis.axis : self._leftAxis.axis
-          const length = type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
+          const axis = _.type === 'x' ? self._bottomAxis.axis : self._leftAxis.axis
+          const length = _.type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
           _.grid.transition().duration(duration)
             .call(
               axis.tickSizeInner(length)
@@ -58,6 +59,20 @@ export default type => {
     // Extend update
     self._widget.update = extend(self._widget.update, _.update)
 
+    // Protected methods.
+    let baseSelf = {
+      // Changes type. Only accessible in YGrid.
+      type: type => {
+        _.type = type
+
+        if (_.grid) {
+          _.grid.remove()
+          _.grid = undefined
+        }
+      }
+    }
+
+    // Public API.
     const gridApi = {
       /**
        * Turns on/off grid lines.
@@ -110,7 +125,9 @@ export default type => {
       }
     }
 
+    // Assign API methods (not subject to type change)
     api = Object.assign(api || {}, type === 'x' ? { xGrid: gridApi } : { yGrid: gridApi })
-    return api
+
+    return { baseSelf, self, api }
   }
 }

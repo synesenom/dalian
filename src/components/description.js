@@ -60,17 +60,17 @@ export default (self, api) => {
     description: content => {
       // If content is empty, disable description
       if (typeof content === 'undefined') {
-        self._widget.container.on('contextmenu', null)
+        self._widget.container.on('contextmenu.description', null)
       } else {
         // Otherwise bind description event to context menu
-        self._widget.container.on('contextmenu', () => {
+        self._widget.container.on('contextmenu.description', () => {
           // Prevent default event
           event.preventDefault()
 
           // Update or create description
           _.elem = _.getDescription()
             .html(content)
-        }).on('mouseleave', () => {
+        }).on('mouseleave.description', () => {
           // Remove description if mouse leaves widget
           _.removeDescription()
         })

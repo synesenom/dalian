@@ -174,9 +174,9 @@ export default scales => (() => {
           .attr('stroke', 'currentColor')
           .attr('stroke-width', '2px')
           .style('pointer-events', 'all')
-          .on('click', click)
-          .on('mouseover', mouseover)
-          .on('mouseleave', mouseleave)
+          .on('click.pin', click)
+          .on('mouseover.pin', mouseover)
+          .on('mouseleave.pin', mouseleave)
 
         // Pin head with mouse interactions
         const head = g.append('circle')
@@ -188,8 +188,8 @@ export default scales => (() => {
           .attr('stroke-width', '1px')
           .attr('fill', 'currentColor')
           .style('pointer-events', 'all')
-          .on('mouseover', mouseover)
-          .on('mouseleave', mouseleave)
+          .on('mouseover.pin', mouseover)
+          .on('mouseleave.pin', mouseleave)
 
         // Show pin
         g.transition().duration(duration)

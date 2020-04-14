@@ -16,8 +16,8 @@ import YRange from '../components/range/y-range'
 
 // TODO Add reference to all components: Smoothing
 /**
- * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
- * available API. FUrthermore it extends the following components:
+ * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
+ * its available APIs. Furthermore it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [Highlight]{@link ../components/highlight.html},
  * [LeftAxis]{@link ../components/left-axis.html},
@@ -216,17 +216,6 @@ export default (name, parent = 'body') => {
    *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
    *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
    * </dl>
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Highlights a single plot or multiple plots.
-   *
-   * @method highlight
-   * @methodOf AreaChart
-   * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the plots to highlight. If key
-   * is {null} or {undefined}, the highlight is removed (all plots become visible).
-   * @param {number} [duration = 700] Duration of the highlight animation in ms.
    * @returns {AreaChart} The AreaChart itself.
    */
 

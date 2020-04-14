@@ -58,6 +58,7 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .mouse.leave(() => barChart.highlight())
   .tooltip.on(true)
   .tooltip.rowFormat(y => y.toFixed(1))
+  .yGrid.on(true)
   .render()
 </script><script class="doc">
 // api methods

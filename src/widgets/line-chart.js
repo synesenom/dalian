@@ -23,8 +23,8 @@ import YRange from '../components/range/y-range'
 // TODO Add reference to components: LineStyle, LineWidth, Smoothing.
 // TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.
 /**
- * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
- * available API. Furthermore, it extends the following components:
+ * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
+ * its available APIs. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
  * [LeftAxis]{@link ../components/left-axis.html},
  * [Highlight]{@link ../components/highlight.html},
@@ -53,18 +53,15 @@ export default (name, parent = 'body') => {
     Chart('line-chart', name, parent, 'svg'),
     LeftAxis(scales.y),
     BottomAxis(scales.x),
-    XGrid,
-    YGrid,
-    XRange,
-    YRange,
-    LineStyle,
-    LineWidth,
-    Smoothing,
+    Highlight(['.plot-group', '.plot-marker', '.trend-marker']),
+    LineStyle, LineWidth,
+    Pin(scales),
     PlotMarker,
     PointTooltip,
-    Highlight(['.plot-group', '.plot-marker', '.trend-marker']),
+    Smoothing,
     Trend(scales),
-    Pin(scales)
+    XGrid, XRange,
+    YGrid, YRange
   )
 
   // Private members
@@ -249,17 +246,6 @@ export default (name, parent = 'body') => {
    *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
    *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
    * </dl>
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Highlights a single plot or multiple plots.
-   *
-   * @method highlight
-   * @methodOf LineChart
-   * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the plots to highlight. If key
-   * is {null} or {undefined}, the highlight is removed (all plots become visible).
-   * @param {number} [duration = 700] Duration of the highlight animation in ms.
    * @returns {LineChart} The LineChart itself.
    */
 

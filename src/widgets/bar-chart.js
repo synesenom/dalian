@@ -10,15 +10,17 @@ import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
+import YGrid from '../components/grid/y-grid'
 
-// TODO Add components: Mouse, YGrid, XGrid
 /**
- * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart} component, with all of its
- * available API. Furthermore, it extends the following components:
+ * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
+ * its available APIs. Furthermore, it extends the following components:
  * [BottomAxis]{@link ../components/bottom-axis.html},
+ * [ElementTooltip]{@link ../components/element-tooltip.html},
  * [Highlight]{@link ../components/highlight.html},
- * [LeftAxis]{@link ../components/left-axis.html},
- * [ElementTooltip]{@link ../components/element-tooltip.html}.
+ * [LeftAxis]{@link ../components/left-axis.html}.
+ * [YGrid]{@link ../components/y-grid.html} (this is used for the default and horizontal modes, adapting to the
+ * orientation).
  *
  * @function BarChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -35,7 +37,8 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.plot-group'])
+    Highlight(['.plot-group']),
+    YGrid
   )
 
   // Private members
@@ -103,9 +106,8 @@ export default (name, parent = 'body') => {
           const rect = g.append('rect')
             .attr('class', d => `bar ${encode(d.name)}`)
             .attr('fill', 'currentColor')
-            // TODO Make sure this does not collide with the Mouse component.
-            .on('mouseover', d => _.current = d)
-            .on('mouseleave', () => _.current = undefined)
+            .on('mouseover.barChart', d => _.current = d)
+            .on('mouseleave.barChart', () => _.current = undefined)
           if (self._barChart.horizontal) {
             rect.attr('x', _.scales.x.scale(0))
               .attr('width', 0)
@@ -234,6 +236,9 @@ export default (name, parent = 'body') => {
       self._bottomAxis.scale(_.scales.x)
       self._leftAxis.scale(_.scales.y)
 
+      // Change grid type.
+      self._yGrid.type(on ? 'x' : 'y')
+
       return api
     },
 
@@ -278,17 +283,6 @@ export default (name, parent = 'body') => {
    *   <li>{string} <i>name</i>: Category name.</li>
    *   <li>{number} <i>value</i>: Category value.</li>
    * </ul>
-   * @returns {BarChart} The BarChart itself.
-   */
-
-  /**
-   * Highlights a single bar or multiple bars.
-   *
-   * @method highlight
-   * @methodOf BarChart
-   * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the bars to highlight. If key
-   * is {null} or {undefined}, the highlight is removed (all bars become visible).
-   * @param {number} [duration = 700] Duration of the highlight animation in ms.
    * @returns {BarChart} The BarChart itself.
    */
 }
