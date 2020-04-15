@@ -87,7 +87,7 @@ export default (self, api) => {
           // Shades of a single color
           const baseColor = hsl(policy)
           const dl = 2 * Math.min(baseColor.l, 1 - baseColor.l) / (size + 1)
-          const palette = Array.from({length: size}, (d, i) => {
+          const palette = Array.from({ length: size }, (d, i) => {
             let color = hsl(baseColor)
             color.l += (i - 0.5 * (size - 1)) * dl
             return color

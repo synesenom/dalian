@@ -9,7 +9,7 @@ export default (self, api) => {
   self = Object.assign(self || {}, {
     _lineWidth: {
       // Mapping used internally.
-      mapping: key => _.mapping(key),
+      mapping: key => _.mapping(key)
     }
   })
 
@@ -35,8 +35,8 @@ export default (self, api) => {
         // No line width policy, using default
         _.mapping = () => '2px'
       } else if (typeof policy === 'number') {
-          // Single line width policy, using the specified line width
-          _.mapping = () => policy + 'px'
+        // Single line width policy, using the specified line width
+        _.mapping = () => policy + 'px'
       } else {
         // Line width mapping given. Try to get line width for specified key, or use 2px if missing.
         _.mapping = key => (policy[key] || 2) + 'px'

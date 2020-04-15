@@ -41,7 +41,7 @@ export default (self, api) => {
        * @param {number} size Size of the font in pixels.
        * @returns {Widget} Reference to the Widget API.
        */
-      size: size=> {
+      size: size => {
         self._font.size = (size || _.defaults.size) + 'px'
         return api
       },

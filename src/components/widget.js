@@ -1,4 +1,5 @@
 import { select } from 'd3'
+import styles from '../utils/styles'
 
 /**
  * Component implementing a generic widget. A widget is the most abstract element of the library and most of the charts
@@ -6,7 +7,6 @@ import { select } from 'd3'
  *
  * @function Widget
  */
-// TODO Use attributes/styles methods.
 export default (type, name, parent, elem) => {
   // Private members
   let _ = {
@@ -60,36 +60,42 @@ export default (type, name, parent, elem) => {
         .on('end', () => self._widget.container.style('display', 'block'))
     },
 
-    disable: on => self._widget.disabled = on
+    disable: on => {
+      self._widget.disabled = on
+    }
   }
   try {
     // Add widget container
     self._widget.container = _.parent.append('div')
       .attr('id', self._widget.id)
       .attr('class', `dalian-widget dalian-widget-${type}`)
-      .style('display', 'none')
-      .style('position', 'absolute')
-      .style('width', self._widget.size.width)
-      .style('height', self._widget.size.height)
-      .style('left', _.pos.x + 'px')
-      .style('top', _.pos.y + 'px')
-      .style('font-family', 'inherit')
-      .style('font-size', 'inherit')
-      .style('font-color', 'inherit')
+    styles(self._widget.container, {
+      display: 'none',
+      position: 'absolute',
+      width: self._widget.size.width,
+      height: self._widget.size.height,
+      left: _.pos.x + 'px',
+      top: _.pos.y + 'px',
+      'font-family': 'inherit',
+      'font-size': 'inherit',
+      'font-color': 'inherit'
+    })
 
     // Add widget content element
     self._widget.content = self._widget.container.append(elem)
       .attr('id', `${self._widget.id}-container`)
       .attr('class', `dalian-widget-container`)
-      .style('position', 'absolute')
-      .style('width', '100%')
-      .style('height', '100%')
-      .style('left', 0)
-      .style('top', 0)
-      .style('font-family', 'inherit')
-      .style('font-size', 'inherit')
-      .style('font-color', 'inherit')
-      .style('pointer-events', 'none')
+    styles(self._widget.content, {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      left: 0,
+      top: 0,
+      'font-family': 'inherit',
+      'font-size': 'inherit',
+      'font-color': 'inherit',
+      'pointer-events': 'none'
+    })
   } catch (e) {
     throw Error('MissingDOMException: DOM is not present.')
   }

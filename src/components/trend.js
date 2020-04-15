@@ -1,7 +1,7 @@
 import { bisector } from 'd3'
 import encode from '../core/encode'
 import extend from '../core/extend'
-
+import attributes from '../utils/attributes'
 
 /**
  * Component implementing the trend feature. A trend is a labeled pair of dots indicating changes in the plot. When this
@@ -104,35 +104,34 @@ export default scales => (() => {
           .attr('class', 'trend trend-' + encode(key))
           .style('color', self._colors.mapping(key))
           .style('opacity', 0)
-        // TODO Use attributes/styles methods to set properties
-        const path = g.append('path')
-          .attr('class', 'trend-line')
-          .attr('fill', 'none')
-          .attr('stroke', 'currentColor')
-          .attr('stroke-dasharray', '3 3')
-          .attr('stroke-width', 1)
-          .attr('d', `M${scaleX(pos.start.x)},${scaleY(pos.start.y)}V${scaleY(pos.plateau)}H${scaleX(pos.end.x)}V${scaleY(pos.end.y)}`)
-        const circleStart = g.append('circle')
-          .attr('class', 'start')
-          .attr('cx', scaleX(pos.start.x))
-          .attr('cy', scaleY(pos.start.y))
-          .attr('r', 4)
-          .attr('stroke', 'none')
-          .attr('fill', 'currentColor')
-        const circleEnd = g.append('circle')
-          .attr('class', 'end')
-          .attr('cx', scaleX(pos.end.x))
-          .attr('cy', scaleY(pos.end.y))
-          .attr('r', 4)
-          .attr('stroke', 'none')
-          .attr('fill', 'currentColor')
-        const text = g.append('text')
-          .attr('x', scaleX(pos.start.x))
-          .attr('y', scaleY(pos.plateau))
-          .attr('dy', -5)
-          .attr('text-anchor', 'start')
-          .attr('fill', self._font.color)
-          .style('font-family', 'inherit')
+        const path = attributes(g.append('path'), {
+          fill: 'none',
+          stroke: 'currentColor',
+          'stroke-dasharray': '3 3',
+          'stroke-width': 1,
+          d: `M${scaleX(pos.start.x)},${scaleY(pos.start.y)}V${scaleY(pos.plateau)}H${scaleX(pos.end.x)}V${scaleY(pos.end.y)}`
+        })
+        const circleStart = attributes(g.append('circle'), {
+          cx: scaleX(pos.start.x),
+          cy: scaleY(pos.start.y),
+          r: 4,
+          stroke: 'none',
+          fill: 'currentColor'
+        })
+        const circleEnd = attributes(g.append('circle'), {
+          cx: scaleX(pos.end.x),
+          cy: scaleY(pos.end.y),
+          r: 4,
+          stroke: 'none',
+          fill: 'currentColor'
+        })
+        const text = attributes(g.append('text'), {
+          x: scaleX(pos.start.x),
+          y: scaleY(pos.plateau),
+          dy: -5,
+          'text-anchor': 'start',
+          fill: self._font.color
+        }).style('font-family', 'inherit')
           .style('font-size', self._font.size)
           .text(label)
 
@@ -200,7 +199,7 @@ export default scales => (() => {
           _.trends.get(id).remove(duration)
           _.trends.delete(id)
         }
-      },
+      }
     }
 
     return { self, api }

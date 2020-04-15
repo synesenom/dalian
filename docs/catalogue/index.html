@@ -416,6 +416,24 @@ dalian.LineChart('y-range-card', '#y-range')
   .yRange.min(8)
   .yRange.max(14)
   .render()
+</script></a><a class="card" href="components/smoothing"><div class="card-title">Smoothing</div><div class="card-content" id="smoothing"></div><script class="card-example">
+dalian.LineChart('smoothing-card', '#smoothing')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 20 }, (d, i) => ({
+      x: 5 * i,
+      y: Math.exp(i / 10) * Math.sin(i) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
 </script></a><a class="card" href="components/point-tooltip"><div class="card-title">PointTooltip</div><div class="card-content" id="point-tooltip"></div><script class="card-example">
 dalian.LineChart('point-tooltip-card', '#point-tooltip')
   .data([{

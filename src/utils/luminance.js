@@ -1,7 +1,7 @@
 import { color } from 'd3'
 
-function toSRgb(channel) {
-  let c = channel / 255.
+function toSRgb (channel) {
+  let c = channel / 255.0
   return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
 }
 

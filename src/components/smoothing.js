@@ -1,12 +1,11 @@
 import { curveMonotoneX, curveLinear } from 'd3'
 
 /**
- * Component implementing the polygon smoothing feature.
+ * Component implementing the polygon smoothing feature. This component allows for smoothing polygons in charts that
+ * have elements made of polygons such as lines or areas. When this component is available, its API is exposed
+ * directly via the widget's own namespace.
  *
- * @class Smoothing
- * @param {Object} self Object containing the protected variables and methods.
- * @param {Object} api Object containing the public API methods.
- * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
+ * @function Smoothing
  */
 export default (self, api) => {
   // Private members
@@ -17,14 +16,6 @@ export default (self, api) => {
   // Protected members
   self = Object.assign(self || {}, {
     _smoothing: {
-      /**
-       * Returns the curve to use for drawing paths. The return value should be passed to d3's curve() method.
-       *
-       * @method curve
-       * @methodOf Smoothing
-       * @returns {Object} Object representing the path curve class to use.
-       * @protected
-       */
       curve: () => _.on ? curveMonotoneX : curveLinear
     }
   })
@@ -36,14 +27,14 @@ export default (self, api) => {
      *
      * @method smoothing
      * @methodOf Smoothing
-     * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-     * @returns {Object} Reference to the Smoothing API.
+     * @param {boolean} on Whether to enable polygon smoothing. If not specified, smoothing is disabled.
+     * @returns {Widget} Reference to the Widget's API.
      */
-    smoothing: (on = false) => {
-      _.on = on
+    smoothing: on => {
+      _.on = on || false
       return api
     }
   })
 
-  return {self, api}
+  return { self, api }
 }

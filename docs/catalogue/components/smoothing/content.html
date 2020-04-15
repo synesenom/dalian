@@ -1,23 +1,23 @@
 <div id="desc">
   <p>
-    The Description component binds a pop-up tooltip to the context menu.
+    The Smoothing component allows for polygon smoothing in widgets that have elements built up of polygons.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li id="toggleDescription" onclick="toggleDescription()">
-      <span class="button checkbox">D</span>
-      <span class="label">- Enable description.</span>
+    <li id="toggleSmoothing" onclick="toggleSmoothing()">
+      <span class="button checkbox">S</span>
+      <span class="label">- Enable smoothing.</span>
     </li>
   </ul>
 </div>
 
 <script class="card-example">
-dalian.LineChart('description-card', '#description')
+dalian.LineChart('smoothing-card', '#smoothing')
   .data([{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    values: Array.from({ length: 20 }, (d, i) => ({
+      x: 5 * i,
+      y: Math.exp(i / 10) * Math.sin(i) + 10
     }))
   }])
   .x(0)
@@ -36,9 +36,11 @@ dalian.LineChart('description-card', '#description')
 function getData () {
   return [{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.exp(i / 100) * Math.sin(i / 5) + 10
+    values: Array.from({ length: 20 }, (d, i) => ({
+      x: 5 * i,
+      y: Math.exp(i / 20) * Math.sin(i) + 10,
+      lo: 1,
+      hi: 2
     }))
   }]
 }
@@ -59,24 +61,23 @@ const chart = dalian.LineChart('myChart', '#widget')
 
 <script class="doc">
 // api methods
-let toggleDescription = () => {
-  this.d = !(this.d || 0)
-  chart.description(this.d ? 'This is a simple line chart.' : undefined)
-    .render()
+let toggleSmoothing = () => {
+  this.s = !(this.s || 0)
+  chart.smoothing(this.s).render(1000)
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleDescription = checkbox(toggleDescription, 'toggleDescription', 'd', ['Disable description', 'Enable description'])
+toggleSmoothing = checkbox(toggleSmoothing, 'toggleSmoothing', 's', ['Disable smoothing', 'Enable smoothing'])
 </script>
 
 <script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 'd':
-      toggleDescription()
+    case 's':
+      toggleSmoothing()
       break
     default:
   }

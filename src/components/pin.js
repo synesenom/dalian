@@ -1,7 +1,6 @@
 import luminance from '../utils/luminance'
 import extend from '../core/extend'
-import { select } from 'd3'
-
+import attributes from '../utils/attributes'
 
 /**
  * Component implementing the pin feature. A pin is a vertical line with a circle on the top and an optional text label
@@ -9,7 +8,6 @@ import { select } from 'd3'
  *
  * @function Pin
  */
-// TODO Use attributes/styles methods.
 // TODO Add options.fix to show label all the time.
 export default scales => (() => {
   return (self, api) => {
@@ -82,13 +80,13 @@ export default scales => (() => {
           .style('pointer-events', 'none')
 
         // Label text
-        const labelText = label.append('text')
-          .attr('class', 'pin-label-text')
-          .attr('y', height - (options.size || 6) - 10)
-          .attr('text-anchor', 'start')
-          .attr('stroke', 'none')
-          .attr('fill', luminance(color) > 0.179 ? '#000' : '#fff')
-          .text(text)
+        const labelText = attributes(label.append('text'), {
+          class: 'pin-label-text',
+          y: height - (options.size || 6) - 10,
+          'text-anchor': 'start',
+          stroke: 'none',
+          fill: luminance(color) > 0.179 ? '#000' : '#fff'
+        }).text(text)
 
         // Compute text length, adjust text
         const length = labelText.node().getComputedTextLength() * 1.05
@@ -97,15 +95,16 @@ export default scales => (() => {
 
         // Label box
         let bbox = labelText.node().getBBox()
-        const labelBox = label.append('rect')
-          .attr('class', 'pin-label-box')
-          .attr('x', bbox.x - 5)
-          .attr('y', bbox.y - 5)
-          .attr('width', bbox.width + 10)
-          .attr('height', bbox.height + 10)
-          .attr('rx', 2)
-          .attr('stroke', 'none')
-          .attr('fill', text === '' ? 'none' : color)
+        const labelBox = attributes(label.append('rect'), {
+          class: 'pin-label-box',
+          x: bbox.x - 5,
+          y: bbox.y - 5,
+          width: bbox.width + 10,
+          height: bbox.height + 10,
+          rx: 2,
+          stroke: 'none',
+          fill: text === '' ? 'none' : color
+        })
         // Move box behind text
         label.node().insertBefore(labelBox.node(), labelText.node())
 
@@ -130,7 +129,6 @@ export default scales => (() => {
             p.g.transition().duration(300)
               .style('opacity', 1)
           })
-
         }
         const click = (() => {
           let isClicked = false
@@ -165,29 +163,29 @@ export default scales => (() => {
         })()
 
         // Pin needle with mouse interactions
-        const needle = g.append('line')
-          .attr('class', 'pin-needle')
-          .attr('x1', scaleX(position) + 1)
-          .attr('y1', scaleY.range()[0])
-          .attr('x2', scaleX(position) + 1)
-          .attr('y2', height)
-          .attr('stroke', 'currentColor')
-          .attr('stroke-width', '2px')
-          .style('pointer-events', 'all')
+        const needle = attributes(g.append('line'), {
+          class: 'pin-needle',
+          x1: scaleX(position) + 1,
+          y1: scaleY.range()[0],
+          x2: scaleX(position) + 1,
+          y2: height,
+          stroke: 'currentColor',
+          'stroke-width': '2px'
+        }).style('pointer-events', 'all')
           .on('click.pin', click)
           .on('mouseover.pin', mouseover)
           .on('mouseleave.pin', mouseleave)
 
         // Pin head with mouse interactions
-        const head = g.append('circle')
-          .attr('class', 'pin-head')
-          .attr('cx', scaleX(position) + 1)
-          .attr('cy', height)
-          .attr('r', (options.size || 6) + 'px')
-          .attr('stroke', 'white')
-          .attr('stroke-width', '1px')
-          .attr('fill', 'currentColor')
-          .style('pointer-events', 'all')
+        const head = attributes(g.append('circle'), {
+          class: 'pin-head',
+          cx: scaleX(position) + 1,
+          cy: height,
+          r: (options.size || 6) + 'px',
+          stroke: 'white',
+          'stroke-width': '1px',
+          fill: 'currentColor'
+        }).style('pointer-events', 'all')
           .on('mouseover.pin', mouseover)
           .on('mouseleave.pin', mouseleave)
 

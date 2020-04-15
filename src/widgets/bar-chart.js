@@ -106,8 +106,12 @@ export default (name, parent = 'body') => {
           const rect = g.append('rect')
             .attr('class', d => `bar ${encode(d.name)}`)
             .attr('fill', 'currentColor')
-            .on('mouseover.barChart', d => _.current = d)
-            .on('mouseleave.barChart', () => _.current = undefined)
+            .on('mouseover.barChart', d => {
+              _.current = d
+            })
+            .on('mouseleave.barChart', () => {
+              _.current = undefined
+            })
           if (self._barChart.horizontal) {
             rect.attr('x', _.scales.x.scale(0))
               .attr('width', 0)
@@ -283,6 +287,6 @@ export default (name, parent = 'body') => {
    *   <li>{string} <i>name</i>: Category name.</li>
    *   <li>{number} <i>value</i>: Category value.</li>
    * </ul>
-   * @returns {BarChart} The BarChart itself.
+   * @returns {BarChart} Reference to the BarChart API.
    */
 }

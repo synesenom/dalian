@@ -1,5 +1,6 @@
 import { event, mouse, select } from 'd3'
 import extend from '../../core/extend'
+import styles from '../../utils/styles'
 
 // TODO Add more liberty in setting tooltipTitle based on current data point or element
 // TODO Add more liberty in setting tooltipContent based on current data point or element
@@ -40,20 +41,20 @@ export default (self, api) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem
       } else {
-        return _.container.elem.append('div')
-          .attr('id', _.id)
-          .style('position', 'absolute')
-          .style('background-color', 'rgba(255, 255, 255, 0.95)')
-          .style('border-radius', '2px')
-          .style('box-shadow', '0 0 2px #aaa')
-          .style('font-size', '0.85em')
-          .style('color', 'currentColor')
-          .style('pointer-events', 'none')
-          .style('font-family', 'inherit')
-          .style('width', 'auto')
-          .style('line-height', '1')
-          .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
-          .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')
+        return styles(_.container.elem.append('div').attr('id', _.id), {
+          position: 'absolute',
+          'background-color': 'rgba(255, 255, 255, 0.95)',
+          'border-radius': '2px',
+          'box-shadow': '0 0 2px #aaa',
+          color: 'currentColor',
+          'pointer-events': 'none',
+          'font-size': '0.85em',
+          'font-family': 'inherit',
+          width: 'auto',
+          'line-height': '1',
+          left: ((bbox.left + bbox.right) / 2 + scroll.left) + 'px',
+          top: ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px'
+        })
       }
     },
 

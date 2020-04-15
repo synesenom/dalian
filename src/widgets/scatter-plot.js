@@ -1,4 +1,4 @@
-import { extent } from 'd3'
+import { extent, voronoi } from 'd3'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
@@ -12,7 +12,6 @@ import PlotMarker from '../components/plot-marker'
 import Scale from '../components/scale'
 import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
-
 
 /**
  * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
@@ -54,12 +53,12 @@ export default (name, parent = 'body') => {
 
     computeDiagram: data => {
       const sites = data.map(plot => plot.values.map(d => ({
-          name: plot.name,
-          x: d.x,
-          y: d.y,
-        })
+        name: plot.name,
+        x: d.x,
+        y: d.y
+      })
       )).flat()
-      return d3.voronoi()
+      return voronoi()
         .x(d => _.scales.x.scale(d.x))
         .y(d => _.scales.y.scale(d.y))
         .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(sites)
@@ -189,6 +188,25 @@ export default (name, parent = 'body') => {
     }
   })
   return api
+
+  // Documentation.
+  /**
+   * Set/updates the data that is shown in the scatter plot.
+   *
+   * @method data
+   * @methodOf ScatterPlot
+   * @param {Object[]} plots Array of objects representing the dot clouds to show. Each plot has two properties:
+   * <ul>
+   *   <li>{string} <i>name</i>: Name of the plot.</li>
+   *   <li>{Object[]} <i>values</i>: Plot data.</li>
+   * </ul>
+   * The <i>values</i> property is an array of objects of the following structure:
+   * <dl>
+   *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
+   *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
+   * </dl>
+   * @returns {ScatterPlot} Reference to the ScatterPlot API.
+   */
 }
 
 // TODO Data

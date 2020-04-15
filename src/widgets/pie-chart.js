@@ -7,7 +7,6 @@ import ElementTooltip from '../components/tooltip/element-tooltip'
 import extend from '../core/extend'
 import encode from '../core/encode'
 
-
 // TODO Add .title() to widget
 // TODO value
 // TODO valueFormat
@@ -16,7 +15,6 @@ import encode from '../core/encode'
 // TODO outerRadius
 // TODO Animation with arcTween
 // TODO Handle margins
-
 
 export default (name, parent = 'body') => {
   let scale = Scale('linear')
@@ -33,9 +31,9 @@ export default (name, parent = 'body') => {
 
     // Methods
     arcTween: (that, a) => {
-      const i = d3.interpolate(that._current, a);
-      that._current = i(1);
-      return (t) => arc(i(t));
+      const i = d3.interpolate(that._current, a)
+      that._current = i(1)
+      return (t) => arc(i(t))
     },
 
     update: duration => {
@@ -48,7 +46,7 @@ export default (name, parent = 'body') => {
 
       // Add plots
       // TODO Add exit transition
-      /*self._chart.plotGroups({
+      /* self._chart.plotGroups({
         enter: g => {
           // Apply pie transformation on data and add name as direct property to make sure colors are mapped
           g.data(pieFn(self._chart.data)
@@ -88,7 +86,7 @@ export default (name, parent = 'body') => {
             return g
           }
         }
-      })*/
+      }) */
     }
   }
 

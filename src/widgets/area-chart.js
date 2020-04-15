@@ -1,4 +1,4 @@
-import { area, bisector, line, select } from 'd3'
+import { area, bisector, extent, line, select } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import encode from '../core/encode'
 import extend from '../core/extend'
@@ -14,7 +14,6 @@ import Scale from '../components/scale'
 import Smoothing from '../components/smoothing'
 import YRange from '../components/range/y-range'
 
-// TODO Add reference to all components: Smoothing
 /**
  * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore it extends the following components:
@@ -22,7 +21,8 @@ import YRange from '../components/range/y-range'
  * [Highlight]{@link ../components/highlight.html},
  * [LeftAxis]{@link ../components/left-axis.html},
  * [Opacity]{@link ../components/opacity.html},
- * [PointTooltip]{@link ../components/point-tooltip.html}.
+ * [PointTooltip]{@link ../components/point-tooltip.html},
+ * [Smoothing]{@link ../components/smoothing.html}.
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
@@ -58,7 +58,7 @@ export default (name, parent = 'body') => {
 
       // Add some buffer one sided to the vertical range.
       const yData = flatData.map(d => d.y)
-      const yRange = d3.extent(yData)
+      const yRange = extent(yData)
       const yBuffer = 0.01 * (yRange[1] - yRange[0])
       yRange[1] += yBuffer
 
@@ -152,26 +152,26 @@ export default (name, parent = 'body') => {
     let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {
       // Data point
-      let j = index[i]
+        let j = index[i]
 
-      let data = d.values
+        let data = d.values
 
-      let left = data[j - 1] ? data[j - 1] : data[j]
+        let left = data[j - 1] ? data[j - 1] : data[j]
 
-      let right = data[j] ? data[j] : data[j - 1]
+        let right = data[j] ? data[j] : data[j - 1]
 
-      let point = x - left.x > right.x - x ? right : left
-      x = point.x
+        let point = x - left.x > right.x - x ? right : left
+        x = point.x
 
-      // Marker
-      self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
+        // Marker
+        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
 
-      return {
-        name: d.name,
-        background: self._colors.mapping(d.name),
-        value: point.y
-      }
-    })
+        return {
+          name: d.name,
+          background: self._colors.mapping(d.name),
+          value: point.y
+        }
+      })
 
     return {
       title: x,
@@ -197,10 +197,10 @@ export default (name, parent = 'body') => {
   // Update plot before widget
   self._widget.update = extend(self._widget.update, _.update, true)
 
-  // Public API
+  // Public API.
   return api
 
-  // Documentation
+  // Documentation.
   /**
    * Set/updates the data that is shown in the area chart.
    *
@@ -216,15 +216,6 @@ export default (name, parent = 'body') => {
    *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
    *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
    * </dl>
-   * @returns {AreaChart} The AreaChart itself.
-   */
-
-  /**
-   * Enables/disables polygon smoothing.
-   *
-   * @method smoothing
-   * @methodOf AreaChart
-   * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {AreaChart} The AreaChart itself.
+   * @returns {AreaChart} Reference to the AreaChart API.
    */
 }

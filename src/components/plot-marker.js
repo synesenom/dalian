@@ -1,37 +1,48 @@
 import encode from '../core/encode'
+import attributes from '../utils/attributes'
+import styles from '../utils/styles'
 
 export default (self, api) => {
+  // Private members.
+  let _ = {
+    markers: new Map()
+  }
+
   self = Object.assign(self || {}, {
     _plotMarker: {
-      markers: new Map()
+      add (x, y, id, name, size) {
+        // Get or create marker.
+        _.markers.set(id, _.markers.get(id) || self._chart.plots.append('circle'))
+
+        // Set attributes.
+        attributes(_.markers.get(id), {
+          class: `plot-marker ${encode(name)}`,
+          cx: x,
+          cy: y,
+          r: size || 4
+        })
+
+        // Set styles.
+        styles(_.markers.get(id), {
+          stroke: 'white',
+          fill: self._colors.mapping(name),
+          'pointer-events': 'none'
+        })
+      },
+
+      remove (id) {
+        if (typeof id === 'undefined') {
+          _.markers.forEach((d, k) => {
+            d.remove()
+            _.markers.delete(k)
+          })
+        } else if (_.markers.has(id)) {
+          _.markers.get(id).remove()
+          _.markers.delete(id)
+        }
+      }
     }
   })
 
-  self._plotMarker.add = (x, y, id, name, size) => {
-    // TODO Use attributes/styles methods to set properties.
-    let marker = self._plotMarker.markers.get(id)
-    self._plotMarker.markers.set(id, marker || self._chart.plots.append('circle'))
-    self._plotMarker.markers.get(id)
-      .attr('class', `plot-marker ${encode(name)}`)
-      .attr('cx', x)
-      .attr('cy', y)
-      .attr('r', size || 4)
-      .style('stroke', 'white')
-      .style('fill', self._colors.mapping(name))
-      .style('pointer-events', 'none')
-  }
-
-  self._plotMarker.remove = id => {
-    if (typeof id === 'undefined') {
-      self._plotMarker.markers.forEach((d, k) => {
-        d.remove()
-        self._plotMarker.markers.delete(k)
-      })
-    } else if (self._plotMarker.markers.has(id)) {
-      self._plotMarker.markers.get(id).remove()
-      self._plotMarker.markers.delete(id)
-    }
-  }
-
-  return {self, api}
+  return { self, api }
 }

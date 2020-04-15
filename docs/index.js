@@ -24,6 +24,7 @@ const MODULES = [
   'components/range/x-range',
   'components/range/y-range',
   'components/tooltip/tooltip',
+  'components/smoothing',
   'components/tooltip/point-tooltip',
   'components/tooltip/element-tooltip',
   'components/trend',

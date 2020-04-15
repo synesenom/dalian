@@ -8,25 +8,27 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>Description | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}</script><title>Smoothing | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
-    The Description component binds a pop-up tooltip to the context menu.
+    The Smoothing component allows for polygon smoothing in widgets that have elements built up of polygons.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
   <ul>
-    <li id="toggleDescription" onclick="toggleDescription()">
-      <span class="button checkbox">D</span>
-      <span class="label">- Enable description.</span>
+    <li id="toggleSmoothing" onclick="toggleSmoothing()">
+      <span class="button checkbox">S</span>
+      <span class="label">- Enable smoothing.</span>
     </li>
   </ul>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/description.js">source</a><a class="right footnote" href="../../../api/components/description.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/smoothing.js">source</a><a class="right footnote" href="../../../api/components/smoothing.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [{
     name: 'trend',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.exp(i / 100) * Math.sin(i / 5) + 10
+    values: Array.from({ length: 20 }, (d, i) => ({
+      x: 5 * i,
+      y: Math.exp(i / 20) * Math.sin(i) + 10,
+      lo: 1,
+      hi: 2
     }))
   }]
 }
@@ -43,24 +45,23 @@ const chart = dalian.LineChart('myChart', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-let toggleDescription = () => {
-  this.d = !(this.d || 0)
-  chart.description(this.d ? 'This is a simple line chart.' : undefined)
-    .render()
+let toggleSmoothing = () => {
+  this.s = !(this.s || 0)
+  chart.smoothing(this.s).render(1000)
 }
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 'd':
-      toggleDescription()
+    case 's':
+      toggleSmoothing()
       break
     default:
   }
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleDescription = checkbox(toggleDescription, 'toggleDescription', 'd', ['Disable description', 'Enable description'])
+toggleSmoothing = checkbox(toggleSmoothing, 'toggleSmoothing', 's', ['Disable smoothing', 'Enable smoothing'])
 </script><script>function resize() {
   const { width, height } = getSize();
   document.getElementById('widget').style.paddingTop = height + 'px';

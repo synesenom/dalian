@@ -100,5 +100,5 @@ export default (self, api) => {
     }
   })
 
-  return {self, api}
+  return { self, api }
 }

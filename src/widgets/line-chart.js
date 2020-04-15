@@ -1,4 +1,4 @@
-import { bisector, select, line, area } from 'd3'
+import { bisector, extent, select, line, area } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import compose from '../core/compose'
 import encode from '../core/encode'
@@ -20,7 +20,7 @@ import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 
-// TODO Add reference to components: LineStyle, LineWidth, Smoothing.
+// TODO Add reference to components: LineStyle, LineWidth.
 // TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
@@ -30,6 +30,7 @@ import YRange from '../components/range/y-range'
  * [Highlight]{@link ../components/highlight.html},
  * [Pin]{@link ../components/pin.html},
  * [PointTooltip]{@link ../components/point-tooltip.html},
+ * [Smoothing]{@link ../components/smoothing.html},
  * [Trend]{@link ../components/trend.html},
  * [XGrid]{@link ../components/x-grid.html},
  * [XRange]{@link ../components/x-range.html},
@@ -77,7 +78,7 @@ export default (name, parent = 'body') => {
 
       // Add some buffer to the vertical range.
       const yData = flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))
-      const yRange = d3.extent(yData)
+      const yRange = extent(yData)
       const yBuffer = 0.01 * (yRange[1] - yRange[0])
       yRange[1] += yBuffer
       yRange[0] -= yBuffer
@@ -128,7 +129,7 @@ export default (name, parent = 'body') => {
         update: g => {
           // Update error bands
           g.select('.error-band')
-            .attrTween('d', function(d) {
+            .attrTween('d', function (d) {
               let previous = select(this).attr('d')
               let current = errorFn(d.values)
               return interpolatePath(previous, current, null)
@@ -136,7 +137,7 @@ export default (name, parent = 'body') => {
 
           // Update lines
           g.select('.line')
-            .attrTween('d', function(d) {
+            .attrTween('d', function (d) {
               let previous = select(this).attr('d')
               let current = lineFn(d.values)
               return interpolatePath(previous, current, null)
@@ -174,30 +175,30 @@ export default (name, parent = 'body') => {
     let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {
       // Data point
-      let j = index[i]
+        let j = index[i]
 
-      let data = d.values
+        let data = d.values
 
-      let left = data[j - 1] ? data[j - 1] : data[j]
+        let left = data[j - 1] ? data[j - 1] : data[j]
 
-      let right = data[j] ? data[j] : data[j - 1]
+        let right = data[j] ? data[j] : data[j - 1]
 
-      let point = x - left.x > right.x - x ? right : left
-      x = point.x
+        let point = x - left.x > right.x - x ? right : left
+        x = point.x
 
-      // Marker
-      if (point.y !== null && self._yRange.contains(point.y)) {
-        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
-      } else {
-        self._plotMarker.remove(d.name)
-      }
+        // Marker
+        if (point.y !== null && self._yRange.contains(point.y)) {
+          self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
+        } else {
+          self._plotMarker.remove(d.name)
+        }
 
-      return {
-        name: d.name,
-        background: self._lineStyles.background(self._lineStyles.style(d.name), self._colors.mapping(d.name)),
-        value: point.y
-      }
-    })
+        return {
+          name: d.name,
+          background: self._lineStyles.background(self._lineStyles.style(d.name), self._colors.mapping(d.name)),
+          value: point.y
+        }
+      })
 
     return {
       title: x,
@@ -246,7 +247,7 @@ export default (name, parent = 'body') => {
    *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
    *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
    * </dl>
-   * @returns {LineChart} The LineChart itself.
+   * @returns {LineChart} Reference to the LineChart API.
    */
 
   /**
@@ -262,7 +263,7 @@ export default (name, parent = 'body') => {
    * @method lineStyle
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
-   * @returns {LineChart} The LineChart itself.
+   * @returns {LineChart} Reference to the LineChart API.
    */
 
   /**
@@ -277,15 +278,6 @@ export default (name, parent = 'body') => {
    * @method lineWidth
    * @methodOf LineChart
    * @param {(string | Object)} [policy] Line width policy to set. If not specified, the default policy is set.
-   * @returns {LineChart} The LineChart itself.
-   */
-
-  /**
-   * Enables/disables polygon smoothing.
-   *
-   * @method smoothing
-   * @methodOf LineChart
-   * @param {boolean} [on = false] Whether to enable polygon smoothing. If not specified, smoothing is disabled.
-   * @returns {LineChart} The LineChart itself.
+   * @returns {LineChart} Reference to the LineChart API.
    */
 }
