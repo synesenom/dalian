@@ -25,7 +25,7 @@ export default (self, api) => {
         // Set styles.
         styles(_.markers.get(id), {
           stroke: 'white',
-          fill: self._colors.mapping(name),
+          fill: self._color.mapGroup(name),
           'pointer-events': 'none'
         })
       },

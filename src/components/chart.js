@@ -9,7 +9,6 @@ import Placeholder from './placeholder'
 import Widget from './widget'
 
 // FIXME When highlight is on, newly entering plots are visible
-// TODO Use attributes/styles methods.
 /**
  * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget.html} component
  * with all of its available APIs. It extends the following components:
@@ -84,7 +83,7 @@ export default (type, name, parent, elem) => {
               let g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
                 .attr('clip-path', `url(#${_.clipId})`)
-                .style('color', d => self._colors.mapping(d.name))
+                .style('color', d => self._color.mapGroup(d.name))
                 .style('shape-rendering', 'geometricPrecision')
               return attr.enter ? attr.enter(g) : g
             },
@@ -108,7 +107,7 @@ export default (type, name, parent, elem) => {
 
         // Transition update.
         groups = groups.transition().duration(duration)
-          .style('color', d => self._colors.mapping(d.name))
+          .style('color', d => self._color.mapGroup(d.name))
         groups = attr.update ? attr.update(groups) : groups
 
         // At the end, restore pointer events.

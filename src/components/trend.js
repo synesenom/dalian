@@ -102,7 +102,7 @@ export default scales => (() => {
         // Build group without showing it
         const g = _.getContainer().append('g')
           .attr('class', 'trend trend-' + encode(key))
-          .style('color', self._colors.mapping(key))
+          .style('color', self._color.mapGroup(key))
           .style('opacity', 0)
         const path = attributes(g.append('path'), {
           fill: 'none',
@@ -151,7 +151,7 @@ export default scales => (() => {
           update: duration => {
             // Update group.
             g.transition().duration(duration)
-              .style('color', self._colors.mapping(key))
+              .style('color', self._color.mapGroup(key))
 
             // Update elements.
             const pos = _.adjustTrend(key, start, end)

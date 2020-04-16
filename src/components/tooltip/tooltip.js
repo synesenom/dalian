@@ -121,7 +121,6 @@ export default (self, api) => {
 
       let ty = my + 20
 
-      // TODO Make tooltip contained within the widget (left side)
       // Correct for edges
       let buffer = 10
       if (tx + tw > boundingBox.right - self._widget.margins.right + scroll.left - buffer) {

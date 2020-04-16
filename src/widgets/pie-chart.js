@@ -117,7 +117,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: _.current.name,
-      stripe: self._colors.mapping(_.current.name),
+      stripe: self._color.mapGroup(_.current.name),
       content: {
         type: 'plots',
         data: [{

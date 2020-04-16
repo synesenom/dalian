@@ -1,104 +1,129 @@
-import { hsl } from 'd3'
+import wong from './palettes/wong'
+import deficiencyConverter from './palettes/color-blindness'
 
 // TODO Add value dependent color scheme
-const COLOR_PALETTE_DALIAN = [
-  '#0066dd',
-  '#e41a1c',
-  'yellowgreen',
-  'gold',
-  'orchid',
-  'darkgrey',
-  'darkorange',
-  'sienna',
-  'lightskyblue',
-  'salmon',
-  'palegreen',
-  'palegoldenrod',
-  'thistle',
-  'gainsboro',
-  'peachpuff',
-  'tan',
-  'midnightblue',
-  'darkred',
-  'forestgreen',
-  'darkgoldenrod',
-  'indigo',
-  'dimgrey'
-]
+// TODO Add option to diverging color scheme and add default as sunset.
+// TODO Add option to sequential color scheme and add default as iridescent.
+// TODO Add method to convert chart to deuteranopia, tritanopia, protanopia and greyscale.
 
-const createPalette = palette => {
-  let keys = []
-  return key => {
-    let i = keys.indexOf(key)
-    return palette[i > -1 ? i : keys.push(key) - 1]
+const createMapping = palette => {
+  // Single color.
+  if (typeof palette === 'string') {
+    return () => palette
+  } else if (Array.isArray(palette)) {
+    // Array of colors.
+    return (() => {
+      let keys = []
+      return key => {
+        let i = keys.indexOf(key)
+        return palette[i > -1 ? i : keys.push(key) - 1]
+      }
+    })()
+  } else if (typeof palette === 'object') {
+    // Exact mapping.
+    return  key => palette[key]
+  }
+}
+
+const convertPalette = (palette, converter) => {
+  if (typeof palette === 'string') {
+    return converter(palette) + ''
+  } else if (Array.isArray(palette)) {
+    return palette.map(converter)
+  } else {
+    let convertedPalette = {}
+    for (let key in palette) {
+      convertedPalette[key] = converter(palette[key])
+    }
+    return convertedPalette
   }
 }
 
 /**
- * Component implementing various color scheming features. When this component is available for a widget, its API is
- * exposed directly via the widget's own namespace.
+ * Component implementing various color palettes and coloring policies. When this component is available for a widget,
+ * its API is exposed via the {.color} namespace.
  *
  * @function Color
  */
 export default (self, api) => {
   // Private members
   let _ = {
+    // Variables.
+    // Transformation before mapping color.
+    on: d => d,
+
+    // Raw palette (before conversion).
+    palette: wong,
+
+    // Deficiency converter.
+    converter: color => color,
+
+    // Methods.
+    getMapping: () => createMapping(convertPalette(_.palette, _.converter)),
+
     // The actual color mapping.
-    mapping: createPalette(COLOR_PALETTE_DALIAN)
+    mapping: createMapping(wong)
   }
 
   // Protected members
   self = Object.assign(self || {}, {
-    _colors: {
-      mapping: key => _.mapping(key)
+    _color: {
+      // Maps a group name to a color
+      mapGroup: name => _.mapping(_.on(name))
     }
   })
 
-  // Public API
+  // Public API.
   api = Object.assign(api || {}, {
-    /**
-     * Sets the color policy. Supported policies:
-     * <ul>
-     *     <li>Default color policy (no arguments): the default color scheme is used which is a modification of the
-     *     qualitative color scheme Set 1 from Color Brewer.</li>
-     *     <li>Single color or shades of a color (passing {string}): Either the specified color is used for all plots or
-     *     a palette is generated from its shades (see {size}).</li>
-     *     <li>Custom color mapping (passing an {Object}): each plot has the color specified as the value for the
-     *     property with the same name as the plot's key.</li>
-     * </ul>
-     *
-     * @method color
-     * @methodOf Color
-     * @param {(string | Object)} [policy] Color policy to set. If not specified, the default policy is set.
-     * @param {number} [size] Number of colors that need to be generated if policy is set to a single color. If not set,
-     * the color specified for {policy} is used for all plots.
-     * @returns {Widget} Reference to the Widget's API.
-     */
-    color: (policy, size) => {
-      // Update color mapping
-      if (typeof policy === 'undefined') {
-        // No color policy, using default
-        _.mapping = createPalette(COLOR_PALETTE_DALIAN)
-      } else if (typeof policy === 'string') {
-        if (typeof size === 'undefined') {
-          // Single color policy, using the specified color
-          _.mapping = () => policy
-        } else {
-          // Shades of a single color
-          const baseColor = hsl(policy)
-          const dl = 2 * Math.min(baseColor.l, 1 - baseColor.l) / (size + 1)
-          const palette = Array.from({ length: size }, (d, i) => {
-            let color = hsl(baseColor)
-            color.l += (i - 0.5 * (size - 1)) * dl
-            return color
-          })
-          _.mapping = createPalette(palette)
-        }
-      } else {
-        // Color mapping given
-        _.mapping = key => policy[key]
+    color: {
+      /**
+       * Sets the color palette. Supported palettes:
+       * <ul>
+       *     <li><strong>Default color policy</strong>: A variant of the 8 color qualitative palette by Bang Wang. See
+       *     <a href='https://www.nature.com/articles/nmeth.1618'>this paper</a> and
+       *     <a href='http://mkweb.bcgsc.ca/colorblind/'>this post</a> for details.
+       *     <div class='palette'>
+       *       <span>Colors:</span>
+       *       <div style='background-color:#333333'></div>
+       *       <div style='background-color:#0072b2'></div>
+       *       <div style='background-color:#56b4e9'></div>
+       *       <div style='background-color:#009e73'></div>
+       *       <div style='background-color:#f0e442'></div>
+       *       <div style='background-color:#e69f00'></div>
+       *       <div style='background-color:#d55e00'></div>
+       *       <div style='background-color:#cc79a7'></div>
+       *     </div></li>
+       *     <li><strong>Single color</strong>: The specified color is used for all plots.</li>
+       *     <li><strong>Custom color mapping</strong>>: each plot has the color specified as the value for the
+       *     property with the same name as the plot's key.</li>
+       * </ul>
+       *
+       * @method palette
+       * @methodOf Color
+       * @param {(string | Object)} [palette] Color palette to set. If not specified, the default policy is set. If
+       * string, the same color is used for all plots. If object, it is used as a mapping from the plot names to the
+       * colors.
+       * @param {Function?} [on = d => d] Transformation that is used before mapping the plot to a color. The plot name is
+       * passed to this method as parameters before determining the color.
+       * @returns {Widget} Reference to the Widget's API.
+       */
+      palette (palette, on) {
+        _.palette = palette || wong
+        _.on = on || (d => d)
+
+        // Update mapping.
+        _.mapping = _.getMapping()
+        return api
+      },
+
+      deficiency (type) {
+        // Select converter.
+        _.converter = deficiencyConverter(type)
+
+        // Update mapping.
+        _.mapping = _.getMapping()
+        return api
       }
-      return api
     }
   })
 

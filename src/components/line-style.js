@@ -40,7 +40,7 @@ export default (self, api) => {
        * @protected
        */
       strokeDashArray: key => {
-        // Update line style mapping
+        // Update line style mapGroup
         if (typeof _.policy === 'undefined') {
           // No policy, using default
           return null
@@ -48,7 +48,7 @@ export default (self, api) => {
           // Single policy, using the specified line style
           return _.getStrokeDashArray(_.policy)
         } else {
-          // Line style mapping given
+          // Line style mapGroup given
           return _.getStrokeDashArray(_.policy[key])
         }
       },
@@ -70,7 +70,7 @@ export default (self, api) => {
           // Single policy, using the specified line style
           return _.policy
         } else {
-          // Line style mapping given
+          // Line style mapGroup given
           return _.policy[key]
         }
       },

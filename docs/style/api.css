@@ -175,6 +175,39 @@ td.param-type {
   margin: 10px 0 20px 0;
 }
 
+.card .desc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.card .desc ul li {
+  margin-top: 10px;
+}
+
+.palette {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.palette span {
+  display: inline-block;
+  position: relative;
+  float: left;
+  margin-right: 10px;
+}
+
+.palette div {
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  border-radius: 4px;
+}
+
 .card .returns {
   margin-top: 10px;
   display: inline-block;
@@ -194,3 +227,4 @@ td.param-type {
 .card .return-desc ul li:first-child {
   margin-top: 0;
 }
+

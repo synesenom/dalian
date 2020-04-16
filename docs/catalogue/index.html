@@ -156,22 +156,17 @@ dalian.LineChart('left-axis-card', '#left-axis')
 // Highlight component
 d3.select('#left-axis .dalian-axis-container.y').style('color', 'royalblue')
 </script></a><a class="card" href="components/color"><div class="card-title">Color</div><div class="card-content" id="color"></div><script class="card-example">
-dalian.LineChart('color-card', '#color')
+dalian.BarChart('color-card', '#color')
   .data(Array.from({ length: 5 }, (d, i) => ({
     name: 'plot' + (i + 1),
-    values: Array.from({ length: 100 }, (d, j) => ({
-      x: j / 10,
-      y: Math.sin(j / 10 - i / 3),
-      lo: 0.1,
-      hi: 0.1
-    }))
+    value: (i * 7) % 5 + 1
   })))
   .x(0)
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
-  .color('royalblue', 5)
+  .color('royalblue')
   .font.size(11)
   .font.color('#ccc')
   .bottomAxis.label('X')

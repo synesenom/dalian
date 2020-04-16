@@ -9,7 +9,7 @@ module.exports = param => {
     name: param.name,
     desc: _extractDesc(param),
     optional: isOptional(param.type),
-    default: param.default,
+    default: param.default && param.default.replace('=>', ' => '),
     type: TypeParser(param.type)
   }
 }

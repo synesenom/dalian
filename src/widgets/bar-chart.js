@@ -59,7 +59,7 @@ export default (name, parent = 'body') => {
         inside,
         x: inside ? x - dx : x + dx + tw,
         y: _.scales.y.scale(d.name) + bandwidth / 2,
-        color: inside ? luminanceAdjustedColor(self._colors.mapping(d.name)) : font.color
+        color: inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : font.color
       }
     },
 
@@ -73,7 +73,7 @@ export default (name, parent = 'body') => {
         inside,
         x: _.scales.x.scale(d.name) + bandwidth / 2,
         y: inside ? y + dy : y - dy - th,
-        color: inside ? luminanceAdjustedColor(self._colors.mapping(d.name)) : font.color
+        color: inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : font.color
       }
     },
 
@@ -205,7 +205,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: _.current.name,
-      stripe: self._colors.mapping(_.current.name),
+      stripe: self._color.mapGroup(_.current.name),
       content: {
         type: 'plots',
         data: [{

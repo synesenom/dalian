@@ -168,7 +168,7 @@ export default (name, parent = 'body') => {
 
         return {
           name: d.name,
-          background: self._colors.mapping(d.name),
+          background: self._color.mapGroup(d.name),
           value: point.y
         }
       })

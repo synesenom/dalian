@@ -30,7 +30,7 @@ export default (self, api) => {
      * @returns {Widget} Reference to the widget API.
      */
     lineWidth: policy => {
-      // Update line width mapping
+      // Update line width mapGroup
       if (typeof policy === 'undefined') {
         // No line width policy, using default
         _.mapping = () => '2px'

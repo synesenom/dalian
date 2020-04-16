@@ -155,7 +155,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: site.data.name,
-      stripe: self._colors.mapping(site.data.name),
+      stripe: self._color.mapGroup(site.data.name),
       content: {
         type: 'plots',
         data: [{
