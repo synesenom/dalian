@@ -1,5 +1,5 @@
 import wong from './palettes/wong'
-import deficiencyConverter from './palettes/color-blindness'
+import deficiencyConverter from './palettes/deficiency'
 
 // TODO Add value dependent color scheme
 // TODO Add option to diverging color scheme and add default as sunset.
@@ -116,6 +116,7 @@ export default (self, api) => {
         return api
       },
 
+      // Source: http://web.archive.org/web/20081030075157/http://www.nofunc.com/Color_Blindness_Library/
       deficiency (type) {
         // Select converter.
         _.converter = deficiencyConverter(type)

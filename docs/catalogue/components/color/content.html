@@ -1,7 +1,10 @@
 <div id="desc">
   <p>
-    The Color component manages various color scheme policies for widgets.
-    <br><br>Press the following keys or click on the buttons to explore the API:
+    The Color component manages color palettes and color scheme policies for widgets. Furthermore, the component can
+    simulate various color vision deficiencies to test and prepare your charts for the highest accessibility.
+    <br><br>Press the following keys or click on the buttons to explore the API. Letters correspond to the color palette
+    methods, numbers toggle different color vision deficiencies. Percentages show the prevalence of the corresponding
+    deficiency (or the lack thereof) among people.
   </p>
   <ul id="colors">
     <li onclick="defaultColors()"><span class="button radio on">D</span>- Default color palette (<code>wong</code>).</li>
@@ -9,7 +12,8 @@
     <li onclick="plotSpecificColor()"><span class="button radio">P</span>- Plot specific color.</li>
     <li onclick="transformedColor()"><span class="button radio">T</span>- Transformed color.</li>
   </ul>
-  <ul id="deficiencies">
+  <div class="controls-title">Color vision deficiencies:</div>
+  <ul id="deficiencies" style="margin: 0">
     <li onclick="normal()"><span class="button radio on">0</span>- Normal vision (92%).</li>
     <li onclick="deuteranomaly()"><span class="button radio">1</span>- Deuteranomaly (2.7%).</li>
     <li onclick="protanomaly()"><span class="button radio">2</span>- Protanomaly (0.66%).</li>
@@ -33,7 +37,7 @@ dalian.BarChart('color-card', '#color')
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
-  .color('royalblue')
+  .color.palette('royalblue')
   .font.size(11)
   .font.color('#ccc')
   .bottomAxis.label('X')
@@ -101,10 +105,9 @@ let achromatomaly = () => chart.color.deficiency('achromatomaly').render()
 // Modify radio buttons
 [defaultColors, constantColor, plotSpecificColor, transformedColor] = radio('colors',
   [defaultColors, constantColor, plotSpecificColor, transformedColor]);
-[normal, protanomaly, protanopia, deuteranomaly, deuteranopia,
-  tritanomaly, tritanopia, achromatomaly, achromatopsia] = radio('deficiencies', [
-    normal, protanomaly, protanopia, deuteranomaly, deuteranopia, tritanomaly, tritanopia, achromatomaly, achromatopsia
-])
+[normal, deuteranomaly, protanomaly, protanopia, deuteranopia, tritanopia, tritanomaly, achromatomaly,
+  achromatopsia] = radio('deficiencies', [normal, deuteranomaly, protanomaly, protanopia, deuteranopia, tritanopia,
+  tritanomaly, achromatomaly, achromatopsia])
 </script>
 
 <script class="doc">

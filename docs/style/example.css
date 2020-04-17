@@ -62,3 +62,10 @@ li:active {
     position: relative;
     width: 100%;
 }
+
+.controls-title {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 10px 0;
+}
