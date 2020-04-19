@@ -2,7 +2,8 @@
 .widget {
     display: block;
     position: relative;
-    width: 100%;
+    width: 600px;
+    height: 300px;
 }
 
 ul {
@@ -67,5 +68,5 @@ li:active {
     display: inline-block;
     position: relative;
     width: 100%;
-    margin: 10px 0;
+    margin: 20px 0 5px 0;
 }

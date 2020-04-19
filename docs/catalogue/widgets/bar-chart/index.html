@@ -1,14 +1,23 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+<!DOCTYPE html><!--mixin resize(elem)//script.
+    function resize() {
+      const { width, height } = getSize();
+      document.getElementById('widget').style.paddingTop = height + 'px';
+      
+        .width(width)
+        .height(height)
+    }
+    window.onresize = resize;
+--><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><script>function getSize () {
+  });</script><!--script.function getSize () {
   const md = new MobileDetect(window.navigator.userAgent);
   const width = parseFloat(d3.select('#widget').style('width'));
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
     A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
     <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
@@ -51,21 +60,23 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .height(300)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
-  .bottomAxis.label('stock')
-  .leftAxis.label('fruit')
+  .bottomAxis.label('fruit')
+  .leftAxis.label('stock')
   .color.palette('royalblue')
   .mouse.over(k => barChart.highlight(k.name))
   .mouse.leave(() => barChart.highlight())
   .tooltip.on(true)
   .tooltip.rowFormat(y => y.toFixed(1))
-  .yGrid.on(true)
-  .render()
+  .render(1000)
 </script><script class="doc">
 // api methods
 let changeData = () => barChart.data(getData()).render(1000)
 let toggleHorizontal = () => {
   this.h = !(this.h || 0)
-  barChart.horizontal(this.h).render()
+  barChart.horizontal(this.h)
+    .bottomAxis.label(this.h ? 'stock' : 'fruit')
+    .leftAxis.label(this.h ? 'fruit' : 'stock')
+    .render()
 }
 let toggleValues = () => {
   this.v = !(this.v || 0)
@@ -99,13 +110,4 @@ window.addEventListener('keydown', e => {
 // Modify toggle buttons
 toggleHorizontal = checkbox(toggleHorizontal, 'toggleHorizontal', 'h', ['Change to vertical', 'Change to horizontal'])
 toggleValues = checkbox(toggleValues, 'toggleValues', 'v', ['Hide values', 'Show values'])
-</script><script>function resize() {
-  const { width, height } = getSize();
-  document.getElementById('widget').style.paddingTop = height + 'px';
-  barChart
-    .width(width)
-    .height(height)
-    .render();
-}
-window.onresize = resize;
-</script></div></main></body><script>resize();</script></html>
+</script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

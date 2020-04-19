@@ -8,10 +8,10 @@ import extend from '../../core/extend'
  *
  * @function BottomAxis
  */
-export default scale => (() => {
+export default scale => {
   return (self, api) => {
     // Base class
-    let base = BaseAxis('x', self._widget.content, axisBottom, scale)
+    let base = BaseAxis('x', self, axisBottom, scale)
     base.adjustLabel({
       'text-anchor': 'end',
       dy: '2.5em'
@@ -20,13 +20,14 @@ export default scale => (() => {
     // Private members
     let _ = {
       update: duration => {
-        // Update base axis
-        base.axis.transition().duration(duration)
+        // Update base axis.
+        self._widget.get(base.axis, duration)
           .attr('transform', 'translate(0,' + parseFloat(self._widget.size.innerHeight) + ')')
-        base.axisLabel.transition().duration(duration)
+
+        // Update label.
+        self._widget.get(base.axisLabel, duration)
           .attr('x', self._widget.size.innerWidth)
           .attr('y', parseFloat(self._widget.size.innerHeight) + 'px')
-
       }
     }
 
@@ -105,4 +106,4 @@ export default scale => (() => {
 
     return { self, api }
   }
-})()
+}

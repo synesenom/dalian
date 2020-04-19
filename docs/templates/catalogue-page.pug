@@ -1,14 +1,13 @@
 doctype html
 
-mixin resize(elem)
-    script.
+//mixin resize(elem)
+    //script.
         function resize() {
           const { width, height } = getSize();
           document.getElementById('widget').style.paddingTop = height + 'px';
           #{elem}
             .width(width)
             .height(height)
-            .render();
         }
         window.onresize = resize;
 
@@ -30,7 +29,7 @@ html(lang='en')
               hljs.initHighlighting.called = false;
               hljs.initHighlighting();
             });
-        script.
+        //script.
           function getSize () {
             const md = new MobileDetect(window.navigator.userAgent);
             const width = parseFloat(d3.select('#widget').style('width'));
@@ -54,6 +53,6 @@ html(lang='en')
                 h1 code
                 #code-doc
                 | !{code}
-                +resize('' + variableName)
-    script.
-        resize();
+                //+resize('' + variableName)
+    //script.
+    //    resize();

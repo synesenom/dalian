@@ -32,6 +32,7 @@ const MODULES = [
   'widgets/area-chart',
   'widgets/bar-chart',
   'widgets/line-chart',
+  'widgets/pie-chart',
   'widgets/scatter-plot'
 ]
 

@@ -26,6 +26,7 @@ import YGrid from '../components/grid/y-grid'
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Parent element to append widget to.
  */
+// TODO Support negative values.
 export default (name, parent = 'body') => {
   // Build widget from components
   let scales = {
@@ -49,9 +50,12 @@ export default (name, parent = 'body') => {
       x: scales.x,
       y: scales.y
     },
+    horizontal: false,
+    values: false,
+    valueFormat: x => x.toFixed(1),
 
     measureX: (d, bandwidth, font) => {
-      const tw = getTextWidth(self._barChart.valueFormat(d.value), font)
+      const tw = getTextWidth(_.valueFormat(d.value), font)
       const dx = Math.max((bandwidth - parseFloat(font.size)) / 2, 5)
       const x = _.scales.x.scale(d.value)
       const inside = x > 2 * dx + tw
@@ -65,7 +69,7 @@ export default (name, parent = 'body') => {
 
     measureY: (d, bandwidth, font) => {
       const th = parseFloat(font.size)
-      const dy = Math.max((bandwidth - getTextWidth(self._barChart.valueFormat(d.value), font)) / 2, 5)
+      const dy = Math.max((bandwidth - getTextWidth(_.valueFormat(d.value), font)) / 2, 5)
       const y = _.scales.y.scale(d.value)
       const h = parseFloat(self._widget.size.innerHeight) - y
       const inside = h > 2 * dy + th
@@ -93,14 +97,14 @@ export default (name, parent = 'body') => {
 
       // Update scales
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(self._barChart.horizontal ? [0, yMax] : xValues)
+        .domain(_.horizontal ? [0, yMax] : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(self._barChart.horizontal ? xValues : [0, yMax])
+        .domain(_.horizontal ? xValues : [0, yMax])
 
       // Add plots
       self._chart.plotGroups({
         enter: g => {
-          const bandwidth = self._barChart.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+          const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Add bars
           const rect = g.append('rect')
@@ -112,7 +116,7 @@ export default (name, parent = 'body') => {
             .on('mouseleave.barChart', () => {
               _.current = undefined
             })
-          if (self._barChart.horizontal) {
+          if (_.horizontal) {
             rect.attr('x', _.scales.x.scale(0))
               .attr('width', 0)
               .attr('y', d => _.scales.y.scale(d.name))
@@ -125,29 +129,29 @@ export default (name, parent = 'body') => {
           }
 
           // Add values
-          const measure = self._barChart.horizontal ? _.measureX : _.measureY
+          const measure = _.horizontal ? _.measureX : _.measureY
           g.append('text')
             .style('display', 'none')
             .attr('class', d => `bar-value ${encode(d.name)}`)
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
-            .text(d => self._barChart.valueFormat(d.value))
+            .text(d => _.valueFormat(d.value))
             .each(function (d) {
               this._current = 0
               return Object.assign(d, { _measures: measure(d, bandwidth, font) })
             })
             .attr('fill', d => d._measures.color)
-            .attr('x', d => self._barChart.horizontal ? _.scales.x.scale(0) : d._measures.x)
-            .attr('y', d => self._barChart.horizontal ? d._measures.y : _.scales.y.scale(0))
+            .attr('x', d => _.horizontal ? _.scales.x.scale(0) : d._measures.x)
+            .attr('y', d => _.horizontal ? d._measures.y : _.scales.y.scale(0))
 
           return g
         },
         update: g => {
-          const bandwidth = self._barChart.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+          const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Bars
           const bars = g.select('.bar')
-          if (self._barChart.horizontal) {
+          if (_.horizontal) {
             bars.attr('x', _.scales.x.scale(0))
               .attr('width', d => _.scales.x.scale(d.value))
               .attr('y', d => _.scales.y.scale(d.name))
@@ -160,23 +164,24 @@ export default (name, parent = 'body') => {
           }
 
           // Values
-          const measure = self._barChart.horizontal ? _.measureX : _.measureY
+          return g
+          const measure = _.horizontal ? _.measureX : _.measureY
           g.select('.bar-value')
-            .attr('text-anchor', self._barChart.horizontal ? 'end' : 'middle')
-            .attr('dominant-baseline', self._barChart.horizontal ? 'central' : 'hanging')
+            .attr('text-anchor', _.horizontal ? 'end' : 'middle')
+            .attr('dominant-baseline', _.horizontal ? 'central' : 'hanging')
             .attr('font-size', self._font.size)
             .attr('fill', self._font.color)
             .textTween(function (d) {
               let prev = this._current
               this._current = d.value
               let i = interpolateNumber(prev, d.value)
-              return t => self._barChart.valueFormat(i(t))
+              return t => _.valueFormat(i(t))
             })
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, font) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => d._measures.x)
             .attr('y', d => d._measures.y)
-            .style('display', self._barChart.values ? null : 'none')
+            .style('display', _.values ? null : 'none')
 
           return g
         },
@@ -184,15 +189,6 @@ export default (name, parent = 'body') => {
       }, duration)
     }
   }
-
-  // Protected members
-  self = Object.assign(self, {
-    _barChart: {
-      horizontal: false,
-      values: false,
-      valueFormat: x => x.toFixed(1)
-    }
-  })
 
   // Overrides
   self._highlight.container = self._chart.plots
@@ -230,7 +226,7 @@ export default (name, parent = 'body') => {
      * @returns {BarChart} The BarChart itself.
      */
     horizontal: on => {
-      self._barChart.horizontal = on
+      _.horizontal = on
 
       // Assign scales
       _.scales.x = on ? scales.y : scales.x
@@ -255,7 +251,7 @@ export default (name, parent = 'body') => {
      * @returns {BarChart} The BarChart itself.
      */
     values: on => {
-      self._barChart.values = on
+      _.values = on
       return api
     },
 
@@ -268,7 +264,7 @@ export default (name, parent = 'body') => {
      * @returns {BarChart} The BarChart itself.
      */
     valueFormat: format => {
-      self._barChart.valueFormat = format || (x => x.toFixed(1))
+      _.valueFormat = format || (x => x.toFixed(1))
       return api
     }
   })

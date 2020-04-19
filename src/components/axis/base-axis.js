@@ -1,13 +1,13 @@
-export default (name, parent, axisFn, scale) => {
+export default (type, self, axisFn, scale) => {
   // Private members
   // Container: an SVG group that contains all axis related DOM elements
-  let container = parent.append('g')
-    .attr('class', `dalian-axis-container ${name}`)
+  let container = self._widget.content.append('g')
+    .attr('class', `dalian-axis-container ${type}`)
     .style('font-family', 'inherit')
     .style('font-size', 'inherit')
   // The axis group
   let axis = container.append('g')
-    .attr('class', `${name} axis`)
+    .attr('class', `axis ${type}`)
     .style('font-family', 'inherit')
     .style('font-size', 'inherit')
   axis.selectAll('path')
@@ -29,7 +29,7 @@ export default (name, parent, axisFn, scale) => {
     fn: axisFn().ticks(5),
     axis,
     axisLabel: container.append('text')
-      .attr('class', `axis-label ${name}`)
+      .attr('class', `axis-label ${type}`)
       .attr('stroke-width', 0)
       .attr('fill', 'currentColor')
       .style('font-size', '1em')
@@ -48,7 +48,7 @@ export default (name, parent, axisFn, scale) => {
 
     update: (duration, size, margins) => {
       // Update container
-      _.container.transition().duration(duration)
+      self._widget.get(_.container, duration)
         .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')')
         .style('width', size.innerWidth)
         .style('height', size.innerHeight)
@@ -58,8 +58,7 @@ export default (name, parent, axisFn, scale) => {
         .tickFormat(_.format)
         .tickSize(_.ticks ? 6 : 0)
         .tickPadding(_.ticks ? 3 : 9)
-      api.axis
-        .transition().duration(duration)
+      self._widget.get(api.axis, duration)
         .call(api.fn)
         .selectAll('path')
         .style('opacity', _.axisLine ? 1 : 0)

@@ -34,7 +34,6 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
     {name: "plum", value: 13},
     {name: "banana", value: 4},
     {name: "mango", value: 6},
-    {name: "orange", value: 2},
     {name: "kiwi", value: 7},
     {name: "pear", value: 3}
   ])
@@ -83,6 +82,21 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .lineStyle({
     mango: 'dashed'
   })
+  .render()
+</script></a><a class="card" href="widgets/pie-chart"><div class="card-title">PieChart</div><div class="card-content" id="pie-chart"></div><script class="card-example">
+dalian.PieChart('pie-chart-card', '#pie-chart')
+  .data([
+    {name: "plum", value: 13},
+    {name: "banana", value: 4},
+    {name: "mango", value: 6},
+    {name: "kiwi", value: 7},
+    {name: "pear", value: 3}
+  ])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .font.size(11)
   .render()
 </script></a><a class="card" href="widgets/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
 dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')

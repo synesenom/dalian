@@ -1,9 +1,19 @@
-<p id="desc">
-  Pie charts ...
-  - few data point
-  - relative to whole
-  - large changes (for small changes or more data point, use bar chart)
-</p>
+<div id="desc">
+  A pie chart represents one dimensional <span class="good">categorical data</span> of positive numbers only.
+  The angle of each sector is proportional to the value of the corresponding category.
+  It is useful when <span class="good">fractions</span> of a whole (especially percentages) are to be shown for a
+  <span class="good">few categories</span> (5-7) and the focus is on <span class="good">large differences</span> among categories rather than nuances.
+  <br><br>However, <span class="bad">changes</span> are hard to perceive on a pie chart, and should be used only for
+  static data.
+  Furthermore, <span class="bad">small values</span> are difficult to distinguish or notice and therefore, avoid using
+  pie charts when the data spans multiple orders of magnitude.
+  <br><br>Press the following keys or click on the buttons to explore the API:
+  <ul>
+    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li onclick="changeInnerRadius()"><span class="button">I</span>- Change inner radius.</li>
+    <li onclick="changeOuterRadius()"><span class="button">O</span>- Change outer radius.</li>
+  </ul>
+</div>
 
 <script class="card-example">
 dalian.PieChart('pie-chart-card', '#pie-chart')
@@ -18,12 +28,7 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
-  .margins({ left: 50, right: 10, top: 20, bottom: 30 })
-  .fontSize(11)
-  .xLabel('stock')
-  .yLabel('fruit')
-  .values(true)
-  .colors('royalblue')
+  .font.size(11)
   .render()
 </script>
 
@@ -32,12 +37,12 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
 function getData () {
   return [
     {name: "plum", value: 13 * Math.random()},
-    {name: "banana", value: 4 * Math.random()}
-  ].concat(Math.random() > 0.5 ? [
-    {name: "orange", value: 2 * Math.random()},
-    {name: "kiwi", value: 7 * Math.random()}
-  ] : [])
-  .concat([{name: "pear", value: 30 * Math.random()}])
+    {name: "banana", value: 4 * Math.random()},
+    {name: "orange", value: 2 * Math.random()}
+  ].concat([
+    {name: "kiwi", value: 7 * Math.random()},
+    {name: "pear", value: 30 * Math.random()}
+  ].filter(() => Math.random() > 0.5))
 }
 </script>
 
@@ -47,20 +52,40 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  //.margins({left: 70, top: 40, bottom: 40, right: 40})
-  .fontSize(14)
-  //.label('stock')
-  //.colors('royalblue')
-  .mouseover(k => pieChart.highlight(k.name))
-  .mouseleave(() => pieChart.highlight())
-  //.tooltip(true)
-  //.tooltipYFormat(x => x.toFixed(2))
-  .render()
+  .font.size(14)
+  .render(1000)
 </script>
 
 <script class="doc">
-// update data
-setInterval(() => {
-  pieChart.data(getData()).render()
-}, 3000)
+// api methods
+let changeData = () => pieChart.data(getData()).render(1000)
+
+let changeInnerRadius = () => {
+  this.i = !(this.i || 0)
+  pieChart.innerRadius(this.i ? 30 : undefined).render()
+}
+
+let changeOuterRadius = () => {
+  this.o = !(this.o || 0)
+  pieChart.outerRadius(this.o ? 70 : undefined).render()
+}
 </script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'i':
+      changeInnerRadius()
+      break
+    case 'o':
+      changeOuterRadius()
+      break
+    default:
+  }
+})
+</script>
+

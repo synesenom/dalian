@@ -8,10 +8,10 @@ import extend from '../../core/extend'
  *
  * @function LeftAxis
  */
-export default scale => (() => {
+export default scale => {
   return (self, api) => {
     // Base class
-    let base = BaseAxis('y', self._widget.content, axisLeft, scale)
+    let base = BaseAxis('y', self, axisLeft, scale)
     base.adjustLabel({
       'text-anchor': 'begin',
       x: 5 + 'px',
@@ -101,4 +101,4 @@ export default scale => (() => {
 
     return { self, api }
   }
-})()
+}

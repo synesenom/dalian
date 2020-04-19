@@ -48,12 +48,12 @@ export default (type, name, parent, elem) => {
       // Methods
       update: duration => {
         // Adjust clipper
-        _.clip.transition().duration(duration)
+        self._widget.get(_.clip, duration)
           .attr('width', self._widget.size.innerWidth)
           .attr('height', self._widget.size.innerHeight)
 
         // Adjust plots container
-        self._chart.plots.transition().duration(duration)
+        self._widget.get(self._chart.plots, duration)
           .attr('width', self._widget.size.innerWidth + 'px')
           .attr('height', self._widget.size.innerHeight + 'px')
           .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
@@ -65,6 +65,7 @@ export default (type, name, parent, elem) => {
   self = Object.assign(self || {}, {
     _chart: {
       // Variables
+      data: [],
       plots: self._widget.content.append('g')
         .attr('class', 'dalian-plots-container'),
       plotSelectors: [],

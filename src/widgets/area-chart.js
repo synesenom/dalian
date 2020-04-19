@@ -98,6 +98,7 @@ export default (name, parent = 'body') => {
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
             .attr('stroke', 'currentColor')
+
           return g
         },
         update: g => {

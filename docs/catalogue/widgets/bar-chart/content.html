@@ -25,7 +25,6 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
     {name: "plum", value: 13},
     {name: "banana", value: 4},
     {name: "mango", value: 6},
-    {name: "orange", value: 2},
     {name: "kiwi", value: 7},
     {name: "pear", value: 3}
   ])
@@ -70,15 +69,14 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .height(300)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
-  .bottomAxis.label('stock')
-  .leftAxis.label('fruit')
+  .bottomAxis.label('fruit')
+  .leftAxis.label('stock')
   .color.palette('royalblue')
   .mouse.over(k => barChart.highlight(k.name))
   .mouse.leave(() => barChart.highlight())
   .tooltip.on(true)
   .tooltip.rowFormat(y => y.toFixed(1))
-  .yGrid.on(true)
-  .render()
+  .render(1000)
 </script>
 
 <script class="doc">
@@ -86,7 +84,10 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 let changeData = () => barChart.data(getData()).render(1000)
 let toggleHorizontal = () => {
   this.h = !(this.h || 0)
-  barChart.horizontal(this.h).render()
+  barChart.horizontal(this.h)
+    .bottomAxis.label(this.h ? 'stock' : 'fruit')
+    .leftAxis.label(this.h ? 'fruit' : 'stock')
+    .render()
 }
 let toggleValues = () => {
   this.v = !(this.v || 0)

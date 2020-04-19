@@ -1,29 +1,48 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../../dist/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+<!DOCTYPE html><!--mixin resize(elem)//script.
+    function resize() {
+      const { width, height } = getSize();
+      document.getElementById('widget').style.paddingTop = height + 'px';
+      
+        .width(width)
+        .height(height)
+    }
+    window.onresize = resize;
+--><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><script>function getSize () {
+  });</script><!--script.function getSize () {
   const md = new MobileDetect(window.navigator.userAgent);
   const width = parseFloat(d3.select('#widget').style('width'));
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>PieChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
-  Pie charts ...
-  - few data point
-  - relative to whole
-  - large changes (for small changes or more data point, use bar chart)
-</p><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/charts/pie-chart.js">source</a><a class="right footnote" href="../../../api/charts/pie-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a><h1>code</h1><div id="code-doc"></div><script class="doc">
+}--><title>PieChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+  A pie chart represents one dimensional <span class="good">categorical data</span> of positive numbers only.
+  The angle of each sector is proportional to the value of the corresponding category.
+  It is useful when <span class="good">fractions</span> of a whole (especially percentages) are to be shown for a
+  <span class="good">few categories</span> (5-7) and the focus is on <span class="good">large differences</span> among categories rather than nuances.
+  <br><br>However, <span class="bad">changes</span> are hard to perceive on a pie chart, and should be used only for
+  static data.
+  Furthermore, <span class="bad">small values</span> are difficult to distinguish or notice and therefore, avoid using
+  pie charts when the data spans multiple orders of magnitude.
+  <br><br>Press the following keys or click on the buttons to explore the API:
+  <ul>
+    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li onclick="changeInnerRadius()"><span class="button">I</span>- Change inner radius.</li>
+    <li onclick="changeOuterRadius()"><span class="button">O</span>- Change outer radius.</li>
+  </ul>
+</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/pie-chart.js">source</a><a class="right footnote" href="../../../api/widgets/pie-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [
     {name: "plum", value: 13 * Math.random()},
-    {name: "banana", value: 4 * Math.random()}
-  ].concat(Math.random() > 0.5 ? [
-    {name: "orange", value: 2 * Math.random()},
-    {name: "kiwi", value: 7 * Math.random()}
-  ] : [])
-  .concat([{name: "pear", value: 30 * Math.random()}])
+    {name: "banana", value: 4 * Math.random()},
+    {name: "orange", value: 2 * Math.random()}
+  ].concat([
+    {name: "kiwi", value: 7 * Math.random()},
+    {name: "pear", value: 30 * Math.random()}
+  ].filter(() => Math.random() > 0.5))
 }
 </script><script class="doc">
 // create chart
@@ -31,27 +50,35 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  //.margins({left: 70, top: 40, bottom: 40, right: 40})
-  .fontSize(14)
-  //.label('stock')
-  //.colors('royalblue')
-  .mouseover(k => pieChart.highlight(k.name))
-  .mouseleave(() => pieChart.highlight())
-  //.tooltip(true)
-  //.tooltipYFormat(x => x.toFixed(2))
-  .render()
+  .font.size(14)
+  .render(1000)
 </script><script class="doc">
-// update data
-setInterval(() => {
-  pieChart.data(getData()).render()
-}, 3000)
-</script><script>function resize() {
-  const { width, height } = getSize();
-  document.getElementById('widget').style.paddingTop = height + 'px';
-  pieChart
-    .width(width)
-    .height(height)
-    .render();
+// api methods
+let changeData = () => pieChart.data(getData()).render(1000)
+
+let changeInnerRadius = () => {
+  this.i = !(this.i || 0)
+  pieChart.innerRadius(this.i ? 30 : undefined).render()
 }
-window.onresize = resize;
-</script></div></main></body><script>resize();</script></html>
+
+let changeOuterRadius = () => {
+  this.o = !(this.o || 0)
+  pieChart.outerRadius(this.o ? 70 : undefined).render()
+}
+</script><script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'i':
+      changeInnerRadius()
+      break
+    case 'o':
+      changeOuterRadius()
+      break
+    default:
+  }
+})
+</script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

@@ -1,116 +1,120 @@
-import { arc, pie } from 'd3'
+import { arc, descending, interpolate, merge, pie } from 'd3'
 import compose from '../core/compose'
-import Chart from '../components/chart'
-import Scale from '../components/scale'
-import Highlight from '../components/highlight'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import extend from '../core/extend'
 import encode from '../core/encode'
+import extend from '../core/extend'
+import Chart from '../components/chart'
+import ElementTooltip from '../components/tooltip/element-tooltip'
+import Highlight from '../components/highlight'
 
-// TODO Add .title() to widget
-// TODO value
-// TODO valueFormat
-// TODO Add outside values
-// TODO innerRadius
-// TODO outerRadius
-// TODO Animation with arcTween
+// TODO Add values.
+// TODO Add valueFormat.
+// TODO Add outside values (with legs).
+// TODO Add proper transition.
+// TODO Add title.
 // TODO Handle margins
 
 export default (name, parent = 'body') => {
-  let scale = Scale('linear')
   let { self, api } = compose(
     Chart('pie-chart', name, parent, 'svg'),
     ElementTooltip,
-    Highlight
+    Highlight(['.plot-group']),
   )
 
   // Private members
   let _ = {
-    // Variables
+    // Style variables.
+    innerRadius: 0,
+    outerRadius: 100,
+
+    // Currently hovered wedge.
     current: undefined,
 
+    // Arc function.
+    arc: null,
+
     // Methods
-    arcTween: (that, a) => {
-      const i = d3.interpolate(that._current, a)
-      that._current = i(1)
-      return (t) => arc(i(t))
+    arcTween(d) {
+      let i = interpolate(this._current, d)
+      this._current = i(0)
+      return t => _.arc(i(t))
     },
 
     update: duration => {
-      // Create arc and pie
-      const arcFn = arc()
-        .innerRadius(0)
-        .outerRadius(self._pieChart.outerRadius)
-      const pieFn = pie().value(d => d.value)
-        .sort(null)
+      // Create/update arc function.
+      _.arc = arc()
+        .innerRadius(_.innerRadius)
+        .outerRadius(_.outerRadius)
 
-      // Add plots
-      // TODO Add exit transition
-      /* self._chart.plotGroups({
+      // Add plots.
+      self._chart.plotGroups({
         enter: g => {
-          // Apply pie transformation on data and add name as direct property to make sure colors are mapped
-          g.data(pieFn(self._chart.data)
-            .map(d => Object.assign(d, {
-              name: d.data.name
-            })), d => d.name)
+          // Add slice.
+          g.append('path')
+            .attr('class', d => `slice ${encode(d.data.name)}`)
+            .attr('d', _.arc({
+              startAngle: 0,
+              endAngle: 0
+            }))
+            .each(function (d) {
+              this._current = {
+                data: d.data,
+                value: d.value,
+                startAngle: 0,
+                endAngle: 0
+              }
+            })
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke', 'white')
+            .attr('fill', 'currentColor')
             .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
 
-          // Slices
-          g.append('path')
-            .attr('class', d => `slice ${encode(d.name)}`)
-            .style('stroke', 'none')
-            .on('over', d => _.current = d)
-            .on('leave', () => _.current = undefined)
-            .attr('d', arcFn)
           return g
         },
-        union: {
-          before: g => {
-            // Transform data
-            // TODO Move data transformation to transformData method
-            g.data(pieFn(self._chart.data)
-              .map(d => Object.assign(d, {
-                name: d.data.name
-              })), d => d.name)
-            g.select('.slice')
-              .each(function(d) { this._current = d })
-            return g
-          },
-          after: g => {
-            // Slices
-            g.select('.slice')
-              .attr('d', d => {
-                console.log(arcFn(d))
-                return arcFn(d)
-              })
-            return g
-          }
+        update: g => {
+          // Update to new arc.
+          g.select('.slice')
+            .attrTween('d', _.arcTween)
+
+          return g
         }
-      }) */
+      }, duration)
     }
   }
 
-  // Protected members
-  self = Object.assign(self, {
-    _pieChart: {
-      // TODO Setter
-      // TODO Docs
-      innerRadius: 10,
-      // TODO Setter
-      // TODO Docs
-      outerRadius: 50,
-      values: false,
-      valueFormat: Math.round
-    }
-  })
-
   // Overrides
+  // Transform data to pie chart compatible data.
+  self._chart.transformData = data => {
+    // Pie mapper.
+    const pieFn = pie().value(d => d.value)
+      .sort(null)
+
+    // If data is empty, just assign to new data.
+    let pieData
+    if (self._chart.data.length === 0) {
+      // If first data set.
+      pieData = data//.sort((a, b) => descending(a.name, b.name))
+    } else {
+      // Otherwise calculate union with new data.
+      let next = new Set(data.map(d => d.name))
+      let remove = self._chart.data.map(d => d.name)
+        .filter(d => !next.has(d))
+        .map(d => ({
+          name: d,
+          value: 0
+        }))
+      pieData = merge([data, remove])
+    }
+
+    // Add plot group name.
+    return pieFn(pieData.sort((a, b) => descending(a.name, b.name)))
+      .map(d => Object.assign(d, { name: d.data.name }))
+  }
+
   self._highlight.container = self._chart.plots
 
-  self._highlight.selectors = ['.slice']// TODO ['.pie', '.pie-marker']
-
   self._tooltip.content = () => {
-    // If no bar is hovered, hide tooltip
+    // TODO ElementTooltip.
+    // If no wedge is hovered, hide tooltip
     if (typeof _.current === 'undefined') {
       return
     }
@@ -134,15 +138,17 @@ export default (name, parent = 'body') => {
 
   // Public API
   api = Object.assign(api, {
-    values: on => {
-      self._pieChart.values = on
+    innerRadius: radius => {
+      _.innerRadius = radius || 0
       return api
     },
 
-    valueFormat: format => {
-      self._pieChart.valueFormat = format
+    outerRadius: radius => {
+      _.outerRadius = radius || 100
       return api
     }
+    // TODO values.
+    // TODO valueFormat.
   })
 
   return api

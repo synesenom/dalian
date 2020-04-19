@@ -4,7 +4,6 @@ import deficiencyConverter from './palettes/deficiency'
 // TODO Add value dependent color scheme
 // TODO Add option to diverging color scheme and add default as sunset.
 // TODO Add option to sequential color scheme and add default as iridescent.
-// TODO Add method to convert chart to deuteranopia, tritanopia, protanopia and greyscale.
 
 const createMapping = palette => {
   // Single color.
@@ -116,6 +115,7 @@ export default (self, api) => {
         return api
       },
 
+      // TODO Documencation.
       // Source: http://web.archive.org/web/20081030075157/http://www.nofunc.com/Color_Blindness_Library/
       deficiency (type) {
         // Select converter.

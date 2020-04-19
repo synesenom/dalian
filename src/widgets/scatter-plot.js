@@ -48,8 +48,9 @@ export default (name, parent = 'body') => {
   // Private members
   let _ = {
     // Variables
-    diagram: undefined,
     scales,
+    diagram: undefined,
+    size: 4,
 
     computeDiagram: data => {
       const sites = data.map(plot => plot.values.map(d => ({
@@ -72,10 +73,10 @@ export default (name, parent = 'body') => {
       // Update scales
       const xRange = extent(flatData.map(d => d.x))
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(self._xRange.range([xRange[0] - self._scatterPlot.size, xRange[1] + self._scatterPlot.size]))
+        .domain(self._xRange.range([xRange[0] - _.size, xRange[1] + _.size]))
       const yRange = extent(flatData.map(d => d.y))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(self._yRange.range([yRange[0] - self._scatterPlot.size, yRange[1] + self._scatterPlot.size]))
+        .domain(self._yRange.range([yRange[0] - _.size, yRange[1] + _.size]))
 
       // Add plots
       self._chart.plotGroups({
@@ -91,7 +92,8 @@ export default (name, parent = 'body') => {
             .attr('class', d => `dot ${encode(d.name)}`)
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
-            .attr('r', self._scatterPlot.size)
+            .attr('r', _.size)
+            .style('opacity', 0)
 
           return g
         },
@@ -104,7 +106,7 @@ export default (name, parent = 'body') => {
                 .attr('class', d => `dot ${encode(d.name)}`)
                 .attr('cx', d => _.scales.x.scale(d.x))
                 .attr('cy', d => _.scales.y.scale(d.y))
-                .attr('r', self._scatterPlot.size)
+                .attr('r', _.size)
                 .style('opacity', 0),
               update => update,
               exit => exit.transition().duration(duration)
@@ -114,7 +116,7 @@ export default (name, parent = 'body') => {
             .transition().duration(duration)
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
-            .attr('r', self._scatterPlot.size)
+            .attr('r', _.size)
             .style('opacity', self._opacity.value())
 
           return g
@@ -130,7 +132,7 @@ export default (name, parent = 'body') => {
   // Protected members
   self = Object.assign(self, {
     _scatterPlot: {
-      size: 4
+
     }
   })
 
@@ -150,7 +152,7 @@ export default (name, parent = 'body') => {
       return
     } else {
       self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker', site.data.name,
-        Math.max(5, 1.5 * self._scatterPlot.size))
+        Math.max(5, 1.5 * _.size))
     }
 
     return {
@@ -183,7 +185,7 @@ export default (name, parent = 'body') => {
      * @returns {Object} Reference to the ScattePlot's API.
      */
     size: value => {
-      self._scatterPlot.size = value || 4
+      _.size = value || 4
       return api
     }
   })

@@ -1,14 +1,23 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+<!DOCTYPE html><!--mixin resize(elem)//script.
+    function resize() {
+      const { width, height } = getSize();
+      document.getElementById('widget').style.paddingTop = height + 'px';
+      
+        .width(width)
+        .height(height)
+    }
+    window.onresize = resize;
+--><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><script>function getSize () {
+  });</script><!--script.function getSize () {
   const md = new MobileDetect(window.navigator.userAgent);
   const width = parseFloat(d3.select('#widget').style('width'));
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}</script><title>Pin | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>Pin | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
   <p>
     The Pin component adds pin markers to a chart. This example shows the available methods for the component and
     demonstrates its behavior when various properties of the chart are changed.
@@ -91,13 +100,4 @@ window.addEventListener('keydown', e => {
 // Modify toggle buttons
 togglePin = checkbox(togglePin, 'togglePin', 'p', ['Remove pin', 'Add pin'])
 toggleXRange = checkbox(toggleXRange, 'toggleXRange', 'x', ['Remove x constraint', 'Set x constraint'])
-</script><script>function resize() {
-  const { width, height } = getSize();
-  document.getElementById('widget').style.paddingTop = height + 'px';
-  chart
-    .width(width)
-    .height(height)
-    .render();
-}
-window.onresize = resize;
-</script></div></main></body><script>resize();</script></html>
+</script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

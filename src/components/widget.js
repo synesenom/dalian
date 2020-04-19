@@ -11,6 +11,7 @@ export default (type, name, parent, elem) => {
   // Private members
   let _ = {
     parent: select(parent),
+    initialized: false,
     pos: {
       x: {
         attr: 'left',
@@ -47,30 +48,37 @@ export default (type, name, parent, elem) => {
     disabled: false,
 
     // Methods
+    get: (elem, duration) => {
+      if (_.initialized) {
+        return elem.transition().duration(duration)
+      } else {
+        setTimeout(() => _.initialized = true, duration)
+        return elem
+      }
+    },
+
     update: duration => {
-      // Update container and content
-      self._widget.container
-        .transition().duration(duration)
+      // Update container and content.
+      self._widget.get(self._widget.container, duration)
         .style(_.pos.x.ignore, null)
         .style(_.pos.x.attr, _.pos.x.value)
         .style(_.pos.y.ignore, null)
         .style(_.pos.y.attr, _.pos.y.value)
         .style('width', self._widget.size.width)
         .style('height', self._widget.size.height)
-        .on('end', () => self._widget.container.style('display', 'block'))
     },
 
     disable: on => {
       self._widget.disabled = on
     }
   }
+
   try {
     // Add widget container
     self._widget.container = _.parent.append('div')
       .attr('id', self._widget.id)
       .attr('class', `dalian-widget dalian-widget-${type}`)
     styles(self._widget.container, {
-      display: 'none',
       position: 'absolute',
       width: self._widget.size.width,
       height: self._widget.size.height,
@@ -83,8 +91,7 @@ export default (type, name, parent, elem) => {
 
     // Add widget content element
     self._widget.content = self._widget.container.append(elem)
-      .attr('id', `${self._widget.id}-container`)
-      .attr('class', `dalian-widget-container`)
+      .attr('class', `dalian-widget-content`)
     styles(self._widget.content, {
       position: 'absolute',
       width: '100%',
@@ -212,7 +219,8 @@ export default (type, name, parent, elem) => {
      *
      * @method render
      * @methodOf Widget
-     * @param {number} [duration = 400] Duration of the rendering animation in ms.
+     * @param {number?} duration Duration of the rendering animation in ms. If not specified, the rendering does not
+     * involve animations.
      * @returns {Widget} Reference to the Widget's API.
      */
     render: duration => {
