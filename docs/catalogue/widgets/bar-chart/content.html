@@ -3,19 +3,14 @@
     A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
     <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
     process. Also, it can handle <span class="good">more categories</span> than a pie chart.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
+</div>
+<div id="controls">
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li id="toggleHorizontal" onclick="toggleHorizontal()">
-      <span class="button checkbox">H</span>
-      <span class="label">- Change to horizontal.</span>
-    </li>
-    <li id="toggleValues" onclick="toggleValues()">
-      <span class="button checkbox">V</span>
-      <span class="label">- Show values.</span>
-    </li>
-    <li onclick="changeValueFormat()"><span class="button">F</span>- Change value format.</li>
+    <li onclick="changeData()">D - Change data.</li>
+    <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
+    <li id="toggleValues" onclick="toggleValues()">V - Show values.</li>
+    <li onclick="changeValueFormat()">F - Change value format.</li>
   </ul>
 </div>
 
@@ -45,8 +40,6 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
 
 <script class="doc">
 // generate data
-// Data is generated with ranjs:
-// https://synesenom.github.io/ran/
 function getData () {
   return [
     {name: "plum", value: 130 * Math.random()},
@@ -82,6 +75,7 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 <script class="doc">
 // api methods
 let changeData = () => barChart.data(getData()).render(1000)
+
 let toggleHorizontal = () => {
   this.h = !(this.h || 0)
   barChart.horizontal(this.h)
@@ -89,10 +83,12 @@ let toggleHorizontal = () => {
     .leftAxis.label(this.h ? 'fruit' : 'stock')
     .render()
 }
+
 let toggleValues = () => {
   this.v = !(this.v || 0)
   barChart.values(this.v).render()
 }
+
 let changeValueFormat = () => {
   this.f = !(this.f || 0)
   barChart.valueFormat(this.f ? x => x.toFixed(1) + '%' : undefined)

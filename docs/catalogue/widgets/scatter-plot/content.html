@@ -5,9 +5,12 @@
     <span class="good">correlations</span>.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
+</div>
+<div id="controls">
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li onclick="toggleSize()"><span class="button">S</span>- Change size.</li>
+    <li onclick="changeData()">D - Change data.</li>
+    <li onclick="changeDataWithLabels()">L - Change data with labels.</li>
+    <li onclick="toggleSize()">S - Change size.</li>
   </ul>
 </div>
 
@@ -40,18 +43,20 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
 
 <script class="doc">
 // generate data
-function getData () {
+function getData (labels) {
   return [{
     name: 'blueberry',
     values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
       x: i + Math.random() - 0.5,
-      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
+      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10,
+      label: labels ? i : undefined
     }))
   }, {
     name: 'cherry',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i + Math.random() * 8 - 4,
-      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
+      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10,
+      label: labels ? i : undefined
     }))
   }]
 }
@@ -75,8 +80,17 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
 
 <script class="doc">
 // api methods
-const changeData = () => scatterPlot.data(getData()).render(1000)
-const toggleSize = () => {
+let changeData = () => scatterPlot.data(getData()).render(1000)
+
+let changeDataWithLabels = () => {
+  // First we need to generate a labeled data set.
+  scatterPlot.data(getData(true)).render()
+
+  // Then animate to a new data set.
+  scatterPlot.data(getData(true)).render(1000)
+}
+
+let toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
 }
@@ -88,6 +102,9 @@ window.addEventListener('keydown', e => {
   switch (e.key) {
     case 'd':
       changeData()
+      break
+    case 'w':
+      changeDataWithLabels()
       break
     case 's':
       toggleSize()

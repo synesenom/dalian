@@ -17,31 +17,35 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>ScatterPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>ScatterPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+    <li onclick="changeDataWithLabels()">L - Change data with labels.</li>
+    <li onclick="toggleSize()">S - Change size.</li>
+  </ul>
+</div></div><h1>description</h1><p id="desc">
   <p>
     A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
     <span class="good">monotonic relationship</span> between two quantities, such as
     <span class="good">correlations</span>.
     <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li onclick="toggleSize()"><span class="button">S</span>- Change size.</li>
-  </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/scatter-plot.js">source</a><a class="right footnote" href="../../../api/widgets/scatter-plot.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
-function getData () {
+function getData (labels) {
   return [{
     name: 'blueberry',
     values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
       x: i + Math.random() - 0.5,
-      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
+      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10,
+      label: labels ? i : undefined
     }))
   }, {
     name: 'cherry',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i + Math.random() * 8 - 4,
-      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
+      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10,
+      label: labels ? i : undefined
     }))
   }]
 }
@@ -61,8 +65,17 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-const changeData = () => scatterPlot.data(getData()).render(1000)
-const toggleSize = () => {
+let changeData = () => scatterPlot.data(getData()).render(1000)
+
+let changeDataWithLabels = () => {
+  // First we need to generate a labeled data set.
+  scatterPlot.data(getData(true)).render()
+
+  // Then animate to a new data set.
+  scatterPlot.data(getData(true)).render(1000)
+}
+
+let toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
 }
@@ -72,6 +85,9 @@ window.addEventListener('keydown', e => {
   switch (e.key) {
     case 'd':
       changeData()
+      break
+    case 'w':
+      changeDataWithLabels()
       break
     case 's':
       toggleSize()

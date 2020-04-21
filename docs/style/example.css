@@ -6,52 +6,46 @@
     height: 300px;
 }
 
-ul {
+#controls {
+    position: absolute;
+    width: 200px;
+    right: -220px;
+    top: 0;
+    font-size: .8em;
+}
+
+.controls-title {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+}
+
+.controls-section {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+
+#controls ul {
+    margin: 0;
     padding: 0;
     list-style: none;
 }
 
-li {
-    width: 50%;
+#controls ul li {
+    width: 100%;
     float: left;
     margin-top: 8px;
     cursor: pointer;
     user-select: none;
-    line-height: 18px;
-    opacity: 0.95;
-}
-li:hover {
-    opacity: 0.7;
-}
-li:active {
-    opacity: 1;
+    line-height: 14px;
 }
 
-.button {
-    display: inline-block;
-    background-color: royalblue;
-    color: white;
-    margin-right: 6px;
-    padding: 2px 4px;
-    width: 14px;
-    height: 18px;
-    line-height: 18px;
-    text-align: center;
-    border-radius: 2px;
-    font-size: .9em;
-    cursor: pointer;
-}
-.button.checkbox {
-    background-color: firebrick;
-}
-.button.checkbox.on {
-    background-color: yellowgreen;
-}
-.button.radio {
-    background-color: #aaa;
-}
-.button.radio.on {
-    background-color: royalblue;
+#controls li:hover {
+    color: royalblue;
 }
 
 .label {
@@ -64,9 +58,5 @@ li:active {
     width: 100%;
 }
 
-.controls-title {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    margin: 20px 0 5px 0;
-}
+
+

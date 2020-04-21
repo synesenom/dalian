@@ -1,4 +1,4 @@
-import luminance from '../utils/luminance'
+import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
 import extend from '../core/extend'
 import attributes from '../utils/attributes'
 
@@ -85,12 +85,12 @@ export default scales => (() => {
           y: height - (options.size || 6) - 10,
           'text-anchor': 'start',
           stroke: 'none',
-          fill: luminance(color) > 0.179 ? '#000' : '#fff'
+          fill: luminanceAdjustedColor(color)
         }).text(text)
 
         // Compute text length, adjust text
         const length = labelText.node().getComputedTextLength() * 1.05
-        labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length))
+        labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length) - 10)
           .attr('textLength', length)
 
         // Label box
@@ -211,7 +211,7 @@ export default scales => (() => {
             head.transition().duration(duration)
               .attr('cx', scaleX(position) + 1)
               .attr('cy', height)
-            labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length))
+            labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length) - 10)
               .attr('y', height - (options.size || 6) - 10)
             bbox = labelText.node().getBBox()
             labelBox.attr('x', bbox.x - 5)

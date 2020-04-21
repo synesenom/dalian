@@ -17,23 +17,16 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Pin | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>Pin | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+    <li id="togglePin" onclick="togglePin()">P - Add pin.</li>
+  </ul>
+</div></div><h1>description</h1><p id="desc">
   <p>
     The Pin component adds pin markers to a chart. This example shows the available methods for the component and
     demonstrates its behavior when various properties of the chart are changed.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li id="toggleXRange" onclick="toggleXRange()">
-      <span class="button checkbox">X</span>
-      <span class="label">- Set X constraint.</span>
-    </li>
-    <li id="togglePin" onclick="togglePin()">
-      <span class="button checkbox">P</span>
-      <span class="label">- Add pin.</span>
-    </li>
-  </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/pin.js">source</a><a class="right footnote" href="../../../api/components/pin.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
@@ -64,7 +57,7 @@ let changeData = () => chart.data(getData()).render(1000)
 let togglePin = () => {
   this.p = !(this.p || 0)
   if (this.p) {
-    chart.pin.add('marker', 10 + 30 * Math.random(), {
+    chart.pin.add('marker', 60 + 30 * Math.random(), {
       color: 'firebrick',
       'height': 0.7,
       text: 'Measurement started'

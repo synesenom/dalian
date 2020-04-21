@@ -19,6 +19,7 @@ import XGrid from '../components/grid/x-grid'
 import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
+import { attrTween } from '../utils/tweens'
 
 // TODO Add reference to components: LineStyle, LineWidth.
 // TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.

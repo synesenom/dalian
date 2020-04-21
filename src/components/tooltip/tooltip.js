@@ -198,8 +198,8 @@ export default (self, api) => {
      * of the tooltip.
      * @returns {Widget} Reference to the Widget API.
      */
-    titleFormat: (format = x => x) => {
-      self._tooltip.titleFormat = format
+    titleFormat: format => {
+      self._tooltip.titleFormat = format || (x => x)
       return api
     },
 
@@ -213,8 +213,8 @@ export default (self, api) => {
      * value of the tooltip.
      * @returns {Widget} Reference to the Widget API.
      */
-    rowFormat: (format = x => x) => {
-      self._tooltip.rowFormat = format
+    rowFormat: format => {
+      self._tooltip.rowFormat = format || (x => x)
       return api
     },
 
@@ -223,12 +223,12 @@ export default (self, api) => {
      *
      * @method xFormat
      * @methodOf Tooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the X value
-     * and must return a string. The return value can be HTML formatted.
+     * @param {Function} [format = x => x] Function to use as the formatter. May take two parameters: the X value of the
+     * data point and the name of the plot. The return string can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    xFormat: (format = x => x) => {
-      self._tooltip.xFormat = format
+    xFormat: format => {
+      self._tooltip.xFormat = format || (x => x)
       return api
     },
 
@@ -237,12 +237,12 @@ export default (self, api) => {
      *
      * @method yFormat
      * @methodOf Tooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the Y value
-     * and must return a string. The return value can be HTML formatted.
+     * @param {Function} [format = x => x] Function to use as the formatter. May take two parameters: the Y value of the
+     * data point and the name of the plot. The return string can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    yFormat: (format = x => x) => {
-      self._tooltip.yFormat = format
+    yFormat: format => {
+      self._tooltip.yFormat = format || (x => x)
       return api
     }
   }

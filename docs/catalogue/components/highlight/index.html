@@ -17,16 +17,16 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Highlight | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>Highlight | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul id="highlights">
+    <li onclick="highlightSingle()">S - Highlight single plot.</li>
+    <li onclick="highlightMultiple()">M - Highlight multiple plots.</li>
+    <li onclick="removeHighlight()">N - No highlight.</li>
+  </ul>
+</div></div><h1>description</h1><p id="desc">
   <p>
     The Mouse component allows for binding callbacks to basic mouse events.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul id="highlights">
-    <li onclick="highlightSingle()"><span class="button radio">S</span>- Highlight single plot.</li>
-    <li onclick="highlightMultiple()"><span class="button radio">M</span>- Highlight multiple plots.</li>
-    <li onclick="removeHighlight()"><span class="button radio on">N</span>- No highlight.</li>
-  </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/highlight.js">source</a><a class="right footnote" href="../../../api/components/highlight.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {

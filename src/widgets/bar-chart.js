@@ -1,8 +1,9 @@
-import { max, interpolateNumber } from 'd3'
+import { max } from 'd3'
 import { getTextWidth } from '../utils/measure-text'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
+import { textTween } from '../utils/tweens'
 import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
@@ -136,10 +137,7 @@ export default (name, parent = 'body') => {
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
             .text(d => _.valueFormat(d.value))
-            .each(function (d) {
-              this._current = 0
-              return Object.assign(d, { _measures: measure(d, bandwidth, font) })
-            })
+            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, font) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => _.horizontal ? _.scales.x.scale(0) : d._measures.x)
             .attr('y', d => _.horizontal ? d._measures.y : _.scales.y.scale(0))
@@ -164,19 +162,13 @@ export default (name, parent = 'body') => {
           }
 
           // Values
-          return g
           const measure = _.horizontal ? _.measureX : _.measureY
           g.select('.bar-value')
             .attr('text-anchor', _.horizontal ? 'end' : 'middle')
             .attr('dominant-baseline', _.horizontal ? 'central' : 'hanging')
             .attr('font-size', self._font.size)
             .attr('fill', self._font.color)
-            .textTween(function (d) {
-              let prev = this._current
-              this._current = d.value
-              let i = interpolateNumber(prev, d.value)
-              return t => _.valueFormat(i(t))
-            })
+            .textTween(textTween(_.valueFormat))
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, font) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => d._measures.x)

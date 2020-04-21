@@ -1,13 +1,11 @@
 <div id="desc">
   <p>
     The Smoothing component allows for polygon smoothing in widgets that have elements built up of polygons.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
+</div>
+<div id="controls">
   <ul>
-    <li id="toggleSmoothing" onclick="toggleSmoothing()">
-      <span class="button checkbox">S</span>
-      <span class="label">- Enable smoothing.</span>
-    </li>
+    <li id="toggleSmoothing" onclick="toggleSmoothing()">S - Enable smoothing.</li>
   </ul>
 </div>
 
@@ -69,7 +67,7 @@ let toggleSmoothing = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleSmoothing = checkbox(toggleSmoothing, 'toggleSmoothing', 's', ['Disable smoothing', 'Enable smoothing'])
+toggleSmoothing = checkbox(toggleSmoothing, 'toggleSmoothing', 's', ['S - Disable smoothing', 'S - Enable smoothing'])
 </script>
 
 <script class="doc">

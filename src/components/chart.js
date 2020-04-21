@@ -129,9 +129,9 @@ export default (type, name, parent, elem) => {
 
   // Public API
   api = Object.assign(api, {
-    data: plots => {
+    data: data => {
       // Transform data to the standard internal structure
-      self._chart.data = self._chart.transformData(plots)
+      self._chart.data = self._chart.transformData(data)
 
       // Switch render flag
       return api

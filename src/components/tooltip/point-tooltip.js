@@ -63,7 +63,7 @@ export default (self, api) => {
             'max-width': '120px',
             'margin-top': (i === 0 ? 6 : 3) + 'px',
             float: 'left'
-          }).html(self._tooltip.yFormat(plot.value))
+          }).html(self._tooltip.yFormat(plot.value, plot.name))
         })
 
       return contentNode.node().outerHTML

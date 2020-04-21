@@ -1,4 +1,5 @@
 <div id="desc">
+  <p>
   A pie chart represents one dimensional <span class="good">categorical data</span> of positive numbers only.
   The angle of each sector is proportional to the value of the corresponding category.
   It is useful when <span class="good">fractions</span> of a whole (especially percentages) are to be shown for a
@@ -7,11 +8,13 @@
   static data.
   Furthermore, <span class="bad">small values</span> are difficult to distinguish or notice and therefore, avoid using
   pie charts when the data spans multiple orders of magnitude.
-  <br><br>Press the following keys or click on the buttons to explore the API:
+  </p>
+</div>
+<div id="controls">
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li onclick="changeInnerRadius()"><span class="button">I</span>- Change inner radius.</li>
-    <li onclick="changeOuterRadius()"><span class="button">O</span>- Change outer radius.</li>
+    <li onclick="changeData()">D - Change data.</li>
+    <li onclick="changeInnerRadius()">I - Change inner radius.</li>
+    <li onclick="changeOuterRadius()">O - Change outer radius.</li>
   </ul>
 </div>
 
@@ -37,12 +40,12 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
 function getData () {
   return [
     {name: "plum", value: 13 * Math.random()},
-    {name: "banana", value: 4 * Math.random()},
-    {name: "orange", value: 2 * Math.random()}
+    {name: "banana", value: 4 * Math.random()}
   ].concat([
+    {name: "orange", value: 2 * Math.random()},
     {name: "kiwi", value: 7 * Math.random()},
     {name: "pear", value: 30 * Math.random()}
-  ].filter(() => Math.random() > 0.5))
+  ].filter(() => Math.random() > 0.2))
 }
 </script>
 

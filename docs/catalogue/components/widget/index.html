@@ -17,19 +17,19 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Widget | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>Widget | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="changeX()">X - Change X position.</li>
+    <li onclick="changeY()">Y - Change Y position.</li>
+    <li onclick="changeWidth()">W - Change width.</li>
+    <li onclick="changeHeight()">H - Change height.</li>
+    <li onclick="changeMargins()">M - Change margins.</li>
+  </ul>
+</div></div><h1>description</h1><p id="desc">
   <p>
     The Widget component is the basis of all widgets (charts, etc). This example shows the available methods for this
     base component.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul>
-    <li onclick="changeX()"><span class="button">X</span>- Change X position.</li>
-    <li onclick="changeY()"><span class="button">Y</span>- Change Y position.</li>
-    <li onclick="changeWidth()"><span class="button">W</span>- Change width.</li>
-    <li onclick="changeHeight()"><span class="button">H</span>- Change height.</li>
-    <li onclick="changeMargins()"><span class="button">M</span>- Change margins.</li>
-  </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/widget.js">source</a><a class="right footnote" href="../../../api/components/widget.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {

@@ -2,27 +2,29 @@
   <p>
     The Color component manages color palettes and color scheme policies for widgets. Furthermore, the component can
     simulate various color vision deficiencies to test and prepare your charts for the highest accessibility.
-    <br><br>Press the following keys or click on the buttons to explore the API. Letters correspond to the color palette
-    methods, numbers toggle different color vision deficiencies. Percentages show the prevalence of the corresponding
-    deficiency (or the lack thereof) among people.
   </p>
+</div>
+
+<div id="controls">
+  <div class="controls-section">Color vision deficiencies:</div>
   <ul id="colors">
-    <li onclick="defaultColors()"><span class="button radio on">D</span>- Default color palette (<code>wong</code>).</li>
-    <li onclick="constantColor()"><span class="button radio">S</span>- Single color.</li>
-    <li onclick="plotSpecificColor()"><span class="button radio">P</span>- Plot specific color.</li>
-    <li onclick="transformedColor()"><span class="button radio">T</span>- Transformed color.</li>
+    <li onclick="defaultColors()">D - Default color palette.</li>
+    <li onclick="builtInPaletteLight()">L - Built-in palette light.</li>
+    <li onclick="singleColor()">S - Single color.</li>
+    <li onclick="plotSpecificColor()">P - Plot specific color.</li>
+    <li onclick="transformedColor()">T - Transformed color.</li>
   </ul>
-  <div class="controls-title">Color vision deficiencies:</div>
+  <div class="controls-section">Color vision deficiencies:</div>
   <ul id="deficiencies" style="margin: 0">
-    <li onclick="normal()"><span class="button radio on">0</span>- Normal vision (92%).</li>
-    <li onclick="deuteranomaly()"><span class="button radio">1</span>- Deuteranomaly (2.7%).</li>
-    <li onclick="protanomaly()"><span class="button radio">2</span>- Protanomaly (0.66%).</li>
-    <li onclick="protanopia()"><span class="button radio">3</span>- Protanopia (0.59%).</li>
-    <li onclick="deuteranopia()"><span class="button radio">4</span>- Deuteranopia (0.56%).</li>
-    <li onclick="tritanopia()"><span class="button radio">5</span>- Tritanopia (0.016%).</li>
-    <li onclick="tritanomaly()"><span class="button radio">6</span>- Tritanomaly (0.01%).</li>
-    <li onclick="achromatomaly()"><span class="button radio">7</span>- Achromatomaly (< 0.0001%).</li>
-    <li onclick="achromatopsia()"><span class="button radio">8</span>- Achromatopsia (< 0.0001%).</li>
+    <li onclick="normal()">0 - Normal vision (92%).</li>
+    <li onclick="deuteranomaly()">1 - Deuteranomaly (2.7%).</li>
+    <li onclick="protanomaly()">2 - Protanomaly (0.66%).</li>
+    <li onclick="protanopia()">3 - Protanopia (0.59%).</li>
+    <li onclick="deuteranopia()">4 - Deuteranopia (0.56%).</li>
+    <li onclick="tritanopia()">5 - Tritanopia (0.016%).</li>
+    <li onclick="tritanomaly()">6 - Tritanomaly (0.01%).</li>
+    <li onclick="achromatomaly()">7 - Achromatomaly (< 0.0001%).</li>
+    <li onclick="achromatopsia()">8 - Achromatopsia (< 0.0001%).</li>
   </ul>
 </div>
 
@@ -72,7 +74,9 @@ const chart = dalian.BarChart('myChart', '#widget')
 // api methods
 let defaultColors = () => chart.color.palette().render(1000)
 
-let constantColor = () => chart.color.palette('royalblue').render(1000)
+let builtInPaletteLight = () => chart.color.palette('palette-light').render(1000)
+
+let singleColor = () => chart.color.palette('royalblue').render(1000)
 
 let plotSpecificColor = () => chart.color.palette({
   A: '#1f77b4',
@@ -103,8 +107,8 @@ let achromatomaly = () => chart.color.deficiency('achromatomaly').render()
 
 <script class="doc-hidden">
 // Modify radio buttons
-[defaultColors, constantColor, plotSpecificColor, transformedColor] = radio('colors',
-  [defaultColors, constantColor, plotSpecificColor, transformedColor]);
+[defaultColors, builtInPaletteLight, singleColor, plotSpecificColor, transformedColor] = radio('colors',
+  [defaultColors, builtInPaletteLight, singleColor, plotSpecificColor, transformedColor]);
 [normal, deuteranomaly, protanomaly, protanopia, deuteranopia, tritanopia, tritanomaly, achromatomaly,
   achromatopsia] = radio('deficiencies', [normal, deuteranomaly, protanomaly, protanopia, deuteranopia, tritanopia,
   tritanomaly, achromatomaly, achromatopsia])
@@ -117,8 +121,11 @@ window.addEventListener('keydown', e => {
     case 'd':
       defaultColors()
       break
-    case 'c':
-      constantColor()
+    case 'l':
+      builtInPaletteLight()
+      break
+    case 's':
+      singleColor()
       break
     case 'p':
       plotSpecificColor()

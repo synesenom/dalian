@@ -17,17 +17,17 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+  </ul>
+</div></div><h1>description</h1><p id="desc">
   <p>
     Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
     relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
     distribution of some quantity (probability density).Due to its transparent nature, only a
     <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-  </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/area-chart.js">source</a><a class="right footnote" href="../../../api/widgets/area-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Data is generated with ranjs:

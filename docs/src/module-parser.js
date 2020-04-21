@@ -92,6 +92,7 @@ module.exports = (meta, docs, modulePath) => {
         code: Array.from(document.getElementsByClassName('doc')).map(d => d.outerHTML)
           .concat(Array.from(document.getElementsByClassName('doc-hidden')).map(d => d.outerHTML))
           .join(''),
+        controls: document.getElementById('controls') && document.getElementById('controls').innerHTML,
         minjs: '../../../dl/dalian.min.js',
         widgetName: moduleName,
         variableName: type === 'widgets' ? factoryName.charAt(0).toLowerCase() + factoryName.substring(1) : 'chart'

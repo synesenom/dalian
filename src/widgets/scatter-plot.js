@@ -39,7 +39,7 @@ export default (name, parent = 'body') => {
     ElementTooltip,
     Highlight(['.plot-group']),
     LeftAxis(scales.y),
-    Opacity(0.5),
+    Opacity(0.6),
     PlotMarker,
     XRange,
     YRange
@@ -100,7 +100,8 @@ export default (name, parent = 'body') => {
         updateBefore: g => {
           g.style('opacity', 1)
 
-          g.selectAll('circle').data(d => d.values)
+          g.selectAll('circle')
+            .data(d => d.values, d => d.label)
             .join(
               enter => enter.append('circle')
                 .attr('class', d => `dot ${encode(d.name)}`)
@@ -206,6 +207,7 @@ export default (name, parent = 'body') => {
    * <dl>
    *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
    *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
+   *   <dt>label {(number|string)}</dt> <dd>An optional label that is used for distinguishing the dots during updates.</dd>
    * </dl>
    * @returns {ScatterPlot} Reference to the ScatterPlot API.
    */

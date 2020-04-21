@@ -1,4 +1,5 @@
 import wong from './palettes/wong'
+import light from './palettes/light'
 import deficiencyConverter from './palettes/deficiency'
 
 // TODO Add value dependent color scheme
@@ -25,11 +26,24 @@ const createMapping = palette => {
 }
 
 const convertPalette = (palette, converter) => {
+  // Default palette.
+  if (typeof palette === 'undefined' || palette === 'palette-wong') {
+    return wong.map(converter)
+  }
+
+  // Built-in palette.
+  if (palette === 'palette-light') {
+    return light.map(converter)
+  }
+
+  // Single color.
   if (typeof palette === 'string') {
     return converter(palette) + ''
   } else if (Array.isArray(palette)) {
+    // Custom palette, arbitrary association.
     return palette.map(converter)
   } else {
+    // Custom color mapping.
     let convertedPalette = {}
     for (let key in palette) {
       convertedPalette[key] = converter(palette[key])
@@ -78,9 +92,11 @@ export default (self, api) => {
       /**
        * Sets the color palette. Supported palettes:
        * <ul>
-       *     <li><strong>Default color policy</strong>: A variant of the 8 color qualitative palette by Bang Wang. See
-       *     <a href='https://www.nature.com/articles/nmeth.1618'>this paper</a> and
-       *     <a href='http://mkweb.bcgsc.ca/colorblind/'>this post</a> for details.
+       *   <li>
+       *     <strong>Default color palette</strong>: A variant of the 8 color colorblind friendly qualitative palette
+       *     by Bang Wang. See <a href='https://www.nature.com/articles/nmeth.1618'>this paper</a> and
+       *     <a href='http://mkweb.bcgsc.ca/colorblind/'>this post</a> for details. This color palette is also available
+       *     by passing <code>palette-wong</code> to the method.
        *     <div class='palette'>
        *       <span>Colors:</span>
        *       <div style='background-color:#333333'></div>
@@ -91,17 +107,47 @@ export default (self, api) => {
        *       <div style='background-color:#e69f00'></div>
        *       <div style='background-color:#d55e00'></div>
        *       <div style='background-color:#cc79a7'></div>
-       *     </div></li>
-       *     <li><strong>Single color</strong>: The specified color is used for all plots.</li>
-       *     <li><strong>Custom color mapping</strong>>: each plot has the color specified as the value for the
-       *     property with the same name as the plot's key.</li>
+       *     </div>
+       *   </li>
+       *   <li>
+       *     <strong>Built-in color palette</strong>: One of the built-in palettes that support the vast majority of
+       *     color vision deficiencies:
+       *     <ul>
+       *       <li>
+       *         <code>palette-light</code>The 9 color colorblind friendly qualitative palette designed by Paul Tol.
+       *         See <a href='https://personal.sron.nl/~pault/#fig:scheme_light'>this post</a> for details.
+       *         <div class='palette'>
+       *           <span>Colors:</span>
+       *           <div style='background-color:#77aadd'></div>
+       *           <div style='background-color:#99ddff'></div>
+       *           <div style='background-color:#44bb99'></div>
+       *           <div style='background-color:#bbcc33'></div>
+       *           <div style='background-color:#aaaa00'></div>
+       *           <div style='background-color:#eedd88'></div>
+       *           <div style='background-color:#ee8866'></div>
+       *           <div style='background-color:#ffaabb'></div>
+       *           <div style='background-color:#dddddd'></div>
+       *         </div>
+       *       </li>
+       *     </ul>
+       *   </li>
+       *   <li><strong>Single color</strong>: The specified color is used for all plots.</li>
+       *   <li>
+       *     <strong>Custom palette</strong>: A custom color palette with arbitrary association with the plots. In this
+       *     case, the colors are assigned to the plots in the order they are added/built.
+       *   </li>
+       *   <li>
+       *     <strong>Custom color mapping</strong>: Each plot has the color specified as the value for the property with
+       *     the same name as the plot's key.
+       *   </li>
        * </ul>
        *
        * @method palette
        * @methodOf Color
        * @param {(string | Object)} [palette] Color palette to set. If not specified, the default policy is set. If
-       * string, the same color is used for all plots. If object, it is used as a mapping from the plot names to the
-       * colors.
+       * string, it's either a built-in palette or a the color represented by the string is used for all plots. If an
+       * array of strings, it's colors are assigned to plots as they are added to the widget without any specific
+       * association between colors and plots. If an object, it is used as a mapping from the plot names to the colors.
        * @param {Function?} [on = d => d] Transformation that is used before mapping the plot to a color. The plot name is
        * passed to this method as parameters before determining the color.
        * @returns {Widget} Reference to the Widget's API.
@@ -115,8 +161,20 @@ export default (self, api) => {
         return api
       },
 
-      // TODO Documencation.
+      // TODO Documentation.
       // Source: http://web.archive.org/web/20081030075157/http://www.nofunc.com/Color_Blindness_Library/
+      /**
+       * Emulates a color vision deficiency. Useful for testing the widget for accessibility. The deficiency emulation
+       * is implemented using the algorithm
+       * [here]{@link http://web.archive.org/web/20081030075157/http://www.nofunc.com/Color_Blindness_Library/}.
+       *
+       * @method deficiency
+       * @methodOf Color
+       * @param {string} type Type of deficiency to emulate. Supported values: achromatomaly, achromatopsia,
+       * deuteranomaly, deuteranopia, protanomaly, protanopia, tritanomaly, tritanopia. If type is not specified, it
+       * restores the true colors.
+       * @returns {Widget} Reference to the Widget's API.
+       */
       deficiency (type) {
         // Select converter.
         _.converter = deficiencyConverter(type)

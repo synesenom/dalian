@@ -17,17 +17,14 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Smoothing | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><h1>description</h1><p id="desc">
+}--><title>Smoothing | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li id="toggleSmoothing" onclick="toggleSmoothing()">S - Enable smoothing.</li>
+  </ul>
+</div></div><h1>description</h1><p id="desc">
   <p>
     The Smoothing component allows for polygon smoothing in widgets that have elements built up of polygons.
-    <br><br>Press the following keys or click on the buttons to explore the API:
   </p>
-  <ul>
-    <li id="toggleSmoothing" onclick="toggleSmoothing()">
-      <span class="button checkbox">S</span>
-      <span class="label">- Enable smoothing.</span>
-    </li>
-  </ul>
 </p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/smoothing.js">source</a><a class="right footnote" href="../../../api/components/smoothing.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
@@ -70,5 +67,5 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleSmoothing = checkbox(toggleSmoothing, 'toggleSmoothing', 's', ['Disable smoothing', 'Enable smoothing'])
+toggleSmoothing = checkbox(toggleSmoothing, 'toggleSmoothing', 's', ['S - Disable smoothing', 'S - Enable smoothing'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>
