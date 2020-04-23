@@ -71,6 +71,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
+
 let togglePin = () => {
   this.p = !(this.p || 0)
   if (this.p) {
@@ -83,18 +84,11 @@ let togglePin = () => {
     chart.pin.remove('marker', 1000)
   }
 }
-let toggleXRange = () => {
-  this.x = !(this.x || 0)
-  chart.xRange.min(this.x ? 20 : undefined)
-    .xRange.max(this.x ? 35 : undefined)
-    .render(1000)
-}
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-togglePin = checkbox(togglePin, 'togglePin', 'p', ['Remove pin', 'Add pin'])
-toggleXRange = checkbox(toggleXRange, 'toggleXRange', 'x', ['Remove x constraint', 'Set x constraint'])
+togglePin = checkbox(togglePin, 'togglePin', 'p', ['P - Remove pin', 'P - Add pin'])
 </script>
 
 <script class="doc">

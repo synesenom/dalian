@@ -48,12 +48,12 @@ export default (type, name, parent, elem) => {
       // Methods
       update: duration => {
         // Adjust clipper
-        self._widget.get(_.clip, duration)
+        self._widget.getElem(_.clip, duration)
           .attr('width', self._widget.size.innerWidth)
           .attr('height', self._widget.size.innerHeight)
 
         // Adjust plots container
-        self._widget.get(self._chart.plots, duration)
+        self._widget.getElem(self._chart.plots, duration)
           .attr('width', self._widget.size.innerWidth + 'px')
           .attr('height', self._widget.size.innerHeight + 'px')
           .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')

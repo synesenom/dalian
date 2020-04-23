@@ -21,11 +21,11 @@ export default scale => {
     let _ = {
       update: duration => {
         // Update base axis.
-        self._widget.get(base.axis, duration)
+        self._widget.getElem(base.axis, duration)
           .attr('transform', 'translate(0,' + parseFloat(self._widget.size.innerHeight) + ')')
 
         // Update label.
-        self._widget.get(base.axisLabel, duration)
+        self._widget.getElem(base.axisLabel, duration)
           .attr('x', self._widget.size.innerWidth)
           .attr('y', parseFloat(self._widget.size.innerHeight) + 'px')
       }

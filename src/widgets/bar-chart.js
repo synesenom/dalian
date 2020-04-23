@@ -1,9 +1,9 @@
 import { max } from 'd3'
-import { getTextWidth } from '../utils/measure-text'
+import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
-import { textTween } from '../utils/tweens'
+import { textTween } from '../utils/tween'
 import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
@@ -55,42 +55,37 @@ export default (name, parent = 'body') => {
     values: false,
     valueFormat: x => x.toFixed(1),
 
-    measureX: (d, bandwidth, font) => {
-      const tw = getTextWidth(_.valueFormat(d.value), font)
-      const dx = Math.max((bandwidth - parseFloat(font.size)) / 2, 5)
+    measureX: (d, bandwidth, style) => {
+      const ts = measureText(_.valueFormat(d.value), style)
+      const dx = Math.max((bandwidth - ts.height) / 2, 5)
       const x = _.scales.x.scale(d.value)
-      const inside = x > 2 * dx + tw
+      const inside = x > 2 * dx + ts.width
       return {
         inside,
-        x: inside ? x - dx : x + dx + tw,
+        x: inside ? x - dx : x + dx + ts.width,
         y: _.scales.y.scale(d.name) + bandwidth / 2,
-        color: inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : font.color
+        color: inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : style.color
       }
     },
 
-    measureY: (d, bandwidth, font) => {
-      const th = parseFloat(font.size)
-      const dy = Math.max((bandwidth - getTextWidth(_.valueFormat(d.value), font)) / 2, 5)
+    measureY: (d, bandwidth, style) => {
+      const ts = measureText(_.valueFormat(d.value), style)
+      const dy = Math.max((bandwidth - ts.width) / 2, 5)
       const y = _.scales.y.scale(d.value)
       const h = parseFloat(self._widget.size.innerHeight) - y
-      const inside = h > 2 * dy + th
+      const inside = h > 2 * dy + ts.height
       return {
         inside,
         x: _.scales.x.scale(d.name) + bandwidth / 2,
-        y: inside ? y + dy : y - dy - th,
-        color: inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : font.color
+        y: inside ? y + dy : y - dy - ts.height,
+        color: inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : style.color
       }
     },
 
     // Methods
     update: duration => {
       // Compute some constants beforehand
-      const style = window.getComputedStyle(self._widget.container.node())
-      const font = {
-        size: style.fontSize,
-        family: style.fontFamily,
-        color: style.color
-      }
+      const style = self._widget.getStyle()
 
       // Collect X values and Y max
       const xValues = self._chart.data.map(d => d.name)
@@ -137,7 +132,7 @@ export default (name, parent = 'body') => {
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
             .text(d => _.valueFormat(d.value))
-            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, font) }))
+            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => _.horizontal ? _.scales.x.scale(0) : d._measures.x)
             .attr('y', d => _.horizontal ? d._measures.y : _.scales.y.scale(0))
@@ -169,7 +164,7 @@ export default (name, parent = 'body') => {
             .attr('font-size', self._font.size)
             .attr('fill', self._font.color)
             .textTween(textTween(_.valueFormat))
-            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, font) }))
+            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => d._measures.x)
             .attr('y', d => d._measures.y)

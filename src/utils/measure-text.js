@@ -1,7 +1,10 @@
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')
 
-export function getTextWidth (text, font) {
-  context.font = font.size + ' ' + font.family
-  return context.measureText(text).width
+export function measureText (text, style) {
+  context.font = style.fontSize + ' ' + style.fontFamily
+  return {
+    width: context.measureText(text).width,
+    height: parseFloat(style.fontSize)
+  }
 }

@@ -2,9 +2,8 @@ const checkbox = (func, id, variable, labels) => {
   const _func = func
   return () => {
     _func()
-    d3.select(`#${id} .button`).classed('on', this[variable])
     if (typeof labels !== 'undefined') {
-      d3.select(`#${id} .label`).text('- ' + (this[variable] ? labels[0] : labels[1]) + '.')
+      d3.select(`#${id}`).text((this[variable] ? labels[0] : labels[1]) + '.')
     }
   }
 }

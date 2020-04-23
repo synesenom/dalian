@@ -38,7 +38,7 @@ export default (self, api) => {
         // Single line width policy, using the specified line width
         _.mapping = () => policy + 'px'
       } else {
-        // Line width mapping given. Try to get line width for specified key, or use 2px if missing.
+        // Line width mapping given. Try to getElem line width for specified key, or use 2px if missing.
         _.mapping = key => (policy[key] || 2) + 'px'
       }
       return api

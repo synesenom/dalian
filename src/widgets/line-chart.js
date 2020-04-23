@@ -19,7 +19,7 @@ import XGrid from '../components/grid/x-grid'
 import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
-import { attrTween } from '../utils/tweens'
+import { attrTween } from '../utils/tween'
 
 // TODO Add reference to components: LineStyle, LineWidth.
 // TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.
@@ -74,8 +74,9 @@ export default (name, parent = 'body') => {
     // Methods
     update: duration => {
       // Create flat data.
-      const flatData = self._chart.data.map(d => d.values).flat()
+      const flatData = self._chart.data.reduce((arr, d) => arr.concat(d.values), [])
         .filter(d => d.y !== null)
+      const hasErrorBand = flatData.filter(d => d.lo + d.hi > 0).length > 0
 
       // Add some buffer to the vertical range.
       const yData = flatData.map(d => d.y - d.lo).concat(flatData.map(d => d.y + d.hi))
@@ -114,7 +115,7 @@ export default (name, parent = 'body') => {
             .attr('d', d => errorFn(d.values))
             .attr('stroke', 'none')
             .attr('fill', 'currentColor')
-            .style('fill-opacity', 0.2)
+            .attr('fill-opacity', 0)
 
           // Add lines
           g.append('path')
@@ -130,6 +131,8 @@ export default (name, parent = 'body') => {
         update: g => {
           // Update error bands
           g.select('.error-band')
+            // Show error bands only if there is any.
+            .attr('fill-opacity', hasErrorBand ? 0.2 : 0)
             .attrTween('d', function (d) {
               let previous = select(this).attr('d')
               let current = errorFn(d.values)

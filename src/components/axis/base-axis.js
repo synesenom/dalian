@@ -48,7 +48,7 @@ export default (type, self, axisFn, scale) => {
 
     update: (duration, size, margins) => {
       // Update container
-      self._widget.get(_.container, duration)
+      self._widget.getElem(_.container, duration)
         .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')')
         .style('width', size.innerWidth)
         .style('height', size.innerHeight)
@@ -58,7 +58,7 @@ export default (type, self, axisFn, scale) => {
         .tickFormat(_.format)
         .tickSize(_.ticks ? 6 : 0)
         .tickPadding(_.ticks ? 3 : 9)
-      self._widget.get(api.axis, duration)
+      self._widget.getElem(api.axis, duration)
         .call(api.fn)
         .selectAll('path')
         .style('opacity', _.axisLine ? 1 : 0)

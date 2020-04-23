@@ -1,5 +1,6 @@
 import { select } from 'd3'
 import styles from '../utils/styles'
+import { measureText } from '../utils/measure-text'
 
 /**
  * Component implementing a generic widget. A widget is the most abstract element of the library and most of the charts
@@ -48,7 +49,7 @@ export default (type, name, parent, elem) => {
     disabled: false,
 
     // Methods
-    get: (elem, duration) => {
+    getElem: (elem, duration) => {
       if (_.initialized) {
         return elem.transition().duration(duration)
       } else {
@@ -57,9 +58,11 @@ export default (type, name, parent, elem) => {
       }
     },
 
+    getStyle: () => getComputedStyle(self._widget.container.node()),
+
     update: duration => {
       // Update container and content.
-      self._widget.get(self._widget.container, duration)
+      self._widget.getElem(self._widget.container, duration)
         .style(_.pos.x.ignore, null)
         .style(_.pos.x.attr, _.pos.x.value)
         .style(_.pos.y.ignore, null)
