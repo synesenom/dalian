@@ -55,7 +55,7 @@ export default (name, parent = 'body') => {
       )
       return {
         visible: d.value > 0,
-        outside: 1.5 * textSize > sliceSize,
+        outside: 1.1 * textSize > sliceSize,
         width: m.width,
 
         // TODO Adjust X as well to avoid congestion.

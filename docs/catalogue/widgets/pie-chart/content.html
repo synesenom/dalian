@@ -34,6 +34,7 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
   .font.size(11)
   .color.palette('palette-light')
   .outerRadius(60)
+  .valueFormat(parseInt)
   .render()
 </script>
 
@@ -68,7 +69,7 @@ let changeData = () => pieChart.data(getData()).render(1000)
 
 let changeInnerRadius = () => {
   this.i = !(this.i || 0)
-  pieChart.innerRadius(this.i ? 30 : undefined).render()
+  pieChart.innerRadius(this.i ? 25 : undefined).render()
 }
 
 let changeOuterRadius = () => {
