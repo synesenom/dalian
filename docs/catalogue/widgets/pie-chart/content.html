@@ -22,16 +22,18 @@
 dalian.PieChart('pie-chart-card', '#pie-chart')
   .data([
     {name: "plum", value: 13},
-    {name: "banana", value: 4},
-    {name: "mango", value: 6},
-    {name: "kiwi", value: 7},
-    {name: "pear", value: 3}
+    {name: "banana", value: 8},
+    {name: "mango", value: 7},
+    {name: "kiwi", value: 3},
+    {name: "pear", value: 2}
   ])
   .x(0)
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(11)
+  .color.palette('palette-light')
+  .outerRadius(60)
   .render()
 </script>
 
@@ -56,6 +58,7 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .width(600)
   .height(300)
   .font.size(14)
+  .color.palette('palette-light')
   .render(1000)
 </script>
 

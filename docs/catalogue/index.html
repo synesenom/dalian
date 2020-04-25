@@ -87,16 +87,18 @@ dalian.LineChart('line-chart-card', '#line-chart')
 dalian.PieChart('pie-chart-card', '#pie-chart')
   .data([
     {name: "plum", value: 13},
-    {name: "banana", value: 4},
-    {name: "mango", value: 6},
-    {name: "kiwi", value: 7},
-    {name: "pear", value: 3}
+    {name: "banana", value: 8},
+    {name: "mango", value: 7},
+    {name: "kiwi", value: 3},
+    {name: "pear", value: 2}
   ])
   .x(0)
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(11)
+  .color.palette('palette-light')
+  .outerRadius(60)
   .render()
 </script></a><a class="card" href="widgets/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
 dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')

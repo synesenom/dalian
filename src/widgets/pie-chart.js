@@ -33,19 +33,61 @@ export default (name, parent = 'body') => {
 
     // Arc function.
     arc: null,
-    labelArc: null,
+
+    // Label related variables.
+    labelArcs: {
+      inner: null,
+      outer: null
+    },
+    numSlices: 0,
 
     // Methods
-    measure: (d, style) => {
+    measure: (d, i, style) => {
+      // Measure the diameter of the label's rectangle
       const m = measureText(_.valueFormat(d.value), style)
-      const textSize = Math.sqrt(m.width**2 + m.height**2)
-      const angle = d.endAngle - d.startAngle
-      const radius = 0.5 * (_.innerRadius + _.outerRadius)
-      const sliceSize = Math.min(angle * radius,  _.outerRadius - _.innerRadius)
+      const textSize = Math.sqrt(m.width * m.width + m.height * m.height)
+
+      // Estimate the slice's radius at the label's position. This is definitely not true for large angles but we
+      // truncate the value at the mean radius anyway, so it should work.
+      const sliceSize = Math.min(
+        0.5 * (_.innerRadius + _.outerRadius) * (d.endAngle - d.startAngle),
+        _.outerRadius - _.innerRadius
+      )
       return {
-        inside: 1.5 * textSize < sliceSize
+        visible: d.value > 0,
+        outside: 1.5 * textSize > sliceSize,
+        width: m.width,
+
+        // TODO Adjust X as well to avoid congestion.
+        x: -25 * (_.numSlices - i),
+
+        // The position of the label according to its index from the top.
+        // This sorting in the positions works because we expect labels only on the left side (values are sorted
+        // in the chart and small values gather at the end of the circle).
+        y: -_.outerRadius - 20 + m.height * (_.numSlices - 1 - i)
       }
     },
+
+    labelLinePath: d => {
+      // Position of the path.
+      let p1 = _.labelArcs.inner.centroid(d)
+      let p2 = _.labelArcs.outer.centroid(d)
+
+      // We adjust the vertical position of the label to make sure the label paths and labels don't overlap.
+      p2[1] = Math.max(p2[1], d._measures.y)
+      let p3 = [
+        // We also adjust the horizontal position of the path's end.
+        Math.min(p2[0] - 25, d._measures.x),
+        p2[1]
+      ]
+      return `M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]} L${p3[0]} ${p3[1]}`
+    },
+
+    // Adjustment in the horizontal position to avoid overlapping labels.
+    labelTextX: d => Math.min(_.labelArcs.outer.centroid(d)[0] - 25, d._measures.x) - 5,
+
+    // Adjustment in the vertical position to avoid overlapping labels.
+    labelTextY: d =>  Math.max(_.labelArcs.outer.centroid(d)[1], d._measures.y),
 
     update: duration => {
       // Compute some constants beforehand
@@ -55,9 +97,15 @@ export default (name, parent = 'body') => {
       _.arc = arc()
         .innerRadius(_.innerRadius)
         .outerRadius(_.outerRadius)
-      _.labelArc = arc()
-        .innerRadius(_.outerRadius)
-        .outerRadius(_.outerRadius + 30)
+      _.labelArcs.inner = arc()
+        .innerRadius(_.outerRadius + 5)
+        .outerRadius(_.outerRadius + 5)
+      _.labelArcs.outer = arc()
+        .innerRadius(_.outerRadius + 20)
+        .outerRadius(_.outerRadius + 20)
+
+      // Number of visible slices.
+      _.numSlices = self._chart.data.filter(d => d.value > 0).length
 
       // Add plots.
       self._chart.plotGroups({
@@ -65,40 +113,45 @@ export default (name, parent = 'body') => {
           g.style('opacity', 0)
 
           // Group of elements.
-          let wedge = g.append('g')
-            .attr('class', 'pie-slice')
+          let slice = g.append('g')
+            .attr('class', d => `slice ${encode(d.data.name)}`)
             .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
-            .each(d => Object.assign(d, { _measures: _.measure(d, style) }))
+            .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Add slice.
-          wedge.append('path')
-            .attr('class', d => `slice ${encode(d.data.name)}`)
+          slice.append('path')
+            .attr('class', 'slice-wedge')
             .attr('d', _.arc)
             .attr('stroke-linejoin', 'round')
             .attr('stroke', 'white')
             .attr('fill', 'currentColor')
 
-          // Add inside value.
-          wedge.append('text')
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'mathematical')
+          // Add label value.
+          let label = slice.append('g')
+            .attr('class', 'slice-label')
+            .style('opacity', d => d._measures.visible ? 1 : 0)
+          label.append('text')
+            .attr('class', 'inner-label')
+            .attr('dominant-baseline', 'middle')
+            .attr('text-anchor', 'end')
             .attr('x', d => _.arc.centroid(d)[0])
             .attr('y', d => _.arc.centroid(d)[1])
+            .style('opacity', d => d._measures.outside ? 0 : 1)
             .text(d => d.value.toFixed(1))
-            .each(function (d) {
-              this._current = d.value
-            })
-
-          // Add outside value.
-          wedge.append('path')
-            .attr('class', 'pie-label-line-r')
-            .attr('stroke', '#000')
-            .attr('d', d => {
-              let p1 = _.arc.centroid(d)
-              let p2 = _.labelArc.centroid(d)
-              return `M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]}`
-            })
-          // TODO Add outside value.
+          let outerLabel = label.append('g')
+            .attr('class', 'outer-label')
+            .style('opacity', d => d._measures.outside ? 1 : 0)
+          outerLabel.append('path')
+            .attr('class', 'outer-label-line')
+            .attr('fill', 'none')
+            .attr('d', d => _.labelLinePath(d, d))
+          outerLabel.append('text')
+            .attr('class', 'outer-label-text')
+            .attr('dominant-baseline', 'middle')
+            .attr('text-anchor', 'end')
+            .attr('x', _.labelTextX)
+            .attr('y', _.labelTextY)
+            .text(d => d.value.toFixed(1))
 
           return g
         },
@@ -106,26 +159,37 @@ export default (name, parent = 'body') => {
           g.style('opacity', 1)
 
           // Update slices.
-          let wedge = g.select('.pie-wedge')
+          let slice = g.select('.slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
-            .each(d => Object.assign(d, { _measures: _.measure(d, style) }))
+            .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
+            .style('opacity', d => d._measures.visible ? 1 : 0)
 
-          wedge.select('.slice')
+          slice.select('.slice-wedge')
             .attrTween('d', attrTween(d => _.arc(d)))
 
-          wedge.select('text')
-            .attr('fill', d => d._measures.inside ? luminanceAdjustedColor(self._color.mapGroup(d.name)) : 'red')
+          let label = slice.select('.slice-label')
+          label.select('.inner-label')
+            .style('opacity', d => d._measures.outside ? 0 : 1)
+            .attr('fill', d => luminanceAdjustedColor(self._color.mapGroup(d.name)))
             .attrTween('x', attrTween(d => _.arc.centroid(d)[0], 'x'))
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
             .textTween(textTween(_.valueFormat))
 
-          wedge.select('.pie-label-line-r')
-            .attrTween('d', attrTween(d => {
-                let p1 = _.arc.centroid(d)
-                let p2 = _.labelArc.centroid(d)
-                return `M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]}`
-              }, 'r'))
+          let outerLabel = label.select('.outer-label')
+            .style('opacity', d => d._measures.outside ? 1 : 0)
+          outerLabel.select('.outer-label-line')
+            .attr('stroke', self._font.color)
+            .attrTween('d', attrTween(_.labelLinePath, 'r'))
+          outerLabel.select('.outer-label-text')
+            .attr('fill', self._font.color)
+            .attrTween('x', attrTween(_.labelTextX, 'x'))
+            .attrTween('y', attrTween(_.labelTextY, 'y'))
+            .textTween(textTween(_.valueFormat))
 
+          return g
+        },
+        exit: g => {
+          // TODO Remove exiting slices somehow...
           return g
         }
       }, duration)
