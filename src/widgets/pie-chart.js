@@ -133,7 +133,7 @@ export default (name, parent = 'body') => {
           label.append('text')
             .attr('class', 'inner-label')
             .attr('dominant-baseline', 'middle')
-            .attr('text-anchor', 'end')
+            .attr('text-anchor', 'middle')
             .attr('x', d => _.arc.centroid(d)[0])
             .attr('y', d => _.arc.centroid(d)[1])
             .style('opacity', d => d._measures.outside ? 0 : 1)
