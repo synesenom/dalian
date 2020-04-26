@@ -22,6 +22,8 @@
     <li onclick="changeData()">D - Change data.</li>
     <li onclick="changeInnerRadius()">I - Change inner radius.</li>
     <li onclick="changeOuterRadius()">O - Change outer radius.</li>
+    <li id="toggleValues" onclick="toggleValues()">V - Show values.</li>
+    <li onclick="changeValueFormat()">F - Change value format.</li>
   </ul>
 </div></div><h1>description</h1><p id="desc">
   <p>
@@ -54,6 +56,8 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .height(300)
   .font.size(14)
   .color.palette('palette-light')
+  .tooltip.on(true)
+  .tooltip.rowFormat(row => row.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods
@@ -66,7 +70,23 @@ let changeInnerRadius = () => {
 
 let changeOuterRadius = () => {
   this.o = !(this.o || 0)
-  pieChart.outerRadius(this.o ? 70 : undefined).render()
+  pieChart.outerRadius(this.o ? 80 : undefined).render()
+}
+
+let toggleValues = () => {
+  this.v = !(this.v || 0)
+  pieChart.values(this.v).render()
+}
+
+let changeValueFormat = () => {
+  this.f = !(this.f || 0)
+  pieChart.valueFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
+    .render()
+}
+
+let highlightSlice = () => {
+  this.h = !(this.h || 0)
+  pieChart.highlight(this.h ? 'banana' : undefined, 1000)
 }
 </script><script class="doc">
 // update data on keypress
@@ -81,7 +101,19 @@ window.addEventListener('keydown', e => {
     case 'o':
       changeOuterRadius()
       break
+    case 'v':
+      toggleValues()
+      break
+    case 'f':
+      changeValueFormat()
+      break
+    case 'h':
+      highlightSlice()
+      break
     default:
   }
 })
+</script><script class="doc-hidden">
+// Modify toggle buttons
+toggleValues = checkbox(toggleValues, 'toggleValues', 'v', ['V - Hide values', 'V - Show values'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

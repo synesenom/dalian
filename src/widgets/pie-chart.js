@@ -1,4 +1,4 @@
-import { arc, interpolate, merge, pie } from 'd3'
+import { arc, pie } from 'd3'
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
@@ -8,10 +8,6 @@ import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import { measureText } from '../utils/measure-text'
-
-// TODO Add outside values (with legs).
-// TODO Add title.
-// TODO Handle margins
 
 export default (name, parent = 'body') => {
   let { self, api } = compose(
@@ -35,9 +31,12 @@ export default (name, parent = 'body') => {
     arc: null,
 
     // Label related variables.
-    labelArcs: {
-      inner: null,
-      outer: null
+    labels: {
+      left: d => 0.5 * (d.startAngle + d.endAngle) > Math.PI,
+      arcs: {
+        inner: null,
+        outer: null
+      }
     },
     numSlices: 0,
 
@@ -54,40 +53,51 @@ export default (name, parent = 'body') => {
         _.outerRadius - _.innerRadius
       )
       return {
-        visible: d.value > 0,
+        // Whether the label is outside or inside the slice.
         outside: 1.1 * textSize > sliceSize,
-        width: m.width,
 
-        // TODO Adjust X as well to avoid congestion.
-        x: -25 * (_.numSlices - i),
+        // Horizontal position of the labels in case of collision.
+        x: -0.25 * _.outerRadius * (_.numSlices - i),
 
         // The position of the label according to its index from the top.
         // This sorting in the positions works because we expect labels only on the left side (values are sorted
         // in the chart and small values gather at the end of the circle).
-        y: -_.outerRadius - 20 + m.height * (_.numSlices - 1 - i)
+        y: -1.25 * _.outerRadius + m.height * (_.numSlices - 1 - i)
       }
     },
 
     labelLinePath: d => {
       // Position of the path.
-      let p1 = _.labelArcs.inner.centroid(d)
-      let p2 = _.labelArcs.outer.centroid(d)
+      let p1 = _.labels.arcs.inner.centroid(d)
+      let r = _.labels.arcs.outer.centroid(d)
 
       // We adjust the vertical position of the label to make sure the label paths and labels don't overlap.
-      p2[1] = Math.max(p2[1], d._measures.y)
+      let dx = 0.25 * _.outerRadius
+      let p21 = Math.max(r[1], d._measures.y)
+      let p2 = [r[0] - (r[0] - p1[0]) * (r[1] - p21) / (r[1] - p1[1]), p21]
       let p3 = [
         // We also adjust the horizontal position of the path's end.
-        Math.min(p2[0] - 25, d._measures.x),
+        _.labels.left(d) ? Math.min(p2[0] - dx, d._measures.x) : p2[0] + dx,
         p2[1]
       ]
+
       return `M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]} L${p3[0]} ${p3[1]}`
     },
 
+    labelTextAnchor: d => _.labels.left(d) ? 'end' : 'start',
+
     // Adjustment in the horizontal position to avoid overlapping labels.
-    labelTextX: d => Math.min(_.labelArcs.outer.centroid(d)[0] - 25, d._measures.x) - 5,
+    labelTextX: d => {
+      let dx = 0.25 * _.outerRadius
+      if (_.labels.left(d)) {
+        return Math.min(_.labels.arcs.outer.centroid(d)[0] - dx, d._measures.x) - 5
+      } else {
+        return _.labels.arcs.outer.centroid(d)[0] + dx + 5
+      }
+    },
 
     // Adjustment in the vertical position to avoid overlapping labels.
-    labelTextY: d =>  Math.max(_.labelArcs.outer.centroid(d)[1], d._measures.y),
+    labelTextY: d =>  Math.max(_.labels.arcs.outer.centroid(d)[1], d._measures.y),
 
     update: duration => {
       // Compute some constants beforehand
@@ -97,12 +107,12 @@ export default (name, parent = 'body') => {
       _.arc = arc()
         .innerRadius(_.innerRadius)
         .outerRadius(_.outerRadius)
-      _.labelArcs.inner = arc()
+      _.labels.arcs.inner = arc()
         .innerRadius(_.outerRadius + 5)
         .outerRadius(_.outerRadius + 5)
-      _.labelArcs.outer = arc()
-        .innerRadius(_.outerRadius + 20)
-        .outerRadius(_.outerRadius + 20)
+      _.labels.arcs.outer = arc()
+        .innerRadius(1.25 * _.outerRadius)
+        .outerRadius(1.25 * _.outerRadius)
 
       // Number of visible slices.
       _.numSlices = self._chart.data.filter(d => d.value > 0).length
@@ -115,7 +125,13 @@ export default (name, parent = 'body') => {
           // Group of elements.
           let slice = g.append('g')
             .attr('class', d => `slice ${encode(d.data.name)}`)
-            .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
+            .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
+            .on('mouseover.pieChart', d => {
+              _.current = d
+            })
+            .on('mouseleave.pieChart', () => {
+              _.current = undefined
+            })
             .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Add slice.
@@ -129,13 +145,14 @@ export default (name, parent = 'body') => {
           // Add label value.
           let label = slice.append('g')
             .attr('class', 'slice-label')
-            .style('opacity', d => d._measures.visible ? 1 : 0)
+            .style('display', _.values ? null : 'none')
           label.append('text')
             .attr('class', 'inner-label')
             .attr('dominant-baseline', 'middle')
             .attr('text-anchor', 'middle')
             .attr('x', d => _.arc.centroid(d)[0])
             .attr('y', d => _.arc.centroid(d)[1])
+            .style('cursor', 'default')
             .style('opacity', d => d._measures.outside ? 0 : 1)
             .text(d => d.value.toFixed(1))
           let outerLabel = label.append('g')
@@ -143,14 +160,16 @@ export default (name, parent = 'body') => {
             .style('opacity', d => d._measures.outside ? 1 : 0)
           outerLabel.append('path')
             .attr('class', 'outer-label-line')
+            .attr('stroke-linejoin', 'round')
             .attr('fill', 'none')
-            .attr('d', d => _.labelLinePath(d, d))
+            .attr('d', _.labelLinePath)
           outerLabel.append('text')
             .attr('class', 'outer-label-text')
             .attr('dominant-baseline', 'middle')
-            .attr('text-anchor', 'end')
+            .attr('text-anchor', _.labelTextAnchor)
             .attr('x', _.labelTextX)
             .attr('y', _.labelTextY)
+            .style('cursor', 'default')
             .text(d => d.value.toFixed(1))
 
           return g
@@ -160,14 +179,14 @@ export default (name, parent = 'body') => {
 
           // Update slices.
           let slice = g.select('.slice')
-            .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
+            .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
             .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
-            .style('opacity', d => d._measures.visible ? 1 : 0)
 
           slice.select('.slice-wedge')
             .attrTween('d', attrTween(d => _.arc(d)))
 
           let label = slice.select('.slice-label')
+            .style('display', _.values ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
             .attr('fill', d => luminanceAdjustedColor(self._color.mapGroup(d.name)))
@@ -182,16 +201,14 @@ export default (name, parent = 'body') => {
             .attrTween('d', attrTween(_.labelLinePath, 'r'))
           outerLabel.select('.outer-label-text')
             .attr('fill', self._font.color)
+            .attrTween('text-anchor', attrTween(_.labelTextAnchor, 'align'))
             .attrTween('x', attrTween(_.labelTextX, 'x'))
             .attrTween('y', attrTween(_.labelTextY, 'y'))
             .textTween(textTween(_.valueFormat))
 
           return g
         },
-        exit: g => {
-          // TODO Remove exiting slices somehow...
-          return g
-        }
+        exit: g => g.style('opacity', 0)
       }, duration)
     }
   }
@@ -199,28 +216,14 @@ export default (name, parent = 'body') => {
   // Overrides
   // Transform data to pie chart compatible data.
   self._chart.transformData = data => {
-    // Pie mapper.
     const pieFn = pie().value(d => d.value).sort(null)
-
-    // Extend new data with exiting slices.
-    let next = new Set(data.map(d => d.name))
-    let exiting = self._chart.data.map(d => d.name)
-      .filter(d => !next.has(d))
-      .map(d => ({
-        name: d,
-        value: 0
-      }))
-    let newData = merge([data, exiting])
-      .sort((a, b) => b.value - a.value)
-
-    // Pie data.
-    return pieFn(newData).map(d => Object.assign(d, { name: d.data.name }))
+    return pieFn(data.sort((a, b) => b.value - a.value))
+      .map(d => Object.assign(d, { name: d.data.name }))
   }
 
   self._highlight.container = self._chart.plots
 
   self._tooltip.content = () => {
-    // TODO ElementTooltip.
     // If no wedge is hovered, hide tooltip
     if (typeof _.current === 'undefined') {
       return
