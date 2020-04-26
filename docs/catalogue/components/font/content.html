@@ -15,7 +15,7 @@
 dalian.BarChart('font-card', '#font')
   .data(Array.from({ length: 5 }, (d, i) => ({
     name: 'ABCDE'.charAt(i),
-    value: Math.random()
+    value: (i * 7) % 5 + 1
   })))
   .x(0)
   .y(0)
@@ -65,7 +65,7 @@ const toggleFontSize = () => {
 }
 const toggleFontColor = () => {
   this.c = ((this.c || 0) + 1) % 3
-  chart.font.color([undefined, 'firebrick', 'grey'][this.c]).render()
+  chart.font.color([undefined, 'red', 'transparent'][this.c]).render()
 }
 </script>
 

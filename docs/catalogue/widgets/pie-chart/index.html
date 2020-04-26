@@ -17,35 +17,38 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>PieChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>PieChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li onclick="changeInnerRadius()">I - Change inner radius.</li>
     <li onclick="changeOuterRadius()">O - Change outer radius.</li>
-    <li id="toggleValues" onclick="toggleValues()">V - Show values.</li>
-    <li onclick="changeValueFormat()">F - Change value format.</li>
+    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeLabelFormat()">F - Change label format.</li>
   </ul>
-</div></div><h1>description</h1><p id="desc">
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-  A pie chart represents one dimensional <span class="good">categorical data</span> of positive numbers only.
-  The angle of each sector is proportional to the value of the corresponding category.
-  It is useful when <span class="good">fractions</span> of a whole (especially percentages) are to be shown for a
-  <span class="good">few categories</span> (5-7) and the focus is on <span class="good">large differences</span> among categories rather than nuances.
-  <br><br>However, <span class="bad">changes</span> are hard to perceive on a pie chart, and should be used only for
-  static data.
-  Furthermore, <span class="bad">small values</span> are difficult to distinguish or notice and therefore, avoid using
-  pie charts when the data spans multiple orders of magnitude.
+    A pie chart represents one dimensional <span class="good">categorical data</span> of positive numbers only.
+    The angle of each sector is proportional to the value of the corresponding category.
+    It is useful when <span class="good">fractions</span> of a whole (especially percentages) are to be shown for a
+    <span class="good">few categories</span> (5-7) and the focus is on <span class="good">large differences</span> among
+    categories rather than nuances.
   </p>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/pie-chart.js">source</a><a class="right footnote" href="../../../api/widgets/pie-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+  <p>
+    However, <span class="bad">changes</span> are hard to perceive on a pie chart, and should be used only for static
+    data.
+    Furthermore, <span class="bad">small values</span> are difficult to distinguish or notice and therefore, avoid using
+    pie charts when the data spans multiple orders of magnitude.
+  </p>
+</p><h1>code<div class="margin-right"><a href="../../../api/widgets/pie-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/pie-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [
-    {name: "plum", value: 13 * Math.random()},
-    {name: "banana", value: 4 * Math.random()}
+    {name: 'food', value: 6000 * Math.random()},
+    {name: 'transportation', value: 2000 * Math.random()}
   ].concat([
-    {name: "orange", value: 2 * Math.random()},
-    {name: "kiwi", value: 7 * Math.random()},
-    {name: "pear", value: 30 * Math.random()}
+    {name: 'utilities', value: 1500 * Math.random()},
+    {name: 'amenities', value: 1000 * Math.random()},
+    {name: "entertainment", value: 800 * Math.random()}
   ].filter(() => Math.random() > 0.2))
 }
 </script><script class="doc">
@@ -73,20 +76,15 @@ let changeOuterRadius = () => {
   pieChart.outerRadius(this.o ? 80 : undefined).render()
 }
 
-let toggleValues = () => {
-  this.v = !(this.v || 0)
-  pieChart.values(this.v).render()
+let toggleLabels = () => {
+  this.l = ((this.l || 0) + 1) % 2
+  pieChart.labels(this.l).render()
 }
 
-let changeValueFormat = () => {
+let changeLabelFormat = () => {
   this.f = !(this.f || 0)
-  pieChart.valueFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
+  pieChart.labelFormat(this.f ? x => d3.format('.2s')(x) + ' 元' : undefined)
     .render()
-}
-
-let highlightSlice = () => {
-  this.h = !(this.h || 0)
-  pieChart.highlight(this.h ? 'banana' : undefined, 1000)
 }
 </script><script class="doc">
 // update data on keypress
@@ -101,11 +99,11 @@ window.addEventListener('keydown', e => {
     case 'o':
       changeOuterRadius()
       break
-    case 'v':
-      toggleValues()
+    case 'l':
+      toggleLabels()
       break
     case 'f':
-      changeValueFormat()
+      changeLabelFormat()
       break
     case 'h':
       highlightSlice()
@@ -115,5 +113,5 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleValues = checkbox(toggleValues, 'toggleValues', 'v', ['V - Hide values', 'V - Show values'])
+toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

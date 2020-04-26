@@ -17,16 +17,21 @@ import YRange from '../components/range/y-range'
 /**
  * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore it extends the following components:
- * [BottomAxis]{@link ../components/bottom-axis.html},
- * [Highlight]{@link ../components/highlight.html},
- * [LeftAxis]{@link ../components/left-axis.html},
- * [Opacity]{@link ../components/opacity.html},
- * [PointTooltip]{@link ../components/point-tooltip.html},
- * [Smoothing]{@link ../components/smoothing.html}.
+ * <ul>
+ *   <li><a href="../components/bottom-axis.html">BottomAxis</a></li>
+ *   <li>
+ *     <a href="../components/highlight.html">Highlight</a> Plots can be highlighted by passing their plot names as
+ *     specified in the data array.
+ *   </li>
+ *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/opacity.html">Opacity</a></li>
+ *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
+ *   <li><a href="../components/smoothing.html">Smoothing</a></li>
+ * </ul>
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
- * @param {string} [parent = body] Parent element to append widget to.
+ * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
   // Build widget from components
@@ -48,10 +53,11 @@ export default (name, parent = 'body') => {
 
   // Private members
   let _ = {
-    // Variables
+    // Variables.
     scales,
+    lineColor: 'currentColor',
 
-    // Methods
+    // Methods.
     update: duration => {
       // Collect all data points
       const flatData = self._chart.data.map(d => d.values).flat()
@@ -72,7 +78,7 @@ export default (name, parent = 'body') => {
       // Create area and line.
       const areaFn = area()
         .x(d => _.scales.x.scale(d.x))
-        .y0(() => _.scales.y.scale(0))
+        .y0(_.scales.y.scale(0))
         .y1(d => _.scales.y.scale(d.y))
         .curve(self._smoothing.curve())
       const lineFn = line()
@@ -97,11 +103,13 @@ export default (name, parent = 'body') => {
             .attr('class', d => `line ${encode(d.name)}`)
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
-            .attr('stroke', 'currentColor')
+            .attr('stroke', _.lineColor)
 
           return g
         },
         update: g => {
+          g.style('opacity', 1)
+
           // Update area.
           g.select('.area')
             .attrTween('d', function (d) {
@@ -113,13 +121,12 @@ export default (name, parent = 'body') => {
 
           // Update line.
           g.select('.line')
+            .attr('stroke', _.lineColor)
             .attrTween('d', function (d) {
               let previous = select(this).attr('d')
               let current = lineFn(d.values)
               return interpolatePath(previous, current, null)
             })
-
-          g.style('opacity', 1)
 
           return g
         },
@@ -152,7 +159,7 @@ export default (name, parent = 'body') => {
     let x = _.scales.x.scale.invert(mouse[0])
     let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {
-      // Data point
+        // Data point
         let j = index[i]
 
         let data = d.values
@@ -199,6 +206,12 @@ export default (name, parent = 'body') => {
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API.
+  api = Object.assign(api || {}, {
+    lineColor: (color = 'currentColor') => {
+      _.lineColor = color
+      return api
+    }
+  })
   return api
 
   // Documentation.

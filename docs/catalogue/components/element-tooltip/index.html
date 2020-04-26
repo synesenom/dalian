@@ -17,19 +17,19 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>ElementTooltip | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>ElementTooltip | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">T - Show tooltip.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">T - Enable tooltip.</li>
     <li onclick="changeTitleFormat()">I - Change title format.</li>
     <li onclick="changeRowFormat()">R - Change row format.</li>
     <li onclick="changeFontColor()">F - Change font color.</li>
   </ul>
-</div></div><h1>description</h1><p id="desc">
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
     The ElementTooltip component adds a pre-formatted tooltip to the chart. This example shows the available methods for
     the component and demonstrates its behavior when various properties of the chart are changed.
   </p>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/tooltip/element-tooltip.js">source</a><a class="right footnote" href="../../../api/components/element-tooltip.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/components/element-tooltip.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/tooltip/element-tooltip.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return Array.from({ length: 5 }, (d, i) => ({
@@ -53,22 +53,25 @@ const chart = dalian.BarChart('myChart', '#widget')
 </script><script class="doc">
 // api methods
 let toggleTooltip = () => {
-  this.t = !(this.t || 0)
+  this.t = ((this.t || 0) + 1) % 2
   chart.tooltip.on(this.t).render()
 }
+
 let changeTitleFormat = () => {
   this.i = !(this.i || 0)
   chart.tooltip.titleFormat(this.i ? x => 'Name: ' + x.toUpperCase() : x => x)
     .render()
 }
+
 let changeRowFormat = () => {
   this.r = !(this.r || 0)
   chart.tooltip.rowFormat(this.r ? y => y.toPrecision(2) + ' per capita' : y => y.toFixed(2))
     .render()
 }
+
 let changeFontColor = () => {
   this.f = !(this.f || 0)
-  chart.font.color(this.f ? 'grey' : undefined).render()
+  chart.font.color(this.f ? 'red' : undefined).render()
 }
 </script><script class="doc">
 // update data on keypress
@@ -92,5 +95,5 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleTooltip = checkbox(toggleTooltip, 'toggleTooltip', 't', ['Hide tooltip', 'Show tooltip'])
+toggleTooltip = state(toggleTooltip, 't', ['Enable tooltip', 'Disable tooltip'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

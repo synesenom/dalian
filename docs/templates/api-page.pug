@@ -21,10 +21,8 @@ html(lang='en')
                 h1 #{mainHeading}
                 p
 
-                if type === 'charts' || type === 'misc'
-                    h2 example
-                    p
-                        a(href='https://' + exampleUrl) #{exampleUrl}
+                h2 example
+                p Explore the API in the #[a(href='' + exampleUrl) live example].
 
                 h2 api reference
                 each method in reference

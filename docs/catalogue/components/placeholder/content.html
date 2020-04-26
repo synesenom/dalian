@@ -24,6 +24,7 @@ dalian.LineChart('placeholder-card', '#placeholder')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -58,7 +59,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let togglePlaceholder = () => {
-  this.p = !(this.p || 0)
+  this.p = ((this.p || 0) + 1) % 2
   chart.placeholder(this.p ? 'Data is not available.' : undefined)
     .render(1000)
 }
@@ -66,7 +67,7 @@ let togglePlaceholder = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-togglePlaceholder = checkbox(togglePlaceholder, 'togglePlaceholder', 'p', ['Hide placeholder', 'Show placeholder'])
+togglePlaceholder = state(togglePlaceholder, 'p', ['Show placeholder', 'Hide placeholder'])
 </script>
 
 <script class="doc">

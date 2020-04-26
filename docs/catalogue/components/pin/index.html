@@ -17,17 +17,17 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Pin | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>Pin | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="togglePin" onclick="togglePin()">P - Add pin.</li>
   </ul>
-</div></div><h1>description</h1><p id="desc">
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
     The Pin component adds pin markers to a chart. This example shows the available methods for the component and
     demonstrates its behavior when various properties of the chart are changed.
   </p>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/pin.js">source</a><a class="right footnote" href="../../../api/components/pin.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/components/pin.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/pin.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   const length = 50 + Math.floor(50 * Math.random())
@@ -56,7 +56,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 let changeData = () => chart.data(getData()).render(1000)
 
 let togglePin = () => {
-  this.p = !(this.p || 0)
+  this.p = ((this.p || 0) + 1) % 2
   if (this.p) {
     chart.pin.add('marker', 10 + 30 * Math.random(), {
       color: 'firebrick',
@@ -86,5 +86,5 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-togglePin = checkbox(togglePin, 'togglePin', 'p', ['P - Remove pin', 'P - Add pin'])
+togglePin = state(togglePin, 'p', ['Add pin', 'Remove pin'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

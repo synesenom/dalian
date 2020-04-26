@@ -17,17 +17,17 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Font | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>Font | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="toggleFontSize()">D - Change font size.</li>
     <li onclick="toggleFontColor()">C - Change font color.</li>
   </ul>
-</div></div><h1>description</h1><p id="desc">
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
     The Font component manages font properties such as size and color. Note how changing font color also affects the
     color of the axes.
   </p>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/components/font.js">source</a><a class="right footnote" href="../../../api/components/font.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/components/font.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/font.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return Array.from({ length: 5 }, (d, i) => ({
@@ -55,7 +55,7 @@ const toggleFontSize = () => {
 }
 const toggleFontColor = () => {
   this.c = ((this.c || 0) + 1) % 3
-  chart.font.color([undefined, 'firebrick', 'grey'][this.c]).render()
+  chart.font.color([undefined, 'red', 'transparent'][this.c]).render()
 }
 </script><script class="doc">
 // update data on keypress

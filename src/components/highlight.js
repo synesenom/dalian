@@ -62,8 +62,8 @@ export default selectors => (() => {
        *
        * @method highlight
        * @methodOf Highlight
-       * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the elements to highlight. If key is
-       * is {null} or {undefined}, the highlight is removed (all plots become visible).
+       * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the elements to highlight.
+       * If key is {null} or {undefined}, the highlight is removed (all plots become visible).
        * @param {number} duration Duration of the highlight animation in ms.
        * @returns {Widget} Reference to the Widget's API.
        */

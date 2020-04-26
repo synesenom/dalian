@@ -10,6 +10,10 @@ a:hover {
     transition: border-bottom .2s;
 }
 
+a.left {
+    float: left;
+}
+
 a.right {
     margin-left: 20px;
     float: right;

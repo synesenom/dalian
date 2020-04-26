@@ -45,7 +45,7 @@ export default (self, api) => {
           position: 'absolute',
           'background-color': 'rgba(255, 255, 255, 0.95)',
           'border-radius': '2px',
-          'box-shadow': '1px 1px 2px #ccc, 0 0 1px #aaa',
+          'box-shadow': '1px 1px 2px #888, 0 0 1px #aaa',
           color: 'currentColor',
           'pointer-events': 'none',
           'font-size': '0.85em',

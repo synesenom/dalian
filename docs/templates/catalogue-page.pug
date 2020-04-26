@@ -42,18 +42,22 @@ html(lang='en')
         main
             .main-content-centered
                 #widget
+                    .margin-right
+                        #controls
+                            .controls-title Explore the API
+                            .content !{controls}
                 if div
                     div(id=div.i, class=div.c)
-                #controls
-                    .controls-title Explore the API
-                    .content !{controls}
                 h1 description
-                p#desc !{description}
-                .links
-                    a.right.footnote(href='https://github.com/synesenom/dalian/blob/master/src/' + modulePath + '.js') source
-                    a.right.footnote(href='../../../api/' + type + '/' + widgetName + '.html') docs
-                    a.right.footnote(href='' + minjs) min.js
+                    .margin-right
+                        a(href='../../') Back to the catalogue
+                p#desc
+                    | !{description}
+
                 h1 code
+                    .margin-right
+                        a(href='../../../api/' + type + '/' + widgetName + '.html') Documentation
+                        a(href='https://github.com/synesenom/dalian/blob/master/src/' + modulePath + '.js') Source code
                 #code-doc
                 | !{code}
                 //+resize('' + variableName)

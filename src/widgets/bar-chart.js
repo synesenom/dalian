@@ -16,16 +16,21 @@ import YGrid from '../components/grid/y-grid'
 /**
  * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
- * [BottomAxis]{@link ../components/bottom-axis.html},
- * [ElementTooltip]{@link ../components/element-tooltip.html},
- * [Highlight]{@link ../components/highlight.html},
- * [LeftAxis]{@link ../components/left-axis.html}.
- * [YGrid]{@link ../components/y-grid.html} (this is used for the default and horizontal modes, adapting to the
- * orientation).
+ * <ul>
+ *   <li><a href="../components/bottom-axis.html">BottomAxis</a></li>
+ *   <li><a href="../components/element-tooltip.html">ElementTooltip</a></li>
+ *   <li>
+ *     <a href="../components/highlight.html">Highlight</a> Bars can be highlighted by passing their category names as
+ *     specified in the data array.
+ *   </li>
+ *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/y-grid.html">YGrid</a> The same component (and namespace) is used for the default and
+ *   horizontal modes, adapting to the orientation.</li>
+ * </ul>
  *
  * @function BarChart
  * @param {string} name Name of the chart. Should be a unique identifier.
- * @param {string} [parent = body] Parent element to append widget to.
+ * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 // TODO Support negative values.
 export default (name, parent = 'body') => {
@@ -52,11 +57,11 @@ export default (name, parent = 'body') => {
       y: scales.y
     },
     horizontal: false,
-    values: false,
-    valueFormat: x => x.toFixed(1),
+    labels: false,
+    labelFormat: x => x.toFixed(1),
 
     measureX: (d, bandwidth, style) => {
-      const ts = measureText(_.valueFormat(d.value), style)
+      const ts = measureText(_.labelFormat(d.value), style)
       const dx = Math.max((bandwidth - ts.height) / 2, 5)
       const x = _.scales.x.scale(d.value)
       const inside = x > 2 * dx + ts.width
@@ -69,7 +74,7 @@ export default (name, parent = 'body') => {
     },
 
     measureY: (d, bandwidth, style) => {
-      const ts = measureText(_.valueFormat(d.value), style)
+      const ts = measureText(_.labelFormat(d.value), style)
       const dy = Math.max((bandwidth - ts.width) / 2, 5)
       const y = _.scales.y.scale(d.value)
       const h = parseFloat(self._widget.size.innerHeight) - y
@@ -131,7 +136,7 @@ export default (name, parent = 'body') => {
             .attr('class', d => `bar-value ${encode(d.name)}`)
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
-            .text(d => _.valueFormat(d.value))
+            .text(d => _.labelFormat(d.value))
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => _.horizontal ? _.scales.x.scale(0) : d._measures.x)
@@ -159,16 +164,16 @@ export default (name, parent = 'body') => {
           // Values
           const measure = _.horizontal ? _.measureX : _.measureY
           g.select('.bar-value')
+            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('text-anchor', _.horizontal ? 'end' : 'middle')
             .attr('dominant-baseline', _.horizontal ? 'central' : 'hanging')
             .attr('font-size', self._font.size)
             .attr('fill', self._font.color)
-            .textTween(textTween(_.valueFormat))
-            .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => d._measures.x)
             .attr('y', d => d._measures.y)
-            .style('display', _.values ? null : 'none')
+            .textTween(textTween(_.labelFormat))
+            .style('display', _.labels ? null : 'none')
 
           return g
         },
@@ -230,28 +235,28 @@ export default (name, parent = 'body') => {
     },
 
     /**
-     * Shows the values at the top of the bars.
+     * Adds direct value labeling to the bars.
      *
-     * @method values
+     * @method labels
      * @methodOf BarChart
-     * @param {boolean} on Whether to add values on top of the bars.
-     * @returns {BarChart} The BarChart itself.
+     * @param {boolean} [on = false] Whether to add value labels on top of the bars.
+     * @returns {BarChart} Reference to the BarChart API.
      */
-    values: on => {
-      _.values = on
+    labels: (on = false) => {
+      _.labels = on
       return api
     },
 
     /**
-     * Sets the format of the values shown on the top of the bars. Default format is a fixed 1 point decimal.
+     * Sets the format of the value labels shown on the top of the bars.
      *
-     * @method valueFormat
+     * @method labelFormat
      * @methodOf BarChart
-     * @param {Function} format The format to use for the values shown on the top of the bars.
-     * @returns {BarChart} The BarChart itself.
+     * @param {Function} [format = x => x.toFixed(1)] The format of the value labels.
+     * @returns {BarChart} Reference to the BarChart API.
      */
-    valueFormat: format => {
-      _.valueFormat = format || (x => x.toFixed(1))
+    labelFormat: (format = x => x.toFixed(1)) => {
+      _.labelFormat = format
       return api
     }
   })
@@ -260,7 +265,7 @@ export default (name, parent = 'body') => {
 
   // Documentation
   /**
-   * Set/updates the data that is shown in the bar chart. For the bar chart, each bar is itself a plot group, so all
+   * Set/updates the data that is shown in the bar chart. In the bar chart, each bar is a plot group in itself, so all
    * methods that operate on plot groups are applied on the bar level.
    *
    * @method data

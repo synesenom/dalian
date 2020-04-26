@@ -9,6 +9,23 @@ import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import { measureText } from '../utils/measure-text'
 
+/**
+ * The pie chart widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
+ * available APIs. Furthermore, it extends the following components:
+ * <ul>
+ *   <li><a href="./components/element-tooltip.html">ElementTooltip</a></li>
+ *   <li>
+ *     <a href="../components/highlight.html">Highlight</a> Slices can be highlighted by passing their category names as
+ *     specified in the data array.
+ *   </li>
+ * </ul>
+ *
+ * By changing the inner radius of the chart, this widget doubles as a donut chart.
+ *
+ * @function PieChart
+ * @param {string} name Name of the chart. Should be a unique identifier.
+ * @param {string} [parent = body] Query selector of the parent element to append widget to.
+ */
 export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('pie-chart', name, parent, 'svg'),
@@ -21,8 +38,7 @@ export default (name, parent = 'body') => {
     // Style variables.
     innerRadius: 0,
     outerRadius: 100,
-    values: false,
-    valueFormat: x => x.toFixed(1),
+    labelFormat: x => x.toFixed(1),
 
     // Currently hovered wedge.
     current: undefined,
@@ -32,6 +48,7 @@ export default (name, parent = 'body') => {
 
     // Label related variables.
     labels: {
+      on: false,
       left: d => 0.5 * (d.startAngle + d.endAngle) > Math.PI,
       arcs: {
         inner: null,
@@ -43,7 +60,7 @@ export default (name, parent = 'body') => {
     // Methods
     measure: (d, i, style) => {
       // Measure the diameter of the label's rectangle
-      const m = measureText(_.valueFormat(d.value), style)
+      const m = measureText(_.labelFormat(d.value), style)
       const textSize = Math.sqrt(m.width * m.width + m.height * m.height)
 
       // Estimate the slice's radius at the label's position. This is definitely not true for large angles but we
@@ -62,25 +79,31 @@ export default (name, parent = 'body') => {
         // The position of the label according to its index from the top.
         // This sorting in the positions works because we expect labels only on the left side (values are sorted
         // in the chart and small values gather at the end of the circle).
-        y: -1.25 * _.outerRadius + m.height * (_.numSlices - 1 - i)
+        y: -1.25 * _.outerRadius + 1.1 * m.height * (_.numSlices - 1 - i)
       }
     },
 
     labelLinePath: d => {
-      // Position of the path.
+      // Start and initial middle positions of the path.
       let p1 = _.labels.arcs.inner.centroid(d)
       let r = _.labels.arcs.outer.centroid(d)
 
-      // We adjust the vertical position of the label to make sure the label paths and labels don't overlap.
-      let dx = 0.25 * _.outerRadius
+      // Adjust the vertical position of the label to make sure the label paths and labels don't overlap.
       let p21 = Math.max(r[1], d._measures.y)
       let p2 = [r[0] - (r[0] - p1[0]) * (r[1] - p21) / (r[1] - p1[1]), p21]
+
+      // Length of the label path horizontal part.
+      let dx = 0.25 * _.outerRadius
       let p3 = [
-        // We also adjust the horizontal position of the path's end.
+        // Adjust the horizontal position of the path's end.
         _.labels.left(d) ? Math.min(p2[0] - dx, d._measures.x) : p2[0] + dx,
         p2[1]
       ]
 
+      // If the last segment is in wrong direction, remove the first segment.
+      if (p2[1] > p1[1]) {
+        p1 = p2
+      }
       return `M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]} L${p3[0]} ${p3[1]}`
     },
 
@@ -145,7 +168,7 @@ export default (name, parent = 'body') => {
           // Add label value.
           let label = slice.append('g')
             .attr('class', 'slice-label')
-            .style('display', _.values ? null : 'none')
+            .style('display', _.labels.on ? null : 'none')
           label.append('text')
             .attr('class', 'inner-label')
             .attr('dominant-baseline', 'middle')
@@ -186,13 +209,13 @@ export default (name, parent = 'body') => {
             .attrTween('d', attrTween(d => _.arc(d)))
 
           let label = slice.select('.slice-label')
-            .style('display', _.values ? null : 'none')
+            .style('display', _.labels.on ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
             .attr('fill', d => luminanceAdjustedColor(self._color.mapGroup(d.name)))
             .attrTween('x', attrTween(d => _.arc.centroid(d)[0], 'x'))
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
-            .textTween(textTween(_.valueFormat))
+            .textTween(textTween(_.labelFormat))
 
           let outerLabel = label.select('.outer-label')
             .style('opacity', d => d._measures.outside ? 1 : 0)
@@ -204,7 +227,7 @@ export default (name, parent = 'body') => {
             .attrTween('text-anchor', attrTween(_.labelTextAnchor, 'align'))
             .attrTween('x', attrTween(_.labelTextX, 'x'))
             .attrTween('y', attrTween(_.labelTextY, 'y'))
-            .textTween(textTween(_.valueFormat))
+            .textTween(textTween(_.labelFormat))
 
           return g
         },
@@ -248,26 +271,73 @@ export default (name, parent = 'body') => {
 
   // Public API
   api = Object.assign(api, {
-    innerRadius: radius => {
-      _.innerRadius = radius || 0
+    /**
+     * Sets the inner radius of the pie chart making it actually a donut chart.
+     *
+     * @method innerRadius
+     * @methodOf PieChart
+     * @param {number} [radius = 0] The inner radius in pixels.
+     * @returns {PieChart} Reference to the PieChart API.
+     */
+    innerRadius: (radius = 0) => {
+      _.innerRadius = radius
       return api
     },
 
-    outerRadius: radius => {
-      _.outerRadius = radius || 100
+    /**
+     * Sets the outer radius of the pie chart.
+     *
+     * @method outerRadius
+     * @methodOf PieChart
+     * @param {number} [radius = 100] The outer radius in pixels. If not specified, it is set to 100.
+     * @returns {PieChart} Reference to the PieChart API.
+     */
+    outerRadius: (radius = 100) => {
+      _.outerRadius = radius
       return api
     },
 
-    values: on => {
-      _.values = on || false
+    /**
+     * Adds direct value labeling to the slices.
+     *
+     * @method labels
+     * @methodOf PieChart
+     * @param {boolean} [on = false] Whether to add value labels to the slices.
+     * @returns {PieChart} Reference to the PieChart API.
+     */
+    labels: on => {
+      _.labels.on = on || false
       return api
     },
 
-    valueFormat: format => {
-      _.valueFormat = format || (x => x.toFixed(1))
+    /**
+     * Sets the format of the value labels.
+     *
+     * @method labelFormat
+     * @methodOf PieChart
+     * @param {Function} [format = x => x.toFixed(1)] The format of the value labels.
+     * @returns {PieChart} Reference to the PieChart API.
+     */
+    labelFormat: (format = x => x.toFixed(1)) => {
+      _.labelFormat = format
       return api
     }
   })
 
   return api
+
+  // Documentation
+  /**
+   * Set/updates the data that is shown in the pie chart. In the pie chart, each slice is a plot group in itself, so all
+   * methods that operate on plot groups are applied on the slice level.
+   *
+   * @method data
+   * @methodOf PieChart
+   * @param {Object[]} plots Array of objects representing the pie slices to show. Each slice has two properties:
+   * <ul>
+   *   <li>{string} <i>name</i>: Category name.</li>
+   *   <li>{number} <i>value</i>: Category value.</li>
+   * </ul>
+   * @returns {PieChart} Reference to the PieChart API.
+   */
 }

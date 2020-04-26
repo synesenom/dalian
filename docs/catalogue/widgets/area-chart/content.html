@@ -9,6 +9,7 @@
 <div id="controls">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
+    <li onclick="changeLineColor()">L - Change line color.</li>
   </ul>
 </div>
 
@@ -89,14 +90,25 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
 
 <script class="doc">
 // api methods
-const changeData = () => areaChart.data(getData()).render(1000)
+let changeData = () => areaChart.data(getData()).render(1000)
+
+let changeLineColor = () => {
+  this.l = !(this.l || 0)
+  areaChart.lineColor(this.l ? 'white' : undefined).render(1000)
+}
 </script>
 
 <script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'l':
+      changeLineColor()
+      break
+    default:
   }
 })
 </script>

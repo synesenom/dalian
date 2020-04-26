@@ -9,8 +9,8 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
-    <li id="toggleValues" onclick="toggleValues()">V - Show values.</li>
-    <li onclick="changeValueFormat()">F - Change value format.</li>
+    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeLabelFormat()">F - Change label format.</li>
   </ul>
 </div>
 
@@ -31,9 +31,10 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
   .font.size(11)
   .bottomAxis.label('stock')
   .leftAxis.label('fruit')
+  .leftAxis.hideTicks(true)
   .horizontal(true)
-  .values(true)
-  .valueFormat(Math.round)
+  .labels(true)
+  .labelFormat(Math.round)
   .color.palette('royalblue')
   .render()
 </script>
@@ -42,13 +43,13 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
 // generate data
 function getData () {
   return [
-    {name: "plum", value: 130 * Math.random()},
-    {name: "banana", value: 40 * Math.random()},
-    {name: "mango", value: 60 * Math.random()},
+    {name: "apple", value: 100 * Math.random()},
+    {name: "melon", value: 40 * Math.random()},
+    {name: "kiwi", value: 60 * Math.random()},
     {name: "orange", value: 20 * Math.random()},
   ].concat(Math.random() > 0.5 ? [
-    {name: "melon", value: 110 * Math.random()},
-    {name: "kiwi", value: 70 * Math.random()}
+    {name: "coconut", value: 90 * Math.random()},
+    {name: "mango", value: 70 * Math.random()}
   ] : [])
   .concat([{name: "pear", value: 30 * Math.random()}])
 }
@@ -77,30 +78,29 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 let changeData = () => barChart.data(getData()).render(1000)
 
 let toggleHorizontal = () => {
-  this.h = !(this.h || 0)
+  this.h = ((this.h || 0) + 1) % 2
   barChart.horizontal(this.h)
     .bottomAxis.label(this.h ? 'stock' : 'fruit')
     .leftAxis.label(this.h ? 'fruit' : 'stock')
     .render()
 }
 
-let toggleValues = () => {
-  this.v = !(this.v || 0)
-  barChart.values(this.v).render()
+let toggleLabels = () => {
+  this.l = ((this.l || 0) + 1) % 2
+  barChart.labels(this.l).render()
 }
 
-let changeValueFormat = () => {
+let changeLabelFormat = () => {
   this.f = !(this.f || 0)
-  barChart.valueFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
+  barChart.labelFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
     .render()
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleHorizontal = checkbox(toggleHorizontal, 'toggleHorizontal', 'h',
-  ['H - Change to vertical', 'H - Change to horizontal'])
-toggleValues = checkbox(toggleValues, 'toggleValues', 'v', ['V - Hide values', 'V - Show values'])
+toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
+toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 </script>
 
 <script class="doc">
@@ -113,11 +113,11 @@ window.addEventListener('keydown', e => {
     case 'h':
       toggleHorizontal()
       break
-    case 'v':
-      toggleValues()
+    case 'l':
+      toggleLabels()
       break
     case 'f':
-      changeValueFormat()
+      changeLabelFormat()
       break
     default:
   }

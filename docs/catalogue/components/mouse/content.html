@@ -15,7 +15,7 @@
 dalian.BarChart('mouse-card', '#mouse')
   .data(Array.from({ length: 5 }, (d, i) => ({
     name: 'ABCDE'.charAt(i),
-    value: Math.random()
+    value: (i * 7) % 5 + 1
   })))
   .x(0)
   .y(0)
@@ -56,17 +56,19 @@ const chart = dalian.BarChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let toggleMouseover = () => {
-  this.o = !(this.o || 0)
+  this.o = ((this.o || 0) + 1) % 2
   chart.mouse.over(this.o ? k => chart.highlight(k.name) : undefined)
     .render()
 }
+
 let toggleMouseleave = () => {
-  this.l = !(this.l || 0)
+  this.l = ((this.l || 0) + 1) % 2
   chart.mouse.leave(this.l ? () => chart.highlight() : undefined)
     .render()
 }
+
 let toggleClick = () => {
-  this.c = !(this.c || 0)
+  this.c = ((this.c || 0) + 1) % 2
   chart.mouse.click(this.c ? k => alert(`You clicked on ${k.name}`) : undefined)
     .render()
 }
@@ -74,9 +76,9 @@ let toggleClick = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleMouseover = checkbox(toggleMouseover, 'toggleMouseover', 'o', ['Remove mouseover callback', 'Bind mouseover callback'])
-toggleMouseleave = checkbox(toggleMouseleave, 'toggleMouseleave', 'l', ['Remove mouseleave callback', 'Bind mouseleave callback'])
-toggleClick = checkbox(toggleClick, 'toggleClick', 'c', ['Remove click callback', 'Bind click callback'])
+toggleMouseover = state(toggleMouseover, 'o', ['Bind mouseover callback', 'Remove mouseover callback'])
+toggleMouseleave = state(toggleMouseleave, 'l', ['Bind mouseleave callback', 'Remove mouseleave callback'])
+toggleClick = state(toggleClick, 'c', ['Bind click callback', 'Remove click callback'])
 </script>
 
 <script class="doc">

@@ -24,6 +24,7 @@ dalian.LineChart('description-card', '#description')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -58,7 +59,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let toggleDescription = () => {
-  this.d = !(this.d || 0)
+  this.d = ((this.d || 0) + 1) % 2
   chart.description(this.d ? 'This is a simple line chart.' : undefined)
     .render()
 }
@@ -66,7 +67,7 @@ let toggleDescription = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleDescription = checkbox(toggleDescription, 'toggleDescription', 'd', ['Disable description', 'Enable description'])
+toggleDescription = state(toggleDescription, 'd', ['Enable description', 'Disable description'])
 </script>
 
 <script class="doc">

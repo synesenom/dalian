@@ -68,7 +68,7 @@ module.exports = (meta, docs, modulePath) => {
           }
         }),
 
-        exampleUrl: `synesenom.github.io/dalian/catalogue/${type}/${moduleName}`
+        exampleUrl: `../../catalogue/${type}/${moduleName}`
       }))
       return api
     },

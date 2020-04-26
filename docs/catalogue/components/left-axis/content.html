@@ -3,6 +3,8 @@
     The LeftAxis component represents the left vertical axis of some charts. This example shows the available methods for
     the component and demonstrates its behavior when various properties of the chart are changed.
   </p>
+</div>
+<div id="controls">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li onclick="changeLabel()">L - Change axis label.</li>
@@ -68,30 +70,34 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
+
 let changeLabel = () => {
   this.l = ((this.l || 0) + 1) % 3
   chart.leftAxis.label(['Temperature [C]', 'Pressure [Pa]', ''][this.l])
     .render()
 }
+
 let changeTickFormat = () => {
   this.f = ((this.f || 0) + 1) % 3
   chart.leftAxis.tickFormat([undefined, x => 10 * x, () => ''][this.f])
     .render()
 }
+
 let toggleTicks = () => {
-  this.t = !(this.t || 0)
+  this.t = ((this.t || 0) + 1) % 2
   chart.leftAxis.hideTicks(this.t).render()
 }
+
 let toggleAxisLine = () => {
-  this.a = !(this.a || 0)
+  this.a = ((this.a || 0) + 1) % 2
   chart.leftAxis.hideAxisLine(this.a).render()
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleTicks = checkbox(toggleTicks, 'toggleTicks', 't', ['Show ticks', 'Hide ticks'])
-toggleAxisLine = checkbox(toggleAxisLine, 'toggleAxisLine', 'a', ['Show axis line', 'Hide axis line'])
+toggleTicks = state(toggleTicks, 't', ['Hide ticks', 'Show ticks'])
+toggleAxisLine = state(toggleAxisLine, 'a', ['Hide axis line', 'Show axis line'])
 </script>
 
 <script class="doc">

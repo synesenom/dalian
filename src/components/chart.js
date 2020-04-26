@@ -12,11 +12,13 @@ import Widget from './widget'
 /**
  * Component implementing a generic chart widget. It extends the [Widget]{@link ../components/widget.html} component
  * with all of its available APIs. It extends the following components:
- * [Color]{@link ../components/color.html},
- * [Description]{@link ../components/description.html},
- * [Font]{@link ../components/font.html},
- * [Mouse]{@link ../components/mouse.html},
- * [Placeholder]{@link ../components/placeholder.html}.
+ * <ul>
+ *   <li><a href="../components/color.html">Color</a></li>
+ *   <li><a href="../components/description.html">Description</a></li>
+ *   <li><a href="../components/font.html">Font</a></li>
+ *   <li><a href="../components/mouse.html">Mouse</a></li>
+ *   <li><a href="../components/placeholder.html">Placeholder</a></li>
+ * </ul>
  *
  * @function Chart
  */

@@ -6,32 +6,17 @@
 </div>
 
 <div id="controls">
-  <div class="controls-section">Color vision deficiencies:</div>
   <ul id="colors">
-    <li onclick="defaultColors()">D - Default color palette.</li>
-    <li onclick="builtInPaletteLight()">L - Built-in palette light.</li>
-    <li onclick="singleColor()">S - Single color.</li>
-    <li onclick="plotSpecificColor()">P - Plot specific color.</li>
-    <li onclick="transformedColor()">T - Transformed color.</li>
-  </ul>
-  <div class="controls-section">Color vision deficiencies:</div>
-  <ul id="deficiencies" style="margin: 0">
-    <li onclick="normal()">0 - Normal vision (92%).</li>
-    <li onclick="deuteranomaly()">1 - Deuteranomaly (2.7%).</li>
-    <li onclick="protanomaly()">2 - Protanomaly (0.66%).</li>
-    <li onclick="protanopia()">3 - Protanopia (0.59%).</li>
-    <li onclick="deuteranopia()">4 - Deuteranopia (0.56%).</li>
-    <li onclick="tritanopia()">5 - Tritanopia (0.016%).</li>
-    <li onclick="tritanomaly()">6 - Tritanomaly (0.01%).</li>
-    <li onclick="achromatomaly()">7 - Achromatomaly (< 0.0001%).</li>
-    <li onclick="achromatopsia()">8 - Achromatopsia (< 0.0001%).</li>
+    <li id="changeColorPalette" onclick="changeColorPalette()">P - Default color palette.</li>
+    <li onclick="changeColorPaletteOn()">T - Transform color.</li>
+    <li id="changeColorDeficiency" onclick="changeColorDeficiency()">D - Normal vision (92%).</li>
   </ul>
 </div>
 
 <script class="card-example">
 dalian.BarChart('color-card', '#color')
   .data(Array.from({ length: 5 }, (d, i) => ({
-    name: 'plot' + (i + 1),
+    name: 'ABCDE'.charAt(i),
     value: (i * 7) % 5 + 1
   })))
   .x(0)
@@ -72,93 +57,80 @@ const chart = dalian.BarChart('myChart', '#widget')
 
 <script class="doc">
 // api methods
-let defaultColors = () => chart.color.palette().render(1000)
+let palettes = [
+  undefined,          // Default palette.
+  'palette-light',    // Built-in palette light.
+  'royalblue',        // Single color.
+  { A: '#1f77b4',     // Plot name specific.
+    B: '#ff7f0e',
+    C: '#2ca02c',
+    D: '#d62728',
+    E: '#9467bd',
+    F: '#8c564b',
+    G: '#e377c2',
+    H: '#7f7f7f' }
+]
+let changeColorPalette = () => {
+  this.p = ((this.p || 0) + 1) % 4
+  chart.color.palette(palettes[this.p]).render(1000)
+}
 
-let builtInPaletteLight = () => chart.color.palette('palette-light').render(1000)
-
-let singleColor = () => chart.color.palette('royalblue').render(1000)
-
-let plotSpecificColor = () => chart.color.palette({
-  A: '#1f77b4',
-  B: '#ff7f0e',
-  C: '#2ca02c',
-  D: '#d62728',
-  E: '#9467bd',
-  F: '#8c564b',
-  G: '#e377c2',
-  H: '#7f7f7f'
-}).render(1000)
-
-let transformedColor = () => chart.color.palette({
+// Color vowels in blue and consonants in yellow.
+let changeColorPaletteOn = () => chart.color.palette({
   vowel: 'royalblue',
-  consonant: 'firebrick'
+  consonant: 'goldenrod'
 }, name => ['A', 'E'].indexOf(name) > -1 ? 'vowel' : 'consonant').render(1000)
 
-let normal = () => chart.color.deficiency().render()
-let protanopia = () => chart.color.deficiency('protanopia').render()
-let protanomaly = () => chart.color.deficiency('protanomaly').render()
-let deuteranopia = () => chart.color.deficiency('deuteranopia').render()
-let deuteranomaly = () => chart.color.deficiency('deuteranomaly').render()
-let tritanopia = () => chart.color.deficiency('tritanopia').render()
-let tritanomaly = () => chart.color.deficiency('tritanomaly').render()
-let achromatopsia = () => chart.color.deficiency('achromatopsia').render()
-let achromatomaly = () => chart.color.deficiency('achromatomaly').render()
+let deficiencies = [
+  undefined,
+  'deuteranomaly',
+  'protanomaly',
+  'protanopia',
+  'deuteranopia',
+  'tritanopia',
+  'tritanomaly',
+  'achromatomaly',
+  'achromatopsia'
+]
+let changeColorDeficiency = () => {
+  this.d = ((this.d || 0) + 1) % 9
+  chart.color.deficiency(deficiencies[this.d]).render()
+}
 </script>
 
 <script class="doc-hidden">
-// Modify radio buttons
-[defaultColors, builtInPaletteLight, singleColor, plotSpecificColor, transformedColor] = radio('colors',
-  [defaultColors, builtInPaletteLight, singleColor, plotSpecificColor, transformedColor]);
-[normal, deuteranomaly, protanomaly, protanopia, deuteranopia, tritanopia, tritanomaly, achromatomaly,
-  achromatopsia] = radio('deficiencies', [normal, deuteranomaly, protanomaly, protanopia, deuteranopia, tritanopia,
-  tritanomaly, achromatomaly, achromatopsia])
+// Modify buttons
+changeColorPalette = state(changeColorPalette, 'p', [
+  'Default palette',
+  'Built-in palette light',
+  'Single color',
+  'Plot specific color'
+])
+changeColorDeficiency = state(changeColorDeficiency, 'd', [
+  'Normal vision (92%)',
+  'Deuteranomaly (2.7%)',
+  'Protanomaly (0.66%)',
+  'Protanopia (0.59%)',
+  'Deuteranopia (0.56%)',
+  'Tritanopia (0.016%)',
+  'Tritanomaly (0.01%)',
+  'Achromatomaly (< 0.0001%)',
+  'Achromatopsia (< 0.0001%)'
+])
 </script>
 
 <script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 'd':
-      defaultColors()
-      break
-    case 'l':
-      builtInPaletteLight()
-      break
-    case 's':
-      singleColor()
-      break
     case 'p':
-      plotSpecificColor()
+      changeColorPalette()
       break
     case 't':
-      transformedColor()
+      changeColorPaletteOn()
       break
-    case '0':
-      normal()
-      break
-    case '1':
-      deuteranomaly()
-      break
-    case '2':
-      protanomaly()
-      break
-    case '3':
-      protanopia()
-      break
-    case '4':
-      deuteranopia()
-      break
-    case '5':
-      tritanopia()
-      break
-    case '6':
-      tritanomaly()
-      break
-    case '7':
-      achromatomaly()
-      break
-    case '8':
-      achromatopsia()
+    case 'd':
+      changeColorDeficiency()
       break
     default:
       break

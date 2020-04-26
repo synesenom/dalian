@@ -16,17 +16,22 @@ import YRange from '../components/range/y-range'
 /**
  * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
- * [BottomAxis]{@link ../components/bottom-axis.html},
- * [ElementTooltip]{@link ../components/point-tooltip.html},
- * [Highlight]{@link ../components/highlight.html},
- * [LeftAxis]{@link ../components/left-axis.html},
- * [Opacity]{@link ../components/opacity.html},
- * [XRange]{@link ../components/x-range.html},
- * [YRange]{@link ../components/y-range.html}.
+ * <ul>
+ *   <li><a href="../components/bottom-axis.html">BottomAxis</a></li>
+ *   <li><a href="../components/point-tooltip.html">ElementTooltip</a></li>
+ *   <li>
+ *     <a href="../components/highlight.html">Highlight</a> Dot clouds can be highlighted by passing their plot names as
+ *     specified in the data array.
+ *   </li>
+ *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/opacity.html">Opacity</a></li>
+ *   <li><a href="../components/x-range.html">XRange</a></li>
+ *   <li><a href="../components/y-range.html">YRange</a></li>
+ * </ul>
  *
  * @function ScatterPlot
  * @param {string} name Name of the chart. Should be a unique identifier.
- * @param {string} [parent = body] Parent element to append widget to.
+ * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
   let scales = {

@@ -26,24 +26,29 @@ import { attrTween } from '../utils/tween'
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
- * [BottomAxis]{@link ../components/bottom-axis.html},
- * [LeftAxis]{@link ../components/left-axis.html},
- * [Highlight]{@link ../components/highlight.html},
- * [Pin]{@link ../components/pin.html},
- * [PointTooltip]{@link ../components/point-tooltip.html},
- * [Smoothing]{@link ../components/smoothing.html},
- * [Trend]{@link ../components/trend.html},
- * [XGrid]{@link ../components/x-grid.html},
- * [XRange]{@link ../components/x-range.html},
- * [YGrid]{@link ../components/y-grid.html},
- * [YRange]{@link ../components/y-range.html}.
+ * <ul>
+ *   <li><a href="../components/bottom-axis.html">BottomAxis</a></li>
+ *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li>
+ *     <a href="../components/highlight.html">Highlight</a> Lines can be highlighted by passing their plots names as
+ *     specified in the data array.
+ *   </li>
+ *   <li><a href="../components/pin.html">Pin</a></li>
+ *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
+ *   <li><a href="../components/smoothing.html">Smoothing</a></li>
+ *   <li><a href="../components/trend.html">Trend</a></li>
+ *   <li><a href="../components/x-grid.html">XGrid</a></li>
+ *   <li><a href="../components/x-range.html">XRange</a></li>
+ *   <li><a href="../components/y-grid.html">YGrid</a></li>
+ *   <li><a href="../components/y-range.html">YRange</a></li>
+ * </ul>
  *
  * Note that the line chart automatically adds a small extension to the vertical axis, which can of be overwritten by
  * the YRange component API.
  *
  * @function LineChart
  * @param {string} name Name of the chart. Should be a unique identifier.
- * @param {string} [parent = body] Parent element to append widget to.
+ * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
   // Build widget from components

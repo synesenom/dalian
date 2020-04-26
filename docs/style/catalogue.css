@@ -24,8 +24,9 @@
     color: black;
 }
 .card:hover {
-    box-shadow: 0 10px 30px #ccc;
-    top: -5px;
+    border: 1px solid transparent;
+    box-shadow: 0 10px 40px #ccc;
+    top: -8px;
     filter: grayscale(0%);
     opacity: 1;
     transition: filter .3s, opacity .3s, box-shadow .3s, top .3s;

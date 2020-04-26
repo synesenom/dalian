@@ -17,30 +17,30 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
-    <li id="toggleValues" onclick="toggleValues()">V - Show values.</li>
-    <li onclick="changeValueFormat()">F - Change value format.</li>
+    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeLabelFormat()">F - Change label format.</li>
   </ul>
-</div></div><h1>description</h1><p id="desc">
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
     A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
     <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
     process. Also, it can handle <span class="good">more categories</span> than a pie chart.
   </p>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/bar-chart.js">source</a><a class="right footnote" href="../../../api/widgets/bar-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/widgets/bar-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bar-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [
-    {name: "plum", value: 130 * Math.random()},
-    {name: "banana", value: 40 * Math.random()},
-    {name: "mango", value: 60 * Math.random()},
+    {name: "apple", value: 100 * Math.random()},
+    {name: "melon", value: 40 * Math.random()},
+    {name: "kiwi", value: 60 * Math.random()},
     {name: "orange", value: 20 * Math.random()},
   ].concat(Math.random() > 0.5 ? [
-    {name: "melon", value: 110 * Math.random()},
-    {name: "kiwi", value: 70 * Math.random()}
+    {name: "coconut", value: 90 * Math.random()},
+    {name: "mango", value: 70 * Math.random()}
   ] : [])
   .concat([{name: "pear", value: 30 * Math.random()}])
 }
@@ -65,21 +65,21 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 let changeData = () => barChart.data(getData()).render(1000)
 
 let toggleHorizontal = () => {
-  this.h = !(this.h || 0)
+  this.h = ((this.h || 0) + 1) % 2
   barChart.horizontal(this.h)
     .bottomAxis.label(this.h ? 'stock' : 'fruit')
     .leftAxis.label(this.h ? 'fruit' : 'stock')
     .render()
 }
 
-let toggleValues = () => {
-  this.v = !(this.v || 0)
-  barChart.values(this.v).render()
+let toggleLabels = () => {
+  this.l = ((this.l || 0) + 1) % 2
+  barChart.labels(this.l).render()
 }
 
-let changeValueFormat = () => {
+let changeLabelFormat = () => {
   this.f = !(this.f || 0)
-  barChart.valueFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
+  barChart.labelFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
     .render()
 }
 </script><script class="doc">
@@ -92,18 +92,17 @@ window.addEventListener('keydown', e => {
     case 'h':
       toggleHorizontal()
       break
-    case 'v':
-      toggleValues()
+    case 'l':
+      toggleLabels()
       break
     case 'f':
-      changeValueFormat()
+      changeLabelFormat()
       break
     default:
   }
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleHorizontal = checkbox(toggleHorizontal, 'toggleHorizontal', 'h',
-  ['H - Change to vertical', 'H - Change to horizontal'])
-toggleValues = checkbox(toggleValues, 'toggleValues', 'v', ['V - Hide values', 'V - Show values'])
+toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
+toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

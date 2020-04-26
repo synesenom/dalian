@@ -6,7 +6,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">T - Show tooltip.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">T - Enable tooltip.</li>
     <li onclick="changeTitleFormat()">I - Change title format.</li>
     <li onclick="changeRowFormat()">R - Change row format.</li>
     <li onclick="changeFontColor()">F - Change font color.</li>
@@ -17,7 +17,7 @@
 dalian.BarChart('element-tooltip-card', '#element-tooltip')
   .data(Array.from({ length: 5 }, (d, i) => ({
     name: 'ABCDE'.charAt(i),
-    value: Math.random()
+    value: (i * 7) % 5 + 1
   })))
   .x(0)
   .y(0)
@@ -59,28 +59,31 @@ const chart = dalian.BarChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let toggleTooltip = () => {
-  this.t = !(this.t || 0)
+  this.t = ((this.t || 0) + 1) % 2
   chart.tooltip.on(this.t).render()
 }
+
 let changeTitleFormat = () => {
   this.i = !(this.i || 0)
   chart.tooltip.titleFormat(this.i ? x => 'Name: ' + x.toUpperCase() : x => x)
     .render()
 }
+
 let changeRowFormat = () => {
   this.r = !(this.r || 0)
   chart.tooltip.rowFormat(this.r ? y => y.toPrecision(2) + ' per capita' : y => y.toFixed(2))
     .render()
 }
+
 let changeFontColor = () => {
   this.f = !(this.f || 0)
-  chart.font.color(this.f ? 'grey' : undefined).render()
+  chart.font.color(this.f ? 'red' : undefined).render()
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleTooltip = checkbox(toggleTooltip, 'toggleTooltip', 't', ['Hide tooltip', 'Show tooltip'])
+toggleTooltip = state(toggleTooltip, 't', ['Enable tooltip', 'Disable tooltip'])
 </script>
 
 <script class="doc">

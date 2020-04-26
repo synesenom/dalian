@@ -17,18 +17,19 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"></div><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
+    <li onclick="changeLineColor()">L - Change line color.</li>
   </ul>
-</div></div><h1>description</h1><p id="desc">
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
     Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
     relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
     distribution of some quantity (probability density).Due to its transparent nature, only a
     <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
   </p>
-</p><div class="links"><a class="right footnote" href="https://github.com/synesenom/dalian/blob/master/src/widgets/area-chart.js">source</a><a class="right footnote" href="../../../api/widgets/area-chart.html">docs</a><a class="right footnote" href="../../../dl/dalian.min.js">min.js</a></div><h1>code</h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/widgets/area-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/area-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Data is generated with ranjs:
 // https://synesenom.github.io/ran/
@@ -70,12 +71,23 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-const changeData = () => areaChart.data(getData()).render(1000)
+let changeData = () => areaChart.data(getData()).render(1000)
+
+let changeLineColor = () => {
+  this.l = !(this.l || 0)
+  areaChart.lineColor(this.l ? 'white' : undefined).render(1000)
+}
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'l':
+      changeLineColor()
+      break
+    default:
   }
 })
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>
