@@ -53,7 +53,8 @@ export default (self, api) => {
           width: 'auto',
           'line-height': '1',
           left: ((bbox.left + bbox.right) / 2 + scroll.left) + 'px',
-          top: ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px'
+          top: ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px',
+          'z-index': 9999
         })
       }
     },
