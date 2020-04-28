@@ -29,7 +29,7 @@ export default (self, api) => {
       // Create content node
       let contentNode = styles(select(document.createElement('div')), {
         'border-radius': '2px',
-        padding: '10px',
+        padding: 0.7 * parseFloat(self._font.size) + 'px',
         'font-family': 'inherit',
         'border-left': content.stripe ? 'solid 4px ' + content.stripe : null
       })
@@ -38,7 +38,7 @@ export default (self, api) => {
       styles(contentNode.append('div'), {
         position: 'relative',
         width: 'calc(100% - 10px)',
-        'line-height': '11px',
+        'line-height': parseFloat(self._font.size) + 'px',
         margin: '2px',
         'margin-bottom': '10px'
       }).text(self._tooltip.titleFormat(content.title))
@@ -47,10 +47,10 @@ export default (self, api) => {
       content.content.data.forEach(item => {
           let entry = styles(contentNode.append('div'), {
             position: 'relative',
-            height: '10px',
+            height: 0.9 * parseFloat(self._font.size) + 'px',
             margin: '2px',
             'padding-right': '10px',
-            'line-height': '11px'
+            'line-height': self._font.size
           })
           styles(entry.append('div'), {
             position: 'relative',

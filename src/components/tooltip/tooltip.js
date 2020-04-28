@@ -39,7 +39,7 @@ export default (self, api) => {
 
     getTooltip: (bbox, scroll) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
-        return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
+        return _.elem.style('font-size', 0.9 * parseFloat(self._font.size) + 'px')
       } else {
         return styles(_.container.elem.append('div').attr('id', _.id), {
           position: 'absolute',
@@ -49,7 +49,7 @@ export default (self, api) => {
           color: 'currentColor',
           'pointer-events': 'none',
           'font-family': 'inherit',
-          'font-size': 0.85 * parseFloat(self._font.size) + 'px',
+          'font-size': 0.9 * parseFloat(self._font.size) + 'px',
           width: 'auto',
           'line-height': '1',
           left: ((bbox.left + bbox.right) / 2 + scroll.left) + 'px',
