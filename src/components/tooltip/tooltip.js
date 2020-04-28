@@ -39,7 +39,7 @@ export default (self, api) => {
 
     getTooltip: (bbox, scroll) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
-        return _.elem
+        return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
       } else {
         return styles(_.container.elem.append('div').attr('id', _.id), {
           position: 'absolute',
@@ -48,8 +48,8 @@ export default (self, api) => {
           'box-shadow': '1px 1px 2px #888, 0 0 1px #aaa',
           color: 'currentColor',
           'pointer-events': 'none',
-          'font-size': '0.85em',
           'font-family': 'inherit',
+          'font-size': 0.85 * parseFloat(self._font.size) + 'px',
           width: 'auto',
           'line-height': '1',
           left: ((bbox.left + bbox.right) / 2 + scroll.left) + 'px',

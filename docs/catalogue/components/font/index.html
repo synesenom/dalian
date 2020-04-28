@@ -46,6 +46,8 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
+  .tooltip.on(true)
+  .tooltip.rowFormat(x => x.toFixed(1))
   .render()
 </script><script class="doc">
 // api methods

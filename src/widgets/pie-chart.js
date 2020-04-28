@@ -90,7 +90,10 @@ export default (name, parent = 'body') => {
 
       // Adjust the vertical position of the label to make sure the label paths and labels don't overlap.
       let p21 = Math.max(r[1], d._measures.y)
-      let p2 = [r[0] - (r[0] - p1[0]) * (r[1] - p21) / (r[1] - p1[1]), p21]
+      let p2 = [
+        r[1] !== p1[1] ? r[0] - (r[0] - p1[0]) * (r[1] - p21) / (r[1] - p1[1]) : r[0],
+        p21
+      ]
 
       // Length of the label path horizontal part.
       let dx = 0.25 * _.outerRadius
