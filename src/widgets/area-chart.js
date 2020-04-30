@@ -7,6 +7,7 @@ import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
+import Objects from '../components/objects'
 import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
@@ -44,6 +45,7 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     PlotMarker,
+    Objects(scales),
     Opacity(0.4),
     Smoothing,
     PointTooltip,

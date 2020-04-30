@@ -1,18 +1,19 @@
 <div id="desc">
   <p>
-    The Pin component adds pin markers to a chart. This example shows the available methods for the component and
+    The Trend component adds a trend marker to the chart. This example shows the available methods for the component and
     demonstrates its behavior when various properties of the chart are changed.
   </p>
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="togglePin" onclick="togglePin()">P - Add pin.</li>
+    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
+    <li id="toggleXRange" onclick="toggleXRange()">X - Set X constraint.</li>
+    <li id="toggleTrend" onclick="toggleTrend()">T - Add trend.</li>
   </ul>
 </div>
 
 <script class="card-example">
-let pinCard = dalian.LineChart('pin-card', '#pin')
+let trendsCard = dalian.LineChart('trends-card', '#trends')
   .data([{
     name: 'trend',
     values: Array.from({ length: 100 }, (d, i) => ({
@@ -32,21 +33,20 @@ let pinCard = dalian.LineChart('pin-card', '#pin')
   .color.palette('#ccc')
   .render()
 
-// Add trend.
-pinCard.pin.add('marker', 30, {
-  color: 'royalblue',
-  height: 0.8,
-  size: 5
-})
+// Add trends.
+trendsCard.trends.add('marker', 'trend', 10, 70, 'Trend', 0)
+d3.selectAll('#trends .trend circle').style('fill', 'royalblue')
+d3.selectAll('#trends .trend line').style('stroke', 'royalblue')
+d3.selectAll('#trends .trend text').style('fill', 'royalblue')
 </script>
 
 <script class="doc">
 // generate data
 function getData () {
   const length = 50 + Math.floor(50 * Math.random())
-  const tau = 50 * Math.random() + 50
+  const tau = 50 + 50 * Math.random()
   return [{
-    name: 'trend',
+    name: 'temperature',
     values: Array.from({ length }, (d, i) => ({
       x: i,
       y: Math.exp(i / tau) * Math.sin(i / 5) + 10
@@ -65,30 +65,33 @@ const chart = dalian.LineChart('myChart', '#widget')
   .font.size(14)
   .bottomAxis.label('Elapsed time')
   .leftAxis.label('Temperature [C]')
+  .yRange.expandMax(0.1)
   .render()
 </script>
 
 <script class="doc">
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
-
-let togglePin = () => {
-  this.p = ((this.p || 0) + 1) % 2
-  if (this.p) {
-    chart.pin.add('marker', 10 + 30 * Math.random(), {
-      color: 'firebrick',
-      'height': 0.7,
-      text: 'Measurement started'
-    }, 1000)
+let toggleTrend = () => {
+  this.t = ((this.t || 0) + 1) % 2
+  if (this.t) {
+    chart.trends.add('marker', 'temperature', 10, 40, 'Change in 30 hours.', 1000)
   } else {
-    chart.pin.remove('marker', 1000)
+    chart.trends.remove('marker', 1000)
   }
+}
+let toggleXRange = () => {
+  this.x = ((this.x || 0) + 1) % 2
+  chart.xRange.min(this.x ? 8 : undefined)
+    .xRange.max(this.x ? 35 : undefined)
+    .render(1000)
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
-togglePin = state(togglePin, 'p', ['Add pin', 'Remove pin'])
+toggleTrend = state(toggleTrend, 't', ['Add trend', 'Remove trend'])
+toggleXRange = state(toggleXRange, 'x', ['Set x constraint', 'Remove x constraint'])
 </script>
 
 <script class="doc">
@@ -98,8 +101,8 @@ window.addEventListener('keydown', e => {
     case 'd':
       changeData()
       break
-    case 'p':
-      togglePin()
+    case 't':
+      toggleTrend()
       break
     case 'x':
       toggleXRange()

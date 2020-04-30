@@ -1,0 +1,161 @@
+<div id="desc">
+  <p>
+    The Objects component allows for inserting arbitrary SVG elements (or groups) in the chart using the data
+    coordinates. Note that when the chart is updated, the inserted elements are not resized, only their position is
+    updated.
+    This example shows the available methods for the component and demonstrates its behavior when various properties of
+    the chart are changed.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+    <li id="addElement" onclick="addElement()">A - Add random object.</li>
+    <li id="removeLastObject" onclick="removeLastObject()">L - Remove last object.</li>
+    <li id="removeAllObjects" onclick="removeAllObjects()">R - Remove all objects.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+let objectsCard = dalian.AreaChart('objects-card', '#objects')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color.palette('#ccc')
+  .render()
+
+// Add an object.
+objectsCard.objects.add('object', (() => {
+  let elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+  elem.setAttributeNS(null, 'width', 30)
+  elem.setAttributeNS(null, 'height', 20)
+  elem.setAttributeNS(null, 'fill', 'royalblue')
+  elem.setAttributeNS(null, 'transform', 'rotate(-20)')
+  return elem
+})(), {x: 40, y: 10})
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  const length = 50 + Math.floor(20 * Math.random())
+  const tau = 10 * Math.random() + 50
+  return [{
+    name: 'trend',
+    values: Array.from({ length }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / tau) * Math.sin(i / 5) + 3
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.AreaChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time [h]')
+  .leftAxis.label('Temperature [C]')
+  .opacity(0.2)
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let changeData = () => chart.data(getData()).render(1000)
+
+let addElement = () => {
+  this.a = this.a || []
+  this.a.push(`id-${this.a.length}`)
+
+  let ns = 'http://www.w3.org/2000/svg'
+  let elem
+  let color = ['royalblue', 'firebrick', 'yellowgreen'][Math.floor(3 * Math.random())]
+  switch (Math.floor(3 * Math.random())) {
+    case 0:
+    default:
+      // Circle
+      elem = document.createElementNS(ns, 'circle')
+      elem.setAttributeNS(null, 'r', 20 * Math.random() + 10)
+      elem.setAttributeNS(null, 'stroke', '#fff')
+      elem.setAttributeNS(null, 'fill', color)
+      break
+    case 1:
+      // Rectangle
+      elem = document.createElementNS(ns, 'rect')
+      elem.setAttributeNS(null, 'width', 50 * Math.random() + 20)
+      elem.setAttributeNS(null, 'height',30 * Math.random() + 10)
+      elem.setAttributeNS(null, 'stroke', '#fff')
+      elem.setAttributeNS(null, 'fill', color)
+      elem.setAttributeNS(null, 'transform', `rotate(${180 * Math.random()})`)
+      break
+    case 2:
+      // Group with path and text
+      elem = document.createElementNS(ns, 'g')
+      let path = document.createElementNS(ns, 'path')
+      path.setAttributeNS(null, 'd', 'M0 0 A20 20 0 0 0 20 -20 M16 -15 L20 -20 L24 -15')
+      path.setAttributeNS(null, 'stroke', color)
+      path.setAttributeNS(null, 'fill', 'none')
+      elem.appendChild(path)
+      let text = document.createElementNS(ns, 'text')
+      text.setAttributeNS(null, 'text-anchor', 'end')
+      text.setAttributeNS(null, 'x', '-4')
+      text.setAttributeNS(null, 'y', '4')
+      text.setAttributeNS(null, 'fill', color)
+      text.textContent = 'A fancy label'
+      elem.appendChild(text)
+  }
+
+  chart.objects.add(this.a[this.a.length - 1], elem, {
+    x: 10 + 50 * Math.random(),
+    y: 1 + 4 * Math.random()
+  }, 1000, Math.random() < 0.5 ? 'foreground' : 'background')
+}
+
+let removeLastObject = () => {
+  chart.objects.remove(this.a.pop(), 1000)
+}
+
+let removeAllObjects = () => {
+  chart.objects.remove(null, 1000)
+}
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'a':
+      addElement()
+      break
+    case 'l':
+      removeLastObject()
+      break
+    case 'r':
+      removeAllObjects()
+      break
+    default:
+      break
+  }
+})
+</script>

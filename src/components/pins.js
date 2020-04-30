@@ -3,10 +3,10 @@ import extend from '../core/extend'
 import attributes from '../utils/attributes'
 
 /**
- * Component implementing the pin feature. A pin is a vertical line with a circle on the top and an optional text label
- * as description. When this component is available for a widget, its API is exposed via the {.pin} namespace.
+ * Component implementing the pins feature. A pins is a vertical line with a circle on the top and an optional text label
+ * as description. When this component is available for a widget, its API is exposed via the {.pins} namespace.
  *
- * @function Pin
+ * @function Pins
  */
 // TODO Add options.fix to show label all the time.
 export default scales => (() => {
@@ -22,7 +22,7 @@ export default scales => (() => {
         // Get or create container.
         if (typeof _.container === 'undefined') {
           _.container = self._chart.plots.append('g')
-            .attr('class', 'pin-container')
+            .attr('class', 'pins-container')
             .attr('clip-path', `url(#${self._chart.clipId})`)
         }
         return _.container
@@ -36,38 +36,38 @@ export default scales => (() => {
 
     // Public API
     api = Object.assign(api || {}, {
-      pin: {
+      pins: {
         /**
-         * Adds a pin to the chart. If the pon ID already exists, the pin with the existing ID is updated.
+         * Adds a pins to the chart. If the pon ID already exists, no action is taken.
          *
          * @method add
-         * @methodOf Pin
-         * @param {string} id Unique identifier of the pin.
-         * @param {number} position Value to add pin to.
+         * @methodOf Pins
+         * @param {string} id Unique identifier of the pins.
+         * @param {number} position Value to add pins to.
          * @param {Object} [options = {}] Pin design options. Supported values:
          * <ul>
          *   <li>{string} <i>color</i>: Pin color.</li>
-         *   <li>{number} <i>size</i>: Size of the pin head in pixels.</li>
+         *   <li>{number} <i>size</i>: Size of the pins head in pixels.</li>
          *   <li>{number} <i>height</i>: Pin height relative to the Y range.</li>
-         *   <li>{string} <i>text</i>: Label to add to the pin. The label is visible when hovering over the pin.</li>
+         *   <li>{string} <i>text</i>: Label to add to the pins. The label is visible when hovering over the pins.</li>
          * </ul>
-         * @param {number} duration Duration of the animation of adding the pin.
+         * @param {number} duration Duration of the animation of adding the pins.
          * @returns {Widget} Reference to the Widget's API.
          */
         add: (id, position, options = {}, duration) => {
-          // Check if pin exists
+          // Check if pins exists
           if (_.pins.has(id)) {
             return api
           }
 
-          // Get marker positions
+          // Get pins positions
           let scaleX = scales.x.scale
           let scaleY = scales.y.scale
           const color = options.color || self._font.color
           const height = (1 - (options.height || 1)) * scaleY.range()[0]
           const text = options.text || ''
 
-          // Add pin group
+          // Add pins group
           const g = _.getContainer().append('g')
             .attr('class', 'pin')
             .style('color', color)
@@ -173,9 +173,9 @@ export default scales => (() => {
             stroke: 'currentColor',
             'stroke-width': '2px'
           }).style('pointer-events', 'all')
-            .on('click.pin', click)
-            .on('mouseover.pin', mouseover)
-            .on('mouseleave.pin', mouseleave)
+            .on('click.pins', click)
+            .on('mouseover.pins', mouseover)
+            .on('mouseleave.pins', mouseleave)
 
           // Pin head with mouse interactions
           const head = attributes(g.append('circle'), {
@@ -187,10 +187,10 @@ export default scales => (() => {
             'stroke-width': '1px',
             fill: 'currentColor'
           }).style('pointer-events', 'all')
-            .on('mouseover.pin', mouseover)
-            .on('mouseleave.pin', mouseleave)
+            .on('mouseover.pins', mouseover)
+            .on('mouseleave.pins', mouseleave)
 
-          // Show pin
+          // Show pins
           g.transition().duration(duration)
             .style('opacity', 1)
 
@@ -231,8 +231,8 @@ export default scales => (() => {
          * Removes one or all pins from the chart.
          *
          * @method remove
-         * @methodOf Pin
-         * @param {string} [id = undefined] Identifier of the pin to remove. If pin with the specified identifier does not
+         * @methodOf Pins
+         * @param {string} [id = undefined] Identifier of the pins to remove. If pins with the specified identifier does not
          * exist, no change is applied. If it is not specified, all pins are removed from the current chart.
          * @param {number} duration Duration of the remove animation.
          * @returns {Widget} Reference to the Widget's API.
@@ -245,7 +245,7 @@ export default scales => (() => {
           }
 
           if (_.pins.has(id)) {
-            // Otherwise, remove pin if it exists
+            // Otherwise, remove pins if it exists
             _.pins.get(id).remove(duration)
             _.pins.delete(id)
           }

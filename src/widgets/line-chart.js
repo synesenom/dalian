@@ -5,16 +5,17 @@ import encode from '../core/encode'
 import extend from '../core/extend'
 import BottomAxis from '../components/axis/bottom-axis'
 import Chart from '../components/chart'
+import Objects from '../components/objects'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
 import LineStyle from '../components/line-style'
 import LineWidth from '../components/line-width'
-import Pin from '../components/pin'
+import Pins from '../components/pins'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
 import Scale from '../components/scale'
 import Smoothing from '../components/smoothing'
-import Trend from '../components/trend'
+import Trends from '../components/trends'
 import XGrid from '../components/grid/x-grid'
 import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
@@ -31,10 +32,10 @@ import YRange from '../components/range/y-range'
  *     <a href="../components/highlight.html">Highlight</a> Lines can be highlighted by passing their plots names as
  *     specified in the data array.
  *   </li>
- *   <li><a href="../components/pin.html">Pin</a></li>
+ *   <li><a href="../components/pins.html">Pin</a></li>
  *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
  *   <li><a href="../components/smoothing.html">Smoothing</a></li>
- *   <li><a href="../components/trend.html">Trend</a></li>
+ *   <li><a href="../components/trends.html">Trend</a></li>
  *   <li><a href="../components/x-grid.html">XGrid</a></li>
  *   <li><a href="../components/x-range.html">XRange</a></li>
  *   <li><a href="../components/y-grid.html">YGrid</a></li>
@@ -58,13 +59,14 @@ export default (name, parent = 'body') => {
     Chart('line-chart', name, parent),
     LeftAxis(scales.y),
     BottomAxis(scales.x),
-    Highlight(['.plot-group', '.plot-marker', '.trend-marker']),
+    Objects(scales),
+    Highlight(['.plot-group', '.plot-marker', '.trends-marker']),
     LineStyle, LineWidth,
-    Pin(scales),
+    Pins(scales),
     PlotMarker,
     PointTooltip,
     Smoothing,
-    Trend(scales),
+    Trends(scales),
     XGrid, XRange,
     YGrid, YRange
   )
@@ -232,7 +234,7 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update
-  // Update plot before widget update because trend markers need the data update
+  // Update plot before widget update because trends markers need the data update
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API

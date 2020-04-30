@@ -301,6 +301,36 @@ dalian.BarChart('mouse-card', '#mouse')
   .leftAxis.label('Y')
   .color.palette('royalblue')
   .render()
+</script></a><a class="card" href="components/objects"><div class="card-title">Objects</div><div class="card-content" id="objects"></div><script class="card-example">
+let objectsCard = dalian.AreaChart('objects-card', '#objects')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .color.palette('#ccc')
+  .render()
+
+// Add an object.
+objectsCard.objects.add('object', (() => {
+  let elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+  elem.setAttributeNS(null, 'width', 30)
+  elem.setAttributeNS(null, 'height', 20)
+  elem.setAttributeNS(null, 'fill', 'royalblue')
+  elem.setAttributeNS(null, 'transform', 'rotate(-20)')
+  return elem
+})(), {x: 40, y: 10})
 </script></a><a class="card" href="components/opacity"><div class="card-title">Opacity</div><div class="card-content" id="opacity"></div><script class="card-example">
 dalian.AreaChart('opacity-card', '#opacity')
   .data([{
@@ -327,8 +357,8 @@ dalian.AreaChart('opacity-card', '#opacity')
   .leftAxis.label('Y')
   .color.palette('royalblue')
   .render()
-</script></a><a class="card" href="components/pin"><div class="card-title">Pin</div><div class="card-content" id="pin"></div><script class="card-example">
-let pinCard = dalian.LineChart('pin-card', '#pin')
+</script></a><a class="card" href="components/pins"><div class="card-title">Pins</div><div class="card-content" id="pins"></div><script class="card-example">
+let pinsCard = dalian.LineChart('pins-card', '#pins')
   .data([{
     name: 'trend',
     values: Array.from({ length: 100 }, (d, i) => ({
@@ -348,8 +378,8 @@ let pinCard = dalian.LineChart('pin-card', '#pin')
   .color.palette('#ccc')
   .render()
 
-// Add trend.
-pinCard.pin.add('marker', 30, {
+// Add trends.
+pinsCard.pins.add('marker', 30, {
   color: 'royalblue',
   height: 0.8,
   size: 5
@@ -411,8 +441,8 @@ dalian.LineChart('smoothing-card', '#smoothing')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
-</script></a><a class="card" href="components/trend"><div class="card-title">Trend</div><div class="card-content" id="trend"></div><script class="card-example">
-let trendCard = dalian.LineChart('trend-card', '#trend')
+</script></a><a class="card" href="components/trends"><div class="card-title">Trends</div><div class="card-content" id="trends"></div><script class="card-example">
+let trendsCard = dalian.LineChart('trends-card', '#trends')
   .data([{
     name: 'trend',
     values: Array.from({ length: 100 }, (d, i) => ({
@@ -432,11 +462,11 @@ let trendCard = dalian.LineChart('trend-card', '#trend')
   .color.palette('#ccc')
   .render()
 
-// Add trend.
-trendCard.trend.add('marker', 'trend', 10, 70, 'Trend', 0)
-d3.selectAll('#trend .trend circle').style('fill', 'royalblue')
-d3.selectAll('#trend .trend line').style('stroke', 'royalblue')
-d3.selectAll('#trend .trend text').style('fill', 'royalblue')
+// Add trends.
+trendsCard.trends.add('marker', 'trend', 10, 70, 'Trend', 0)
+d3.selectAll('#trends .trend circle').style('fill', 'royalblue')
+d3.selectAll('#trends .trend line').style('stroke', 'royalblue')
+d3.selectAll('#trends .trend text').style('fill', 'royalblue')
 </script></a><a class="card" href="components/widget"><div class="card-title">Widget</div><div class="card-content" id="widget"></div><script class="card-example">
 dalian.LineChart('widget-card', '#widget')
   .data([{

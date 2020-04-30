@@ -17,7 +17,7 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>Trend | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>Trends | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
     <li id="toggleXRange" onclick="toggleXRange()">X - Set X constraint.</li>
@@ -28,13 +28,13 @@
     The Trend component adds a trend marker to the chart. This example shows the available methods for the component and
     demonstrates its behavior when various properties of the chart are changed.
   </p>
-</p><h1>code<div class="margin-right"><a href="../../../api/components/trend.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/trend.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/components/trends.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/trends.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   const length = 50 + Math.floor(50 * Math.random())
   const tau = 50 + 50 * Math.random()
   return [{
-    name: 'trend',
+    name: 'temperature',
     values: Array.from({ length }, (d, i) => ({
       x: i,
       y: Math.exp(i / tau) * Math.sin(i / 5) + 10
@@ -57,15 +57,15 @@ const chart = dalian.LineChart('myChart', '#widget')
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
 let toggleTrend = () => {
-  this.t = !(this.t || 0)
+  this.t = ((this.t || 0) + 1) % 2
   if (this.t) {
-    chart.trend.add('marker', 'trend', 10, 40, 'Change in 30 hours.', 1000)
+    chart.trends.add('marker', 'temperature', 10, 40, 'Change in 30 hours.', 1000)
   } else {
-    chart.trend.remove('marker', 1000)
+    chart.trends.remove('marker', 1000)
   }
 }
 let toggleXRange = () => {
-  this.x = !(this.x || 0)
+  this.x = ((this.x || 0) + 1) % 2
   chart.xRange.min(this.x ? 8 : undefined)
     .xRange.max(this.x ? 35 : undefined)
     .render(1000)
@@ -89,6 +89,6 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleTrend = checkbox(toggleTrend, 'toggleTrend', 't', ['Remove trend', 'Add trend'])
-toggleXRange = checkbox(toggleXRange, 'toggleXRange', 'x', ['Remove x constraint', 'Set x constraint'])
+toggleTrend = state(toggleTrend, 't', ['Add trend', 'Remove trend'])
+toggleXRange = state(toggleXRange, 'x', ['Set x constraint', 'Remove x constraint'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>
