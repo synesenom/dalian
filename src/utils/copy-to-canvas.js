@@ -1,0 +1,44 @@
+// Re-usable elements.
+const canvas = document.createElement('canvas')
+const context = canvas.getContext('2d')
+const hidden = document.createElement('div')
+hidden.style.opacty = 0
+const img = document.createElement('img')
+
+
+function getSvgBBox (svg) {
+  hidden.appendChild(svg)
+  document.body.appendChild(hidden)
+  let bbox = svg.getBoundingClientRect()
+  document.body.removeChild(hidden)
+  return bbox
+}
+
+export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
+  // Get SVG data.
+  let svgData = new XMLSerializer().serializeToString(svg)
+
+  // Add hidden div to measure SVG size.
+  const svgSize = getSvgBBox(svg)
+
+  // Init canvas.
+  canvas.width = svgSize.width * scale
+  canvas.height = svgSize.height * scale
+  canvas.style.width = svgSize.width + 'px'
+  canvas.style.height = svgSize.height + 'px'
+
+  // Scale context.
+  context.scale(scale, scale)
+
+  // Create image.
+  img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))))
+  return new Promise (resolve => {
+    img.onload = () => {
+      // Draw image on canvas.
+      context.drawImage(img, 0, 0)
+
+      // Resolve with data URl.
+      resolve(canvas.toDataURL('image/' + format, quality))
+    }
+  })
+}

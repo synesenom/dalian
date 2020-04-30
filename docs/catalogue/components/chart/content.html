@@ -1,0 +1,81 @@
+<div id="desc">
+  <p>
+    The Chart component is the base component for all charts. For the sake of the download API, the font of the chart is
+    set to Arial.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="downloadAsPng()">P - Downlad as PNG.</li>
+  </ul>
+  <style>
+    .dalian-widget {
+      font-family: Arial, sans-serif !important;
+    }
+  </style>
+</div>
+
+<script class="card-example">
+dalian.LineChart('chart-card', '#chart')
+  .data([{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 50) * Math.sin(i / 5) + 10
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .color.palette('royalblue')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return [{
+    name: 'trend',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 100) * Math.sin(i / 5) + 10
+    }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .bottomAxis.label('Elapsed time')
+  .leftAxis.label('Temperature [C]')
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+const downloadAsPng = () => chart.download('chart')
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'p':
+      downloadAsPng()
+      break
+    default:
+      break
+  }
+})
+</script>

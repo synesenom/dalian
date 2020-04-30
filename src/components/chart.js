@@ -1,6 +1,9 @@
 import compose from '../core/compose'
 import encode from '../core/encode'
 import extend from '../core/extend'
+import copySvg from '../utils/copy-svg'
+import copyToCanvas from '../utils/copy-to-canvas'
+import download from '../utils/download'
 import Color from './color'
 import Description from './description'
 import Font from './font'
@@ -22,7 +25,7 @@ import Widget from './widget'
  *
  * @function Chart
  */
-export default (type, name, parent, elem) => {
+export default (type, name, parent, elem = 'svg') => {
   // Build component from other components
   let { self, api } = compose(
     Widget(type, name, parent, elem),
@@ -137,6 +140,23 @@ export default (type, name, parent, elem) => {
 
       // Switch render flag
       return api
+    },
+
+    /**
+     * Downloads the chart as a PNG file. At the moment, fonts are not embedded in the SVG and therefore the chart's
+     * font (which is inherited from its parent) must be installed.
+     *
+     * @method download
+     * @methodOf Chart
+     * @param {string} filename Name of the file to download chart at (without extension).
+     * @returns {Widget} Reference to the Widget API.
+     * @async
+     */
+    download: async filename => {
+      // Inspired by https://github.com/JuanIrache/d3-svg-to-png
+      const svg = copySvg(self._widget.content.node())
+      let file = await copyToCanvas(svg)
+      download(file, filename, 'png')
     }
   })
 

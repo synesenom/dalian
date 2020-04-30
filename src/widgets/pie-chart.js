@@ -28,7 +28,7 @@ import { measureText } from '../utils/measure-text'
  */
 export default (name, parent = 'body') => {
   let { self, api } = compose(
-    Chart('pie-chart', name, parent, 'svg'),
+    Chart('pie-chart', name, parent),
     ElementTooltip,
     Highlight(['.plot-group']),
   )

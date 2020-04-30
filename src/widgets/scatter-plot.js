@@ -39,7 +39,7 @@ export default (name, parent = 'body') => {
     y: Scale('linear')
   }
   let { self, api } = compose(
-    Chart('scatter-plot', name, parent, 'svg'),
+    Chart('scatter-plot', name, parent),
     BottomAxis(scales.x),
     ElementTooltip,
     Highlight(['.plot-group']),

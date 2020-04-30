@@ -19,10 +19,8 @@ import XGrid from '../components/grid/x-grid'
 import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
-import { attrTween } from '../utils/tween'
 
 // TODO Add reference to components: LineStyle, LineWidth.
-// TODO Use https://bl.ocks.org/mbostock/3916621 instead of having d3-interpolate-path as dependency.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
@@ -57,7 +55,7 @@ export default (name, parent = 'body') => {
     y: Scale('linear')
   }
   let { self, api } = compose(
-    Chart('line-chart', name, parent, 'svg'),
+    Chart('line-chart', name, parent),
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     Highlight(['.plot-group', '.plot-marker', '.trend-marker']),
@@ -134,7 +132,10 @@ export default (name, parent = 'body') => {
           return g
         },
         update: g => {
-          // Update error bands
+          // Show group.
+          g.style('opacity', 1)
+
+          // Update error bands.
           g.select('.error-band')
             // Show error bands only if there is any.
             .attr('fill-opacity', hasErrorBand ? 0.2 : 0)
@@ -144,7 +145,7 @@ export default (name, parent = 'body') => {
               return interpolatePath(previous, current, null)
             })
 
-          // Update lines
+          // Update lines.
           g.select('.line')
             .attrTween('d', function (d) {
               let previous = select(this).attr('d')
@@ -153,7 +154,6 @@ export default (name, parent = 'body') => {
             })
             .style('stroke-dasharray', d => self._lineStyles.strokeDashArray(d.name))
 
-          g.style('opacity', 1)
           return g
         },
         exit: g => g.style('opacity', 0)
@@ -161,7 +161,7 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Overrides
+  // Overrides.
   self._highlight.container = self._chart.plots
   self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
@@ -169,17 +169,17 @@ export default (name, parent = 'body') => {
       return
     }
 
-    // Get bisection
+    // Get bisection.
     let bisect = bisector(d => _.scales.x.scale(d.x)).left
     let index = mouse ? self._chart.data.map(d => bisect(d.values, mouse[0])) : undefined
 
-    // If no data point is found, just remove tooltip elements
+    // If no data point is found, just remove tooltip elements.
     if (typeof index === 'undefined') {
       self._plotMarker.remove()
       return
     }
 
-    // Get plots, only those that are not ignored
+    // Get plots, only those that are not ignored.
     let x = _.scales.x.scale.invert(mouse[0])
     let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {

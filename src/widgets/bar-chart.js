@@ -40,7 +40,7 @@ export default (name, parent = 'body') => {
     y: Scale('linear')
   }
   let { self, api } = compose(
-    Chart('bar-chart', name, parent, 'svg'),
+    Chart('bar-chart', name, parent),
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     ElementTooltip,

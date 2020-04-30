@@ -40,7 +40,7 @@ export default (name, parent = 'body') => {
     y: Scale('linear')
   }
   let { self, api } = compose(
-    Chart('area-chart', name, parent, 'svg'),
+    Chart('area-chart', name, parent),
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     PlotMarker,

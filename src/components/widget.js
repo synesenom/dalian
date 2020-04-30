@@ -1,6 +1,5 @@
 import { select } from 'd3'
 import styles from '../utils/styles'
-import { measureText } from '../utils/measure-text'
 
 /**
  * Component implementing a generic widget. A widget is the most abstract element of the library and most of the charts
@@ -71,9 +70,7 @@ export default (type, name, parent, elem) => {
         .style('height', self._widget.size.height)
     },
 
-    disable: on => {
-      self._widget.disabled = on
-    }
+    disable: on => self._widget.disabled = on
   }
 
   try {
