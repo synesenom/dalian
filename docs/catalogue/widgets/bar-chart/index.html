@@ -65,7 +65,7 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
 let changeData = () => barChart.data(getData()).render(1000)
 
 let toggleHorizontal = () => {
-  this.h = ((this.h || 0) + 1) % 2
+  this.h = 1 - (this.h || 0)
   barChart.horizontal(this.h)
     .bottomAxis.label(this.h ? 'stock' : 'fruit')
     .leftAxis.label(this.h ? 'fruit' : 'stock')
@@ -73,7 +73,7 @@ let toggleHorizontal = () => {
 }
 
 let toggleLabels = () => {
-  this.l = ((this.l || 0) + 1) % 2
+  this.l = 1 - (this.l || 0)
   barChart.labels(this.l).render()
 }
 

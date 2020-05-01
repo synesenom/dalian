@@ -86,7 +86,7 @@ let changeOuterRadius = () => {
 }
 
 let toggleLabels = () => {
-  this.l = ((this.l || 0) + 1) % 2
+  this.l = 1 - (this.l || 0)
   pieChart.labels(this.l).render()
 }
 

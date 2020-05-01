@@ -71,19 +71,23 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
+
 let changeFontColor = () => {
   this.f = !(this.f || 0)
   chart.font.color(this.f ? 'red' : undefined).render(400)
 }
+
 let toggleGrid = () => {
-  this.t = !(this.t || 0)
+  this.t = 1 - (this.t || 0)
   chart.yGrid.on(this.t).render(400)
 }
+
 let changeOpacity = () => {
-  this.c = ((this.c || 0) + 1) % 3
-  chart.yGrid.color([undefined, 0.2, 1][this.c])
+  this.o = 1 - (this.o || 0)
+  chart.yGrid.opacity(this.o ? 0.8 : undefined)
     .render(400)
 }
+
 let changeLineStyle = () => {
   this.s = ((this.s || 0) + 1) % 3
   chart.yGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
@@ -93,7 +97,7 @@ let changeLineStyle = () => {
 
 <script class="doc-hidden">
 // Modify toggle buttons
-toggleGrid = checkbox(toggleGrid, 'toggleGrid', 't', ['Hide grid lines', 'Show grid lines'])
+toggleGrid = state(toggleGrid, 't', ['Show grid lines', 'Hide grid lines'])
 </script>
 
 <script class="doc">

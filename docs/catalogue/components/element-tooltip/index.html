@@ -53,7 +53,7 @@ const chart = dalian.BarChart('myChart', '#widget')
 </script><script class="doc">
 // api methods
 let toggleTooltip = () => {
-  this.t = ((this.t || 0) + 1) % 2
+  this.t = 1 - (this.t || 0)
   chart.tooltip.on(this.t).render()
 }
 

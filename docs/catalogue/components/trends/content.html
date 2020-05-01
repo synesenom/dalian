@@ -65,7 +65,7 @@ const chart = dalian.LineChart('myChart', '#widget')
   .font.size(14)
   .bottomAxis.label('Elapsed time')
   .leftAxis.label('Temperature [C]')
-  .yRange.expandMax(0.1)
+  .yRange.compressMax(0.1)
   .render()
 </script>
 
@@ -73,7 +73,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
 let toggleTrend = () => {
-  this.t = ((this.t || 0) + 1) % 2
+  this.t = 1 - (this.t || 0)
   if (this.t) {
     chart.trends.add('marker', 'temperature', 10, 40, 'Change in 30 hours.', 1000)
   } else {
@@ -81,7 +81,7 @@ let toggleTrend = () => {
   }
 }
 let toggleXRange = () => {
-  this.x = ((this.x || 0) + 1) % 2
+  this.x = 1 - (this.x || 0)
   chart.xRange.min(this.x ? 8 : undefined)
     .xRange.max(this.x ? 35 : undefined)
     .render(1000)

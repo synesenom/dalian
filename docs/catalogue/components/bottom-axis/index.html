@@ -71,12 +71,12 @@ let changeTickFormat = () => {
 }
 
 let toggleTicks = () => {
-  this.t = ((this.t || 0) + 1) % 2
+  this.t = 1 - (this.t || 0)
   chart.bottomAxis.hideTicks(this.t).render()
 }
 
 let toggleAxisLine = () => {
-  this.a = ((this.a || 0) + 1) % 2
+  this.a = 1 - (this.a || 0)
   chart.bottomAxis.hideAxisLine(this.a).render()
 }
 </script><script class="doc">

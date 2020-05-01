@@ -71,7 +71,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let toggleTooltip = () => {
-  this.t = ((this.t || 0) + 1) % 2
+  this.t = 1 - (this.t || 0)
   chart.tooltip.on(this.t).render()
 }
 
@@ -88,7 +88,7 @@ let changeYFormat = () => {
 }
 
 let toggleIgnore = () => {
-  this.i = ((this.i || 0) + 1) % 2
+  this.i = 1 - (this.i || 0)
   chart.tooltip.ignore(this.i ? ['trend 2'] : undefined)
     .render()
 }

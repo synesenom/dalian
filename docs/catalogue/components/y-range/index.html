@@ -21,7 +21,7 @@
   <ul>
     <li id="toggleMin" onclick="toggleMin()">L - Set lower boundary.</li>
     <li id="toggleMax" onclick="toggleMax()">U - Set upper boundary.</li>
-    <li id="toggleStretch" onclick="toggleStretch()">S - Stretch boundary.</li>
+    <li id="toggleCompression" onclick="toggleCompression()">C - Compress boundary.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -52,17 +52,19 @@ const chart = dalian.LineChart('myChart', '#widget')
 </script><script class="doc">
 // api methods
 let toggleMin = () => {
-  this.l = !(this.l || 0)
+  this.l = 1 - (this.l || 0)
   chart.yRange.min(this.l ? 9 : undefined).render(400)
 }
+
 let toggleMax = () => {
-  this.u = !(this.u || 0)
+  this.u = 1 - (this.u || 0)
   chart.yRange.max(this.u ? 14 : undefined).render(400)
 }
-let toggleStretch = () => {
-  this.s = !(this.s || 0)
-  chart.yRange.min(this.l ? 9 : undefined, this.s ? 0.1 : undefined)
-    .yRange.max(this.u ? 14 : undefined, this.s ? 0.1 : undefined)
+
+let toggleCompression = () => {
+  this.c = 1 - (this.c || 0)
+  chart.yRange.compressMin(this.c ? 0.1 : undefined)
+    .yRange.compressMax(this.c ? 0.1 : undefined)
     .render(400)
 }
 </script><script class="doc">
@@ -75,8 +77,8 @@ window.addEventListener('keydown', e => {
     case 'u':
       toggleMax()
       break
-    case 's':
-      toggleStretch()
+    case 'c':
+      toggleCompression()
       break
     default:
       break
@@ -84,7 +86,7 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleMin = checkbox(toggleMin, 'toggleMin', 'l', ['Remove lower boundary', 'Set lower boundary'])
-toggleMax = checkbox(toggleMax, 'toggleMax', 'u', ['Remove upper boundary', 'Set upper boundary'])
-toggleStretch = checkbox(toggleStretch, 'toggleStretch', 's', ['Relax range', 'Stretch range'])
+toggleMin = state(toggleMin, 'l', ['Set lower boundary', 'Remove lower boundary'])
+toggleMax = state(toggleMax, 'u', ['Set upper boundary', 'Remove upper boundary'])
+toggleCompression = state(toggleCompression, 'c', ['Compress range', 'Relax range'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

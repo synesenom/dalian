@@ -1,10 +1,10 @@
 export default () => {
   // Private members
   let _ = {
-    min: null,
-    max: null,
-    scaleMax: 0,
-    scaleMin: 0
+    min: undefined,
+    max: undefined,
+    compressMax: 0,
+    compressMin: 0
   }
 
   // Public API
@@ -13,25 +13,25 @@ export default () => {
 
     max: value => _.max = value,
 
-    expandMin: value => _.scaleMin = Math.abs(value || 0),
+    compressMin: value => _.compressMin = Math.abs(value || 0),
 
-    expandMax: value => _.scaleMax = Math.abs(value || 0),
+    compressMax: value => _.compressMax = Math.abs(value || 0),
 
     range: data => {
       // Determine final boundaries.
-      let min = typeof _.min !== 'undefined' && _.min !== null ? _.min : Math.min(...data)
-      let max = typeof _.max !== 'undefined' && _.max !== null ? _.max : Math.max(...data)
+      let min = typeof _.min !== 'undefined' ? _.min : Math.min(...data)
+      let max = typeof _.max !== 'undefined' ? _.max : Math.max(...data)
 
       // Add stretch or buffer to range.
       let range = max - min
-      min -= _.scaleMin > 0 ? _.scaleMin * range : 0
-      max += _.scaleMax > 0 ? _.scaleMax * range : 0
+      min -= _.compressMin > 0 ? _.compressMin * range : 0
+      max += _.compressMax > 0 ? _.compressMax * range : 0
 
       // Return range.
       return [min, max]
     },
 
-    contains: value => (typeof _.min === 'undefined' || _.min === null || value >= _.min)
-      && (typeof _.max === 'undefined' || _.max === null || value <= _.max)
+    contains: value => (typeof _.min === 'undefined' || value >= _.min)
+      && (typeof _.max === 'undefined' || value <= _.max)
   }
 }

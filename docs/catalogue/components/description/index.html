@@ -50,7 +50,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 </script><script class="doc">
 // api methods
 let toggleDescription = () => {
-  this.d = ((this.d || 0) + 1) % 2
+  this.d = 1 - (this.d || 0)
   chart.description(this.d ? 'This is a simple line chart.' : undefined)
     .render()
 }

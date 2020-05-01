@@ -56,19 +56,19 @@ const chart = dalian.BarChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let toggleMouseover = () => {
-  this.o = ((this.o || 0) + 1) % 2
+  this.o = 1 - (this.o || 0)
   chart.mouse.over(this.o ? k => chart.highlight(k.name) : undefined)
     .render()
 }
 
 let toggleMouseleave = () => {
-  this.l = ((this.l || 0) + 1) % 2
+  this.l = 1 - (this.l || 0)
   chart.mouse.leave(this.l ? () => chart.highlight() : undefined)
     .render()
 }
 
 let toggleClick = () => {
-  this.c = ((this.c || 0) + 1) % 2
+  this.c = 1 - (this.c || 0)
   chart.mouse.click(this.c ? k => alert(`You clicked on ${k.name}`) : undefined)
     .render()
 }

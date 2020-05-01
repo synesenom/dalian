@@ -59,7 +59,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 let togglePlaceholder = () => {
-  this.p = ((this.p || 0) + 1) % 2
+  this.p = 1 - (this.p || 0)
   chart.placeholder(this.p ? 'Data is not available.' : undefined)
     .render(1000)
 }

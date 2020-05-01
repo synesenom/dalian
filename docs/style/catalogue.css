@@ -17,19 +17,15 @@
     border: 1px solid #ddd;
     box-shadow: 0 0 0 #ccc;
     cursor: pointer;
-    filter: grayscale(100%);
-    opacity: 0.5;
-    transition: filter .3s, opacity .3s, box-shadow .3s, top .3s;
     text-decoration: none;
     color: black;
+    transition: box-shadow .3s, top .3s;
 }
 .card:hover {
     border: 1px solid transparent;
     box-shadow: 0 10px 40px #ccc;
     top: -8px;
-    filter: grayscale(0%);
-    opacity: 1;
-    transition: filter .3s, opacity .3s, box-shadow .3s, top .3s;
+    transition: box-shadow .3s, top .3s;
 }
 
 .card-title {
@@ -42,4 +38,12 @@
     position: relative;
     width: 100%;
     height: calc(260px - 62px - 30px);
+    opacity: 0.2;
+    filter: grayscale(100%);
+    transition: filter .3s, opacity .3s;
+}
+.card:hover .card-content {
+    opacity: 1;
+    filter: grayscale(0%);
+    transition: filter .3s, opacity .3s;
 }
