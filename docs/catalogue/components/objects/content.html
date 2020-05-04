@@ -40,8 +40,8 @@ let objectsCard = dalian.AreaChart('objects-card', '#objects')
 // Add an object.
 objectsCard.objects.add('object', (() => {
   let elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-  elem.setAttributeNS(null, 'width', 30)
-  elem.setAttributeNS(null, 'height', 20)
+  elem.setAttributeNS(null, 'width', '30')
+  elem.setAttributeNS(null, 'height', '20')
   elem.setAttributeNS(null, 'fill', 'royalblue')
   elem.setAttributeNS(null, 'transform', 'rotate(-18)')
   return elem
@@ -101,7 +101,7 @@ let addElement = () => {
       // Rectangle
       elem = document.createElementNS(ns, 'rect')
       elem.setAttributeNS(null, 'width', 50 * Math.random() + 20)
-      elem.setAttributeNS(null, 'height',30 * Math.random() + 10)
+      elem.setAttributeNS(null, 'height', 30 * Math.random() + 10)
       elem.setAttributeNS(null, 'stroke', '#fff')
       elem.setAttributeNS(null, 'fill', color)
       elem.setAttributeNS(null, 'transform', `rotate(${180 * Math.random()})`)

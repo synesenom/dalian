@@ -8,6 +8,7 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="togglePin" onclick="togglePin()">P - Add pin.</li>
+    <li id="toggleFixedPin" onclick="toggleFixedPin()">F - Add fixed pin.</li>
   </ul>
 </div>
 
@@ -75,13 +76,27 @@ let changeData = () => chart.data(getData()).render(1000)
 let togglePin = () => {
   this.p = 1 - (this.p || 0)
   if (this.p) {
-    chart.pins.add('marker', 10 + 30 * Math.random(), {
+    chart.pins.add('dynamic', 10 + 30 * Math.random(), {
       color: 'firebrick',
       'height': 0.7,
-      text: 'Measurement started'
+      text: 'Dynamic pin'
     }, 1000)
   } else {
-    chart.pins.remove('marker', 1000)
+    chart.pins.remove('dynamic', 1000)
+  }
+}
+
+let toggleFixedPin = () => {
+  this.f = 1 - (this.f || 0)
+  if (this.f) {
+    chart.pins.add('fixed', 10 + 30 * Math.random(), {
+      color: 'yellowgreen',
+      'height': 0.7,
+      text: 'Fixed pin',
+      fixed: true
+    }, 1000)
+  } else {
+    chart.pins.remove('fixed', 1000)
   }
 }
 </script>
@@ -89,6 +104,7 @@ let togglePin = () => {
 <script class="doc-hidden">
 // Modify toggle buttons
 togglePin = state(togglePin, 'p', ['Add pin', 'Remove pin'])
+toggleFixedPin = state(toggleFixedPin, 'f', ['Add fixed pin', 'Remove fixed pin'])
 </script>
 
 <script class="doc">
@@ -101,8 +117,8 @@ window.addEventListener('keydown', e => {
     case 'p':
       togglePin()
       break
-    case 'x':
-      toggleXRange()
+    case 'f':
+      toggleFixedPin()
       break
     default:
       break

@@ -325,8 +325,8 @@ let objectsCard = dalian.AreaChart('objects-card', '#objects')
 // Add an object.
 objectsCard.objects.add('object', (() => {
   let elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-  elem.setAttributeNS(null, 'width', 30)
-  elem.setAttributeNS(null, 'height', 20)
+  elem.setAttributeNS(null, 'width', '30')
+  elem.setAttributeNS(null, 'height', '20')
   elem.setAttributeNS(null, 'fill', 'royalblue')
   elem.setAttributeNS(null, 'transform', 'rotate(-18)')
   return elem
@@ -402,6 +402,7 @@ dalian.LineChart('placeholder-card', '#placeholder')
   .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
+  .placeholder('This is a placeholder.')
   .render()
 </script></a><a class="card" href="components/point-tooltip"><div class="card-title">PointTooltip</div><div class="card-content" id="point-tooltip"></div><script class="card-example">
 dalian.LineChart('point-tooltip-card', '#point-tooltip')

@@ -46,10 +46,13 @@ export default scales => (() => {
          * @param {number} position Value to add pins to.
          * @param {Object} [options = {}] Pin design options. Supported values:
          * <ul>
-         *   <li>{string} <i>color</i>: Pin color.</li>
-         *   <li>{number} <i>size</i>: Size of the pins head in pixels.</li>
-         *   <li>{number} <i>height</i>: Pin height relative to the Y range.</li>
-         *   <li>{string} <i>text</i>: Label to add to the pins. The label is visible when hovering over the pins.</li>
+         *   <li>{string} <i>color</i>: Pin color. Default value is the current font color.</li>
+         *   <li>{number} <i>size</i>: Size of the pins head in pixels. Default value is 6.</li>
+         *   <li>{number} <i>height</i>: Pin height relative to the Y range. Default value is 0.8.</li>
+         *   <li>{string} <i>text</i>: Label to add to the pins. The label is visible when hovering over the pins.
+         *   Default value is an empty string.</li>
+         *   <li>{boolean} <i>fixed</i>: Whether to fix the pin label to be shown all the time. Default value is false.
+         *   </li>
          * </ul>
          * @param {number} duration Duration of the animation of adding the pins.
          * @returns {Widget} Reference to the Widget's API.
@@ -64,7 +67,7 @@ export default scales => (() => {
           let scaleX = scales.x.scale
           let scaleY = scales.y.scale
           const color = options.color || self._font.color
-          const height = (1 - (options.height || 1)) * scaleY.range()[0]
+          const height = (1 - (options.height || 0.8)) * scaleY.range()[0]
           const text = options.text || ''
 
           // Add pins group
@@ -76,7 +79,7 @@ export default scales => (() => {
           // Pin label
           const label = g.append('g')
             .attr('class', 'pin-label')
-            .style('opacity', 0)
+            .style('opacity', options.fixed ? 1 : 0)
             .style('pointer-events', 'none')
 
           // Label text
@@ -90,7 +93,7 @@ export default scales => (() => {
 
           // Compute text length, adjust text
           const length = labelText.node().getComputedTextLength() * 1.05
-          labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length) - 10)
+          labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length - 10))
             .attr('textLength', length)
 
           // Label box
@@ -112,56 +115,12 @@ export default scales => (() => {
           const mouseover = () => {
             // Show label
             label.transition().duration(300).style('opacity', 1)
-
-            // Hide other pins
-            _.pins.forEach(p => {
-              p.g.transition().duration(300)
-                .style('opacity', p.g === g ? 1 : 0.1)
-            })
           }
 
           const mouseleave = () => {
             // Hide label
-            label.transition().duration(300).style('opacity', 0)
-
-            // Show other pins
-            _.pins.forEach(p => {
-              p.g.transition().duration(300)
-                .style('opacity', 1)
-            })
+            label.transition().duration(300).style('opacity', options.fixed ? 1 : 0)
           }
-
-          const click = (() => {
-            let isClicked = false
-
-            return () => {
-              if (isClicked) {
-                // Hide label
-                label.transition().duration(300).style('opacity', 0)
-
-                // Show other pins
-                _.pins.forEach(p => {
-                  p.g.transition().duration(300)
-                    .style('opacity', 1)
-                })
-
-                // Update click status
-                isClicked = false
-              } else {
-                // Show label
-                label.transition().duration(300).style('opacity', 1)
-
-                // Hide other pins
-                _.pins.forEach(p => {
-                  p.g.transition().duration(300)
-                    .style('opacity', p.g === g ? 1 : 0.1)
-                })
-
-                // Update click status
-                isClicked = true
-              }
-            }
-          })()
 
           // Pin needle with mouse interactions
           const needle = attributes(g.append('line'), {
@@ -173,7 +132,6 @@ export default scales => (() => {
             stroke: 'currentColor',
             'stroke-width': '2px'
           }).style('pointer-events', 'all')
-            .on('click.pins', click)
             .on('mouseover.pins', mouseover)
             .on('mouseleave.pins', mouseleave)
 
@@ -212,7 +170,7 @@ export default scales => (() => {
               head.transition().duration(duration)
                 .attr('cx', scaleX(position) + 1)
                 .attr('cy', height)
-              labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length) - 10)
+              labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length - 10))
                 .attr('y', height - (options.size || 6) - 10)
               bbox = labelText.node().getBBox()
               labelBox.attr('x', bbox.x - 5)
