@@ -150,7 +150,7 @@ export default (name, parent = 'body') => {
 
           // Group of elements.
           let slice = g.append('g')
-            .attr('class', d => `slice ${encode(d.data.name)}`)
+            .attr('class', 'slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
             .on('mouseover.pieChart', d => {
               _.current = d

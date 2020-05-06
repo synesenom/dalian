@@ -21,7 +21,8 @@
   <ul>
     <li id="toggleTooltip" onclick="toggleTooltip()">T - Enable tooltip.</li>
     <li onclick="changeTitleFormat()">I - Change title format.</li>
-    <li onclick="changeRowFormat()">R - Change row format.</li>
+    <li onclick="changeLabelFormat()">L - Change entry label format.</li>
+    <li onclick="changeValueFormat()">L - Change entry value format.</li>
     <li onclick="changeFontColor()">F - Change font color.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
@@ -48,7 +49,7 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .tooltip.rowFormat(x => x.toFixed(2))
+  .tooltip.valueFormat(x => x.toFixed(2))
   .render()
 </script><script class="doc">
 // api methods
@@ -63,9 +64,15 @@ let changeTitleFormat = () => {
     .render()
 }
 
-let changeRowFormat = () => {
-  this.r = !(this.r || 0)
-  chart.tooltip.rowFormat(this.r ? y => y.toPrecision(2) + ' per capita' : y => y.toFixed(2))
+let changeLabelFormat = () => {
+  this.l = !(this.l || 0)
+  chart.tooltip.labelFormat(this.l ? label => `<strong>${label}</strong>:` : undefined)
+    .render()
+}
+
+let changeValueFormat = () => {
+  this.v = !(this.v || 0)
+  chart.tooltip.valueFormat(this.v ? y => y.toPrecision(2) + ' per capita' : undefined)
     .render()
 }
 
@@ -83,8 +90,11 @@ window.addEventListener('keydown', e => {
     case 'i':
       changeTitleFormat()
       break
-    case 'r':
-      changeRowFormat()
+    case 'l':
+      changeLabelFormat()
+      break
+    case 'v':
+      changeValueFormat()
       break
     case 'f':
       changeFontColor()

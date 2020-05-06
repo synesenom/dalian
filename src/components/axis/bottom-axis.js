@@ -66,13 +66,26 @@ export default scale => {
         /**
          * Sets the X tick format of the chart.
          *
-         * @method tickFormat
+         * @method format
          * @methodOf BottomAxis
          * @param {Function} format Function to set as formatter.
          * @returns {Widget} Reference to the Widget's API.
          */
-        tickFormat: format => {
-          base.tickFormat(format)
+        format: format => {
+          base.format(format)
+          return api
+        },
+
+        /**
+         * Sets the X tick values explicitly to the specified values.
+         *
+         * @method values
+         * @methodOf BottomAxis
+         * @param {(number[] | string[])} values The values to show ticks for.
+         * @returns {Widget} Reference to the Widget's API.
+         */
+        values: values => {
+          base.values(values)
           return api
         },
 

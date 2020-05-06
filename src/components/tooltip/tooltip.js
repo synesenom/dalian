@@ -153,8 +153,6 @@ export default (self, api) => {
       isOn: () => _.on,
       content: () => console.warn('content(mouse) is not implemented'),
       builder: () => console.warn('builder(mouse) is not implemented'),
-      titleFormat: x => x,
-      rowFormat: x => x,
       xFormat: x => x,
       yFormat: x => x,
       ignore: []
@@ -187,35 +185,6 @@ export default (self, api) => {
      */
     ignore: keys => {
       self._tooltip.ignore = keys || []
-      return api
-    },
-
-    /**
-     * Sets the format for the tooltip title.
-     *
-     * @method titleFormat
-     * @methodOf Tooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the title
-     * of the tooltip.
-     * @returns {Widget} Reference to the Widget API.
-     */
-    titleFormat: format => {
-      self._tooltip.titleFormat = format || (x => x)
-      return api
-    },
-
-    /**
-     * Sets the format for the tooltip rows when the content does not specify the coordinate. An example is the content
-     * of the ElementTooltip.
-     *
-     * @method rowFormat
-     * @methodOf Tooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the row
-     * value of the tooltip.
-     * @returns {Widget} Reference to the Widget API.
-     */
-    rowFormat: format => {
-      self._tooltip.rowFormat = format || (x => x)
       return api
     },
 

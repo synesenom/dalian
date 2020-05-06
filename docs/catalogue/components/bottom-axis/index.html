@@ -22,6 +22,7 @@
     <li onclick="changeData()">D - Change data.</li>
     <li onclick="changeLabel()">L - Change axis label.</li>
     <li onclick="changeTickFormat()">F - Change tick format.</li>
+    <li id="toggleTickValues" onclick="toggleTickValues()">V - Set explicit ticks.</li>
     <li id="toggleTicks" onclick="toggleTicks()">T - Hide ticks.</li>
     <li id="toggleAxisLine" onclick="toggleAxisLine()">A - Hide axis line.</li>
   </ul>
@@ -66,8 +67,13 @@ let changeLabel = () => {
 
 let changeTickFormat = () => {
   this.f = ((this.f || 0) + 1) % 3
-  chart.bottomAxis.tickFormat([undefined, x => x + 'h', () => ''][this.f])
+  chart.bottomAxis.format([undefined, x => x + 'h', () => ''][this.f])
     .render()
+}
+
+let toggleTickValues = () => {
+  this.v = 1 - (this.v || 0)
+  chart.bottomAxis.values(this.v ? [10, 30, 50] : undefined).render()
 }
 
 let toggleTicks = () => {
@@ -92,6 +98,9 @@ window.addEventListener('keydown', e => {
     case 'f':
       changeTickFormat()
       break
+    case 'v':
+      toggleTickValues()
+      break
     case 't':
       toggleTicks()
       break
@@ -104,6 +113,7 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
+toggleTickValues = state(toggleTickValues, 'v', ['Set explicit ticks', 'Use generated ticks'])
 toggleTicks = state(toggleTicks, 't', ['Hide ticks', 'Show ticks'])
 toggleAxisLine = state(toggleAxisLine, 'a', ['Hide axis line', 'Show axis line'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

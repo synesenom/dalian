@@ -1,4 +1,4 @@
-import { scaleLinear, scaleBand, scalePoint } from 'd3'
+import { scaleBand, scaleLinear, scalePoint } from 'd3'
 
 /**
  * Component implementing a scale.

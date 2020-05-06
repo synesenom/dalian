@@ -69,7 +69,7 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .mouse.over(k => barChart.highlight(k.name))
   .mouse.leave(() => barChart.highlight())
   .tooltip.on(true)
-  .tooltip.rowFormat(y => y.toFixed(1))
+  .tooltip.valueFormat(y => y.toFixed(1))
   .render(1000)
 </script>
 

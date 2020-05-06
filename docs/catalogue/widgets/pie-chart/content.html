@@ -67,7 +67,7 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .font.size(14)
   .color.palette('palette-light')
   .tooltip.on(true)
-  .tooltip.rowFormat(row => row.toFixed(2))
+  .tooltip.valueFormat(row => row.toFixed(2))
   .render(1000)
 </script>
 

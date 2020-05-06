@@ -1,7 +1,6 @@
 import { bisector, extent, select, line, area } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import compose from '../core/compose'
-import encode from '../core/encode'
 import extend from '../core/extend'
 import BottomAxis from '../components/axis/bottom-axis'
 import Chart from '../components/chart'
@@ -116,7 +115,7 @@ export default (name, parent = 'body') => {
 
           // Add error bands
           g.append('path')
-            .attr('class', d => `error-band ${encode(d.name)}`)
+            .attr('class', 'error-band')
             .attr('d', d => errorFn(d.values))
             .attr('stroke', 'none')
             .attr('fill', 'currentColor')
@@ -124,7 +123,7 @@ export default (name, parent = 'body') => {
 
           // Add lines
           g.append('path')
-            .attr('class', d => `line ${encode(d.name)}`)
+            .attr('class', 'line')
             .attr('d', d => lineFn(d.values))
             .attr('stroke', 'currentColor')
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))

@@ -1,7 +1,6 @@
 import { max } from 'd3'
 import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
-import encode from '../core/encode'
 import extend from '../core/extend'
 import { textTween } from '../utils/tween'
 import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
@@ -56,10 +55,13 @@ export default (name, parent = 'body') => {
       x: scales.x,
       y: scales.y
     },
+
+    // UI elements.
     horizontal: false,
     labels: false,
     labelFormat: x => x.toFixed(1),
 
+    // Methods.
     measureX: (d, bandwidth, style) => {
       const ts = measureText(_.labelFormat(d.value), style)
       const dx = Math.max((bandwidth - ts.height) / 2, 5)
@@ -87,7 +89,6 @@ export default (name, parent = 'body') => {
       }
     },
 
-    // Methods
     update: duration => {
       // Compute some constants beforehand
       const style = self._widget.getStyle()
@@ -103,13 +104,14 @@ export default (name, parent = 'body') => {
         .domain(_.horizontal ? xValues : [0, yMax])
 
       // Add plots
+      // TODO Simplify horizontally affected elements.
       self._chart.plotGroups({
         enter: g => {
           const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Add bars
-          const rect = g.append('rect')
-            .attr('class', d => `bar ${encode(d.name)}`)
+          g.append('rect')
+            .attr('class', 'bar')
             .attr('fill', 'currentColor')
             .on('mouseover.barChart', d => {
               _.current = d
@@ -117,23 +119,16 @@ export default (name, parent = 'body') => {
             .on('mouseleave.barChart', () => {
               _.current = undefined
             })
-          if (_.horizontal) {
-            rect.attr('x', _.scales.x.scale(0))
-              .attr('width', 0)
-              .attr('y', d => _.scales.y.scale(d.name))
-              .attr('height', bandwidth)
-          } else {
-            rect.attr('x', d => _.scales.x.scale(d.name))
-              .attr('width', bandwidth)
-              .attr('y', _.scales.y.scale(0))
-              .attr('height', 0)
-          }
+            .attr('x', d => _.scales.x.scale(_.horizontal ? 0 : d.name))
+            .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : 0))
+            .attr('width', _.horizontal ? 0 : bandwidth)
+            .attr('height', _.horizontal ? bandwidth : 0)
 
           // Add values
           const measure = _.horizontal ? _.measureX : _.measureY
           g.append('text')
             .style('display', 'none')
-            .attr('class', d => `bar-value ${encode(d.name)}`)
+            .attr('class', 'bar-value')
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
             .text(d => _.labelFormat(d.value))
@@ -148,18 +143,12 @@ export default (name, parent = 'body') => {
           const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Bars
-          const bars = g.select('.bar')
-          if (_.horizontal) {
-            bars.attr('x', _.scales.x.scale(0))
-              .attr('width', d => _.scales.x.scale(d.value))
-              .attr('y', d => _.scales.y.scale(d.name))
-              .attr('height', bandwidth)
-          } else {
-            bars.attr('x', d => _.scales.x.scale(d.name))
-              .attr('width', bandwidth)
-              .attr('y', d => _.scales.y.scale(d.value))
-              .attr('height', d => parseInt(self._widget.size.innerHeight) - _.scales.y.scale(d.value))
-          }
+          g.select('.bar')
+            .attr('x', d => _.scales.x.scale(_.horizontal ? 0 : d.name))
+            .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value))
+            .attr('width', d => _.horizontal ? _.scales.x.scale(d.value) : bandwidth)
+            .attr('height', d => _.horizontal ? bandwidth
+              : (parseInt(self._widget.size.innerHeight) - _.scales.y.scale(d.value)))
 
           // Values
           const measure = _.horizontal ? _.measureX : _.measureY
@@ -195,7 +184,6 @@ export default (name, parent = 'body') => {
       title: _.current.name,
       stripe: self._color.mapGroup(_.current.name),
       content: {
-        type: 'plots',
         data: [{
           name: 'value',
           value: _.current.value
@@ -208,7 +196,7 @@ export default (name, parent = 'body') => {
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API
-  api = Object.assign(api, {
+  api = Object.assign(api || {}, {
     /**
      * Converts the bar chart to a horizontal bar chart. Note that this method does not swap the axis labels.
      *
@@ -217,7 +205,7 @@ export default (name, parent = 'body') => {
      * @param {boolean} on Whether the bar chart should be horizontal.
      * @returns {BarChart} The BarChart itself.
      */
-    horizontal: on => {
+    horizontal (on) {
       _.horizontal = on
 
       // Assign scales
@@ -242,7 +230,7 @@ export default (name, parent = 'body') => {
      * @param {boolean} [on = false] Whether to add value labels on top of the bars.
      * @returns {BarChart} Reference to the BarChart API.
      */
-    labels: (on = false) => {
+    labels (on = false) {
       _.labels = on
       return api
     },
@@ -255,7 +243,7 @@ export default (name, parent = 'body') => {
      * @param {Function} [format = x => x.toFixed(1)] The format of the value labels.
      * @returns {BarChart} Reference to the BarChart API.
      */
-    labelFormat: (format = x => x.toFixed(1)) => {
+    labelFormat (format = x => x.toFixed(1)) {
       _.labelFormat = format
       return api
     }

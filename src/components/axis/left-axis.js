@@ -66,8 +66,21 @@ export default scale => {
          * @param {Function} format Function to set as formatter.
          * @returns {Object} Reference to the LeftAxis API.
          */
-        tickFormat: format => {
-          base.tickFormat(format)
+        format: format => {
+          base.format(format)
+          return api
+        },
+
+        /**
+         * Sets the Y tick values explicitly to the specified values.
+         *
+         * @method values
+         * @methodOf LeftAxis
+         * @param {(number[] | string[])} values The values to show ticks for.
+         * @returns {Widget} Reference to the Widget's API.
+         */
+        values: values => {
+          base.values(values)
           return api
         },
 

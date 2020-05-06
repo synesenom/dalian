@@ -17,6 +17,7 @@ export default (type, self, axisFn, scale) => {
     .style('stroke', 'currentColor')
   let _ = {
     format: x => x,
+    values: null,
     scale,
     container,
     ticks: true,
@@ -58,6 +59,7 @@ export default (type, self, axisFn, scale) => {
         .tickFormat(_.format)
         .tickSize(_.ticks ? 6 : 0)
         .tickPadding(_.ticks ? 3 : 9)
+        .tickValues(_.values || null)
       self._widget.getElem(api.axis, duration)
         .call(api.fn)
         .selectAll('path')
@@ -71,9 +73,11 @@ export default (type, self, axisFn, scale) => {
 
     hideTicks: on => _.ticks = !on,
 
-    tickFormat: (format = x => x) => _.format = format,
+    format: (format = x => x) => _.format = format,
 
     setLabel: text => api.label = text,
+
+    values: values => _.values = values || null
   }
 
   return api

@@ -1,6 +1,5 @@
 import { area, bisector, extent, line, select } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
-import encode from '../core/encode'
 import extend from '../core/extend'
 import compose from '../core/compose'
 import Chart from '../components/chart'
@@ -34,6 +33,7 @@ import YRange from '../components/range/y-range'
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
+// TODO Support negative values with different color.
 export default (name, parent = 'body') => {
   // Build widget from components
   let scales = {
@@ -60,7 +60,7 @@ export default (name, parent = 'body') => {
     lineColor: 'currentColor',
 
     // Methods.
-    update: duration => {
+    update (duration) {
       // Collect all data points
       const flatData = self._chart.data.map(d => d.values).flat()
 
@@ -95,14 +95,14 @@ export default (name, parent = 'body') => {
 
           // Add area.
           g.append('path')
-            .attr('class', d => `area ${encode(d.name)}`)
+            .attr('class', 'area')
             .attr('d', d => areaFn(d.values))
             .attr('stroke', 'none')
             .attr('fill', 'currentColor')
 
           // Add line.
           g.append('path')
-            .attr('class', d => `line ${encode(d.name)}`)
+            .attr('class', 'line')
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
             .attr('stroke', _.lineColor)
@@ -197,8 +197,8 @@ export default (name, parent = 'body') => {
       name: d.name,
       values: d.values.sort((a, b) => a.x - b.x)
         .map(dd => ({
-          x: dd.x,
-          y: dd.y
+          x: +dd.x,
+          y: +dd.y
         }))
     }))
   }

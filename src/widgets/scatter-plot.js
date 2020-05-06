@@ -1,6 +1,5 @@
 import { extent, voronoi } from 'd3'
 import compose from '../core/compose'
-import encode from '../core/encode'
 import extend from '../core/extend'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
@@ -94,7 +93,7 @@ export default (name, parent = 'body') => {
           // Add dots
           g.selectAll('circle').data(d => d.values)
             .enter().append('circle')
-            .attr('class', d => `dot ${encode(d.name)}`)
+            .attr('class', 'dot')
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
             .attr('r', _.size)
@@ -109,7 +108,7 @@ export default (name, parent = 'body') => {
             .data(d => d.values, d => d.label)
             .join(
               enter => enter.append('circle')
-                .attr('class', d => `dot ${encode(d.name)}`)
+                .attr('class', 'dot')
                 .attr('cx', d => _.scales.x.scale(d.x))
                 .attr('cy', d => _.scales.y.scale(d.y))
                 .attr('r', _.size)
