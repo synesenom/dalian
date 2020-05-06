@@ -1,6 +1,7 @@
 import encode from '../core/encode'
 import attributes from '../utils/attributes'
 import styles from '../utils/styles'
+import extend from '../core/extend'
 
 export default (self, api) => {
   // Private members.
@@ -42,6 +43,11 @@ export default (self, api) => {
         }
       }
     }
+  })
+
+  // Remove markers when exiting widget.
+  self._widget.update = extend(self._widget.update, () => {
+    self._widget.container.on('mouseout.plot-marker', self._plotMarker.remove)
   })
 
   return { self, api }

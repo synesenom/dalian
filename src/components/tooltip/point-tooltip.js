@@ -29,9 +29,9 @@ export default (self, api) => {
 
       // Create content node
       let contentNode = styles(select(document.createElement('div')), {
-          display: 'table',
-          padding: '10px'
-        })
+        display: 'table',
+        padding: '10px'
+      })
 
       // Add title
       styles(contentNode.append('div'), {
@@ -40,31 +40,31 @@ export default (self, api) => {
       }).text(self._tooltip.xFormat(content.title))
 
       // Add content
-      content.content.data.sort((a, b) => a.name.localeCompare(b.name))
-        .forEach((plot, i) => {
-          let entry = styles(contentNode.append('div'), {
-            display: 'table-row',
-            position: 'relative'
-          })
-          styles(entry.append('div'), {
-            display: 'table-cell',
-            position: 'relative',
-            width: '9px',
-            height: '9px',
-            top: '1px',
-            float: 'left',
-            'margin-top': (i === 0 ? 6 : 3) + 'px',
-            'margin-right': '10px',
-            background: plot.background
-          })
-          styles(entry.append('div'), {
-            display: 'table-cell',
-            position: 'relative',
-            'max-width': '120px',
-            'margin-top': (i === 0 ? 6 : 3) + 'px',
-            float: 'left'
-          }).html(self._tooltip.yFormat(plot.value, plot.name))
+      content.content.data.forEach((plot, i) => {
+        let entry = styles(contentNode.append('div'), {
+          display: 'table-row',
+          position: 'relative'
         })
+        styles(entry.append('div'), {
+          display: 'table-cell',
+          position: 'relative',
+          width: '9px',
+          height: '9px',
+          top: '1px',
+          float: 'left',
+          'margin-top': (i === 0 ? 6 : 3) + 'px',
+          'margin-right': '10px',
+          'border-radius': '2px',
+          background: plot.background
+        })
+        styles(entry.append('div'), {
+          display: 'table-cell',
+          position: 'relative',
+          'max-width': '120px',
+          'margin-top': (i === 0 ? 6 : 3) + 'px',
+          float: 'left'
+        }).html(self._tooltip.yFormat(plot.value, plot.name))
+      })
 
       return contentNode.node().outerHTML
     }

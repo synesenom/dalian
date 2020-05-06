@@ -52,7 +52,7 @@ import YRange from '../components/range/y-range'
 export default (name, parent = 'body') => {
   // Build widget from components
   let scales = {
-    x: Scale('linear'),
+    x: Scale('linear', 'log'),
     y: Scale('linear')
   }
   let { self, api } = compose(
@@ -225,10 +225,10 @@ export default (name, parent = 'body') => {
       name: d.name,
       values: d.values.sort((a, b) => a.x - b.x)
         .map(dd => ({
-          x: dd.x,
-          y: dd.y,
-          lo: dd.lo || 0,
-          hi: dd.hi || 0
+          x: +dd.x,
+          y: dd.y === null ? dd.y : +dd.y,
+          lo: +dd.lo || 0,
+          hi: +dd.hi || 0
         }))
     }))
   }
