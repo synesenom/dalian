@@ -52,12 +52,14 @@ export default (type, name, parent, elem) => {
       if (_.initialized) {
         return elem.transition().duration(duration)
       } else {
-        setTimeout(() => _.initialized = true, duration)
+        setTimeout(() => {
+          _.initialized = true
+        }, duration)
         return elem
       }
     },
 
-    getStyle: () => getComputedStyle(self._widget.container.node()),
+    getStyle: () => window.getComputedStyle(self._widget.container.node()),
 
     update: duration => {
       // Update container and content.
@@ -70,7 +72,9 @@ export default (type, name, parent, elem) => {
         .style('height', self._widget.size.height)
     },
 
-    disable: on => self._widget.disabled = on
+    disable: on => {
+      self._widget.disabled = on
+    }
   }
 
   try {

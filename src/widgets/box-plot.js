@@ -1,6 +1,4 @@
-import { area, bisector, extent, line, max, min, select } from 'd3'
-import { interpolatePath } from 'd3-interpolate-path'
-import encode from '../core/encode'
+import { max, min } from 'd3'
 import extend from '../core/extend'
 import compose from '../core/compose'
 import Chart from '../components/chart'
@@ -11,8 +9,6 @@ import LeftAxis from '../components/axis/left-axis'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
 
-
-// TODO Add components: ElementTooltip
 /**
  * The box plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -22,8 +18,8 @@ import Scale from '../components/scale'
  *   median, q1, q3, lower whisker (as low), upper whisker (as high), number of mild outliers, number of extreme
  *   outliers.</li>
  *   <li>
- *     <a href="../components/highlight.html">Highlight</a> Boxes can be highlighted by passing their category names as
- *     specified in the data array.
+ *     <a href="../components/highlight.html">Highlight</a> Boxes can be highlighted by passing their names as specified
+ *     in the data array.
  *   </li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
@@ -34,7 +30,7 @@ import Scale from '../components/scale'
  * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
-// Build widget from components
+  // Build widget from components
   let scales = {
     x: Scale('point'),
     y: Scale('linear')
@@ -66,15 +62,19 @@ export default (name, parent = 'body') => {
       return `M${_.scales.x.scale(_.horizontal ? d.value.q1 : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.q1)}
       L${_.scales.x.scale(_.horizontal ? d.value.whiskers.lower : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.whiskers.lower)}
       m${_.horizontal ? 0 : -0.4 * _.boxWidth} ${_.horizontal ? -0.4 * _.boxWidth : 0}
-      l${_.horizontal ? 0: 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
+      l${_.horizontal ? 0 : 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
     },
 
     upperWhiskerPath (d) {
       return `M${_.scales.x.scale(_.horizontal ? d.value.q3 : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.q3)}
       L${_.scales.x.scale(_.horizontal ? d.value.whiskers.upper : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.whiskers.upper)}
       m${_.horizontal ? 0 : -0.4 * _.boxWidth} ${_.horizontal ? -0.4 * _.boxWidth : 0}
-      l${_.horizontal ? 0: 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
+      l${_.horizontal ? 0 : 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
     },
+
+    outlierX: d => _.scales.x.scale(_.horizontal ? d : d.name),
+
+    outlierY: d => _.scales.y.scale(_.horizontal ? d.name : d),
 
     update (duration) {
       // Collect X values and Y max
@@ -92,6 +92,8 @@ export default (name, parent = 'body') => {
         .domain(_.horizontal ? xValues : [yMin, yMax])
 
       // Add plots
+      const xShift = _.horizontal ? 0 : _.boxWidth / 2
+      const yShift = _.horizontal ? _.boxWidth / 2 : 0
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
@@ -103,8 +105,6 @@ export default (name, parent = 'body') => {
             })
 
           // Add box elements.
-          const xShift = _.horizontal ? 0 : _.boxWidth / 2
-          const yShift = _.horizontal ? _.boxWidth / 2 : 0
           g.append('rect')
             .attr('class', 'box-body')
             .attr('rx', '2px')
@@ -137,22 +137,22 @@ export default (name, parent = 'body') => {
 
           // Mild outliers.
           g.selectAll('.box-mild-outlier')
-            .data(d => d.value.outliers.mild.map(dd => Object.assign(dd, {name: d.name})))
+            .data(d => d.value.outliers.mild.map(dd => Object.assign(dd, { name: d.name })))
             .enter().append('circle')
             .attr('class', 'box-mild-outlier')
-            .attr('cx', d => _.scales.x.scale(_.horizontal ? d : d.name))
-            .attr('cy', d => _.scales.y.scale(_.horizontal ? d.name : d))
+            .attr('cx', _.outlierX)
+            .attr('cy', _.outlierY)
             .attr('r', 2)
             .attr('stroke', 'currentColor')
             .attr('fill', 'currentColor')
 
           // Extreme outliers.
           g.selectAll('.box-extreme-outlier')
-            .data(d => d.value.outliers.extreme.map(dd => Object.assign(dd, {name: d.name})))
+            .data(d => d.value.outliers.extreme.map(dd => Object.assign(dd, { name: d.name })))
             .enter().append('circle')
             .attr('class', 'box-extreme-outlier')
-            .attr('cx', d => _.scales.x.scale(_.horizontal ? d : d.name))
-            .attr('cy', d => _.scales.y.scale(_.horizontal ? d.name : d))
+            .attr('cx', _.outlierX)
+            .attr('cy', _.outlierY)
             .attr('r', 2)
             .attr('stroke', 'currentColor')
             .attr('fill', 'currentColor')
@@ -163,12 +163,12 @@ export default (name, parent = 'body') => {
         updateBefore: g => {
           // Mild outliers.
           g.selectAll('.box-mild-outlier')
-            .data(d => d.value.outliers.mild.map(dd => Object.assign(dd, {name: d.name})))
+            .data(d => d.value.outliers.mild.map(dd => Object.assign(dd, { name: d.name })))
             .join(
               enter => enter.append('circle')
                 .attr('class', 'box-mild-outlier')
-                .attr('cx', d => _.scales.x.scale(_.horizontal ? d : d.name))
-                .attr('cy', d => _.scales.y.scale(_.horizontal ? d.name : d))
+                .attr('cx', _.outlierX)
+                .attr('cy', _.outlierY)
                 .attr('r', 2)
                 .attr('stroke', 'currentColor')
                 .attr('fill', 'currentColor')
@@ -179,18 +179,18 @@ export default (name, parent = 'body') => {
                 .remove()
             )
             .transition().duration(duration)
-            .attr('cx', d => _.scales.x.scale(_.horizontal ? d : d.name))
-            .attr('cy', d => _.scales.y.scale(_.horizontal ? d.name : d))
+            .attr('cx', _.outlierX)
+            .attr('cy', _.outlierY)
             .style('opacity', 1)
 
           // Extreme outliers.
           g.selectAll('.box-extreme-outlier')
-            .data(d => d.value.outliers.extreme.map(dd => Object.assign(dd, {name: d.name})))
+            .data(d => d.value.outliers.extreme.map(dd => Object.assign(dd, { name: d.name })))
             .join(
               enter => enter.append('circle')
                 .attr('class', 'box-extreme-outlier')
-                .attr('cx', d => _.scales.x.scale(_.horizontal ? d : d.name))
-                .attr('cy', d => _.scales.y.scale(_.horizontal ? d.name : d))
+                .attr('cx', _.outlierX)
+                .attr('cy', _.outlierY)
                 .attr('r', 2)
                 .attr('stroke', 'currentColor')
                 .attr('fill', 'currentColor')
@@ -201,8 +201,8 @@ export default (name, parent = 'body') => {
                 .remove()
             )
             .transition().duration(duration)
-            .attr('cx', d => _.scales.x.scale(_.horizontal ? d : d.name))
-            .attr('cy', d => _.scales.y.scale(_.horizontal ? d.name : d))
+            .attr('cx', _.outlierX)
+            .attr('cy', _.outlierY)
             .style('opacity', 0.3)
 
           return g
@@ -210,8 +210,6 @@ export default (name, parent = 'body') => {
         update: g => {
           g.style('opacity', 1)
 
-          const xShift = _.horizontal ? 0 : _.boxWidth / 2
-          const yShift = _.horizontal ? _.boxWidth / 2 : 0
           g.select('.box-body')
             .attr('x', d => _.scales.x.scale(_.horizontal ? d.value.q1 : d.name) - xShift)
             .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value.q3) - yShift)

@@ -31,9 +31,12 @@ module.exports = (meta, docs, modulePath) => {
     version: d[1].match(/(\d+.\d+.\d+)$/)[0]
   }))
 
-  // Parse documentation blocks and sort them alphabetically
+  // Parse documentation blocks and sort them alphabetically, but put the factory method to the first place.
   let blocks = docs.map(BlockParser)
-    .sort((a, b) => a.id() === factoryName ? -1 : a.id().localeCompare(b.id()))
+    .sort((a, b) => a.id().localeCompare(b.id()))
+  let i = blocks.findIndex(d => d.id() === factoryName)
+  let firstBlock = blocks.splice(i, 1)
+  blocks = firstBlock.concat(blocks)
 
   let api = {
     // TODO Remove hard-coded content

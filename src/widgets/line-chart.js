@@ -164,6 +164,7 @@ export default (name, parent = 'body') => {
 
   // Overrides.
   self._highlight.container = self._chart.plots
+
   self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
       self._plotMarker.remove()

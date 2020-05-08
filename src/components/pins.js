@@ -1,4 +1,4 @@
-import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
+import luminanceAdjustedColor from '../utils/brightness-adjusted-color'
 import extend from '../core/extend'
 import attributes from '../utils/attributes'
 

@@ -5,7 +5,6 @@ const hidden = document.createElement('div')
 hidden.style.opacty = 0
 const img = document.createElement('img')
 
-
 function getSvgBBox (svg) {
   hidden.appendChild(svg)
   document.body.appendChild(hidden)
@@ -16,7 +15,7 @@ function getSvgBBox (svg) {
 
 export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
   // Get SVG data.
-  let svgData = new XMLSerializer().serializeToString(svg)
+  let svgData = new window.XMLSerializer().serializeToString(svg)
 
   // Add hidden div to measure SVG size.
   const svgSize = getSvgBBox(svg)
@@ -31,8 +30,9 @@ export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
   context.scale(scale, scale)
 
   // Create image.
-  img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))))
-  return new Promise (resolve => {
+  img.setAttribute('src',
+    'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svgData))))
+  return new Promise(resolve => {
     img.onload = () => {
       // Draw image on canvas.
       context.drawImage(img, 0, 0)

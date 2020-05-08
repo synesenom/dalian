@@ -1,8 +1,7 @@
 import { arc, pie } from 'd3'
 import compose from '../core/compose'
-import encode from '../core/encode'
 import extend from '../core/extend'
-import luminanceAdjustedColor from '../utils/luminance-adjusted-color'
+import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
 import { attrTween, textTween } from '../utils/tween'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -30,7 +29,7 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(['.plot-group'])
   )
 
   // Private members
@@ -123,7 +122,7 @@ export default (name, parent = 'body') => {
     },
 
     // Adjustment in the vertical position to avoid overlapping labels.
-    labelTextY: d =>  Math.max(_.labels.arcs.outer.centroid(d)[1], d._measures.y),
+    labelTextY: d => Math.max(_.labels.arcs.outer.centroid(d)[1], d._measures.y),
 
     update: duration => {
       // Compute some constants beforehand
@@ -215,7 +214,7 @@ export default (name, parent = 'body') => {
             .style('display', _.labels.on ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
-            .attr('fill', d => luminanceAdjustedColor(self._color.mapGroup(d.name)))
+            .attr('fill', d => brightnessAdjustedColor(self._color.mapGroup(d.name)))
             .attrTween('x', attrTween(d => _.arc.centroid(d)[0], 'x'))
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
             .textTween(textTween(_.labelFormat))

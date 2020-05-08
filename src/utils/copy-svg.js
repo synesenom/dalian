@@ -1,5 +1,5 @@
 function extractStyle (elem) {
-  const computedStyle = getComputedStyle(elem)
+  const computedStyle = window.getComputedStyle(elem)
   const css = {}
   for (let i = 0; i < computedStyle.length; i++) {
     css[computedStyle[i]] = computedStyle.getPropertyValue(computedStyle[i])

@@ -17,7 +17,7 @@ export default scales => (() => {
       objects: new Map(),
 
       // Methods
-      getContainer(type = 'background') {
+      getContainer (type = 'background') {
         // Get or create container.
         if (typeof _.containers[type] === 'undefined') {
           _.containers[type] = self._chart.plots.append('g')

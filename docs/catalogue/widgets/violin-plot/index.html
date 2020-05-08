@@ -17,103 +17,80 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>BoxPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>ViolinPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleBoxWidth" onclick="toggleBoxWidth()">W - Change box width.</li>
+    <li id="toggleViolinWidth" onclick="toggleViolinWidth()">W - Change violin width.</li>
+    <li id="toggleBandwidth" onclick="toggleBandwidth()">W - Change violin bandwidth.</li>
     <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    Box plots are useful to <span class="good">compare data sets</span> by simple <span class="good">summary statistics</span> such as median and extremal values.
-    Box plots are based on simple metrics and <span class="bad">hides details</span> of the underlying distributions.
-    If details are needed, use a violin plot instead.
+    Violin plots are used to <span class="good">compare distributions</span> by encapsulating the entire distribution
+    in a small geometric objects.
+    Similar to box plots they are good to detect differences in <span class="good">summary metrics</span> but provide more details about the underlying distributions using <span class="good">kernel density estimate</span>.
   </p>
-</p><h1>code<div class="margin-right"><a href="../../../api/widgets/box-plot.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/box-plot.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/widgets/violin-plot.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/violin-plot.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
-function makeBox(sample) {
-  let sorted = sample.sort(d3.ascending)
-  let median = d3.median(sorted)
-  let q1 = d3.quantile(sorted, 0.25)
-  let q3 = d3.quantile(sorted, 0.75)
-  let iqr = q3 - q1
-  let outliers = sorted.filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
-  return {
-    median, q1, q3,
-    whiskers: {
-      lower: d3.min(sorted.filter(d => d > q1 - 1.5 * iqr)),
-      upper: d3.max(sorted.filter(d => d < q3 + 1.5 * iqr))
-    },
-    outliers: (() => {
-      const extreme = []
-      const mild = []
-      outliers.map(d => {
-        if (d < q1 - 3 * iqr || d > q3 + 3 * iqr) {
-          extreme.push(d)
-        } else {
-          mild.push(d)
-        }
-      })
-      return {mild, extreme}
-    })()
-  }
-}
-
 // Samples are generated with ranjs:
 // https://synesenom.github.io/ran/
 function getData () {
   return [{
     name: '𝜒²',
-    value: makeBox(new ranjs.dist.Chi2(1 + 9 * Math.random()).sample(1000))
+    values: new ranjs.dist.Chi2(1 + 9 * Math.random()).sample(1000)
   }, {
     name: 'von Mises',
-    value: makeBox(new ranjs.dist.VonMises(3 * Math.random()).sample(1000))
+    values: new ranjs.dist.VonMises(3 * Math.random()).sample(1000)
   }, {
     name: 'bimodal',
-    value: makeBox(new ranjs.dist.Normal(2 + 2 * Math.random(), 1 + Math.random()).sample(500)
-      .concat(new ranjs.dist.Normal(10 + 2 * Math.random(), 1 + Math.random()).sample(500)))
+    values: new ranjs.dist.Normal(2 + 2 * Math.random(), 1 + Math.random()).sample(500)
+      .concat(new ranjs.dist.Normal(10 + 2 * Math.random(), 1 + Math.random()).sample(500))
   }, {
     name: 'Poisson',
-    value: makeBox(new ranjs.dist.Poisson(2 + 10 * Math.random()).sample(1000))
+    values: new ranjs.dist.Poisson(2 + 10 * Math.random()).sample(1000)
   }, {
     name: 'Rice',
-    value: makeBox(new ranjs.dist.Rice(2 * Math.random(), 5 * Math.random()).sample(1000))
+    values: new ranjs.dist.Rice(2 * Math.random(), 5 * Math.random()).sample(1000)
   }, {
     name: 'Skellam',
-    value: makeBox(new ranjs.dist.Skellam(3 * Math.random(), 10 * Math.random())
-      .sample(1000))
+    values: new ranjs.dist.Skellam(3 * Math.random(), 10 * Math.random()).sample(1000)
   }, {
     name: 'uniform',
-    value: makeBox(new ranjs.dist.Uniform(Math.random(), 1 + 10 * Math.random()).sample(1000))
+    values: new ranjs.dist.Uniform(Math.random(), 1 + 10 * Math.random()).sample(1000)
   }]
 }
 </script><script class="doc">
 // create chart
-const boxPlot = dalian.BoxPlot('box-plot', '#widget')
+const violinPlot = dalian.ViolinPlot('violin-plot', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  .margins({ left: 80, top: 40, bottom: 40, right: 40 })
+  .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('distribution')
   .leftAxis.label('sample')
-  .mouse.over(k => boxPlot.highlight(k.name))
-  .mouse.leave(() => boxPlot.highlight())
+  .mouse.over(k => violinPlot.highlight(k.name))
+  .mouse.leave(() => violinPlot.highlight())
   .tooltip.on(true)
-  .tooltip.valueFormat((y, name) => name.endsWith('outliers') ? y : y.toPrecision(2))
+  .tooltip.valueFormat(y => y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => boxPlot.data(getData()).render(1000)
+let changeData = () => violinPlot.data(getData()).render(1000)
 
-let toggleBoxWidth = () => {
+let toggleViolinWidth = () => {
   this.w = 1 - (this.w || 0)
-  boxPlot.boxWidth(this.w ? 14 : undefined).render(1000)
+  violinPlot.violinWidth(this.w ? 14 : undefined).render(1000)
+}
+
+let toggleBandwidth = () => {
+  this.r = 1 - (this.r || 0)
+  violinPlot.bandwidth(this.r ? 0.5 : undefined).render(1000)
 }
 
 let toggleHorizontal = () => {
   this.h = 1 - (this.h || 0)
-  boxPlot.horizontal(this.h)
+  violinPlot.horizontal(this.h)
     .bottomAxis.label(this.h ? 'sample' : 'distribution')
     .leftAxis.label(this.h ? 'distribution' : 'sample')
     .render()
@@ -126,7 +103,10 @@ window.addEventListener('keydown', e => {
       changeData()
       break
     case 'w':
-      toggleBoxWidth()
+      toggleViolinWidth()
+      break
+    case 'b':
+      toggleBandwidth()
       break
     case 'h':
       toggleHorizontal()
@@ -137,5 +117,6 @@ window.addEventListener('keydown', e => {
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
-toggleBoxWidth = state(toggleBoxWidth, 'w', ['Change box width', 'Change box width'])
+toggleViolinWidth = state(toggleViolinWidth, 'w', ['Change violin width', 'Change violin width'])
+toggleBandwidth = state(toggleBandwidth, 'b', ['Change bandwidth', 'Change bandwidth'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

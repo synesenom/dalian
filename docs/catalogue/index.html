@@ -175,6 +175,25 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .leftAxis.label('Y')
   .size(2)
   .render()
+</script></a><a class="card" href="widgets/violin-plot"><div class="card-title">ViolinPlot</div><div class="card-content" id="violin-plot"></div><script class="card-example">
+dalian.ViolinPlot('violin-plot-card', '#violin-plot')
+  .data([{
+    name: 'normal',
+    values: new ranjs.dist.Normal(4, 2).sample(1000)
+  }, {
+    name: 'Poisson',
+    values: new ranjs.dist.Poisson(4).sample(1000)
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 50, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .bottomAxis.label('dist')
+  .bottomAxis.hideTicks(true)
+  .leftAxis.label('sample')
+  .render()
 </script></a></div><h2>components</h2><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
 dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .data([{

@@ -21,7 +21,7 @@ const createMapping = palette => {
     })()
   } else if (typeof palette === 'object') {
     // Exact mapping.
-    return  key => palette[key]
+    return key => palette[key]
   }
 }
 
