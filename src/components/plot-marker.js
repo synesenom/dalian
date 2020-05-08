@@ -11,13 +11,13 @@ export default (self, api) => {
 
   self = Object.assign(self || {}, {
     _plotMarker: {
-      add (x, y, id, name, size) {
+      add (x, y, id, point, size) {
         // Get or create marker.
         _.markers.set(id, _.markers.get(id) || self._chart.plots.append('circle'))
 
         // Set attributes.
         attributes(_.markers.get(id), {
-          class: `plot-marker ${encode(name)}`,
+          class: `plot-marker ${encode(point.name)}`,
           cx: x,
           cy: y,
           r: size || 4
@@ -26,7 +26,7 @@ export default (self, api) => {
         // Set styles.
         styles(_.markers.get(id), {
           stroke: 'white',
-          fill: self._color.mapGroup(name),
+          fill: self._color.mapper(point),
           'pointer-events': 'none'
         })
       },

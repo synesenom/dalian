@@ -8,7 +8,6 @@
 <div id="controls">
   <ul id="colors">
     <li id="changeColorPalette" onclick="changeColorPalette()">P - Default color palette.</li>
-    <li onclick="changeColorPaletteOn()">T - Transform color.</li>
     <li id="changeColorDeficiency" onclick="changeColorDeficiency()">D - Normal vision (92%).</li>
   </ul>
 </div>
@@ -75,12 +74,6 @@ let changeColorPalette = () => {
   chart.color.palette(palettes[this.p]).render(1000)
 }
 
-// Color vowels in blue and consonants in yellow.
-let changeColorPaletteOn = () => chart.color.palette({
-  vowel: 'royalblue',
-  consonant: 'goldenrod'
-}, name => ['A', 'E'].indexOf(name) > -1 ? 'vowel' : 'consonant').render(1000)
-
 let deficiencies = [
   undefined,
   'deuteranomaly',
@@ -125,9 +118,6 @@ window.addEventListener('keydown', e => {
   switch (e.key) {
     case 'p':
       changeColorPalette()
-      break
-    case 't':
-      changeColorPaletteOn()
       break
     case 'd':
       changeColorDeficiency()

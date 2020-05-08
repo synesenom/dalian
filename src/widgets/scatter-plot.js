@@ -90,13 +90,14 @@ export default (name, parent = 'body') => {
       const dx = _.scales.x.measure(2 * _.size)
       _.scales.x.domain(self._xRange.range([xRange[0] - dx, xRange[1] + dx]))
       const dy = _.scales.y.measure(2 * _.size)
-      _.scales.y.domain(self._yRange.range([yRange[1] - dy, yRange[0] + dy]))
+      _.scales.y.domain(self._yRange.range([yRange[1] + dy, yRange[0] - dy]))
 
       // Add plots.
       self._chart.plotGroups({
         enter: g => {
           // Init group
           g.style('opacity', 0)
+            .style('color', self._color.mapper)
             .attr('stroke', 'none')
             .attr('fill', 'currentColor')
 
@@ -113,6 +114,7 @@ export default (name, parent = 'body') => {
         },
         updateBefore: g => {
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           g.selectAll('circle')
             .data(d => d.values)
@@ -159,13 +161,13 @@ export default (name, parent = 'body') => {
       self._plotMarker.remove()
       return
     } else {
-      self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker', site.data.name,
+      self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker', site.data,
         Math.max(5, 1.5 * _.size))
     }
 
     return {
       title: site.data.name,
-      stripe: self._color.mapGroup(site.data.name),
+      stripe: self._color.mapper(site.data),
       content: {
         type: 'plots',
         data: [{

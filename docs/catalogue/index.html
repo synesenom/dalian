@@ -349,6 +349,27 @@ const highlightChart = dalian.BarChart('highlight-card', '#highlight')
 
 // Highlight bar.
 d3.select('#highlight .plot-group.B rect').style('fill', 'royalblue')
+</script></a><a class="card" href="components/label"><div class="card-title">Label</div><div class="card-content" id="label"></div><script class="card-example">
+dalian.BarChart('label-card', '#label')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: (i * 7) % 5 + 1
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .color.palette('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .label(d => parseInt(d.value))
+  .render()
+
+// Highlight labels.
+d3.selectAll('#label .bar-label').style('fill', 'royalblue')
 </script></a><a class="card" href="components/left-axis"><div class="card-title">LeftAxis</div><div class="card-content" id="left-axis"></div><script class="card-example">
 dalian.LineChart('left-axis-card', '#left-axis')
   .data([{

@@ -72,7 +72,7 @@ export default (name, parent = 'body') => {
         inside,
         x: inside ? x - dx : x + dx + ts.width,
         y: _.scales.y.scale(d.name) + bandwidth / 2,
-        color: inside ? brightnessAdjustedColor(self._color.mapGroup(d.name)) : style.color
+        color: inside ? brightnessAdjustedColor(self._color.mapper(d)) : style.color
       }
     },
 
@@ -86,7 +86,7 @@ export default (name, parent = 'body') => {
         inside,
         x: _.scales.x.scale(d.name) + bandwidth / 2,
         y: inside ? y + dy : y - dy - ts.height,
-        color: inside ? brightnessAdjustedColor(self._color.mapGroup(d.name)) : style.color
+        color: inside ? brightnessAdjustedColor(self._color.mapper(d)) : style.color
       }
     },
 
@@ -113,23 +113,23 @@ export default (name, parent = 'body') => {
           // Add bars
           g.append('rect')
             .attr('class', 'bar')
-            .attr('fill', 'currentColor')
-            .on('mouseover.barChart', d => {
+            .on('mouseover.bar', d => {
               _.current = d
             })
-            .on('mouseleave.barChart', () => {
+            .on('mouseleave.bar', () => {
               _.current = undefined
             })
             .attr('x', d => _.scales.x.scale(_.horizontal ? 0 : d.name))
             .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : 0))
             .attr('width', _.horizontal ? 0 : bandwidth)
             .attr('height', _.horizontal ? bandwidth : 0)
+            .attr('fill', self._color.mapper)
 
           // Add values
           const measure = _.horizontal ? _.measureX : _.measureY
           g.append('text')
             .style('display', 'none')
-            .attr('class', 'bar-value')
+            .attr('class', 'bar-label')
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
             .text(self._label.format)
@@ -150,10 +150,11 @@ export default (name, parent = 'body') => {
             .attr('width', d => _.horizontal ? _.scales.x.scale(d.value) : bandwidth)
             .attr('height', d => _.horizontal ? bandwidth
               : (parseInt(self._widget.size.innerHeight) - _.scales.y.scale(d.value)))
+            .attr('fill', self._color.mapper)
 
           // Values
           const measure = _.horizontal ? _.measureX : _.measureY
-          g.select('.bar-value')
+          g.select('.bar-label')
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('text-anchor', _.horizontal ? 'end' : 'middle')
             .attr('dominant-baseline', _.horizontal ? 'central' : 'hanging')
@@ -183,7 +184,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: _.current.name,
-      stripe: self._color.mapGroup(_.current.name),
+      stripe: self._color.mapper(_.current),
       content: {
         data: [{
           name: 'value',

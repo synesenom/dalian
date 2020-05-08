@@ -135,6 +135,7 @@ export default (name, parent = 'body') => {
         update: g => {
           // Show group.
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           // Update error bands.
           g.select('.error-band')
@@ -199,14 +200,14 @@ export default (name, parent = 'body') => {
 
         // Marker
         if (point.y !== null && self._yRange.contains(point.y)) {
-          self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
+          self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d)
         } else {
           self._plotMarker.remove(d.name)
         }
 
         return {
           name: d.name,
-          background: self._lineStyles.background(self._lineStyles.style(d.name), self._color.mapGroup(d.name)),
+          background: self._lineStyles.background(self._lineStyles.style(d.name), self._color.mapper(d)),
           value: point.y
         }
       })

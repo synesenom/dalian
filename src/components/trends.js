@@ -85,11 +85,12 @@ export default scales => (() => {
          * @param {number} start Starting (left side) value of the trends.
          * @param {number} end Ending (right side) value of the trends.
          * @param {string} label Label to display on the trends.
+         * @param {string} color Color of the trend line.
          * @param {number} [duration = 400] Duration of the animation of adding the trends.
          * @returns {Object} The object representing the trends. This object contains the DOM group containing the trends
          * and update/remove methods.
          */
-        add: (id, key, start, end, label, duration = 400) => {
+        add: (id, key, start, end, label, color, duration = 400) => {
           // Check if trends exists
           if (_.trends.has(id)) {
             return api
@@ -103,7 +104,7 @@ export default scales => (() => {
           // Build group without showing it
           const g = _.getContainer().append('g')
             .attr('class', 'trend trend-' + encode(key))
-            .style('color', self._color.mapGroup(key))
+            .style('color', color || '#000')
             .style('opacity', 0)
           const path = attributes(g.append('path'), {
             fill: 'none',
@@ -152,7 +153,7 @@ export default scales => (() => {
             update: duration => {
               // Update group.
               g.transition().duration(duration)
-                .style('color', self._color.mapGroup(key))
+                .style('color', color || '#000')
 
               // Update elements.
               const pos = _.adjustTrend(key, start, end)

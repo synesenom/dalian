@@ -134,6 +134,7 @@ export default (name, parent = 'body') => {
             .on('mouseleave.violin', () => {
               _.current = undefined
             })
+            .style('color', self._color.mapper)
 
           // Add violin.
           g.append('path')
@@ -152,6 +153,7 @@ export default (name, parent = 'body') => {
         },
         update: g => {
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           g.select('.violin')
             .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x.scale(d.name) + yShift}, ${_.horizontal ? _.scales.y.scale(d.name) - yShift : 0}) ${rotate}`)
@@ -182,7 +184,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: _.current.name,
-      stripe: self._color.mapGroup(_.current.name),
+      stripe: self._color.mapper(_.current),
       content: {
         data: [
           { name: 'mean', value: _.current.stats.mean },

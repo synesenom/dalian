@@ -1,12 +1,64 @@
 import wong from './palettes/wong'
 import light from './palettes/light'
+import sunset from './palettes/sunset'
+import iridescent from './palettes/iridescent'
 import deficiencyConverter from './palettes/deficiency'
 
 // TODO Add value dependent color scheme
 // TODO Add option to diverging color scheme and add default as sunset.
 // TODO Add option to sequential color scheme and add default as iridescent.
+// TODO Fallback to group color and currentColor if _.on is not set.
+function buildMapper (policy = 'categorical',
+                      palette = wong,
+                      deficiency = null,
+                      on = d => d.name) {
+  // Select palette.
+  const originalPalette = palette || selectDefaultPalette(policy)
 
-const createMapping = palette => {
+  // Convert palette according to the current deficiency.
+  const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(deficiency))
+
+  // Create mapper function.
+  switch (policy) {
+    default:
+    case 'categorical':
+      return createCategoricalMapping(mappedPalette, on)
+  }
+  // TODO Categorical: string - return constant, array - map consecutively, object - map object
+  // TODO Sequential: string - use shades of color, array - interpolate, object - error!
+  // TODO Diverging: string - error!, array - interpolate, object - error!
+}
+
+function selectDefaultPalette (policy) {
+  switch (policy) {
+    default:
+    case 'categorical':
+      return wong
+    case 'sequential':
+      return sunset
+    case 'diverging':
+      return iridescent
+  }
+}
+
+function applyDeficiency (palette, converter) {
+  // Single color.
+  if (typeof palette === 'string') {
+    return converter(palette) + ''
+  } else if (Array.isArray(palette)) {
+    // Array of colors.
+    return palette.map(converter)
+  } else {
+    // Color mapping (object).
+    let convertedPalette = {}
+    for (let key in palette) {
+      convertedPalette[key] = converter(palette[key])
+    }
+    return convertedPalette
+  }
+}
+
+function createCategoricalMapping (palette, on) {
   // Single color.
   if (typeof palette === 'string') {
     return () => palette
@@ -14,41 +66,15 @@ const createMapping = palette => {
     // Array of colors.
     return (() => {
       let keys = []
-      return key => {
+      return value => {
+        let key = on(value)
         let i = keys.indexOf(key)
         return palette[i > -1 ? i : keys.push(key) - 1]
       }
     })()
   } else if (typeof palette === 'object') {
     // Exact mapping.
-    return key => palette[key]
-  }
-}
-
-const convertPalette = (palette, converter) => {
-  // Default palette.
-  if (typeof palette === 'undefined' || palette === 'palette-wong') {
-    return wong.map(converter)
-  }
-
-  // Built-in palette.
-  if (palette === 'palette-light') {
-    return light.map(converter)
-  }
-
-  // Single color.
-  if (typeof palette === 'string') {
-    return converter(palette) + ''
-  } else if (Array.isArray(palette)) {
-    // Custom palette, arbitrary association.
-    return palette.map(converter)
-  } else {
-    // Custom color mapping.
-    let convertedPalette = {}
-    for (let key in palette) {
-      convertedPalette[key] = converter(palette[key])
-    }
-    return convertedPalette
+    return value => palette[on(value)]
   }
 }
 
@@ -61,34 +87,28 @@ const convertPalette = (palette, converter) => {
 export default (self, api) => {
   // Private members
   let _ = {
-    // Variables.
-    // Transformation before mapping color.
-    on: d => d,
-
-    // Raw palette (before conversion).
-    palette: wong,
-
-    // Deficiency converter.
-    converter: color => color,
-
-    // Methods.
-    getMapping: () => createMapping(convertPalette(_.palette, _.converter)),
-
-    // The actual color mapping.
-    mapping: createMapping(wong)
+    // Coloring policy: categorical, sequential, diverging.
+    policy: 'categorical',
+    palette: undefined,
+    deficiency: null,
+    on: d => d.name,
   }
 
   // Protected members
   self = Object.assign(self || {}, {
     _color: {
-      // Maps a group name to a color
-      mapGroup: name => _.mapping(_.on(name))
+      mapper: buildMapper()
     }
   })
 
   // Public API.
   api = Object.assign(api || {}, {
     color: {
+      policy (policy = 'categorical') {
+        _.policy = policy
+        return api
+      },
+
       /**
        * Sets the color palette. Supported palettes:
        * <ul>
@@ -144,20 +164,36 @@ export default (self, api) => {
        *
        * @method palette
        * @methodOf Color
-       * @param {(string | Object)} [palette] Color palette to set. If not specified, the default policy is set. If
+       * @param {(string | string[] | Object)} [palette] Color palette to set. If not specified, the default policy is set. If
        * string, it's either a built-in palette or a the color represented by the string is used for all plots. If an
        * array of strings, it's colors are assigned to plots as they are added to the widget without any specific
        * association between colors and plots. If an object, it is used as a mapping from the plot names to the colors.
-       * @param {Function?} [on = d => d] Transformation that is used before mapping the plot to a color. The plot name is
        * passed to this method as parameters before determining the color.
        * @returns {Widget} Reference to the Widget's API.
        */
-      palette (palette, on) {
-        _.palette = palette || wong
-        _.on = on || (d => d)
+      palette (palette) {
+        // Check fo built-in palettes
+        if (typeof palette === 'string' && palette.startsWith('palette-')) {
+          switch (palette) {
+            case 'palette-wong':
+              _.palette = wong
+              break
+            case 'palette-light':
+              _.palette = light
+              break
+            case 'palette-sunset':
+              _.palette = sunset
+              break
+            case 'palette-iridescent':
+              _.palette = iridescent
+              break
+          }
+        } else {
+          _.palette = palette
+        }
 
         // Update mapping.
-        _.mapping = _.getMapping()
+        self._color.mapper = buildMapper('categorical', _.palette, _.deficiency)
         return api
       },
 
@@ -177,10 +213,10 @@ export default (self, api) => {
        */
       deficiency (type) {
         // Select converter.
-        _.converter = deficiencyConverter(type)
+        _.deficiency = type || null
 
         // Update mapping.
-        _.mapping = _.getMapping()
+        self._color.mapper = buildMapper('categorical', _.palette, _.deficiency)
         return api
       }
     }

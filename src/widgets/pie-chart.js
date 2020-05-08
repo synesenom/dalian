@@ -151,6 +151,7 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
+            .style('color', self._color.mapper)
 
           // Group of elements.
           let slice = g.append('g')
@@ -206,6 +207,7 @@ export default (name, parent = 'body') => {
         },
         update: g => {
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           // Update slices.
           let slice = g.select('.slice')
@@ -219,7 +221,7 @@ export default (name, parent = 'body') => {
             .style('display', self._label.show ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
-            .attr('fill', d => brightnessAdjustedColor(self._color.mapGroup(d.name)))
+            .attr('fill', d => brightnessAdjustedColor(self._color.mapper(d)))
             .attrTween('x', attrTween(d => _.arc.centroid(d)[0], 'x'))
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
             .text(self._label.format)
@@ -261,7 +263,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: _.current.name,
-      stripe: self._color.mapGroup(_.current.name),
+      stripe: self._color.mapper(_.current),
       content: {
         type: 'plots',
         data: [{

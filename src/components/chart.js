@@ -89,7 +89,6 @@ export default (type, name, parent, elem = 'svg') => {
               let g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
                 .attr('clip-path', `url(#${_.clipId})`)
-                .style('color', d => self._color.mapGroup(d.name))
                 .style('shape-rendering', 'geometricPrecision')
               return attr.enter ? attr.enter(g) : g
             },
@@ -113,7 +112,6 @@ export default (type, name, parent, elem = 'svg') => {
 
         // Transition update.
         groups = groups.transition().duration(duration)
-          .style('color', d => self._color.mapGroup(d.name))
         groups = attr.update ? attr.update(groups) : groups
 
         // At the end, restore pointer events.

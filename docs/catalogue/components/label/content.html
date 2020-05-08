@@ -1,0 +1,89 @@
+<div id="desc">
+  <p>
+    The Label component attaches text labels to a widget's elements. In this example you can explore the component's
+    API.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li id="toggleLabel" onclick="toggleLabel()">L - No label.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.BarChart('label-card', '#label')
+  .data(Array.from({ length: 5 }, (d, i) => ({
+    name: 'ABCDE'.charAt(i),
+    value: (i * 7) % 5 + 1
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .color.palette('#ccc')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .label(d => parseInt(d.value))
+  .render()
+
+// Highlight labels.
+d3.selectAll('#label .bar-label').style('fill', 'royalblue')
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return Array.from({ length: 5 }, (d, i) => ({
+    name: 'plot' + (i + 1),
+    value: Math.random() + 0.5
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const chart = dalian.BarChart('myChart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 40, right: 40, top: 40, bottom: 50})
+  .font.size(14)
+  .color.palette('royalblue')
+  .bottomAxis.label('X')
+  .leftAxis.label('Y')
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+const labels = [
+  undefined,
+  d => d.name,
+  d => d.value.toFixed(2)
+]
+let toggleLabel = () => {
+  this.l = ((this.l || 0) + 1) % 3
+  chart.label(labels[this.l]).render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleLabel = state(toggleLabel, 'l', ['No label', 'Showing name', 'Showing value'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'l':
+      toggleLabel()
+      break
+    default:
+      break
+  }
+})
+</script>

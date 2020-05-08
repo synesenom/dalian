@@ -103,6 +103,7 @@ export default (name, parent = 'body') => {
             .on('mouseleave.box', () => {
               _.current = undefined
             })
+            .style('color', self._color.mapper)
 
           // Add box elements.
           g.append('rect')
@@ -209,6 +210,7 @@ export default (name, parent = 'body') => {
         },
         update: g => {
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           g.select('.box-body')
             .attr('x', d => _.scales.x.scale(_.horizontal ? d.value.q1 : d.name) - xShift)
@@ -244,7 +246,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: _.current.name,
-      stripe: self._color.mapGroup(_.current.name),
+      stripe: self._color.mapper(_.current),
       content: {
         data: [
           { name: 'median', value: _.current.value.median },

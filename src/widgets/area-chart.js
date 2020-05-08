@@ -57,7 +57,7 @@ export default (name, parent = 'body') => {
   let _ = {
     // Variables.
     scales,
-    lineColor: 'currentColor',
+    lineColor: null,
 
     // Methods.
     update (duration) {
@@ -98,14 +98,14 @@ export default (name, parent = 'body') => {
             .attr('class', 'area')
             .attr('d', d => areaFn(d.values))
             .attr('stroke', 'none')
-            .attr('fill', 'currentColor')
+            .attr('fill', self._color.mapper)
 
           // Add line.
           g.append('path')
             .attr('class', 'line')
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
-            .attr('stroke', _.lineColor)
+            .attr('stroke', _.lineColor || self._color.mapper)
 
           return g
         },
@@ -174,11 +174,11 @@ export default (name, parent = 'body') => {
         x = point.x
 
         // Marker
-        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d.name)
+        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d)
 
         return {
           name: d.name,
-          background: self._color.mapGroup(d.name),
+          background: self._color.mapper(d),
           value: point.y
         }
       })
@@ -209,8 +209,8 @@ export default (name, parent = 'body') => {
 
   // Public API.
   api = Object.assign(api || {}, {
-    lineColor: (color = 'currentColor') => {
-      _.lineColor = color
+    lineColor: (color) => {
+      _.lineColor = color || null
       return api
     }
   })

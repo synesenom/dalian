@@ -75,7 +75,7 @@ let changeData = () => chart.data(getData()).render(1000)
 let toggleTrend = () => {
   this.t = 1 - (this.t || 0)
   if (this.t) {
-    chart.trends.add('marker', 'temperature', 10, 40, 'Change in 30 hours.', 1000)
+    chart.trends.add('marker', 'temperature', 10, 40, 'Change in 30 hours.', 'royalblue', 1000)
   } else {
     chart.trends.remove('marker', 1000)
   }

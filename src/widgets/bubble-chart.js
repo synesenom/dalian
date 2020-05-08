@@ -110,6 +110,7 @@ export default (name, parent = 'body') => {
             .on('mouseleave.bubble', () => {
               _.current = undefined
             })
+            .style('color', self._color.mapper)
 
           // Add bubble.
           // TODO Add label.
@@ -126,6 +127,7 @@ export default (name, parent = 'body') => {
         },
         update: g => {
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           g.select('.bubble')
             .attr('cx', d => _.scales.x.scale(d.value.x))
@@ -160,7 +162,7 @@ export default (name, parent = 'body') => {
 
     return {
       title: site.name,
-      stripe: self._color.mapGroup(site.name),
+      stripe: self._color.mapper(site),
       content: {
         data: [
           {name: self._bottomAxis.label(), value: site.value.x},
