@@ -54,8 +54,11 @@ export default (name, parent = 'body') => {
     // Variables
     scales,
     diagram: undefined,
+
+    // UI variables.
     size: 4,
 
+    // Calculations.
     computeDiagram: data => {
       const sites = data.map(plot => plot.values.map(d => ({
         name: plot.name,
@@ -63,26 +66,33 @@ export default (name, parent = 'body') => {
         y: d.y
       })
       )).flat()
+
       return voronoi()
         .x(d => _.scales.x.scale(d.x))
         .y(d => _.scales.y.scale(d.y))
         .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(sites)
     },
 
-    // Methods
+    // Update method.
     update: duration => {
-      // Determine boundaries
+      // Determine boundaries.
       const flatData = self._chart.data.map(d => d.values).flat()
 
-      // Update scales
+      // Init scales.
       const xRange = extent(flatData.map(d => d.x))
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(self._xRange.range([xRange[0] - _.size, xRange[1] + _.size]))
+        .domain(xRange)
       const yRange = extent(flatData.map(d => d.y))
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(self._yRange.range([yRange[0] - _.size, yRange[1] + _.size]))
+        .domain(yRange)
 
-      // Add plots
+      // Adjust scales to fit circles within the axes.
+      const dx = _.scales.x.measure(2 * _.size)
+      _.scales.x.domain(self._xRange.range([xRange[0] - dx, xRange[1] + dx]))
+      const dy = _.scales.y.measure(2 * _.size)
+      _.scales.y.domain(self._yRange.range([yRange[1] - dy, yRange[0] + dy]))
+
+      // Add plots.
       self._chart.plotGroups({
         enter: g => {
           // Init group
@@ -105,7 +115,7 @@ export default (name, parent = 'body') => {
           g.style('opacity', 1)
 
           g.selectAll('circle')
-            .data(d => d.values, d => d.label)
+            .data(d => d.values)
             .join(
               enter => enter.append('circle')
                 .attr('class', 'dot')
@@ -133,13 +143,6 @@ export default (name, parent = 'body') => {
       _.diagram = _.computeDiagram(self._chart.data)
     }
   }
-
-  // Protected members
-  self = Object.assign(self, {
-    _scatterPlot: {
-
-    }
-  })
 
   // Overrides
   self._highlight.container = self._chart.plots

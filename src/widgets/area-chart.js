@@ -119,7 +119,7 @@ export default (name, parent = 'body') => {
               let current = areaFn(d.values)
               return interpolatePath(previous, current, null)
             })
-            .style('fill-opacity', self._opacity.value())
+            .attr('fill-opacity', self._opacity.value())
 
           // Update line.
           g.select('.line')

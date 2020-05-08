@@ -97,10 +97,10 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
-            .on('mouseover.boxPlot', d => {
+            .on('mouseover.box', d => {
               _.current = d
             })
-            .on('mouseleave.boxPlot', () => {
+            .on('mouseleave.box', () => {
               _.current = undefined
             })
 
@@ -303,7 +303,7 @@ export default (name, parent = 'body') => {
   return api
 
   /**
-   * Set/updates the data that is shown in the box plot. Each bar is a plot group in itself, so all methods that operate
+   * Set/updates the data that is shown in the box plot. Each box is a plot group in itself, so all methods that operate
    * on plot groups are applied on the box level.
    *
    * @method data
@@ -311,7 +311,7 @@ export default (name, parent = 'body') => {
    * @param {Object[]} plots Array of objects representing the boxes to show. Each box has two properties:
    * <ul>
    *   <li>{string} <i>name</i>: Category name.</li>
-   *   <li>{number} <i>value</i>: Category value.</li>
+   *   <li>{Object} <i>value</i>: Category value.</li>
    * </ul>
    * The <i>values</i> property is an object with the following structure:
    * <dl>

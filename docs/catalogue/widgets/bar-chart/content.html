@@ -10,7 +10,6 @@
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
     <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li onclick="changeLabelFormat()">F - Change label format.</li>
   </ul>
 </div>
 
@@ -33,8 +32,7 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
   .leftAxis.label('fruit')
   .leftAxis.hideTicks(true)
   .horizontal(true)
-  .labels(true)
-  .labelFormat(Math.round)
+  .label(d => Math.round(d.value))
   .color.palette('royalblue')
   .render()
 </script>
@@ -87,13 +85,7 @@ let toggleHorizontal = () => {
 
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
-  barChart.labels(this.l).render()
-}
-
-let changeLabelFormat = () => {
-  this.f = !(this.f || 0)
-  barChart.labelFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
-    .render()
+  barChart.label(this.l ? d => d.value.toFixed(1) : undefined).render()
 }
 </script>
 
@@ -115,9 +107,6 @@ window.addEventListener('keydown', e => {
       break
     case 'l':
       toggleLabels()
-      break
-    case 'f':
-      changeLabelFormat()
       break
     default:
   }

@@ -9,7 +9,6 @@
 <div id="controls">
   <ul>
     <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeDataWithLabels()">L - Change data with labels.</li>
     <li onclick="toggleSize()">S - Change size.</li>
   </ul>
 </div>
@@ -83,14 +82,6 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
 // api methods
 let changeData = () => scatterPlot.data(getData()).render(1000)
 
-let changeDataWithLabels = () => {
-  // First we need to generate a labeled data set.
-  scatterPlot.data(getData(true)).render()
-
-  // Then animate to a new data set.
-  scatterPlot.data(getData(true)).render(1000)
-}
-
 let toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
@@ -103,9 +94,6 @@ window.addEventListener('keydown', e => {
   switch (e.key) {
     case 'd':
       changeData()
-      break
-    case 'w':
-      changeDataWithLabels()
       break
     case 's':
       toggleSize()

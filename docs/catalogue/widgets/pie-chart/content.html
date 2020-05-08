@@ -19,7 +19,6 @@
     <li onclick="changeInnerRadius()">I - Change inner radius.</li>
     <li onclick="changeOuterRadius()">O - Change outer radius.</li>
     <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li onclick="changeLabelFormat()">F - Change label format.</li>
   </ul>
 </div>
 
@@ -39,8 +38,7 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
   .font.size(11)
   .color.palette('palette-light')
   .outerRadius(60)
-  .labels(true)
-  .labelFormat(parseInt)
+  .label(d => parseInt(d.value))
   .render()
 </script>
 
@@ -87,13 +85,7 @@ let changeOuterRadius = () => {
 
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
-  pieChart.labels(this.l).render()
-}
-
-let changeLabelFormat = () => {
-  this.f = !(this.f || 0)
-  pieChart.labelFormat(this.f ? x => d3.format('.2s')(x) + ' 元' : undefined)
-    .render()
+  pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
 }
 </script>
 
@@ -117,12 +109,6 @@ window.addEventListener('keydown', e => {
       break
     case 'l':
       toggleLabels()
-      break
-    case 'f':
-      changeLabelFormat()
-      break
-    case 'h':
-      highlightSlice()
       break
     default:
   }

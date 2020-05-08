@@ -52,7 +52,7 @@ const chart = dalian.LineChart('myChart', '#widget')
 </script><script class="doc">
 // api methods
 let toggleSmoothing = () => {
-  this.s = !(this.s || 0)
+  this.s = 1 - (this.s || 0)
   chart.smoothing(this.s).render(1000)
 }
 </script><script class="doc">

@@ -2,11 +2,12 @@ import { arc, pie } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
-import { attrTween, textTween } from '../utils/tween'
+import { measureText } from '../utils/measure-text'
+import { attrTween } from '../utils/tween'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
-import { measureText } from '../utils/measure-text'
+import Label from '../components/label'
 
 /**
  * The pie chart widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
@@ -16,6 +17,10 @@ import { measureText } from '../utils/measure-text'
  *   <li>
  *     <a href="../components/highlight.html">Highlight</a> Slices can be highlighted by passing their category names as
  *     specified in the data array.
+ *   </li>
+ *   <li>
+ *     <a href="../components/label.html">Label</a> Labels are shown inside the slice if they fit in, otherwise they are
+ *     shown outside.
  *   </li>
  * </ul>
  *
@@ -29,7 +34,8 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
-    Highlight(['.plot-group'])
+    Highlight(['.plot-group']),
+    Label
   )
 
   // Private members
@@ -37,7 +43,6 @@ export default (name, parent = 'body') => {
     // Style variables.
     innerRadius: 0,
     outerRadius: 100,
-    labelFormat: x => x.toFixed(1),
 
     // Currently hovered wedge.
     current: undefined,
@@ -47,7 +52,7 @@ export default (name, parent = 'body') => {
 
     // Label related variables.
     labels: {
-      on: false,
+      format: () => '',
       left: d => 0.5 * (d.startAngle + d.endAngle) > Math.PI,
       arcs: {
         inner: null,
@@ -59,7 +64,7 @@ export default (name, parent = 'body') => {
     // Methods
     measure: (d, i, style) => {
       // Measure the diameter of the label's rectangle
-      const m = measureText(_.labelFormat(d.value), style)
+      const m = measureText(self._label.format(d), style)
       const textSize = Math.sqrt(m.width * m.width + m.height * m.height)
 
       // Estimate the slice's radius at the label's position. This is definitely not true for large angles but we
@@ -151,10 +156,10 @@ export default (name, parent = 'body') => {
           let slice = g.append('g')
             .attr('class', 'slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
-            .on('mouseover.pieChart', d => {
+            .on('mouseover.pie', d => {
               _.current = d
             })
-            .on('mouseleave.pieChart', () => {
+            .on('mouseleave.pie', () => {
               _.current = undefined
             })
             .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
@@ -170,7 +175,7 @@ export default (name, parent = 'body') => {
           // Add label value.
           let label = slice.append('g')
             .attr('class', 'slice-label')
-            .style('display', _.labels.on ? null : 'none')
+            .style('display', self._label.show ? null : 'none')
           label.append('text')
             .attr('class', 'inner-label')
             .attr('dominant-baseline', 'middle')
@@ -211,13 +216,13 @@ export default (name, parent = 'body') => {
             .attrTween('d', attrTween(d => _.arc(d)))
 
           let label = slice.select('.slice-label')
-            .style('display', _.labels.on ? null : 'none')
+            .style('display', self._label.show ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
             .attr('fill', d => brightnessAdjustedColor(self._color.mapGroup(d.name)))
             .attrTween('x', attrTween(d => _.arc.centroid(d)[0], 'x'))
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
-            .textTween(textTween(_.labelFormat))
+            .text(self._label.format)
 
           let outerLabel = label.select('.outer-label')
             .style('opacity', d => d._measures.outside ? 1 : 0)
@@ -229,7 +234,7 @@ export default (name, parent = 'body') => {
             .attrTween('text-anchor', attrTween(_.labelTextAnchor, 'align'))
             .attrTween('x', attrTween(_.labelTextX, 'x'))
             .attrTween('y', attrTween(_.labelTextY, 'y'))
-            .textTween(textTween(_.labelFormat))
+            .text(self._label.format)
 
           return g
         },
@@ -296,32 +301,6 @@ export default (name, parent = 'body') => {
      */
     outerRadius: (radius = 100) => {
       _.outerRadius = radius
-      return api
-    },
-
-    /**
-     * Adds direct value labeling to the slices.
-     *
-     * @method labels
-     * @methodOf PieChart
-     * @param {boolean} [on = false] Whether to add value labels to the slices.
-     * @returns {PieChart} Reference to the PieChart API.
-     */
-    labels: on => {
-      _.labels.on = on || false
-      return api
-    },
-
-    /**
-     * Sets the format of the value labels.
-     *
-     * @method labelFormat
-     * @methodOf PieChart
-     * @param {Function} [format = x => x.toFixed(1)] The format of the value labels.
-     * @returns {PieChart} Reference to the PieChart API.
-     */
-    labelFormat: (format = x => x.toFixed(1)) => {
-      _.labelFormat = format
       return api
     }
   })

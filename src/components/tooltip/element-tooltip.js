@@ -13,6 +13,7 @@ import BaseTooltip from './tooltip'
  *
  * @function ElementTooltip
  */
+// TODO API method to specify the entries in the tooltip.
 export default (self, api) => {
   // Inherit from base tooltip
   let base = BaseTooltip(self, api)

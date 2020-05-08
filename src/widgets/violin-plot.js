@@ -128,10 +128,10 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
-            .on('mouseover.violinPlot', d => {
+            .on('mouseover.violin', d => {
               _.current = d
             })
-            .on('mouseleave.violinPlot', () => {
+            .on('mouseleave.violin', () => {
               _.current = undefined
             })
 
@@ -296,4 +296,21 @@ export default (name, parent = 'body') => {
   })
 
   return api
+
+  /**
+   * Set/updates the chart data. Each violin is a plot group in itself, so all methods that operate on plot groups are
+   * applied on the violin level.
+   *
+   * @method data
+   * @methodOf ViolinPlot
+   * @param {Object[]} plots Array of objects representing the violins to show. Each violin has two properties:
+   * <ul>
+   *   <li>{string} <i>name</i>: Category name.</li>
+   *   <li>{number[]} <i>values</i>: Sample values corresponding to the category.</li>
+   * </ul>
+   *
+   * Note that for the violin plot, the raw observations should be passed as values as the chart itself calculates the
+   * KDE used to represent the data.
+   * @returns {ViolinPlot} Reference to the ViolinPlot API.
+   */
 }

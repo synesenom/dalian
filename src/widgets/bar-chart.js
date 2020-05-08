@@ -2,12 +2,12 @@ import { max } from 'd3'
 import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import { textTween } from '../utils/tween'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
+import Label from '../components/label'
 import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
 import YGrid from '../components/grid/y-grid'
@@ -22,6 +22,8 @@ import YGrid from '../components/grid/y-grid'
  *     <a href="../components/highlight.html">Highlight</a> Bars can be highlighted by passing their category names as
  *     specified in the data array.
  *   </li>
+ *   <li><a href="../components/label.html">Label</a></li> Labels are shown at the top of the bars. If the fit in the
+ *   bar they are inside, otherwise they are outside.
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/y-grid.html">YGrid</a> The same component (and namespace) is used for the default and
  *   horizontal modes, adapting to the orientation.</li>
@@ -44,6 +46,7 @@ export default (name, parent = 'body') => {
     BottomAxis(scales.x),
     ElementTooltip,
     Highlight(['.plot-group']),
+    Label,
     YGrid
   )
 
@@ -58,12 +61,10 @@ export default (name, parent = 'body') => {
 
     // UI elements.
     horizontal: false,
-    labels: false,
-    labelFormat: x => x.toFixed(1),
 
     // Methods.
     measureX: (d, bandwidth, style) => {
-      const ts = measureText(_.labelFormat(d.value), style)
+      const ts = measureText(self._label.format(d), style)
       const dx = Math.max((bandwidth - ts.height) / 2, 5)
       const x = _.scales.x.scale(d.value)
       const inside = x > 2 * dx + ts.width
@@ -76,7 +77,7 @@ export default (name, parent = 'body') => {
     },
 
     measureY: (d, bandwidth, style) => {
-      const ts = measureText(_.labelFormat(d.value), style)
+      const ts = measureText(self._label.format(d), style)
       const dy = Math.max((bandwidth - ts.width) / 2, 5)
       const y = _.scales.y.scale(d.value)
       const h = parseFloat(self._widget.size.innerHeight) - y
@@ -89,6 +90,7 @@ export default (name, parent = 'body') => {
       }
     },
 
+    // Update method.
     update: duration => {
       // Compute some constants beforehand
       const style = self._widget.getStyle()
@@ -104,7 +106,6 @@ export default (name, parent = 'body') => {
         .domain(_.horizontal ? xValues : [0, yMax])
 
       // Add plots
-      // TODO Simplify horizontally affected elements.
       self._chart.plotGroups({
         enter: g => {
           const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
@@ -131,7 +132,7 @@ export default (name, parent = 'body') => {
             .attr('class', 'bar-value')
             .attr('stroke', 'none')
             .style('pointer-events', 'none')
-            .text(d => _.labelFormat(d.value))
+            .text(self._label.format)
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
             .attr('x', d => _.horizontal ? _.scales.x.scale(0) : d._measures.x)
@@ -161,8 +162,8 @@ export default (name, parent = 'body') => {
             .attr('fill', d => d._measures.color)
             .attr('x', d => d._measures.x)
             .attr('y', d => d._measures.y)
-            .textTween(textTween(_.labelFormat))
-            .style('display', _.labels ? null : 'none')
+            .text(self._label.format)
+            .style('display', self._label.show ? null : 'none')
 
           return g
         },
@@ -222,31 +223,12 @@ export default (name, parent = 'body') => {
       return api
     },
 
-    /**
-     * Adds direct value labeling to the bars.
-     *
-     * @method labels
-     * @methodOf BarChart
-     * @param {boolean} [on = false] Whether to add value labels on top of the bars.
-     * @returns {BarChart} Reference to the BarChart API.
-     */
-    labels (on = false) {
-      _.labels = on
-      return api
-    },
 
-    /**
-     * Sets the format of the value labels shown on the top of the bars.
-     *
-     * @method labelFormat
-     * @methodOf BarChart
-     * @param {Function} [format = x => x.toFixed(1)] The format of the value labels.
-     * @returns {BarChart} Reference to the BarChart API.
-     */
-    labelFormat (format = x => x.toFixed(1)) {
-      _.labelFormat = format
+    /*label (label) {
+      _.showLabel = typeof label !== 'undefined' && label !== null
+      _.label = label || (() => '')
       return api
-    }
+    }*/
   })
 
   return api

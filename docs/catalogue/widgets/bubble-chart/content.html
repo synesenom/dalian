@@ -1,0 +1,119 @@
+<div id="desc">
+  <p>
+    A bubble chart is useful when <span class="good">three or four dimensions</span> need to be plotted for a <span class="good">small number</span> data points. Note that if only simple correlations are to shown for a <span class="bad">large data set</span>, a scatter plot is a better choice.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+    <li id="toggleRadius" onclick="toggleRadius()">H - Change radius.</li>
+    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeLabelFormat()">F - Change label format.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
+  .data(['ackee', 'chayote', 'cherimoya', 'kiwano'].map(d => ({
+    name: d,
+    value: {
+      x: 100 * Math.random(),
+      y: 100 * Math.random(),
+      size: 0.1 + 0.9 * Math.random()
+    }
+  })))
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 50, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .color.palette('palette-light')
+  .bottomAxis.label('stock')
+  .leftAxis.label('fruit')
+  .labels(true)
+  .labelFormat(Math.round)
+  .radius(20)
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  return ['ackee', 'chayote', 'cherimoya', 'kiwano',
+    'lucuma', 'rambutan', 'salak', 'sapote'].map(d => ({
+    name: d,
+    value: {
+      x: 100 * Math.random(),
+      y: 100 * Math.random(),
+      size: 0.1 + 0.9 * Math.random()
+    }
+  })).filter(() => Math.random() < 0.8)
+}
+</script>
+
+<script class="doc">
+// create chart
+const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .margins({left: 70, top: 40, bottom: 40, right: 40})
+  .color.palette('palette-light')
+  .font.size(14)
+  .bottomAxis.label('fruit')
+  .leftAxis.label('stock')
+  .mouse.over(k => bubbleChart.highlight(k.name))
+  .mouse.leave(() => bubbleChart.highlight())
+  .tooltip.on(true)
+  .tooltip.valueFormat(y => y.toFixed(1))
+  .render(1000)
+</script>
+
+<script class="doc">
+// api methods
+let changeData = () => bubbleChart.data(getData()).render(1000)
+
+let toggleRadius = () => {
+  this.h = 1 - (this.h || 0)
+  bubbleChart.radius(this.h ? 50 : undefined).render(1000)
+}
+
+let toggleLabels = () => {
+  this.l = 1 - (this.l || 0)
+  bubbleChart.labels(this.l).render()
+}
+
+let changeLabelFormat = () => {
+  this.f = !(this.f || 0)
+  bubbleChart.labelFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
+    .render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleRadius = state(toggleRadius, 'h', ['Change radius', 'Change radius'])
+toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'r':
+      toggleRadius()
+      break
+    case 'l':
+      toggleLabels()
+      break
+    case 'f':
+      changeLabelFormat()
+      break
+    default:
+  }
+})
+</script>

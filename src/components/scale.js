@@ -1,22 +1,22 @@
-import { scaleBand, scaleLinear, scalePoint } from 'd3'
+import { scaleBand, scaleLinear, scalePoint, scalePow } from 'd3'
 
 /**
  * Component implementing a scale.
  *
  * @class Scale
- * @param {string} [kind = linear] Kind of scale: linear, band or point.
- * @param {string} [type = linear] Type of scale: linear.
+ * @param {string} [type = linear] Type of scale: linear, band or point.
  */
-export default (kind = 'linear', type = 'linear') => {
+export default (type = 'linear') => {
   // Private members
   let _ = {
-    kind,
     type,
     scale: (() => {
-      switch (kind) {
+      switch (type) {
         default:
         case 'linear':
           return scaleLinear()
+        case 'sqrt':
+          return scalePow().exponent(0.5)
         case 'band':
           return scaleBand().padding(0.1)
         case 'point':
@@ -34,9 +34,10 @@ export default (kind = 'linear', type = 'linear') => {
     },
 
     domain: values => {
-      switch (_.kind) {
+      switch (_.type) {
         default:
         case 'linear':
+        case 'sqrt':
           _.scale.domain([Math.min(...values), Math.max(...values)])
           break
         case 'band':
@@ -47,15 +48,17 @@ export default (kind = 'linear', type = 'linear') => {
       return api
     },
 
-    kind: value => {
+    type: value => {
       if (typeof value === 'undefined') {
-        return _.kind
+        return _.type
       } else {
         switch (value) {
           default:
           case 'linear':
             _.scale = scaleLinear()
             break
+          case 'sqrt':
+            _.scale = scalePow().exponent(0.5)
           case 'band':
             _.scale = scaleBand().padding(0.1)
             break
@@ -63,7 +66,9 @@ export default (kind = 'linear', type = 'linear') => {
             _.scale = scalePoint().padding(0.5)
         }
       }
-    }
+    },
+
+    measure: size => Math.abs(_.scale.invert(size) - _.scale.invert(0))
   }
 
   return api
