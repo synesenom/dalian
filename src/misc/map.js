@@ -7,7 +7,7 @@ import extend from '../core/extend'
 
 export default (name, parent) => {
   let { self, api } = compose(
-    Widget(type, name, parent, elem),
+    Widget('map', name, parent, 'div'),
     Colors,
     Placeholder,
     Mouse
