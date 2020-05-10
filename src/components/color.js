@@ -1,43 +1,26 @@
+import { interpolateRgb, piecewise } from 'd3'
 import wong from './palettes/wong'
 import light from './palettes/light'
 import sunset from './palettes/sunset'
 import iridescent from './palettes/iridescent'
 import deficiencyConverter from './palettes/deficiency'
 
-// TODO Add value dependent color scheme
-// TODO Add option to diverging color scheme and add default as sunset.
-// TODO Add option to sequential color scheme and add default as iridescent.
-// TODO Fallback to group color and currentColor if _.on is not set.
-function buildMapper (policy = 'categorical',
-                      palette = wong,
-                      deficiency = null,
-                      on = d => d.name) {
-  // Select palette.
-  const originalPalette = palette || selectDefaultPalette(policy)
-
-  // Convert palette according to the current deficiency.
-  const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(deficiency))
-
-  // Create mapper function.
-  switch (policy) {
-    default:
-    case 'categorical':
-      return createCategoricalMapping(mappedPalette, on)
-  }
-  // TODO Categorical: string - return constant, array - map consecutively, object - map object
-  // TODO Sequential: string - use shades of color, array - interpolate, object - error!
-  // TODO Diverging: string - error!, array - interpolate, object - error!
+const POLICIES = {
+  categorical: 'categorical',
+  sequential: 'sequential',
+  diverging: 'diverging'
 }
 
+// TODO Fallback to group color and currentColor if _.on is not set.
 function selectDefaultPalette (policy) {
   switch (policy) {
     default:
-    case 'categorical':
+    case POLICIES.categorical:
       return wong
-    case 'sequential':
-      return sunset
-    case 'diverging':
+    case POLICIES.sequential:
       return iridescent
+    case POLICIES.diverging:
+      return sunset
   }
 }
 
@@ -78,6 +61,59 @@ function createCategoricalMapping (palette, on) {
   }
 }
 
+function createSequentialMapping(palette, on) {
+  if (typeof palette !== 'string' && !Array.isArray(palette)) {
+    // Any other case: error.
+    console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.sequential} color policy, fallback to default color palette.`)
+    palette = selectDefaultPalette(POLICIES.sequential)
+  }
+
+  // String: map [0, 1] to [transparent, color].
+  if (typeof palette === 'string') {
+    const i = interpolateRgb('transparent', palette)
+    return value => i(on(value))
+  } else if (Array.isArray(palette)) {
+    // Array: interpolate within array. We also apply a recommended gamma of 2.2.
+    const i = piecewise(interpolateRgb.gamma(2.2), palette)
+    return value => i(on(value))
+  }
+
+}
+
+function createDivergingMapping(palette, on) {
+  if (!Array.isArray(palette)) {
+    console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.diverging} color policy, fallback to default color palette.`)
+    palette = selectDefaultPalette(POLICIES.diverging)
+    return
+  }
+
+  // Array: interpolate within array.
+  const i = piecewise(interpolateRgb.gamma(2.2), palette)
+  return value => i((on(value) + 1) / 2)
+}
+
+function buildMapper (policy = POLICIES.categorical,
+                      palette,
+                      deficiency,
+                      on = d => d.name) {
+  // Select palette.
+  const originalPalette = palette || selectDefaultPalette(policy)
+
+  // Convert palette according to the current deficiency.
+  const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(deficiency || null))
+
+  // Create mapper function.
+  switch (policy) {
+    default:
+    case POLICIES.categorical:
+      return createCategoricalMapping(mappedPalette, on)
+    case POLICIES.sequential:
+      return createSequentialMapping(mappedPalette, on)
+    case POLICIES.diverging:
+      return createDivergingMapping(mappedPalette, on)
+  }
+}
+
 /**
  * Component implementing various color palettes and coloring policies. When this component is available for a widget,
  * its API is exposed via the {.color} namespace.
@@ -85,27 +121,121 @@ function createCategoricalMapping (palette, on) {
  * @function Color
  */
 export default (self, api) => {
-  // Private members
+  // Private members.
   let _ = {
     // Coloring policy: categorical, sequential, diverging.
-    policy: 'categorical',
+    policy: POLICIES.categorical,
+
+    // Palette: single color, array of colors or a mapping itself.
     palette: undefined,
+
+    // Color vision deficiency filter.
     deficiency: null,
+
+    // Mapper from data to color.
     on: d => d.name,
   }
 
-  // Protected members
+  // Protected members.
   self = Object.assign(self || {}, {
     _color: {
-      mapper: buildMapper()
+      mapper: buildMapper(),
+
+      scale (data) {
+        // TODO Create a scale from data to [0, 1] that the Color component can use for setting the colors.
+      }
     }
   })
 
   // Public API.
   api = Object.assign(api || {}, {
     color: {
-      policy (policy = 'categorical') {
+      /**
+       * Sets the color scheme policy and updates the current color mapping. The following policies are supported:
+       * <ul>
+       *   <li><code>categorical</code>: Maps categories to colors, typically different plots in a chart or groups of
+       *   elements in a widget. Supported palette types: single color (all elements have the same color), array of
+       *   colors (incoming elements in a widget will be assigned colors in order), object representing the
+       *   color mapping (with element name - color as property names and values). The default color palette is the one
+       *   proposed by Bang Wong (See <a href='https://www.nature.com/articles/nmeth.1618'>this paper</a> and
+       *   <a href='http://mkweb.bcgsc.ca/colorblind/'>this post</a> for details):
+       *   <div class='palette'>
+       *     <span>Colors:</span>
+       *     <div style='background-color:#333333'></div>
+       *     <div style='background-color:#0072b2'></div>
+       *     <div style='background-color:#56b4e9'></div>
+       *     <div style='background-color:#009e73'></div>
+       *     <div style='background-color:#f0e442'></div>
+       *     <div style='background-color:#e69f00'></div>
+       *     <div style='background-color:#d55e00'></div>
+       *     <div style='background-color:#cc79a7'></div>
+       *   </div>
+       *   </li>
+       *   <li><code>sequential</code>: Maps the interval [0, 1] to a range of colors. When this policy is used,
+       *   it is most often applied together with a specific mapping function set by the <code>on</code> method.
+       *   Supported palette types: single color (colors are interpolated from transparent to the specified color),
+       *   array of colors (colors are interpolated according to the specified colors).
+       *   The default color palette is the iridescent palette created by Paul Tol (See
+       *   <a href='https://personal.sron.nl/~pault/#sec:sequential'>this post</a> for details):
+       *   <div class='palette'>
+       *     <span>Colors:</span>
+       *     <div style='background-color:#fefbe9'></div>
+       *     <div style='background-color:#fcf7d5'></div>
+       *     <div style='background-color:#f5f3c1'></div>
+       *     <div style='background-color:#eaf0b5'></div>
+       *     <div style='background-color:#ddecbf'></div>
+       *     <div style='background-color:#d0e7ca'></div>
+       *     <div style='background-color:#c2e3d2'></div>
+       *     <div style='background-color:#b5ddd8'></div>
+       *     <div style='background-color:#a8d8dc'></div>
+       *     <div style='background-color:#9bd2e1'></div>
+       *     <div style='background-color:#8dcbe4'></div>
+       *     <div style='background-color:#81c4e7'></div>
+       *     <div style='background-color:#7bbce7'></div>
+       *     <div style='background-color:#7eb2e4'></div>
+       *     <div style='background-color:#88a5dd'></div>
+       *     <div style='background-color:#9398d2'></div>
+       *     <div style='background-color:#9b8ac4'></div>
+       *     <div style='background-color:#9d7db2'></div>
+       *     <div style='background-color:#9a709e'></div>
+       *     <div style='background-color:#906388'></div>
+       *     <div style='background-color:#805770'></div>
+       *     <div style='background-color:#684957'></div>
+       *     <div style='background-color:#46353a'></div>
+       *   </div>
+       *   </li>
+       *   <li><code>diverging</code>: Maps the interval [-1, 1] to a range of colors.
+       *   When this policy is used, it is most often applied together with a specific mapping function set by the
+       *   <code>on</code> method. Supported palette types: array of colors (colors are interpolated according to the
+       *   specified colors). The default palette is the sunset palette
+       *   created by Paul Tol which is a variant of the diverging color palette RdYlBu from Cynthia Brewer (See
+       *   <a href='https://personal.sron.nl/~pault/#fig:scheme_sunset'>this post</a> and
+       *   <a href='https://colorbrewer2.org/#type=diverging&scheme=RdYlBu&n=11'>the original</a> scheme for details):
+       *   <div class='palette'>
+       *     <span>Colors:</span>
+       *     <div style='background-color:#364b9a'></div>
+       *     <div style='background-color:#4a7bb7'></div>
+       *     <div style='background-color:#6ea6cd'></div>
+       *     <div style='background-color:#98cae1'></div>
+       *     <div style='background-color:#c2e4ef'></div>
+       *     <div style='background-color:#eaeccc'></div>
+       *     <div style='background-color:#feda8b'></div>
+       *     <div style='background-color:#fdb366'></div>
+       *     <div style='background-color:#f67e4b'></div>
+       *     <div style='background-color:#dd3d2d'></div>
+       *     <div style='background-color:#a50026'></div>
+       *   </div>
+       *   </li>
+       * </ul>
+       *
+       * @method policy
+       * @methodOf Color
+       * @param {string} [policy = 'categorical'] Policy to set for the color scheme.
+       * @returns {Widget} Reference to the Widget's API.
+       */
+      policy (policy = POLICIES.categorical) {
         _.policy = policy
+        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
         return api
       },
 
@@ -113,25 +243,13 @@ export default (self, api) => {
        * Sets the color palette. Supported palettes:
        * <ul>
        *   <li>
-       *     <strong>Default color palette</strong>: A variant of the 8 color colorblind friendly qualitative palette
-       *     by Bang Wang. See <a href='https://www.nature.com/articles/nmeth.1618'>this paper</a> and
-       *     <a href='http://mkweb.bcgsc.ca/colorblind/'>this post</a> for details. This color palette is also available
-       *     by passing <code>palette-wong</code> to the method.
-       *     <div class='palette'>
-       *       <span>Colors:</span>
-       *       <div style='background-color:#333333'></div>
-       *       <div style='background-color:#0072b2'></div>
-       *       <div style='background-color:#56b4e9'></div>
-       *       <div style='background-color:#009e73'></div>
-       *       <div style='background-color:#f0e442'></div>
-       *       <div style='background-color:#e69f00'></div>
-       *       <div style='background-color:#d55e00'></div>
-       *       <div style='background-color:#cc79a7'></div>
-       *     </div>
+       *     <strong>Default color palette</strong>: When the palette is not specified or it is incompatible with the
+       *     currently set policy, the policy dependent default palette is used. See the documentation of the policy
+       *     method for details.
        *   </li>
        *   <li>
-       *     <strong>Built-in color palette</strong>: One of the built-in palettes that support the vast majority of
-       *     color vision deficiencies:
+       *     <strong>Built-in color palette</strong> (passing a <code>string</code> that starts with 'policy-'): One of
+       *     the built-in palettes that support the vast majority of color vision deficiencies:
        *     <ul>
        *       <li>
        *         <code>palette-light</code>The 9 color colorblind friendly qualitative palette designed by Paul Tol.
@@ -151,24 +269,28 @@ export default (self, api) => {
        *       </li>
        *     </ul>
        *   </li>
-       *   <li><strong>Single color</strong>: The specified color is used for all plots.</li>
        *   <li>
-       *     <strong>Custom palette</strong>: A custom color palette with arbitrary association with the plots. In this
-       *     case, the colors are assigned to the plots in the order they are added/built.
+       *     <strong>Single color</strong> (passing a <code>string</code> that represents a color): The specified color
+       *     is used for all plots (categorical policy) or shades of the color are used (sequential policy).
        *   </li>
        *   <li>
-       *     <strong>Custom color mapping</strong>: Each plot has the color specified as the value for the property with
-       *     the same name as the plot's key.
+       *     <strong>List of colors</strong> (passing <code>string[]</code>): A custom color palette. It is either
+       *     used to color elements in the order they appear in a widget (categorical policy) or colors are interpolated
+       *     in the specified order (sequential and diverging policies).
+       *   </li>
+       *   <li>
+       *     <strong>Custom color mapping</strong> (passing an <code>object</code>): Each plot has the color specified
+       *     as the value for the property with the same name as the plot's key.
        *   </li>
        * </ul>
        *
        * @method palette
        * @methodOf Color
-       * @param {(string | string[] | Object)} [palette] Color palette to set. If not specified, the default policy is set. If
-       * string, it's either a built-in palette or a the color represented by the string is used for all plots. If an
-       * array of strings, it's colors are assigned to plots as they are added to the widget without any specific
-       * association between colors and plots. If an object, it is used as a mapping from the plot names to the colors.
-       * passed to this method as parameters before determining the color.
+       * @param {(string | string[] | Object)} palette Color palette to set. If not specified, the
+       * default policy is set. If string, it's either a built-in palette or a the color represented by the string is
+       * used for all plots. If an array of strings, it's colors are assigned to plots as they are added to the widget
+       * without any specific association between colors and plots. If an object, it is used as a mapping from the plot
+       * names to the colors.
        * @returns {Widget} Reference to the Widget's API.
        */
       palette (palette) {
@@ -193,12 +315,10 @@ export default (self, api) => {
         }
 
         // Update mapping.
-        self._color.mapper = buildMapper('categorical', _.palette, _.deficiency)
+        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
         return api
       },
 
-      // TODO Documentation.
-      // Source: http://web.archive.org/web/20081030075157/http://www.nofunc.com/Color_Blindness_Library/
       /**
        * Emulates a color vision deficiency. Useful for testing the widget for accessibility. The deficiency emulation
        * is implemented using the algorithm
@@ -206,17 +326,38 @@ export default (self, api) => {
        *
        * @method deficiency
        * @methodOf Color
-       * @param {string} type Type of deficiency to emulate. Supported values: achromatomaly, achromatopsia,
-       * deuteranomaly, deuteranopia, protanomaly, protanopia, tritanomaly, tritanopia. If type is not specified, it
-       * restores the true colors.
+       * @param {string} type Type of deficiency to emulate. Supported values: <code>achromatomaly</code>,
+       * <code>achromatopsia</code>, <code>deuteranomaly</code>, <code>deuteranopia</code>, <code>protanomaly</code>,
+       * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. If it is not specified, true colors
+       * are restored.
        * @returns {Widget} Reference to the Widget's API.
        */
       deficiency (type) {
-        // Select converter.
         _.deficiency = type || null
+        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
+        return api
+      },
 
-        // Update mapping.
-        self._color.mapper = buildMapper('categorical', _.palette, _.deficiency)
+      // TODO Add note about the color mapping using the domain [0, 1], if needed.
+      /**
+       * Sets the mapping function that should be used to map data points to colors. It is used different ways for each
+       * coloring policy:
+       * <ul>
+       *   <li><strong>Categorical</strong>: the function should map to distinct categorical values (such as integers or
+       *   strings).</li>
+       *   <li><strong>Sequential</strong>: the function should map to the interval [0, 1].<li>
+       *   <li><strong>Diverging</strong>: the function should map to the interval [-1, 1].<li>
+       * </ul>
+       *
+       * @method on
+       * @methodOf Color
+       * @param {Function} on The function that maps from a data point to a set of categories, the interval [0, 1] or
+       * the interval [-1, 1].
+       * @returns {Widget} Reference to the Widget's API.
+       */
+      on (on = d => d.name) {
+        _.on = on
+        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
         return api
       }
     }

@@ -19,7 +19,9 @@
   return { width, height };
 }--><title>Color | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul id="colors">
-    <li id="changeColorPalette" onclick="changeColorPalette()">P - Default color palette.</li>
+    <li id="changeCategoricalColorPalette" onclick="changeCategoricalColorPalette()">C - Categorical: default palette.</li>
+    <li id="changeSequentialColorPalette" onclick="changeSequentialColorPalette()">C - Sequential: default palette.</li>
+    <li id="changeDivergingColorPalette" onclick="changeDivergingColorPalette()">C - Diverging: default palette.</li>
     <li id="changeColorDeficiency" onclick="changeColorDeficiency()">D - Normal vision (92%).</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
@@ -30,15 +32,15 @@
 </p><h1>code<div class="margin-right"><a href="../../../api/components/color.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/color.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
-  return Array.from({ length: 9 }, (d, i) => ({
+  return Array.from({ length: 8 }, (d, i) => ({
     name: 'ABCDEFGH'.charAt(i),
-    value: (i * 13) % 9 + 1
+    value: i + 1
   }))
 }
 </script><script class="doc">
 // create chart
 const chart = dalian.BarChart('myChart', '#widget')
-  .data(getData().slice(0, 8))
+  .data(getData())
   .width(600)
   .height(300)
   .margins(40)
@@ -48,7 +50,7 @@ const chart = dalian.BarChart('myChart', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-let palettes = [
+let categoricalPalettes = [
   undefined,          // Default palette.
   'palette-light',    // Built-in palette light.
   'royalblue',        // Single color.
@@ -61,9 +63,41 @@ let palettes = [
     G: '#e377c2',
     H: '#7f7f7f' }
 ]
-let changeColorPalette = () => {
-  this.p = ((this.p || 0) + 1) % 4
-  chart.color.palette(palettes[this.p]).render(1000)
+let changeCategoricalColorPalette = () => {
+  this.c = ((this.c || 0) + 1) % 4
+  chart.color.policy('categorical')
+    .color.palette(categoricalPalettes[this.c])
+    .color.on()
+    .render(1000)
+}
+
+const sequentialPalettes = [
+  undefined,          // Default palette.
+  'firebrick',        // Shades of a color.
+  [ '#1f77b4',        // Interpolate.
+    '#ff7f0e',
+    '#2ca02c' ]
+]
+let changeSequentialColorPalette = () => {
+  this.s = ((this.s || 0) + 1) % 3
+  chart.color.policy('sequential')
+    .color.palette(sequentialPalettes[this.s])
+    .color.on(d => (d.value - 1) / 8)
+    .render(1000)
+}
+
+let divergingPalette = [
+  undefined,        // Default palette.
+  [ '#1f77b4',      // Interpolate.
+    '#ffffff',
+    '#d62728' ]
+]
+let changeDivergingColorPalette = () => {
+  this.d = ((this.d || 0) + 1) % 2
+  chart.color.policy('diverging')
+    .color.palette(divergingPalette[this.d])
+    .color.on(d => (d.value - 4) / 4)
+    .render(1000)
 }
 
 let deficiencies = [
@@ -78,17 +112,23 @@ let deficiencies = [
   'achromatopsia'
 ]
 let changeColorDeficiency = () => {
-  this.d = ((this.d || 0) + 1) % 9
-  chart.color.deficiency(deficiencies[this.d]).render()
+  this.v = ((this.v || 0) + 1) % 9
+  chart.color.deficiency(deficiencies[this.v]).render()
 }
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 'p':
-      changeColorPalette()
+    case 'c':
+      changeCategoricalColorPalette()
+      break
+    case 's':
+      changeSequentialColorPalette()
       break
     case 'd':
+      changeDivergingColorPalette()
+      break
+    case 'v':
       changeColorDeficiency()
       break
     default:
@@ -97,13 +137,22 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify buttons
-changeColorPalette = state(changeColorPalette, 'p', [
-  'Default palette',
-  'Built-in palette light',
-  'Single color',
-  'Plot specific color'
+changeCategoricalColorPalette = state(changeCategoricalColorPalette, 'c', [
+  'Categorical: default palette',
+  'Categorical: palette-light',
+  'Categorical: single color',
+  'Categorical: color mapping'
 ])
-changeColorDeficiency = state(changeColorDeficiency, 'd', [
+changeSequentialColorPalette = state(changeSequentialColorPalette, 's', [
+  'Sequential: default palette',
+  'Sequential: color shades',
+  'Sequential: interpolate'
+])
+changeDivergingColorPalette = state(changeDivergingColorPalette, 'd', [
+  'Diverging: default palette',
+  'Diverging: interpolate'
+])
+changeColorDeficiency = state(changeColorDeficiency, 'v', [
   'Normal vision (92%)',
   'Deuteranomaly (2.7%)',
   'Protanomaly (0.66%)',
