@@ -100,7 +100,7 @@ function buildMapper (policy = POLICIES.categorical,
   const originalPalette = palette || selectDefaultPalette(policy)
 
   // Convert palette according to the current deficiency.
-  const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(deficiency || null))
+  const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(deficiency))
 
   // Create mapper function.
   switch (policy) {
@@ -130,7 +130,7 @@ export default (self, api) => {
     palette: undefined,
 
     // Color vision deficiency filter.
-    deficiency: null,
+    deficiency: undefined,
 
     // Mapper from data to color.
     on: d => d.name,
@@ -333,7 +333,7 @@ export default (self, api) => {
        * @returns {Widget} Reference to the Widget's API.
        */
       deficiency (type) {
-        _.deficiency = type || null
+        _.deficiency = type
         self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
         return api
       },
