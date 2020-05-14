@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Font | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleFontSize()">D - Change font size.</li>
+    <li onclick="toggleFontSize()">S - Change font size.</li>
     <li onclick="toggleFontColor()">C - Change font color.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
@@ -51,11 +51,12 @@ const chart = dalian.BarChart('myChart', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-const toggleFontSize = () => {
+let toggleFontSize = () => {
   this.s = ((this.s || 0) + 1) % 3
   chart.font.size([undefined, 10, 16][this.s]).render()
 }
-const toggleFontColor = () => {
+
+let toggleFontColor = () => {
   this.c = ((this.c || 0) + 1) % 3
   chart.font.color([undefined, 'red', 'transparent'][this.c]).render()
 }

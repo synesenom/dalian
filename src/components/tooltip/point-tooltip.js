@@ -41,28 +41,39 @@ export default (self, api) => {
 
       // Add content
       content.content.data.forEach((plot, i) => {
-        let entry = styles(contentNode.append('div'), {
+        let wrapper = styles(contentNode.append('div'), {
           display: 'table-row',
           position: 'relative'
         })
-        styles(entry.append('div'), {
-          display: 'table-cell',
+        let entry = styles(wrapper.append('div'), {
+          display: 'inline-block',
           position: 'relative',
-          width: '9px',
-          height: '9px',
-          top: '1px',
+          height: parseFloat(self._font.size) + 'px',
+          'margin-top': (i === 0 ? 6 : 3) + 'px'
+        })
+        let box = styles(entry.append('div'), {
+          display: 'flex',
+          position: 'relative',
+          'justify-content': 'center',
+          'align-items': 'center',
+          height: parseFloat(self._font.size) + 'px'
+        })
+        styles(box.append('div'), {
+          display: 'inline-block',
+          position: 'relative',
           float: 'left',
-          'margin-top': (i === 0 ? 6 : 3) + 'px',
+          width: 0.8 * parseFloat(self._font.size) + 'px',
+          height: 0.8 * parseFloat(self._font.size) + 'px',
           'margin-right': '10px',
           'border-radius': '2px',
           background: plot.background
         })
-        styles(entry.append('div'), {
+        styles(box.append('div'), {
           display: 'table-cell',
           position: 'relative',
           'max-width': '120px',
-          'margin-top': (i === 0 ? 6 : 3) + 'px',
-          float: 'left'
+          float: 'left',
+          'line-height': self._font.size
         }).html(self._tooltip.yFormat(plot.value, plot.name))
       })
 
