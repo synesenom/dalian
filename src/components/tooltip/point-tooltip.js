@@ -48,7 +48,7 @@ export default (self, api) => {
         let entry = styles(wrapper.append('div'), {
           display: 'inline-block',
           position: 'relative',
-          height: parseFloat(self._font.size) + 'px',
+          height: self._font.size,
           'margin-top': (i === 0 ? 6 : 3) + 'px'
         })
         let box = styles(entry.append('div'), {
@@ -56,9 +56,9 @@ export default (self, api) => {
           position: 'relative',
           'justify-content': 'center',
           'align-items': 'center',
-          height: parseFloat(self._font.size) + 'px'
+          height: self._font.size
         })
-        styles(box.append('div'), {
+        styles(box.append('span'), {
           display: 'inline-block',
           position: 'relative',
           float: 'left',
@@ -73,7 +73,8 @@ export default (self, api) => {
           position: 'relative',
           'max-width': '120px',
           float: 'left',
-          'line-height': self._font.size
+          // TODO Temporary solution until font metrics are not yet implemented.
+          'line-height': 0.8 * parseFloat(self._font.size) + 'px'
         }).html(self._tooltip.yFormat(plot.value, plot.name))
       })
 

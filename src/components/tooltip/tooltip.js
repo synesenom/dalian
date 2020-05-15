@@ -61,7 +61,7 @@ export default (self, api) => {
 
     hideTooltip: () => {
       if (typeof _.elem !== 'undefined') {
-        _.elem.style('opacity', 0)
+        //_.elem.style('opacity', 0)
       }
     },
 
