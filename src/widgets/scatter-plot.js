@@ -181,6 +181,17 @@ export default (name, parent = 'body') => {
     }
   }
 
+  self._chart.transformData = data => {
+    // Just make sure we convert strings to numbers.
+    return data.map(d => ({
+      name: d.name,
+      values: d.values.map(dd => ({
+          x: +dd.x,
+          y: +dd.y,
+        }))
+    }))
+  }
+
   // Extend widget update
   self._widget.update = extend(self._widget.update, _.update, true)
 
