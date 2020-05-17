@@ -1,4 +1,4 @@
-import { extent, voronoi } from 'd3'
+import { event, extent, mouse, voronoi } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import Chart from '../components/chart'
@@ -53,6 +53,7 @@ export default (name, parent = 'body') => {
   let _ = {
     // Variables
     scales,
+    current: undefined,
     diagram: undefined,
 
     // UI variables.
@@ -64,8 +65,7 @@ export default (name, parent = 'body') => {
         name: plot.name,
         x: d.x,
         y: d.y
-      })
-      )).flat()
+      }))).flat()
 
       return voronoi()
         .x(d => _.scales.x.scale(d.x))
@@ -143,6 +143,28 @@ export default (name, parent = 'body') => {
 
       // Update Voronoi tessellation.
       _.diagram = _.computeDiagram(self._chart.data)
+
+      // Add event to detect hovering events.
+      self._widget.container
+        .on('mousemove.scatter', () => {
+          const dot = _.diagram.find(...self._widget.getMouse(), Math.max(20, _.size)) || undefined
+
+          // Mouse events.
+          if (typeof dot !== 'undefined' && dot !== _.current) {
+            // If bubble is different from current closest, call mouseover.
+            self._mouse.over(dot.data)
+          } else if (typeof _.current !== 'undefined') {
+            self._mouse.leave(_.current)
+          }
+
+          // Update current closest.
+          _.current = (dot && dot.data) || undefined
+        })
+        .on('click.scatter', () => {
+          if (typeof _.current !== 'undefined') {
+            self._mouse.click(_.current)
+          }
+        })
     }
   }
 
@@ -156,26 +178,25 @@ export default (name, parent = 'body') => {
     }
 
     // Find closest sites
-    const site = _.diagram.find(mouse[0], mouse[1], 20)
-    if (!site) {
+    if (!_.current) {
       self._plotMarker.remove()
       return
     } else {
-      self._plotMarker.add(_.scales.x.scale(site.data.x), _.scales.y.scale(site.data.y), 'marker', site.data,
+      self._plotMarker.add(_.scales.x.scale(_.current.x), _.scales.y.scale(_.current.y), 'marker', _.current,
         Math.max(5, 1.5 * _.size))
     }
 
     return {
-      title: site.data.name,
-      stripe: self._color.mapper(site.data),
+      title: _.current.name,
+      stripe: self._color.mapper(_.current),
       content: {
         type: 'plots',
         data: [{
           name: self._bottomAxis.label(),
-          value: site.data.x
+          value: _.current.x
         }, {
           name: self._leftAxis.label(),
-          value: site.data.y
+          value: _.current.y
         }]
       }
     }

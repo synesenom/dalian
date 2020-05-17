@@ -2,8 +2,8 @@ import { event, mouse, select } from 'd3'
 import extend from '../../core/extend'
 import styles from '../../utils/styles'
 
-// TODO Add more liberty in setting tooltipTitle based on current data point or element
-// TODO Add more liberty in setting tooltipContent based on current data point or element
+// TODO Add more liberty in setting tooltipTitle based on closest data point or element
+// TODO Add more liberty in setting tooltipContent based on closest data point or element
 
 /**
  * Component implementing the tooltip feature. When this component is available for a widget, its API is exposed via the
@@ -96,10 +96,7 @@ export default (self, api) => {
       _.elem = _.getTooltip(boundingBox, scroll)
 
       // Create content
-      let m = mouse(self._widget.container.node())
-      let content = self._tooltip.builder(
-        self._tooltip.content([m[0] - self._widget.margins.left, m[1] - self._widget.margins.top])
-      )
+      let content = self._tooltip.builder(self._tooltip.content(self._widget.getMouse()))
       if (typeof content === 'undefined') {
         if (typeof _.elem !== 'undefined') {
           // If content is invalid, remove tooltip

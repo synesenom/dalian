@@ -40,6 +40,7 @@ export default scales => (() => {
 
     api = Object.assign(api || {}, {
       objects: {
+        // TODO Docs.
         add: (id, obj, pos, duration, type = 'background') => {
           // Check if element exists.
           if (_.objects.has(id)) {
@@ -82,6 +83,7 @@ export default scales => (() => {
           return api
         },
 
+        // TODO Docs.
         remove: (id, duration) => {
           // If id is not specified, remove all objects
           if (typeof id === 'undefined' || id === null) {

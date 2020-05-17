@@ -37,7 +37,7 @@ function getData () {
     value: {
       x: 100 * Math.random(),
       y: 100 * Math.random(),
-      size: 0.1 + 0.9 * Math.random()
+      size: 0.01 + 0.99 * Math.random()
     }
   })).filter(() => Math.random() < 0.8)
 }
@@ -54,8 +54,9 @@ const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
   .leftAxis.label('stock')
   .mouse.over(k => bubbleChart.highlight(k.name))
   .mouse.leave(() => bubbleChart.highlight())
+  .mouse.click(k => alert(k.name))
   .tooltip.on(true)
-  .tooltip.valueFormat(y => y.toFixed(1))
+  .tooltip.valueFormat(y => y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods

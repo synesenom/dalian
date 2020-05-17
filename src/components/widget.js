@@ -1,4 +1,4 @@
-import { select } from 'd3'
+import { mouse, select } from 'd3'
 import styles from '../utils/styles'
 
 /**
@@ -48,6 +48,11 @@ export default (type, name, parent, elem) => {
     disabled: false,
 
     // Methods
+    getMouse: () => {
+      const m = mouse(self._widget.container.node())
+      return [m[0] - self._widget.margins.left, m[1] - self._widget.margins.top]
+    },
+
     getElem: (elem, duration) => {
       if (_.initialized) {
         return elem.transition().duration(duration)

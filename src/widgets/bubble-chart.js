@@ -53,7 +53,10 @@ export default (name, parent = 'body') => {
   let _ = {
     // Variables
     scales,
-    current: undefined,
+    current: {
+      hovered: undefined,
+      closest: undefined
+    },
     diagram: undefined,
 
     // UI elements.
@@ -104,13 +107,14 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
+            .style('color', self._color.mapper)
+            // Update hovered bubble.
             .on('mouseover.bubble', d => {
-              _.current = d
+              _.current.hovered = d
             })
             .on('mouseleave.bubble', () => {
-              _.current = undefined
+              _.current.hovered = undefined
             })
-            .style('color', self._color.mapper)
 
           // Add bubble.
           // TODO Add label.
@@ -142,6 +146,29 @@ export default (name, parent = 'body') => {
 
       // Update Voronoi tessellation.
       _.diagram = _.computeDiagram(self._chart.data)
+
+      // Add event to detect hovering events.
+      self._widget.container
+        .on('mousemove.scatter', () => {
+          const bubble = _.diagram.find(...self._widget.getMouse(), 10) || undefined
+
+          // Mouse events.
+          if (typeof bubble !== 'undefined' && bubble !== _.current.closest) {
+            // If bubble is different from current closest, call mouseover.
+            self._mouse.over(bubble.data)
+          } else if (typeof _.current.hovered === 'undefined' && typeof _.current.closest !== 'undefined') {
+            // If current hovered is empty but closest was not empty, call mouse leave.
+            self._mouse.leave(_.current.closest)
+          }
+
+          // Update current closest.
+          _.current.closest = (bubble && bubble.data) || undefined
+        })
+        .on('click.scatter', () => {
+          if (typeof _.current.closest !== 'undefined') {
+            self._mouse.click(_.current.closest)
+          }
+        })
     }
   }
 
@@ -154,21 +181,20 @@ export default (name, parent = 'body') => {
     }
 
     // Find closest site.
-    let site = _.diagram.find(mouse[0], mouse[1], 20)
-    site = (site && site.data) || _.current
-    if (!site) {
+    let bubble = _.current.hovered || _.current.closest
+    if (!bubble) {
       return
     }
 
     return {
-      title: site.name,
-      stripe: self._color.mapper(site),
+      title: bubble.name,
+      stripe: self._color.mapper(bubble),
       content: {
         data: [
-          {name: self._bottomAxis.label(), value: site.value.x},
-          {name: self._leftAxis.label(), value: site.value.y},
+          {name: self._bottomAxis.label(), value: bubble.value.x},
+          {name: self._leftAxis.label(), value: bubble.value.y},
           // TODO Add size label.
-          {name: 'size', value: site.value.size}
+          {name: 'size', value: bubble.value.size}
         ]
       }
     }

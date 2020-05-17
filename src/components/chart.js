@@ -99,9 +99,9 @@ export default (type, name, parent, elem = 'svg') => {
               g = attr.exit ? attr.exit(g) : g
               g.remove()
             })
-          .on('mouseover.mouse', self._mouse.over)
-          .on('mouseleave.mouse', self._mouse.leave)
-          .on('click.mouse', self._mouse.click)
+          .on('mouseover.chart', self._mouse.over)
+          .on('mouseleave.chart', self._mouse.leave)
+          .on('click.chart', self._mouse.click)
           .each(() => {
             // Disable pointer events before transition.
             self._chart.plots.style('pointer-events', 'none')
