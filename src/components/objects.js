@@ -39,21 +39,32 @@ export default scales => (() => {
     })
 
     api = Object.assign(api || {}, {
+      // TODO Add convert method to get sizes using internal coordinates.
+      // TODO Add hidden SVG to draw object in before inserting.
       objects: {
-        // TODO If object withID exists, replace existing object.
-        // TODO Docs.
-        add: (id, obj, pos, duration, type = 'background') => {
-          // Check if element exists.
-          if (_.objects.has(id)) {
-            return api
-          }
-
+        /**
+         * Adds an SVG object to the widget using internal (data level) coordinates.
+         *
+         * @param {string} id Unique identifier of the object to add. If an object with the ID already exists, no action
+         * is taken.
+         * @param {Element} obj The object to insert to the widget.
+         * @param {Object} pos Object representing the {x} and {y} coordinates of the point to add the object at. The
+         * coordinates are used as the widget's internal (data) coordinates.
+         * @param {Object} [options = {}] Options of inserting the object. Supported values:
+         * <ul>
+         *   <li><code>boolean</code>foreground: Whether to insert the object in the foreground of the widget (on top
+         *   of widget elements). Default value is false.</li>
+         * </ul>
+         * @param {number} [duration = 0] Duration of the insert animation.
+         * @returns {Widget} Reference to the Widget's API.
+         */
+        add: (id, obj, pos, options = {}, duration) => {
           // Fetch scales.
           let scaleX = scales.x.scale
           let scaleY = scales.y.scale
 
           // Add object's own group.
-          const g = _.getContainer(type).append('g')
+          const g = _.getContainer(options.foreground ? 'foreground' : 'background').append('g')
             .attr('transform', `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`)
             .style('opacity', 0)
 
@@ -61,8 +72,15 @@ export default scales => (() => {
           g.node().appendChild(obj)
 
           // Show object group.
-          g.transition().duration(duration)
-            .style('opacity', 1)
+          if (_.objects.has(id)) {
+            // If object exists, first remove it.
+            api.objects.remove(id, duration)
+            g.transition().duration(duration)
+              .style('opacity', 1)
+          } else {
+            g.transition().duration(duration)
+              .style('opacity', 1)
+          }
 
           // Build object.
           const object = {
@@ -84,7 +102,16 @@ export default scales => (() => {
           return api
         },
 
-        // TODO Docs.
+        /**
+         * Removes one or all objects from the widget.
+         *
+         * @method remove
+         * @methodOf Objects
+         * @param {(string | null)?} id Identifier of the object to remove. If not specified or null, all objects are
+         * removed.
+         * @param {number} [duration = 0] Duration of the removal animation.
+         * @returns {Widget} Reference to the Widget's API.
+         */
         remove: (id, duration) => {
           // If id is not specified, remove all objects
           if (typeof id === 'undefined' || id === null) {
