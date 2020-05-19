@@ -179,11 +179,15 @@ export default (name, parent = 'body') => {
         return {
           name: d.name,
           background: self._color.mapper(d),
-          value: point.y
+          x: point.x,
+          y: point.y,
+          lo: point.lo,
+          hi: point.hi
         }
       })
 
     return {
+      // TODO Replace this with the data points.
       title: x,
       content: {
         type: 'plots',

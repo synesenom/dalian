@@ -19,9 +19,9 @@
   return { width, height };
 }--><title>PointTooltip | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">T - Enable tooltip.</li>
-    <li onclick="changeXFormat()">X - Change X format.</li>
-    <li onclick="changeYFormat()">Y - Change Y format.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">O - Enable tooltip.</li>
+    <li onclick="changeTitleFormat()">T - Change title format.</li>
+    <li onclick="changeValueFormat()">V - Change value format.</li>
     <li id="toggleIgnore" onclick="toggleIgnore()">I - Ignore trend 2.</li>
     <li onclick="toggleFontSize()">S - Change font size.</li>
     <li onclick="changeFontColor()">F - Change font color.</li>
@@ -57,24 +57,24 @@ const chart = dalian.LineChart('myChart', '#widget')
   .margins(40)
   .bottomAxis.label('Elapsed time [h]')
   .leftAxis.label('Temperature [C]')
-  .tooltip.yFormat(y => y.toFixed(2))
+  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render()
 </script><script class="doc">
 // api methods
 let toggleTooltip = () => {
-  this.t = 1 - (this.t || 0)
-  chart.tooltip.on(this.t).render()
+  this.o = 1 - (this.o || 0)
+  chart.tooltip.on(this.o).render()
 }
 
-let changeXFormat = () => {
-  this.x = !(this.x || 0)
-  chart.tooltip.xFormat(this.x ? x => x + ' h' : x => x)
+let changeTitleFormat = () => {
+  this.t = !(this.t || 0)
+  chart.tooltip.titleFormat(this.t ? x => x + ' h' : x => x)
     .render()
 }
 
-let changeYFormat = () => {
-  this.y = !(this.y || 0)
-  chart.tooltip.yFormat(this.y ? y => y.toPrecision(2) + ' C' : y => y.toFixed(2))
+let changeValueFormat = () => {
+  this.v = !(this.v || 0)
+  chart.tooltip.valueFormat(this.v ? d => d.y.toPrecision(2) + ' C' : d => d.y.toFixed(2))
     .render()
 }
 
@@ -97,13 +97,13 @@ let changeFontColor = () => {
 // update data on keypress
 window.addEventListener('keydown', e => {
   switch (e.key) {
-    case 't':
+    case 'o':
       toggleTooltip()
       break
-    case 'x':
-      changeXFormat()
+    case 't':
+      changeTitleFormat()
       break
-    case 'y':
+    case 'v':
       changeYFormat()
       break
     case 'i':
@@ -121,6 +121,6 @@ window.addEventListener('keydown', e => {
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
-toggleTooltip = state(toggleTooltip, 't', ['Enable tooltip', 'Disable tooltip'])
+toggleTooltip = state(toggleTooltip, 'o', ['Enable tooltip', 'Disable tooltip'])
 toggleIgnore = state(toggleIgnore, 'i', ['Ignore trend 2', 'Include trend 2'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

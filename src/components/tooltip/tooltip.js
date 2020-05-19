@@ -149,10 +149,7 @@ export default (self, api) => {
     _tooltip: {
       isOn: () => _.on,
       content: () => console.warn('content(mouse) is not implemented'),
-      builder: () => console.warn('builder(mouse) is not implemented'),
-      xFormat: x => x,
-      yFormat: x => x,
-      ignore: []
+      builder: () => console.warn('builder(mouse) is not implemented')
     }
   })
 
@@ -168,48 +165,6 @@ export default (self, api) => {
      */
     on: (on = false) => {
       _.on = on
-      return api
-    },
-
-    /**
-     * Sets the array of keys that are ignored by the tooltip. Ignored keys are not shown in the tooltip and they don't
-     * have plot markers.
-     *
-     * @method ignore
-     * @methodOf Tooltip
-     * @param {string[]} keys Keys of plots to ignore in the tooltip.
-     * @returns {Widget} Reference to the Widget API.
-     */
-    ignore: keys => {
-      self._tooltip.ignore = keys || []
-      return api
-    },
-
-    /**
-     * Sets the format of the X component's value in the tooltip.
-     *
-     * @method xFormat
-     * @methodOf Tooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take two parameters: the X value of the
-     * data point and the name of the plot. The return string can be HTML formatted.
-     * @returns {Widget} Reference to the Widget API.
-     */
-    xFormat: format => {
-      self._tooltip.xFormat = format || (x => x)
-      return api
-    },
-
-    /**
-     * Sets the format of the Y component's value in the tooltip.
-     *
-     * @method yFormat
-     * @methodOf Tooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take two parameters: the Y value of the
-     * data point and the name of the plot. The return string can be HTML formatted.
-     * @returns {Widget} Reference to the Widget API.
-     */
-    yFormat: format => {
-      self._tooltip.yFormat = format || (x => x)
       return api
     }
   }

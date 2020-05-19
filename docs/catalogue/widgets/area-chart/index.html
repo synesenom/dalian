@@ -67,7 +67,7 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
     exponential: 'royalblue'
   })
   .tooltip.on(true)
-  .tooltip.yFormat(y => y.toFixed(2))
+  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods

@@ -67,7 +67,7 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
     mango: 'dashed'
   })
   .tooltip.on(true)
-  .tooltip.yFormat(d => d === null ? 'No data' : d.toFixed(2))
+  .tooltip.valueFormat(d => d.y === null ? 'No data' : d.y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods

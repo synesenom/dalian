@@ -186,7 +186,7 @@ export default (name, parent = 'body') => {
     let x = _.scales.x.scale.invert(mouse[0])
     let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {
-      // Data point
+        // Data point
         let j = index[i]
 
         let data = d.values
@@ -208,11 +208,15 @@ export default (name, parent = 'body') => {
         return {
           name: d.name,
           background: self._lineStyles.background(self._lineStyles.style(d.name), self._color.mapper(d)),
-          value: point.y
+          x: point.x,
+          y: point.y,
+          lo: point.lo,
+          hi: point.hi
         }
       })
 
     return {
+      // TODO Replace this with the data points.
       title: x,
       content: {
         type: 'plots',

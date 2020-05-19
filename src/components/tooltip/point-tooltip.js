@@ -18,8 +18,17 @@ export default (self, api) => {
   // Inherit from base tooltip
   let base = Tooltip(self, api)
 
+  // Private members.
+  let _ = {
+    titleFormat: t => t,
+    valueFormat: d => d.y,
+  }
+
   // Protected members
   self._tooltip = Object.assign(base.self._tooltip, {
+    // Variables.
+    ignore: [],
+
     // Override methods
     builder: content => {
       if (typeof content === 'undefined') {
@@ -30,14 +39,15 @@ export default (self, api) => {
       // Create content node
       let contentNode = styles(select(document.createElement('div')), {
         display: 'table',
-        padding: '10px'
+        padding: '10px',
+        'min-width': '80px'
       })
 
       // Add title
       styles(contentNode.append('div'), {
         display: 'table-row',
         position: 'relative'
-      }).text(self._tooltip.xFormat(content.title))
+      }).text(_.titleFormat(content.title))
 
       // Add content
       content.content.data.forEach((plot, i) => {
@@ -64,7 +74,7 @@ export default (self, api) => {
           float: 'left',
           width: 0.8 * parseFloat(self._font.size) + 'px',
           height: 0.8 * parseFloat(self._font.size) + 'px',
-          'margin-right': '10px',
+          'margin-right': '6px',
           'border-radius': '2px',
           background: plot.background
         })
@@ -75,10 +85,54 @@ export default (self, api) => {
           float: 'left',
           // TODO Temporary solution until font metrics are not yet implemented.
           'line-height': 0.8 * parseFloat(self._font.size) + 'px'
-        }).html(self._tooltip.yFormat(plot.value, plot.name))
+        }).html(_.valueFormat(plot))
       })
 
       return contentNode.node().outerHTML
+    }
+  })
+
+  api.tooltip = Object.assign(api.tooltip || {}, {
+    /**
+     * Sets the array of keys that are ignored by the tooltip. Ignored keys are not shown in the tooltip and they don't
+     * have plot markers.
+     *
+     * @method ignore
+     * @methodOf PointTooltip
+     * @param {string[]} keys Keys of plots to ignore in the tooltip.
+     * @returns {Widget} Reference to the Widget API.
+     */
+    ignore: keys => {
+      self._tooltip.ignore = keys || []
+      return api
+    },
+
+    /**
+     * Sets the format for the tooltip title.
+     *
+     * @method titleFormat
+     * @methodOf PointTooltip
+     * @param {Function} [format = t => t] Function to use as the formatter. May take one parameter which is the title
+     * of the tooltip. Can be HTML formatted.
+     * @returns {Widget} Reference to the Widget API.
+     */
+    titleFormat: format => {
+      _.titleFormat = format || (t => t)
+      return api
+    },
+
+    /**
+     * Sets the format of the tooltip entry values.
+     *
+     * @method valueFormat
+     * @methodOf PointTooltip
+     * @param {Function} [format = d => d.y] Function to use as the formatter. May take one parameter which is the data
+     * point for the current plot's entry containing the plot name and the data. Can be HTML formatted.
+     * @returns {Widget} Reference to the Widget API.
+     */
+    valueFormat: format => {
+      _.valueFormat = format || (d => d.y)
+      return api
     }
   })
 
