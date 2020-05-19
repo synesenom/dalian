@@ -152,6 +152,7 @@ export default (name, parent = 'body') => {
         enter: g => {
           g.style('opacity', 0)
             .style('color', self._color.mapper)
+            .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Group of elements.
           let slice = g.append('g')
@@ -163,7 +164,6 @@ export default (name, parent = 'body') => {
             .on('mouseleave.pie', () => {
               _.current = undefined
             })
-            .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Add slice.
           slice.append('path')
@@ -208,11 +208,11 @@ export default (name, parent = 'body') => {
         update: g => {
           g.style('opacity', 1)
             .style('color', self._color.mapper)
+            .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Update slices.
           let slice = g.select('.slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
-            .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           slice.select('.slice-wedge')
             .attrTween('d', attrTween(d => _.arc(d)))

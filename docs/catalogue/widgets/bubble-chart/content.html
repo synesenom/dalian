@@ -7,8 +7,6 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleRadius" onclick="toggleRadius()">H - Change radius.</li>
-    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li onclick="changeLabelFormat()">F - Change label format.</li>
   </ul>
 </div>
 
@@ -79,23 +77,11 @@ let toggleRadius = () => {
   this.h = 1 - (this.h || 0)
   bubbleChart.radius(this.h ? 50 : undefined).render(1000)
 }
-
-let toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  bubbleChart.labels(this.l).render()
-}
-
-let changeLabelFormat = () => {
-  this.f = !(this.f || 0)
-  bubbleChart.labelFormat(this.f ? x => x.toFixed(1) + '%' : undefined)
-    .render()
-}
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleRadius = state(toggleRadius, 'h', ['Change radius', 'Change radius'])
-toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 </script>
 
 <script class="doc">
@@ -107,9 +93,6 @@ window.addEventListener('keydown', e => {
       break
     case 'r':
       toggleRadius()
-      break
-    case 'l':
-      toggleLabels()
       break
     case 'f':
       changeLabelFormat()

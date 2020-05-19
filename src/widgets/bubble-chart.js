@@ -1,6 +1,7 @@
 import { extent, max, voronoi } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
+import { measureText } from '../utils/measure-text'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -61,9 +62,6 @@ export default (name, parent = 'body') => {
 
     // UI elements.
     radius: 30,
-    labels: false,
-    // TODO Label format takes the full data point d.
-    labelFormat: name => name,
 
     // Calculations.
     computeDiagram: data => voronoi()
@@ -117,7 +115,6 @@ export default (name, parent = 'body') => {
             })
 
           // Add bubble.
-          // TODO Add label.
           g.append('circle')
             .attr('class', 'bubble')
             .attr('cx', d => _.scales.x.scale(d.value.x))
@@ -133,6 +130,7 @@ export default (name, parent = 'body') => {
           g.style('opacity', 1)
             .style('color', self._color.mapper)
 
+          // Update bubble.
           g.select('.bubble')
             .attr('cx', d => _.scales.x.scale(d.value.x))
             .attr('cy', d => _.scales.y.scale(d.value.y))
@@ -217,34 +215,6 @@ export default (name, parent = 'body') => {
      */
     radius: (radius = 30) => {
       _.radius = radius
-      return api
-    },
-
-    /**
-     * Shows labels next to the bubbles. The labels can represent arbitrary content.
-     *
-     * @method labels
-     * @methodOf BubbleChart
-     * @param {boolean} [on = false] Whether to show labels.
-     * @returns {Object} Reference to the BubbleChart API.
-     */
-    labels (on = false) {
-      _.labels = on
-      return api
-    },
-
-    // TODO Remove labelFormat and use label as the direct formatter and if it is empty, don't show labels.
-    /**
-     * Sets the format of the labels.
-     *
-     * @method labelFormat
-     * @methodOf BubbleChart
-     * @param {Function} [format = x => x.name] The format of the value labels. May take the bubble's data point
-     * as parameter.
-     * @returns {Object} Reference to the BubbleChart API.
-     */
-    labelFormat (format = x => x.name) {
-      _.labelFormat = format
       return api
     }
   })

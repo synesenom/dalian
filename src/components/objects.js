@@ -40,6 +40,7 @@ export default scales => (() => {
 
     api = Object.assign(api || {}, {
       objects: {
+        // TODO If object withID exists, replace existing object.
         // TODO Docs.
         add: (id, obj, pos, duration, type = 'background') => {
           // Check if element exists.
