@@ -1,4 +1,4 @@
-import { event, mouse, select } from 'd3'
+import { event, select } from 'd3'
 import extend from '../../core/extend'
 import styles from '../../utils/styles'
 
@@ -51,6 +51,7 @@ export default (self, api) => {
           'font-family': 'inherit',
           'font-size': 0.9 * parseFloat(self._font.size) + 'px',
           width: 'auto',
+          'min-width': '80px',
           'line-height': '1',
           left: ((bbox.left + bbox.right) / 2 + scroll.left) + 'px',
           top: ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px',
@@ -61,7 +62,7 @@ export default (self, api) => {
 
     hideTooltip: () => {
       if (typeof _.elem !== 'undefined') {
-        _.elem.style('opacity', 0)
+        //_.elem.style('opacity', 0)
       }
     },
 
@@ -138,6 +139,7 @@ export default (self, api) => {
 
   // Extend update method
   self._widget.update = extend(self._widget.update, () => {
+    // Update relevant mouse events.
     self._widget.container
       .style('pointer-events', _.on ? 'all' : null)
       .on('mousemove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip())

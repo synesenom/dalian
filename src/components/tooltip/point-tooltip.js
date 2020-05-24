@@ -9,8 +9,8 @@ import Tooltip from './tooltip'
  * the tooltip displays info at a specific point of the widget (hence the name), such as line widgets or heat maps.
  * It inherits all methods from the [Tooltip]{@link ../components/tooltip.html} component. The tooltip consists of the
  * X coordinate of the current data point(s) (which can be formatted using
- * [xFormat]{@link ../components/tooltip.html#xFormat}) and the list of Y coordinates for the plots (formatted using
- * [yFormat]{@link ../components/tooltip.html#yFormat}).
+ * [xFormat]{@link ../components/tooltip.html#titleFormat}) and the list of Y coordinates for the plots (formatted using
+ * [yFormat]{@link ../components/tooltip.html#valueFormat}).
  *
  * @function PointTooltip
  */
@@ -29,18 +29,19 @@ export default (self, api) => {
     // Variables.
     ignore: [],
 
-    // Override methods
+    // Override methods.
     builder: content => {
       if (typeof content === 'undefined') {
         self._tooltip.content()
         return undefined
       }
 
-      // Create content node
+
+      // Create content node.
       let contentNode = styles(select(document.createElement('div')), {
         display: 'table',
         padding: '10px',
-        'min-width': '80px'
+        'min-width': '60px'
       })
 
       // Add title
@@ -50,6 +51,7 @@ export default (self, api) => {
       }).text(_.titleFormat(content.title))
 
       // Add content
+      const fontSize = 0.8 * parseFloat(self._font.size)
       content.content.data.forEach((plot, i) => {
         let wrapper = styles(contentNode.append('div'), {
           display: 'table-row',
@@ -68,12 +70,12 @@ export default (self, api) => {
           'align-items': 'center',
           height: self._font.size
         })
-        styles(box.append('span'), {
+        styles(box.append('div'), {
           display: 'inline-block',
           position: 'relative',
           float: 'left',
-          width: 0.8 * parseFloat(self._font.size) + 'px',
-          height: 0.8 * parseFloat(self._font.size) + 'px',
+          width: fontSize + 'px',
+          height: fontSize + 'px',
           'margin-right': '6px',
           'border-radius': '2px',
           background: plot.background
@@ -83,8 +85,7 @@ export default (self, api) => {
           position: 'relative',
           'max-width': '120px',
           float: 'left',
-          // TODO Temporary solution until font metrics are not yet implemented.
-          'line-height': 0.8 * parseFloat(self._font.size) + 'px'
+          'line-height': fontSize + 'px'
         }).html(_.valueFormat(plot))
       })
 

@@ -1,0 +1,93 @@
+<div id="desc">
+  <p>
+    A calendar plot ...
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
+  .data(/* TODO */)
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .font.size(11)
+  // .color.palette('palette-light')
+  //.label(d => parseInt(d.value))
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+function getData () {
+  // Create values for unique dates.
+  const year = 2016 + Math.floor(4 * Math.random())
+  const minDate = Math.floor(100 * Math.random())
+  const maxDate = 50 + Math.floor(150 * Math.random())
+
+  let data = Array.from({ length: 50 }, () => {
+    let date = new Date(year, 0, 1)
+    date.setDate(date.getDate() + minDate + Math.floor(maxDate * Math.random()) + 1)
+    return {
+      date: date.toISOString().substr(0, 10),
+      value: 20 * Math.random()
+    }
+  }).reduce((map, d) => map.set(d.date, d.value), new Map())
+
+  // Convert to an array.
+  return Array.from(data).map(d => ({
+    date: d[0],
+    value: d[1]
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .font.size(14)
+  // TODO .color.palette('palette-light')
+  // TODO .tooltip.on(true)
+  // TODO .tooltip.valueFormat(row => row.toFixed(2))
+  .render(1000)
+</script>
+
+<script class="doc">
+// api methods
+let changeData = () => calendarPlot.data(getData()).render(1000)
+
+let toggleLabels = () => {
+  this.l = 1 - (this.l || 0)
+  // TODO calendarPlot.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 'l':
+      toggleLabels()
+      break
+    default:
+  }
+})
+</script>
+

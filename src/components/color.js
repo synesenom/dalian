@@ -61,6 +61,7 @@ function createCategoricalMapping (palette, on) {
   }
 }
 
+// TODO Add null color to mapping.
 function createSequentialMapping(palette, on) {
   if (typeof palette !== 'string' && !Array.isArray(palette)) {
     // Any other case: error.
@@ -80,6 +81,7 @@ function createSequentialMapping(palette, on) {
 
 }
 
+// TODO Add null color to mapping.
 function createDivergingMapping(palette, on) {
   if (!Array.isArray(palette)) {
     console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.diverging} color policy, fallback to default color palette.`)
@@ -139,11 +141,7 @@ export default (self, api) => {
   // Protected members.
   self = Object.assign(self || {}, {
     _color: {
-      mapper: buildMapper(),
-
-      scale (data) {
-        // TODO Create a scale from data to [0, 1] that the Color component can use for setting the colors.
-      }
+      mapper: buildMapper()
     }
   })
 

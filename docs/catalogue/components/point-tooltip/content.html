@@ -61,7 +61,7 @@ const chart = dalian.LineChart('myChart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  .margins(40)
+  .margins(45)
   .bottomAxis.label('Elapsed time [h]')
   .leftAxis.label('Temperature [C]')
   .tooltip.valueFormat(d => d.y.toFixed(2))
@@ -121,7 +121,7 @@ window.addEventListener('keydown', e => {
       changeTitleFormat()
       break
     case 'v':
-      changeYFormat()
+      changeValueFormat()
       break
     case 'i':
       toggleIgnore()

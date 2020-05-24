@@ -72,7 +72,7 @@ export default (name, parent = 'body') => {
 
   // Private members
   let _ = {
-    // Variables
+    // Data variables.
     scales,
 
     // Methods
@@ -225,6 +225,7 @@ export default (name, parent = 'body') => {
     }
   }
 
+  // TODO Pre-compute solely data related metrics.
   self._chart.transformData = data => {
     return data.map(d => ({
       name: d.name,

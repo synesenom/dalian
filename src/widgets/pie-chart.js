@@ -3,7 +3,7 @@ import compose from '../core/compose'
 import extend from '../core/extend'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
 import { measureText } from '../utils/measure-text'
-import { attrTween } from '../utils/tween'
+import { attrTween } from '../utils/tweens'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
@@ -155,6 +155,7 @@ export default (name, parent = 'body') => {
             .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Group of elements.
+          // TODO Remove unnecessary group.
           let slice = g.append('g')
             .attr('class', 'slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
@@ -276,7 +277,7 @@ export default (name, parent = 'body') => {
 
   // Extend widget update
   // Update plot before widget
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, _.update)
 
   // Public API
   api = Object.assign(api, {
