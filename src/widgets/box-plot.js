@@ -6,9 +6,12 @@ import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Hihighlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
+import LineWidth from '../components/line-width'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
 
+// TODO Add LineColor component.
+// TODO Add reference to LineWidth component.
 /**
  * The box plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -41,6 +44,7 @@ export default (name, parent = 'body') => {
     ElementTooltip,
     Hihighlight(['.plot-group']),
     LeftAxis(scales.y),
+    LineWidth(1),
     Opacity(0.2)
   )
 
@@ -111,6 +115,7 @@ export default (name, parent = 'body') => {
             .attr('rx', '2px')
             .attr('ry', '2px')
             .attr('stroke', 'currentColor')
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'currentColor')
             .attr('fill-opacity', self._opacity.value())
             .attr('x', d => _.scales.x.scale(_.horizontal ? d.value.q1 : d.name) - xShift)
@@ -129,11 +134,13 @@ export default (name, parent = 'body') => {
             .attr('class', 'box-whisker-lower')
             .attr('d', _.lowerWhiskerPath)
             .attr('stroke', 'currentColor')
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'none')
           g.append('path')
             .attr('class', 'box-whisker-upper')
             .attr('d', _.upperWhiskerPath)
             .attr('stroke', 'currentColor')
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'none')
 
           // Mild outliers.
@@ -143,8 +150,8 @@ export default (name, parent = 'body') => {
             .attr('class', 'box-mild-outlier')
             .attr('cx', _.outlierX)
             .attr('cy', _.outlierY)
-            .attr('r', 2)
-            .attr('stroke', 'currentColor')
+            .attr('r', 3)
+            .attr('stroke', 'none')
             .attr('fill', 'currentColor')
 
           // Extreme outliers.
@@ -154,8 +161,8 @@ export default (name, parent = 'body') => {
             .attr('class', 'box-extreme-outlier')
             .attr('cx', _.outlierX)
             .attr('cy', _.outlierY)
-            .attr('r', 2)
-            .attr('stroke', 'currentColor')
+            .attr('r', 3)
+            .attr('stroke', 'none')
             .attr('fill', 'currentColor')
             .style('opacity', 0.3)
 
@@ -170,7 +177,7 @@ export default (name, parent = 'body') => {
                 .attr('class', 'box-mild-outlier')
                 .attr('cx', _.outlierX)
                 .attr('cy', _.outlierY)
-                .attr('r', 2)
+                .attr('r', 3)
                 .attr('stroke', 'currentColor')
                 .attr('fill', 'currentColor')
                 .style('opacity', 0),
@@ -192,7 +199,7 @@ export default (name, parent = 'body') => {
                 .attr('class', 'box-extreme-outlier')
                 .attr('cx', _.outlierX)
                 .attr('cy', _.outlierY)
-                .attr('r', 2)
+                .attr('r', 3)
                 .attr('stroke', 'currentColor')
                 .attr('fill', 'currentColor')
                 .style('opacity', 0),
@@ -204,7 +211,7 @@ export default (name, parent = 'body') => {
             .transition().duration(duration)
             .attr('cx', _.outlierX)
             .attr('cy', _.outlierY)
-            .style('opacity', 0.3)
+            .style('opacity', self._opacity.value())
 
           return g
         },
@@ -217,6 +224,7 @@ export default (name, parent = 'body') => {
             .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value.q3) - yShift)
             .attr('width', d => _.horizontal ? _.scales.x.scale(d.value.q3) - _.scales.x.scale(d.value.q1) : _.boxWidth)
             .attr('height', d => _.horizontal ? _.boxWidth : _.scales.y.scale(d.value.q1) - _.scales.y.scale(d.value.q3))
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill-opacity', self._opacity.value())
           g.select('.box-median')
             .attr('x1', d => _.scales.x.scale(_.horizontal ? d.value.median : d.name) - xShift)
@@ -225,8 +233,10 @@ export default (name, parent = 'body') => {
             .attr('y2', d => _.scales.y.scale(_.horizontal ? d.name : d.value.median) + yShift)
           g.select('.box-whisker-lower')
             .attr('d', _.lowerWhiskerPath)
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
           g.select('.box-whisker-upper')
             .attr('d', _.upperWhiskerPath)
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
 
           return g
         },

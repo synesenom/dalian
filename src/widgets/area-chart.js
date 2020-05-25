@@ -213,6 +213,8 @@ export default (name, parent = 'body') => {
 
   // Public API.
   api = Object.assign(api || {}, {
+    // TODO Make line color a component.
+    // TODO Add LineWidth component
     lineColor: (color) => {
       _.lineColor = color || null
       return api

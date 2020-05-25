@@ -9,6 +9,8 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleBoxWidth" onclick="toggleBoxWidth()">W - Change box width.</li>
+    <li id="toggleOpacity" onclick="toggleOpacity()">O - Change box opacity.</li>
+    <li id="toggleLineWidth" onclick="toggleLineWidth()">L - Change line width.</li>
     <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
   </ul>
 </div>
@@ -148,6 +150,16 @@ let toggleBoxWidth = () => {
   boxPlot.boxWidth(this.w ? 14 : undefined).render(1000)
 }
 
+let toggleOpacity = () => {
+  this.o = 1 - (this.o || 0)
+  boxPlot.opacity(this.o ? 0.8 : undefined).render(1000)
+}
+
+let toggleLineWidth = () => {
+  this.l = 1 - (this.l || 0)
+  boxPlot.lineWidth(this.l ? 2 : undefined).render(1000)
+}
+
 let toggleHorizontal = () => {
   this.h = 1 - (this.h || 0)
   boxPlot.horizontal(this.h)
@@ -161,6 +173,8 @@ let toggleHorizontal = () => {
 // Modify toggle buttons
 toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
 toggleBoxWidth = state(toggleBoxWidth, 'w', ['Change box width', 'Change box width'])
+toggleOpacity = state(toggleOpacity, 'o', ['Change box opacity', 'Change box opacity'])
+toggleLineWidth = state(toggleLineWidth, 'l', ['Change line width', 'Change line width'])
 </script>
 
 <script class="doc">
@@ -172,6 +186,12 @@ window.addEventListener('keydown', e => {
       break
     case 'w':
       toggleBoxWidth()
+      break
+    case 'o':
+      toggleOpacity()
+      break
+    case 'l':
+      toggleLineWidth()
       break
     case 'h':
       toggleHorizontal()

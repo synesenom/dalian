@@ -7,10 +7,12 @@ import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
+import LineWidth from '../components/line-width'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
 
 // TODO Make horizontal a component taking the scales as parameter.
+// TODO Add reference to LineWidth component.
 /**
  * The violin plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -42,6 +44,7 @@ export default (name, parent = 'body') => {
     ElementTooltip,
     Highlight(['.plot-group']),
     LeftAxis(scales.y),
+    LineWidth(1),
     Opacity(0.2)
   )
 
@@ -164,6 +167,7 @@ export default (name, parent = 'body') => {
               let current = areaFn(d.values)
               return interpolatePath(previous, current, null)
             })
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .style('fill-opacity', self._opacity.value())
 
           return g
