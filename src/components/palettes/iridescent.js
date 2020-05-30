@@ -1,4 +1,6 @@
-export default [
+export default {
+  missing: '#eee',
+  colors: [
   '#fefbe9',
   '#fcf7d5',
   '#f5f3c1',
@@ -22,4 +24,4 @@ export default [
   '#805770',
   '#684957',
   '#46353a'
-]
+]}

@@ -192,10 +192,10 @@ export default (name, parent = 'body') => {
       content: {
         type: 'plots',
         data: [{
-          name: self._bottomAxis.label(),
+          name: self._bottomAxis.label().text(),
           value: _.current.x
         }, {
-          name: self._leftAxis.label(),
+          name: self._leftAxis.label().text(),
           value: _.current.y
         }]
       }

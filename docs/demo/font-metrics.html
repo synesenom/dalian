@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>fm</title>
+  <style>
+    canvas {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+const fontMetrics = (() => {
+  // Private members.
+  let _ = (() => {
+    // Create canvas and context that we use to draw characters in.
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+
+    // Initialize with body's computed.style.
+    const style = getComputedStyle(document.body)
+
+    return {
+      canvas,
+      context,
+      font: {
+        family: style.fontFamily,
+        size: parseFloat(style.fontSize)
+      }
+    }
+  })()
+
+  function resize (width, height) {
+    _.canvas.style.width = width + 'px'
+    _.canvas.width = width
+    _.canvas.style.height = height + 'px'
+    _.canvas.height = height
+  }
+
+  function measureCharacter (char) {
+    // Get character width first.
+    const charWidth = _.context.measureText(char).width
+    const charHeight = _.font.size
+
+    // Calculate container size.
+    const padding = 20
+    const width = 2 * padding + charWidth
+    const height = 2 * padding + charHeight
+
+    // Resize canvas and set fonts.
+    resize(width, height)
+    _.context.font = _.font.size + 'px ' + _.font.family
+
+    // Clear canvas.
+    _.context.fillStyle = '#fff'
+    _.context.fillRect(0, 0, width, height)
+
+    // Draw text.
+    _.context.fillStyle = '#000'
+    _.context.fillText(char, padding, padding + charHeight)
+
+    // Measure top and bottom.
+    const pixelData = _.context.getImageData(0, 0, width, height).data.filter((d, i) => i % 4 === 0)
+    const min = Math.floor(pixelData.findIndex(d => d < 255) / width)
+    pixelData.reverse()
+    const max = height - Math.floor(pixelData.findIndex(d => d < 255) / width)
+    return { min, max }
+  }
+
+  return (family, size) => {
+    // Set font.
+    _.font = { family, size }
+
+    // Measure characters.
+    const x = measureCharacter('x')
+    const y = measureCharacter('y')
+    const h = measureCharacter('h')
+    const H = measureCharacter('H')
+
+    // Calculate metrics.
+    const xHeight = x.max - x.min
+
+    return {
+      xHeight,
+      capHeight: H.max - H.min,
+      descender: y.max - y.min - xHeight,
+      ascender: h.max - h.min
+    }
+  }
+})()
+
+
+// Canvas and context.
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function setFont (family, size) {
+  ctx.font = size + 'px ' + family;
+}
+
+function measureTextWidth (text) {
+  return ctx.measureText(text).width;
+}
+
+function resizeCanvas (w, h) {
+  canvas.style.width = w + 'px';
+  canvas.width = w;
+  canvas.style.height = h + 'px';
+  canvas.height = h;
+}
+
+function measureCharacter (char) {
+  // Set canvas size.
+  const fontWidth = measureTextWidth(char);
+  const fontHeight = fontSize;
+  const padding = 20;
+  const width = 2 * padding + fontWidth;
+  const height = 2 * padding + fontHeight;
+  resizeCanvas(width, height);
+  setFont(fontFamily, fontSize);
+
+  // Clear canvas.
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, width, height);
+
+  // Draw text.
+  ctx.fillStyle = '#000';
+  ctx.fillText(char, padding, padding + fontHeight);
+
+  // Measure top and bottom.
+  const pixelData = ctx.getImageData(0, 0, width, height).data
+    .filter((d, i) => i % 4 === 0);
+  const min = Math.floor(pixelData.findIndex(d => d < 255) / width);
+  pixelData.reverse();
+  const max = height - Math.floor(pixelData.findIndex(d => d < 255) / width);
+  return { min, max };
+}
+
+function getFontMetrics () {
+  // Measure characters.
+  const x = measureCharacter('x')
+  const y = measureCharacter('y')
+  const h = measureCharacter('h')
+  const H = measureCharacter('H')
+
+  // Calculate metrics.
+  const xHeight = x.max - x.min
+
+  return {
+    xHeight,
+    capHeight: H.max - H.min,
+    descender: y.max - y.min - xHeight,
+    ascender: h.max - h.min
+  }
+}
+
+function line (y, color) {
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.moveTo(0, 20 + fontSize - y);
+  ctx.lineTo(canvas.width, 20 + fontSize - y);
+  ctx.stroke();
+}
+
+// Set font.
+const fontFamily = 'Helvetica';
+const fontSize = 100;
+setFont(fontFamily, fontSize);
+
+// Measure.
+//const fm = getFontMetrics(fontFamily, fontSize)
+const m = fontMetrics(fontFamily, fontSize)
+console.log(m)
+const H = measureCharacter('Hxhyi9')
+line(0, 'black')
+line(m.xHeight, 'red')
+line(m.capHeight, 'green')
+line(m.ascender, 'blue')
+line(-m.descender, 'orange')
+</script>
+</body>
+</html>

@@ -51,7 +51,7 @@ import YRange from '../components/range/y-range'
 export default (name, parent = 'body') => {
   // Build widget from components
   let scales = {
-    x: Scale('linear', 'log'),
+    x: Scale('linear'),
     y: Scale('linear')
   }
   let { self, api } = compose(

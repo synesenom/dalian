@@ -1,6 +1,5 @@
 import { axisLeft } from 'd3'
 import BaseAxis from './base-axis'
-import extend from '../../core/extend'
 
 /**
  * Component implementing the left axis for charts. When this component is available for a widget, its API is exposed
@@ -10,39 +9,19 @@ import extend from '../../core/extend'
  */
 export default scale => {
   return (self, api) => {
-    // Base class
-    let base = BaseAxis('y', self, axisLeft, scale)
-    base.adjustLabel({
+    // Base class.
+    let base = BaseAxis('y', self, axisLeft, scale, {
       'text-anchor': 'begin',
       x: 5 + 'px',
       y: (-5) + 'px'
     })
 
-    // Private members
-    let _ = {
-      grid: null,
-      gridStyle: null,
-
-      update: duration => {
-        // Update base axis
-        base.update(duration, self._widget.size, self._widget.margins)
-      }
-    }
-
-    // Protected members
+    // Protected members: just inherit from base axis.
     self = Object.assign(self || {}, {
-      _leftAxis: {
-        axis: base.fn,
-        update: base.update,
-        scale: base.scale,
-        label: () => base.label
-      }
+      _leftAxis: base
     })
 
-    // Extend update
-    self._widget.update = extend(self._widget.update, _.update, true)
-
-    // Public API
+    // Public API.
     api = Object.assign(api || {}, {
       leftAxis: {
         /**
@@ -53,8 +32,8 @@ export default scale => {
          * @param {string} label Text to set as the label.
          * @returns {Object} Reference to the LeftAxis API.
          */
-        label: label => {
-          base.setLabel(label)
+        label: (label = '') => {
+          base.label.text(label)
           return api
         },
 

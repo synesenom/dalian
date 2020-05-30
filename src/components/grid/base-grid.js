@@ -32,7 +32,7 @@ export default type => {
           }
 
           // Update grid.
-          const axis = _.type === 'x' ? self._bottomAxis.axis : self._leftAxis.axis
+          const axis = _.type === 'x' ? self._bottomAxis.fn : self._leftAxis.fn
           const length = _.type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
           _.grid.transition().duration(duration)
             .call(

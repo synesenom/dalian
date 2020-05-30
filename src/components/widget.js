@@ -1,5 +1,6 @@
 import { mouse, select } from 'd3'
 import styles from '../utils/styles'
+import fontMetrics from '../utils/font-metrics'
 
 /**
  * Component implementing a generic widget. A widget is the most abstract element of the library and most of the charts
@@ -64,7 +65,12 @@ export default (type, name, parent, elem) => {
       }
     },
 
+    /**
+     * @deprecated Use {@link getFontMetrics}
+     */
     getStyle: () => window.getComputedStyle(self._widget.container.node()),
+
+    getFontMetrics: () => fontMetrics(window.getComputedStyle(self._widget.container.node()).fontFamily),
 
     update: duration => {
       // Update container and content.

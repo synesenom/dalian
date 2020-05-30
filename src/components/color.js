@@ -12,15 +12,28 @@ const POLICIES = {
 }
 
 // TODO Fallback to group color and currentColor if _.on is not set.
+// TODO Clean up module.
 function selectDefaultPalette (policy) {
   switch (policy) {
     default:
     case POLICIES.categorical:
       return wong
     case POLICIES.sequential:
-      return iridescent
+      return iridescent.colors
     case POLICIES.diverging:
-      return sunset
+      return sunset.colors
+  }
+}
+
+function selectDefaultMissingColor (policy) {
+  switch (policy) {
+    default:
+    case POLICIES.categorical:
+      return '#fff'
+    case POLICIES.sequential:
+      return iridescent.missing
+    case POLICIES.diverging:
+      return sunset.missing
   }
 }
 
@@ -41,7 +54,7 @@ function applyDeficiency (palette, converter) {
   }
 }
 
-function createCategoricalMapping (palette, on) {
+function createCategoricalMapping (palette, missing, on) {
   // Single color.
   if (typeof palette === 'string') {
     return () => palette
@@ -49,72 +62,64 @@ function createCategoricalMapping (palette, on) {
     // Array of colors.
     return (() => {
       let keys = []
-      return value => {
-        let key = on(value)
-        let i = keys.indexOf(key)
-        return palette[i > -1 ? i : keys.push(key) - 1]
+      return d => {
+        let value = on(d)
+        if (value === null) {
+          return missing
+        } else {
+          let i = keys.indexOf(value)
+          return palette[i > -1 ? i : keys.push(value) - 1]
+        }
       }
     })()
   } else if (typeof palette === 'object') {
     // Exact mapping.
-    return value => palette[on(value)]
+    return d => {
+      const value = on(d)
+      return value === null ? missing : palette[value]
+    }
   }
 }
 
-// TODO Add null color to mapping.
-function createSequentialMapping(palette, on) {
+function createSequentialMapping(palette, missing, on) {
   if (typeof palette !== 'string' && !Array.isArray(palette)) {
-    // Any other case: error.
+    // Any other case: warning and set to default palette.
     console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.sequential} color policy, fallback to default color palette.`)
     palette = selectDefaultPalette(POLICIES.sequential)
   }
 
-  // String: map [0, 1] to [transparent, color].
+  // String: map [0, 1] to [white, color].
   if (typeof palette === 'string') {
-    const i = interpolateRgb('transparent', palette)
-    return value => i(on(value))
+    const i = interpolateRgb('#fff', palette)
+    return d => {
+      let value = on(d)
+      return value === null ? missing : i(value)
+    }
   } else if (Array.isArray(palette)) {
     // Array: interpolate within array. We also apply a recommended gamma of 2.2.
     const i = piecewise(interpolateRgb.gamma(2.2), palette)
-    return value => i(on(value))
+    return d => {
+      let value = on(d)
+      return value === null ? missing : i(value)
+    }
   }
-
 }
 
-// TODO Add null color to mapping.
-function createDivergingMapping(palette, on) {
+function createDivergingMapping(palette, missing, on) {
   if (!Array.isArray(palette)) {
+    // Incompatible palette: warning and set to default palette.
     console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.diverging} color policy, fallback to default color palette.`)
     palette = selectDefaultPalette(POLICIES.diverging)
-    return
   }
 
   // Array: interpolate within array.
   const i = piecewise(interpolateRgb.gamma(2.2), palette)
-  return value => i((on(value) + 1) / 2)
-}
-
-function buildMapper (policy = POLICIES.categorical,
-                      palette,
-                      deficiency,
-                      on = d => d.name) {
-  // Select palette.
-  const originalPalette = palette || selectDefaultPalette(policy)
-
-  // Convert palette according to the current deficiency.
-  const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(deficiency))
-
-  // Create mapper function.
-  switch (policy) {
-    default:
-    case POLICIES.categorical:
-      return createCategoricalMapping(mappedPalette, on)
-    case POLICIES.sequential:
-      return createSequentialMapping(mappedPalette, on)
-    case POLICIES.diverging:
-      return createDivergingMapping(mappedPalette, on)
+  return d => {
+    const value = on(d)
+    return i((value + 1) / 2)
   }
 }
+
 
 /**
  * Component implementing various color palettes and coloring policies. When this component is available for a widget,
@@ -129,19 +134,69 @@ export default (self, api) => {
     policy: POLICIES.categorical,
 
     // Palette: single color, array of colors or a mapping itself.
-    palette: undefined,
+    palette: selectDefaultPalette(POLICIES.categorical),
+
+    // Color to indicate missing data.
+    missing: selectDefaultMissingColor(POLICIES.categorical),
 
     // Color vision deficiency filter.
     deficiency: undefined,
 
     // Mapper from data to color.
     on: d => d.name,
+
+    // Scale function that should be updated internally by the widget.
+    scale: d => d,
+
+    // Builds the mapper.
+    buildMapper() {
+      // Select palette.
+      const originalPalette = _.palette || selectDefaultPalette(_.policy)
+
+      // Convert palette according to the current deficiency.
+      const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(_.deficiency))
+
+      // Build accessor.
+      const accessor = d => {
+        const value = _.on(d)
+        return value === null ? null : _.scale(value)
+      }
+
+      // Create mapper function.
+      switch (_.policy) {
+        default:
+        case POLICIES.categorical:
+          return createCategoricalMapping(mappedPalette, _.missing, accessor)
+        case POLICIES.sequential:
+          return createSequentialMapping(mappedPalette, _.missing, accessor)
+        case POLICIES.diverging:
+          return createDivergingMapping(mappedPalette, _.missing, accessor)
+      }
+    }
   }
 
   // Protected members.
   self = Object.assign(self || {}, {
     _color: {
-      mapper: buildMapper()
+      init (policy, on) {
+        // Set policy and accessor.
+        _.policy = policy
+        _.on = on
+
+        // Set default palette and missing color.
+        _.palette = selectDefaultPalette(policy)
+        _.missing = selectDefaultMissingColor(policy)
+
+        // Build mapper.
+        self._color.mapper = _.buildMapper()
+      },
+
+      scale (scale) {
+        _.scale = scale
+        self._color.mapper = _.buildMapper()
+      },
+
+      mapper: _.buildMapper()
     }
   })
 
@@ -171,7 +226,7 @@ export default (self, api) => {
        *   </li>
        *   <li><code>sequential</code>: Maps the interval [0, 1] to a range of colors. When this policy is used,
        *   it is most often applied together with a specific mapping function set by the <code>on</code> method.
-       *   Supported palette types: single color (colors are interpolated from transparent to the specified color),
+       *   Supported palette types: single color (colors are interpolated from white to the specified color),
        *   array of colors (colors are interpolated according to the specified colors).
        *   The default color palette is the iridescent palette created by Paul Tol (See
        *   <a href='https://personal.sron.nl/~pault/#sec:sequential'>this post</a> for details):
@@ -233,7 +288,7 @@ export default (self, api) => {
        */
       policy (policy = POLICIES.categorical) {
         _.policy = policy
-        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
+        self._color.mapper = _.buildMapper()
         return api
       },
 
@@ -289,9 +344,11 @@ export default (self, api) => {
        * used for all plots. If an array of strings, it's colors are assigned to plots as they are added to the widget
        * without any specific association between colors and plots. If an object, it is used as a mapping from the plot
        * names to the colors.
+       * @param {string} missing Color to be used for missing values. This is mostly relevant for the sequential and
+       * diverging color policies. Default value is policy dependent.
        * @returns {Widget} Reference to the Widget's API.
        */
-      palette (palette) {
+      palette (palette,  missing) {
         // Check fo built-in palettes
         if (typeof palette === 'string' && palette.startsWith('palette-')) {
           switch (palette) {
@@ -302,18 +359,21 @@ export default (self, api) => {
               _.palette = light
               break
             case 'palette-sunset':
-              _.palette = sunset
+              _.palette = sunset.colors
               break
             case 'palette-iridescent':
-              _.palette = iridescent
+              _.palette = iridescent.colors
               break
           }
         } else {
           _.palette = palette
         }
 
+        // Set missing value color.
+        _.missing = missing || '#fff'
+
         // Update mapping.
-        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
+        self._color.mapper = _.buildMapper()
         return api
       },
 
@@ -332,11 +392,10 @@ export default (self, api) => {
        */
       deficiency (type) {
         _.deficiency = type
-        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
+        self._color.mapper = _.buildMapper()
         return api
       },
 
-      // TODO Add note about the color mapping using the domain [0, 1], if needed.
       /**
        * Sets the mapping function that should be used to map data points to colors. It is used different ways for each
        * coloring policy:
@@ -355,7 +414,7 @@ export default (self, api) => {
        */
       on (on = d => d.name) {
         _.on = on
-        self._color.mapper = buildMapper(_.policy, _.palette, _.deficiency, _.on)
+        self._color.mapper = _.buildMapper()
         return api
       }
     }

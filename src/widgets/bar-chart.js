@@ -3,8 +3,8 @@ import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
-import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
+import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import Label from '../components/label'
@@ -92,25 +92,25 @@ export default (name, parent = 'body') => {
 
     // Update method.
     update: duration => {
-      // Compute some constants beforehand
+      // Compute some constants beforehand.
       const style = self._widget.getStyle()
 
-      // Collect X values and Y max
+      // Collect X values and Y max.
       const xValues = self._chart.data.map(d => d.name)
       const yMax = 1.01 * max(self._chart.data.map(d => d.value)) || 1
 
-      // Update scales
+      // Update scales.
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(_.horizontal ? [0, yMax] : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
         .domain(_.horizontal ? xValues : [0, yMax])
 
-      // Add plots
+      // Add plots.
       self._chart.plotGroups({
         enter: g => {
           const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
-          // Add bars
+          // Add bars.
           g.append('rect')
             .attr('class', 'bar')
             .on('mouseover.bar', d => {
@@ -125,7 +125,7 @@ export default (name, parent = 'body') => {
             .attr('height', _.horizontal ? bandwidth : 0)
             .attr('fill', self._color.mapper)
 
-          // Add values
+          // Add labels.
           const measure = _.horizontal ? _.measureX : _.measureY
           g.append('text')
             .style('display', 'none')
@@ -143,7 +143,7 @@ export default (name, parent = 'body') => {
         update: g => {
           const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
-          // Bars
+          // Update bars.
           g.select('.bar')
             .attr('x', d => _.scales.x.scale(_.horizontal ? 0 : d.name))
             .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value))
@@ -152,7 +152,7 @@ export default (name, parent = 'body') => {
               : (parseInt(self._widget.size.innerHeight) - _.scales.y.scale(d.value)))
             .attr('fill', self._color.mapper)
 
-          // Values
+          // Update labels.
           const measure = _.horizontal ? _.measureX : _.measureY
           g.select('.bar-label')
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
@@ -222,14 +222,7 @@ export default (name, parent = 'body') => {
       self._yGrid.type(on ? 'x' : 'y')
 
       return api
-    },
-
-
-    /*label (label) {
-      _.showLabel = typeof label !== 'undefined' && label !== null
-      _.label = label || (() => '')
-      return api
-    }*/
+    }
   })
 
   return api

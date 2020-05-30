@@ -7,6 +7,8 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Change block margin.</li>
+    <li id="toggleDays" onclick="toggleDays()">W - Change day names.</li>
   </ul>
 </div>
 
@@ -27,11 +29,11 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
 // generate data
 function getData () {
   // Create values for unique dates.
-  const year = 2016 + Math.floor(4 * Math.random())
-  const minDate = Math.floor(100 * Math.random())
-  const maxDate = 50 + Math.floor(150 * Math.random())
+  const year = 2016 + Math.floor(3 * Math.random())
+  const minDate = Math.floor(50 * Math.random())
+  const maxDate = 100 + Math.floor(100 * Math.random())
 
-  let data = Array.from({ length: 50 }, () => {
+  let data = Array.from({ length: 200 }, () => {
     let date = new Date(year, 0, 1)
     date.setDate(date.getDate() + minDate + Math.floor(maxDate * Math.random()) + 1)
     return {
@@ -54,10 +56,17 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  .font.size(14)
-  // TODO .color.palette('palette-light')
-  // TODO .tooltip.on(true)
-  // TODO .tooltip.valueFormat(row => row.toFixed(2))
+  .margins({left: 50, top: 50})
+  .font.size(12)
+  .color.palette([
+    '#E5E5E5',
+    '#C6E48B',
+    '#7BC96F',
+    '#239A3B',
+    '#196127'], '#E5E5E5')
+  .tooltip.on(true)
+  .tooltip.titleFormat(title => (1 + title.getMonth()) + '/' + title.getDate())
+  .tooltip.valueFormat(d => d === null ? 'No data' : Math.round(d))
   .render(1000)
 </script>
 
@@ -67,13 +76,25 @@ let changeData = () => calendarPlot.data(getData()).render(1000)
 
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
-  // TODO calendarPlot.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
+  calendarPlot.label(this.l ? d => d.value === null ? '' : Math.round(d.value) : undefined).render()
+}
+
+let toggleBlockMargin = () => {
+  this.b = 1 - (this.b || 0)
+  calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
+}
+
+let toggleDays = () => {
+  this.w = 1 - (this.w || 0)
+  calendarPlot.days(this.w ? ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'] : undefined).render()
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
+toggleBlockMargin = state(toggleBlockMargin, 'b', ['Change block margin', 'Change block margin'])
+toggleDays = state(toggleDays, 'w', ['Change day names', 'Change day names'])
 </script>
 
 <script class="doc">
@@ -85,6 +106,12 @@ window.addEventListener('keydown', e => {
       break
     case 'l':
       toggleLabels()
+      break
+    case 'b':
+      toggleBlockMargin()
+      break
+    case 'w':
+      toggleDays()
       break
     default:
   }

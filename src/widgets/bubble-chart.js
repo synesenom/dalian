@@ -189,8 +189,8 @@ export default (name, parent = 'body') => {
       stripe: self._color.mapper(bubble),
       content: {
         data: [
-          {name: self._bottomAxis.label(), value: bubble.value.x},
-          {name: self._leftAxis.label(), value: bubble.value.y},
+          {name: self._bottomAxis.label().text(), value: bubble.value.x},
+          {name: self._leftAxis.label().text(), value: bubble.value.y},
           // TODO Add size label.
           {name: 'size', value: bubble.value.size}
         ]
