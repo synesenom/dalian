@@ -16,7 +16,7 @@ export default scale => {
       dy: '2.5em'
     })
 
-    // Private members
+    // Private members.
     let _ = {
       // Update method.
       update: duration => {
@@ -25,13 +25,11 @@ export default scale => {
       }
     }
 
-    // Extend update method.
-    self._widget.update = extend(self._widget.update, _.update, true)
-
     // Protected members: just inherit from base axis.
-    self = Object.assign(self || {}, {
-      _topAxis: base
-    })
+    self = Object.assign(self || {}, { _topAxis: base })
+
+    // Extend update method.
+    self._widget.update = extend(self._widget.update, _.update)
 
     // Public API
     api = Object.assign(api || {}, {

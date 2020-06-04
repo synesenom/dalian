@@ -23,18 +23,20 @@ export default (type, self, axisFn, scale, labelAttr) => {
 
   // Private members.
   let _ = {
+    margin: {left: 0, top: 0, right: 0, bottom: 0},
     format: x => x,
     values: null,
     scale,
     container,
     ticks: true,
+    tickAnchor: null,
     axisLine: true,
 
     // Update method.
     update: duration => {
       // Update container
       self._widget.getElem(_.container, duration)
-        .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
+        .attr('transform', 'translate(' + (self._widget.margins.left + _.margin.left - _.margin.right) + ',' + (self._widget.margins.top + _.margin.top - _.margin.bottom) + ')')
         .style('width', self._widget.size.innerWidth)
         .style('height', self._widget.size.innerHeight)
 
@@ -48,8 +50,15 @@ export default (type, self, axisFn, scale, labelAttr) => {
         .call(api.fn)
         .selectAll('path')
         .style('opacity', _.axisLine ? 1 : 0)
+
+      // Update ticks.
+      axis.selectAll('.tick > text')
+        .attr('text-anchor', _.tickAnchor)
     }
   }
+
+  // Extend update.
+  self._widget.update = extend(self._widget.update, _.update)
 
   // Public members.
   let api = {
@@ -59,6 +68,11 @@ export default (type, self, axisFn, scale, labelAttr) => {
     // Axis selection.
     axis,
 
+    margin: margin => {
+      _.margin = Object.assign(_.margin, margin)
+      return api
+    },
+
     label: attributes(container.append('text')
       .attr('class', `axis-label ${type}`)
       .attr('stroke-width', 0)
@@ -66,34 +80,41 @@ export default (type, self, axisFn, scale, labelAttr) => {
       .style('font-size', '1em')
       .text(''), labelAttr),
 
+    tickAnchor: tickAnchor => {
+      _.tickAnchor = tickAnchor || null
+      return api
+    },
+
     // Change scale object.
     scale: scale => {
       _.scale = scale
+      return api
     },
 
     // Hide axis line.
     hideAxisLine: on => {
       _.axisLine = !on
+      return api
     },
 
     // Hide tick lines.
     hideTicks: on => {
       _.ticks = !on
+      return api
     },
 
     // Tick format.
     format: (format = x => x) => {
       _.format = format
+      return api
     },
 
     // Set specific tick values.
     values: (values = null) => {
       _.values = values
+      return api
     }
   }
-
-  // Extend update.
-  self._widget.update = extend(self._widget.update, _.update, true)
 
   return api
 }

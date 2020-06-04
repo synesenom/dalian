@@ -25,7 +25,7 @@ export default class FlowChart extends Widget {
      * @memberOf FlowChart
      * @param {number} width New grid width.
      * @param {number} height New grid height.
-     * @return {FlowChart} Reference to the current flow chart.
+     * @return {FlowChart} Reference to the closest flow chart.
      */
     grid(width, height) {
         // Remove nodes

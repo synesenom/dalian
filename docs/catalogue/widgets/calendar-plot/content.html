@@ -7,21 +7,40 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Change block margin.</li>
+    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Change month margin.</li>
+    <li id="toggleMonthNames" onclick="toggleMonthNames()">M - Change month names.</li>
+    <li id="toggleBlockAlign" onclick="toggleBlockAlign()">A - Change label align.</li>
     <li id="toggleDays" onclick="toggleDays()">W - Change day names.</li>
   </ul>
 </div>
 
 <script class="card-example">
 dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
-  .data(/* TODO */)
+  .data((() => {
+    let data = Array.from({ length: 200 }, () => {
+      let date = new Date(Date.UTC(2019, 3, 1))
+      date.setDate(date.getDate() + Math.floor(50 * Math.random()) + 1)
+      return {
+        date: date.toISOString().substr(0, 10),
+        value: (date.getDay() === 0 || date.getDay() === 6) ? 3 * Math.random() : 5 + 3 * Math.random()
+      }
+    }).reduce((map, d) => map.set(d.date, d.value), new Map())
+
+    // Convert to an array.
+    return Array.from(data).map(([date, value]) => ({
+      date,
+      value
+    }))
+  })())
   .x(0)
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
+  .margins({top: 10, left: 35})
   .font.size(11)
-  // .color.palette('palette-light')
-  //.label(d => parseInt(d.value))
+  //.color.palette(['#eee', 'royalblue'])
+  .blockMargin(2)
+  .blockAlign('middle')
   .render()
 </script>
 
@@ -43,9 +62,9 @@ function getData () {
   }).reduce((map, d) => map.set(d.date, d.value), new Map())
 
   // Convert to an array.
-  return Array.from(data).map(d => ({
-    date: d[0],
-    value: d[1]
+  return Array.from(data).map(([date, value]) => ({
+    date,
+    value
   }))
 }
 </script>
@@ -84,9 +103,20 @@ let toggleBlockMargin = () => {
   calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
 }
 
+let toggleMonthNames = () => {
+  this.m = 1 - (this.m || 0)
+  calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'] : undefined).render()
+}
+
+let toggleBlockAlign = () => {
+  this.a = 1 - (this.a || 0)
+  calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
+}
+
 let toggleDays = () => {
   this.w = 1 - (this.w || 0)
-  calendarPlot.days(this.w ? ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'] : undefined).render()
+  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'] : undefined).render()
 }
 </script>
 
@@ -94,6 +124,8 @@ let toggleDays = () => {
 // Modify toggle buttons
 toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 toggleBlockMargin = state(toggleBlockMargin, 'b', ['Change block margin', 'Change block margin'])
+toggleMonthNames = state(toggleMonthNames, 'm', ['Change month names', 'Change month names'])
+toggleBlockAlign = state(toggleBlockAlign, 'a', ['Change label align', 'Change label align'])
 toggleDays = state(toggleDays, 'w', ['Change day names', 'Change day names'])
 </script>
 
@@ -110,6 +142,12 @@ window.addEventListener('keydown', e => {
     case 'b':
       toggleBlockMargin()
       break
+    case 'm':
+      toggleMonthNames()
+      break
+    case 'a':
+      toggleBlockAlign()
+      break
     case 'w':
       toggleDays()
       break
@@ -117,4 +155,3 @@ window.addEventListener('keydown', e => {
   }
 })
 </script>
-

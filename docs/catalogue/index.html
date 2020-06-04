@@ -120,14 +120,31 @@ dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
   .render()
 </script></a><a class="card" href="widgets/calendar-plot"><div class="card-title">CalendarPlot</div><div class="card-content" id="calendar-plot"></div><script class="card-example">
 dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
-  .data(/* TODO */)
+  .data((() => {
+    let data = Array.from({ length: 200 }, () => {
+      let date = new Date(Date.UTC(2019, 3, 1))
+      date.setDate(date.getDate() + Math.floor(50 * Math.random()) + 1)
+      return {
+        date: date.toISOString().substr(0, 10),
+        value: (date.getDay() === 0 || date.getDay() === 6) ? 3 * Math.random() : 5 + 3 * Math.random()
+      }
+    }).reduce((map, d) => map.set(d.date, d.value), new Map())
+
+    // Convert to an array.
+    return Array.from(data).map(([date, value]) => ({
+      date,
+      value
+    }))
+  })())
   .x(0)
   .y(0)
   .width(WIDTH)
   .height(HEIGHT)
+  .margins({top: 10, left: 35})
   .font.size(11)
-  // .color.palette('palette-light')
-  //.label(d => parseInt(d.value))
+  //.color.palette(['#eee', 'royalblue'])
+  .blockMargin(2)
+  .blockAlign('middle')
   .render()
 </script></a><a class="card" href="widgets/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">
 dalian.LineChart('line-chart-card', '#line-chart')

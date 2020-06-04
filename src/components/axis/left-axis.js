@@ -17,9 +17,7 @@ export default scale => {
     })
 
     // Protected members: just inherit from base axis.
-    self = Object.assign(self || {}, {
-      _leftAxis: base
-    })
+    self = Object.assign(self || {}, { _leftAxis: base })
 
     // Public API.
     api = Object.assign(api || {}, {

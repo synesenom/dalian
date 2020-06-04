@@ -47,7 +47,7 @@ export default (name, parent) => {
     },
 
     graph: graph => {
-      // If graph is not specified, return current graph
+      // If graph is not specified, return closest graph
       if (typeof graph === 'undefined') {
         return _.graph
       } else {
@@ -105,12 +105,12 @@ export default (name, parent) => {
     },
 
     style: style => {
-      // If style is not specified, return current style
+      // If style is not specified, return closest style
       if (typeof style === 'undefined') {
         return api
       }
 
-      // Update style for the overlapping nodes (both in style and current nodes)
+      // Update style for the overlapping nodes (both in style and closest nodes)
       _.intersection(_.nodes, style.nodes).forEach(d => {
         _.nodes.get(d.index).style = {
           // Deep copy style

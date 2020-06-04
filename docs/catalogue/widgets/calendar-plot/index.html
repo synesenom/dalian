@@ -21,7 +21,9 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Change block margin.</li>
+    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Change month margin.</li>
+    <li id="toggleMonthNames" onclick="toggleMonthNames()">M - Change month names.</li>
+    <li id="toggleBlockAlign" onclick="toggleBlockAlign()">A - Change label align.</li>
     <li id="toggleDays" onclick="toggleDays()">W - Change day names.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
@@ -46,9 +48,9 @@ function getData () {
   }).reduce((map, d) => map.set(d.date, d.value), new Map())
 
   // Convert to an array.
-  return Array.from(data).map(d => ({
-    date: d[0],
-    value: d[1]
+  return Array.from(data).map(([date, value]) => ({
+    date,
+    value
   }))
 }
 </script><script class="doc">
@@ -83,9 +85,20 @@ let toggleBlockMargin = () => {
   calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
 }
 
+let toggleMonthNames = () => {
+  this.m = 1 - (this.m || 0)
+  calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'] : undefined).render()
+}
+
+let toggleBlockAlign = () => {
+  this.a = 1 - (this.a || 0)
+  calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
+}
+
 let toggleDays = () => {
   this.w = 1 - (this.w || 0)
-  calendarPlot.days(this.w ? ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'] : undefined).render()
+  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'] : undefined).render()
 }
 </script><script class="doc">
 // update data on keypress
@@ -100,6 +113,12 @@ window.addEventListener('keydown', e => {
     case 'b':
       toggleBlockMargin()
       break
+    case 'm':
+      toggleMonthNames()
+      break
+    case 'a':
+      toggleBlockAlign()
+      break
     case 'w':
       toggleDays()
       break
@@ -110,5 +129,7 @@ window.addEventListener('keydown', e => {
 // Modify toggle buttons
 toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 toggleBlockMargin = state(toggleBlockMargin, 'b', ['Change block margin', 'Change block margin'])
+toggleMonthNames = state(toggleMonthNames, 'm', ['Change month names', 'Change month names'])
+toggleBlockAlign = state(toggleBlockAlign, 'a', ['Change label align', 'Change label align'])
 toggleDays = state(toggleDays, 'w', ['Change day names', 'Change day names'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>
