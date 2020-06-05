@@ -15,14 +15,21 @@ import BaseTooltip from './tooltip'
  */
 // TODO API method to specify the entries in the tooltip.
 export default (self, api) => {
+  // Default values.
+  const DEFAULTS = {
+    titleFormat: d => d,
+    labelFormat: d => (d + ':'),
+    valueFormat: d => d
+  }
+
   // Inherit from base tooltip
   let base = BaseTooltip(self, api)
 
   // Private members.
   let _ = {
-    titleFormat: x => x,
-    labelFormat: x => (x + ':'),
-    valueFormat: x => x
+    titleFormat: DEFAULTS.titleFormat,
+    labelFormat: DEFAULTS.labelFormat,
+    valueFormat: DEFAULTS.valueFormat
   }
 
   // Protected members
@@ -81,12 +88,12 @@ export default (self, api) => {
      *
      * @method titleFormat
      * @methodOf ElementTooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the title
+     * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the title
      * of the tooltip. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    titleFormat: format => {
-      _.titleFormat = format || (x => x)
+    titleFormat: (format = DEFAULTS.titleFormat) => {
+      _.titleFormat = format
       return api
     },
 
@@ -95,12 +102,12 @@ export default (self, api) => {
      *
      * @method labelFormat
      * @methodOf ElementTooltip
-     * @param {Function} [format = x => x + ':'] Function to use as the formatter. May take one parameter which is the
+     * @param {Function} [format = d => d + :] Function to use as the formatter. May take one parameter which is the
      * entry label. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    labelFormat: format => {
-      _.labelFormat = format || (x => (x + ':'))
+    labelFormat: (format = DEFAULTS.labelFormat) => {
+      _.labelFormat = format
       return api
     },
 
@@ -109,12 +116,12 @@ export default (self, api) => {
      *
      * @method valueFormat
      * @methodOf ElementTooltip
-     * @param {Function} [format = x => x] Function to use as the formatter. May take one parameter which is the
+     * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the
      * entry value. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    valueFormat: format => {
-      _.valueFormat = format || (x => x)
+    valueFormat: (format = DEFAULTS.valueFormat) => {
+      _.valueFormat = format
       return api
     },
   })

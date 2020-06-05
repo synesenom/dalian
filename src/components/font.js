@@ -7,19 +7,17 @@ import extend from '../core/extend'
  * @function Font
  */
 export default (self, api) => {
-  // Private members
-  const _ = {
-    defaults: {
-      size: 12,
-      color: 'black'
-    }
+  // Default values.
+  const DEFAULTS = {
+    size: 12,
+    color: 'black'
   }
 
   // Protected members
   self = Object.assign(self || {}, {
     _font: {
-      size: _.defaults.size + 'px',
-      color: _.defaults.color
+      size: DEFAULTS.size + 'px',
+      color: DEFAULTS.color
     }
   })
 
@@ -38,11 +36,11 @@ export default (self, api) => {
        *
        * @method size
        * @methodOf Font
-       * @param {number} size Size of the font in pixels.
+       * @param {number} [size = 12] Size of the font in pixels.
        * @returns {Widget} Reference to the Widget API.
        */
-      size: size => {
-        self._font.size = (size || _.defaults.size) + 'px'
+      size: (size = DEFAULTS.size) => {
+        self._font.size = size + 'px'
         return api
       },
 
@@ -51,11 +49,11 @@ export default (self, api) => {
        *
        * @method color
        * @methodOf Font
-       * @param {string} color Color to set as font color.
+       * @param {string} [color = black] Color to set as font color.
        * @returns {Widget} Reference to the Widget API.
        */
-      color: (color) => {
-        self._font.color = color || _.defaults.color
+      color: (color = DEFAULTS.color) => {
+        self._font.color = color
         return api
       }
     }

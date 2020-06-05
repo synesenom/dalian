@@ -48,7 +48,9 @@ function applyDeficiency (palette, converter) {
     // Color mapping (object).
     const convertedPalette = {}
     for (const key in palette) {
-      convertedPalette[key] = converter(palette[key])
+      if (Object.prototype.hasOwnProperty.call(palette, key)) {
+        convertedPalette[key] = converter(palette[key])
+      }
     }
     return convertedPalette
   }
@@ -127,22 +129,28 @@ function createDivergingMapping (palette, missing, on) {
  * @function Color
  */
 export default (self, api) => {
+  // Default values.
+  const DEFAULTS = {
+    policy: POLICIES.categorical,
+    on: d => d.name
+  }
+
   // Private members.
   const _ = {
     // Coloring policy: categorical, sequential, diverging.
-    policy: POLICIES.categorical,
+    policy: DEFAULTS.policy,
 
     // Palette: single color, array of colors or a mapping itself.
-    palette: selectDefaultPalette(POLICIES.categorical),
+    palette: selectDefaultPalette(DEFAULTS.policy),
 
     // Color to indicate missing data.
-    missing: selectDefaultMissingColor(POLICIES.categorical),
+    missing: selectDefaultMissingColor(DEFAULTS.policy),
 
     // Color vision deficiency filter.
     deficiency: undefined,
 
     // Mapper from data to color.
-    on: d => d.name,
+    on: DEFAULTS.on,
 
     // Scale function that should be updated internally by the widget.
     scale: d => d,
@@ -282,10 +290,10 @@ export default (self, api) => {
        *
        * @method policy
        * @methodOf Color
-       * @param {string} [policy = 'categorical'] Policy to set for the color scheme.
+       * @param {string} [policy = categorical] Policy to set for the color scheme.
        * @returns {Widget} Reference to the Widget's API.
        */
-      policy (policy = POLICIES.categorical) {
+      policy (policy = DEFAULTS.policy) {
         _.policy = policy
         self._color.mapper = _.buildMapper()
         return api
@@ -407,11 +415,11 @@ export default (self, api) => {
        *
        * @method on
        * @methodOf Color
-       * @param {Function} on The function that maps from a data point to a set of categories, the interval [0, 1] or
-       * the interval [-1, 1].
+       * @param {Function} [on = d => d.name] Function that maps from a data point to a set of categories, the interval
+       * [0, 1] or the interval [-1, 1].
        * @returns {Widget} Reference to the Widget's API.
        */
-      on (on = d => d.name) {
+      on (on = DEFAULTS.on) {
         _.on = on
         self._color.mapper = _.buildMapper()
         return api

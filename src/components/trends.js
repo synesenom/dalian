@@ -86,11 +86,11 @@ export default scales => (() => {
          * @param {number} end Ending (right side) value of the trends.
          * @param {string} label Label to display on the trends.
          * @param {string} color Color of the trend line.
-         * @param {number} [duration = 400] Duration of the animation of adding the trends.
+         * @param {number} [duration = 0] Duration of the animation of adding the trends.
          * @returns {Object} The object representing the trends. This object contains the DOM group containing the trends
          * and update/remove methods.
          */
-        add: (id, key, start, end, label, color, duration = 400) => {
+        add: (id, key, start, end, label, color, duration = 0) => {
           // Check if trends exists
           if (_.trends.has(id)) {
             return api
@@ -188,9 +188,9 @@ export default scales => (() => {
          * @methodOf Trends
          * @param {string} [id = undefined] Identifier of the trends to remove. If trends with the specified identifier does
          * not exist, no change is applied. If it is not specified, all trends are removed from the current chart.
-         * @param {number} [duration = 400] Duration of the remove animation.
+         * @param {number} [duration = 0] Duration of the remove animation.
          */
-        remove: (id, duration) => {
+        remove: (id, duration = 0) => {
           // If id is not specified, remove all trends
           if (typeof id === 'undefined') {
             _.trends.forEach(pin => pin.remove())

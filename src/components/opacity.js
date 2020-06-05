@@ -25,10 +25,11 @@ export default defaultValue => {
        *
        * @method opacity
        * @methodOf Opacity
-       * @param {number} value The opacity value to set.
+       * @param {number} value The opacity value to set. The default value depends on the widget that has this
+       * component.
        * @returns {Widget} Reference to the Widget's API.
        */
-      opacity: value => {
+      opacity: (value = defaultValue) => {
         _.value = value || defaultValue
         return api
       }

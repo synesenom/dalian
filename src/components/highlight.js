@@ -22,7 +22,7 @@ export default selectors => (() => {
 
         // Stop current transitions.
         const selection = self._highlight.container.selectAll(selector)
-        selection.transition()
+          .interrupt()
 
         // Perform highlight.
         if (typeof keys === 'string') {
@@ -64,10 +64,10 @@ export default selectors => (() => {
        * @methodOf Highlight
        * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the elements to highlight.
        * If key is {null} or {undefined}, the highlight is removed (all plots become visible).
-       * @param {number} duration Duration of the highlight animation in ms.
+       * @param {number} [duration = 0] Duration of the highlight animation in ms.
        * @returns {Widget} Reference to the Widget's API.
        */
-      highlight: (keys, duration) => {
+      highlight: (keys, duration = 0) => {
         // Check if container is specified.
         if (typeof self._highlight.container === 'undefined') {
           throw Error('Highlight.container is not specified')

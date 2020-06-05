@@ -58,7 +58,7 @@ export default scales => (() => {
          * @param {number} [duration = 0] Duration of the insert animation.
          * @returns {Widget} Reference to the Widget's API.
          */
-        add: (id, obj, pos, options = {}, duration) => {
+        add: (id, obj, pos, options = {}, duration = 0) => {
           // Fetch scales.
           const scaleX = scales.x.scale
           const scaleY = scales.y.scale
@@ -112,7 +112,7 @@ export default scales => (() => {
          * @param {number} [duration = 0] Duration of the removal animation.
          * @returns {Widget} Reference to the Widget's API.
          */
-        remove: (id, duration) => {
+        remove: (id, duration = 0) => {
           // If id is not specified, remove all objects
           if (typeof id === 'undefined' || id === null) {
             _.objects.forEach(obj => obj.remove(duration))

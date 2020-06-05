@@ -15,13 +15,20 @@ import Tooltip from './tooltip'
  * @function PointTooltip
  */
 export default (self, api) => {
+  // Default values.
+  const DEFAULTS = {
+    ignore: [],
+    titleFormat: d => d,
+    valueFormat: d => d.y
+  }
+
   // Inherit from base tooltip
   let base = Tooltip(self, api)
 
   // Private members.
   let _ = {
-    titleFormat: t => t,
-    valueFormat: d => d.y,
+    titleFormat: DEFAULTS.titleFormat,
+    valueFormat: DEFAULTS.valueFormat,
   }
 
   // Protected members
@@ -100,11 +107,11 @@ export default (self, api) => {
      *
      * @method ignore
      * @methodOf PointTooltip
-     * @param {string[]} keys Keys of plots to ignore in the tooltip.
+     * @param {string[]} [keys = []] Keys of plots to ignore in the tooltip.
      * @returns {Widget} Reference to the Widget API.
      */
-    ignore: keys => {
-      self._tooltip.ignore = keys || []
+    ignore: (keys = DEFAULTS.ignore) => {
+      self._tooltip.ignore = keys
       return api
     },
 
@@ -113,12 +120,12 @@ export default (self, api) => {
      *
      * @method titleFormat
      * @methodOf PointTooltip
-     * @param {Function} [format = t => t] Function to use as the formatter. May take one parameter which is the title
+     * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the title
      * of the tooltip. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    titleFormat: format => {
-      _.titleFormat = format || (t => t)
+    titleFormat: (format = DEFAULTS.titleFormat) => {
+      _.titleFormat = format
       return api
     },
 
@@ -131,8 +138,8 @@ export default (self, api) => {
      * point for the current plot's entry containing the plot name and the data. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
-    valueFormat: format => {
-      _.valueFormat = format || (d => d.y)
+    valueFormat: (format = DEFAULTS.valueFormat) => {
+      _.valueFormat = format
       return api
     }
   })

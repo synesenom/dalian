@@ -8,9 +8,14 @@ import { curveMonotoneX, curveLinear } from 'd3'
  * @function Smoothing
  */
 export default (self, api) => {
+  // Default values.
+  const DEFAULTS = {
+    on: false
+  }
+
   // Private members
   const _ = {
-    on: false
+    on: DEFAULTS.on
   }
 
   // Protected members
@@ -27,11 +32,11 @@ export default (self, api) => {
      *
      * @method smoothing
      * @methodOf Smoothing
-     * @param {boolean} on Whether to enable polygon smoothing. If not specified, smoothing is disabled.
+     * @param {boolean} [on = false] Whether to enable polygon smoothing.
      * @returns {Widget} Reference to the Widget's API.
      */
-    smoothing: on => {
-      _.on = on || false
+    smoothing: (on = DEFAULTS.on) => {
+      _.on = on
       return api
     }
   })

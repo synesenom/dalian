@@ -5,11 +5,16 @@
  * @function Label
  */
 export default (self, api) => {
+  // Default values.
+  const DEFAULTS = {
+    format: () => ''
+  }
+
   // Protected members.
   self = Object.assign(self || {}, {
     _label: {
       show: false,
-      format: () => ''
+      format: DEFAULTS.format
     }
   })
 
@@ -29,7 +34,7 @@ export default (self, api) => {
       self._label.show = typeof label !== 'undefined' && label !== null
 
       // Update label formatter.
-      self._label.format = label || (() => '')
+      self._label.format = label || DEFAULTS.format
       return api
     }
   })

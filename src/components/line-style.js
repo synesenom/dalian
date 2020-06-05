@@ -112,7 +112,8 @@ export default (self, api) => {
      *
      * @method lineStyle
      * @methodOf LineStyle
-     * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
+     * @param {(string | Object)} policy Line style policy to set. If not specified, the default policy is set which is
+     * solid for all plots.
      * @returns {Object} Reference to the LineStyle API.
      */
     lineStyle: policy => {

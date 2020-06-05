@@ -1,3 +1,5 @@
+import { rgb } from 'd3'
+
 const coefficients = {
   protan: {
     cpu: 0.735, cpv: 0.265, am: 1.273463, ayi: -0.073894
@@ -30,12 +32,12 @@ function anomaly (a, b) {
   let v = 1.75
   let d = v + 1
 
-  return d3.rgb((v * b.r + a.r) / d, (v * b.g + a.g) / d, (v * b.b + a.b) / d)
+  return rgb((v * b.r + a.r) / d, (v * b.g + a.g) / d, (v * b.b + a.b) / d)
 }
 
 function monochrome (color) {
   let z = Math.round(color.r * 0.299 + color.g * 0.587 + color.b * 0.114)
-  return d3.rgb(z, z, z)
+  return rgb(z, z, z)
 }
 
 function convertColor (color, type) {
@@ -87,13 +89,13 @@ function convertColor (color, type) {
   d = xyz2rgb(d)
   s = xyz2rgb(s)
 
-  let adj = {
+  const adj = {
     r: d.r ? ((s.r < 0 ? 0 : 1) - s.r) / d.r : 0,
     g: d.g ? ((s.g < 0 ? 0 : 1) - s.g) / d.g : 0,
     b: d.b ? ((s.b < 0 ? 0 : 1) - s.b) / d.b : 0
   }
 
-  let adjust = Math.max(
+  const adjust = Math.max(
     ((adj.r > 1 || adj.r < 0) ? 0 : adj.r),
     ((adj.g > 1 || adj.g < 0) ? 0 : adj.g),
     ((adj.b > 1 || adj.b < 0) ? 0 : adj.b))
@@ -104,7 +106,7 @@ function convertColor (color, type) {
 
   const z = v => 255 * (v <= 0 ? 0 : v >= 1 ? 1 : Math.pow(v, 1 / gamma))
 
-  return d3.rgb(
+  return rgb(
     z(s.r),
     z(s.g),
     z(s.b)
@@ -127,7 +129,7 @@ export default type => {
     return color => color
   } else {
     return color => {
-      return converters[type](d3.rgb(color))
+      return converters[type](rgb(color))
     }
   }
 }

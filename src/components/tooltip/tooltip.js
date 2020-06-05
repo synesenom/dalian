@@ -12,6 +12,11 @@ import styles from '../../utils/styles'
  * @function Tooltip
  */
 export default (self, api) => {
+  // Default values.
+  const DEFAULTS = {
+    on: false
+  }
+
   // Private members
   let _ = {
     // Variables
@@ -19,7 +24,7 @@ export default (self, api) => {
       id: 'dalian-tooltip-container'
     },
     id: `${self._widget.id}-tooltip`,
-    on: false,
+    on: DEFAULTS.on,
 
     // Methods
     getContainer: () => {
@@ -165,7 +170,7 @@ export default (self, api) => {
      * @param {boolean} [on = false] Whether tooltip should be enabled or not.
      * @returns {Widget} Reference to the Widget API.
      */
-    on: (on = false) => {
+    on: (on = DEFAULTS.on) => {
       _.on = on
       return api
     }

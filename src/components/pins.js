@@ -54,10 +54,10 @@ export default scales => (() => {
          *   <li>{boolean} <i>fixed</i>: Whether to fix the pin label to be shown all the time. Default value is false.
          *   </li>
          * </ul>
-         * @param {number} duration Duration of the animation of adding the pins.
+         * @param {number} [duration = 0] Duration of the animation of adding the pins.
          * @returns {Widget} Reference to the Widget's API.
          */
-        add: (id, position, options = {}, duration) => {
+        add: (id, position, options = {}, duration = 0) => {
           // Check if pins exists
           if (_.pins.has(id)) {
             return api
@@ -192,10 +192,10 @@ export default scales => (() => {
          * @methodOf Pins
          * @param {string} [id = undefined] Identifier of the pins to remove. If pins with the specified identifier does not
          * exist, no change is applied. If it is not specified, all pins are removed from the current chart.
-         * @param {number} duration Duration of the remove animation.
+         * @param {number} [duration = 0] Duration of the remove animation.
          * @returns {Widget} Reference to the Widget's API.
          */
-        remove: (id, duration) => {
+        remove: (id, duration = 0) => {
           // If id is not specified, remove all pins
           if (typeof id === 'undefined') {
             _.pins.forEach(pin => pin.remove())

@@ -28,15 +28,12 @@ export default defaultValue => {
        *
        * @method lineWidth
        * @methodOf LineWidth
-       * @param {(string | Object)} [policy] Line width policy to set. If not specified, the default policy is set.
+       * @param {(string | Object)} policy Line width policy to set. Default value depends on the widget that has this
+       * component.
        * @returns {Widget} Reference to the Widget's API.
        */
-      lineWidth: policy => {
-        // Update line width mapGroup.
-        if (typeof policy === 'undefined') {
-          // No line width policy, using default.
-          _.mapping = () => defaultValue + 'px'
-        } else if (typeof policy === 'number') {
+      lineWidth: (policy = defaultValue) => {
+        if (typeof policy === 'number') {
           // Single line width policy, using the specified line width.
           _.mapping = () => policy + 'px'
         } else {
