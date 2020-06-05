@@ -4,7 +4,7 @@ import extend from '../core/extend'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
-// TODO import Highlight from '../components/highlight'
+import Highlight from '../components/highlight'
 import Label from '../components/label'
 import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
@@ -18,6 +18,10 @@ import TopAxis from '../components/axis/top-axis'
  * <ul>
  *   <li><a href="./components/element-tooltip.html">ElementTooltip</a> The tooltip displays the date of the tile and
  *   its value.</li>
+ *   <li>
+ *     <a href="../components/highlight.html">Highlight</a> As each month block represents a plot group, they can be
+ *     highlighted by passing month-<month index> to the highlight method, where <month index> is the 0-indexed month.
+ *   </li>
  *   <li>
  *     <a href="../components/label.html">Label</a> Labels are shown inside the tiles. If the font size is too large,
  *     the labels are resized to fit in the tiles.
@@ -50,7 +54,7 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
-    // TODO Highlight(['.plot-group']),
+    Highlight(['.plot-group']),
     Label,
     LeftAxis(scales.y),
     TopAxis(scales.x)
@@ -61,6 +65,7 @@ export default (name, parent = 'body') => {
     // Variables
     scales,
     current: undefined,
+    metrics: {},
 
     // Style variables.
     blocks: {
@@ -75,10 +80,10 @@ export default (name, parent = 'body') => {
     // Font metrics to position labels.
     fm: self._widget.getFontMetrics(),
 
-    addTiles (enter, firstDay, size, labelDy, labelFontSize) {
+    addTiles (enter, size, labelDy, labelFontSize) {
       const tiles = enter.append('g')
-        .attr('class', 'tile')
-        .attr('transform', d => `translate(${_.tileX(d, firstDay) * size}, ${d.date.getDay() * size})`)
+        .attr('class', d => `tile date-${d.date.getDate()}`)
+        .attr('transform', d => `translate(${_.tileX(d) * size}, ${d.date.getDay() * size})`)
         .on('mouseover.calendar', d => {
           _.current = d
         })
@@ -95,7 +100,7 @@ export default (name, parent = 'body') => {
         .attr('rx', 0.1 * size)
         .attr('ry', 0.1 * size)
         .attr('stroke', 'transparent')
-        .attr('stroke-width', 4)
+        .attr('stroke-width', 2)
         .attr('fill', self._color.mapper)
 
       // Add labels.
@@ -115,28 +120,21 @@ export default (name, parent = 'body') => {
     },
 
     // Calculations.
-    tileX (d, firstDay) {
-      const i = Math.ceil((d.date - firstDay) / (1000 * 3600 * 24))
-      return Math.floor((i + firstDay.getDay()) / 7)
+    tileX (d) {
+      const i = Math.ceil((d.date - _.metrics.firstDay) / (1000 * 3600 * 24))
+      return Math.floor((i + _.metrics.firstDay.getDay()) / 7)
     },
 
     labelFill: d => brightnessAdjustedColor(self._color.mapper(d)),
 
     // Update method.
     update (duration) {
-      // TODO Move the calculations in the data transform.
       // Calculate some metrics for positioning the calendar:
       // - Start week day.
       // - Number of full weeks.
-      const firstDay = self._chart.data[0].tiles[0].date
-      // TODO Calculate this per row.
-      const numMonths = self._chart.data.length
-      const numDays = sum(self._chart.data, d => d.tiles.length)
-      const numWeeks = Math.ceil((numDays - (7 - firstDay.getDay())) / 7) + 1
-
       // Determine tile size: it is the lowest from the calculated sizes based on the width and height
       // of the widget.
-      const lx = parseFloat(self._widget.size.innerWidth) / (numWeeks + _.blocks.margin * (numMonths - 1))
+      const lx = parseFloat(self._widget.size.innerWidth) / (_.metrics.numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))
       const ly = parseFloat(self._widget.size.innerHeight) / 7
       const size = Math.min(lx, ly)
 
@@ -147,15 +145,14 @@ export default (name, parent = 'body') => {
       )
 
       // Some constants.
-      const marginLeft = (parseFloat(self._widget.size.innerWidth) - size * (numWeeks + _.blocks.margin * (numMonths - 1))) / 2
+      const marginLeft = (parseFloat(self._widget.size.innerWidth) - size * (_.metrics.numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))) / 2
       const marginTop = (parseFloat(self._widget.size.innerHeight) - size * 7) / 2
       const labelFontSize = Math.min(0.6 * size, parseFloat(self._font.size)) + 'px'
       const labelDy = (size + _.fm.capHeight * parseFloat(labelFontSize)) / 2
 
       // Scales.
-      // TODO Per row.
       _.scales.x.range(marginLeft, parseInt(self._widget.size.innerWidth) - marginLeft)
-        .domain([0, numWeeks + _.blocks.margin * (numMonths - 1)])
+        .domain([0, _.metrics.numWeeks + _.blocks.margin * (_.metrics.numMonths - 1)])
       _.scales.y.range(marginTop, parseInt(self._widget.size.innerHeight) - marginTop)
         .domain(_.tiles.names)
 
@@ -176,13 +173,16 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
+            // Add year class to block.
+            .classed(`year-${_.metrics.firstDay.getFullYear()}`, true)
+
             // Transformations:
             // - Calendar margin to center it in container.
             // - Translate by the block margin.
             .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.column * size}, ${marginTop})`)
 
           // Add tiles.
-          _.addTiles(g.selectAll('.tile').data(d => d.tiles).enter(), firstDay, size, labelDy, labelFontSize)
+          _.addTiles(g.selectAll('.tile').data(d => d.tiles).enter(), size, labelDy, labelFontSize)
 
           return g
         },
@@ -192,7 +192,7 @@ export default (name, parent = 'body') => {
             .data(d => d.tiles)
             .join(
               enter => {
-                return _.addTiles(enter, firstDay, size, labelDy, labelFontSize)
+                return _.addTiles(enter, size, labelDy, labelFontSize)
                   .style('opacity', 0)
               },
               update => update,
@@ -201,7 +201,7 @@ export default (name, parent = 'body') => {
                 .remove()
             )
             .transition().duration(duration)
-            .attr('transform', d => `translate(${_.tileX(d, firstDay) * size}, ${d.date.getDay() * size})`)
+            .attr('transform', d => `translate(${_.tileX(d) * size}, ${d.date.getDay() * size})`)
             .style('opacity', 1)
 
           // Update rectangles
@@ -238,7 +238,7 @@ export default (name, parent = 'body') => {
     const dateParse = timeParse('%Y-%m-%d')
     const convertedData = data.map(d => ({
       date: dateParse(d.date),
-      value: d.value
+      value: +d.value
     }))
 
     // Determine first and last date.
@@ -288,30 +288,36 @@ export default (name, parent = 'body') => {
     convertedData.forEach(d => {
       const name = `month-${d.date.getMonth()}`
       blocks.find(block => block.name === name)
-        .tiles.find(tile => tile.date.getDate() === d.date.getDate()).value = +d.value
+        .tiles.find(tile => tile.date.getDate() === d.date.getDate()).value = d.value
     })
+
+    // Compute some metrics.
+    _.metrics = (() => {
+      const firstDay = blocks[0].tiles[0].date
+      const numDays = sum(blocks, d => d.tiles.length)
+
+      return {
+        firstDay,
+        numDays,
+        numWeeks: Math.ceil((numDays - (7 - firstDay.getDay())) / 7) + 1,
+        numMonths: blocks.length
+      }
+    })()
 
     return blocks
   }
 
-  // TODO self._highlight.container = self._chart.plots
+  self._highlight.container = self._chart.plots
 
-  self._tooltip.content = () => {
-    // If no wedge is hovered, hide tooltip
-    if (typeof _.current === 'undefined') {
-      return
-    }
-
-    return {
-      title: _.current.date,
-      stripe: self._color.mapper(_.current),
-      content: {
-        type: 'plots',
-        data: [{
-          name: 'value',
-          value: _.current.value
-        }]
-      }
+  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
+    title: _.current.date,
+    stripe: self._color.mapper(_.current),
+    content: {
+      type: 'plots',
+      data: [{
+        name: 'value',
+        value: _.current.value
+      }]
     }
   }
 

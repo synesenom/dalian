@@ -179,21 +179,14 @@ export default (name, parent = 'body') => {
   // Overrides
   self._highlight.container = self._chart.plots
 
-  self._tooltip.content = () => {
-    // If no bar is hovered, hide tooltip
-    if (typeof _.current === 'undefined') {
-      return
-    }
-
-    return {
-      title: _.current.name,
-      stripe: self._color.mapper(_.current),
-      content: {
-        data: [{
-          name: 'value',
-          value: _.current.value
-        }]
-      }
+  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
+    title: _.current.name,
+    stripe: self._color.mapper(_.current),
+    content: {
+      data: [{
+        name: 'value',
+        value: _.current.value
+      }]
     }
   }
 

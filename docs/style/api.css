@@ -214,7 +214,8 @@ td.param-type {
 }
 .card .return-type {
   width: 150px;
-  float: left
+  float: left;
+  margin-top: 3px;
 }
 .card .return-desc {
   width: calc(100% - 150px);

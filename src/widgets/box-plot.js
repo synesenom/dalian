@@ -248,26 +248,19 @@ export default (name, parent = 'body') => {
   // Overrides.
   self._highlight.container = self._chart.plots
 
-  self._tooltip.content = () => {
-    // If no bar is hovered, hide tooltip
-    if (typeof _.current === 'undefined') {
-      return
-    }
-
-    return {
-      title: _.current.name,
-      stripe: self._color.mapper(_.current),
-      content: {
-        data: [
-          { name: 'median', value: _.current.value.median },
-          { name: 'q1', value: _.current.value.q1 },
-          { name: 'q3', value: _.current.value.q3 },
-          { name: 'low', value: _.current.value.whiskers.lower },
-          { name: 'high', value: _.current.value.whiskers.upper },
-          { name: 'mild outliers', value: _.current.value.outliers.mild.length },
-          { name: 'extreme outliers', value: _.current.value.outliers.extreme.length }
-        ]
-      }
+  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
+    title: _.current.name,
+    stripe: self._color.mapper(_.current),
+    content: {
+      data: [
+        {name: 'median', value: _.current.value.median},
+        {name: 'q1', value: _.current.value.q1},
+        {name: 'q3', value: _.current.value.q3},
+        {name: 'low', value: _.current.value.whiskers.lower},
+        {name: 'high', value: _.current.value.whiskers.upper},
+        {name: 'mild outliers', value: _.current.value.outliers.mild.length},
+        {name: 'extreme outliers', value: _.current.value.outliers.extreme.length}
+      ]
     }
   }
 

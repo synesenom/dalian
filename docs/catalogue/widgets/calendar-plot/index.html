@@ -72,6 +72,8 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
   .tooltip.on(true)
   .tooltip.titleFormat(title => (1 + title.getMonth()) + '/' + title.getDate())
   .tooltip.valueFormat(d => d === null ? 'No data' : Math.round(d))
+  .mouse.over(k => calendarPlot.highlight(k.name))
+  .mouse.leave(() => calendarPlot.highlight())
   .render(1000)
 </script><script class="doc">
 // api methods
