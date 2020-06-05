@@ -71,15 +71,15 @@ let changeY = () => {
 }
 let changeWidth = () => {
   this.w = !(this.w || 0)
-  chart.width(this.w ? 400 : 600).render(1000)
+  chart.width(this.w ? 400 : undefined).render(1000)
 }
 let changeHeight = () => {
   this.h = !(this.h || 0)
-  chart.height(this.h ? 240 : 300).render(1000)
+  chart.height(this.h ? 240 : undefined).render(1000)
 }
 let changeMargins = () => {
   this.m = !(this.m || 0)
-  chart.margins(this.m ? {left: 60, right: 70, top: 80, bottom: 90} : 40).render(1000)
+  chart.margins(this.m ? {left: 50, right: 60, top: 70, bottom: 80} : 40).render(1000)
 }
 </script>
 

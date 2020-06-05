@@ -6,7 +6,7 @@
  */
 export default (self, api) => {
   // Private members
-  let _ = {
+  const _ = {
     callbacks: {}
   }
 

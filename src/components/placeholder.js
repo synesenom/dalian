@@ -11,7 +11,7 @@ import styles from '../utils/styles'
  */
 export default (self, api) => {
   // Private members
-  let _ = {
+  const _ = {
     // Variables
     id: `${self._widget.id}-placeholder`
   }

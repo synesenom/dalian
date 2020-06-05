@@ -2,7 +2,6 @@
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')
 
-
 function resize (width, height) {
   canvas.style.width = width + 'px'
   canvas.width = width

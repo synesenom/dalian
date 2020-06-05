@@ -36,7 +36,7 @@ import YGrid from '../components/grid/y-grid'
 // TODO Support negative values.
 export default (name, parent = 'body') => {
   // Build widget from components
-  let scales = {
+  const scales = {
     x: Scale('band'),
     y: Scale('linear')
   }
@@ -51,7 +51,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members
-  let _ = {
+  const _ = {
     // Variables
     current: undefined,
     scales: {
@@ -141,6 +141,9 @@ export default (name, parent = 'body') => {
           return g
         },
         update: g => {
+          // Show group.
+          g.style('opacity', 1)
+
           const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Update bars.

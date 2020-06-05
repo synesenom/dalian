@@ -1,4 +1,4 @@
-import { event, extent, mouse, voronoi } from 'd3'
+import { extent, voronoi } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import Chart from '../components/chart'
@@ -33,7 +33,7 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
-  let scales = {
+  const scales = {
     x: Scale('linear'),
     y: Scale('linear')
   }
@@ -50,7 +50,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members
-  let _ = {
+  const _ = {
     // Variables
     scales,
     current: undefined,
@@ -192,10 +192,10 @@ export default (name, parent = 'body') => {
       content: {
         type: 'plots',
         data: [{
-          name: self._bottomAxis.label().text(),
+          name: self._bottomAxis.label.text(),
           value: _.current.x
         }, {
-          name: self._leftAxis.label().text(),
+          name: self._leftAxis.label.text(),
           value: _.current.y
         }]
       }
@@ -207,9 +207,9 @@ export default (name, parent = 'body') => {
     return data.map(d => ({
       name: d.name,
       values: d.values.map(dd => ({
-          x: +dd.x,
-          y: +dd.y,
-        }))
+        x: +dd.x,
+        y: +dd.y
+      }))
     }))
   }
 

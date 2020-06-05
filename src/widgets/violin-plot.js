@@ -34,7 +34,7 @@ import Scale from '../components/scale'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  let scales = {
+  const scales = {
     x: Scale('point'),
     y: Scale('linear')
   }
@@ -49,7 +49,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members.
-  let _ = {
+  const _ = {
     // Variables.
     data: [],
     current: undefined,
@@ -115,7 +115,7 @@ export default (name, parent = 'body') => {
       const xValues = self._chart.data.map(d => d.name)
       let yMin = min(self._chart.data.map(d => d.min))
       let yMax = max(self._chart.data.map(d => d.max))
-      let yRange = yMax - yMin
+      const yRange = yMax - yMin
       yMin -= 0.05 * yRange
       yMax += 0.05 * yRange
 
@@ -161,10 +161,10 @@ export default (name, parent = 'body') => {
           g.select('.violin')
             .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x.scale(d.name) + yShift}, ${_.horizontal ? _.scales.y.scale(d.name) - yShift : 0}) ${rotate}`)
             .attrTween('d', function (d) {
-              let previous = select(this).attr('d')
+              const previous = select(this).attr('d')
               const areaFn = d.area
                 .x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
-              let current = areaFn(d.values)
+              const current = areaFn(d.values)
               return interpolatePath(previous, current, null)
             })
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))

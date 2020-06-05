@@ -8,7 +8,7 @@
  * @returns {Function} The extended function.
  */
 export default (func, extension, before = false) => {
-  let baseFunc = func
+  const baseFunc = func
   return (...args) => {
     if (before) {
       extension(...args)

@@ -36,7 +36,7 @@ import YRange from '../components/range/y-range'
 // TODO Support negative values with different color.
 export default (name, parent = 'body') => {
   // Build widget from components
-  let scales = {
+  const scales = {
     x: Scale('linear'),
     y: Scale('linear')
   }
@@ -54,7 +54,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members
-  let _ = {
+  const _ = {
     // Variables.
     scales,
     lineColor: null,
@@ -115,8 +115,8 @@ export default (name, parent = 'body') => {
           // Update area.
           g.select('.area')
             .attrTween('d', function (d) {
-              let previous = select(this).attr('d')
-              let current = areaFn(d.values)
+              const previous = select(this).attr('d')
+              const current = areaFn(d.values)
               return interpolatePath(previous, current, null)
             })
             .attr('fill-opacity', self._opacity.value())
@@ -125,8 +125,8 @@ export default (name, parent = 'body') => {
           g.select('.line')
             .attr('stroke', _.lineColor)
             .attrTween('d', function (d) {
-              let previous = select(this).attr('d')
-              let current = lineFn(d.values)
+              const previous = select(this).attr('d')
+              const current = lineFn(d.values)
               return interpolatePath(previous, current, null)
             })
 
@@ -148,8 +148,8 @@ export default (name, parent = 'body') => {
     }
 
     // Get bisection
-    let bisect = bisector(d => _.scales.x.scale(d.x)).left
-    let index = mouse ? self._chart.data.map(d => bisect(d.values, mouse[0])) : undefined
+    const bisect = bisector(d => _.scales.x.scale(d.x)).left
+    const index = mouse ? self._chart.data.map(d => bisect(d.values, mouse[0])) : undefined
 
     // If no data point is found, just remove tooltip elements
     if (typeof index === 'undefined') {
@@ -159,18 +159,18 @@ export default (name, parent = 'body') => {
 
     // Get plots
     let x = _.scales.x.scale.invert(mouse[0])
-    let plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
+    const plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {
         // Data point
-        let j = index[i]
+        const j = index[i]
 
-        let data = d.values
+        const data = d.values
 
-        let left = data[j - 1] ? data[j - 1] : data[j]
+        const left = data[j - 1] ? data[j - 1] : data[j]
 
-        let right = data[j] ? data[j] : data[j - 1]
+        const right = data[j] ? data[j] : data[j - 1]
 
-        let point = x - left.x > right.x - x ? right : left
+        const point = x - left.x > right.x - x ? right : left
         x = point.x
 
         // Marker

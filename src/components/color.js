@@ -46,8 +46,8 @@ function applyDeficiency (palette, converter) {
     return palette.map(converter)
   } else {
     // Color mapping (object).
-    let convertedPalette = {}
-    for (let key in palette) {
+    const convertedPalette = {}
+    for (const key in palette) {
       convertedPalette[key] = converter(palette[key])
     }
     return convertedPalette
@@ -61,13 +61,13 @@ function createCategoricalMapping (palette, missing, on) {
   } else if (Array.isArray(palette)) {
     // Array of colors.
     return (() => {
-      let keys = []
+      const keys = []
       return d => {
-        let value = on(d)
+        const value = on(d)
         if (value === null) {
           return missing
         } else {
-          let i = keys.indexOf(value)
+          const i = keys.indexOf(value)
           return palette[i > -1 ? i : keys.push(value) - 1]
         }
       }
@@ -81,7 +81,7 @@ function createCategoricalMapping (palette, missing, on) {
   }
 }
 
-function createSequentialMapping(palette, missing, on) {
+function createSequentialMapping (palette, missing, on) {
   if (typeof palette !== 'string' && !Array.isArray(palette)) {
     // Any other case: warning and set to default palette.
     console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.sequential} color policy, fallback to default color palette.`)
@@ -92,20 +92,20 @@ function createSequentialMapping(palette, missing, on) {
   if (typeof palette === 'string') {
     const i = interpolateRgb('#fff', palette)
     return d => {
-      let value = on(d)
+      const value = on(d)
       return value === null ? missing : i(value)
     }
   } else if (Array.isArray(palette)) {
     // Array: interpolate within array. We also apply a recommended gamma of 2.2.
     const i = piecewise(interpolateRgb.gamma(2.2), palette)
     return d => {
-      let value = on(d)
+      const value = on(d)
       return value === null ? missing : i(value)
     }
   }
 }
 
-function createDivergingMapping(palette, missing, on) {
+function createDivergingMapping (palette, missing, on) {
   if (!Array.isArray(palette)) {
     // Incompatible palette: warning and set to default palette.
     console.warn(`Palette type (${typeof palette}) is incompatible with ${POLICIES.diverging} color policy, fallback to default color palette.`)
@@ -120,7 +120,6 @@ function createDivergingMapping(palette, missing, on) {
   }
 }
 
-
 /**
  * Component implementing various color palettes and coloring policies. When this component is available for a widget,
  * its API is exposed via the {.color} namespace.
@@ -129,7 +128,7 @@ function createDivergingMapping(palette, missing, on) {
  */
 export default (self, api) => {
   // Private members.
-  let _ = {
+  const _ = {
     // Coloring policy: categorical, sequential, diverging.
     policy: POLICIES.categorical,
 
@@ -149,7 +148,7 @@ export default (self, api) => {
     scale: d => d,
 
     // Builds the mapper.
-    buildMapper() {
+    buildMapper () {
       // Select palette.
       const originalPalette = _.palette || selectDefaultPalette(_.policy)
 
@@ -348,7 +347,7 @@ export default (self, api) => {
        * diverging color policies. Default value is policy dependent.
        * @returns {Widget} Reference to the Widget's API.
        */
-      palette (palette,  missing) {
+      palette (palette, missing) {
         // Check fo built-in palettes
         if (typeof palette === 'string' && palette.startsWith('palette-')) {
           switch (palette) {

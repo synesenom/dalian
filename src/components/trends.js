@@ -13,7 +13,7 @@ import attributes from '../utils/attributes'
 export default scales => (() => {
   return (self, api) => {
     // Private members
-    let _ = {
+    const _ = {
       // Variables.
       container: undefined,
       trends: new Map(),
@@ -30,28 +30,28 @@ export default scales => (() => {
       },
 
       adjustTrend: (key, start, end) => {
-        let data = self._chart.data.find(d => d.name === key)
+        const data = self._chart.data.find(d => d.name === key)
         if (typeof data === 'undefined') {
           return
         }
 
         // Get trends data point indices
-        let bisect = bisector(d => d.x).left
-        let i1 = bisect(data.values, start)
-        let i2 = bisect(data.values, end)
+        const bisect = bisector(d => d.x).left
+        const i1 = bisect(data.values, start)
+        const i2 = bisect(data.values, end)
         if (i1 === null || i2 === null) {
           return
         }
 
         // Get coordinates and color
-        let x1 = data.values[i1].x
+        const x1 = data.values[i1].x
 
-        let y1 = data.values[i1].y
+        const y1 = data.values[i1].y
 
-        let x2 = data.values[i2].x
+        const x2 = data.values[i2].x
 
-        let y2 = data.values[i2].y
-        let plateau = y1 < y2 ? y2 : y1
+        const y2 = data.values[i2].y
+        const plateau = y1 < y2 ? y2 : y1
 
         return {
           start: {
@@ -97,9 +97,9 @@ export default scales => (() => {
           }
 
           // Get trends positions
-          let scaleX = scales.x.scale
-          let scaleY = scales.y.scale
-          let pos = _.adjustTrend(key, start, end)
+          const scaleX = scales.x.scale
+          const scaleY = scales.y.scale
+          const pos = _.adjustTrend(key, start, end)
 
           // Build group without showing it
           const g = _.getContainer().append('g')

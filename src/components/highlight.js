@@ -12,7 +12,7 @@ import encode from '../core/encode'
 export default selectors => (() => {
   return (self, api) => {
     // Private members.
-    let _ = {
+    const _ = {
       selectors,
       highlightSelection: (selector, keys, duration) => {
         // Ignore highlight during animation.
@@ -21,7 +21,7 @@ export default selectors => (() => {
         }
 
         // Stop current transitions.
-        let selection = self._highlight.container.selectAll(selector)
+        const selection = self._highlight.container.selectAll(selector)
         selection.transition()
 
         // Perform highlight.
@@ -33,10 +33,10 @@ export default selectors => (() => {
             })
         } else if (Array.isArray(keys)) {
           // Multiple keys.
-          let encodedKeys = keys.map(encode)
+          const encodedKeys = keys.map(encode)
           selection.transition().duration(duration)
             .style('opacity', function () {
-              let elem = select(this)
+              const elem = select(this)
               return encodedKeys.reduce((s, d) => s || elem.classed(d), false) ? 1 : 0.1
             })
         } else {

@@ -12,7 +12,7 @@ import attributes from '../utils/attributes'
 export default scales => (() => {
   return (self, api) => {
     // Private members
-    let _ = {
+    const _ = {
       // Variables
       container: undefined,
       pins: new Map(),
@@ -64,8 +64,8 @@ export default scales => (() => {
           }
 
           // Get pins positions
-          let scaleX = scales.x.scale
-          let scaleY = scales.y.scale
+          const scaleX = scales.x.scale
+          const scaleY = scales.y.scale
           const color = options.color || self._font.color
           const height = (1 - (options.height || 0.8)) * scaleY.range()[0]
           const text = options.text || ''

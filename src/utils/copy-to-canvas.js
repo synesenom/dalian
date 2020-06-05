@@ -8,14 +8,14 @@ const img = document.createElement('img')
 function getSvgBBox (svg) {
   hidden.appendChild(svg)
   document.body.appendChild(hidden)
-  let bbox = svg.getBoundingClientRect()
+  const bbox = svg.getBoundingClientRect()
   document.body.removeChild(hidden)
   return bbox
 }
 
 export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
   // Get SVG data.
-  let svgData = new window.XMLSerializer().serializeToString(svg)
+  const svgData = new window.XMLSerializer().serializeToString(svg)
 
   // Add hidden div to measure SVG size.
   const svgSize = getSvgBBox(svg)

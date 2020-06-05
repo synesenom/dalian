@@ -9,7 +9,7 @@ import extend from '../core/extend'
 export default scales => (() => {
   return (self, api) => {
     // Private members
-    let _ = {
+    const _ = {
       // Variables
       containers: {
         background: undefined
@@ -60,8 +60,8 @@ export default scales => (() => {
          */
         add: (id, obj, pos, options = {}, duration) => {
           // Fetch scales.
-          let scaleX = scales.x.scale
-          let scaleY = scales.y.scale
+          const scaleX = scales.x.scale
+          const scaleY = scales.y.scale
 
           // Add object's own group.
           const g = _.getContainer(options.foreground ? 'foreground' : 'background').append('g')

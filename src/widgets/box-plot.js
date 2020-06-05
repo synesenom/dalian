@@ -34,7 +34,7 @@ import Scale from '../components/scale'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  let scales = {
+  const scales = {
     x: Scale('point'),
     y: Scale('linear')
   }
@@ -49,7 +49,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members.
-  let _ = {
+  const _ = {
     // Variables.
     current: undefined,
     scales: {

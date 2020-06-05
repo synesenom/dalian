@@ -8,7 +8,7 @@ import extend from '../core/extend'
  */
 export default (self, api) => {
   // Private members
-  let _ = {
+  const _ = {
     defaults: {
       size: 12,
       color: 'black'

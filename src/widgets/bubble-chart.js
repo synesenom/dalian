@@ -1,7 +1,6 @@
 import { extent, max, voronoi } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import { measureText } from '../utils/measure-text'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -34,7 +33,7 @@ import YRange from '../components/range/y-range'
  */
 export default (name, parent = 'body') => {
   // Build widget from components
-  let scales = {
+  const scales = {
     x: Scale('linear'),
     y: Scale('linear'),
     size: Scale('sqrt')
@@ -51,7 +50,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members
-  let _ = {
+  const _ = {
     // Variables
     scales,
     current: {
@@ -65,9 +64,9 @@ export default (name, parent = 'body') => {
 
     // Calculations.
     computeDiagram: data => voronoi()
-        .x(d => _.scales.x.scale(d.value.x))
-        .y(d => _.scales.y.scale(d.value.y))
-        .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(data),
+      .x(d => _.scales.x.scale(d.value.x))
+      .y(d => _.scales.y.scale(d.value.y))
+      .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(data),
 
     // Update.
     update (duration) {
@@ -91,12 +90,12 @@ export default (name, parent = 'body') => {
 
       // Adjust scales with sizes.
       xRange = flatData.map(d => {
-        let dx = _.scales.x.measure(1.5 * _.scales.size.scale(d.size))
+        const dx = _.scales.x.measure(1.5 * _.scales.size.scale(d.size))
         return [d.x - dx, d.x + dx]
       }).flat()
       _.scales.x.domain(self._xRange.range(xRange))
       yRange = flatData.map(d => {
-        let dy = _.scales.y.measure(1.5 * _.scales.size.scale(d.size))
+        const dy = _.scales.y.measure(1.5 * _.scales.size.scale(d.size))
         return [d.y - dy, d.y + dy]
       }).flat()
       _.scales.y.domain(self._yRange.range(yRange))
@@ -179,7 +178,7 @@ export default (name, parent = 'body') => {
     }
 
     // Find closest site.
-    let bubble = _.current.hovered || _.current.closest
+    const bubble = _.current.hovered || _.current.closest
     if (!bubble) {
       return
     }
@@ -189,10 +188,10 @@ export default (name, parent = 'body') => {
       stripe: self._color.mapper(bubble),
       content: {
         data: [
-          {name: self._bottomAxis.label().text(), value: bubble.value.x},
-          {name: self._leftAxis.label().text(), value: bubble.value.y},
+          { name: self._bottomAxis.label().text(), value: bubble.value.x },
+          { name: self._leftAxis.label().text(), value: bubble.value.y },
           // TODO Add size label.
-          {name: 'size', value: bubble.value.size}
+          { name: 'size', value: bubble.value.size }
         ]
       }
     }

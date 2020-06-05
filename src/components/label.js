@@ -14,7 +14,7 @@ export default (self, api) => {
   })
 
   // Protected members.
-  api = Object.assign(api || {},  {
+  api = Object.assign(api || {}, {
     /**
      * Sets the label formatter.
      *

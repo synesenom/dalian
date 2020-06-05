@@ -9,41 +9,56 @@ import fontMetrics from '../utils/font-metrics'
  * @function Widget
  */
 export default (type, name, parent, elem) => {
+  // Default values.
+  const DEFAULTS = {
+    pos: {
+      x: 0,
+      y: 0
+    },
+
+    size: {
+      width: 300,
+      height: 200
+    },
+
+    margins: 0
+  }
+
   // Private members
-  let _ = {
+  const _ = {
     parent: select(parent),
     initialized: false,
     pos: {
       x: {
         attr: 'left',
         ignore: 'right',
-        value: '0px'
+        value: DEFAULTS.pos.x + 'px'
       },
       y: {
         attr: 'top',
         ignore: 'bottom',
-        value: '0px'
+        value: DEFAULTS.pos.y + 'px'
       }
     }
   }
 
   // Protected members
-  let self = {}
+  const self = {}
   self._widget = {
     // Variables
     id: `dalian-widget-${type}-${name}`,
     container: undefined,
     size: {
-      width: '300px',
-      height: '200px',
-      innerWidth: '300px',
-      innerHeight: '200px'
+      width: DEFAULTS.size.width + 'px',
+      height: DEFAULTS.size.height + 'px',
+      innerWidth: DEFAULTS.size.width + 'px',
+      innerHeight: DEFAULTS.size.height + 'px'
     },
     margins: {
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0
+      left: DEFAULTS.margins,
+      right: DEFAULTS.margins,
+      top: DEFAULTS.margins,
+      bottom: DEFAULTS.margins
     },
     transition: false,
     disabled: false,
@@ -106,7 +121,7 @@ export default (type, name, parent, elem) => {
 
     // Add widget content element
     self._widget.content = self._widget.container.append(elem)
-      .attr('class', `dalian-widget-content`)
+      .attr('class', 'dalian-widget-content')
     styles(self._widget.content, {
       position: 'absolute',
       width: '100%',
@@ -123,7 +138,7 @@ export default (type, name, parent, elem) => {
   }
 
   // Public API
-  let api = {
+  const api = {
     /**
      * Sets the X coordinate of the widget in pixels relative to its parent. If negative, the widget's right side is
      * measured from the right side of the parent, otherwise its left side is measured from the parent's left side.
@@ -133,7 +148,7 @@ export default (type, name, parent, elem) => {
      * @param {number} [value = 0] Value of the X coordinate in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
-    x: (value = 0) => {
+    x: (value = DEFAULTS.pos.x) => {
       _.pos.x.attr = value >= 0 ? 'left' : 'right'
       _.pos.x.ignore = value >= 0 ? 'right' : 'left'
       _.pos.x.value = Math.abs(value) + 'px'
@@ -150,7 +165,7 @@ export default (type, name, parent, elem) => {
      * @param {number} [value = 0] Value of the Y coordinate in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
-    y: (value = 0) => {
+    y: (value = DEFAULTS.pos.y) => {
       _.pos.y.attr = value >= 0 ? 'top' : 'bottom'
       _.pos.y.ignore = value >= 0 ? 'bottom' : 'top'
       _.pos.y.value = Math.abs(value) + 'px'
@@ -165,7 +180,7 @@ export default (type, name, parent, elem) => {
      * @param {number} [value = 300] Width value in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
-    width: (value = 300) => {
+    width: (value = DEFAULTS.size.width) => {
       self._widget.size.width = value + 'px'
       self._widget.size.innerWidth = (value - self._widget.margins.left - self._widget.margins.right) + 'px'
       return api
@@ -179,7 +194,7 @@ export default (type, name, parent, elem) => {
      * @param {number} [value = 200] Height value in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
-    height: (value = 200) => {
+    height: (value = DEFAULTS.size.height) => {
       self._widget.size.height = value + 'px'
       self._widget.size.innerHeight = (value - self._widget.margins.top - self._widget.margins.bottom) + 'px'
       return api
@@ -195,7 +210,7 @@ export default (type, name, parent, elem) => {
      * sides.
      * @returns {Widget} Reference to the Widget's API.
      */
-    margins: margins => {
+    margins: (margins = DEFAULTS.margins) => {
       switch (typeof margins) {
         case 'undefined':
         default:

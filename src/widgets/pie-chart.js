@@ -39,7 +39,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members
-  let _ = {
+  const _ = {
     // Style variables.
     innerRadius: 0,
     outerRadius: 100,
@@ -90,18 +90,18 @@ export default (name, parent = 'body') => {
     labelLinePath: d => {
       // Start and initial middle positions of the path.
       let p1 = _.labels.arcs.inner.centroid(d)
-      let r = _.labels.arcs.outer.centroid(d)
+      const r = _.labels.arcs.outer.centroid(d)
 
       // Adjust the vertical position of the label to make sure the label paths and labels don't overlap.
-      let p21 = Math.max(r[1], d._measures.y)
-      let p2 = [
+      const p21 = Math.max(r[1], d._measures.y)
+      const p2 = [
         r[1] !== p1[1] ? r[0] - (r[0] - p1[0]) * (r[1] - p21) / (r[1] - p1[1]) : r[0],
         p21
       ]
 
       // Length of the label path horizontal part.
-      let dx = 0.25 * _.outerRadius
-      let p3 = [
+      const dx = 0.25 * _.outerRadius
+      const p3 = [
         // Adjust the horizontal position of the path's end.
         _.labels.left(d) ? Math.min(p2[0] - dx, d._measures.x) : p2[0] + dx,
         p2[1]
@@ -118,7 +118,7 @@ export default (name, parent = 'body') => {
 
     // Adjustment in the horizontal position to avoid overlapping labels.
     labelTextX: d => {
-      let dx = 0.25 * _.outerRadius
+      const dx = 0.25 * _.outerRadius
       if (_.labels.left(d)) {
         return Math.min(_.labels.arcs.outer.centroid(d)[0] - dx, d._measures.x) - 5
       } else {
@@ -156,7 +156,7 @@ export default (name, parent = 'body') => {
 
           // Group of elements.
           // TODO Remove unnecessary group.
-          let slice = g.append('g')
+          const slice = g.append('g')
             .attr('class', 'slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
             .on('mouseover.pie', d => {
@@ -175,7 +175,7 @@ export default (name, parent = 'body') => {
             .attr('fill', 'currentColor')
 
           // Add label value.
-          let label = slice.append('g')
+          const label = slice.append('g')
             .attr('class', 'slice-label')
             .style('display', self._label.show ? null : 'none')
           label.append('text')
@@ -187,7 +187,7 @@ export default (name, parent = 'body') => {
             .style('cursor', 'default')
             .style('opacity', d => d._measures.outside ? 0 : 1)
             .text(d => d.value.toFixed(1))
-          let outerLabel = label.append('g')
+          const outerLabel = label.append('g')
             .attr('class', 'outer-label')
             .style('opacity', d => d._measures.outside ? 1 : 0)
           outerLabel.append('path')
@@ -212,13 +212,13 @@ export default (name, parent = 'body') => {
             .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Update slices.
-          let slice = g.select('.slice')
+          const slice = g.select('.slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
 
           slice.select('.slice-wedge')
             .attrTween('d', attrTween(d => _.arc(d)))
 
-          let label = slice.select('.slice-label')
+          const label = slice.select('.slice-label')
             .style('display', self._label.show ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
@@ -227,7 +227,7 @@ export default (name, parent = 'body') => {
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
             .text(self._label.format)
 
-          let outerLabel = label.select('.outer-label')
+          const outerLabel = label.select('.outer-label')
             .style('opacity', d => d._measures.outside ? 1 : 0)
           outerLabel.select('.outer-label-line')
             .attr('stroke', self._font.color)

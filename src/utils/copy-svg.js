@@ -9,7 +9,7 @@ function extractStyle (elem) {
 
 function copyStyle (elem, styles) {
   for (const name in styles) {
-    if (styles.hasOwnProperty(name)) {
+    if (Object.prototype.hasOwnProperty.call(styles, name)) {
       elem.style[name] = styles[name]
     }
   }

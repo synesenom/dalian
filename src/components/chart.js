@@ -37,7 +37,7 @@ export default (type, name, parent, elem = 'svg') => {
   )
 
   // Private members
-  let _ = (() => {
+  const _ = (() => {
     const clipId = `${name}-dalian-plots-clipper`
 
     return {
@@ -86,7 +86,7 @@ export default (type, name, parent, elem = 'svg') => {
           .join(
             // Entering groups
             enter => {
-              let g = enter.append('g')
+              const g = enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
                 .attr('clip-path', `url(#${_.clipId})`)
                 .style('shape-rendering', 'geometricPrecision')
@@ -153,7 +153,7 @@ export default (type, name, parent, elem = 'svg') => {
     download: async filename => {
       // Inspired by https://github.com/JuanIrache/d3-svg-to-png
       const svg = copySvg(self._widget.content.node())
-      let file = await copyToCanvas(svg)
+      const file = await copyToCanvas(svg)
       download(file, filename, 'png')
     }
   })

@@ -5,7 +5,7 @@ import extend from '../core/extend'
 
 export default (self, api) => {
   // Private members.
-  let _ = {
+  const _ = {
     markers: new Map()
   }
 

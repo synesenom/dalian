@@ -14,7 +14,7 @@ export default (name, parent) => {
   )
 
   // Private members
-  let _ = {
+  const _ = {
 
   }
 

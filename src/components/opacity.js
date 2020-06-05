@@ -7,7 +7,7 @@
 export default defaultValue => {
   return (self, api) => {
     // Private members
-    let _ = {
+    const _ = {
       value: defaultValue
     }
 

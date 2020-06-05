@@ -1,6 +1,6 @@
 export default (selection, styles) => {
-  for (let name in styles) {
-    if (styles.hasOwnProperty(name)) {
+  for (const name in styles) {
+    if (Object.prototype.hasOwnProperty.call(styles, name)) {
       selection.style(name, styles[name])
     }
   }

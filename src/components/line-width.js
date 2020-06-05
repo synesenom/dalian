@@ -2,7 +2,7 @@
 export default defaultValue => {
   return (self, api) => {
     // Private members.
-    let _ = {
+    const _ = {
       // Default behavior.
       mapping: () => defaultValue + 'px'
     }

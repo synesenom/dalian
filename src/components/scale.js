@@ -3,12 +3,12 @@ import { scaleBand, scaleLinear, scalePoint, scalePow } from 'd3'
 /**
  * Component implementing a scale.
  *
- * @class Scale
+ * @function Scale
  * @param {string} [type = linear] Type of scale: linear, band or point.
  */
 export default (type = 'linear') => {
   // Private members
-  let _ = {
+  const _ = {
     type,
     scale: (() => {
       switch (type) {
@@ -25,7 +25,7 @@ export default (type = 'linear') => {
     })()
   }
 
-  let api = {
+  const api = {
     scale: _.scale,
 
     range: (min, max) => {
@@ -59,6 +59,7 @@ export default (type = 'linear') => {
             break
           case 'sqrt':
             _.scale = scalePow().exponent(0.5)
+            break
           case 'band':
             _.scale = scaleBand().padding(0.1)
             break

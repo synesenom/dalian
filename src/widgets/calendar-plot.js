@@ -4,12 +4,11 @@ import extend from '../core/extend'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
+// TODO import Highlight from '../components/highlight'
 import Label from '../components/label'
 import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
 import TopAxis from '../components/axis/top-axis'
-
 
 // TODO Support incomplete months.
 // TODO Support multiple years.
@@ -44,7 +43,7 @@ export default (name, parent = 'body') => {
   }
 
   // Compose factory.
-  let scales = {
+  const scales = {
     x: Scale('linear'),
     y: Scale('band')
   }
@@ -58,7 +57,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private members.
-  let _ = {
+  const _ = {
     // Variables
     scales,
     current: undefined,
@@ -117,7 +116,7 @@ export default (name, parent = 'body') => {
 
     // Calculations.
     tileX (d, firstDay) {
-      let i = Math.ceil((d.date - firstDay) / (1000 * 3600 * 24))
+      const i = Math.ceil((d.date - firstDay) / (1000 * 3600 * 24))
       return Math.floor((i + firstDay.getDay()) / 7)
     },
 
@@ -163,7 +162,7 @@ export default (name, parent = 'body') => {
       // Adjust axes.
       self._leftAxis.hideAxisLine(true)
         .hideTicks(true)
-        .margin({left: marginLeft})
+        .margin({ left: marginLeft })
       self._topAxis.tickAnchor(_.blocks.align)
         .hideAxisLine(true)
         .hideTicks(true)
@@ -341,7 +340,7 @@ export default (name, parent = 'body') => {
      * @param {string} [align = start] Alignment value to set. Supported values: start, middle.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
      */
-    blockAlign (align = 'start') {
+    blockAlign (align = DEFAULTS.blocks.align) {
       _.blocks.align = align
       return api
     },
@@ -354,7 +353,7 @@ export default (name, parent = 'body') => {
      * @param {number} [margin = 0] Size of the margin between month blocks relative to the tile size.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
      */
-    blockMargin (margin = 0) {
+    blockMargin (margin = DEFAULTS.blocks.margin) {
       _.blocks.margin = margin
       return api
     },

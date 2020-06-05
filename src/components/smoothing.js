@@ -9,7 +9,7 @@ import { curveMonotoneX, curveLinear } from 'd3'
  */
 export default (self, api) => {
   // Private members
-  let _ = {
+  const _ = {
     on: false
   }
 

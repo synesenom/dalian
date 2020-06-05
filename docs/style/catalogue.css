@@ -8,24 +8,22 @@
     display: inline-block;
     position: relative;
     float: left;
-    width: 200px;
     top: 0;
+    width: 200px;
     margin: 29px;
     padding: 20px;
     background-color: #fff;
     border-radius: 3px;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 0 #ccc;
+    box-shadow: 0 2px 4px #ccc;
     cursor: pointer;
     text-decoration: none;
     color: black;
-    transition: box-shadow .3s, top .3s;
+    transition: box-shadow .2s, top .2s;
 }
 .card:hover {
-    border: 1px solid transparent;
-    box-shadow: 0 10px 40px #ccc;
-    top: -8px;
-    transition: box-shadow .3s, top .3s;
+    box-shadow: 0 15px 30px #ccc;
+    top: -5px;
+    transition: box-shadow .2s, top .2s;
 }
 
 .card-title {
@@ -38,9 +36,9 @@
     position: relative;
     width: 100%;
     height: calc(260px - 62px - 30px);
-    opacity: 0.2;
+    /*opacity: 0.2;
     filter: grayscale(100%);
-    transition: filter .3s, opacity .3s;
+    transition: filter .3s, opacity .3s;*/
 }
 .card:hover .card-content {
     opacity: 1;
