@@ -4,14 +4,14 @@ import compose from '../core/compose'
 import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
-import Hihighlight from '../components/highlight'
+import Highlight from '../components/highlight'
+import Horizontal from '../components/horizontal'
 import LeftAxis from '../components/axis/left-axis'
 import LineWidth from '../components/line-width'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
 
 // TODO Add LineColor component.
-// TODO Add reference to LineWidth component.
 /**
  * The box plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -24,7 +24,9 @@ import Scale from '../components/scale'
  *     <a href="../components/highlight.html">Highlight</a> Boxes can be highlighted by passing their names as specified
  *     in the data array.
  *   </li>
+ *   <li><a href="../components/horizontal.html">Horizontal</a></li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/line-width.html">LineWidth</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
  * </ul>
  *
@@ -42,7 +44,8 @@ export default (name, parent = 'body') => {
     Chart('box-plot', name, parent),
     BottomAxis(scales.x),
     ElementTooltip,
-    Hihighlight(['.plot-group']),
+    Highlight(['.plot-group']),
+    Horizontal(scales),
     LeftAxis(scales.y),
     LineWidth(1),
     Opacity(0.2)
@@ -52,26 +55,18 @@ export default (name, parent = 'body') => {
   const _ = {
     // Variables.
     current: undefined,
-    scales: {
-      x: scales.x,
-      y: scales.y
-    },
+    scales: self._horizontal.scales(),
 
     // UI elements.
     boxWidth: 20,
     horizontal: false,
 
     // Methods.
-    lowerWhiskerPath (d) {
-      return `M${_.scales.x.scale(_.horizontal ? d.value.q1 : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.q1)}
-      L${_.scales.x.scale(_.horizontal ? d.value.whiskers.lower : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.whiskers.lower)}
-      m${_.horizontal ? 0 : -0.4 * _.boxWidth} ${_.horizontal ? -0.4 * _.boxWidth : 0}
-      l${_.horizontal ? 0 : 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
-    },
-
-    upperWhiskerPath (d) {
-      return `M${_.scales.x.scale(_.horizontal ? d.value.q3 : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.q3)}
-      L${_.scales.x.scale(_.horizontal ? d.value.whiskers.upper : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.whiskers.upper)}
+    // TODO Merge these to a whisker method.
+    whiskerPath (side) {
+      const quartile = side === 'lower' ? 'q1' : 'q3'
+      return d => `M${_.scales.x.scale(_.horizontal ? d.value[quartile] : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value[quartile])}
+      L${_.scales.x.scale(_.horizontal ? d.value.whiskers[side] : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.whiskers[side])}
       m${_.horizontal ? 0 : -0.4 * _.boxWidth} ${_.horizontal ? -0.4 * _.boxWidth : 0}
       l${_.horizontal ? 0 : 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
     },
@@ -81,15 +76,19 @@ export default (name, parent = 'body') => {
     outlierY: d => _.scales.y.scale(_.horizontal ? d.name : d),
 
     update (duration) {
-      // Collect X values and Y max
+      // Collect X values and Y max.
       const xValues = self._chart.data.map(d => d.name)
-      let yMin = min(self._chart.data, d => min(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.lower])))
-      let yMax = max(self._chart.data, d => max(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.upper])))
+      let yMin = min(self._chart.data,
+          d => min(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.lower])))
+      let yMax = max(self._chart.data,
+          d => max(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.upper])))
       const yRange = yMax - yMin
       yMin -= 0.05 * yRange
       yMax += 0.05 * yRange
 
-      // Update scales
+      // Update scales.
+      _.horizontal = self._horizontal.on()
+      _.scales = self._horizontal.scales()
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(_.horizontal ? [yMin, yMax] : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
@@ -132,13 +131,13 @@ export default (name, parent = 'body') => {
             .attr('stroke-width', '2px')
           g.append('path')
             .attr('class', 'box-whisker-lower')
-            .attr('d', _.lowerWhiskerPath)
+            .attr('d', _.whiskerPath('lower'))
             .attr('stroke', 'currentColor')
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'none')
           g.append('path')
             .attr('class', 'box-whisker-upper')
-            .attr('d', _.upperWhiskerPath)
+            .attr('d', _.whiskerPath('upper'))
             .attr('stroke', 'currentColor')
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'none')
@@ -232,10 +231,10 @@ export default (name, parent = 'body') => {
             .attr('x2', d => _.scales.x.scale(_.horizontal ? d.value.median : d.name) + xShift)
             .attr('y2', d => _.scales.y.scale(_.horizontal ? d.name : d.value.median) + yShift)
           g.select('.box-whisker-lower')
-            .attr('d', _.lowerWhiskerPath)
+            .attr('d', _.whiskerPath('lower'))
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))
           g.select('.box-whisker-upper')
-            .attr('d', _.upperWhiskerPath)
+            .attr('d', _.whiskerPath('upper'))
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))
 
           return g
@@ -269,28 +268,6 @@ export default (name, parent = 'body') => {
 
   // Public API.
   api = Object.assign(api || {}, {
-    /**
-     * Converts the box plot to a horizontal box plot. Note that this method does not swap the axis labels.
-     *
-     * @method horizontal
-     * @methodOf BoxPlot
-     * @param {boolean} on Whether the box plot should be horizontal.
-     * @returns {Object} Reference to the BoxPlot's API.
-     */
-    horizontal (on) {
-      _.horizontal = on
-
-      // Assign scales
-      _.scales.x = on ? scales.y : scales.x
-      _.scales.y = on ? scales.x : scales.y
-
-      // Update axes
-      self._bottomAxis.scale(_.scales.x)
-      self._leftAxis.scale(_.scales.y)
-
-      return api
-    },
-
     /**
      * Sets the box width in pixels.
      *

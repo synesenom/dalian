@@ -6,13 +6,12 @@ import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
+import Horizontal from '../components/horizontal'
 import LeftAxis from '../components/axis/left-axis'
 import LineWidth from '../components/line-width'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
 
-// TODO Make horizontal a component taking the scales as parameter.
-// TODO Add reference to LineWidth component.
 /**
  * The violin plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -24,7 +23,9 @@ import Scale from '../components/scale'
  *     <a href="../components/highlight.html">Highlight</a> Violins can be highlighted by passing their names as
  *     specified in the data array.
  *   </li>
+ *   <li><a href="../components/horizontal.html">Horizontal</a></li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/line-width.html">LineWidth</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
  * </ul>
  *
@@ -43,6 +44,7 @@ export default (name, parent = 'body') => {
     BottomAxis(scales.x),
     ElementTooltip,
     Highlight(['.plot-group']),
+    Horizontal(scales),
     LeftAxis(scales.y),
     LineWidth(1),
     Opacity(0.2)
@@ -53,10 +55,7 @@ export default (name, parent = 'body') => {
     // Variables.
     data: [],
     current: undefined,
-    scales: {
-      x: scales.x,
-      y: scales.y
-    },
+    scales: self._horizontal.scales(),
 
     // UI elements.
     violinWidth: 30,
@@ -120,6 +119,8 @@ export default (name, parent = 'body') => {
       yMax += 0.05 * yRange
 
       // Update scales.
+      _.horizontal = self._horizontal.on()
+      _.scales = self._horizontal.scales()
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
         .domain(_.horizontal ? [yMin, yMax] : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
@@ -144,8 +145,7 @@ export default (name, parent = 'body') => {
             .attr('class', 'violin')
             .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x.scale(d.name) + yShift}, ${_.horizontal ? _.scales.y.scale(d.name) - yShift : 0}) ${rotate}`)
             .attr('d', d => {
-              const areaFn = d.area
-                .x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
+              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
               return areaFn(d.values)
             })
             .attr('stroke', 'currentColor')
@@ -162,8 +162,7 @@ export default (name, parent = 'body') => {
             .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x.scale(d.name) + yShift}, ${_.horizontal ? _.scales.y.scale(d.name) - yShift : 0}) ${rotate}`)
             .attrTween('d', function (d) {
               const previous = select(this).attr('d')
-              const areaFn = d.area
-                .x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
+              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
               const current = areaFn(d.values)
               return interpolatePath(previous, current, null)
             })
@@ -224,28 +223,6 @@ export default (name, parent = 'body') => {
 
   // Public API.
   api = Object.assign(api || {}, {
-    /**
-     * Converts the violin plot to a horizontal violin plot. Note that this method does not swap the axis labels.
-     *
-     * @method horizontal
-     * @methodOf ViolinPlot
-     * @param {boolean} on Whether the violin plot should be horizontal.
-     * @returns {Object} Reference to the ViolinPlot's API.
-     */
-    horizontal (on) {
-      _.horizontal = on
-
-      // Assign scales
-      _.scales.x = on ? scales.y : scales.x
-      _.scales.y = on ? scales.x : scales.y
-
-      // Update axes
-      self._bottomAxis.scale(_.scales.x)
-      self._leftAxis.scale(_.scales.y)
-
-      return api
-    },
-
     /**
      * Sets the violin width in pixels.
      *

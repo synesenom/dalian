@@ -7,6 +7,7 @@ import BottomAxis from '../components/axis/bottom-axis'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
+import Horizontal from '../components/horizontal'
 import Label from '../components/label'
 import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
@@ -22,6 +23,7 @@ import YGrid from '../components/grid/y-grid'
  *     <a href="../components/highlight.html">Highlight</a> Bars can be highlighted by passing their category names as
  *     specified in the data array.
  *   </li>
+ *   <li><a href="../components/horizontal.html">Horizontal</a></li>
  *   <li><a href="../components/label.html">Label</a></li> Labels are shown at the top of the bars. If the fit in the
  *   bar they are inside, otherwise they are outside.
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
@@ -46,6 +48,7 @@ export default (name, parent = 'body') => {
     BottomAxis(scales.x),
     ElementTooltip,
     Highlight(['.plot-group']),
+    Horizontal(scales),
     Label,
     YGrid
   )
@@ -54,10 +57,7 @@ export default (name, parent = 'body') => {
   const _ = {
     // Variables
     current: undefined,
-    scales: {
-      x: scales.x,
-      y: scales.y
-    },
+    scales: self._horizontal.scales(),
 
     // UI elements.
     horizontal: false,
@@ -92,6 +92,10 @@ export default (name, parent = 'body') => {
 
     // Update method.
     update: duration => {
+      // Update scales.
+      _.scales = self._horizontal.scales()
+      const horizontal = self._horizontal.on()
+
       // Compute some constants beforehand.
       const style = self._widget.getStyle()
 
@@ -101,14 +105,14 @@ export default (name, parent = 'body') => {
 
       // Update scales.
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(_.horizontal ? [0, yMax] : xValues)
+        .domain(horizontal ? [0, yMax] : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(_.horizontal ? xValues : [0, yMax])
+        .domain(horizontal ? xValues : [0, yMax])
 
       // Add plots.
       self._chart.plotGroups({
         enter: g => {
-          const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+          const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Add bars.
           g.append('rect')
@@ -119,14 +123,14 @@ export default (name, parent = 'body') => {
             .on('mouseleave.bar', () => {
               _.current = undefined
             })
-            .attr('x', d => _.scales.x.scale(_.horizontal ? 0 : d.name))
-            .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : 0))
-            .attr('width', _.horizontal ? 0 : bandwidth)
-            .attr('height', _.horizontal ? bandwidth : 0)
+            .attr('x', d => _.scales.x.scale(horizontal ? 0 : d.name))
+            .attr('y', d => _.scales.y.scale(horizontal ? d.name : 0))
+            .attr('width', horizontal ? 0 : bandwidth)
+            .attr('height', horizontal ? bandwidth : 0)
             .attr('fill', self._color.mapper)
 
           // Add labels.
-          const measure = _.horizontal ? _.measureX : _.measureY
+          const measure = horizontal ? _.measureX : _.measureY
           g.append('text')
             .style('display', 'none')
             .attr('class', 'bar-label')
@@ -135,8 +139,8 @@ export default (name, parent = 'body') => {
             .text(self._label.format)
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
-            .attr('x', d => _.horizontal ? _.scales.x.scale(0) : d._measures.x)
-            .attr('y', d => _.horizontal ? d._measures.y : _.scales.y.scale(0))
+            .attr('x', d => horizontal ? _.scales.x.scale(0) : d._measures.x)
+            .attr('y', d => horizontal ? d._measures.y : _.scales.y.scale(0))
 
           return g
         },
@@ -144,23 +148,23 @@ export default (name, parent = 'body') => {
           // Show group.
           g.style('opacity', 1)
 
-          const bandwidth = _.horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+          const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
           // Update bars.
           g.select('.bar')
-            .attr('x', d => _.scales.x.scale(_.horizontal ? 0 : d.name))
-            .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value))
-            .attr('width', d => _.horizontal ? _.scales.x.scale(d.value) : bandwidth)
-            .attr('height', d => _.horizontal ? bandwidth
+            .attr('x', d => _.scales.x.scale(horizontal ? 0 : d.name))
+            .attr('y', d => _.scales.y.scale(horizontal ? d.name : d.value))
+            .attr('width', d => horizontal ? _.scales.x.scale(d.value) : bandwidth)
+            .attr('height', d => horizontal ? bandwidth
               : (parseInt(self._widget.size.innerHeight) - _.scales.y.scale(d.value)))
             .attr('fill', self._color.mapper)
 
           // Update labels.
-          const measure = _.horizontal ? _.measureX : _.measureY
+          const measure = horizontal ? _.measureX : _.measureY
           g.select('.bar-label')
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
-            .attr('text-anchor', _.horizontal ? 'end' : 'middle')
-            .attr('dominant-baseline', _.horizontal ? 'central' : 'hanging')
+            .attr('text-anchor', horizontal ? 'end' : 'middle')
+            .attr('dominant-baseline', horizontal ? 'central' : 'hanging')
             .attr('font-size', self._font.size)
             .attr('fill', self._font.color)
             .attr('fill', d => d._measures.color)
@@ -192,34 +196,6 @@ export default (name, parent = 'body') => {
 
   // Extend widget update
   self._widget.update = extend(self._widget.update, _.update, true)
-
-  // Public API
-  api = Object.assign(api || {}, {
-    /**
-     * Converts the bar chart to a horizontal bar chart. Note that this method does not swap the axis labels.
-     *
-     * @method horizontal
-     * @methodOf BarChart
-     * @param {boolean} on Whether the bar chart should be horizontal.
-     * @returns {BarChart} The BarChart itself.
-     */
-    horizontal (on) {
-      _.horizontal = on
-
-      // Assign scales
-      _.scales.x = on ? scales.y : scales.x
-      _.scales.y = on ? scales.x : scales.y
-
-      // Update axes
-      self._bottomAxis.scale(_.scales.x)
-      self._leftAxis.scale(_.scales.y)
-
-      // Change grid type.
-      self._yGrid.type(on ? 'x' : 'y')
-
-      return api
-    }
-  })
 
   return api
 
