@@ -1,6 +1,8 @@
-import { extent, min, max, sum, scaleLinear, timeParse } from 'd3'
+import { extent, min, max, sum, scaleLinear } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
+import * as utc from '../utils/utc'
+import { unrotate } from '../utils/array'
 import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -17,7 +19,7 @@ import TopAxis from '../components/axis/top-axis'
  * its available APIs. Furthermore, it extends the following components:
  * <ul>
  *   <li><a href="./components/element-tooltip.html">ElementTooltip</a> The tooltip displays the date of the tile and
- *   its value.</li>
+ *   its value. The title is the date in ISO 8601 format.</li>
  *   <li>
  *     <a href="../components/highlight.html">Highlight</a> As each month block represents a plot group, they can be
  *     highlighted by passing month-<month index> to the highlight method, where <month index> is the 0-indexed month.
@@ -42,7 +44,8 @@ export default (name, parent = 'body') => {
       align: 'start'
     },
     tiles: {
-      names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      weekStart: 0
     }
   }
 
@@ -74,16 +77,28 @@ export default (name, parent = 'body') => {
       align: DEFAULTS.blocks.align
     },
     tiles: {
-      names: DEFAULTS.tiles.names
+      names: DEFAULTS.tiles.names,
+      weekStart: 0,
     },
 
     // Font metrics to position labels.
     fm: self._widget.getFontMetrics(),
 
+    // Calculations.
+    shiftDay: (day, shift) => ((day - shift + 7) % 7),
+
+    tileX (d) {
+      const i = Math.ceil((d.date - _.metrics.firstDay) / (1000 * 3600 * 24))
+      return Math.floor((i + _.shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)) / 7)
+    },
+
+    labelFill: d => brightnessAdjustedColor(self._color.mapper(d)),
+
     addTiles (enter, size, labelDy, labelFontSize) {
       const tiles = enter.append('g')
         .attr('class', d => `tile date-${d.date.getDate()}`)
-        .attr('transform', d => `translate(${_.tileX(d) * size}, ${d.date.getDay() * size})`)
+        // Y translation is shifted by the specified week start.
+        .attr('transform', d => `translate(${_.tileX(d) * size}, ${_.shiftDay(d.date.getDay(), _.tiles.weekStart) * size})`)
         .on('mouseover.calendar', d => {
           _.current = d
         })
@@ -119,22 +134,24 @@ export default (name, parent = 'body') => {
       return tiles
     },
 
-    // Calculations.
-    tileX (d) {
-      const i = Math.ceil((d.date - _.metrics.firstDay) / (1000 * 3600 * 24))
-      return Math.floor((i + _.metrics.firstDay.getDay()) / 7)
-    },
-
-    labelFill: d => brightnessAdjustedColor(self._color.mapper(d)),
-
     // Update method.
     update (duration) {
+      // TODO Move these to a method.
+      const firstWeekLength = 7 - _.shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)
+      const numWeeks = Math.ceil((_.metrics.numDays - firstWeekLength) / 7) + 1
+
+      // Adjust block positions.
+      self._chart.data.forEach(block => {
+        block.x = Math.floor((block.daysOffset - firstWeekLength) / 7) + 1
+        block.length = Math.ceil((block.daysOffset + block.numDays - firstWeekLength) / 7) + 1 - block.x
+      })
+
       // Calculate some metrics for positioning the calendar:
       // - Start week day.
       // - Number of full weeks.
       // Determine tile size: it is the lowest from the calculated sizes based on the width and height
       // of the widget.
-      const lx = parseFloat(self._widget.size.innerWidth) / (_.metrics.numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))
+      const lx = parseFloat(self._widget.size.innerWidth) / (numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))
       const ly = parseFloat(self._widget.size.innerHeight) / 7
       const size = Math.min(lx, ly)
 
@@ -145,16 +162,17 @@ export default (name, parent = 'body') => {
       )
 
       // Some constants.
-      const marginLeft = (parseFloat(self._widget.size.innerWidth) - size * (_.metrics.numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))) / 2
+      const marginLeft = (parseFloat(self._widget.size.innerWidth) - size * (numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))) / 2
       const marginTop = (parseFloat(self._widget.size.innerHeight) - size * 7) / 2
       const labelFontSize = Math.min(0.6 * size, parseFloat(self._font.size)) + 'px'
       const labelDy = (size + _.fm.capHeight * parseFloat(labelFontSize)) / 2
 
       // Scales.
       _.scales.x.range(marginLeft, parseInt(self._widget.size.innerWidth) - marginLeft)
-        .domain([0, _.metrics.numWeeks + _.blocks.margin * (_.metrics.numMonths - 1)])
+        .domain([0, numWeeks + _.blocks.margin * (_.metrics.numMonths - 1)])
       _.scales.y.range(marginTop, parseInt(self._widget.size.innerHeight) - marginTop)
-        .domain(_.tiles.names)
+        // Labels are rotated backwards by the specified week start.
+        .domain(unrotate(_.tiles.names, _.tiles.weekStart))
 
       // Adjust axes.
       self._leftAxis.hideAxisLine(true)
@@ -165,7 +183,7 @@ export default (name, parent = 'body') => {
         .hideTicks(true)
         .margin({ top: marginTop })
         .values(self._chart.data
-          .map(d => d.x + (_.blocks.align === 'middle' ? 0.5 * d.length : 0) + _.blocks.margin * d.column))
+          .map(d => d.x + (_.blocks.align === 'middle' ? 0.5 * d.length : 0) + _.blocks.margin * d.index))
         .format((d, i) => _.blocks.names[self._chart.data[i].month])
 
       // Add blocks: each block is a plot group.
@@ -179,7 +197,7 @@ export default (name, parent = 'body') => {
             // Transformations:
             // - Calendar margin to center it in container.
             // - Translate by the block margin.
-            .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.column * size}, ${marginTop})`)
+            .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.index * size}, ${marginTop})`)
 
           // Add tiles.
           _.addTiles(g.selectAll('.tile').data(d => d.tiles).enter(), size, labelDy, labelFontSize)
@@ -201,10 +219,10 @@ export default (name, parent = 'body') => {
                 .remove()
             )
             .transition().duration(duration)
-            .attr('transform', d => `translate(${_.tileX(d) * size}, ${d.date.getDay() * size})`)
+            .attr('transform', d => `translate(${_.tileX(d) * size}, ${_.shiftDay(d.date.getDay(), _.tiles.weekStart) * size})`)
             .style('opacity', 1)
 
-          // Update rectangles
+          // Update rectangles.
           tiles.select('rect')
             .attr('width', size - 2)
             .attr('height', size - 2)
@@ -224,7 +242,7 @@ export default (name, parent = 'body') => {
           return g
         },
         update: g => g.style('opacity', 1)
-          .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.column * size}, ${marginTop})`),
+          .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.index * size}, ${marginTop})`),
         exit: g => g.style('opacity', 0)
       }, duration)
     }
@@ -235,9 +253,8 @@ export default (name, parent = 'body') => {
     // TODO Pre-compute everything and put in chart data.
 
     // Parse dates.
-    const dateParse = timeParse('%Y-%m-%d')
     const convertedData = data.map(d => ({
-      date: dateParse(d.date),
+      date: utc.utcFromISO(d.date),
       value: +d.value
     }))
 
@@ -247,28 +264,26 @@ export default (name, parent = 'body') => {
     const year = convertedData[0].date.getFullYear()
 
     // Create month blocks.
-    let totalDays = 0
-    const dayOffset = (7 - new Date(year, firstMonth, 1).getDay()) % 7
-    const blocks = Array.from({ length: lastMonth - firstMonth + 1 }, (d, index) => {
+    let daysOffset = 0
+    const blocks = Array.from({length: lastMonth - firstMonth + 1}, (d, index) => {
       // Do some counting.
       const month = (firstMonth + index) % 12
-      const numDays = new Date(year, month + 1, 0).getDate()
-      const start = new Date(year, month, 1)
-
-      // Number of weeks.
-      const firstWeek = (7 - start.getDay()) % 7
-      const numWeeks = Math.ceil((numDays - firstWeek) / 7) + (firstWeek > 0 ? 1 : 0)
+      const numDays = utc.utcFromYMD(year, month + 1, 0).getDate()
+      const firstDay = utc.utcFromYMD(year, month, 1)
 
       // Add dates.
       const block = {
+        // Some constants.
         month,
-        column: index,
-        length: numWeeks,
-        x: Math.floor((totalDays - dayOffset) / 7) + (dayOffset > 0 ? 1 : 0),
+        numDays,
+        daysOffset,
+        index,
+
+        // Name and tiles.
         name: `month-${month}`,
-        tiles: Array.from({ length: numDays }, (dd, j) => {
-          const date = new Date(start)
-          date.setDate(start.getDate() + j)
+        tiles: Array.from({length: numDays}, (tile, i) => {
+          const date = new Date(firstDay)
+          date.setDate(firstDay.getDate() + i)
           return {
             name: `month-${month}`,
             date,
@@ -279,7 +294,7 @@ export default (name, parent = 'body') => {
       }
 
       // Update offset.
-      totalDays += numDays
+      daysOffset += numDays
 
       return block
     })
@@ -291,18 +306,13 @@ export default (name, parent = 'body') => {
         .tiles.find(tile => tile.date.getDate() === d.date.getDate()).value = d.value
     })
 
-    // Compute some metrics.
-    _.metrics = (() => {
-      const firstDay = blocks[0].tiles[0].date
-      const numDays = sum(blocks, d => d.tiles.length)
-
-      return {
-        firstDay,
-        numDays,
-        numWeeks: Math.ceil((numDays - (7 - firstDay.getDay())) / 7) + 1,
-        numMonths: blocks.length
-      }
-    })()
+    // Compute some global metrics.
+    _.metrics = {
+      year: blocks[0].tiles[0].date.getFullYear(),
+      firstDay: blocks[0].tiles[0].date,
+      numDays: sum(blocks, d => d.tiles.length),
+      numMonths: blocks.length
+    }
 
     return blocks
   }
@@ -310,7 +320,7 @@ export default (name, parent = 'body') => {
   self._highlight.container = self._chart.plots
 
   self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.date,
+    title: _.current.date.toISOString().substr(0, 10),
     stripe: self._color.mapper(_.current),
     content: {
       type: 'plots',
@@ -375,10 +385,22 @@ export default (name, parent = 'body') => {
     days (names = DEFAULTS.tiles.names) {
       _.tiles.names = names
       return api
+    },
+
+    /**
+     * Sets the start of the week (topmost weekday).
+     *
+     * @method weekStart
+     * @methodOf CalendarPlot
+     * @param {number} day Week start as an index. Supported values go from 0 (Sunday) to 6 (Saturday).
+     * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     */
+    weekStart (day = DEFAULTS.tiles.weekStart) {
+      _.tiles.weekStart = day
+      return api
     }
 
     // TODO API: add support for multiple rows of blocks.
-    // TODO API: starting week day, default Sunday.
     // TODO API: monthly/yearly totals on side.
     // TODO API: add incomplete month support.
   })

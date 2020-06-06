@@ -21,10 +21,11 @@
   <ul>
     <li onclick="changeData()">D - Change data.</li>
     <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Change month margin.</li>
-    <li id="toggleMonthNames" onclick="toggleMonthNames()">M - Change month names.</li>
-    <li id="toggleBlockAlign" onclick="toggleBlockAlign()">A - Change label align.</li>
-    <li id="toggleDays" onclick="toggleDays()">W - Change day names.</li>
+    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Toggle block margin.</li>
+    <li id="toggleMonthNames" onclick="toggleMonthNames()">M - Toggle month names.</li>
+    <li id="toggleBlockAlign" onclick="toggleBlockAlign()">A - Toggle label align.</li>
+    <li id="toggleDays" onclick="toggleDays()">W - Toggle day names.</li>
+    <li id="toggleWeekStart" onclick="toggleWeekStart()">S - Toggle week start.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -70,7 +71,6 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
     '#239A3B',
     '#196127'], '#E5E5E5')
   .tooltip.on(true)
-  .tooltip.titleFormat(title => (1 + title.getMonth()) + '/' + title.getDate())
   .tooltip.valueFormat(d => d === null ? 'No data' : Math.round(d))
   .mouse.over(k => calendarPlot.highlight(k.name))
   .mouse.leave(() => calendarPlot.highlight())
@@ -104,6 +104,11 @@ let toggleDays = () => {
   this.w = 1 - (this.w || 0)
   calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'] : undefined).render()
 }
+
+let toggleWeekStart = () => {
+  this.s = 1 - (this.s || 0)
+  calendarPlot.weekStart(this.s ? 2 : undefined).render(1000)
+}
 </script><script class="doc">
 // update data on keypress
 window.addEventListener('keydown', e => {
@@ -126,14 +131,18 @@ window.addEventListener('keydown', e => {
     case 'w':
       toggleDays()
       break
+    case 's':
+      toggleWeekStart()
+      break
     default:
   }
 })
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
-toggleBlockMargin = state(toggleBlockMargin, 'b', ['Change block margin', 'Change block margin'])
-toggleMonthNames = state(toggleMonthNames, 'm', ['Change month names', 'Change month names'])
-toggleBlockAlign = state(toggleBlockAlign, 'a', ['Change label align', 'Change label align'])
-toggleDays = state(toggleDays, 'w', ['Change day names', 'Change day names'])
+toggleBlockMargin = state(toggleBlockMargin, 'b', ['Toggle block margin', 'Toggle block margin'])
+toggleMonthNames = state(toggleMonthNames, 'm', ['Toggle month names', 'Toggle month names'])
+toggleBlockAlign = state(toggleBlockAlign, 'a', ['Toggle label align', 'Toggle label align'])
+toggleDays = state(toggleDays, 'w', ['Toggle day names', 'Toggle day names'])
+toggleWeekStart = state(toggleWeekStart, 's', ['Toggle week start', 'Toggle week start'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

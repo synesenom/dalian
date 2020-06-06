@@ -52,7 +52,6 @@ export default (self, api) => {
       // Add title
       styles(contentNode.append('div'), {
         position: 'relative',
-        width: 'calc(100% - 10px)',
         'line-height': parseFloat(self._font.size) + 'px',
         margin: '2px',
         'margin-bottom': '10px'

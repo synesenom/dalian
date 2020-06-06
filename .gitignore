@@ -9,3 +9,4 @@ node_modules/
 dist/dalian.min.js.gz
 docs/dl/dalian.min.js.gz
 /.idea/
+/dist/
