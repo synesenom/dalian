@@ -304,6 +304,6 @@ export default (name, parent = 'body') => {
    *   <dt><i>outliers</i> {Object}</dt> <dd>Object containing two arrays of numbers: the list of <i>mild</i> and <i>extreme</i> outliers
    *   </dd>
    * </dl>
-   * @returns {BarChart} Reference to the BarChart API.
+   * @returns {BoxPlot} Reference to the BoxPlot API.
    */
 }

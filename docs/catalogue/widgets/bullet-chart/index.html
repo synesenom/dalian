@@ -1,0 +1,107 @@
+<!DOCTYPE html><!--mixin resize(elem)//script.
+    function resize() {
+      const { width, height } = getSize();
+      document.getElementById('widget').style.paddingTop = height + 'px';
+      
+        .width(width)
+        .height(height)
+    }
+    window.onresize = resize;
+--><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+  .callback(function() {
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+  });</script><!--script.function getSize () {
+  const md = new MobileDetect(window.navigator.userAgent);
+  const width = parseFloat(d3.select('#widget').style('width'));
+  const aspect = md.mobile() === null ? 2 : 1.5;
+  const height = width / aspect;
+  return { width, height };
+}--><title>BulletChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="changeValue()">V - Change value.</li>
+    <li onclick="changeForecast()">F - Change forecast.</li>
+    <li onclick="changeTarget()">T - Change target.</li>
+    <li onclick="changeRanges()">R - Change ranges.</li>
+    <li onclick="toggleThickness()">W - Toggle thickness.</li>
+    <li onclick="toggleValueColor()">C - Toggle value color.</li>
+    <li onclick="toggleRangeColor()">S - Toggle value color.</li>
+  </ul>
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
+  <p>
+    A bullet chart ...
+  </p>
+</p><h1>code<div class="margin-right"><a href="../../../api/widgets/bullet-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bullet-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+// create chart
+const bulletChart = dalian.BulletChart('bullet-chart', '#widget')
+  .width(600)
+  .height(300)
+  .margins({bottom: 30})
+  .font.size(11)
+  .value(100 * Math.random())
+  .target(80 + 20 * Math.random())
+
+  //.label('KPI')
+  //.subLabel('Happiness')
+  //.vertical(true)
+  //.background('grey')
+  //.bar('royalblue')
+  .render()
+</script><script class="doc">
+// api methods
+let changeValue = () => bulletChart.value(100 * Math.random()).render(1000)
+
+let changeTarget = () => bulletChart.target(80 + 20 * Math.random()).render(1000)
+
+let changeRanges = () => bulletChart.ranges([40 + 20 * Math.random(), 70 + 20 * Math.random()]).render(1000)
+
+let changeForecast = () => bulletChart.forecast(2 * Math.random()).render(1000)
+
+let toggleThickness = () => {
+  this.w = 1 - (this.w || 0)
+  bulletChart.thickness(this.w ? 20 : undefined).render(1000)
+}
+
+let toggleValueColor = () => {
+  this.c = 1 - (this.c || 0)
+  bulletChart.valueColor(this.c ? 'crimson' : undefined).render(1000)
+}
+
+let toggleRangeColor = () => {
+  this.s = 1 - (this.s || 0)
+  bulletChart.rangeColor(this.s ? 'goldenrod' : undefined).render(1000)
+}
+</script><script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'v':
+      changeValue()
+      break
+    case 'f':
+      changeForecast()
+      break
+    case 't':
+      changeTarget()
+      break
+    case 'r':
+      changeRanges()
+      break
+    case 'w':
+      toggleThickness()
+      break
+    case 'c':
+      toggleValueColor()
+      break
+    case 's':
+      toggleRangeColor()
+      break
+    default:
+  }
+})
+</script><script class="doc-hidden">
+// Modify toggle buttons
+toggleThickness = state(toggleThickness, 'w', ['Toggle thickness', 'Toggle thickness'])
+toggleValueColor = state(toggleValueColor, 'c', ['Toggle value color', 'Toggle value color'])
+toggleRangeColor = state(toggleRangeColor, 's', ['Toggle range color', 'Toggle range color'])
+</script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

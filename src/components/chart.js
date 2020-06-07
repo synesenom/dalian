@@ -50,18 +50,18 @@ export default (type, name, parent, elem = 'svg') => {
         .attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight),
 
-      // Methods
-      update: duration => {
-        // Adjust clipper
+      // Methods.
+      update (duration) {
+        // Adjust clipper.
         self._widget.getElem(_.clip, duration)
           .attr('width', self._widget.size.innerWidth)
           .attr('height', self._widget.size.innerHeight)
 
-        // Adjust plots container
+        // Adjust plots container.
         self._widget.getElem(self._chart.plots, duration)
           .attr('width', self._widget.size.innerWidth + 'px')
           .attr('height', self._widget.size.innerHeight + 'px')
-          .attr('transform', 'translate(' + self._widget.margins.left + ',' + self._widget.margins.top + ')')
+          .attr('transform', `translate(${self._widget.margins.left}, ${self._widget.margins.top})`)
       }
     }
   })()
@@ -73,13 +73,12 @@ export default (type, name, parent, elem = 'svg') => {
       data: [],
       plots: self._widget.content.append('g')
         .attr('class', 'dalian-plots-container'),
-      plotSelectors: [],
       clipId: _.clipId,
 
       // Transform data: default is identity
       transformData: data => data,
 
-      plotGroups: (attr, duration) => {
+      plotGroups (attr, duration) {
         // Select groups
         let groups = self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)

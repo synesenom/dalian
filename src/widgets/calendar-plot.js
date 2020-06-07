@@ -413,4 +413,6 @@ export default (name, parent = 'body') => {
   self._color.init('sequential', d => d.value)
 
   return api
+
+  // TODO Docs for data().
 }
