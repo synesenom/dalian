@@ -12,6 +12,8 @@
     <li onclick="toggleThickness()">W - Toggle thickness.</li>
     <li onclick="toggleValueColor()">C - Toggle value color.</li>
     <li onclick="toggleRangeColor()">S - Toggle value color.</li>
+    <li onclick="toggleLabel()">L - Toggle label.</li>
+    <li onclick="toggleUnit()">U - Toggle unit.</li>
   </ul>
 </div>
 
@@ -39,42 +41,60 @@ dalian.BulletChart('bullet-chart-card', '#bullet-chart')
 const bulletChart = dalian.BulletChart('bullet-chart', '#widget')
   .width(600)
   .height(300)
-  .margins({bottom: 30})
-  .font.size(11)
+  .margins({left: 100, right: 20, bottom: 30})
+  .font.size(14)
   .value(100 * Math.random())
   .target(80 + 20 * Math.random())
-
-  //.label('KPI')
-  //.subLabel('Happiness')
+  .label('Success')
+  .unit('Minutes of smile')
   //.vertical(true)
-  //.background('grey')
-  //.bar('royalblue')
   .render()
 </script>
 
 <script class="doc">
 // api methods
-let changeValue = () => bulletChart.value(100 * Math.random()).render(1000)
+let changeValue = () => bulletChart.value(100 * Math.random())
+        .render(1000)
 
-let changeTarget = () => bulletChart.target(80 + 20 * Math.random()).render(1000)
+let changeTarget = () => bulletChart
+        .target(80 + 20 * Math.random())
+        .render(1000)
 
-let changeRanges = () => bulletChart.ranges([40 + 20 * Math.random(), 70 + 20 * Math.random()]).render(1000)
+let changeRanges = () => bulletChart.ranges([
+  0,
+  40 + 20 * Math.random(),
+  70 + 20 * Math.random(),
+  100]).render(1000)
 
-let changeForecast = () => bulletChart.forecast(2 * Math.random()).render(1000)
+let changeForecast = () => bulletChart
+        .forecast(2 * Math.random())
+        .render(1000)
 
 let toggleThickness = () => {
   this.w = 1 - (this.w || 0)
-  bulletChart.thickness(this.w ? 20 : undefined).render(1000)
+  bulletChart.thickness(this.w ? 50 : undefined).render(1000)
 }
 
 let toggleValueColor = () => {
   this.c = 1 - (this.c || 0)
-  bulletChart.valueColor(this.c ? 'crimson' : undefined).render(1000)
+  bulletChart.valueColor(this.c ? 'royalblue' : undefined)
+          .render(1000)
 }
 
 let toggleRangeColor = () => {
   this.s = 1 - (this.s || 0)
-  bulletChart.rangeColor(this.s ? 'goldenrod' : undefined).render(1000)
+  bulletChart.rangeColor(this.s ? 'goldenrod' : undefined)
+          .render(1000)
+}
+
+let toggleLabel = () => {
+  this.l = 1 - (this.l || 0)
+  bulletChart.label(this.l ? '' : 'Success').render()
+}
+
+let toggleUnit = () => {
+  this.u = 1 - (this.u || 0)
+  bulletChart.label(this.u ? '' : 'Minutes of smile').render()
 }
 </script>
 
@@ -83,6 +103,8 @@ let toggleRangeColor = () => {
 toggleThickness = state(toggleThickness, 'w', ['Toggle thickness', 'Toggle thickness'])
 toggleValueColor = state(toggleValueColor, 'c', ['Toggle value color', 'Toggle value color'])
 toggleRangeColor = state(toggleRangeColor, 's', ['Toggle range color', 'Toggle range color'])
+toggleLabel = state(toggleLabel, 'l', ['Toggle label', 'Toggle label'])
+toggleUnit = state(toggleUnit, 'u', ['Toggle unit', 'Toggle unit'])
 </script>
 
 <script class="doc">
@@ -109,6 +131,12 @@ window.addEventListener('keydown', e => {
       break
     case 's':
       toggleRangeColor()
+      break
+    case 'l':
+      toggleLabel()
+      break
+    case 'u':
+      toggleUnit()
       break
     default:
   }

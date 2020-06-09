@@ -1,7 +1,16 @@
 import extend from '../../core/extend'
 import attributes from '../../utils/attributes'
 
+
 export default (type, self, axisFn, scale, labelAttr) => {
+  // Default values.
+  const DEFAULTS = {
+    format: x => x,
+    values: null,
+    tickAnchor: null,
+    tickColor: 'currentColor'
+  }
+
   // Container: an SVG group that contains all axis related DOM elements
   let container = self._widget.content.append('g')
     .attr('class', `dalian-axis-container ${type}`)
@@ -24,12 +33,13 @@ export default (type, self, axisFn, scale, labelAttr) => {
   // Private members.
   let _ = {
     margin: {left: 0, top: 0, right: 0, bottom: 0},
-    format: x => x,
-    values: null,
+    format: DEFAULTS.format,
+    values: DEFAULTS.values,
     scale,
     container,
+    tickColor: DEFAULTS.tickColor,
     ticks: true,
-    tickAnchor: null,
+    tickAnchor: DEFAULTS.tickAnchor,
     axisLine: true,
 
     // Update method.
@@ -54,6 +64,8 @@ export default (type, self, axisFn, scale, labelAttr) => {
       // Update ticks.
       axis.selectAll('.tick > text')
         .attr('text-anchor', _.tickAnchor)
+      axis.selectAll('.tick > line')
+        .attr('stroke', _.tickColor)
     }
   }
 
@@ -80,8 +92,8 @@ export default (type, self, axisFn, scale, labelAttr) => {
       .style('font-size', '1em')
       .text(''), labelAttr),
 
-    tickAnchor: tickAnchor => {
-      _.tickAnchor = tickAnchor || null
+    tickAnchor: (tickAnchor = DEFAULTS.tickAnchor) => {
+      _.tickAnchor = tickAnchor
       return api
     },
 
@@ -104,14 +116,19 @@ export default (type, self, axisFn, scale, labelAttr) => {
     },
 
     // Tick format.
-    format: (format = x => x) => {
+    format: (format = DEFAULTS.format) => {
       _.format = format
       return api
     },
 
     // Set specific tick values.
-    values: (values = null) => {
+    values: (values = DEFAULTS.values) => {
       _.values = values
+      return api
+    },
+
+    tickColor (color = 'currentColor') {
+      _.tickColor = color
       return api
     }
   }
