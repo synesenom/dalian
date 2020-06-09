@@ -112,13 +112,10 @@ export default (name, parent = 'body') => {
         title: {
           label: title.append('text')
             .attr('dx', -10)
-            .attr('dy', -2)
-            .attr('font-weight', 'bold')
             .attr('text-anchor', 'end')
             .attr('dominant-baseline', 'baseline'),
           unit: title.append('text')
             .attr('dx', -10)
-            .attr('dy', 2)
             .attr('font-size', 0.9 * parseFloat(self._font.size) + 'px')
             .attr('text-anchor', 'end')
             .attr('dominant-baseline', 'hanging')
@@ -173,7 +170,7 @@ export default (name, parent = 'body') => {
       _.dom.value.forecast.transition(t)
         .attr('x', _.scale.scale(_.data.ranges[0]))
         .attr('y', _.ui.thickness / 3)
-        .attr('width', _.scale.scale(Math.min(_.data.value * (1 + _.data.forecast), _.data.ranges[3])))
+        .attr('width', _.scale.scale(Math.min(_.data.value * _.data.forecast, _.data.ranges[3])))
         .attr('height', _.ui.thickness / 3)
         .attr('fill', forecastColor(_.ui.valueColor))
       _.dom.value.target.transition(t)
@@ -187,7 +184,7 @@ export default (name, parent = 'body') => {
         .attr('y', _.ui.thickness / 2)
         .text(_.data.label)
       _.dom.title.unit.transition(t)
-        .attr('y', _.ui.thickness / 2)
+        .attr('y', 2 * _.ui.thickness / 3)
         .text(_.data.unit)
     }
   }
@@ -198,7 +195,7 @@ export default (name, parent = 'body') => {
   // Public API.
   api = Object.assign(api, {
     /**
-     * Sets the bar's value of the chart.
+     * Sets the bar's value.
      *
      * @method value
      * @methodOf BulletChart
@@ -210,48 +207,110 @@ export default (name, parent = 'body') => {
       return api
     },
 
+    /**
+     * Sets the forecast value in units of the bar's value.
+     *
+     * @method forecast
+     * @methodOf BulletChart
+     * @param {number} forecast Forecast value in units of the bar value.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     forecast: forecast => {
       _.data.forecast = forecast
       return api
     },
 
+    /**
+     * Sets the target value.
+     *
+     * @method target
+     * @methodOf BulletChart
+     * @param {number} target Target value to set.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     target: target => {
       _.data.target = target
       return api
     },
 
+    /**
+     * Sets the qualitative ranges.
+     *
+     * @method ranges
+     * @methodOf BulletChart
+     * @param {number[]} ranges Array representing the boundaries of the ranges. Must have four values corresponding to
+     * the boundaries of the three ranges.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     ranges: ranges => {
       _.data.ranges = ranges
       return api
     },
 
+    /**
+     * Sets the thickness of the range.
+     *
+     * @method thickness
+     * @methodOf BulletChart
+     * @param {number} [thickness = 30] Thickness to set.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     thickness: (thickness = DEFAULTS.thickness) => {
       _.ui.thickness = thickness
       return api
     },
 
+    /**
+     * Sets the color of the bar, forecast and target.
+     *
+     * @method valueColor
+     * @methodOf BulletChart
+     * @param {string} [color = #000] Color to set for the bar, forecast and target.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     valueColor: (color = DEFAULTS.valueColor) => {
       _.ui.valueColor = color
       return api
     },
 
+    /**
+     * Sets the color for the ranges.
+     *
+     * @method rangeColor
+     * @methodOf BulletChart
+     * @param {string} [color = #888] Color to set for the ranges.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     rangeColor: (color = DEFAULTS.rangeColor) => {
       _.ui.rangeColor = color
       return api
     },
 
+    /**
+     * Sets the chart label.
+     *
+     * @method label
+     * @methodOf BulletChart
+     * @param {string} label Label to set for the chart.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     label: label => {
       _.data.label = label
       return api
     },
 
+    /**
+     * Sets the unit description.
+     *
+     * @method unit
+     * @methodOf BulletChart
+     * @param {string} unit Unit description.
+     * @returns {BulletChart} Reference to the BulletChart API.
+     */
     unit: unit => {
       _.data.unit = unit
       return api
     }
-
-    // TODO Add label.
-    // TODO Add sub label.
   })
 
   // Adjust axis.

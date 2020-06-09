@@ -25,13 +25,17 @@
     <li onclick="changeRanges()">R - Change ranges.</li>
     <li onclick="toggleThickness()">W - Toggle thickness.</li>
     <li onclick="toggleValueColor()">C - Toggle value color.</li>
-    <li onclick="toggleRangeColor()">S - Toggle value color.</li>
+    <li onclick="toggleRangeColor()">S - Toggle range color.</li>
     <li onclick="toggleLabel()">L - Toggle label.</li>
     <li onclick="toggleUnit()">U - Toggle unit.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A bullet chart ...
+    A <a href="http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">bullet chart</a> as designed by
+    Stephen Few showing a single value against a target with a quantitative scale and three qualitative states that may
+    resemble ranges defining poor, satisfactory or good. Bullet charts are useful to visualize the <span class="good">
+    state some metric</span> in <span class="good">comparison to goals</span> and help interpret the value easily.
+    The forecast value can be useful when estimating whether the target will be reached given the current performance.
   </p>
 </p><h1>code<div class="margin-right"><a href="../../../api/widgets/bullet-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bullet-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // create chart
@@ -40,8 +44,9 @@ const bulletChart = dalian.BulletChart('bullet-chart', '#widget')
   .height(300)
   .margins({left: 100, right: 20, bottom: 30})
   .font.size(14)
-  .value(100 * Math.random())
-  .target(80 + 20 * Math.random())
+  .value(23)
+  .forecast(4)
+  .target(90)
   .label('Success')
   .unit('Minutes of smile')
   //.vertical(true)
@@ -62,7 +67,7 @@ let changeRanges = () => bulletChart.ranges([
   100]).render(1000)
 
 let changeForecast = () => bulletChart
-        .forecast(2 * Math.random())
+        .forecast(4 * Math.random())
         .render(1000)
 
 let toggleThickness = () => {
