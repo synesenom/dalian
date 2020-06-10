@@ -5,7 +5,7 @@
 </div>
 <div id="controls">
   <ul id="highlights">
-    <li onclick="toggleHighlight()">H - No highlight.</li>
+    <li id="toggleHighlight" onclick="toggleHighlight()">H - No highlight.</li>
   </ul>
 </div>
 
@@ -52,7 +52,7 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .labels(true)
+  .label(d => d.value.toFixed(1))
   .render()
 </script>
 

@@ -1,5 +1,6 @@
 import { select } from 'd3'
 import encode from '../core/encode'
+import styles from '../utils/styles'
 
 // FIXME Plots entering are not affected by the highlight
 
@@ -9,10 +10,18 @@ import encode from '../core/encode'
  *
  * @function Highlight
  */
-export default selectors => (() => {
+export default (selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
   return (self, api) => {
+    function createRemoveStyle (style) {
+      const properties = Object.keys(style.focus || {})
+        .concat(Object.keys(style.blur || {}))
+      return properties.reduce((obj, d) => Object.assign(obj, {[d]: null}), {})
+    }
+
     // Private members.
     const _ = {
+      highlightStyle,
+      removeStyle: createRemoveStyle(highlightStyle),
       selectors,
       highlightSelection: (selector, keys, duration) => {
         // Ignore highlight during animation.
@@ -20,42 +29,51 @@ export default selectors => (() => {
           return
         }
 
-        // Stop current transitions.
+        // Stop current transitions and create new one.
         const selection = self._highlight.container.selectAll(selector)
           .interrupt()
+        const t = selection.transition().duration(duration || 0)
+
+        // Prepare key group.
+        let keyGroup
+        if (typeof keys === 'string') {
+          keyGroup = [encode(keys)]
+        } else if (Array.isArray(keys)) {
+          keyGroup = keys.map(encode)
+        } else {
+          styles(selection.transition(t), _.removeStyle)
+          return
+        }
 
         // Perform highlight.
-        if (typeof keys === 'string') {
-          // Single key.
-          selection.transition().duration(duration)
-            .style('opacity', function () {
-              return select(this).classed(encode(keys)) ? 1 : 0.1
-            })
-        } else if (Array.isArray(keys)) {
-          // Multiple keys.
-          const encodedKeys = keys.map(encode)
-          selection.transition().duration(duration)
-            .style('opacity', function () {
-              const elem = select(this)
-              return encodedKeys.reduce((s, d) => s || elem.classed(d), false) ? 1 : 0.1
-            })
-        } else {
-          // Remove highlight.
-          selection.transition().duration(duration || 0)
-            .style('opacity', 1)
-        }
+        // Highlight selected elements.
+        styles(selection.filter(function () {
+          const elem = select(this)
+          return keyGroup.reduce((s, d) => s || elem.classed(d), false)
+        }).transition(t), _.highlightStyle.focus || _.removeStyle)
+
+        // Blur others.
+        styles(selection.filter(function () {
+          const elem = select(this)
+          return !keyGroup.reduce((s, d) => s || elem.classed(d), false)
+        }).transition(t), _.highlightStyle.blur || _.removeStyle)
       }
     }
 
     // Protected members.
     self = Object.assign(self || {}, {
       _highlight: {
+        style (style) {
+          _.highlightStyle = style
+          _.removeStyle = createRemoveStyle(style)
+        },
         container: undefined,
         selectors: undefined
       }
     })
 
     // Public API.
+    // TODO Expose highlightStyle to API.
     api = Object.assign(api || {}, {
       /**
        * Highlights a single plot or multiple plots.
@@ -81,6 +99,6 @@ export default selectors => (() => {
       }
     })
 
-    return { self, api }
+    return {self, api}
   }
 })()

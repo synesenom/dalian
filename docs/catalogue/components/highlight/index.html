@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Highlight | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul id="highlights">
-    <li onclick="toggleHighlight()">H - No highlight.</li>
+    <li id="toggleHighlight" onclick="toggleHighlight()">H - No highlight.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -44,7 +44,7 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .labels(true)
+  .label(d => d.value.toFixed(1))
   .render()
 </script><script class="doc">
 // api methods
