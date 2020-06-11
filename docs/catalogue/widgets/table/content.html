@@ -1,0 +1,124 @@
+<div id="desc">
+  <p>
+    A table ...
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="changeData()">D - Change data.</li>
+    <li onclick="toggleSchema()">S - Toggle schema.</li>
+    <!--<li onclick="toggleFooter()">F - Toggle footer.</li>-->
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.Table('table-card', '#table')
+  .data([
+    {name: 'Harriet', year: 1822, place: 'USA'},
+    {name: 'Loujain', year: 1989, place: 'Saudi Arabia'},
+    {name: 'Malala', year: 1997, place: 'Pakistan'},
+    {name: 'Greta', year: 2003, place: 'Sweden'},
+  ])
+  .schema([
+    {key: 'name', name: 'Name'},
+    {key: 'year', name: 'Year', type: 'number'},
+    {key: 'place', name: 'Place'}
+  ])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(0)
+  .font.size(10)
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+// Samples are generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  const hasCurrency = Math.random() < 0.5
+  return Array.from({ length: ranjs.core.int(2, 30) }, () => ({
+    id: ranjs.core.char('0123456789abcdef', 6).join(''),
+    date: new Date(2019, ranjs.core.int(0, 11), ranjs.core.int(1, 28))
+      .toISOString().substr(0, 10),
+    city: ranjs.core.choice(['Copenhagen', 'Oslo', 'Stockholm', 'Reykjavík']),
+    total: ranjs.core.float(100).toFixed(1),
+    ...(hasCurrency && { currency: ranjs.core.choice(['DKK', 'NOK', 'SEK', 'ISK']) })
+  }))
+}
+</script>
+
+<script class="doc">
+// create chart
+const table = dalian.Table('table', '#widget')
+  .data(getData())
+  .schema([
+    {key: 'id', name: 'ID'},
+    {key: 'date', name: 'Date', type: 'date'},
+    {key: 'city', name: 'Place of purchase'},
+    {key: 'total', name: 'Total amount', type: 'number'},
+    {key: 'currency', name: 'Currency'}
+  ])
+  .width(600)
+  .height(300)
+  .margins(40)
+  .font.size(14)
+  .mouse.over(k => table.highlight(`row-${k.row}`))
+  .mouse.leave(() => table.highlight())
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let changeData = () => table.data(getData()).render()
+
+let toggleSchema = () => {
+  this.h = 1 - (this.h || 0)
+  table.schema(this.h ? [
+    {key: 'id', name: 'ID'},
+    {key: 'date', name: 'Datum', type: 'date'},
+    {key: 'city', name: 'Ort des Kaufs'},
+    {key: 'total', name: 'Gesamtmenget', type: 'number', format: Math.round},
+    {key: 'currency', name: 'Devisen', format: v => v.toLowerCase()}
+  ] : [
+    {key: 'id', name: 'ID'},
+    {key: 'date', name: 'Date', type: 'date'},
+    {key: 'city', name: 'Place of purchase'},
+    {key: 'total', name: 'Total amount', type: 'number'},
+    {key: 'currency', name: 'Currency'}
+  ]).render()
+}
+
+let toggleFooter = () => {
+  this.f = 1 - (this.f || 0)
+  table.footer(this.f ? (column, values) => {
+    return column.type === 'number' ? values.reduce((sum, d) => +d + sum, 0).toFixed(1) : ''
+  } : undefined).render()
+}
+</script>
+
+<script class="doc-hidden">
+// Modify toggle buttons
+toggleSchema = state(toggleSchema, 's', ['Toggle schema', 'Toggle schema'])
+toggleFooter = state(toggleFooter, 'f', ['Toggle footer', 'Toggle footer'])
+</script>
+
+<script class="doc">
+// update data on keypress
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'd':
+      changeData()
+      break
+    case 's':
+      toggleSchema()
+      break
+    case 'f':
+      toggleFooter()
+      break
+    default:
+  }
+})
+</script>

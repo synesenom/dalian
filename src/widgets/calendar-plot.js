@@ -3,7 +3,7 @@ import compose from '../core/compose'
 import extend from '../core/extend'
 import * as utc from '../utils/utc'
 import { unrotate } from '../utils/array'
-import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
+import {backgroundAdjustedColor} from '../utils/color-utils'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
@@ -92,7 +92,7 @@ export default (name, parent = 'body') => {
       return Math.floor((i + _.shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)) / 7)
     },
 
-    labelFill: d => brightnessAdjustedColor(self._color.mapper(d)),
+    labelFill: d => backgroundAdjustedColor(self._color.mapper(d)),
 
     addTiles (enter, size, labelDy, labelFontSize) {
       const tiles = enter.append('g')

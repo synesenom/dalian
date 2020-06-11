@@ -1,4 +1,4 @@
-import luminanceAdjustedColor from '../utils/brightness-adjusted-color'
+import {backgroundAdjustedColor} from '../utils/color-utils'
 import extend from '../core/extend'
 import attributes from '../utils/attributes'
 
@@ -88,7 +88,7 @@ export default scales => (() => {
             y: height - (options.size || 6) - 10,
             'text-anchor': 'start',
             stroke: 'none',
-            fill: luminanceAdjustedColor(color)
+            fill: backgroundAdjustedColor(color)
           }).text(text)
 
           // Compute text length, adjust text

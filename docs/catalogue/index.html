@@ -234,6 +234,26 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .leftAxis.label('Y')
   .size(2)
   .render()
+</script></a><a class="card" href="widgets/table"><div class="card-title">Table</div><div class="card-content" id="table"></div><script class="card-example">
+dalian.Table('table-card', '#table')
+  .data([
+    {name: 'Harriet', year: 1822, place: 'USA'},
+    {name: 'Loujain', year: 1989, place: 'Saudi Arabia'},
+    {name: 'Malala', year: 1997, place: 'Pakistan'},
+    {name: 'Greta', year: 2003, place: 'Sweden'},
+  ])
+  .schema([
+    {key: 'name', name: 'Name'},
+    {key: 'year', name: 'Year', type: 'number'},
+    {key: 'place', name: 'Place'}
+  ])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(0)
+  .font.size(10)
+  .render()
 </script></a><a class="card" href="widgets/violin-plot"><div class="card-title">ViolinPlot</div><div class="card-content" id="violin-plot"></div><script class="card-example">
 dalian.ViolinPlot('violin-plot-card', '#violin-plot')
   .data([{

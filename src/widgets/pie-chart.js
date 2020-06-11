@@ -1,7 +1,7 @@
 import { arc, pie } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
+import { backgroundAdjustedColor } from '../utils/color-utils'
 import { measureText } from '../utils/measure-text'
 import { attrTween } from '../utils/tweens'
 import Chart from '../components/chart'
@@ -222,7 +222,7 @@ export default (name, parent = 'body') => {
             .style('display', self._label.show ? null : 'none')
           label.select('.inner-label')
             .style('opacity', d => d._measures.outside ? 0 : 1)
-            .attr('fill', d => brightnessAdjustedColor(self._color.mapper(d)))
+            .attr('fill', d => backgroundAdjustedColor(self._color.mapper(d)))
             .attrTween('x', attrTween(d => _.arc.centroid(d)[0], 'x'))
             .attrTween('y', attrTween(d => _.arc.centroid(d)[1], 'y'))
             .text(self._label.format)

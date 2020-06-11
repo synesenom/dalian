@@ -2,7 +2,7 @@ import { max } from 'd3'
 import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import brightnessAdjustedColor from '../utils/brightness-adjusted-color'
+import {backgroundAdjustedColor} from '../utils/color-utils'
 import BottomAxis from '../components/axis/bottom-axis'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -72,7 +72,7 @@ export default (name, parent = 'body') => {
         inside,
         x: inside ? x - dx : x + dx + ts.width,
         y: _.scales.y.scale(d.name) + bandwidth / 2,
-        color: inside ? brightnessAdjustedColor(self._color.mapper(d)) : style.color
+        color: inside ? backgroundAdjustedColor(self._color.mapper(d)) : style.color
       }
     },
 
@@ -86,7 +86,7 @@ export default (name, parent = 'body') => {
         inside,
         x: _.scales.x.scale(d.name) + bandwidth / 2,
         y: inside ? y + dy : y - dy - ts.height,
-        color: inside ? brightnessAdjustedColor(self._color.mapper(d)) : style.color
+        color: inside ? backgroundAdjustedColor(self._color.mapper(d)) : style.color
       }
     },
 
