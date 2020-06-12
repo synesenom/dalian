@@ -1,9 +1,14 @@
 import { event, select } from 'd3'
 import extend from '../../core/extend'
-import styles from '../../utils/styles'
+import StyleInjector from '../../utils/style-injector'
 
 // TODO Add more liberty in setting tooltipTitle based on closest data point or element
 // TODO Add more liberty in setting tooltipContent based on closest data point or element
+
+// Classes.
+const CLASSES = {
+  tooltip: 'dalian-tooltip'
+}
 
 /**
  * Component implementing the tooltip feature. When this component is available for a widget, its API is exposed via the
@@ -12,6 +17,21 @@ import styles from '../../utils/styles'
  * @function Tooltip
  */
 export default (self, api) => {
+  // Inject relevant style.
+  StyleInjector.addClass(CLASSES.tooltip, {
+    position: 'absolute',
+    'background-color': 'rgba(255, 255, 255, 0.95)',
+    'border-radius': '2px',
+    'box-shadow': '1px 1px 2px #888, 0 0 1px #aaa',
+    color: 'currentColor',
+    'pointer-events': 'none',
+    'font-family': 'inherit',
+    width: 'auto',
+    'min-width': '80px',
+    'line-height': '1',
+    'z-index': 9999
+  })
+
   // Default values.
   const DEFAULTS = {
     on: false
@@ -46,22 +66,12 @@ export default (self, api) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem.style('font-size', 0.9 * parseFloat(self._font.size) + 'px')
       } else {
-        return styles(_.container.elem.append('div').attr('id', _.id), {
-          position: 'absolute',
-          'background-color': 'rgba(255, 255, 255, 0.95)',
-          'border-radius': '2px',
-          'box-shadow': '1px 1px 2px #888, 0 0 1px #aaa',
-          color: 'currentColor',
-          'pointer-events': 'none',
-          'font-family': 'inherit',
-          'font-size': 0.9 * parseFloat(self._font.size) + 'px',
-          width: 'auto',
-          'min-width': '80px',
-          'line-height': '1',
-          left: ((bbox.left + bbox.right) / 2 + scroll.left) + 'px',
-          top: ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px',
-          'z-index': 9999
-        })
+        return _.container.elem.append('div')
+          .attr('id', _.id)
+          .attr('class', CLASSES.tooltip)
+          .style('font-size', 0.9 * parseFloat(self._font.size) + 'px')
+          .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
+          .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')
       }
     },
 

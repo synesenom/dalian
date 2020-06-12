@@ -132,9 +132,9 @@ export default (name, parent = 'body') => {
           // Add labels.
           const measure = horizontal ? _.measureX : _.measureY
           g.append('text')
-            .style('display', 'none')
             .attr('class', 'bar-label')
             .attr('stroke', 'none')
+            .style('display', 'none')
             .style('pointer-events', 'none')
             .text(self._label.format)
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))

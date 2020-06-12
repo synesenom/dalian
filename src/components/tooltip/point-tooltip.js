@@ -1,7 +1,17 @@
 import { select } from 'd3'
-import styles from '../../utils/styles'
+import StyleInjector from '../../utils/style-injector'
 import Tooltip from './tooltip'
 
+// Classes.
+const TAG = 'dalian-point-tooltip-'
+const CLASSES = {
+  content: TAG + 'content',
+  entry: TAG + 'entry',
+  container: TAG + 'container',
+  inner: TAG + 'inner',
+  square: TAG + 'square',
+  label: TAG + 'label'
+}
 
 /**
  * Component implementing the point tooltip feature. The point tooltip is a pre-formatted tooltip that takes an array of
@@ -15,6 +25,35 @@ import Tooltip from './tooltip'
  * @function PointTooltip
  */
 export default (self, api) => {
+  // Inject relevant style.
+  StyleInjector.addClass(CLASSES.content, {
+    display: 'table',
+    padding: '10px',
+    'min-width': '60px'
+  }).addClass(CLASSES.entry, {
+    display: 'table-row',
+    position: 'relative'
+  }).addClass(CLASSES.container, {
+    display: 'inline-block',
+    position: 'relative'
+  }).addClass(CLASSES.inner, {
+    display: 'flex',
+    position: 'relative',
+    'justify-content': 'center',
+    'align-items': 'center'
+  }).addClass(CLASSES.square, {
+    display: 'inline-block',
+    position: 'relative',
+    float: 'left',
+    'margin-right': '6px',
+    'border-radius': '2px'
+  }).addClass(CLASSES.label, {
+    display: 'table-cell',
+    position: 'relative',
+    'max-width': '120px',
+    float: 'left'
+  })
+
   // Default values.
   const DEFAULTS = {
     ignore: [],
@@ -45,55 +84,35 @@ export default (self, api) => {
 
 
       // Create content node.
-      let contentNode = styles(select(document.createElement('div')), {
-        display: 'table',
-        padding: '10px',
-        'min-width': '60px'
-      })
+      let contentNode = select(document.createElement('div'))
+        .attr('class', CLASSES.content)
 
       // Add title
-      styles(contentNode.append('div'), {
-        display: 'table-row',
-        position: 'relative'
-      }).text(_.titleFormat(content.title))
+      contentNode.append('div')
+        .attr('class', CLASSES.entry)
+        .text(_.titleFormat(content.title))
 
       // Add content
-      const fontSize = 0.8 * parseFloat(self._font.size)
+      const fontSize = 0.8 * parseFloat(self._font.size) + 'px'
       content.content.data.forEach((plot, i) => {
-        let wrapper = styles(contentNode.append('div'), {
-          display: 'table-row',
-          position: 'relative'
-        })
-        let entry = styles(wrapper.append('div'), {
-          display: 'inline-block',
-          position: 'relative',
-          height: self._font.size,
-          'margin-top': (i === 0 ? 6 : 3) + 'px'
-        })
-        let box = styles(entry.append('div'), {
-          display: 'flex',
-          position: 'relative',
-          'justify-content': 'center',
-          'align-items': 'center',
-          height: self._font.size
-        })
-        styles(box.append('div'), {
-          display: 'inline-block',
-          position: 'relative',
-          float: 'left',
-          width: fontSize + 'px',
-          height: fontSize + 'px',
-          'margin-right': '6px',
-          'border-radius': '2px',
-          background: plot.background
-        })
-        styles(box.append('div'), {
-          display: 'table-cell',
-          position: 'relative',
-          'max-width': '120px',
-          float: 'left',
-          'line-height': fontSize + 'px'
-        }).html(_.valueFormat(plot))
+        let entry = contentNode.append('div')
+          .attr('class', CLASSES.entry)
+        let container = entry.append('div')
+          .attr('class', CLASSES.container)
+          .style('height', self._font.size)
+          .style('margin-top', (i === 0 ? 6 : 3) + 'px')
+        let inner = container.append('div')
+          .attr('class', CLASSES.inner)
+          .style('height', self._font.size)
+        inner.append('div')
+          .attr('class', CLASSES.square)
+          .style('width', fontSize)
+          .style('height', fontSize)
+          .style('background', plot.background)
+        inner.append('div')
+          .attr('class', CLASSES.label)
+          .style('line-height', fontSize)
+          .html(_.valueFormat(plot))
       })
 
       return contentNode.node().outerHTML

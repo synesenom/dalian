@@ -1,6 +1,16 @@
 import { select } from 'd3'
-import styles from '../../utils/styles'
+import StyleInjector from '../../utils/style-injector'
 import BaseTooltip from './tooltip'
+
+// Classes.
+const TAG = 'dalian-element-tooltip-'
+const CLASSES = {
+  content: TAG + 'content',
+  title: TAG + 'title',
+  entry: TAG + 'entry',
+  label: TAG + 'label',
+  value: TAG + 'value'
+}
 
 /**
  * Component implementing the element tooltip feature. The element tooltip is a pre-formatted tooltip that takes a
@@ -15,6 +25,27 @@ import BaseTooltip from './tooltip'
  */
 // TODO API method to specify the entries in the tooltip.
 export default (self, api) => {
+  // Inject relevant style.
+  StyleInjector.addClass(CLASSES.content, {
+    'border-radius': '2px',
+    'font-family': 'inherit'
+  }).addClass(CLASSES.title, {
+    position: 'relative',
+    margin: '2px',
+    'margin-bottom': '10px'
+  }).addClass(CLASSES.entry, {
+    position: 'relative',
+    margin: '2px',
+    'padding-right': '10px'
+  }).addClass(CLASSES.label, {
+    position: 'relative',
+    float: 'left',
+    'margin-right': '10px'
+  }).addClass(CLASSES.value, {
+    position: 'relative',
+    float: 'right'
+  })
+
   // Default values.
   const DEFAULTS = {
     titleFormat: d => d,
@@ -42,39 +73,29 @@ export default (self, api) => {
       }
 
       // Create content node
-      let contentNode = styles(select(document.createElement('div')), {
-        'border-radius': '2px',
-        padding: 0.7 * parseFloat(self._font.size) + 'px',
-        'font-family': 'inherit',
-        'border-left': content.stripe ? 'solid 4px ' + content.stripe : null
-      })
+      let contentNode = select(document.createElement('div'))
+        .attr('class', CLASSES.content)
+        .style('padding', 0.7 * parseFloat(self._font.size) + 'px')
+        .style('border-left', content.stripe ? 'solid 4px ' + content.stripe : null)
 
       // Add title
-      styles(contentNode.append('div'), {
-        position: 'relative',
-        'line-height': parseFloat(self._font.size) + 'px',
-        margin: '2px',
-        'margin-bottom': '10px'
-      }).html(_.titleFormat(content.title))
+      contentNode.append('div')
+        .attr('class', CLASSES.title)
+        .style('line-height', parseFloat(self._font.size) + 'px')
+        .html(_.titleFormat(content.title))
 
       // Add content
       content.content.data.forEach(item => {
-          let entry = styles(contentNode.append('div'), {
-            position: 'relative',
-            height: 0.9 * parseFloat(self._font.size) + 'px',
-            margin: '2px',
-            'padding-right': '10px',
-            'line-height': self._font.size
-          })
-          styles(entry.append('div'), {
-            position: 'relative',
-            float: 'left',
-            'margin-right': '10px'
-          }).html(_.labelFormat(item.name))
-          styles(entry.append('span'), {
-            position: 'relative',
-            float: 'right'
-          }).html(_.valueFormat(item.value, item.name))
+          let entry = contentNode.append('div')
+            .attr('class', CLASSES.entry)
+            .style('height', 0.9 * parseFloat(self._font.size) + 'px')
+            .style('line-height', self._font.size)
+          entry.append('div')
+            .attr('class', CLASSES.label)
+            .html(_.labelFormat(item.name))
+          entry.append('span')
+            .attr('class', CLASSES.value)
+            .html(_.valueFormat(item.value, item.name))
         })
 
       return contentNode.node().outerHTML

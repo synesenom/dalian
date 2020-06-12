@@ -1,5 +1,11 @@
 import extend from '../core/extend'
-import styles from '../utils/styles'
+import StyleInjector from '../utils/style-injector'
+
+// Classes.
+const CLASSES = {
+  placeholder: 'dalian-placeholder',
+  message: 'dalian-placeholder-message'
+}
 
 /**
  * Component implementing the placeholder feature. The placeholder is a blank div with a message in the middle that
@@ -10,6 +16,26 @@ import styles from '../utils/styles'
  * @function Placeholder
  */
 export default (self, api) => {
+  // Inject relevant style.
+  StyleInjector.addClass(CLASSES.placeholder, {
+    display: 'table',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    color: 'inherit',
+    'font-family': 'inherit',
+    'font-size': 'inherit',
+    'pointer-events': 'none'
+  }).addClass(CLASSES.message, {
+    display: 'table-cell',
+    'vertical-align': 'middle',
+    'line-height': 'normal',
+    'text-align': 'center',
+    color: 'inherit',
+    'font-family': 'inherit',
+    'font-size': 'inherit'
+  })
+
   // Private members
   const _ = {
     // Variables
@@ -69,29 +95,13 @@ export default (self, api) => {
         if (typeof _.elem === 'undefined' || _.elem.empty()) {
           _.elem = self._widget.container.append('div')
             .attr('id', _.id)
-            .attr('class', 'dalian-placeholder')
-          styles(_.elem, {
-            display: 'table',
-            position: 'absolute',
-            width: self._widget.size.width,
-            height: self._widget.size.height,
-            left: 0,
-            top: 0,
-            color: 'inherit',
-            'font-family': 'inherit',
-            'font-size': 'inherit',
-            'pointer-events': 'none'
-          })
-          styles(_.elem.append('span'), {
-            display: 'table-cell',
-            'vertical-align': 'middle',
-            'line-height': 'normal',
-            'text-align': 'center',
-            color: 'inherit',
-            'font-family': 'inherit',
-            'font-size': 'inherit',
-            opacity: 0
-          }).html(content)
+            .attr('class', CLASSES.placeholder)
+            .style('width', self._widget.size.width)
+            .style('height', self._widget.size.height)
+          _.elem.append('span')
+            .attr('class', CLASSES.message)
+            .style('opacity', 0)
+            .html(content)
             .transition().duration(duration)
             .style('opacity', 1)
         }

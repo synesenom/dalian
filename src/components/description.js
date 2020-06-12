@@ -1,5 +1,10 @@
 import { event, select } from 'd3'
-import styles from '../utils/styles'
+import StyleInjector from '../utils/style-injector'
+
+// Classes.
+const CLASSES = {
+  description: 'dalian-description'
+}
 
 /**
  * Component implementing the widget description feature. A description is a static pop-up label shown when the context
@@ -9,6 +14,22 @@ import styles from '../utils/styles'
  * @function Description
  */
 export default (self, api) => {
+  // Inject relevant style.
+  StyleInjector.addClass(CLASSES.description, {
+    position: 'absolute',
+    width: 'auto',
+    'max-width': '500px',
+    padding: '10px',
+    background: '#fff',
+    'box-shadow': '0 0 3px #000',
+    'border-radius': '3px',
+    color: '#000',
+    'font-size': '.8em',
+    'font-family': 'inherit',
+    'line-height': '1.35em',
+    'pointer-events': 'none'
+  })
+
   // Private members
   const _ = {
     // Variables
@@ -19,22 +40,11 @@ export default (self, api) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem
       } else {
-        return styles(select('body').append('div').attr('id', _.id), {
-          position: 'absolute',
-          left: (event.pageX + 20) + 'px',
-          top: (event.pageY - 20) + 'px',
-          width: 'auto',
-          'max-width': '500px',
-          padding: '10px',
-          background: '#fff',
-          'box-shadow': '0 0 3px #000',
-          'border-radius': '3px',
-          color: '#000',
-          'font-size': '.8em',
-          'font-family': 'inherit',
-          'line-height': '1.35em',
-          'pointer-events': 'none'
-        })
+        return select('body').append('div')
+          .attr('id', _.id)
+          .attr('class', CLASSES.description)
+          .style('left', (event.pageX + 20) + 'px')
+          .style('top', (event.pageY - 20) + 'px')
       }
     },
 

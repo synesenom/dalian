@@ -36,12 +36,8 @@
     position: relative;
     width: 100%;
     height: calc(260px - 62px - 30px);
-    /*opacity: 0.2;
-    filter: grayscale(100%);
-    transition: filter .3s, opacity .3s;*/
 }
 .card:hover .card-content {
     opacity: 1;
     filter: grayscale(0%);
-    transition: filter .3s, opacity .3s;
 }

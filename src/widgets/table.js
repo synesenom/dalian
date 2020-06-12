@@ -6,7 +6,7 @@ import Highlight from '../components/highlight'
 import Mouse from '../components/mouse'
 import Placeholder from '../components/placeholder'
 import Widget from '../components/widget'
-import StyleInjector from '../utils/inject-style'
+import StyleInjector from '../utils/style-injector'
 import {utcFromISO} from '../utils/utc'
 import { backgroundAdjustedColor, lighter } from '../utils/color-utils'
 
@@ -16,43 +16,17 @@ const DEFAULTS = {
   schema: []
 }
 
-// Class names.
+// Selectors.
+const TAG = 'dalian-table-'
 const SELECTORS = {
-  container: 'dalian-table-container',
-  table: 'dalian-table',
-  head: 'dalian-table-head',
-  headContainer: 'dalian-table-head-container',
-  headLabel: 'dalian-table-head-label',
-  headSvg: 'dalian-table-head-svg',
-  headMarker: 'dalian-table-head-marker'
+  container: TAG + 'container',
+  table: TAG + 'table',
+  head: TAG + 'head',
+  headContainer: TAG + 'head-container',
+  headLabel: TAG + 'ead-label',
+  headSvg: TAG + 'head-svg',
+  headMarker: TAG + 'head-marker'
 }
-
-// Inject fixed styles.
-StyleInjector.addClass(SELECTORS.container, {
-  position: 'relative',
-  overflow: 'auto',
-  'pointer-events': 'all',
-}).addClass(SELECTORS.table, {
-  width: '100%',
-  'border-collapse': 'collapse'
-}).addClass(SELECTORS.head, {
-  position: 'sticky',
-  top: 0,
-  padding: '5px 10px',
-  cursor: 'pointer',
-  'white-space': 'nowrap',
-  'font-weight': 'normal',
-  'font-variant': 'all-small-caps'
-}).addClass(SELECTORS.headContainer, {
-  position: 'relative',
-  display: 'inline-block'
-}).addClass(SELECTORS.headLabel, {
-  'margin-right': '12px'
-}).addClass(SELECTORS.headSvg, {
-  position: 'absolute',
-  right: 0,
-  top: 'calc(50% - 4px)'
-})
 
 /**
  * The table widget. This widget extends the following components:
@@ -76,6 +50,34 @@ StyleInjector.addClass(SELECTORS.container, {
  * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
+  // Inject fixed styles.
+  StyleInjector.addClass(SELECTORS.container, {
+    position: 'relative',
+    overflow: 'auto',
+    'pointer-events': 'all',
+  }).addClass(SELECTORS.table, {
+    width: '100%',
+    'border-collapse': 'collapse',
+    'user-select': 'none'
+  }).addClass(SELECTORS.head, {
+    position: 'sticky',
+    top: 0,
+    padding: '5px 10px',
+    cursor: 'pointer',
+    'white-space': 'nowrap',
+    'font-weight': 'normal',
+    'font-variant': 'all-small-caps'
+  }).addClass(SELECTORS.headContainer, {
+    position: 'relative',
+    display: 'inline-block'
+  }).addClass(SELECTORS.headLabel, {
+    'margin-right': '12px'
+  }).addClass(SELECTORS.headSvg, {
+    position: 'absolute',
+    right: 0,
+    top: 'calc(50% - 4px)'
+  })
+
   // Build widget from components.
   let { self, api } = compose(
     Widget('table', name, parent, 'div'),
@@ -210,7 +212,6 @@ export default (name, parent = 'body') => {
           enter => {
             // Add row.
             const row = enter.append('tr')
-              .style('cursor', 'default')
               // TODO Pass rowId, colId and cell content to mouse callbacks.
 
             // Add columns.
