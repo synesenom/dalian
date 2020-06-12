@@ -1,4 +1,4 @@
-import { area, curveBasis, max, mean, median, min, range, scaleLinear, select, sum } from 'd3'
+import {area, curveBasis, extent, max, mean, median, min, range, scaleLinear, select, sum} from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import extend from '../core/extend'
 import compose from '../core/compose'
@@ -11,6 +11,7 @@ import LeftAxis from '../components/axis/left-axis'
 import LineWidth from '../components/line-width'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
+import YRange from '../components/range/y-range'
 
 /**
  * The violin plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
@@ -27,6 +28,7 @@ import Scale from '../components/scale'
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/line-width.html">LineWidth</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
+ *   <li><a href="../components/y-range.html">YRange</a></li>
  * </ul>
  *
  * @function ViolinPlot
@@ -47,7 +49,8 @@ export default (name, parent = 'body') => {
     Horizontal(scales),
     LeftAxis(scales.y),
     LineWidth(1),
-    Opacity(0.2)
+    Opacity(0.2),
+    YRange
   )
 
   // Private members.
@@ -114,17 +117,18 @@ export default (name, parent = 'body') => {
       const xValues = self._chart.data.map(d => d.name)
       let yMin = min(self._chart.data.map(d => d.min))
       let yMax = max(self._chart.data.map(d => d.max))
-      const yRange = yMax - yMin
-      yMin -= 0.05 * yRange
-      yMax += 0.05 * yRange
+      const yRange = [yMin, yMax]
+      const yBuffer = 0.05 * (yRange[1] - yRange[0])
+      yRange[1] += yBuffer
+      yRange[0] -= yBuffer
 
       // Update scales.
       _.horizontal = self._horizontal.on()
       _.scales = self._horizontal.scales()
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(_.horizontal ? [yMin, yMax] : xValues)
+        .domain(_.horizontal ? self._yRange.range(yRange) : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(_.horizontal ? xValues : [yMin, yMax])
+        .domain(_.horizontal ? xValues : self._yRange.range(yRange))
 
       // Add plots.
       const yShift = _.violinWidth / 2 - 0.5
