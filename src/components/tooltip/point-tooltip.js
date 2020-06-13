@@ -93,25 +93,24 @@ export default (self, api) => {
         .text(_.titleFormat(content.title))
 
       // Add content
-      const fontSize = 0.8 * parseFloat(self._font.size) + 'px'
       content.content.data.forEach((plot, i) => {
         let entry = contentNode.append('div')
           .attr('class', CLASSES.entry)
         let container = entry.append('div')
           .attr('class', CLASSES.container)
-          .style('height', self._font.size)
+          .style('height', '1em')
           .style('margin-top', (i === 0 ? 6 : 3) + 'px')
         let inner = container.append('div')
           .attr('class', CLASSES.inner)
-          .style('height', self._font.size)
+          .style('height', '1em')
         inner.append('div')
           .attr('class', CLASSES.square)
-          .style('width', fontSize)
-          .style('height', fontSize)
+          .style('width', '0.85em')
+          .style('height', '0.85em')
           .style('background', plot.background)
         inner.append('div')
           .attr('class', CLASSES.label)
-          .style('line-height', fontSize)
+          .style('line-height', '0.8em')
           .html(_.valueFormat(plot))
       })
 

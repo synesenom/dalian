@@ -116,7 +116,7 @@ export default (name, parent = 'body') => {
             .attr('dominant-baseline', 'baseline'),
           unit: title.append('text')
             .attr('dx', -10)
-            .attr('font-size', 0.9 * parseFloat(self._font.size) + 'px')
+            .attr('font-size', '0.75em')
             .attr('text-anchor', 'end')
             .attr('dominant-baseline', 'hanging')
         }

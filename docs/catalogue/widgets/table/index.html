@@ -19,9 +19,9 @@
   return { width, height };
 }--><title>Table | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="toggleSchema()">S - Toggle schema.</li>
-    <!--<li onclick="toggleFooter()">F - Toggle footer.</li>-->
+    <li id="changeData" onclick="changeData()">D - Change data.</li>
+    <li id="toggleSchema" onclick="toggleSchema()">S - Toggle schema.</li>
+    <li id="togglePaging" onclick="togglePaging()">P - Toggle paging.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -81,11 +81,9 @@ let toggleSchema = () => {
   ]).render()
 }
 
-let toggleFooter = () => {
-  this.f = 1 - (this.f || 0)
-  table.footer(this.f ? (column, values) => {
-    return column.type === 'number' ? values.reduce((sum, d) => +d + sum, 0).toFixed(1) : ''
-  } : undefined).render()
+let togglePaging = () => {
+  this.p = 1 - (this.p || 0)
+  table.paging(this.p ? 5 : undefined).render()
 }
 </script><script class="doc">
 // update data on keypress
@@ -97,8 +95,8 @@ window.addEventListener('keydown', e => {
     case 's':
       toggleSchema()
       break
-    case 'f':
-      toggleFooter()
+    case 'p':
+      togglePaging()
       break
     default:
   }
@@ -106,5 +104,5 @@ window.addEventListener('keydown', e => {
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleSchema = state(toggleSchema, 's', ['Toggle schema', 'Toggle schema'])
-toggleFooter = state(toggleFooter, 'f', ['Toggle footer', 'Toggle footer'])
+togglePaging = state(togglePaging, 'p', ['Toggle paging', 'Toggle paging'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

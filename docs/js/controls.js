@@ -26,7 +26,7 @@ const state = (func, variable, labels) => {
     _func()
     if (typeof labels !== 'undefined') {
       // Update label.
-      const label = d3.select(`#${func.name}`)
+      d3.select(`#${func.name}`)
         .interrupt()
         .text(variable.toUpperCase() + ' - ' + labels[this[variable]] + '.')
         .style('color', 'royalblue')

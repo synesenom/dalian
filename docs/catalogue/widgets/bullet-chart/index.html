@@ -19,15 +19,15 @@
   return { width, height };
 }--><title>BulletChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeValue()">V - Change value.</li>
-    <li onclick="changeForecast()">F - Change forecast.</li>
-    <li onclick="changeTarget()">T - Change target.</li>
-    <li onclick="changeRanges()">R - Change ranges.</li>
-    <li onclick="toggleThickness()">W - Toggle thickness.</li>
-    <li onclick="toggleValueColor()">C - Toggle value color.</li>
-    <li onclick="toggleRangeColor()">S - Toggle range color.</li>
-    <li onclick="toggleLabel()">L - Toggle label.</li>
-    <li onclick="toggleUnit()">U - Toggle unit.</li>
+    <li id="changeValue" onclick="changeValue()">V - Change value.</li>
+    <li id="changeForecast" onclick="changeForecast()">F - Change forecast.</li>
+    <li id="changeTarget" onclick="changeTarget()">T - Change target.</li>
+    <li id="changeRanges" onclick="changeRanges()">R - Change ranges.</li>
+    <li id="toggleThickness" onclick="toggleThickness()">W - Toggle thickness.</li>
+    <li id="toggleValueColor" onclick="toggleValueColor()">C - Toggle value color.</li>
+    <li id="toggleRangeColor" onclick="toggleRangeColor()">S - Toggle range color.</li>
+    <li id="toggleLabel" onclick="toggleLabel()">L - Toggle label.</li>
+    <li id="toggleUnit" onclick="toggleUnit()">U - Toggle unit.</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -94,7 +94,7 @@ let toggleLabel = () => {
 
 let toggleUnit = () => {
   this.u = 1 - (this.u || 0)
-  bulletChart.label(this.u ? '' : 'Minutes of smile').render()
+  bulletChart.unit(this.u ? '' : 'Minutes of smile').render()
 }
 </script><script class="doc">
 // update data on keypress

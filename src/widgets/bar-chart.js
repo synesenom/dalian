@@ -165,7 +165,7 @@ export default (name, parent = 'body') => {
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('text-anchor', horizontal ? 'end' : 'middle')
             .attr('dominant-baseline', horizontal ? 'central' : 'hanging')
-            .attr('font-size', self._font.size)
+            .attr('font-size', 'inherit')
             .attr('fill', self._font.color)
             .attr('fill', d => d._measures.color)
             .attr('x', d => d._measures.x)

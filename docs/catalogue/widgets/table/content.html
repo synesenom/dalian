@@ -5,9 +5,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="toggleSchema()">S - Toggle schema.</li>
-    <!--<li onclick="toggleFooter()">F - Toggle footer.</li>-->
+    <li id="changeData" onclick="changeData()">D - Change data.</li>
+    <li id="toggleSchema" onclick="toggleSchema()">S - Toggle schema.</li>
+    <li id="togglePaging" onclick="togglePaging()">P - Toggle paging.</li>
   </ul>
 </div>
 
@@ -30,6 +30,7 @@ dalian.Table('table-card', '#table')
   .height(HEIGHT)
   .margins(0)
   .font.size(10)
+  .color('royalblue')
   .render()
 </script>
 
@@ -91,18 +92,16 @@ let toggleSchema = () => {
   ]).render()
 }
 
-let toggleFooter = () => {
-  this.f = 1 - (this.f || 0)
-  table.footer(this.f ? (column, values) => {
-    return column.type === 'number' ? values.reduce((sum, d) => +d + sum, 0).toFixed(1) : ''
-  } : undefined).render()
+let togglePaging = () => {
+  this.p = 1 - (this.p || 0)
+  table.paging(this.p ? 5 : undefined).render()
 }
 </script>
 
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleSchema = state(toggleSchema, 's', ['Toggle schema', 'Toggle schema'])
-toggleFooter = state(toggleFooter, 'f', ['Toggle footer', 'Toggle footer'])
+togglePaging = state(togglePaging, 'p', ['Toggle paging', 'Toggle paging'])
 </script>
 
 <script class="doc">
@@ -115,8 +114,8 @@ window.addEventListener('keydown', e => {
     case 's':
       toggleSchema()
       break
-    case 'f':
-      toggleFooter()
+    case 'p':
+      togglePaging()
       break
     default:
   }

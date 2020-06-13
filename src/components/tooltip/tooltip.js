@@ -64,12 +64,12 @@ export default (self, api) => {
 
     getTooltip: (bbox, scroll) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
-        return _.elem.style('font-size', 0.9 * parseFloat(self._font.size) + 'px')
+        return _.elem.style('font-size', '0.85em')
       } else {
         return _.container.elem.append('div')
           .attr('id', _.id)
           .attr('class', CLASSES.tooltip)
-          .style('font-size', 0.9 * parseFloat(self._font.size) + 'px')
+          .style('font-size', '0.85em')
           .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
           .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')
       }

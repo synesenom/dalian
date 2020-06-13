@@ -75,21 +75,21 @@ export default (self, api) => {
       // Create content node
       let contentNode = select(document.createElement('div'))
         .attr('class', CLASSES.content)
-        .style('padding', 0.7 * parseFloat(self._font.size) + 'px')
+        .style('padding', '0.7em')
         .style('border-left', content.stripe ? 'solid 4px ' + content.stripe : null)
 
       // Add title
       contentNode.append('div')
         .attr('class', CLASSES.title)
-        .style('line-height', parseFloat(self._font.size) + 'px')
+        .style('line-height', '1em')
         .html(_.titleFormat(content.title))
 
       // Add content
       content.content.data.forEach(item => {
           let entry = contentNode.append('div')
             .attr('class', CLASSES.entry)
-            .style('height', 0.9 * parseFloat(self._font.size) + 'px')
-            .style('line-height', self._font.size)
+            .style('height', '1em')
+            .style('line-height', '1em')
           entry.append('div')
             .attr('class', CLASSES.label)
             .html(_.labelFormat(item.name))

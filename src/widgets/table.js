@@ -12,8 +12,8 @@ import { backgroundAdjustedColor, lighter } from '../utils/color-utils'
 
 // Default values.
 const DEFAULTS = {
-  color: '#ddd',
-  schema: []
+  color: '#888',
+  pageSize: 0
 }
 
 // Selectors.
@@ -25,7 +25,16 @@ const SELECTORS = {
   headContainer: TAG + 'head-container',
   headLabel: TAG + 'ead-label',
   headSvg: TAG + 'head-svg',
-  headMarker: TAG + 'head-marker'
+  headMarker: TAG + 'head-marker',
+  scrollbarTrack: TAG + 'container::-webkit-scrollbar-track',
+  scrollbarThumb: id => id + ' .dalian-table-container::-webkit-scrollbar-thumb',
+  scrollbarThumbHover: id => id + ' .dalian-table-container::-webkit-scrollbar-thumb:hover',
+  paging: TAG + 'paging',
+  pagingBlock: TAG + 'paging-block',
+  pagingNumber: TAG + 'paging-number',
+  pagingTotalBefore: TAG + 'paging-total:before',
+  pagingButton: TAG + 'paging-button',
+  pagingButtonHover: TAG + 'paging-button:hover'
 }
 
 /**
@@ -55,6 +64,8 @@ export default (name, parent = 'body') => {
     position: 'relative',
     overflow: 'auto',
     'pointer-events': 'all',
+  }).addClass(SELECTORS.scrollbarTrack, {
+    background: 'transparent'
   }).addClass(SELECTORS.table, {
     width: '100%',
     'border-collapse': 'collapse',
@@ -76,42 +87,70 @@ export default (name, parent = 'body') => {
     position: 'absolute',
     right: 0,
     top: 'calc(50% - 4px)'
+  }).addClass(SELECTORS.paging, {
+    position: 'relative',
+    float: 'right',
+    width: '100px',
+    height: '25px',
+    'pointer-events': 'all',
+    'user-select': 'none'
+  }).addClass(SELECTORS.pagingBlock, {
+    position: 'relative',
+    float: 'left',
+    width: '25px',
+    height: '25px'
+  }).addClass(SELECTORS.pagingNumber, {
+    'text-align': 'center',
+    'line-height': '25px'
+  }).addClass(SELECTORS.pagingTotalBefore, {
+    content: '"/"',
+    position: 'absolute',
+    left: '-2px'
+  }).addClass(SELECTORS.pagingButton, {
+    cursor: 'pointer',
+    opacity: 0.2
+  }).addClass(SELECTORS.pagingButtonHover, {
+    opacity: 1
   })
 
   // Build widget from components.
   let { self, api } = compose(
     Widget('table', name, parent, 'div'),
     Description,
-    Highlight(['td'], {
-      focus: {
-        color: backgroundAdjustedColor(lighter(DEFAULTS.color)),
-        'background-color': lighter(DEFAULTS.color)
+    Highlight(['td'], (() => {
+      const background = lighter(DEFAULTS.color, 0.8)
+      return {
+        focus: {
+          color: backgroundAdjustedColor(background),
+          background
+        }
       }
-    }),
+    })()),
     Mouse,
     Font,
     Placeholder
   )
 
+  // Add scrollbar styles.
+  StyleInjector.addId(SELECTORS.scrollbarThumb(self._widget.id), {
+    background: lighter(DEFAULTS.color, 0.8)
+  }).addId(SELECTORS.scrollbarThumbHover(self._widget.id), {
+    background: DEFAULTS.color
+  })
+
   const _ = {
+    // Font metrics for proper positioning of the head marker.
     fm: self._widget.getFontMetrics(),
 
     // UI.
-    ui: {
-      color: DEFAULTS.color
-    },
-
-    // Internal operations.
-    state: {
-      cols: [],
-      sort: {
-        key: null,
-        ascending: true
-      }
+    colors: {
+      main: DEFAULTS.color,
+      light: lighter(DEFAULTS.color, 0.8)
     },
 
     // Data.
     data: {
+      cols: [],
       schema: [],
       values: []
     },
@@ -123,26 +162,153 @@ export default (name, parent = 'body') => {
         .attr('class', SELECTORS.container)
       const table = container.append('table')
         .attr('class', SELECTORS.table)
-      const header = table.append('thead')
-        .append('tr')
-      const body = table.append('tbody')
 
       return {
         container,
         table,
-        header,
-        body
+        header: table.append('thead')
+          .append('tr'),
+        body: table.append('tbody')
       }
     })(),
 
-    arrow (type) {
-      if (typeof type === 'undefined') {
-        return ''
-      }
+    sorting: {
+      key: null,
+      ascending: true,
 
-      return type === 'up' ? 'm 1 8 l 4 -6.92 l 4 6.92 z'
-        : 'm 1 2 l 4 6.92 l 4 -6.92 z'
+      arrow (type) {
+        if (typeof type === 'undefined') {
+          return ''
+        }
+
+        return type === 'up' ? 'm 1 8 l 4 -6.92 l 4 6.92 z'
+          : 'm 1 2 l 4 6.92 l 4 -6.92 z'
+      },
+
+      update (key, ascending) {
+        _.sorting.key = key
+        _.sorting.ascending = ascending
+      },
+
+      sorter (key, type = 'string', reverse = false) {
+        const factor = reverse ? -1 : 1
+        switch (type) {
+          default:
+          case 'string':
+            return (a, b) => factor * a[key].localeCompare(b[key])
+          case 'number':
+            return (a, b) => factor * (a[key] - b[key])
+          case 'date':
+            return (a, b) => factor * (utcFromISO(a[key]) - utcFromISO(b[key]))
+        }
+      },
+
+      sort (column) {
+        switch (_.sorting.key) {
+          default:
+          case null:
+            // No sorting column: sort by this in ascending order.
+            _.data.values.sort(_.sorting.sorter(column.key, column.type))
+            _.sorting.update(column.key, true)
+            break
+          case column.key:
+            if (_.sorting.ascending) {
+              // Sorted by current column in ascending order: sort in descending order.
+              _.data.values.sort(_.sorting.sorter(column.key, column.type, true))
+              _.sorting.update(column.key, false)
+            } else {
+              // Sorted by current column in descending order: remove sort.
+              _.data.values.sort((a, b) => a._id - b._id)
+              _.sorting.update(null, true)
+            }
+        }
+        _.updateBody()
+        _.dom.header.selectAll('.' + SELECTORS.headMarker)
+          .attr('d',
+              h => _.sorting.arrow(h.key === _.sorting.key ? _.sorting.ascending ? 'up' : 'down': undefined))
+      }
     },
+
+    paging: (() => {
+      let size = DEFAULTS.pageSize
+      let page = 0
+
+      const dom = (() => {
+        const g = self._widget.content.append('div')
+          .attr('class', SELECTORS.paging)
+        const left = g.append('div')
+          .attr('class', `${SELECTORS.pagingBlock} ${SELECTORS.pagingButton}`)
+          .on('click', () => {
+            if (size > 0 && page > 0) {
+              page--
+              _.updateBody()
+              dom.current.text(page + 1)
+            }
+          })
+        left.append('svg')
+          .attr('viewBox', '0 0 16 16')
+          .style('width', '100%')
+          .style('width', '100%')
+          .append('path')
+          .attr('d', 'm 10 4 l -6.92 4 l 6.92 4 z')
+        const current = g.append('div')
+          .attr('class', `${SELECTORS.pagingBlock} ${SELECTORS.pagingNumber}`)
+        const total = g.append('div')
+          .attr('class', `${SELECTORS.pagingBlock} ${SELECTORS.pagingNumber} ${TAG}paging-total`)
+        const right = g.append('div')
+          .attr('class', `${SELECTORS.pagingBlock} ${SELECTORS.pagingButton}`)
+          .on('click', () => {
+            if (size > 0 && page < Math.ceil(_.data.values.length / size) - 1) {
+              page++
+              _.updateBody()
+              dom.current.text(page + 1)
+            }
+          })
+        right.append('svg')
+          .attr('viewBox', '0 0 16 16')
+          .style('width', '100%')
+          .style('width', '100%')
+          .append('path')
+          .attr('d', 'm 2 4 l 6.92 4 l -6.92 4 z')
+
+        return {
+          g,
+          current,
+          total
+        }
+      })()
+
+      return {
+        update(duration) {
+          dom.g.style('display', size > 0 ? null : 'none')
+          if (size > 0) {
+            dom.g.transition().duration(duration)
+              .style('margin-right', self._widget.margins.right + 'px')
+            dom.current.text(page + 1)
+            dom.total.text(Math.ceil(_.data.values.length / size))
+          }
+        },
+
+        filter (data) {
+          if (size > 0) {
+            let idMin = page * size
+            let idMax = idMin + size
+            return data.filter((d, i) => i >= idMin && i < idMax)
+          } else {
+            return data
+          }
+        },
+
+        reset (pageSize) {
+          if (typeof pageSize !== 'undefined') {
+            size = pageSize
+          }
+          page = 0
+        },
+
+        size: () => size
+      }
+    })(),
 
     align (d) {
       switch (d.type) {
@@ -155,56 +321,14 @@ export default (name, parent = 'body') => {
       }
     },
 
-    sorter (key, type = 'string', reverse = false) {
-      const factor = reverse ? -1 : 1
-      switch (type) {
-        default:
-        case 'string':
-          return (a, b) => factor * a[key].localeCompare(b[key])
-        case 'number':
-          return (a, b) => factor * (a[key] - b[key])
-        case 'date':
-          return (a, b) => factor * (utcFromISO(a[key]) - utcFromISO(b[key]))
-      }
-    },
+    updateBody () {
+      // Determine effective schema.
+      const schema = _.data.schema.filter(h => _.data.cols.indexOf(h.key) > -1)
 
-    sortByColumn (schema, column, data) {
-      switch (_.state.sort.key) {
-        default:
-        case null:
-          // No sorting column: sort by this in ascending order.
-          _.updateBody(schema, data.sort(_.sorter(column.key, column.type)))
-          _.dom.header.selectAll('.' + SELECTORS.headMarker)
-            .attr('d', h => _.arrow(h.key === column.key ? 'up' : undefined))
-          _.state.sort = {
-            key: column.key,
-            ascending: true
-          }
-          break
-        case column.key:
-          if (_.state.sort.ascending) {
-            // Sorted by current column in ascending order: sort in descending order.
-            _.updateBody(schema, data.sort(_.sorter(column.key, column.type, true)))
-            _.dom.header.selectAll('.' + SELECTORS.headMarker)
-              .attr('d', h => _.arrow(h.key === column.key ? 'down' : undefined))
-            _.state.sort = {
-              key: column.key,
-              ascending: false
-            }
-          } else {
-            // Sorted by current column in descending order: remove sort.
-            _.updateBody(schema, data.sort((a, b) => a._id - b._id))
-            _.dom.header.selectAll('.' + SELECTORS.headMarker)
-              .attr('d', _.arrow())
-            _.state.sort = {
-              key: null,
-              ascending: true
-            }
-          }
-      }
-    },
+      // Get page data.
+      let data = _.paging.filter(_.data.values)
 
-    updateBody (schema, data) {
+      // Update body.
       _.dom.body.selectAll('tr')
         // Dirty trick: we use current time and a random tag to prevent D3 selection updates.
         .data(data, () => Date.now() + '' + Math.random())
@@ -212,7 +336,8 @@ export default (name, parent = 'body') => {
           enter => {
             // Add row.
             const row = enter.append('tr')
-              // TODO Pass rowId, colId and cell content to mouse callbacks.
+              .style('height', '2em')
+              .style('line-height', '2em')
 
             // Add columns.
             row.selectAll('td')
@@ -225,7 +350,7 @@ export default (name, parent = 'body') => {
               })))
               .enter().append('td')
               .attr('class', d => `row-${d.row} column-${d.column} cell-${d.row}-${d.column}`)
-              .style('padding', '5px 10px')
+              .style('padding', '0.25em 0.5em')
               .style('white-space', 'nowrap')
               .style('text-align', _.align)
               .on('mouseover.table', self._mouse.over)
@@ -236,13 +361,24 @@ export default (name, parent = 'body') => {
             return row
           },
           update => update,
-          exit => exit.remove()
+          exit => {
+            // If we have too few rows (when paging), keep some rows and clear them.
+            let buffer = _.paging.size() - data.length
+            exit.filter((d, i) => i < buffer)
+              // Move empty rows to the bottom of the table.
+              .raise()
+              // Remove all cells.
+              .selectAll('td')
+              .remove()
+
+            // Remove the rest.
+            exit.filter((d, i) => i >= buffer)
+              .remove()
+          }
         )
     },
 
     update (duration) {
-      // TODO Style scrollbar.
-
       // Adjust container.
       _.dom.container.transition().duration(duration)
         .style('width', self._widget.size.innerWidth)
@@ -252,11 +388,10 @@ export default (name, parent = 'body') => {
       _.dom.table
         .style('height', self._widget.size.innerHeight)
 
-      // Filter schema.
-      const schema = _.data.schema.filter(h => _.state.cols.indexOf(h.key) > -1)
+      // Calculate effective schema.
+      const schema = _.data.schema.filter(h => _.data.cols.indexOf(h.key) > -1)
 
       // Update header.
-      const fontSize = parseFloat(self._font.size)
       const tableHeader = _.dom.header.selectAll('th')
         .data(schema, d => d.key)
         .join(
@@ -274,29 +409,32 @@ export default (name, parent = 'body') => {
             div.append('svg')
               .attr('class', SELECTORS.headSvg)
               .attr('viewBox', '0 0 10 10')
-              .style('width', _.fm.capHeight * fontSize + 'px')
-              .style('height', _.fm.capHeight * fontSize + 'px')
+              .style('width', `${_.fm.capHeight}em`)
+              .style('height', `${_.fm.capHeight}em`)
               .append('path')
               .attr('class', SELECTORS.headMarker)
-              .attr('stroke-width', '3px')
-              .attr('d', _.arrow())
+              .attr('fill', 'currentColor')
+              .attr('d', _.sorting.arrow())
 
             return row
           },
           update => update,
           exit => exit.remove()
         )
-        .on('click', d => _.sortByColumn(schema, d, _.data.values))
+        .on('click', _.sorting.sort)
 
       tableHeader
         .attr('class', SELECTORS.head)
-        .style('background-color', _.ui.color)
-        .style('color', backgroundAdjustedColor(_.ui.color))
+        .style('background', _.colors.main)
+        .style('color', backgroundAdjustedColor(_.colors.main))
         .select('.' + SELECTORS.headLabel)
         .html(h => h.name)
 
       // Update body.
-      _.updateBody(schema, _.data.values)
+      _.updateBody()
+
+      // Update paging box.
+      _.paging.update(duration)
     }
   }
 
@@ -318,16 +456,17 @@ export default (name, parent = 'body') => {
      * @returns {Table} Reference to the Table API.
      */
     data (data) {
+      // Add index.
       _.data.values = data.map((d, i) => Object.assign(d, {_id: i}))
 
+      // Reset paging.
+      _.paging.reset()
+
       // Read available column IDs.
-      _.state.cols = Object.keys(data[0] || {})
+      _.data.cols = Object.keys(data[0] || {})
 
       // Reset sorting state.
-      _.state.sort = {
-        key: null,
-        ascending: true
-      }
+      _.sorting.update(null, true)
       _.dom.header.selectAll('.table-head-sorting')
         .text('')
       return api
@@ -338,7 +477,7 @@ export default (name, parent = 'body') => {
      *
      * @method schema
      * @methodOf Table
-     * @param {Object[]} [schema = Array()] Array of objects representing the columns. Each column must have a {key} and
+     * @param {Object[]} schema Array of objects representing the columns. Each column must have a {key} and
      * {name} properties. Also, the column can have the following optional properties:
      * <ul>
      *   <li>{type}: Type of the column, used for sorting. Supported values: string, number, date. Default value is
@@ -348,8 +487,7 @@ export default (name, parent = 'body') => {
      * </ul>
      * @returns {Table} Reference to the Table API.
      */
-    // TODO Add editable option to schema.
-    schema (schema = DEFAULTS.schema) {
+    schema (schema) {
       _.data.schema = schema
       return api
     },
@@ -359,23 +497,37 @@ export default (name, parent = 'body') => {
      *
      * @method color
      * @methodOf Table
-     * @param {string} color Color to set.
+     * @param {string} [color = #888] Color to set.
      * @returns {Table} Reference to the Table API.
      */
-    color (color) {
-      _.ui.color = color
+    color (color = DEFAULTS.color) {
+      // Update color.
+      _.colors = {
+        main: color,
+        light: lighter(color, 0.8)
+      }
+
+      // Update scrollbar style.
+      StyleInjector.updateId(SELECTORS.scrollbarThumb(self._widget.id), {
+        background: _.colors.light
+      }).updateId(SELECTORS.scrollbarThumbHover(self._widget.id), {
+        background: color
+      })
+
+      // Update highlight style.
+      self._highlight.style({
+        focus: {
+          color: backgroundAdjustedColor(_.colors.light),
+          background: _.colors.light
+        }
+      })
+
       return api
     },
 
-    // TODO Access element by (col, row)
-    // TODO Update element by (col, row)
-    cell (row, column, value) {
-      if (typeof value === 'undefined') {
-        return _.data.values[row][column]
-      } else {
-        _.data.values[row][column] = value
-        return api
-      }
+    paging (size = DEFAULTS.pageSize) {
+      _.paging.reset(size)
+      return api
     }
 
     // TODO Remove row
