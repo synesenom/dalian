@@ -234,6 +234,19 @@ export default (name, parent = 'body') => {
      * @methodOf ViolinPlot
      * @param {number} [width = 30] Width of the violins in pixels.
      * @returns {Object} Reference to the ViolinPlot's API.
+     *
+     * @example
+     *
+     * // Set violin width to 20px.
+     * const violin = dalian.ViolinChart('my-chart')
+     *   .violinWidth(20)
+     *   .render()
+     *
+     * @example
+     *
+     * // Reset violin width to default value.
+     * violin.violinWidth()
+     *   .render()
      */
     violinWidth (width = 30) {
       _.violinWidth = width
@@ -255,6 +268,18 @@ export default (name, parent = 'body') => {
      * @methodOf ViolinPlot
      * @param {number} [bandwidth = 1] Bandwidth size.
      * @returns {Object} Reference to the ViolinPlot's API.
+     *
+     * @example
+     *
+     * // Set bandwidth of KDE to 10.
+     * const violin = dalian.ViolinChart('my-chart')
+     *   .bandwidth(10)
+     *   .render()
+     *
+     * @example
+     * // Reset bandwidth to default.
+     * violin.bandwidth()
+     *   .render()
      */
     bandwidth (bandwidth = 1) {
       _.bandwidth = bandwidth
@@ -285,12 +310,24 @@ export default (name, parent = 'body') => {
    * @methodOf ViolinPlot
    * @param {Object[]} plots Array of objects representing the violins to show. Each violin has two properties:
    * <ul>
-   *   <li>{string} <i>name</i>: Category name.</li>
-   *   <li>{number[]} <i>values</i>: Sample values corresponding to the category.</li>
+   *   <li>name:   {string} Category name.</li>
+   *   <li>values: {number[]} Sample values corresponding to the category.</li>
    * </ul>
    *
    * Note that for the violin plot, the raw observations should be passed as values as the chart itself calculates the
    * KDE used to represent the data.
    * @returns {ViolinPlot} Reference to the ViolinPlot API.
+   *
+   * @example
+   *
+   * // Assign two simple data sets.
+   * const violin = ViolinChart('my-chart')
+   *   .data([{
+   *     name: 'sample 1',
+   *     values: [1, 1, 3, 3, 2, 4, 7, 4, 3, 9]
+   *   },{
+   *     name: 'sample 2',
+   *     values: [4, 5, 5, 4, 7, 4, 2, 2, 6, 2]
+   *   }])
    */
 }

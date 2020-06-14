@@ -15,11 +15,12 @@ h2 {
 }
 
 h3 {
-    font-size: 1.1em;
-    font-weight: normal;
+    font-size: 1em;
+    font-weight: bold;
     margin-bottom: 6px;
     margin-top: 0;
     font-variant: all-small-caps;
+    color: #666
 }
 
 p {

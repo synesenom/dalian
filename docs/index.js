@@ -57,6 +57,13 @@ const hasExamplePage = d => fs.existsSync(getExamplePath(d))
 
 const kebabToCamel = moduleName => moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 
+// TODO Move this under some Doc class
+function buildFromTemplate(name, templateName, outputPath, config) {
+  console.log(`Building: ${name}`)
+  const template = pug.compileFile(`./templates/${templateName}.pug`)
+  fs.writeFileSync(outputPath, template(config));
+}
+
 // Build root page
 const dependencies = Object.entries(meta.dependencies).map(d => ({
   lib: d[0],
@@ -90,13 +97,6 @@ buildFromTemplate('Docs index page', 'index', 'index.html', {
     }
   }
 });
-
-// TODO Move this under some Doc class
-function buildFromTemplate(name, templateName, outputPath, config) {
-  console.log(`Building: ${name}`)
-  const template = pug.compileFile(`./templates/${templateName}.pug`)
-  fs.writeFileSync(outputPath, template(config));
-}
 
 
 // Build API root page

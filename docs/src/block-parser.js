@@ -2,29 +2,22 @@ const _extractDesc = require('./dfs')
 const ParamParser = require('./param-parser')
 
 module.exports = block => {
-  const getName = e => e.name
-  const getDescription = e => _extractDesc(e)
-  const getParams = e => e.params.map(ParamParser)
-  const getReturns = e => {
-    let ret = e.returns[0]
-    return ret && {
-      desc: _extractDesc(ret),
-      type: [ret.type.name]
-    }
-  }
-
-  let _ = {
-    name: getName(block),
-    description: getDescription(block),
-    returns: getReturns(block),
-    params: getParams(block)
-  }
+  const id = block.name
+  const params = block.params.map(ParamParser)
 
   return {
-    id: () => _.name,
-    signature: () => `${_.name}(${_.params.map((d, i) => `${d.optional ? '[' : ''}${i > 0 ? ', ' : ''}${d.name}`).join('')}${_.params.filter(d => d.optional).map(() => ']').join('')})`,
-    description: () => _.description,
-    returns: () => _.returns,
-    params: () => _.params
+    id,
+    signature: `${id}(${params.map((d, i) => `${d.optional ? '[' : ''}${i > 0 ? ', ' : ''}${d.name}`)
+      .join('')}${params.filter(d => d.optional).map(() => ']').join('')})`,
+    description: _extractDesc(block),
+    returns: (() => {
+      let ret = block.returns[0]
+      return ret && {
+        desc: _extractDesc(ret),
+        type: [ret.type.name]
+      }
+    })(),
+    params,
+    examples: block.examples.length > 0 ? block.examples.map(d => d.description) : undefined
   }
 }

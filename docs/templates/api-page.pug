@@ -11,7 +11,7 @@ html(lang='en')
         title #{pageTitle}
     body
         aside
-            .menu-title methods
+            .menu-title Methods
             ul.methods
                 each method in menu
                     li
@@ -21,7 +21,7 @@ html(lang='en')
                 h1 #{mainHeading}
                 p
 
-                h2 example
+                h2 live example
                 p Explore the API in the #[a(href='' + exampleUrl) live example].
 
                 h2 api reference
@@ -41,10 +41,9 @@ html(lang='en')
                                 tbody
                                     each param in method.params
                                         tr
-                                            td
-                                                i #{param.name}
+                                            td #{param.name}
                                             td.param-type #{param.type.join(', ')}
-                                            td
+                                            td.param-desc
                                                 if param.optional
                                                     span.param-optional optional
                                                 != param.desc
@@ -57,3 +56,9 @@ html(lang='en')
                                     each type in method.returns.type
                                         code #{type}
                                 .return-desc #{method.returns.desc}
+
+                        if method.examples
+                            h3 Examples
+                            each example in method.examples
+                                pre.example
+                                    code #{example}

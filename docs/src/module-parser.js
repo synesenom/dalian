@@ -33,8 +33,8 @@ module.exports = (meta, docs, modulePath) => {
 
   // Parse documentation blocks and sort them alphabetically, but put the factory method to the first place.
   let blocks = docs.map(BlockParser)
-    .sort((a, b) => a.id().localeCompare(b.id()))
-  let i = blocks.findIndex(d => d.id() === factoryName)
+    .sort((a, b) => a.id.localeCompare(b.id))
+  let i = blocks.findIndex(d => d.id === factoryName)
   let firstBlock = blocks.splice(i, 1)
   blocks = firstBlock.concat(blocks)
 
@@ -57,19 +57,13 @@ module.exports = (meta, docs, modulePath) => {
         // Content
         pageTitle: `${factoryName} | dalian`,
         mainHeading: factoryName,
-        menu: blocks.map(d => d.id()),
-        reference: blocks.map(d => {
-          return {
-            id: d.id(),
+        menu: blocks.map(d => d.id),
+        reference: blocks.map(d => Object.assign(d, {
             signature: (() => {
-              const s = d.signature()
+              const s = d.signature
               return s.startsWith(factoryName) ? s : `${factoryName}.${s}`
-            })(),
-            description: d.description(),
-            params: d.params(),
-            returns: d.returns()
-          }
-        }),
+            })()
+        })),
 
         exampleUrl: `../../catalogue/${type}/${moduleName}`
       }))
