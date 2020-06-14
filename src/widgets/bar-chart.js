@@ -207,10 +207,21 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf BarChart
    * @param {Object[]} plots Array of objects representing the bars to show. Each bar has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Category name.</li>
-   *   <li>{number} <i>value</i>: Category value.</li>
-   * </ul>
+   * <dl>
+   *   <dt>name</dt>  <dd>{string} Category name.</dd>
+   *   <dt>value</dt> <dd>{number} Category value.</dd>
+   * </dl>
    * @returns {BarChart} Reference to the BarChart API.
+   *
+   * @example
+   *
+   * const bar = dalian.BarChart('my-chart')
+   *   .data([
+   *     {name: 'bar 1', value: 1},
+   *     {name: 'bar 2', value: 3},
+   *     {name: 'bar 3', value: 2},
+   *     ...
+   *   ])
+   *   .render()
    */
 }

@@ -229,15 +229,37 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf AreaChart
    * @param {Object[]} plots Array of objects representing the area plots to show. Each plot has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Name of the plot.</li>
-   *   <li>{Object[]} <i>values</i>: Plot data.</li>
-   * </ul>
-   * The <i>values</i> property is an array of objects of the following structure:
    * <dl>
-   *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
-   *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
+   *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
+   *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
+   * </dl>
+   * The {values} property is an array of objects of the following structure:
+   * <dl>
+   *   <dt>x</dt> <dd>{number} X coordinate of the data point.</dd>
+   *   <dt>y</dt> <dd>{number} Y coordinate of the data point.</dd>
    * </dl>
    * @returns {AreaChart} Reference to the AreaChart API.
+   *
+   * @example
+   *
+   * const area = dalian.AreaChart('my-chart')
+   *   .data([{
+   *     name: 'area 1',
+   *     values: [
+   *       {x: 0.0, y: 1.1},
+   *       {x: 0.2, y: 1.2},
+   *       {x: 0.3, y: 3.2}
+   *       ...
+   *     ]
+   *   }, {
+   *     name: 'area 2',
+   *     values: [
+   *       {x: 0.0, y: 4.3},
+   *       {x: 0.2, y: 4.2},
+   *       {x: 0.3, y: 2.1}
+   *       ...
+   *     ]
+   *   }])
+   *   .render()
    */
 }

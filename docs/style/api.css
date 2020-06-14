@@ -77,17 +77,26 @@ pre.install code {
   padding: 20px !important;
 }
 
-dl dd {
-  display: inline;
-  margin: 0;
-}
-dl dd:after{
-  display: block;
-  content: '';
+dl {
+  display: inline-block;
+  margin: 5px 0;
 }
 dl dt{
   display: inline-block;
-  min-width: 100px;
+  width: 80px;
+  float: left;
+  line-height: 26px;
+  margin: 5px 0;
+}
+dl dd {
+  display: inline;
+  margin: 5px 0;
+  width: calc(100% - 80px);
+  float: left;
+}
+dl dd code {
+  position: relative;
+  padding: 2px 4px !important;
 }
 
 code:not(.example) {
@@ -144,10 +153,10 @@ td.param-type {
 }
 
 .param-name {
-  width: 100px;
+  width: 90px;
 }
 .param-type {
-  width: 100px;
+  width: 80px;
   padding-right: 10px;
   clear: both;
   display: inline-block;

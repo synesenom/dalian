@@ -238,7 +238,7 @@ export default (name, parent = 'body') => {
      * @example
      *
      * // Set violin width to 20px.
-     * const violin = dalian.ViolinChart('my-chart')
+     * const violin = dalian.ViolinPlot('my-chart')
      *   .violinWidth(20)
      *   .render()
      *
@@ -272,11 +272,12 @@ export default (name, parent = 'body') => {
      * @example
      *
      * // Set bandwidth of KDE to 10.
-     * const violin = dalian.ViolinChart('my-chart')
+     * const violin = dalian.ViolinPlot('my-chart')
      *   .bandwidth(10)
      *   .render()
      *
      * @example
+     *
      * // Reset bandwidth to default.
      * violin.bandwidth()
      *   .render()
@@ -309,10 +310,11 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf ViolinPlot
    * @param {Object[]} plots Array of objects representing the violins to show. Each violin has two properties:
-   * <ul>
-   *   <li>name:   {string} Category name.</li>
-   *   <li>values: {number[]} Sample values corresponding to the category.</li>
-   * </ul>
+   * <dl>
+   *   <dt>name</dt>   <dd>{string} Category name.</dd>
+   *   <dt>values</dt> <dd>{number[]} Sample values corresponding to the category. These should be the raw observations,
+   *   the KDE is computed by the chart itself.</dd>
+   * </dl>
    *
    * Note that for the violin plot, the raw observations should be passed as values as the chart itself calculates the
    * KDE used to represent the data.
@@ -320,14 +322,14 @@ export default (name, parent = 'body') => {
    *
    * @example
    *
-   * // Assign two simple data sets.
-   * const violin = ViolinChart('my-chart')
+   * const violin = dalian.ViolinPlot('my-chart')
    *   .data([{
-   *     name: 'sample 1',
+   *     name: 'violin 1',
    *     values: [1, 1, 3, 3, 2, 4, 7, 4, 3, 9]
-   *   },{
-   *     name: 'sample 2',
+   *   }, {
+   *     name: 'violin 2',
    *     values: [4, 5, 5, 4, 7, 4, 2, 2, 6, 2]
    *   }])
+   *   .render()
    */
 }

@@ -291,19 +291,56 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf BoxPlot
    * @param {Object[]} plots Array of objects representing the boxes to show. Each box has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Category name.</li>
-   *   <li>{Object} <i>value</i>: Category value.</li>
-   * </ul>
-   * The <i>values</i> property is an object with the following structure:
    * <dl>
-   *   <dt><i>median</i> {number}</dt> <dd>The sample median.</dd>
-   *   <dt><i>q1</i> {number}</dt> <dd>Lower quantile of the sample.</dd>
-   *   <dt><i>q3</i> {number}</dt> <dd>Upper quantile of the sample.</dd>
-   *   <dt><i>whiskers</i> {Object}</dt> <dd>Object containing two numbers: the <i>lower</i> and <i>upper</i> whiskers. Meaning of these can vary.</dd>
-   *   <dt><i>outliers</i> {Object}</dt> <dd>Object containing two arrays of numbers: the list of <i>mild</i> and <i>extreme</i> outliers
+   *   <dt>name</dt>  <dd>{string} Category name.</dd>
+   *   <dt>value</dt> <dd>{Object} Category value.</dd>
+   * </dl>
+   * The {value} property is an object with the following structure:
+   * <dl>
+   *   <dt>median</dt>   <dd>{number} The sample median.</dd>
+   *   <dt>q1</dt>       <dd>{number} Lower quantile of the sample.</dd>
+   *   <dt>q3</dt>       <dd>{number} Upper quantile of the sample.</dd>
+   *   <dt>whiskers</dt> <dd>{Object} Object containing two numbers: the {lower} and {upper} whiskers. Meaning of these
+   *   values can vary.</dd>
+   *   <dt>outliers</dt> <dd>{Object} Object containing two arrays of numbers: the list of {mild} and {extreme} outliers
    *   </dd>
    * </dl>
    * @returns {BoxPlot} Reference to the BoxPlot API.
+   *
+   * @example
+   *
+   * const box = dalian.BoxPlot('my-chart')
+   *   .data([{
+   *     name: 'box 1',
+   *     value: {
+   *       median: 4.5,
+   *       q1: 3.2,
+   *       q3: 6.5,
+   *       whiskers: {
+   *         lower: 2.2,
+   *         upper: 7.6
+   *       },
+   *       outliers: {
+   *         mild: [],
+   *         extreme: [9.2, 10.2]
+   *       }
+   *     }
+   *   }, {
+   *     name: 'box 1',
+   *     value: {
+   *       median: 5.4,
+   *       q1: 4.5,
+   *       q3: 7.4,
+   *       whiskers: {
+   *         lower: 3.4,
+   *         upper: 8.7
+   *       },
+   *       outliers: {
+   *         mild: [3.2, 3.3],
+   *         extreme: []
+   *       }
+   *     }
+   *   }])
+   *   .render()
    */
 }
