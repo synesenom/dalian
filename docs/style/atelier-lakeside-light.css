@@ -5,7 +5,7 @@
 /* Atelier-Lakeside Comment */
 .hljs-comment,
 .hljs-quote {
-    color: #5a7b8c;
+    color: royalblue;
 }
 
 /* Atelier-Lakeside Red */
@@ -30,14 +30,14 @@
 .hljs-literal,
 .hljs-type,
 .hljs-params {
-    color: #935c25;
+    color: darkred;
 }
 
 /* Atelier-Lakeside Green */
 .hljs-string,
 .hljs-symbol,
 .hljs-bullet {
-    color: #568c3b;
+    color: olivedrab;
 }
 
 /* Atelier-Lakeside Blue */
@@ -49,14 +49,14 @@
 /* Atelier-Lakeside Purple */
 .hljs-keyword,
 .hljs-selector-tag {
-    color: #6b6bb8;
+    color: darkgoldenrod;
 }
 
 .hljs {
     display: block;
     overflow-x: auto;
     background: rgba(74, 118, 255, 0.09);
-    color: #516d7b;
+    color: #666;
     padding: 0.5em;
 }
 

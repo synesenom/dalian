@@ -275,6 +275,19 @@ export default (name, parent = 'body') => {
      * @methodOf BoxPlot
      * @param {number} [width = 20] Width of the box in pixels.
      * @returns {Object} Reference to the BoxPlot's API.
+     *
+     * @example
+     *
+     * // Set box width to 20px.
+     * const box = dalian.BoxPlot('my-chart')
+     *   .boxWidth(20)
+     *   .render()
+     *
+     * @example
+     *
+     * // Reset box width to default.
+     * box.boxWidth()
+     *   .render()
      */
     boxWidth (width = 20) {
       _.boxWidth = width

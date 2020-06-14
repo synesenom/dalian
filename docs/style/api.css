@@ -55,7 +55,7 @@ aside .methods a:visited {
 }
 
 aside .methods a:hover {
-  background-color: #eee;
+  background: #eee;
   color: royalblue;
 }
 
@@ -100,7 +100,7 @@ dl dd code {
 }
 
 code:not(.example) {
-  background-color: #ebebeb;
+  background: #ebebeb;
   padding: 3px 6px;
   border-radius: 3px;
   font-size: 0.9em;
@@ -145,7 +145,7 @@ td code {
   display: inline-block;
   position: relative;
   top: -1px;
-  background-color: #ebebeb;
+  background: #ebebeb;
 }
 
 td.param-type {
@@ -178,7 +178,7 @@ td.param-type {
   font-family: 'Courier', monospace;
   font-size: 1.1em;
   padding: 20px 30px;
-  background-color: #eee;
+  background: #eee;
   border-left: 5px solid royalblue;
   overflow-x: scroll;
   margin-left: -30px;
@@ -249,5 +249,6 @@ td.param-type {
 }
 
 .card pre.example code {
-  background-color: rgba(65, 105, 225, 0.06);
+  font-size: 1em;
+  background: #eee;
 }

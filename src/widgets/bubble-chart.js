@@ -211,6 +211,19 @@ export default (name, parent = 'body') => {
      * @methodOf BubbleChart
      * @param {number} [radius = 30] Maximum radius in pixels.
      * @returns {Object} Reference to the BubbleChart API.
+     *
+     * @example
+     *
+     * // Set the maximum radius to 20px.
+     * const bubbles = dalian.BubbleChart('my-chart')
+     *   .radius(20)
+     *   .render()
+     *
+     * @example
+     *
+     * // Reset maximum radius to default.
+     * bubbles.radius()
+     *   .render()
      */
     radius: (radius = 30) => {
       _.radius = radius
@@ -227,17 +240,37 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf BubbleChart
    * @param {Object[]} plots Array of objects representing the bubbles to show. Each bubble has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Category name.</li>
-   *   <li>{Object} <i>value</i>: Category value.</li>
-   * </ul>
+   * <dl>
+   *   <dt>name</dt>  <dd>{string} Category name.</dd>
+   *   <dt>value</dt> <dd>{Object} Category value.</dd>
+   * </dl>
    * The <i>value</i> property is an object with the following structure:
    * <dl>
-   *   <dt><i>x</i> {number}</dt> <dd>Horizontal coordinate of the bubble.</dd>
-   *   <dt><i>y</i> {number}</dt> <dd>Vertical coordinate of the bubble.</dd>
-   *   <dt><i>size</i> {number}</dt> <dd>Bubble size. Note that the bubble is scaled so that its area will be
+   *   <dt>x</dt>    <dd>{number} Horizontal coordinate of the bubble.</dd>
+   *   <dt>y</dt>    <dd>{number} Vertical coordinate of the bubble.</dd>
+   *   <dt>size</dt> <dd>{number} Bubble size. Note that the bubble is scaled so that its area will be
    *   proportional to this value.</dd>
    * </dl>
    * @returns {BubbleChart} Reference to the BubbleChart API.
+   *
+   * @example
+   *
+   * const bubbles = dalian.BubbleChart('my-chart')
+   *   .data([{
+   *     name: 'bubble 1',
+   *     value: {
+   *       x: 1,
+   *       y: 3,
+   *       size: 1
+   *     }
+   *   }, {
+   *     name: 'bubble 2',
+   *     value: {
+   *       x: 2,
+   *       y: 2,
+   *       size: 9
+   *     }
+   *   }])
+   *   .render()
    */
 }
