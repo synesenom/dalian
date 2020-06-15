@@ -7,9 +7,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
-    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleHorizontal()">Change to horizontal</li>
+    <li onclick="toggleLabels()">Show labels</li>
   </ul>
 </div>
 
@@ -33,7 +33,7 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
   .leftAxis.hideTicks(true)
   .horizontal(true)
   .label(d => Math.round(d.value))
-  .color.palette('royalblue')
+  .color.palette(COLORS.widget[0])
   .render()
 </script>
 
@@ -85,30 +85,7 @@ let toggleHorizontal = () => {
 
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
-  barChart.label(this.l ? d => d.value.toFixed(1) : undefined).render()
+  barChart.label(this.l ? d => d.value.toFixed(1) : undefined)
+    .render()
 }
-</script>
-
-<script class="doc-hidden">
-// Modify toggle buttons
-toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
-toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'h':
-      toggleHorizontal()
-      break
-    case 'l':
-      toggleLabels()
-      break
-    default:
-  }
-})
 </script>

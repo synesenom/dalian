@@ -19,9 +19,9 @@
   return { width, height };
 }--><title>XRange | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleMin" onclick="toggleMin()">L - Set lower boundary.</li>
-    <li id="toggleMax" onclick="toggleMax()">U - Set upper boundary.</li>
-    <li id="toggleCompression" onclick="toggleCompression()">C - Compress boundary.</li>
+    <li id="toggleMin" onclick="toggleMin()">Set lower boundary</li>
+    <li id="toggleMax" onclick="toggleMax()">Set upper boundary</li>
+    <li id="toggleCompression" onclick="toggleCompression()">Compress boundary</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -67,23 +67,6 @@ let toggleCompression = () => {
     .xRange.compressMax(this.c ? 0.1 : undefined)
     .render(400)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'l':
-      toggleMin()
-      break
-    case 'u':
-      toggleMax()
-      break
-    case 'e':
-      toggleCompression()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleMin = state(toggleMin, 'l', ['Set lower boundary', 'Remove lower boundary'])

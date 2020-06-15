@@ -19,8 +19,8 @@
   return { width, height };
 }--><title>ScatterPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="toggleSize()">S - Change size.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleSize()">Toggle size</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -74,18 +74,4 @@ let toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 's':
-      toggleSize()
-      break
-    default:
-      break
-  }
-})
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

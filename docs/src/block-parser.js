@@ -7,8 +7,16 @@ module.exports = block => {
 
   return {
     id,
-    signature: `${id}(${params.map((d, i) => `${d.optional ? '[' : ''}${i > 0 ? ', ' : ''}${d.name}`)
-      .join('')}${params.filter(d => d.optional).map(() => ']').join('')})`,
+    signature: (() => {
+      switch (block.kind) {
+        default:
+        case 'function':
+          return `${id}(${params.map((d, i) => `${d.optional ? '[' : ''}${i > 0 ? ', ' : ''}${d.name}`)
+            .join('')}${params.filter(d => d.optional).map(() => ']').join('')})`
+        case 'namespace':
+          return id
+      }
+    })(),
     description: _extractDesc(block),
     returns: (() => {
       let ret = block.returns[0]

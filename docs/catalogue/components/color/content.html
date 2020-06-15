@@ -7,10 +7,10 @@
 
 <div id="controls">
   <ul id="colors">
-    <li id="changeCategoricalColorPalette" onclick="changeCategoricalColorPalette()">C - Categorical: default palette.</li>
-    <li id="changeSequentialColorPalette" onclick="changeSequentialColorPalette()">S - Sequential: default palette.</li>
-    <li id="changeDivergingColorPalette" onclick="changeDivergingColorPalette()">D - Diverging: default palette.</li>
-    <li id="changeColorDeficiency" onclick="changeColorDeficiency()">V - Normal vision (92%).</li>
+    <li id="changeCategoricalColorPalette" onclick="changeCategoricalColorPalette()">Categorical: default palette</li>
+    <li id="changeSequentialColorPalette" onclick="changeSequentialColorPalette()">Sequential: default palette</li>
+    <li id="changeDivergingColorPalette" onclick="changeDivergingColorPalette()">Diverging: default palette</li>
+    <li id="changeColorDeficiency" onclick="changeColorDeficiency()">Normal vision (92%)</li>
   </ul>
 </div>
 
@@ -25,7 +25,9 @@ dalian.BarChart('color-card', '#color')
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
+  .color.policy('sequential')
+  .color.on(d => d.value / 5)
   .font.size(11)
   .font.color('#ccc')
   .bottomAxis.label('X')
@@ -153,26 +155,4 @@ changeColorDeficiency = state(changeColorDeficiency, 'v', [
   'Achromatomaly (< 0.0001%)',
   'Achromatopsia (< 0.0001%)'
 ])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'c':
-      changeCategoricalColorPalette()
-      break
-    case 's':
-      changeSequentialColorPalette()
-      break
-    case 'd':
-      changeDivergingColorPalette()
-      break
-    case 'v':
-      changeColorDeficiency()
-      break
-    default:
-      break
-  }
-})
 </script>

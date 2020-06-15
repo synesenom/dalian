@@ -283,8 +283,6 @@ export default (name, parent = 'body') => {
      *   .boxWidth(20)
      *   .render()
      *
-     * @example
-     *
      * // Reset box width to default.
      * box.boxWidth()
      *   .render()

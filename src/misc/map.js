@@ -1,6 +1,6 @@
 import compose from '../core/compose'
 import Widget from '../components/widget'
-import Colors from '../components/color'
+import { Color } from '../components/color'
 import Placeholder from '../components/placeholder'
 import Mouse from '../components/mouse'
 import extend from '../core/extend'
@@ -8,7 +8,7 @@ import extend from '../core/extend'
 export default (name, parent) => {
   let { self, api } = compose(
     Widget('map', name, parent, 'div'),
-    Colors,
+    Color,
     Placeholder,
     Mouse
   )

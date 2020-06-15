@@ -5,7 +5,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleSmoothing" onclick="toggleSmoothing()">S - Enable smoothing.</li>
+    <li id="toggleSmoothing" onclick="toggleSmoothing()">Enable smoothing</li>
   </ul>
 </div>
 
@@ -24,7 +24,7 @@ dalian.LineChart('smoothing-card', '#smoothing')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -69,16 +69,4 @@ let toggleSmoothing = () => {
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleSmoothing = state(toggleSmoothing, 's', ['Enable smoothing', 'Disable smoothing'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 's':
-      toggleSmoothing()
-      break
-    default:
-  }
-})
 </script>

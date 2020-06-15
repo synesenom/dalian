@@ -6,8 +6,8 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleRadius" onclick="toggleRadius()">H - Change radius.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleRadius()">Change radius</li>
   </ul>
 </div>
 
@@ -27,7 +27,7 @@ dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
   .height(HEIGHT)
   .margins({ left: 30, right: 10, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('palette-light')
+  .color.palette(COLORS.widget[0])
   .bottomAxis.label('stock')
   .leftAxis.label('fruit')
   .radius(20)
@@ -76,27 +76,4 @@ let toggleRadius = () => {
   this.h = 1 - (this.h || 0)
   bubbleChart.radius(this.h ? 50 : undefined).render(1000)
 }
-</script>
-
-<script class="doc-hidden">
-// Modify toggle buttons
-toggleRadius = state(toggleRadius, 'h', ['Change radius', 'Change radius'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'r':
-      toggleRadius()
-      break
-    case 'f':
-      changeLabelFormat()
-      break
-    default:
-  }
-})
 </script>

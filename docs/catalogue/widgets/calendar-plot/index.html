@@ -19,13 +19,13 @@
   return { width, height };
 }--><title>CalendarPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
-    <li id="toggleBlockMargin" onclick="toggleBlockMargin()">B - Toggle block margin.</li>
-    <li id="toggleMonthNames" onclick="toggleMonthNames()">M - Toggle month names.</li>
-    <li id="toggleBlockAlign" onclick="toggleBlockAlign()">A - Toggle label align.</li>
-    <li id="toggleDays" onclick="toggleDays()">W - Toggle day names.</li>
-    <li id="toggleWeekStart" onclick="toggleWeekStart()">S - Toggle week start.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleLabels()">Toggle labels</li>
+    <li onclick="toggleBlockMargin()">Toggle block margin</li>
+    <li onclick="toggleMonthNames()">Toggle month names</li>
+    <li onclick="toggleBlockAlign()">Toggle label align</li>
+    <li onclick="toggleDays()">Toggle day names</li>
+    <li onclick="toggleWeekStart()">Toggle week start</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -43,7 +43,8 @@ function getData () {
 
   let data = Array.from({ length: 200 }, () => {
     let date = new Date(year, 0, 1)
-    date.setDate(date.getDate() + minDate + Math.floor(maxDate * Math.random()) + 1)
+    date.setDate(date.getDate() + minDate
+      + Math.floor(maxDate * Math.random()) + 1)
     return {
       date: date.toISOString().substr(0, 10),
       value: 20 * Math.random()
@@ -81,7 +82,9 @@ let changeData = () => calendarPlot.data(getData()).render(1000)
 
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
-  calendarPlot.label(this.l ? d => d.value === null ? '' : Math.round(d.value) : undefined).render()
+  calendarPlot
+    .label(this.l ? d => d.value === null ? '' : Math.round(d.value) : undefined)
+    .render()
 }
 
 let toggleBlockMargin = () => {
@@ -91,8 +94,9 @@ let toggleBlockMargin = () => {
 
 let toggleMonthNames = () => {
   this.m = 1 - (this.m || 0)
-  calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'] : undefined).render()
+  calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo',
+    'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
+    'octubre', 'noviembre', 'diciembre'] : undefined).render()
 }
 
 let toggleBlockAlign = () => {
@@ -102,47 +106,12 @@ let toggleBlockAlign = () => {
 
 let toggleDays = () => {
   this.w = 1 - (this.w || 0)
-  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'] : undefined).render()
+  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']: undefined)
+    .render()
 }
 
 let toggleWeekStart = () => {
   this.s = 1 - (this.s || 0)
   calendarPlot.weekStart(this.s ? 2 : undefined).render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'l':
-      toggleLabels()
-      break
-    case 'b':
-      toggleBlockMargin()
-      break
-    case 'm':
-      toggleMonthNames()
-      break
-    case 'a':
-      toggleBlockAlign()
-      break
-    case 'w':
-      toggleDays()
-      break
-    case 's':
-      toggleWeekStart()
-      break
-    default:
-  }
-})
-</script><script class="doc-hidden">
-// Modify toggle buttons
-toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
-toggleBlockMargin = state(toggleBlockMargin, 'b', ['Toggle block margin', 'Toggle block margin'])
-toggleMonthNames = state(toggleMonthNames, 'm', ['Toggle month names', 'Toggle month names'])
-toggleBlockAlign = state(toggleBlockAlign, 'a', ['Toggle label align', 'Toggle label align'])
-toggleDays = state(toggleDays, 'w', ['Toggle day names', 'Toggle day names'])
-toggleWeekStart = state(toggleWeekStart, 's', ['Toggle week start', 'Toggle week start'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

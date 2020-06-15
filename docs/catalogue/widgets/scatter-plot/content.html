@@ -8,8 +8,8 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="toggleSize()">S - Change size.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleSize()">Toggle size</li>
   </ul>
 </div>
 
@@ -34,6 +34,10 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .height(HEIGHT)
   .margins({ left: 30, right: 10, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    blueberry: COLORS.widget[0],
+    cherry: 'black'
+  })
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .size(2)
@@ -89,20 +93,4 @@ let toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
 }
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 's':
-      toggleSize()
-      break
-    default:
-      break
-  }
-})
 </script>

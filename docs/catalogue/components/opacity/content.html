@@ -5,7 +5,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleOpacity()">O - Change opacity.</li>
+    <li onclick="toggleOpacity()">Change opacity</li>
   </ul>
 </div>
 
@@ -33,7 +33,7 @@ dalian.AreaChart('opacity-card', '#opacity')
   .font.color('#ccc')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .render()
 </script>
 
@@ -75,17 +75,4 @@ const toggleOpacity = () => {
   this.o = !(this.o || 0)
   chart.opacity(this.o ? 0.8 : undefined).render(1000)
 }
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'o':
-      toggleOpacity()
-      break
-    default:
-      break
-  }
-})
 </script>

@@ -9,11 +9,11 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="addObject" onclick="addObject()">A - Add random object.</li>
-    <li id="updateObject" onclick="updateObject()">U - Update an object.</li>
-    <li id="removeLastObject" onclick="removeLastObject()">L - Remove last object.</li>
-    <li id="removeAllObjects" onclick="removeAllObjects()">R - Remove all objects.</li>
+    <li onclick="changeData()">Change data</li>
+    <li id="addObject" onclick="addObject()">Add random object</li>
+    <li id="updateObject" onclick="updateObject()">Update an object</li>
+    <li id="removeLastObject" onclick="removeLastObject()">Remove last object</li>
+    <li id="removeAllObjects" onclick="removeAllObjects()">Remove all objects</li>
   </ul>
 </div>
 
@@ -43,7 +43,7 @@ objectsCard.objects.add('object', (() => {
   let elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
   elem.setAttributeNS(null, 'width', '30')
   elem.setAttributeNS(null, 'height', '20')
-  elem.setAttributeNS(null, 'fill', 'royalblue')
+  elem.setAttributeNS(null, 'fill', COLORS.component)
   elem.setAttributeNS(null, 'transform', 'rotate(-18)')
   return elem
 })(), {x: 43, y: 9})
@@ -160,29 +160,4 @@ let removeLastObject = () => {
 let removeAllObjects = () => {
   chart.objects.remove(null, 1000)
 }
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'a':
-      addObject()
-      break
-    case 'u':
-      updateObject()
-      break
-    case 'l':
-      removeLastObject()
-      break
-    case 'r':
-      removeAllObjects()
-      break
-    default:
-      break
-  }
-})
 </script>

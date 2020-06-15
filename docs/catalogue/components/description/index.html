@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Description | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleDescription" onclick="toggleDescription()">D - Enable description.</li>
+    <li id="toggleDescription" onclick="toggleDescription()">Enable description</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -54,16 +54,6 @@ let toggleDescription = () => {
   chart.description(this.d ? 'This is a simple line chart.' : undefined)
     .render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      toggleDescription()
-      break
-    default:
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleDescription = state(toggleDescription, 'd', ['Enable description', 'Disable description'])

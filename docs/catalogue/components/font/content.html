@@ -6,8 +6,8 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleFontSize()">S - Change font size.</li>
-    <li onclick="toggleFontColor()">C - Change font color.</li>
+    <li onclick="toggleFontSize()">Toggle font size</li>
+    <li onclick="toggleFontColor()">Toggle font color</li>
   </ul>
 </div>
 
@@ -30,7 +30,7 @@ dalian.BarChart('font-card', '#font')
   .render()
 
 // Highlight component
-d3.selectAll('#font text').style('color', 'royalblue')
+d3.selectAll('#font text').style('color', COLORS.component)
 </script>
 
 <script class="doc">
@@ -70,20 +70,4 @@ let toggleFontColor = () => {
   this.c = ((this.c || 0) + 1) % 3
   chart.font.color([undefined, 'red', 'transparent'][this.c]).render()
 }
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 's':
-      toggleFontSize()
-      break
-    case 'c':
-      toggleFontColor()
-      break
-    default:
-      break
-  }
-})
 </script>

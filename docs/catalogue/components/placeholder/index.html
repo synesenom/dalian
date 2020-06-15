@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Placeholder | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="togglePlaceholder" onclick="togglePlaceholder()">P - Show placeholder.</li>
+    <li id="togglePlaceholder" onclick="togglePlaceholder()">Toggle placeholder</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -53,18 +53,4 @@ let togglePlaceholder = () => {
   this.p = 1 - (this.p || 0)
   chart.placeholder(this.p ? 'Data is not available.' : undefined, 1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'p':
-      togglePlaceholder()
-      break
-    default:
-      break
-  }
-})
-</script><script class="doc-hidden">
-// Modify toggle buttons
-togglePlaceholder = state(togglePlaceholder, 'p', ['Show placeholder', 'Hide placeholder'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

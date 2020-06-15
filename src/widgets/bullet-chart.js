@@ -26,6 +26,9 @@ import Font from '../components/font'
 export default (name, parent = 'body') => {
   // Default values.
   const DEFAULTS = {
+    value: 0,
+    forecast: 1,
+    ranges: [0, 50, 80, 100],
     thickness: 30,
     valueColor: '#000',
     rangeColor: '#888'
@@ -64,10 +67,10 @@ export default (name, parent = 'body') => {
       unit: '',
       min: 0,
       max: 100,
-      ranges: [0, 50, 80, 100],
+      ranges: DEFAULTS.ranges,
       target: 95,
-      value: 0,
-      forecast: 0
+      value: DEFAULTS.value,
+      forecast: DEFAULTS.forecast
     },
 
     // DOM.
@@ -199,10 +202,21 @@ export default (name, parent = 'body') => {
      *
      * @method value
      * @methodOf BulletChart
-     * @param {number} value Value to set the bar to.
+     * @param {number} [value = 0] Value to set the bar to.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set value to 50.
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .value(50)
+     *   .render()
+     *
+     * // Reset value to default.
+     * bullet.value()
+     *   .render()
      */
-    value: value => {
+    value: (value = DEFAULTS.value) => {
       _.data.value = value
       return api
     },
@@ -212,10 +226,21 @@ export default (name, parent = 'body') => {
      *
      * @method forecast
      * @methodOf BulletChart
-     * @param {number} forecast Forecast value in units of the bar value.
+     * @param {number} [forecast = 1] Forecast value in units of the bar value.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set forecast to the triple of the value.
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .forecast(3)
+     *   .render()
+     *
+     * // Reset forecast to default.
+     * bullet.forecast()
+     *   .render()
      */
-    forecast: forecast => {
+    forecast: (forecast = DEFAULTS.forecast) => {
       _.data.forecast = forecast
       return api
     },
@@ -227,6 +252,13 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {number} target Target value to set.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set target to 80.
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .target(80)
+     *   .render()
      */
     target: target => {
       _.data.target = target
@@ -238,11 +270,22 @@ export default (name, parent = 'body') => {
      *
      * @method ranges
      * @methodOf BulletChart
-     * @param {number[]} ranges Array representing the boundaries of the ranges. Must have four values corresponding to
-     * the boundaries of the three ranges.
+     * @param {number[]} [ranges = [0, 50, 80, 100] Array representing the boundaries of the ranges. Must have four
+     * values corresponding to the boundaries of the three ranges.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set poor, satisfactory, good ranges to (0, 60), (60, 90), (90, 100).
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .ranges([0, 60, 90, 100])
+     *   .render()
+     *
+     * // Reset ranges to default.
+     * bullet.ranges()
+     *   .render()
      */
-    ranges: ranges => {
+    ranges: (ranges = [0, 50, 80, 100]) => {
       _.data.ranges = ranges
       return api
     },
@@ -254,6 +297,17 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {number} [thickness = 30] Thickness to set.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set thickness to 20px.
+     * const bullet = dalian.BullestChart('my-chart')
+     *   .thickness(20)
+     *   .render()
+     *
+     * // Reset thickness to default.
+     * bullet.thickness()
+     *   .render()
      */
     thickness: (thickness = DEFAULTS.thickness) => {
       _.ui.thickness = thickness
@@ -261,12 +315,24 @@ export default (name, parent = 'body') => {
     },
 
     /**
-     * Sets the color of the bar, forecast and target.
+     * Sets the color of the bar, forecast and target. Note that the forecast bar's color is a lightened version of the
+     * value color.
      *
      * @method valueColor
      * @methodOf BulletChart
      * @param {string} [color = #000] Color to set for the bar, forecast and target.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set value, forecast and target color to blue.
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .valueColor('blue')
+     *   .render()
+     *
+     * // Reset value color to default.
+     * bullet.valueColor()
+     *   .render()
      */
     valueColor: (color = DEFAULTS.valueColor) => {
       _.ui.valueColor = color
@@ -280,6 +346,17 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} [color = #888] Color to set for the ranges.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * // Set range color to red.
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .rangeColor('red')
+     *   .render()
+     *
+     * // Reset range color to default.
+     * bullet.rangeColor()
+     *   .render()
      */
     rangeColor: (color = DEFAULTS.rangeColor) => {
       _.ui.rangeColor = color
@@ -293,6 +370,12 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} label Label to set for the chart.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .label('Revenue')
+     *   .render()
      */
     label: label => {
       _.data.label = label
@@ -306,6 +389,12 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} unit Unit description.
      * @returns {BulletChart} Reference to the BulletChart API.
+     *
+     * @example
+     *
+     * const bullet = dalian.BulletChart('my-chart')
+     *   .unit('USD')
+     *   .render()
      */
     unit: unit => {
       _.data.unit = unit

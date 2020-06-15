@@ -6,12 +6,12 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">O - Enable tooltip.</li>
-    <li onclick="changeTitleFormat()">T - Change title format.</li>
-    <li onclick="changeValueFormat()">V - Change value format.</li>
-    <li id="toggleIgnore" onclick="toggleIgnore()">I - Ignore trend 2.</li>
-    <li onclick="toggleFontSize()">S - Change font size.</li>
-    <li onclick="changeFontColor()">F - Change font color.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">Enable tooltip</li>
+    <li onclick="changeTitleFormat()">Change title format</li>
+    <li onclick="changeValueFormat()">Change value format</li>
+    <li id="toggleIgnore" onclick="toggleIgnore()">Ignore trend 2</li>
+    <li onclick="toggleFontSize()">Change font size</li>
+    <li onclick="changeFontColor()">Change font color</li>
   </ul>
 </div>
 
@@ -30,7 +30,7 @@ dalian.LineChart('point-tooltip-card', '#point-tooltip')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -108,32 +108,4 @@ let changeFontColor = () => {
 // Modify toggle buttons
 toggleTooltip = state(toggleTooltip, 'o', ['Enable tooltip', 'Disable tooltip'])
 toggleIgnore = state(toggleIgnore, 'i', ['Ignore trend 2', 'Include trend 2'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'o':
-      toggleTooltip()
-      break
-    case 't':
-      changeTitleFormat()
-      break
-    case 'v':
-      changeValueFormat()
-      break
-    case 'i':
-      toggleIgnore()
-      break
-    case 's':
-      toggleFontSize()
-      break
-    case 'f':
-      changeFontColor()
-      break
-    default:
-      break
-  }
-})
 </script>

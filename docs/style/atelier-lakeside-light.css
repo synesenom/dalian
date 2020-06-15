@@ -5,7 +5,7 @@
 /* Atelier-Lakeside Comment */
 .hljs-comment,
 .hljs-quote {
-    color: royalblue;
+    color: #777;
 }
 
 /* Atelier-Lakeside Red */
@@ -43,20 +43,21 @@
 /* Atelier-Lakeside Blue */
 .hljs-title,
 .hljs-section {
-    color: #257fad;
+    color: royalblue;
 }
 
 /* Atelier-Lakeside Purple */
 .hljs-keyword,
 .hljs-selector-tag {
-    color: darkgoldenrod;
+    color: #555;
+    font-weight: bold;
 }
 
 .hljs {
     display: block;
     overflow-x: auto;
     background: rgba(74, 118, 255, 0.09);
-    color: #666;
+    color: #555;
     padding: 0.5em;
 }
 

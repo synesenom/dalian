@@ -6,12 +6,12 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeLabel()">L - Change axis label.</li>
-    <li onclick="changeTickFormat()">F - Change tick format.</li>
-    <li id="toggleTickValues" onclick="toggleTickValues()">V - Set explicit ticks.</li>
-    <li id="toggleTicks" onclick="toggleTicks()">T - Hide ticks.</li>
-    <li id="toggleAxisLine" onclick="toggleAxisLine()">A - Hide axis line.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="changeLabel()">Change axis label</li>
+    <li onclick="changeTickFormat()">Change tick format</li>
+    <li id="toggleTickValues" onclick="toggleTickValues()">Set explicit ticks</li>
+    <li id="toggleTicks" onclick="toggleTicks()">Hide ticks</li>
+    <li id="toggleAxisLine" onclick="toggleAxisLine()">Hide axis line</li>
   </ul>
 </div>
 
@@ -37,7 +37,7 @@ dalian.LineChart('left-axis-card', '#left-axis')
   .render()
 
 // Highlight component
-d3.select('#left-axis .dalian-axis-container.y').style('color', 'royalblue')
+d3.select('#left-axis .dalian-axis-container.y').style('color', COLORS.component)
 </script>
 
 <script class="doc">
@@ -105,31 +105,4 @@ let toggleAxisLine = () => {
 toggleTickValues = state(toggleTickValues, 'v', ['Set explicit ticks', 'Use generated ticks'])
 toggleTicks = state(toggleTicks, 't', ['Hide ticks', 'Show ticks'])
 toggleAxisLine = state(toggleAxisLine, 'a', ['Hide axis line', 'Show axis line'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'l':
-      changeLabel()
-      break
-    case 'f':
-      changeTickFormat()
-      break
-    case 'v':
-      toggleTickValues()
-      break
-    case 't':
-      toggleTicks()
-      break
-    case 'a':
-      toggleAxisLine()
-      break
-    default:
-  }
-})
 </script>

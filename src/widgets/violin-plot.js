@@ -242,8 +242,6 @@ export default (name, parent = 'body') => {
      *   .violinWidth(20)
      *   .render()
      *
-     * @example
-     *
      * // Reset violin width to default value.
      * violin.violinWidth()
      *   .render()
@@ -275,8 +273,6 @@ export default (name, parent = 'body') => {
      * const violin = dalian.ViolinPlot('my-chart')
      *   .bandwidth(10)
      *   .render()
-     *
-     * @example
      *
      * // Reset bandwidth to default.
      * violin.bandwidth()

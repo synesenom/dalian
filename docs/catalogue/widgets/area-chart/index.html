@@ -19,8 +19,8 @@
   return { width, height };
 }--><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeLineColor()">L - Change line color.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="changeLineColor()">Change line color</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -71,19 +71,7 @@ let changeData = () => areaChart.data(getData()).render(1000)
 
 let changeLineColor = () => {
   this.l = !(this.l || 0)
-  areaChart.lineColor(this.l ? 'white' : undefined).render(1000)
+  areaChart.lineColor(this.l ? 'white' : undefined)
+    .render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'l':
-      changeLineColor()
-      break
-    default:
-  }
-})
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

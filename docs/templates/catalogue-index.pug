@@ -14,12 +14,21 @@ html(lang='en')
         script.
           const WIDTH = 240 - 42;
           const HEIGHT = 240 - 42 - 30;
+          COLORS = {
+            widget: ['royalblue', 'black'],
+            component: 'firebrick'
+          };
         main
             .main-content-wide
                 h1 catalogue
-                p Here you can explore all available widgets, their APIs and related components that make up the library.
+                p On this page you can see live examples of all widgets and components available in dalian, and explore
+                    | their APIs.
 
                 h2 widgets
+                p Widgets are interactive blocks that represent a specific kind of visualization or control behavior.
+                    | They are all made from various components and each widget inherits all the API of a component they
+                    | are composed of. To explore a specific component listed on a widget's documentation page under its
+                    | factory method, see the component's own demo page.
                 .card-container
                     each widget in widgets
                         a.card(href=widget.category + '/' + widget.name)
@@ -28,6 +37,10 @@ html(lang='en')
                             | !{widget.script}
 
                 h2 components
+                p Components are the building blocks that are used to compose the widgets. Each component implements a
+                    | single functionality and API that is exposed either through the widget's API or the component's
+                    | own namespace. This section contains live examples and demos that help you explore the function
+                    | and behavior of all the components that have an exposed API.
                 .card-container
                     each component in components
                         a.card(href=component.category + '/' + component.name)

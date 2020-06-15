@@ -19,12 +19,12 @@
   return { width, height };
 }--><title>PointTooltip | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">O - Enable tooltip.</li>
-    <li onclick="changeTitleFormat()">T - Change title format.</li>
-    <li onclick="changeValueFormat()">V - Change value format.</li>
-    <li id="toggleIgnore" onclick="toggleIgnore()">I - Ignore trend 2.</li>
-    <li onclick="toggleFontSize()">S - Change font size.</li>
-    <li onclick="changeFontColor()">F - Change font color.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">Enable tooltip</li>
+    <li onclick="changeTitleFormat()">Change title format</li>
+    <li onclick="changeValueFormat()">Change value format</li>
+    <li id="toggleIgnore" onclick="toggleIgnore()">Ignore trend 2</li>
+    <li onclick="toggleFontSize()">Change font size</li>
+    <li onclick="changeFontColor()">Change font color</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -93,32 +93,6 @@ let changeFontColor = () => {
   this.f = !(this.f || 0)
   chart.font.color(this.f ? 'red' : undefined).render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'o':
-      toggleTooltip()
-      break
-    case 't':
-      changeTitleFormat()
-      break
-    case 'v':
-      changeValueFormat()
-      break
-    case 'i':
-      toggleIgnore()
-      break
-    case 's':
-      toggleFontSize()
-      break
-    case 'f':
-      changeFontColor()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleTooltip = state(toggleTooltip, 'o', ['Enable tooltip', 'Disable tooltip'])

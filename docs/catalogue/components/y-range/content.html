@@ -5,9 +5,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleMin" onclick="toggleMin()">L - Set lower boundary.</li>
-    <li id="toggleMax" onclick="toggleMax()">U - Set upper boundary.</li>
-    <li id="toggleCompression" onclick="toggleCompression()">C - Compress boundary.</li>
+    <li id="toggleMin" onclick="toggleMin()">Set lower boundary</li>
+    <li id="toggleMax" onclick="toggleMax()">Set upper boundary</li>
+    <li id="toggleCompression" onclick="toggleCompression()">Compress boundary</li>
   </ul>
 </div>
 
@@ -27,7 +27,7 @@ dalian.LineChart('y-range-card', '#y-range')
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
   .font.color('#ccc')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .yRange.min(8)
@@ -86,23 +86,4 @@ let toggleCompression = () => {
 toggleMin = state(toggleMin, 'l', ['Set lower boundary', 'Remove lower boundary'])
 toggleMax = state(toggleMax, 'u', ['Set upper boundary', 'Remove upper boundary'])
 toggleCompression = state(toggleCompression, 'c', ['Compress range', 'Relax range'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'l':
-      toggleMin()
-      break
-    case 'u':
-      toggleMax()
-      break
-    case 'c':
-      toggleCompression()
-      break
-    default:
-      break
-  }
-})
 </script>

@@ -1,9 +1,9 @@
 .good {
-    color: yellowgreen;
+    color: olivedrab;
     font-weight: bold;
 }
 
 .bad {
-    color: crimson;
+    color: firebrick;
     font-weight: bold;
 }

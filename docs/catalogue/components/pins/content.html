@@ -6,9 +6,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="togglePin" onclick="togglePin()">P - Add pin.</li>
-    <li id="toggleFixedPin" onclick="toggleFixedPin()">F - Add fixed pin.</li>
+    <li onclick="changeData()">Change data</li>
+    <li id="togglePin" onclick="togglePin()">Add pin</li>
+    <li id="toggleFixedPin" onclick="toggleFixedPin()">Add fixed pin</li>
   </ul>
 </div>
 
@@ -35,7 +35,7 @@ let pinsCard = dalian.LineChart('pins-card', '#pins')
 
 // Add trends.
 pinsCard.pins.add('marker', 30, {
-  color: 'royalblue',
+  color: COLORS.component,
   height: 0.7,
   size: 5,
   text: 'pin',
@@ -107,23 +107,4 @@ let toggleFixedPin = () => {
 // Modify toggle buttons
 togglePin = state(togglePin, 'p', ['Add pin', 'Remove pin'])
 toggleFixedPin = state(toggleFixedPin, 'f', ['Add fixed pin', 'Remove fixed pin'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'p':
-      togglePin()
-      break
-    case 'f':
-      toggleFixedPin()
-      break
-    default:
-      break
-  }
-})
 </script>

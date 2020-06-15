@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Opacity | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleOpacity()">O - Change opacity.</li>
+    <li onclick="toggleOpacity()">Change opacity</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -59,15 +59,4 @@ const toggleOpacity = () => {
   this.o = !(this.o || 0)
   chart.opacity(this.o ? 0.8 : undefined).render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'o':
-      toggleOpacity()
-      break
-    default:
-      break
-  }
-})
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

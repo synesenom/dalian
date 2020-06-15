@@ -219,8 +219,6 @@ export default (name, parent = 'body') => {
      *   .radius(20)
      *   .render()
      *
-     * @example
-     *
      * // Reset maximum radius to default.
      * bubbles.radius()
      *   .render()

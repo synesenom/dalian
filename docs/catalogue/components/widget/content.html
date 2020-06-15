@@ -6,11 +6,11 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeX()">X - Change X position.</li>
-    <li onclick="changeY()">Y - Change Y position.</li>
-    <li onclick="changeWidth()">W - Change width.</li>
-    <li onclick="changeHeight()">H - Change height.</li>
-    <li onclick="changeMargins()">M - Change margins.</li>
+    <li onclick="changeX()">Change X position</li>
+    <li onclick="changeY()">Change Y position</li>
+    <li onclick="changeWidth()">Change width</li>
+    <li onclick="changeHeight()">Change height</li>
+    <li onclick="changeMargins()">Change margins</li>
   </ul>
 </div>
 
@@ -29,7 +29,7 @@ dalian.LineChart('widget-card', '#widget')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -81,29 +81,4 @@ let changeMargins = () => {
   this.m = !(this.m || 0)
   chart.margins(this.m ? {left: 50, right: 60, top: 70, bottom: 80} : 40).render(1000)
 }
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'x':
-      changeX()
-      break
-    case 'y':
-      changeY()
-      break
-    case 'w':
-      changeWidth()
-      break
-    case 'h':
-      changeHeight()
-      break
-    case 'm':
-      changeMargins()
-      break
-    default:
-      break
-  }
-})
 </script>

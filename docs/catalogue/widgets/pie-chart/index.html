@@ -19,10 +19,10 @@
   return { width, height };
 }--><title>PieChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeInnerRadius()">I - Change inner radius.</li>
-    <li onclick="changeOuterRadius()">O - Change outer radius.</li>
-    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleInnerRadius()">Toggle inner radius</li>
+    <li onclick="toggleOuterRadius()">Toggle outer radius</li>
+    <li onclick="toggleLabels()">Toggle labels</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -65,12 +65,12 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
 // api methods
 let changeData = () => pieChart.data(getData()).render(1000)
 
-let changeInnerRadius = () => {
+let toggleInnerRadius = () => {
   this.i = !(this.i || 0)
   pieChart.innerRadius(this.i ? 25 : undefined).render()
 }
 
-let changeOuterRadius = () => {
+let toggleOuterRadius = () => {
   this.o = !(this.o || 0)
   pieChart.outerRadius(this.o ? 80 : undefined).render()
 }
@@ -79,26 +79,4 @@ let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'i':
-      changeInnerRadius()
-      break
-    case 'o':
-      changeOuterRadius()
-      break
-    case 'l':
-      toggleLabels()
-      break
-    default:
-  }
-})
-</script><script class="doc-hidden">
-// Modify toggle buttons
-toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

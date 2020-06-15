@@ -6,7 +6,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleLabel" onclick="toggleLabel()">L - No label.</li>
+    <li id="toggleLabel" onclick="toggleLabel()">No label</li>
   </ul>
 </div>
 
@@ -30,7 +30,7 @@ dalian.BarChart('label-card', '#label')
   .render()
 
 // Highlight labels.
-d3.selectAll('#label .bar-label').style('fill', 'royalblue')
+d3.selectAll('#label .bar-label').style('fill', COLORS.component)
 </script>
 
 <script class="doc">
@@ -73,17 +73,4 @@ let toggleLabel = () => {
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleLabel = state(toggleLabel, 'l', ['No label', 'Showing name', 'Showing value'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'l':
-      toggleLabel()
-      break
-    default:
-      break
-  }
-})
 </script>

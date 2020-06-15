@@ -5,9 +5,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleMouseover" onclick="toggleMouseover()">O - Bind mouseover callback.</li>
-    <li id="toggleMouseleave" onclick="toggleMouseleave()">L - Bind mouseleave callback.</li>
-    <li id="toggleClick" onclick="toggleClick()">C - Bind click callback.</li>
+    <li id="toggleMouseover" onclick="toggleMouseover()">Bind mouseover callback</li>
+    <li id="toggleMouseleave" onclick="toggleMouseleave()">Bind mouseleave callback</li>
+    <li id="toggleClick" onclick="toggleClick()">Bind click callback</li>
   </ul>
 </div>
 
@@ -25,7 +25,7 @@ dalian.BarChart('mouse-card', '#mouse')
   .font.size(11)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .render()
 </script>
 
@@ -79,23 +79,4 @@ let toggleClick = () => {
 toggleMouseover = state(toggleMouseover, 'o', ['Bind mouseover callback', 'Remove mouseover callback'])
 toggleMouseleave = state(toggleMouseleave, 'l', ['Bind mouseleave callback', 'Remove mouseleave callback'])
 toggleClick = state(toggleClick, 'c', ['Bind click callback', 'Remove click callback'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'o':
-      toggleMouseover()
-      break
-    case 'l':
-      toggleMouseleave()
-      break
-    case 'c':
-      toggleClick()
-      break
-    default:
-      break
-  }
-})
 </script>

@@ -19,8 +19,8 @@
   return { width, height };
 }--><title>BubbleChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleRadius" onclick="toggleRadius()">H - Change radius.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleRadius()">Change radius</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -65,23 +65,4 @@ let toggleRadius = () => {
   this.h = 1 - (this.h || 0)
   bubbleChart.radius(this.h ? 50 : undefined).render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'r':
-      toggleRadius()
-      break
-    case 'f':
-      changeLabelFormat()
-      break
-    default:
-  }
-})
-</script><script class="doc-hidden">
-// Modify toggle buttons
-toggleRadius = state(toggleRadius, 'h', ['Change radius', 'Change radius'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

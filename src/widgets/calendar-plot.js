@@ -403,6 +403,32 @@ export default (name, parent = 'body') => {
     // TODO API: add support for multiple rows of blocks.
     // TODO API: monthly/yearly totals on side.
     // TODO API: add incomplete month support.
+    /**
+     * Set/updates the data that is shown in the calendar plot. In the bar chart, months are the plot groups, therefore
+     * so methods that operate on plot groups are applied on the month blocks.
+     *
+     * @method data
+     * @methodOf CalendarPlot
+     * @param {Object[]} plots Array of objects representing the date values. Each data point has two properties:
+     * <dl>
+     *   <dt>date</dt>  <dd>{string} Date of the data point in ISO 8601 YYYY-MM-DD date format.</dd>
+     *   <dt>value</dt> <dd>{number} Value of the data point.</dd>
+     * </dl>
+     * The data does not have to include all dates within the period of interest: missing dates will be represented by
+     * data points with {value = null}.
+     * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     *
+     * @example
+     *
+     * const calendar = dalian.CalendarPlot('my-chart')
+     *   .data([
+     *     {date: '2020-01-03', value: 32},
+     *     {name: '2020-01-04', value: 12},
+     *     {name: '2020-01-16', value: 10},
+     *     ...
+     *   ])
+     *   .render()
+     */
   })
 
   // Hide axis APIs as we don't want the user to modify them...
@@ -413,6 +439,4 @@ export default (name, parent = 'body') => {
   self._color.init('sequential', d => d.value)
 
   return api
-
-  // TODO Docs for data().
 }

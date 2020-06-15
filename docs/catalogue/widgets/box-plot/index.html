@@ -19,11 +19,11 @@
   return { width, height };
 }--><title>BoxPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleBoxWidth" onclick="toggleBoxWidth()">W - Change box width.</li>
-    <li id="toggleOpacity" onclick="toggleOpacity()">O - Change box opacity.</li>
-    <li id="toggleLineWidth" onclick="toggleLineWidth()">L - Change line width.</li>
-    <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleBoxWidth()">Change box width</li>
+    <li onclick="toggleOpacity()">Change box opacity</li>
+    <li onclick="toggleLineWidth()">Change line width</li>
+    <li onclick="toggleHorizontal()">Change to horizontal</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -39,7 +39,8 @@ function makeBox(sample) {
   let q1 = d3.quantile(sorted, 0.25)
   let q3 = d3.quantile(sorted, 0.75)
   let iqr = q3 - q1
-  let outliers = sorted.filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
+  let outliers = sorted
+    .filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
   return {
     median, q1, q3,
     whiskers: {
@@ -66,27 +67,34 @@ function makeBox(sample) {
 function getData () {
   return [{
     name: '𝜒²',
-    value: makeBox(new ranjs.dist.Chi2(1 + 9 * Math.random()).sample(1000))
-  }, {
-    name: 'von Mises',
-    value: makeBox(new ranjs.dist.VonMises(3 * Math.random()).sample(1000))
-  }, {
-    name: 'bimodal',
-    value: makeBox(new ranjs.dist.Normal(2 + 2 * Math.random(), 1 + Math.random()).sample(500)
-      .concat(new ranjs.dist.Normal(10 + 2 * Math.random(), 1 + Math.random()).sample(500)))
-  }, {
-    name: 'Poisson',
-    value: makeBox(new ranjs.dist.Poisson(2 + 10 * Math.random()).sample(1000))
-  }, {
-    name: 'Rice',
-    value: makeBox(new ranjs.dist.Rice(2 * Math.random(), 5 * Math.random()).sample(1000))
-  }, {
-    name: 'Skellam',
-    value: makeBox(new ranjs.dist.Skellam(3 * Math.random(), 10 * Math.random())
+    value: makeBox(new ranjs.dist.Chi2(1 + 9 * Math.random())
       .sample(1000))
   }, {
+    name: 'von Mises',
+    value: makeBox(new ranjs.dist.VonMises(3 * Math.random())
+      .sample(1000))
+  }, {
+    name: 'bimodal',
+    value: makeBox(new ranjs.dist.Normal(2 + 2 * Math.random(),
+      1 + Math.random()).sample(500)
+      .concat(new ranjs.dist.Normal(10 + 2 * Math.random(),
+        1 + Math.random()).sample(500)))
+  }, {
+    name: 'Poisson',
+    value: makeBox(new ranjs.dist.Poisson(2 + 10 * Math.random())
+      .sample(1000))
+  }, {
+    name: 'Rice',
+    value: makeBox(new ranjs.dist.Rice(2 * Math.random(),
+      5 * Math.random()).sample(1000))
+  }, {
+    name: 'Skellam',
+    value: makeBox(new ranjs.dist.Skellam(3 * Math.random(),
+      10 * Math.random()).sample(1000))
+  }, {
     name: 'uniform',
-    value: makeBox(new ranjs.dist.Uniform(Math.random(), 1 + 10 * Math.random()).sample(1000))
+    value: makeBox(new ranjs.dist.Uniform(Math.random(),
+      1 + 10 * Math.random()).sample(1000))
   }]
 }
 </script><script class="doc">
@@ -130,32 +138,4 @@ let toggleHorizontal = () => {
     .leftAxis.label(this.h ? 'distribution' : 'sample')
     .render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'w':
-      toggleBoxWidth()
-      break
-    case 'o':
-      toggleOpacity()
-      break
-    case 'l':
-      toggleLineWidth()
-      break
-    case 'h':
-      toggleHorizontal()
-      break
-    default:
-  }
-})
-</script><script class="doc-hidden">
-// Modify toggle buttons
-toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
-toggleBoxWidth = state(toggleBoxWidth, 'w', ['Change box width', 'Change box width'])
-toggleOpacity = state(toggleOpacity, 'o', ['Change box opacity', 'Change box opacity'])
-toggleLineWidth = state(toggleLineWidth, 'l', ['Change line width', 'Change line width'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

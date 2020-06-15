@@ -6,7 +6,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="downloadAsPng()">P - Downlad as PNG.</li>
+    <li onclick="downloadAsPng()">Downlad as PNG</li>
   </ul>
   <style>
     .dalian-widget {
@@ -30,7 +30,7 @@ dalian.LineChart('chart-card', '#chart')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -65,17 +65,4 @@ const chart = dalian.LineChart('myChart', '#widget')
 <script class="doc">
 // api methods
 const downloadAsPng = () => chart.download('chart')
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'p':
-      downloadAsPng()
-      break
-    default:
-      break
-  }
-})
 </script>

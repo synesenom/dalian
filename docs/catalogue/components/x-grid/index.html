@@ -19,11 +19,11 @@
   return { width, height };
 }--><title>XGrid | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeFontColor()">F - Change font color.</li>
-    <li id="toggleGrid" onclick="toggleGrid()">T - Show grid lines.</li>
-    <li onclick="changeOpacity()">O - Change grid opacity.</li>
-    <li onclick="changeLineStyle()">S - Change grid line style.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="changeFontColor()">Change font color</li>
+    <li id="toggleGrid" onclick="toggleGrid()">Show grid lines</li>
+    <li onclick="changeOpacity()">Change grid opacity</li>
+    <li onclick="changeLineStyle()">Change grid line style</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -79,29 +79,6 @@ let changeLineStyle = () => {
   chart.xGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
     .render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'f':
-      changeFontColor()
-      break
-    case 't':
-      toggleGrid()
-      break
-    case 'o':
-      changeOpacity()
-      break
-    case 's':
-      changeLineStyle()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleGrid = state(toggleGrid, 't', ['Show grid lines', 'Hide grid lines'])

@@ -128,7 +128,7 @@ function createDivergingMapping (palette, missing, on) {
  *
  * @function Color
  */
-export default (self, api) => {
+export const Color = (self, api) => {
   // Default values.
   const DEFAULTS = {
     policy: POLICIES.categorical,
@@ -393,8 +393,9 @@ export default (self, api) => {
        * @methodOf Color
        * @param {string} type Type of deficiency to emulate. Supported values: <code>achromatomaly</code>,
        * <code>achromatopsia</code>, <code>deuteranomaly</code>, <code>deuteranopia</code>, <code>protanomaly</code>,
-       * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. If it is not specified, true colors
-       * are restored.
+       * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. These values are also available as
+       * constants under <a href='#deficiencies'>Color.deficiencies</a>. If it is not specified, true colors are
+       * restored.
        * @returns {Widget} Reference to the Widget's API.
        */
       deficiency (type) {
@@ -428,4 +429,24 @@ export default (self, api) => {
   })
 
   return { self, api }
+}
+
+/**
+ * Namespace holding the names of the supported color vision deficiency emulators that can be passed to the
+ * <a href='#deficiency'>Color.deficiency</a> method. Constants included: {ACHROMATOMALY}, {ACHROMATOPSIA},
+ * {DEUTERANOMALY}, {DEUTERANOPIA}, {PROTANOMALY}, {PROTANOPIA}, {TRITANOMALY}, {TRITANOPIA}.
+ *
+ * @namespace deficiencies
+ * @methodOf Color
+ * @static
+ */
+export const deficiencies = {
+  ACHROMATOMALY: 'achromatomaly',
+  ACHROMATOPSIA: 'achromatopsia',
+  DEUTERANOMALY: 'deuteranomaly',
+  DEUTERANOPIA: 'deuteranopia',
+  PROTANOMALY: 'protanomaly',
+  PROTANOPIA: 'protanopia',
+  TRITANOMALY: 'tritanomaly',
+  TRITANOPIA: 'tritanopia'
 }

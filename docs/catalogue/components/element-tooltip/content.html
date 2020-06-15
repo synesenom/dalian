@@ -6,11 +6,11 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">T - Enable tooltip.</li>
-    <li onclick="changeTitleFormat()">I - Change title format.</li>
-    <li onclick="changeLabelFormat()">L - Change entry label format.</li>
-    <li onclick="changeValueFormat()">L - Change entry value format.</li>
-    <li onclick="changeFontColor()">F - Change font color.</li>
+    <li id="toggleTooltip" onclick="toggleTooltip()">Enable tooltip</li>
+    <li onclick="toggleTitleFormat()">Toggle title format</li>
+    <li onclick="toggleLabelFormat()">Toggle entry label format</li>
+    <li onclick="toggleValueFormat()">Toggle entry value format</li>
+    <li onclick="toggleFontColor()">Toggle font color</li>
   </ul>
 </div>
 
@@ -28,7 +28,7 @@ dalian.BarChart('element-tooltip-card', '#element-tooltip')
   .font.size(11)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .render()
 </script>
 
@@ -63,25 +63,25 @@ let toggleTooltip = () => {
   chart.tooltip.on(this.t).render()
 }
 
-let changeTitleFormat = () => {
+let toggleTitleFormat = () => {
   this.i = !(this.i || 0)
   chart.tooltip.titleFormat(this.i ? x => 'Name: ' + x.toUpperCase() : x => x)
     .render()
 }
 
-let changeLabelFormat = () => {
+let toggleLabelFormat = () => {
   this.l = !(this.l || 0)
   chart.tooltip.labelFormat(this.l ? label => `<strong>${label}</strong>:` : undefined)
     .render()
 }
 
-let changeValueFormat = () => {
+let toggleValueFormat = () => {
   this.v = !(this.v || 0)
   chart.tooltip.valueFormat(this.v ? y => y.toPrecision(2) + ' per capita' : undefined)
     .render()
 }
 
-let changeFontColor = () => {
+let toggleFontColor = () => {
   this.f = !(this.f || 0)
   chart.font.color(this.f ? 'red' : undefined).render()
 }
@@ -90,29 +90,4 @@ let changeFontColor = () => {
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleTooltip = state(toggleTooltip, 't', ['Enable tooltip', 'Disable tooltip'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 't':
-      toggleTooltip()
-      break
-    case 'i':
-      changeTitleFormat()
-      break
-    case 'l':
-      changeLabelFormat()
-      break
-    case 'v':
-      changeValueFormat()
-      break
-    case 'f':
-      changeFontColor()
-      break
-    default:
-      break
-  }
-})
 </script>

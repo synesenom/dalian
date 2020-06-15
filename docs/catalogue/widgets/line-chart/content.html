@@ -7,7 +7,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
+    <li onclick="changeData()">Change data</li>
   </ul>
 </div>
 
@@ -37,6 +37,10 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .height(HEIGHT)
   .margins({ left: 20, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    mango: COLORS.widget[0],
+    kiwi: COLORS.widget[1]
+  })
   .bottomAxis.label('days')
   .leftAxis.label('price')
   .smoothing(true)
@@ -95,13 +99,4 @@ const lineChart = dalian.LineChart('line-chart', '#widget')
 <script class="doc">
 // api methods
 const changeData = () => lineChart.data(getData()).render(1000)
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  if (e.key === 'd') {
-    changeData()
-  }
-})
 </script>

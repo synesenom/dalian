@@ -15,10 +15,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeInnerRadius()">I - Change inner radius.</li>
-    <li onclick="changeOuterRadius()">O - Change outer radius.</li>
-    <li id="toggleLabels" onclick="toggleLabels()">L - Show labels.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleInnerRadius()">Toggle inner radius</li>
+    <li onclick="toggleOuterRadius()">Toggle outer radius</li>
+    <li onclick="toggleLabels()">Toggle labels</li>
   </ul>
 </div>
 
@@ -36,7 +36,9 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(11)
-  .color.palette('palette-light')
+  .color.palette(COLORS.widget[0])
+  .color.policy('sequential')
+  .color.on(d => 1 - d.index / 5)
   .outerRadius(60)
   .label(d => parseInt(d.value))
   .render()
@@ -73,12 +75,12 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
 // api methods
 let changeData = () => pieChart.data(getData()).render(1000)
 
-let changeInnerRadius = () => {
+let toggleInnerRadius = () => {
   this.i = !(this.i || 0)
   pieChart.innerRadius(this.i ? 25 : undefined).render()
 }
 
-let changeOuterRadius = () => {
+let toggleOuterRadius = () => {
   this.o = !(this.o || 0)
   pieChart.outerRadius(this.o ? 80 : undefined).render()
 }
@@ -87,31 +89,5 @@ let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
 }
-</script>
-
-<script class="doc-hidden">
-// Modify toggle buttons
-toggleLabels = state(toggleLabels, 'l', ['Show labels', 'Hide labels'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'i':
-      changeInnerRadius()
-      break
-    case 'o':
-      changeOuterRadius()
-      break
-    case 'l':
-      toggleLabels()
-      break
-    default:
-  }
-})
 </script>
 

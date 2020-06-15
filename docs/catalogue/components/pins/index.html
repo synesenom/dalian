@@ -19,9 +19,9 @@
   return { width, height };
 }--><title>Pins | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="togglePin" onclick="togglePin()">P - Add pin.</li>
-    <li id="toggleFixedPin" onclick="toggleFixedPin()">F - Add fixed pin.</li>
+    <li onclick="changeData()">Change data</li>
+    <li id="togglePin" onclick="togglePin()">Add pin</li>
+    <li id="toggleFixedPin" onclick="toggleFixedPin()">Add fixed pin</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -82,23 +82,6 @@ let toggleFixedPin = () => {
     chart.pins.remove('fixed', 1000)
   }
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'p':
-      togglePin()
-      break
-    case 'f':
-      toggleFixedPin()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 togglePin = state(togglePin, 'p', ['Add pin', 'Remove pin'])

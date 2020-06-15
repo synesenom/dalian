@@ -19,9 +19,9 @@
   return { width, height };
 }--><title>Mouse | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleMouseover" onclick="toggleMouseover()">O - Bind mouseover callback.</li>
-    <li id="toggleMouseleave" onclick="toggleMouseleave()">L - Bind mouseleave callback.</li>
-    <li id="toggleClick" onclick="toggleClick()">C - Bind click callback.</li>
+    <li id="toggleMouseover" onclick="toggleMouseover()">Bind mouseover callback</li>
+    <li id="toggleMouseleave" onclick="toggleMouseleave()">Bind mouseleave callback</li>
+    <li id="toggleClick" onclick="toggleClick()">Bind click callback</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -66,23 +66,6 @@ let toggleClick = () => {
   chart.mouse.click(this.c ? k => alert(`You clicked on ${k.name}`) : undefined)
     .render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'o':
-      toggleMouseover()
-      break
-    case 'l':
-      toggleMouseleave()
-      break
-    case 'c':
-      toggleClick()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleMouseover = state(toggleMouseover, 'o', ['Bind mouseover callback', 'Remove mouseover callback'])

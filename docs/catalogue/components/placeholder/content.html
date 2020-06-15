@@ -5,7 +5,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="togglePlaceholder" onclick="togglePlaceholder()">P - Show placeholder.</li>
+    <li id="togglePlaceholder" onclick="togglePlaceholder()">Toggle placeholder</li>
   </ul>
 </div>
 
@@ -24,7 +24,7 @@ dalian.LineChart('placeholder-card', '#placeholder')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .placeholder('This is a placeholder.')
@@ -63,22 +63,4 @@ let togglePlaceholder = () => {
   this.p = 1 - (this.p || 0)
   chart.placeholder(this.p ? 'Data is not available.' : undefined, 1000)
 }
-</script>
-
-<script class="doc-hidden">
-// Modify toggle buttons
-togglePlaceholder = state(togglePlaceholder, 'p', ['Show placeholder', 'Hide placeholder'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'p':
-      togglePlaceholder()
-      break
-    default:
-      break
-  }
-})
 </script>

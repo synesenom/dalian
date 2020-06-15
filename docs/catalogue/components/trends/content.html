@@ -6,9 +6,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li id="toggleXRange" onclick="toggleXRange()">X - Set X constraint.</li>
-    <li id="toggleTrend" onclick="toggleTrend()">T - Add trend.</li>
+    <li onclick="changeData()">Change data</li>
+    <li id="toggleXRange" onclick="toggleXRange()">Set X constraint</li>
+    <li id="toggleTrend" onclick="toggleTrend()">Add trend</li>
   </ul>
 </div>
 
@@ -35,9 +35,9 @@ let trendsCard = dalian.LineChart('trends-card', '#trends')
 
 // Add trends.
 trendsCard.trends.add('marker', 'trend', 10, 70, 'Trend', 0)
-d3.selectAll('#trends .trend circle').style('fill', 'royalblue')
-d3.selectAll('#trends .trend line').style('stroke', 'royalblue')
-d3.selectAll('#trends .trend text').style('fill', 'royalblue')
+d3.selectAll('#trends .trend circle').style('fill', COLORS.component)
+d3.selectAll('#trends .trend line').style('stroke', COLORS.component)
+d3.selectAll('#trends .trend text').style('fill', COLORS.component)
 </script>
 
 <script class="doc">
@@ -92,23 +92,4 @@ let toggleXRange = () => {
 // Modify toggle buttons
 toggleTrend = state(toggleTrend, 't', ['Add trend', 'Remove trend'])
 toggleXRange = state(toggleXRange, 'x', ['Set x constraint', 'Remove x constraint'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 't':
-      toggleTrend()
-      break
-    case 'x':
-      toggleXRange()
-      break
-    default:
-      break
-  }
-})
 </script>

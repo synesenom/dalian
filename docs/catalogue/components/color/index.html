@@ -19,10 +19,10 @@
   return { width, height };
 }--><title>Color | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul id="colors">
-    <li id="changeCategoricalColorPalette" onclick="changeCategoricalColorPalette()">C - Categorical: default palette.</li>
-    <li id="changeSequentialColorPalette" onclick="changeSequentialColorPalette()">S - Sequential: default palette.</li>
-    <li id="changeDivergingColorPalette" onclick="changeDivergingColorPalette()">D - Diverging: default palette.</li>
-    <li id="changeColorDeficiency" onclick="changeColorDeficiency()">V - Normal vision (92%).</li>
+    <li id="changeCategoricalColorPalette" onclick="changeCategoricalColorPalette()">Categorical: default palette</li>
+    <li id="changeSequentialColorPalette" onclick="changeSequentialColorPalette()">Sequential: default palette</li>
+    <li id="changeDivergingColorPalette" onclick="changeDivergingColorPalette()">Diverging: default palette</li>
+    <li id="changeColorDeficiency" onclick="changeColorDeficiency()">Normal vision (92%)</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -115,26 +115,6 @@ let changeColorDeficiency = () => {
   this.v = ((this.v || 0) + 1) % 9
   chart.color.deficiency(deficiencies[this.v]).render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'c':
-      changeCategoricalColorPalette()
-      break
-    case 's':
-      changeSequentialColorPalette()
-      break
-    case 'd':
-      changeDivergingColorPalette()
-      break
-    case 'v':
-      changeColorDeficiency()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify buttons
 changeCategoricalColorPalette = state(changeCategoricalColorPalette, 'c', [

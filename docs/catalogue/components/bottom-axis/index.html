@@ -19,12 +19,12 @@
   return { width, height };
 }--><title>BottomAxis | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeLabel()">L - Change axis label.</li>
-    <li onclick="changeTickFormat()">F - Change tick format.</li>
-    <li id="toggleTickValues" onclick="toggleTickValues()">V - Set explicit ticks.</li>
-    <li id="toggleTicks" onclick="toggleTicks()">T - Hide ticks.</li>
-    <li id="toggleAxisLine" onclick="toggleAxisLine()">A - Hide axis line.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleLabel()">Toggle axis label</li>
+    <li onclick="toggleTickFormat()">Toggle tick format</li>
+    <li onclick="toggleTickValues()">Set explicit ticks</li>
+    <li onclick="toggleTicks()">Hide ticks</li>
+    <li onclick="toggleAxisLine()">Hide axis line</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -59,13 +59,13 @@ const chart = dalian.LineChart('myChart', '#widget')
 // api methods
 let changeData = () => chart.data(getData()).render(1000)
 
-let changeLabel = () => {
+let toggleLabel = () => {
   this.l = ((this.l || 0) + 1) % 3
   chart.bottomAxis.label(['Elapsed time', 'Age', ''][this.l])
     .render()
 }
 
-let changeTickFormat = () => {
+let toggleTickFormat = () => {
   this.f = ((this.f || 0) + 1) % 3
   chart.bottomAxis.format([undefined, x => x + 'h', () => ''][this.f])
     .render()
@@ -85,35 +85,4 @@ let toggleAxisLine = () => {
   this.a = 1 - (this.a || 0)
   chart.bottomAxis.hideAxisLine(this.a).render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'l':
-      changeLabel()
-      break
-    case 'f':
-      changeTickFormat()
-      break
-    case 'v':
-      toggleTickValues()
-      break
-    case 't':
-      toggleTicks()
-      break
-    case 'a':
-      toggleAxisLine()
-      break
-    default:
-      break
-  }
-})
-</script><script class="doc-hidden">
-// Modify toggle buttons
-toggleTickValues = state(toggleTickValues, 'v', ['Set explicit ticks', 'Use generated ticks'])
-toggleTicks = state(toggleTicks, 't', ['Hide ticks', 'Show ticks'])
-toggleAxisLine = state(toggleAxisLine, 'a', ['Hide axis line', 'Show axis line'])
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

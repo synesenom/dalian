@@ -7,12 +7,12 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li id="toggleViolinWidth" onclick="toggleViolinWidth()">W - Change violin width.</li>
-    <li id="toggleBandwidth" onclick="toggleBandwidth()">B - Change violin bandwidth.</li>
-    <li id="toggleOpacity" onclick="toggleOpacity()">O - Change violin opacity.</li>
-    <li id="toggleLineWidth" onclick="toggleLineWidth()">L - Change line width.</li>
-    <li id="toggleHorizontal" onclick="toggleHorizontal()">H - Change to horizontal.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleViolinWidth()">Change violin width</li>
+    <li onclick="toggleBandwidth()">Change violin bandwidth</li>
+    <li onclick="toggleOpacity()">Change violin opacity</li>
+    <li onclick="toggleLineWidth()">Change line width</li>
+    <li onclick="toggleHorizontal()">Change to horizontal</li>
   </ul>
 </div>
 
@@ -31,6 +31,10 @@ dalian.ViolinPlot('violin-plot-card', '#violin-plot')
   .height(HEIGHT)
   .margins({ left: 25, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    normal: COLORS.widget[0],
+    Poisson: COLORS.widget[1]
+  })
   .bottomAxis.label('dist')
   .bottomAxis.hideTicks(true)
   .leftAxis.label('sample')
@@ -116,40 +120,4 @@ let toggleHorizontal = () => {
     .leftAxis.label(this.h ? 'distribution' : 'sample')
     .render()
 }
-</script>
-
-<script class="doc-hidden">
-// Modify toggle buttons
-toggleHorizontal = state(toggleHorizontal, 'h', ['Change to horizontal', 'Change to vertical'])
-toggleViolinWidth = state(toggleViolinWidth, 'w', ['Change violin width', 'Change violin width'])
-toggleBandwidth = state(toggleBandwidth, 'b', ['Change bandwidth', 'Change bandwidth'])
-toggleOpacity = state(toggleOpacity, 'o', ['Change violin opacity', 'Change violin opacity'])
-toggleLineWidth = state(toggleLineWidth, 'l', ['Change line width', 'Change line width'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'w':
-      toggleViolinWidth()
-      break
-    case 'b':
-      toggleBandwidth()
-      break
-    case 'o':
-      toggleOpacity()
-      break
-    case 'l':
-      toggleLineWidth()
-      break
-    case 'h':
-      toggleHorizontal()
-      break
-    default:
-  }
-})
 </script>

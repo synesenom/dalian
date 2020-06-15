@@ -5,7 +5,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleDescription" onclick="toggleDescription()">D - Enable description.</li>
+    <li id="toggleDescription" onclick="toggleDescription()">Enable description</li>
   </ul>
 </div>
 
@@ -24,7 +24,7 @@ dalian.LineChart('description-card', '#description')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -68,16 +68,4 @@ let toggleDescription = () => {
 <script class="doc-hidden">
 // Modify toggle buttons
 toggleDescription = state(toggleDescription, 'd', ['Enable description', 'Disable description'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      toggleDescription()
-      break
-    default:
-  }
-})
 </script>

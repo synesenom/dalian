@@ -1,5 +1,11 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../style/fonts.css"><link rel="stylesheet" type="text/css" href="../style/base.css"><link rel="stylesheet" type="text/css" href="../style/heading.css"><link rel="stylesheet" type="text/css" href="../style/list.css"><link rel="stylesheet" type="text/css" href="../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../style/main.css"><link rel="stylesheet" type="text/css" href="../style/catalogue.css"><script type="text/javascript" src="../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../js/ranjs.min.js"></script><script type="text/javascript" src="../dl/dalian.min.js"></script><title>catalogue</title></head><body><script>const WIDTH = 240 - 42;
-const HEIGHT = 240 - 42 - 30;</script><main><div class="main-content-wide"><h1>catalogue</h1><p>Here you can explore all available widgets, their APIs and related components that make up the library.</p><h2>widgets</h2><div class="card-container"><a class="card" href="widgets/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
+const HEIGHT = 240 - 42 - 30;
+COLORS = {
+  widget: ['royalblue', 'black'],
+  component: 'firebrick'
+};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and exploretheir APIs.</p><h2>widgets</h2><p>Widgets are interactive blocks that represent a specific kind of visualization or control behavior.They are all made from various components and each widget inherits all the API of a component they
+are composed of. To explore a specific component listed on a widget's documentation page under its
+factory method, see the component's own demo page.</p><div class="card-container"><a class="card" href="widgets/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
 dalian.AreaChart('area-chart-card', '#area-chart')
   .data([{
     name: 'normal',
@@ -20,6 +26,10 @@ dalian.AreaChart('area-chart-card', '#area-chart')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    normal: COLORS.widget[0],
+    exponential: COLORS.widget[1]
+  })
   .bottomAxis.label('value')
   .leftAxis.label('density')
   .smoothing(true)
@@ -44,7 +54,7 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
   .leftAxis.hideTicks(true)
   .horizontal(true)
   .label(d => Math.round(d.value))
-  .color.palette('royalblue')
+  .color.palette(COLORS.widget[0])
   .render()
 </script></a><a class="card" href="widgets/box-plot"><div class="card-title">BoxPlot</div><div class="card-content" id="box-plot"></div><script class="card-example">
 function makeBox(sample) {
@@ -89,6 +99,10 @@ dalian.BoxPlot('box-plot-card', '#box-plot')
   .height(HEIGHT)
   .margins({ left: 25, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    normal: COLORS.widget[0],
+    Poisson: COLORS.widget[1]
+  })
   .bottomAxis.label('dist')
   .bottomAxis.hideTicks(true)
   .leftAxis.label('sample')
@@ -109,7 +123,7 @@ dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
   .height(HEIGHT)
   .margins({ left: 30, right: 10, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('palette-light')
+  .color.palette(COLORS.widget[0])
   .bottomAxis.label('stock')
   .leftAxis.label('fruit')
   .radius(20)
@@ -128,7 +142,7 @@ dalian.BulletChart('bullet-chart-card', '#bullet-chart')
   .target(85)
   .label('KPI')
   .unit('# Hugs')
-  .valueColor('royalblue')
+  .valueColor(COLORS.widget[0])
   .render()
 </script></a><a class="card" href="widgets/calendar-plot"><div class="card-title">CalendarPlot</div><div class="card-content" id="calendar-plot"></div><script class="card-example">
 dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
@@ -154,7 +168,7 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
   .height(HEIGHT)
   .margins({top: 10, left: 35})
   .font.size(11)
-  .color.palette(['#eee', 'royalblue'], '#eee')
+  .color.palette(['#eee', COLORS.widget[0]], '#eee')
   .blockMargin(2)
   .blockAlign('middle')
   .render()
@@ -184,6 +198,10 @@ dalian.LineChart('line-chart-card', '#line-chart')
   .height(HEIGHT)
   .margins({ left: 20, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    mango: COLORS.widget[0],
+    kiwi: COLORS.widget[1]
+  })
   .bottomAxis.label('days')
   .leftAxis.label('price')
   .smoothing(true)
@@ -205,7 +223,9 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(11)
-  .color.palette('palette-light')
+  .color.palette(COLORS.widget[0])
+  .color.policy('sequential')
+  .color.on(d => 1 - d.index / 5)
   .outerRadius(60)
   .label(d => parseInt(d.value))
   .render()
@@ -230,6 +250,10 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .height(HEIGHT)
   .margins({ left: 30, right: 10, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    blueberry: COLORS.widget[0],
+    cherry: 'black'
+  })
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .size(2)
@@ -253,7 +277,7 @@ dalian.Table('table-card', '#table')
   .height(HEIGHT)
   .margins(0)
   .font.size(10)
-  .color('royalblue')
+  .color(COLORS.widget[0])
   .render()
 </script></a><a class="card" href="widgets/violin-plot"><div class="card-title">ViolinPlot</div><div class="card-content" id="violin-plot"></div><script class="card-example">
 dalian.ViolinPlot('violin-plot-card', '#violin-plot')
@@ -270,11 +294,17 @@ dalian.ViolinPlot('violin-plot-card', '#violin-plot')
   .height(HEIGHT)
   .margins({ left: 25, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    normal: COLORS.widget[0],
+    Poisson: COLORS.widget[1]
+  })
   .bottomAxis.label('dist')
   .bottomAxis.hideTicks(true)
   .leftAxis.label('sample')
   .render()
-</script></a></div><h2>components</h2><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
+</script></a></div><h2>components</h2><p>Components are the building blocks that are used to compose the widgets. Each component implements asingle functionality and API that is exposed either through the widget's API or the component's
+own namespace. This section contains live examples and demos that help you explore the function
+and behavior of all the components that have an exposed API.</p><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
 dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .data([{
     name: 'trend',
@@ -296,7 +326,7 @@ dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .render()
 
 // Highlight component
-d3.select('#bottom-axis .dalian-axis-container.x').style('color', 'royalblue')
+d3.select('#bottom-axis .dalian-axis-container.x').style('color', COLORS.component)
 </script></a><a class="card" href="components/chart"><div class="card-title">Chart</div><div class="card-content" id="chart"></div><script class="card-example">
 dalian.LineChart('chart-card', '#chart')
   .data([{
@@ -312,7 +342,7 @@ dalian.LineChart('chart-card', '#chart')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -327,7 +357,9 @@ dalian.BarChart('color-card', '#color')
   .width(WIDTH)
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
+  .color.policy('sequential')
+  .color.on(d => d.value / 5)
   .font.size(11)
   .font.color('#ccc')
   .bottomAxis.label('X')
@@ -348,7 +380,7 @@ dalian.LineChart('description-card', '#description')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -366,7 +398,7 @@ dalian.BarChart('element-tooltip-card', '#element-tooltip')
   .font.size(11)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .render()
 </script></a><a class="card" href="components/font"><div class="card-title">Font</div><div class="card-content" id="font"></div><script class="card-example">
 dalian.BarChart('font-card', '#font')
@@ -387,7 +419,7 @@ dalian.BarChart('font-card', '#font')
   .render()
 
 // Highlight component
-d3.selectAll('#font text').style('color', 'royalblue')
+d3.selectAll('#font text').style('color', COLORS.component)
 </script></a><a class="card" href="components/highlight"><div class="card-title">Highlight</div><div class="card-content" id="highlight"></div><script class="card-example">
 const highlightChart = dalian.BarChart('highlight-card', '#highlight')
   .data(Array.from({ length: 5 }, (d, i) => ({
@@ -407,7 +439,7 @@ const highlightChart = dalian.BarChart('highlight-card', '#highlight')
   .render()
 
 // Highlight bar.
-d3.select('#highlight .plot-group.B rect').style('fill', 'royalblue')
+d3.select('#highlight .plot-group.B rect').style('fill', COLORS.component)
 </script></a><a class="card" href="components/label"><div class="card-title">Label</div><div class="card-content" id="label"></div><script class="card-example">
 dalian.BarChart('label-card', '#label')
   .data(Array.from({ length: 5 }, (d, i) => ({
@@ -428,7 +460,7 @@ dalian.BarChart('label-card', '#label')
   .render()
 
 // Highlight labels.
-d3.selectAll('#label .bar-label').style('fill', 'royalblue')
+d3.selectAll('#label .bar-label').style('fill', COLORS.component)
 </script></a><a class="card" href="components/left-axis"><div class="card-title">LeftAxis</div><div class="card-content" id="left-axis"></div><script class="card-example">
 dalian.LineChart('left-axis-card', '#left-axis')
   .data([{
@@ -451,7 +483,7 @@ dalian.LineChart('left-axis-card', '#left-axis')
   .render()
 
 // Highlight component
-d3.select('#left-axis .dalian-axis-container.y').style('color', 'royalblue')
+d3.select('#left-axis .dalian-axis-container.y').style('color', COLORS.component)
 </script></a><a class="card" href="components/mouse"><div class="card-title">Mouse</div><div class="card-content" id="mouse"></div><script class="card-example">
 dalian.BarChart('mouse-card', '#mouse')
   .data(Array.from({ length: 5 }, (d, i) => ({
@@ -466,7 +498,7 @@ dalian.BarChart('mouse-card', '#mouse')
   .font.size(11)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .render()
 </script></a><a class="card" href="components/objects"><div class="card-title">Objects</div><div class="card-content" id="objects"></div><script class="card-example">
 let objectsCard = dalian.AreaChart('objects-card', '#objects')
@@ -494,7 +526,7 @@ objectsCard.objects.add('object', (() => {
   let elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
   elem.setAttributeNS(null, 'width', '30')
   elem.setAttributeNS(null, 'height', '20')
-  elem.setAttributeNS(null, 'fill', 'royalblue')
+  elem.setAttributeNS(null, 'fill', COLORS.component)
   elem.setAttributeNS(null, 'transform', 'rotate(-18)')
   return elem
 })(), {x: 43, y: 9})
@@ -522,7 +554,7 @@ dalian.AreaChart('opacity-card', '#opacity')
   .font.color('#ccc')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .render()
 </script></a><a class="card" href="components/pins"><div class="card-title">Pins</div><div class="card-content" id="pins"></div><script class="card-example">
 let pinsCard = dalian.LineChart('pins-card', '#pins')
@@ -547,7 +579,7 @@ let pinsCard = dalian.LineChart('pins-card', '#pins')
 
 // Add trends.
 pinsCard.pins.add('marker', 30, {
-  color: 'royalblue',
+  color: COLORS.component,
   height: 0.7,
   size: 5,
   text: 'pin',
@@ -568,7 +600,7 @@ dalian.LineChart('placeholder-card', '#placeholder')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .placeholder('This is a placeholder.')
@@ -588,7 +620,7 @@ dalian.LineChart('point-tooltip-card', '#point-tooltip')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -607,7 +639,7 @@ dalian.LineChart('smoothing-card', '#smoothing')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -634,9 +666,9 @@ let trendsCard = dalian.LineChart('trends-card', '#trends')
 
 // Add trends.
 trendsCard.trends.add('marker', 'trend', 10, 70, 'Trend', 0)
-d3.selectAll('#trends .trend circle').style('fill', 'royalblue')
-d3.selectAll('#trends .trend line').style('stroke', 'royalblue')
-d3.selectAll('#trends .trend text').style('fill', 'royalblue')
+d3.selectAll('#trends .trend circle').style('fill', COLORS.component)
+d3.selectAll('#trends .trend line').style('stroke', COLORS.component)
+d3.selectAll('#trends .trend text').style('fill', COLORS.component)
 </script></a><a class="card" href="components/widget"><div class="card-title">Widget</div><div class="card-content" id="widget"></div><script class="card-example">
 dalian.LineChart('widget-card', '#widget')
   .data([{
@@ -652,7 +684,7 @@ dalian.LineChart('widget-card', '#widget')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .render()
@@ -680,7 +712,7 @@ dalian.LineChart('x-grid-card', '#x-grid')
   .render()
 
 // Highlight component
-d3.select('#x-grid .grid').style('color', 'royalblue')
+d3.select('#x-grid .grid').style('color', COLORS.component)
 </script></a><a class="card" href="components/x-range"><div class="card-title">XRange</div><div class="card-content" id="x-range"></div><script class="card-example">
 dalian.LineChart('x-range-card', '#x-range')
   .data([{
@@ -697,7 +729,7 @@ dalian.LineChart('x-range-card', '#x-range')
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
   .font.color('#ccc')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .xRange.min(20)
@@ -727,7 +759,7 @@ dalian.LineChart('y-grid-card', '#y-grid')
   .render()
 
 // Highlight component
-d3.select('#y-grid .grid').style('color', 'royalblue')
+d3.select('#y-grid .grid').style('color', COLORS.component)
 </script></a><a class="card" href="components/y-range"><div class="card-title">YRange</div><div class="card-content" id="y-range"></div><script class="card-example">
 dalian.LineChart('y-range-card', '#y-range')
   .data([{
@@ -744,7 +776,7 @@ dalian.LineChart('y-range-card', '#y-range')
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
   .font.color('#ccc')
-  .color.palette('royalblue')
+  .color.palette(COLORS.component)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
   .yRange.min(8)

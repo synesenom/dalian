@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Chart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="downloadAsPng()">P - Downlad as PNG.</li>
+    <li onclick="downloadAsPng()">Downlad as PNG</li>
   </ul>
   <style>
     .dalian-widget {
@@ -56,15 +56,4 @@ const chart = dalian.LineChart('myChart', '#widget')
 </script><script class="doc">
 // api methods
 const downloadAsPng = () => chart.download('chart')
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'p':
-      downloadAsPng()
-      break
-    default:
-      break
-  }
-})
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

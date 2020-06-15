@@ -8,8 +8,8 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeLineColor()">L - Change line color.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="changeLineColor()">Change line color</li>
   </ul>
 </div>
 
@@ -34,6 +34,10 @@ dalian.AreaChart('area-chart-card', '#area-chart')
   .height(HEIGHT)
   .margins({ left: 30, right: 2, top: 20, bottom: 30 })
   .font.size(11)
+  .color.palette({
+    normal: COLORS.widget[0],
+    exponential: COLORS.widget[1]
+  })
   .bottomAxis.label('value')
   .leftAxis.label('density')
   .smoothing(true)
@@ -86,21 +90,7 @@ let changeData = () => areaChart.data(getData()).render(1000)
 
 let changeLineColor = () => {
   this.l = !(this.l || 0)
-  areaChart.lineColor(this.l ? 'white' : undefined).render(1000)
+  areaChart.lineColor(this.l ? 'white' : undefined)
+    .render(1000)
 }
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'l':
-      changeLineColor()
-      break
-    default:
-  }
-})
 </script>

@@ -19,7 +19,7 @@
   return { width, height };
 }--><title>Smoothing | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li id="toggleSmoothing" onclick="toggleSmoothing()">S - Enable smoothing.</li>
+    <li id="toggleSmoothing" onclick="toggleSmoothing()">Enable smoothing</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -55,16 +55,6 @@ let toggleSmoothing = () => {
   this.s = 1 - (this.s || 0)
   chart.smoothing(this.s).render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 's':
-      toggleSmoothing()
-      break
-    default:
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleSmoothing = state(toggleSmoothing, 's', ['Enable smoothing', 'Disable smoothing'])

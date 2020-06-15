@@ -19,11 +19,11 @@
   return { width, height };
 }--><title>Widget | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeX()">X - Change X position.</li>
-    <li onclick="changeY()">Y - Change Y position.</li>
-    <li onclick="changeWidth()">W - Change width.</li>
-    <li onclick="changeHeight()">H - Change height.</li>
-    <li onclick="changeMargins()">M - Change margins.</li>
+    <li onclick="changeX()">Change X position</li>
+    <li onclick="changeY()">Change Y position</li>
+    <li onclick="changeWidth()">Change width</li>
+    <li onclick="changeHeight()">Change height</li>
+    <li onclick="changeMargins()">Change margins</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -72,27 +72,4 @@ let changeMargins = () => {
   this.m = !(this.m || 0)
   chart.margins(this.m ? {left: 50, right: 60, top: 70, bottom: 80} : 40).render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'x':
-      changeX()
-      break
-    case 'y':
-      changeY()
-      break
-    case 'w':
-      changeWidth()
-      break
-    case 'h':
-      changeHeight()
-      break
-    case 'm':
-      changeMargins()
-      break
-    default:
-      break
-  }
-})
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

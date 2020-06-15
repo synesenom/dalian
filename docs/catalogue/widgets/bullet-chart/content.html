@@ -9,15 +9,15 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="changeValue" onclick="changeValue()">V - Change value.</li>
-    <li id="changeForecast" onclick="changeForecast()">F - Change forecast.</li>
-    <li id="changeTarget" onclick="changeTarget()">T - Change target.</li>
-    <li id="changeRanges" onclick="changeRanges()">R - Change ranges.</li>
-    <li id="toggleThickness" onclick="toggleThickness()">W - Toggle thickness.</li>
-    <li id="toggleValueColor" onclick="toggleValueColor()">C - Toggle value color.</li>
-    <li id="toggleRangeColor" onclick="toggleRangeColor()">S - Toggle range color.</li>
-    <li id="toggleLabel" onclick="toggleLabel()">L - Toggle label.</li>
-    <li id="toggleUnit" onclick="toggleUnit()">U - Toggle unit.</li>
+    <li onclick="changeValue()">Change value</li>
+    <li onclick="changeForecast()">Change forecast</li>
+    <li onclick="changeTarget()">Change target</li>
+    <li onclick="changeRanges()">Change ranges</li>
+    <li onclick="toggleThickness()">Toggle thickness</li>
+    <li onclick="toggleValueColor()">Toggle value color</li>
+    <li onclick="toggleRangeColor()">Toggle range color</li>
+    <li onclick="toggleLabel()">Toggle label</li>
+    <li onclick="toggleUnit()">Toggle unit</li>
   </ul>
 </div>
 
@@ -35,7 +35,7 @@ dalian.BulletChart('bullet-chart-card', '#bullet-chart')
   .target(85)
   .label('KPI')
   .unit('# Hugs')
-  .valueColor('royalblue')
+  .valueColor(COLORS.widget[0])
   .render()
 </script>
 
@@ -100,49 +100,4 @@ let toggleUnit = () => {
   this.u = 1 - (this.u || 0)
   bulletChart.unit(this.u ? '' : 'Minutes of smile').render()
 }
-</script>
-
-<script class="doc-hidden">
-// Modify toggle buttons
-toggleThickness = state(toggleThickness, 'w', ['Toggle thickness', 'Toggle thickness'])
-toggleValueColor = state(toggleValueColor, 'c', ['Toggle value color', 'Toggle value color'])
-toggleRangeColor = state(toggleRangeColor, 's', ['Toggle range color', 'Toggle range color'])
-toggleLabel = state(toggleLabel, 'l', ['Toggle label', 'Toggle label'])
-toggleUnit = state(toggleUnit, 'u', ['Toggle unit', 'Toggle unit'])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'v':
-      changeValue()
-      break
-    case 'f':
-      changeForecast()
-      break
-    case 't':
-      changeTarget()
-      break
-    case 'r':
-      changeRanges()
-      break
-    case 'w':
-      toggleThickness()
-      break
-    case 'c':
-      toggleValueColor()
-      break
-    case 's':
-      toggleRangeColor()
-      break
-    case 'l':
-      toggleLabel()
-      break
-    case 'u':
-      toggleUnit()
-      break
-    default:
-  }
-})
 </script>

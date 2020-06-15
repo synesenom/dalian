@@ -19,12 +19,12 @@
   return { width, height };
 }--><title>LeftAxis | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">D - Change data.</li>
-    <li onclick="changeLabel()">L - Change axis label.</li>
-    <li onclick="changeTickFormat()">F - Change tick format.</li>
-    <li id="toggleTickValues" onclick="toggleTickValues()">V - Set explicit ticks.</li>
-    <li id="toggleTicks" onclick="toggleTicks()">T - Hide ticks.</li>
-    <li id="toggleAxisLine" onclick="toggleAxisLine()">A - Hide axis line.</li>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="changeLabel()">Change axis label</li>
+    <li onclick="changeTickFormat()">Change tick format</li>
+    <li id="toggleTickValues" onclick="toggleTickValues()">Set explicit ticks</li>
+    <li id="toggleTicks" onclick="toggleTicks()">Hide ticks</li>
+    <li id="toggleAxisLine" onclick="toggleAxisLine()">Hide axis line</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -85,31 +85,6 @@ let toggleAxisLine = () => {
   this.a = 1 - (this.a || 0)
   chart.leftAxis.hideAxisLine(this.a).render()
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 'l':
-      changeLabel()
-      break
-    case 'f':
-      changeTickFormat()
-      break
-    case 'v':
-      toggleTickValues()
-      break
-    case 't':
-      toggleTicks()
-      break
-    case 'a':
-      toggleAxisLine()
-      break
-    default:
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleTickValues = state(toggleTickValues, 'v', ['Set explicit ticks', 'Use generated ticks'])

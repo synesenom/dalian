@@ -19,9 +19,9 @@
   return { width, height };
 }--><title>Trends | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()"><span class="button">D</span>- Change data.</li>
-    <li id="toggleXRange" onclick="toggleXRange()">X - Set X constraint.</li>
-    <li id="toggleTrend" onclick="toggleTrend()">T - Add trend.</li>
+    <li onclick="changeData()">Change data</li>
+    <li id="toggleXRange" onclick="toggleXRange()">Set X constraint</li>
+    <li id="toggleTrend" onclick="toggleTrend()">Add trend</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -70,23 +70,6 @@ let toggleXRange = () => {
     .xRange.max(this.x ? 35 : undefined)
     .render(1000)
 }
-</script><script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'd':
-      changeData()
-      break
-    case 't':
-      toggleTrend()
-      break
-    case 'x':
-      toggleXRange()
-      break
-    default:
-      break
-  }
-})
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleTrend = state(toggleTrend, 't', ['Add trend', 'Remove trend'])

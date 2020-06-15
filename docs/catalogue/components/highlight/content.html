@@ -5,7 +5,7 @@
 </div>
 <div id="controls">
   <ul id="highlights">
-    <li id="toggleHighlight" onclick="toggleHighlight()">H - No highlight.</li>
+    <li id="toggleHighlight" onclick="toggleHighlight()">No highlight</li>
   </ul>
 </div>
 
@@ -28,7 +28,7 @@ const highlightChart = dalian.BarChart('highlight-card', '#highlight')
   .render()
 
 // Highlight bar.
-d3.select('#highlight .plot-group.B rect').style('fill', 'royalblue')
+d3.select('#highlight .plot-group.B rect').style('fill', COLORS.component)
 </script>
 
 <script class="doc">
@@ -76,16 +76,4 @@ toggleHighlight = state(toggleHighlight, 'h', [
   'Single highlight',
   'Multiple highlights'
 ])
-</script>
-
-<script class="doc">
-// update data on keypress
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'h':
-      toggleHighlight()
-      break
-    default:
-  }
-})
 </script>
