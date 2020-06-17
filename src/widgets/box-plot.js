@@ -291,67 +291,67 @@ export default (name, parent = 'body') => {
       _.boxWidth = width
       return api
     }
+
+    /**
+     * Set/updates the data that is shown in the box plot. Each box is a plot group in itself, so all methods that operate
+     * on plot groups are applied on the box level.
+     *
+     * @method data
+     * @methodOf BoxPlot
+     * @param {Object[]} plots Array of objects representing the boxes to show. Each box has two properties:
+     * <dl>
+     *   <dt>name</dt>  <dd>{string} Category name.</dd>
+     *   <dt>value</dt> <dd>{Object} Category value.</dd>
+     * </dl>
+     * The {value} property is an object with the following structure:
+     * <dl>
+     *   <dt>median</dt>   <dd>{number} The sample median.</dd>
+     *   <dt>q1</dt>       <dd>{number} Lower quantile of the sample.</dd>
+     *   <dt>q3</dt>       <dd>{number} Upper quantile of the sample.</dd>
+     *   <dt>whiskers</dt> <dd>{Object} Object containing two numbers: the {lower} and {upper} whiskers. Meaning of these
+     *   values can vary.</dd>
+     *   <dt>outliers</dt> <dd>{Object} Object containing two arrays of numbers: the list of {mild} and {extreme} outliers
+     *   </dd>
+     * </dl>
+     * @returns {BoxPlot} Reference to the BoxPlot API.
+     *
+     * @example
+     *
+     * const box = dalian.BoxPlot('my-chart')
+     *   .data([{
+     *     name: 'box 1',
+     *     value: {
+     *       median: 4.5,
+     *       q1: 3.2,
+     *       q3: 6.5,
+     *       whiskers: {
+     *         lower: 2.2,
+     *         upper: 7.6
+     *       },
+     *       outliers: {
+     *         mild: [],
+     *         extreme: [9.2, 10.2]
+     *       }
+     *     }
+     *   }, {
+     *     name: 'box 1',
+     *     value: {
+     *       median: 5.4,
+     *       q1: 4.5,
+     *       q3: 7.4,
+     *       whiskers: {
+     *         lower: 3.4,
+     *         upper: 8.7
+     *       },
+     *       outliers: {
+     *         mild: [3.2, 3.3],
+     *         extreme: []
+     *       }
+     *     }
+     *   }])
+     *   .render()
+     */
   })
 
   return api
-
-  /**
-   * Set/updates the data that is shown in the box plot. Each box is a plot group in itself, so all methods that operate
-   * on plot groups are applied on the box level.
-   *
-   * @method data
-   * @methodOf BoxPlot
-   * @param {Object[]} plots Array of objects representing the boxes to show. Each box has two properties:
-   * <dl>
-   *   <dt>name</dt>  <dd>{string} Category name.</dd>
-   *   <dt>value</dt> <dd>{Object} Category value.</dd>
-   * </dl>
-   * The {value} property is an object with the following structure:
-   * <dl>
-   *   <dt>median</dt>   <dd>{number} The sample median.</dd>
-   *   <dt>q1</dt>       <dd>{number} Lower quantile of the sample.</dd>
-   *   <dt>q3</dt>       <dd>{number} Upper quantile of the sample.</dd>
-   *   <dt>whiskers</dt> <dd>{Object} Object containing two numbers: the {lower} and {upper} whiskers. Meaning of these
-   *   values can vary.</dd>
-   *   <dt>outliers</dt> <dd>{Object} Object containing two arrays of numbers: the list of {mild} and {extreme} outliers
-   *   </dd>
-   * </dl>
-   * @returns {BoxPlot} Reference to the BoxPlot API.
-   *
-   * @example
-   *
-   * const box = dalian.BoxPlot('my-chart')
-   *   .data([{
-   *     name: 'box 1',
-   *     value: {
-   *       median: 4.5,
-   *       q1: 3.2,
-   *       q3: 6.5,
-   *       whiskers: {
-   *         lower: 2.2,
-   *         upper: 7.6
-   *       },
-   *       outliers: {
-   *         mild: [],
-   *         extreme: [9.2, 10.2]
-   *       }
-   *     }
-   *   }, {
-   *     name: 'box 1',
-   *     value: {
-   *       median: 5.4,
-   *       q1: 4.5,
-   *       q3: 7.4,
-   *       whiskers: {
-   *         lower: 3.4,
-   *         upper: 8.7
-   *       },
-   *       outliers: {
-   *         mild: [3.2, 3.3],
-   *         extreme: []
-   *       }
-   *     }
-   *   }])
-   *   .render()
-   */
 }

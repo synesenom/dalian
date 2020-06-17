@@ -4,11 +4,11 @@ import compose from '../core/compose'
 import extend from '../core/extend'
 import BottomAxis from '../components/axis/bottom-axis'
 import Chart from '../components/chart'
-import Objects from '../components/objects'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
 import LineStyle from '../components/line-style'
 import LineWidth from '../components/line-width'
+import Objects from '../components/objects'
 import Pins from '../components/pins'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
@@ -20,17 +20,19 @@ import XRange from '../components/range/x-range'
 import YGrid from '../components/grid/y-grid'
 import YRange from '../components/range/y-range'
 
-// TODO Add reference to components: LineStyle, LineWidth.
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
  * <ul>
  *   <li><a href="../components/bottom-axis.html">BottomAxis</a></li>
- *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li>
  *     <a href="../components/highlight.html">Highlight</a> Lines can be highlighted by passing their plots names as
  *     specified in the data array.
  *   </li>
+ *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/line-style.html">LineStyle</a></li>
+ *   <li><a href="../components/line-width.html">LineWidth</a></li>
+ *   <li><a href="../components/line-width.html">Objects</a></li>
  *   <li><a href="../components/pins.html">Pin</a></li>
  *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
  *   <li><a href="../components/smoothing.html">Smoothing</a></li>
@@ -155,7 +157,7 @@ export default (name, parent = 'body') => {
               const current = lineFn(d.values)
               return interpolatePath(previous, current, null)
             })
-            .style('stroke-dasharray', d => self._lineStyles.strokeDashArray(d.name))
+            .style('stroke-dasharray', d => self._lineStyle.strokeDashArray(d.name))
 
           return g
         },
@@ -208,7 +210,7 @@ export default (name, parent = 'body') => {
 
         return {
           name: d.name,
-          background: self._lineStyles.background(self._lineStyles.style(d.name), self._color.mapper(d)),
+          background: self._lineStyle.background(self._lineStyle.style(d.name), self._color.mapper(d)),
           x: point.x,
           y: point.y,
           lo: point.lo,
@@ -245,9 +247,6 @@ export default (name, parent = 'body') => {
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API
-  return api
-
-  // Documentation
   /**
    * Set/updates the data that is shown in the line chart.
    *
@@ -260,42 +259,32 @@ export default (name, parent = 'body') => {
    * </ul>
    * The <i>values</i> property is an array of objects of the following structure:
    * <dl>
-   *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
-   *   <dt>y {number}</dt> <dd>Y coordinate of the data point. For missing data, this value can be null.</dd>
-   *   <dt>lo {number}</dt> <dd>Lower error of the data point. {optional}</dd>
-   *   <dt>hi {number}</dt> <dd>Upper error of the data point. {optional}</dd>
+   *   <dt>x</dt> <dd>{number} X coordinate of the data point.</dd>
+   *   <dt>y</dt> <dd>{number} Y coordinate of the data point. For missing data, this value can be null.</dd>
+   *   <dt>lo</dt> <dd>{number} Optional lower error of the data point.</dd>
+   *   <dt>hi</dt> <dd>{number} Optional upper error of the data point.</dd>
    * </dl>
    * @returns {LineChart} Reference to the LineChart API.
-   */
-
-  /**
-   * Sets the line style policy. Supported policies:
-   * <ul>
-   *     <li>Default line style policy (no arguments): the default line style is used which is solid for all plots.</li>
-   *     <li>Single line style (passing {string}): The specified line style is used for all plots. Supported styles
-   *     are: solid, dashed, dotted.</li>
-   *     <li>Custom line style mapping (passing an {Object}): each plot has the line style specified as the value for
-   *     the property with the same name as the plot's key.</li>
-   * </ul>
    *
-   * @method lineStyle
-   * @methodOf LineChart
-   * @param {(string | Object)} [policy] Line style policy to set. If not specified, the default policy is set.
-   * @returns {LineChart} Reference to the LineChart API.
+   * const line = dalian.LinePlot('my-chart')
+   *   .data([{
+   *     name: 'trend 1',
+   *     values: [
+   *       {x: 1.3, y: 2.3},
+   *       {x: 1.4, y: 2.1, lo: 1, hi: 0.5},
+   *       {x: 5.3, y: -2.3},
+   *       ...
+   *     ]
+   *   }, {
+   *     name: 'trend 2',
+   *     values: [
+   *       {x: 2.5, y: 7.1, lo: 1.2},
+   *       {x: 3.8, y: 5.3, hi: 1.3},
+   *       {x: 1.7, y: 2.4},
+   *       ...
+   *     ]
+   *   } ... ])
+   *   .render()
    */
-
-  /**
-   * Sets the line width policy. Supported policies:
-   * <ul>
-   *     <li>Default line width policy (no arguments): The default line width is used which is 2px for all lines.</li>
-   *     <li>Single number or (passing {number}): The specified line width is used for all lines.</li>
-   *     <li>Custom line width mapping (passing an {Object}): Plots that are listed as property name have the line
-   *     width specified as the value for.</li>
-   * </ul>
-   *
-   * @method lineWidth
-   * @methodOf LineChart
-   * @param {(string | Object)} [policy] Line width policy to set. If not specified, the default policy is set.
-   * @returns {LineChart} Reference to the LineChart API.
-   */
+  return api
 }

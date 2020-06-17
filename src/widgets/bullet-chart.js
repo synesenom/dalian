@@ -2,11 +2,11 @@ import { hsl } from 'd3'
 import extend from '../core/extend'
 import compose from '../core/compose'
 import BottomAxis from '../components/axis/bottom-axis'
+import Description from '../components/description'
+import Font from '../components/font'
+import Placeholder from '../components/placeholder'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
-import Description from '../components/description'
-import Placeholder from '../components/placeholder'
-import Font from '../components/font'
 
 /**
  * The <a href="http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">bullet chart</a> widget.

@@ -1,3 +1,5 @@
+// TODO Add API docs.
+// TODO Add example.
 /**
  * Component implementing line style features.
  *
@@ -28,7 +30,7 @@ export default (self, api) => {
 
   // Protected members
   self = Object.assign(self || {}, {
-    _lineStyles: {
+    _lineStyle: {
       /**
        * Returns the stroke dasharray CSS property value for a specific key.
        *

@@ -33,6 +33,11 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
+  // Defaults.
+  const DEFAULTS = {
+    size: 4
+  }
+
   const scales = {
     x: Scale('linear'),
     y: Scale('linear')
@@ -57,7 +62,7 @@ export default (name, parent = 'body') => {
     diagram: undefined,
 
     // UI variables.
-    size: 4,
+    size: DEFAULTS.size,
 
     // Calculations.
     computeDiagram: data => {
@@ -87,9 +92,9 @@ export default (name, parent = 'body') => {
         .domain(yRange)
 
       // Adjust scales to fit circles within the axes.
-      const dx = _.scales.x.measure(2 * _.size)
+      const dx = _.scales.x.measure(_.size)
       _.scales.x.domain(self._xRange.range([xRange[0] - dx, xRange[1] + dx]))
-      const dy = _.scales.y.measure(2 * _.size)
+      const dy = _.scales.y.measure(_.size)
       _.scales.y.domain(self._yRange.range([yRange[1] + dy, yRange[0] - dy]))
 
       // Add plots.
@@ -107,7 +112,7 @@ export default (name, parent = 'body') => {
             .attr('class', 'dot')
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
-            .attr('r', _.size)
+            .attr('r', _.size / 2)
             .style('opacity', 0)
 
           return g
@@ -123,7 +128,7 @@ export default (name, parent = 'body') => {
                 .attr('class', 'dot')
                 .attr('cx', d => _.scales.x.scale(d.x))
                 .attr('cy', d => _.scales.y.scale(d.y))
-                .attr('r', _.size)
+                .attr('r', _.size / 2)
                 .style('opacity', 0),
               update => update,
               exit => exit.transition().duration(duration)
@@ -133,7 +138,7 @@ export default (name, parent = 'body') => {
             .transition().duration(duration)
             .attr('cx', d => _.scales.x.scale(d.x))
             .attr('cy', d => _.scales.y.scale(d.y))
-            .attr('r', _.size)
+            .attr('r', _.size / 2)
             .style('opacity', self._opacity.value())
 
           return g
@@ -147,7 +152,7 @@ export default (name, parent = 'body') => {
       // Add event to detect hovering events.
       self._widget.container
         .on('mousemove.scatter', () => {
-          const dot = _.diagram.find(...self._widget.getMouse(), Math.max(20, _.size)) || undefined
+          const dot = _.diagram.find(...self._widget.getMouse(), Math.max(20, _.size / 2)) || undefined
 
           // Mouse events.
           if (typeof dot !== 'undefined' && dot !== _.current) {
@@ -183,7 +188,7 @@ export default (name, parent = 'body') => {
       return
     } else {
       self._plotMarker.add(_.scales.x.scale(_.current.x), _.scales.y.scale(_.current.y), 'marker', _.current,
-        Math.max(5, 1.5 * _.size))
+        Math.max(5, 0.75 * _.size))
     }
 
     return {
@@ -225,9 +230,20 @@ export default (name, parent = 'body') => {
      * @methodOf ScatterPlot
      * @param {number} [value = 4] Radius of the circles to set in pixels
      * @returns {Object} Reference to the ScattePlot's API.
+     *
+     * @example
+     *
+     * // Set dot size to 2px.
+     * const scatter = dalian.ScatterPlot('my-chart')
+     *   .size(2)
+     *   .render()
+     *
+     * // Reset size to default.
+     * scatter.size()
+     *   .render()
      */
-    size: value => {
-      _.size = value || 4
+    size: (value = DEFAULTS.size) => {
+      _.size = value
       return api
     }
   })
@@ -240,18 +256,38 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf ScatterPlot
    * @param {Object[]} plots Array of objects representing the dot clouds to show. Each plot has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Name of the plot.</li>
-   *   <li>{Object[]} <i>values</i>: Plot data.</li>
-   * </ul>
-   * The <i>values</i> property is an array of objects of the following structure:
    * <dl>
-   *   <dt>x {number}</dt> <dd>X coordinate of the data point.</dd>
-   *   <dt>y {number}</dt> <dd>Y coordinate of the data point.</dd>
-   *   <dt>label {(number|string)}</dt> <dd>An optional label that is used for distinguishing the dots during updates.</dd>
+   *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
+   *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
+   * </dl>
+   * The {values} property is an array of objects of the following structure:
+   * <dl>
+   *   <dt>x</dt>     <dd>{number} X coordinate of the data point.</dd>
+   *   <dt>y</dt>     <dd>{number} Y coordinate of the data point.</dd>
+   *   <dt>label</dt> <dd>{(number|string)} An optional label that is used for distinguishing the dots during updates.</dd>
    * </dl>
    * @returns {ScatterPlot} Reference to the ScatterPlot API.
+   *
+   * @example
+   *
+   * const scatter = dalian.ScatterPlot('my-chart')
+   *   .data([{
+   *     name: 'sample 1',
+   *     values: [
+   *       {x: 1.3, y: 2.3},
+   *       {x: 1.4, y: 2.1},
+   *       {x: 5.3, y: -2.3},
+   *       ...
+   *     ]
+   *   }, {
+   *     name: 'sample 2',
+   *     values: [
+   *       {x: 2.5, y: 7.1},
+   *       {x: 3.8, y: 5.3},
+   *       {x: 1.7, y: 2.4},
+   *       ...
+   *     ]
+   *   } ... ])
+   *   .render()
    */
 }
-
-// TODO Data

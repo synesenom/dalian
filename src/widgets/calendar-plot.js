@@ -342,6 +342,18 @@ export default (name, parent = 'body') => {
      * @param {string[]} names Array of strings representing the month names. Default values are the month names in
      * English.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     *
+     * @example
+     *
+     * // Set months to Spanish month names.
+     * const calendar = dalian.CalendarPlot('my-chart')
+     *   .months(['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+     *   'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'])
+     *   .render()
+     *
+     * // Reset month names to default.
+     * calendar.months()
+     *   .render()
      */
     months (names = DEFAULTS.blocks.names) {
       _.blocks.names = names
@@ -355,6 +367,17 @@ export default (name, parent = 'body') => {
      * @methodOf CalendarPlot
      * @param {string} [align = start] Alignment value to set. Supported values: start, middle.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     *
+     * @example
+     *
+     * // Set label alignment to center.
+     * const calendar = dalian.CalendarPlot('my-chart')
+     *   .blockAlign('middle')
+     *   .render()
+     *
+     * // Reset alignment to default.
+     * calendar.blockAlign()
+     *   .render()
      */
     blockAlign (align = DEFAULTS.blocks.align) {
       _.blocks.align = align
@@ -368,6 +391,17 @@ export default (name, parent = 'body') => {
      * @methodOf CalendarPlot
      * @param {number} [margin = 0] Size of the margin between month blocks relative to the tile size.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     *
+     * @example
+     *
+     * // Set block separation to twice the tile size.
+     * const calendar = dalian.CalendarPlot('my-calendar')
+     *   .blockMargin(2)
+     *   .render()
+     *
+     * // Reset block separation to default.
+     * calendar.blockMargin()
+     *   .render()
      */
     blockMargin (margin = DEFAULTS.blocks.margin) {
       _.blocks.margin = margin
@@ -379,8 +413,20 @@ export default (name, parent = 'body') => {
      *
      * @method days
      * @methodOf CalendarPlot
-     * @param {string[]} names Array representing the names of the days. Default values are the short names in English.
+     * @param {string[]} names Array representing the names of the days, starting with Sunday. Default values are the
+     * short names in English.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     *
+     * @example
+     *
+     * // Set day names to Spanish short names.
+     * const calendar = dalian.CalendarPlot('my-chart')
+     *   .days(['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'])
+     *   .render()
+     *
+     * // Reset day names to default.
+     * calendar.days()
+     *   .render()
      */
     days (names = DEFAULTS.tiles.names) {
       _.tiles.names = names
@@ -394,6 +440,17 @@ export default (name, parent = 'body') => {
      * @methodOf CalendarPlot
      * @param {number} day Week start as an index. Supported values go from 0 (Sunday) to 6 (Saturday).
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
+     *
+     * @example
+     *
+     * // Set start of the week to Monday.
+     * const calendar = dalian.CalendarPlot('my-chart')
+     *   .weekStart(1)
+     *   .render()
+     *
+     * // Reset week start to default.
+     * calendar.weekStart()
+     *   .render()
      */
     weekStart (day = DEFAULTS.tiles.weekStart) {
       _.tiles.weekStart = day

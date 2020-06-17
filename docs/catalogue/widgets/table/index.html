@@ -22,10 +22,12 @@
     <li onclick="changeData()">Change data</li>
     <li onclick="toggleSchema()">Toggle schema</li>
     <li onclick="togglePaging()">Toggle paging</li>
+    <li onclick="toggleColor()">Toggle color</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A table ...
+    A table widget to represent simple data with <span class="good">no actual relationship</span> between the data
+    points. The columns can be sorted by clicking on the column head.
   </p>
 </p><h1>code<div class="margin-right"><a href="../../../api/widgets/table.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/table.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
@@ -62,9 +64,9 @@ const table = dalian.Table('table', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-let changeData = () => table.data(getData()).render()
+const changeData = () => table.data(getData()).render()
 
-let toggleSchema = () => {
+const toggleSchema = () => {
   this.h = 1 - (this.h || 0)
   table.schema(this.h ? [
     {key: 'id', name: 'ID'},
@@ -81,8 +83,13 @@ let toggleSchema = () => {
   ]).render()
 }
 
-let togglePaging = () => {
+const togglePaging = () => {
   this.p = 1 - (this.p || 0)
   table.paging(this.p ? 5 : undefined).render()
+}
+
+const toggleColor = () => {
+  this.c = 1 - (this.c || 0)
+  table.color(this.c ? 'royalblue' : undefined).render()
 }
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

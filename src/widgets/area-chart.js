@@ -6,6 +6,7 @@ import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
+import LineColor from '../components/line-color'
 import Objects from '../components/objects'
 import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
@@ -24,9 +25,12 @@ import YRange from '../components/range/y-range'
  *     specified in the data array.
  *   </li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/line-color.html">LineColor</a></li>
+ *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
  *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
  *   <li><a href="../components/smoothing.html">Smoothing</a></li>
+ *   <li><a href="../components/y-range.html">YRange</a></li>
  * </ul>
  *
  * @function AreaChart
@@ -43,6 +47,7 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('area-chart', name, parent),
     LeftAxis(scales.y),
+    LineColor('currentColor'),
     BottomAxis(scales.x),
     PlotMarker,
     Objects(scales),
@@ -57,7 +62,6 @@ export default (name, parent = 'body') => {
   const _ = {
     // Variables.
     scales,
-    lineColor: null,
 
     // Methods.
     update (duration) {
@@ -92,25 +96,27 @@ export default (name, parent = 'body') => {
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
+            .style('color', self._color.mapper)
 
           // Add area.
           g.append('path')
             .attr('class', 'area')
             .attr('d', d => areaFn(d.values))
             .attr('stroke', 'none')
-            .attr('fill', self._color.mapper)
+            .attr('fill', 'currentColor')
 
           // Add line.
           g.append('path')
             .attr('class', 'line')
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
-            .attr('stroke', _.lineColor || self._color.mapper)
+            .attr('stroke', self._lineColor.mapping)
 
           return g
         },
         update: g => {
           g.style('opacity', 1)
+            .style('color', self._color.mapper)
 
           // Update area.
           g.select('.area')
@@ -123,7 +129,7 @@ export default (name, parent = 'body') => {
 
           // Update line.
           g.select('.line')
-            .attr('stroke', _.lineColor)
+            .attr('stroke', self._lineColor.mapping)
             .attrTween('d', function (d) {
               const previous = select(this).attr('d')
               const current = lineFn(d.values)
@@ -213,53 +219,45 @@ export default (name, parent = 'body') => {
 
   // Public API.
   api = Object.assign(api || {}, {
-    // TODO Make line color a component.
-    // TODO Add LineWidth component
-    lineColor: (color) => {
-      _.lineColor = color || null
-      return api
-    }
+    /**
+     * Set/updates the data that is shown in the area chart.
+     *
+     * @method data
+     * @methodOf AreaChart
+     * @param {Object[]} plots Array of objects representing the area plots to show. Each plot has two properties:
+     * <dl>
+     *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
+     *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
+     * </dl>
+     * The {values} property is an array of objects of the following structure:
+     * <dl>
+     *   <dt>x</dt> <dd>{number} X coordinate of the data point.</dd>
+     *   <dt>y</dt> <dd>{number} Y coordinate of the data point.</dd>
+     * </dl>
+     * @returns {AreaChart} Reference to the AreaChart API.
+     *
+     * @example
+     *
+     * const area = dalian.AreaChart('my-chart')
+     *   .data([{
+     *     name: 'area 1',
+     *     values: [
+     *       {x: 0.0, y: 1.1},
+     *       {x: 0.1, y: 1.2},
+     *       {x: 0.2, y: 1.4}
+     *       ...
+     *     ]
+     *   }, {
+     *     name: 'area 2',
+     *     values: [
+     *       {x: 0.0, y: 4.3},
+     *       {x: 0.1, y: 4.2},
+     *       {x: 0.2, y: 3.8}
+     *       ...
+     *     ]
+     *   }])
+     *   .render()
+     */
   })
   return api
-
-  // Documentation.
-  /**
-   * Set/updates the data that is shown in the area chart.
-   *
-   * @method data
-   * @methodOf AreaChart
-   * @param {Object[]} plots Array of objects representing the area plots to show. Each plot has two properties:
-   * <dl>
-   *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
-   *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
-   * </dl>
-   * The {values} property is an array of objects of the following structure:
-   * <dl>
-   *   <dt>x</dt> <dd>{number} X coordinate of the data point.</dd>
-   *   <dt>y</dt> <dd>{number} Y coordinate of the data point.</dd>
-   * </dl>
-   * @returns {AreaChart} Reference to the AreaChart API.
-   *
-   * @example
-   *
-   * const area = dalian.AreaChart('my-chart')
-   *   .data([{
-   *     name: 'area 1',
-   *     values: [
-   *       {x: 0.0, y: 1.1},
-   *       {x: 0.2, y: 1.2},
-   *       {x: 0.3, y: 3.2}
-   *       ...
-   *     ]
-   *   }, {
-   *     name: 'area 2',
-   *     values: [
-   *       {x: 0.0, y: 4.3},
-   *       {x: 0.2, y: 4.2},
-   *       {x: 0.3, y: 2.1}
-   *       ...
-   *     ]
-   *   }])
-   *   .render()
-   */
 }

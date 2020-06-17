@@ -1,6 +1,7 @@
 <div id="desc">
   <p>
-    A table ...
+    A table widget to represent simple data with <span class="good">no actual relationship</span> between the data
+    points. The columns can be sorted by clicking on the column head.
   </p>
 </div>
 <div id="controls">
@@ -8,6 +9,7 @@
     <li onclick="changeData()">Change data</li>
     <li onclick="toggleSchema()">Toggle schema</li>
     <li onclick="togglePaging()">Toggle paging</li>
+    <li onclick="toggleColor()">Toggle color</li>
   </ul>
 </div>
 
@@ -73,9 +75,9 @@ const table = dalian.Table('table', '#widget')
 
 <script class="doc">
 // api methods
-let changeData = () => table.data(getData()).render()
+const changeData = () => table.data(getData()).render()
 
-let toggleSchema = () => {
+const toggleSchema = () => {
   this.h = 1 - (this.h || 0)
   table.schema(this.h ? [
     {key: 'id', name: 'ID'},
@@ -92,8 +94,13 @@ let toggleSchema = () => {
   ]).render()
 }
 
-let togglePaging = () => {
+const togglePaging = () => {
   this.p = 1 - (this.p || 0)
   table.paging(this.p ? 5 : undefined).render()
+}
+
+const toggleColor = () => {
+  this.c = 1 - (this.c || 0)
+  table.color(this.c ? 'royalblue' : undefined).render()
 }
 </script>

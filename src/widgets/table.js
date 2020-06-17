@@ -447,13 +447,25 @@ export default (name, parent = 'body') => {
   // Public API.
   api = Object.assign(api, {
     /**
-     * Sets the table content. This method clears the table and re-populates it with the new data.
+     * Sets the table content. This method clears the table and re-populates it with the new data. Note that a schema
+     * has to be defined for the data using the <a href='#schema'>schema</a> method.
      *
      * @method data
      * @methodOf Table
      * @param {Object[]} data Array of objects representing the rows of the table. Each row is an object with the column
      * IDs as property names and cell values as values.
      * @returns {Table} Reference to the Table API.
+     *
+     * @example
+     *
+     * const table = dalian.Table('my-table')
+     *   .data([
+     *     {name: 'Alice',   id: 1, year: '1985-02-01'},
+     *     {name: 'Bob',     id: 2, year: '1993-05-13'},
+     *     {name: 'Charlie', id: 3, year: '1968-07-08'},
+     *     ...
+     *   ])
+     *   .render()
      */
     data (data) {
       // Add index.
@@ -486,6 +498,16 @@ export default (name, parent = 'body') => {
      *   representation of the value.</li>
      * </ul>
      * @returns {Table} Reference to the Table API.
+     *
+     * @example
+     *
+     * const table = dalian.Table('my-table')
+     *   .schema([
+     *     {key: 'name', name: 'Player name'},
+     *     {key: 'id', name: 'Identifier', type: 'number'},
+     *     {key: 'year', name: 'Year born', format: d => new Date(d).getFullYear()}
+     *   ])
+     *   .render()
      */
     schema (schema) {
       _.data.schema = schema
@@ -499,6 +521,17 @@ export default (name, parent = 'body') => {
      * @methodOf Table
      * @param {string} [color = #888] Color to set.
      * @returns {Table} Reference to the Table API.
+     *
+     * @example
+     *
+     * // Set color to royalblue.
+     * const table = dalian.Table('my-table')
+     *   .color('royalblue')
+     *   .render()
+     *
+     * // Reset color to default.
+     * table.color()
+     *   .render()
      */
     color (color = DEFAULTS.color) {
       // Update color.
@@ -525,6 +558,25 @@ export default (name, parent = 'body') => {
       return api
     },
 
+    /**
+     * Enables/disables paging functionality.
+     *
+     * @method paging
+     * @methodOf Table
+     * @param {number} size Number of rows in a single page.
+     * @returns {Table} Reference to the Table API.
+     *
+     * @example
+     *
+     * // Set paging with 5 rows per page.
+     * const table = dalian.Table('my-table')
+     *   .paging(5)
+     *   .render()
+     *
+     * // Disable paging.
+     * table.paging()
+     *   .render()
+     */
     paging (size = DEFAULTS.pageSize) {
       _.paging.reset(size)
       return api

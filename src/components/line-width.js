@@ -1,4 +1,5 @@
-// TODO Add default line width as parameter.
+// TODO Add API docs.
+// TODO Add example.
 export default defaultValue => {
   return (self, api) => {
     // Private members.
@@ -20,8 +21,9 @@ export default defaultValue => {
       /**
        * Sets the line width policy. Supported policies:
        * <ul>
-       *     <li>Default line width policy (no arguments): The default line width is used which is 2px for all lines.</li>
-       *     <li>Single number or (passing {number}): The specified line width is used for all lines.</li>
+       *     <li>Default line width policy (no arguments): The default line width is used for all lines. The value of
+       *     the default line width depends on the widget.</li>
+       *     <li>Single number (passing {number}): The specified line width is used for all lines.</li>
        *     <li>Custom line width mapping (passing an {Object}): Plots that are listed as property name have the line
        *     width specified as the value for.</li>
        * </ul>
@@ -37,7 +39,7 @@ export default defaultValue => {
           // Single line width policy, using the specified line width.
           _.mapping = () => policy + 'px'
         } else {
-          // Line width mapping given. Try to getElem line width for specified key, or use 2px if missing.
+          // Line width mapping given. Try to the line width for the specified key, or use the default if missing.
           _.mapping = key => (policy[key] || defaultValue) + 'px'
         }
         return api

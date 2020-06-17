@@ -197,9 +197,6 @@ export default (name, parent = 'body') => {
   // Extend widget update
   self._widget.update = extend(self._widget.update, _.update, true)
 
-  return api
-
-  // Documentation
   /**
    * Set/updates the data that is shown in the bar chart. In the bar chart, each bar is a plot group in itself, so all
    * methods that operate on plot groups are applied on the bar level.
@@ -224,4 +221,5 @@ export default (name, parent = 'body') => {
    *   ])
    *   .render()
    */
+  return api
 }

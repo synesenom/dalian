@@ -238,7 +238,7 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
       y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
     }))
   }, {
-    name: 'cherry',
+    name: 'blackberry',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i + Math.random() * 8 - 4,
       y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
@@ -252,7 +252,7 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .font.size(11)
   .color.palette({
     blueberry: COLORS.widget[0],
-    cherry: 'black'
+    blackberry: COLORS.widget[1]
   })
   .bottomAxis.label('X')
   .leftAxis.label('Y')

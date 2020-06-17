@@ -1,8 +1,8 @@
 import { extent, max, voronoi } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import Chart from '../components/chart'
 import BottomAxis from '../components/axis/bottom-axis'
+import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
@@ -227,48 +227,48 @@ export default (name, parent = 'body') => {
       _.radius = radius
       return api
     }
+
+    /**
+     * Set/updates the chart data. Each bubble is a plot group in itself, so all methods that operate on plot groups are
+     * applied on the bubble level.
+     *
+     * @method data
+     * @methodOf BubbleChart
+     * @param {Object[]} plots Array of objects representing the bubbles to show. Each bubble has two properties:
+     * <dl>
+     *   <dt>name</dt>  <dd>{string} Category name.</dd>
+     *   <dt>value</dt> <dd>{Object} Category value.</dd>
+     * </dl>
+     * The <i>value</i> property is an object with the following structure:
+     * <dl>
+     *   <dt>x</dt>    <dd>{number} Horizontal coordinate of the bubble.</dd>
+     *   <dt>y</dt>    <dd>{number} Vertical coordinate of the bubble.</dd>
+     *   <dt>size</dt> <dd>{number} Bubble size. Note that the bubble is scaled so that its area will be
+     *   proportional to this value.</dd>
+     * </dl>
+     * @returns {BubbleChart} Reference to the BubbleChart API.
+     *
+     * @example
+     *
+     * const bubbles = dalian.BubbleChart('my-chart')
+     *   .data([{
+     *     name: 'bubble 1',
+     *     value: {
+     *       x: 1,
+     *       y: 3,
+     *       size: 1
+     *     }
+     *   }, {
+     *     name: 'bubble 2',
+     *     value: {
+     *       x: 2,
+     *       y: 2,
+     *       size: 9
+     *     }
+     *   }])
+     *   .render()
+     */
   })
 
   return api
-
-  /**
-   * Set/updates the chart data. Each bubble is a plot group in itself, so all methods that operate on plot groups are
-   * applied on the bubble level.
-   *
-   * @method data
-   * @methodOf BubbleChart
-   * @param {Object[]} plots Array of objects representing the bubbles to show. Each bubble has two properties:
-   * <dl>
-   *   <dt>name</dt>  <dd>{string} Category name.</dd>
-   *   <dt>value</dt> <dd>{Object} Category value.</dd>
-   * </dl>
-   * The <i>value</i> property is an object with the following structure:
-   * <dl>
-   *   <dt>x</dt>    <dd>{number} Horizontal coordinate of the bubble.</dd>
-   *   <dt>y</dt>    <dd>{number} Vertical coordinate of the bubble.</dd>
-   *   <dt>size</dt> <dd>{number} Bubble size. Note that the bubble is scaled so that its area will be
-   *   proportional to this value.</dd>
-   * </dl>
-   * @returns {BubbleChart} Reference to the BubbleChart API.
-   *
-   * @example
-   *
-   * const bubbles = dalian.BubbleChart('my-chart')
-   *   .data([{
-   *     name: 'bubble 1',
-   *     value: {
-   *       x: 1,
-   *       y: 3,
-   *       size: 1
-   *     }
-   *   }, {
-   *     name: 'bubble 2',
-   *     value: {
-   *       x: 2,
-   *       y: 2,
-   *       size: 9
-   *     }
-   *   }])
-   *   .render()
-   */
 }

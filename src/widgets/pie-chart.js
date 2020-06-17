@@ -31,6 +31,12 @@ import Label from '../components/label'
  * @param {string} [parent = body] Query selector of the parent element to append widget to.
  */
 export default (name, parent = 'body') => {
+  // Defaults.
+  const DEFAULTS = {
+    innerRadius: 0,
+    outerRadius: 100
+  }
+
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
@@ -41,8 +47,8 @@ export default (name, parent = 'body') => {
   // Private members
   const _ = {
     // Style variables.
-    innerRadius: 0,
-    outerRadius: 100,
+    innerRadius: DEFAULTS.innerRadius,
+    outerRadius: DEFAULTS.outerRadius,
 
     // Currently hovered wedge.
     current: undefined,
@@ -281,8 +287,19 @@ export default (name, parent = 'body') => {
      * @methodOf PieChart
      * @param {number} [radius = 0] The inner radius in pixels.
      * @returns {PieChart} Reference to the PieChart API.
+     *
+     * @example
+     *
+     * // Set inner radius to 10px.
+     * const pie = dalian.PieChart('my-chart')
+     *   .innerRadius(10)
+     *   .render()
+     *
+     * // Reset inner radius to default.
+     * pie.innerRadius()
+     *   .render()
      */
-    innerRadius: (radius = 0) => {
+    innerRadius: (radius = DEFAULTS.innerRadius) => {
       _.innerRadius = radius
       return api
     },
@@ -294,27 +311,48 @@ export default (name, parent = 'body') => {
      * @methodOf PieChart
      * @param {number} [radius = 100] The outer radius in pixels. If not specified, it is set to 100.
      * @returns {PieChart} Reference to the PieChart API.
+     *
+     * @example
+     *
+     * // Set outer radius to 60px.
+     * const pie = dalian.PieChart('my-chart')
+     *   .outerRadius(60)
+     *   .render()
+     *
+     * // Reset outer radius to default.
+     * pie.outerRadius()
+     *   .render()
      */
-    outerRadius: (radius = 100) => {
+    outerRadius: (radius = DEFAULTS.outerRadius) => {
       _.outerRadius = radius
       return api
     }
+
+    /**
+     * Set/updates the data that is shown in the pie chart. In the pie chart, each slice is a plot group in itself, so all
+     * methods that operate on plot groups are applied on the slice level.
+     *
+     * @method data
+     * @methodOf PieChart
+     * @param {Object[]} plots Array of objects representing the pie slices to show. Each slice has two properties:
+     * <dl>
+     *   <dt>name</dt>  <dd>{string} Category name.</dd>
+     *   <dt>value</dt> <dd>{number} Category value.</dd>
+     * </dl>
+     * @returns {PieChart} Reference to the PieChart API.
+     *
+     * @example
+     *
+     * const pie = dalian.PieChart('my-chart')
+     *   .data([
+     *     {name: 'slice 1', value: 1},
+     *     {name: 'slice 2', value: 3},
+     *     {name: 'slice 3', value: 2},
+     *     ...
+     *   ])
+     *   .render()
+     */
   })
 
   return api
-
-  // Documentation
-  /**
-   * Set/updates the data that is shown in the pie chart. In the pie chart, each slice is a plot group in itself, so all
-   * methods that operate on plot groups are applied on the slice level.
-   *
-   * @method data
-   * @methodOf PieChart
-   * @param {Object[]} plots Array of objects representing the pie slices to show. Each slice has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Category name.</li>
-   *   <li>{number} <i>value</i>: Category value.</li>
-   * </ul>
-   * @returns {PieChart} Reference to the PieChart API.
-   */
 }
