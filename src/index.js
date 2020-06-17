@@ -1,7 +1,3 @@
-// Color deficiencies.
-import { deficiencies } from './components/color'
-export const Color = { deficiencies }
-
 // Widgets.
 export { default as AreaChart } from './widgets/area-chart'
 export { default as BarChart } from './widgets/bar-chart'

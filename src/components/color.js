@@ -292,6 +292,14 @@ export const Color = (self, api) => {
        * @methodOf Color
        * @param {string} [policy = categorical] Policy to set for the color scheme.
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Set color policy to sequential.
+       * chart.color.policy('sequential')
+       *
+       * // Reset color policy to default.
+       * chart.color.policy()
        */
       policy (policy = DEFAULTS.policy) {
         _.policy = policy
@@ -354,6 +362,24 @@ export const Color = (self, api) => {
        * @param {string} missing Color to be used for missing values. This is mostly relevant for the sequential and
        * diverging color policies. Default value is policy dependent.
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Set color palette to single color.
+       * chart.color.palette('green')
+       *
+       * // Set color palette to a mapping from plot names to colors (categorical policy).
+       * chart.color.palette({
+       *   plot1: 'green',
+       *   plot2: 'brown'
+       * })
+       *
+       * // Set color palette to an array of colors with missing color as gray
+       * // for sequential and diverging policies.
+       * chart.color.palette(['green', 'yellow', 'brown'], 'gray')
+       *
+       * // Reset color palette to policy-default.
+       * chart.color.palette()
        */
       palette (palette, missing) {
         // Check fo built-in palettes
@@ -393,10 +419,17 @@ export const Color = (self, api) => {
        * @methodOf Color
        * @param {string} type Type of deficiency to emulate. Supported values: <code>achromatomaly</code>,
        * <code>achromatopsia</code>, <code>deuteranomaly</code>, <code>deuteranopia</code>, <code>protanomaly</code>,
-       * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. These values are also available as
-       * constants under <a href='#deficiencies'>Color.deficiencies</a>. If it is not specified, true colors are
-       * restored.
+       * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. If it is not specified, true colors
+       * are restored.
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Set deficiency to protanotopia.
+       * chart.color.deficiency('protanotopia')
+       *
+       * // Remove deficiency emulator (true colors).
+       * chart.color.deficiency()
        */
       deficiency (type) {
         _.deficiency = type
@@ -419,6 +452,18 @@ export const Color = (self, api) => {
        * @param {Function} [on = d => d.name] Function that maps from a data point to a set of categories, the interval
        * [0, 1] or the interval [-1, 1].
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Set color mapping to the first letter of the plot name (for categorical policy).
+       * chart.color.on(d => d.name.chartAt(0))
+       *
+       * // Set color mapping to the y value of the element (for sequential policy).
+       * // yMax is the maximum data point in the data set.
+       * chart.color.on(d => d.y / yMax)
+       *
+       * // Reset color mapping to default.
+       * chart.color.on()
        */
       on (on = DEFAULTS.on) {
         _.on = on
@@ -429,24 +474,4 @@ export const Color = (self, api) => {
   })
 
   return { self, api }
-}
-
-/**
- * Namespace holding the names of the supported color vision deficiency emulators that can be passed to the
- * <a href='#deficiency'>Color.deficiency</a> method. Constants included: {ACHROMATOMALY}, {ACHROMATOPSIA},
- * {DEUTERANOMALY}, {DEUTERANOPIA}, {PROTANOMALY}, {PROTANOPIA}, {TRITANOMALY}, {TRITANOPIA}.
- *
- * @namespace deficiencies
- * @methodOf Color
- * @static
- */
-export const deficiencies = {
-  ACHROMATOMALY: 'achromatomaly',
-  ACHROMATOPSIA: 'achromatopsia',
-  DEUTERANOMALY: 'deuteranomaly',
-  DEUTERANOPIA: 'deuteranopia',
-  PROTANOMALY: 'protanomaly',
-  PROTANOPIA: 'protanopia',
-  TRITANOMALY: 'tritanomaly',
-  TRITANOPIA: 'tritanopia'
 }

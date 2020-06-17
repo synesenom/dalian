@@ -148,6 +148,11 @@ export default (type, name, parent, elem = 'svg') => {
      * @param {string} filename Name of the file to download chart at (without extension).
      * @returns {Widget} Reference to the Widget API.
      * @async
+     *
+     * @example
+     *
+     * // Download the chart under the name 'awesome-chart.png'.
+     * chart.download('awesome-chart')
      */
     download: async filename => {
       // Inspired by https://github.com/JuanIrache/d3-svg-to-png

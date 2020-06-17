@@ -75,12 +75,20 @@ export default type => {
     // Public API.
     const gridApi = {
       /**
-       * Turns on/off grid lines.
+       * Turns on/off grid lines. By default, the grid is off.
        *
        * @method on
        * @methodOf BaseGrid
        * @param {boolean} on Whether to have grid lines.
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Turn on X grid for a chart.
+       * chart.xGrid.on(true)
+       *
+       * // Turn off Y grid for a chart.
+       * chart.yGrid.on(false)
        */
       on: on => {
         _.on = on
@@ -94,6 +102,11 @@ export default type => {
        * @methodOf BaseGrid
        * @param {number} value The opacity value.
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Set X grid opacity to 0.8 for a chart.
+       * chart.xGrid.opacity(0.8)
        */
       opacity: value => {
         _.opacity = value
@@ -107,6 +120,14 @@ export default type => {
        * @methodOf BaseGrid
        * @param {string} style Line style. Supported values: solid, dashed, dotted.
        * @returns {Widget} Reference to the Widget's API.
+       *
+       * @example
+       *
+       * // Set X grid line style to solid for a chart.
+       * chart.xGrid.lineStyle('solid')
+       *
+       * // Set Y grid line style to dotted for a chart.
+       * chart.yGrid.lineStyle('dotted')
        */
       lineStyle: style => {
         switch (style) {
