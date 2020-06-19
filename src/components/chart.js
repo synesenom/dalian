@@ -79,8 +79,10 @@ export default (type, name, parent, elem = 'svg') => {
       transformData: data => data,
 
       plotGroups (attr, duration) {
+        const t = self._chart.plots.transition().duration(duration)
+
         // Select groups
-        let groups = self._chart.plots.selectAll('.plot-group')
+        self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)
           .join(
             // Entering groups
@@ -93,11 +95,10 @@ export default (type, name, parent, elem = 'svg') => {
             },
             // Group update: do nothing
             update => update,
-            exit => {
-              let g = exit.transition().duration(duration)
-              g = attr.exit ? attr.exit(g) : g
-              g.remove()
-            })
+            exit => exit.transition(t)
+              .call(attr.exit || (g => g))
+              .remove()
+            )
           .on('mouseover.chart', self._mouse.over)
           .on('mouseleave.chart', self._mouse.leave)
           .on('click.chart', self._mouse.click)
@@ -106,15 +107,14 @@ export default (type, name, parent, elem = 'svg') => {
             self._chart.plots.style('pointer-events', 'none')
             self._widget.transition = true
           })
-        // Update group before transition.
-        groups = attr.updateBefore ? attr.updateBefore(groups) : groups
 
-        // Transition update.
-        groups = groups.transition().duration(duration)
-        groups = attr.update ? attr.update(groups) : groups
+        // Updates: before and after transition.
+        .call(attr.updateBefore || (g => g))
+          .transition(t)
+          .call(attr.update || (g => g))
 
         // At the end, restore pointer events.
-        groups.on('end', () => {
+        .on('end', () => {
           // Enable pointer events if any of the followings hold:
           // - Mouse events are enabled.
           // - Tooltip is enabled.
