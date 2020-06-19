@@ -79,22 +79,24 @@ export default (type, name, parent, elem = 'svg') => {
       transformData: data => data,
 
       plotGroups (attr, duration) {
+        // Get plot transition.
         const t = self._chart.plots.transition().duration(duration)
 
-        // Select groups
+        // Update groups.
         self._chart.plots.selectAll('.plot-group')
           .data(self._chart.data, d => d.name)
           .join(
-            // Entering groups
-            enter => {
-              const g = enter.append('g')
+            // Entering groups.
+            enter => enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
                 .attr('clip-path', `url(#${_.clipId})`)
                 .style('shape-rendering', 'geometricPrecision')
-              return attr.enter ? attr.enter(g) : g
-            },
-            // Group update: do nothing
+                .call(attr.enter || (g => g)),
+
+            // Groups that only update: do nothing (updates are applied to all groups at the end).
             update => update,
+
+            // Exiting groups: remove them.
             exit => exit.transition(t)
               .call(attr.exit || (g => g))
               .remove()
