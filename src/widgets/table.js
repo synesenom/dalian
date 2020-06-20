@@ -117,7 +117,7 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Widget('table', name, parent, 'div'),
     Description,
-    Highlight(['td'], (() => {
+    Highlight(() => _.dom.table, ['td'], (() => {
       const background = lighter(DEFAULTS.color, 0.8)
       return {
         focus: {
@@ -437,9 +437,6 @@ export default (name, parent = 'body') => {
       _.paging.update(duration)
     }
   }
-
-  // Overrides.
-  self._highlight.container = _.dom.table
 
   // Extend widget update
   self._widget.update = extend(self._widget.update, _.update, true)

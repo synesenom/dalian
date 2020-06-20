@@ -61,7 +61,7 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     Objects(scales),
-    Highlight(['.plot-group', '.plot-marker', '.trends-marker']),
+    Highlight(() => self._chart.plots, ['.plot-group', '.plot-marker', '.trends-marker']),
     LineStyle,
     LineWidth(2),
     Pins(scales),
@@ -167,8 +167,6 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides.
-  self._highlight.container = self._chart.plots
-
   self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
       self._plotMarker.remove()

@@ -54,7 +54,7 @@ export default (name, parent = 'body') => {
     Opacity(0.4),
     Smoothing,
     PointTooltip,
-    Highlight(['.plot-group', '.plot-marker']),
+    Highlight(() => self._chart.plots, ['.plot-group', '.plot-marker']),
     YRange
   )
 
@@ -144,8 +144,6 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides
-  self._highlight.container = self._chart.plots
-
   self._tooltip.content = mouse => {
     // If outside the plot, hide tooltip
     if (typeof mouse === 'undefined') {

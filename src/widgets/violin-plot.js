@@ -45,7 +45,7 @@ export default (name, parent = 'body') => {
     Chart('violin-plot', name, parent),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(() => self._chart.plots, ['.plot-group']),
     Horizontal(scales),
     LeftAxis(scales.y),
     LineWidth(1),
@@ -181,8 +181,6 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides.
-  self._highlight.container = self._chart.plots
-
   self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
     title: _.current.name,
     stripe: self._color.mapper(_.current),
@@ -295,37 +293,37 @@ export default (name, parent = 'body') => {
       })
       return api
     }
+
+    /**
+     * Set/updates the chart data. Each violin is a plot group in itself, so all methods that operate on plot groups are
+     * applied on the violin level.
+     *
+     * @method data
+     * @methodOf ViolinPlot
+     * @param {Object[]} plots Array of objects representing the violins to show. Each violin has two properties:
+     * <dl>
+     *   <dt>name</dt>   <dd>{string} Category name.</dd>
+     *   <dt>values</dt> <dd>{number[]} Sample values corresponding to the category. These should be the raw observations,
+     *   the KDE is computed by the chart itself.</dd>
+     * </dl>
+     *
+     * Note that for the violin plot, the raw observations should be passed as values as the chart itself calculates the
+     * KDE used to represent the data.
+     * @returns {ViolinPlot} Reference to the ViolinPlot API.
+     *
+     * @example
+     *
+     * const violin = dalian.ViolinPlot('my-chart')
+     *   .data([{
+     *     name: 'violin 1',
+     *     values: [1, 1, 3, 3, 2, 4, 7, 4, 3, 9]
+     *   }, {
+     *     name: 'violin 2',
+     *     values: [4, 5, 5, 4, 7, 4, 2, 2, 6, 2]
+     *   }])
+     *   .render()
+     */
   })
 
   return api
-
-  /**
-   * Set/updates the chart data. Each violin is a plot group in itself, so all methods that operate on plot groups are
-   * applied on the violin level.
-   *
-   * @method data
-   * @methodOf ViolinPlot
-   * @param {Object[]} plots Array of objects representing the violins to show. Each violin has two properties:
-   * <dl>
-   *   <dt>name</dt>   <dd>{string} Category name.</dd>
-   *   <dt>values</dt> <dd>{number[]} Sample values corresponding to the category. These should be the raw observations,
-   *   the KDE is computed by the chart itself.</dd>
-   * </dl>
-   *
-   * Note that for the violin plot, the raw observations should be passed as values as the chart itself calculates the
-   * KDE used to represent the data.
-   * @returns {ViolinPlot} Reference to the ViolinPlot API.
-   *
-   * @example
-   *
-   * const violin = dalian.ViolinPlot('my-chart')
-   *   .data([{
-   *     name: 'violin 1',
-   *     values: [1, 1, 3, 3, 2, 4, 7, 4, 3, 9]
-   *   }, {
-   *     name: 'violin 2',
-   *     values: [4, 5, 5, 4, 7, 4, 2, 2, 6, 2]
-   *   }])
-   *   .render()
-   */
 }

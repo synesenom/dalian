@@ -47,7 +47,7 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(() => self._chart.plots, ['.plot-group']),
     Horizontal(scales),
     Label,
     YGrid
@@ -181,8 +181,6 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides
-  self._highlight.container = self._chart.plots
-
   self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
     title: _.current.name,
     stripe: self._color.mapper(_.current),

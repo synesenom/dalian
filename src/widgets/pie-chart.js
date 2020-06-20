@@ -40,7 +40,7 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(() => self._chart.plots, ['.plot-group']),
     Label
   )
 
@@ -161,7 +161,6 @@ export default (name, parent = 'body') => {
             .each((d, i) => Object.assign(d, { _measures: _.measure(d, i, style) }))
 
           // Group of elements.
-          // TODO Remove unnecessary group.
           const slice = g.append('g')
             .attr('class', 'slice')
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
@@ -260,8 +259,6 @@ export default (name, parent = 'body') => {
       .map(d => Object.assign(d, { name: d.data.name }))
   }
 
-  self._highlight.container = self._chart.plots
-
   self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
     title: _.current.name,
     stripe: self._color.mapper(_.current),
@@ -275,7 +272,6 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update
-  // Update plot before widget
   self._widget.update = extend(self._widget.update, _.update)
 
   // Public API
@@ -287,7 +283,6 @@ export default (name, parent = 'body') => {
      * @methodOf PieChart
      * @param {number} [radius = 0] The inner radius in pixels.
      * @returns {PieChart} Reference to the PieChart API.
-     *
      * @example
      *
      * // Set inner radius to 10px.
@@ -311,7 +306,6 @@ export default (name, parent = 'body') => {
      * @methodOf PieChart
      * @param {number} [radius = 100] The outer radius in pixels. If not specified, it is set to 100.
      * @returns {PieChart} Reference to the PieChart API.
-     *
      * @example
      *
      * // Set outer radius to 60px.
@@ -340,7 +334,6 @@ export default (name, parent = 'body') => {
      *   <dt>value</dt> <dd>{number} Category value.</dd>
      * </dl>
      * @returns {PieChart} Reference to the PieChart API.
-     *
      * @example
      *
      * const pie = dalian.PieChart('my-chart')

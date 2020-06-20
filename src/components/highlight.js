@@ -10,7 +10,7 @@ import styles from '../utils/styles'
  *
  * @function Highlight
  */
-export default (selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
+export default (container, selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
   return (self, api) => {
     function createRemoveStyle (style) {
       const properties = Object.keys(style.focus || {})
@@ -20,17 +20,19 @@ export default (selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
 
     // Private members.
     const _ = {
+      container: undefined,
+      selectors,
       highlightStyle,
       removeStyle: createRemoveStyle(highlightStyle),
-      selectors,
-      highlightSelection: (selector, keys, duration) => {
+
+      highlight: (selector, keys, duration) => {
         // Ignore highlight during animation.
         if (self._widget.transition) {
           return
         }
 
         // Stop current transitions and create new one.
-        const selection = self._highlight.container.selectAll(selector)
+        const selection = (_.container || (_.container = container())).selectAll(selector)
           .interrupt()
         const t = selection.transition().duration(duration || 0)
 
@@ -67,7 +69,6 @@ export default (selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
           _.highlightStyle = style
           _.removeStyle = createRemoveStyle(style)
         },
-        container: undefined,
         selectors: undefined
       }
     })
@@ -87,12 +88,12 @@ export default (selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
        */
       highlight: (keys, duration = 0) => {
         // Check if container is specified.
-        if (typeof self._highlight.container === 'undefined') {
+        if (typeof container() === 'undefined') {
           throw Error('Highlight.container is not specified')
         }
 
         // Highlight elements.
-        _.selectors.forEach(d => _.highlightSelection(d, keys, duration))
+        _.selectors.forEach(d => _.highlight(d, keys, duration))
 
         // Return widget API.
         return api

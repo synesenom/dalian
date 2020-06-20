@@ -43,7 +43,7 @@ export default (name, parent = 'body') => {
     LeftAxis(scales.y),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(() => self._chart.plots, ['.plot-group']),
     Opacity(0.6),
     XRange,
     YRange
@@ -170,8 +170,6 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides
-  self._highlight.container = self._chart.plots
-
   self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
       return

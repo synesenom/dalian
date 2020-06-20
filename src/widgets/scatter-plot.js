@@ -46,7 +46,7 @@ export default (name, parent = 'body') => {
     Chart('scatter-plot', name, parent),
     BottomAxis(scales.x),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(() => self._chart.plots, ['.plot-group']),
     LeftAxis(scales.y),
     Opacity(0.6),
     PlotMarker,
@@ -173,9 +173,7 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Overrides
-  self._highlight.container = self._chart.plots
-
+  // Overrides.
   self._tooltip.content = mouse => {
     if (typeof mouse === 'undefined') {
       self._plotMarker.remove()
@@ -246,48 +244,47 @@ export default (name, parent = 'body') => {
       _.size = value
       return api
     }
+
+    /**
+     * Set/updates the data that is shown in the scatter plot.
+     *
+     * @method data
+     * @methodOf ScatterPlot
+     * @param {Object[]} plots Array of objects representing the dot clouds to show. Each plot has two properties:
+     * <dl>
+     *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
+     *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
+     * </dl>
+     * The {values} property is an array of objects of the following structure:
+     * <dl>
+     *   <dt>x</dt>     <dd>{number} X coordinate of the data point.</dd>
+     *   <dt>y</dt>     <dd>{number} Y coordinate of the data point.</dd>
+     *   <dt>label</dt> <dd>{(number|string)} An optional label that is used for distinguishing the dots during updates.</dd>
+     * </dl>
+     * @returns {ScatterPlot} Reference to the ScatterPlot API.
+     *
+     * @example
+     *
+     * const scatter = dalian.ScatterPlot('my-chart')
+     *   .data([{
+     *     name: 'sample 1',
+     *     values: [
+     *       {x: 1.3, y: 2.3},
+     *       {x: 1.4, y: 2.1},
+     *       {x: 5.3, y: -2.3},
+     *       ...
+     *     ]
+     *   }, {
+     *     name: 'sample 2',
+     *     values: [
+     *       {x: 2.5, y: 7.1},
+     *       {x: 3.8, y: 5.3},
+     *       {x: 1.7, y: 2.4},
+     *       ...
+     *     ]
+     *   } ... ])
+     *   .render()
+     */
   })
   return api
-
-  // Documentation.
-  /**
-   * Set/updates the data that is shown in the scatter plot.
-   *
-   * @method data
-   * @methodOf ScatterPlot
-   * @param {Object[]} plots Array of objects representing the dot clouds to show. Each plot has two properties:
-   * <dl>
-   *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
-   *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
-   * </dl>
-   * The {values} property is an array of objects of the following structure:
-   * <dl>
-   *   <dt>x</dt>     <dd>{number} X coordinate of the data point.</dd>
-   *   <dt>y</dt>     <dd>{number} Y coordinate of the data point.</dd>
-   *   <dt>label</dt> <dd>{(number|string)} An optional label that is used for distinguishing the dots during updates.</dd>
-   * </dl>
-   * @returns {ScatterPlot} Reference to the ScatterPlot API.
-   *
-   * @example
-   *
-   * const scatter = dalian.ScatterPlot('my-chart')
-   *   .data([{
-   *     name: 'sample 1',
-   *     values: [
-   *       {x: 1.3, y: 2.3},
-   *       {x: 1.4, y: 2.1},
-   *       {x: 5.3, y: -2.3},
-   *       ...
-   *     ]
-   *   }, {
-   *     name: 'sample 2',
-   *     values: [
-   *       {x: 2.5, y: 7.1},
-   *       {x: 3.8, y: 5.3},
-   *       {x: 1.7, y: 2.4},
-   *       ...
-   *     ]
-   *   } ... ])
-   *   .render()
-   */
 }

@@ -57,7 +57,7 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
-    Highlight(['.plot-group']),
+    Highlight(() => self._chart.plots, ['.plot-group']),
     Label,
     LeftAxis(scales.y),
     TopAxis(scales.x)
@@ -317,8 +317,7 @@ export default (name, parent = 'body') => {
     return blocks
   }
 
-  self._highlight.container = self._chart.plots
-
+  // Overrides.
   self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
     title: _.current.date.toISOString().substr(0, 10),
     stripe: self._color.mapper(_.current),
