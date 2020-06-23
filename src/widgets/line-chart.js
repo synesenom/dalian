@@ -220,7 +220,6 @@ export default (name, parent = 'body') => {
       // TODO Replace this with the data points.
       title: x,
       content: {
-        type: 'plots',
         data: plots
       }
     }
@@ -251,11 +250,11 @@ export default (name, parent = 'body') => {
    * @method data
    * @methodOf LineChart
    * @param {Object[]} plots Array of objects representing the lines to show. Each plot has two properties:
-   * <ul>
-   *   <li>{string} <i>name</i>: Name of the plot.</li>
-   *   <li>{Object[]} <i>values</i>: Plot data.</li>
-   * </ul>
-   * The <i>values</i> property is an array of objects of the following structure:
+   * <dl>
+   *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>
+   *   <dt>values</dt> <dd>{Object[]} Plot data.</dd>
+   * </dl>
+   * The {values} property is an array of objects of the following structure:
    * <dl>
    *   <dt>x</dt> <dd>{number} X coordinate of the data point.</dd>
    *   <dt>y</dt> <dd>{number} Y coordinate of the data point. For missing data, this value can be null.</dd>

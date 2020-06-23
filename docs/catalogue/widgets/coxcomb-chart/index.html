@@ -17,60 +17,79 @@
   const aspect = md.mobile() === null ? 2 : 1.5;
   const height = width / aspect;
   return { width, height };
-}--><title>ScatterPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+}--><title>CoxcombChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">Change data</li>
-    <li onclick="toggleSize()">Toggle size</li>
+    <li onclick="toggleRadius()">Toggle radius</li>
+    <li onclick="toggleAngle()">Toggle angle</li>
+    <li onclick="toggleLabels()">Toggle labels</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
-    <span class="good">monotonic relationship</span> between two quantities, such as
-    <span class="good">correlations</span>.
+    A coxcomb (or polar area) chart invented by
+    <a href="https://en.wikipedia.org/wiki/Florence_Nightingale">Florence Nightingale</a>. Area of the wedges is
+    proportional to the value they represent. This type of chart is useful to represent
+    <span class="good">cyclic data</span> such as values span over a week or months.
   </p>
-</p><h1>code<div class="margin-right"><a href="../../../api/widgets/scatter-plot.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/scatter-plot.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</p><h1>code<div class="margin-right"><a href="../../../api/widgets/coxcomb-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/coxcomb-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
-function getData (labels) {
+// Samples are generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  const length = 5 + Math.floor(3 * Math.random())
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   return [{
-    name: 'blackberry',
-    values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
-      x: i + Math.random() - 0.5,
-      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10,
-      label: labels ? i : undefined
-    }))
+    name: 'sleep',
+    values: (new ranjs.dist.Exponential()).sample(length)
+      .map((d, i) => ({
+        x: days[i],
+        y: d
+      }))
   }, {
-    name: 'blueberry',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i + Math.random() * 8 - 4,
-      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10,
-      label: labels ? i : undefined
-    }))
+    name: 'work',
+    values: (new ranjs.dist.Exponential()).sample(length)
+      .map((d, i) => ({
+        x: days[i],
+        y: d
+      }))
+  }, {
+    name: 'fun',
+    values: (new ranjs.dist.Exponential()).sample(length)
+      .map((d, i) => ({
+        x: days[i],
+        y: d
+      }))
   }]
 }
 </script><script class="doc">
 // create chart
-const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
+const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
   .data(getData())
   .width(600)
   .height(300)
-  .margins(40)
   .font.size(14)
-  .bottomAxis.label('X')
-  .leftAxis.label('Y')
-  .mouse.over(k => scatterPlot.highlight(k.name))
-  .mouse.leave(() => scatterPlot.highlight())
-  .mouse.click(k => alert(k.name))
+  .color.palette('palette-light')
+  .mouse.over(d => coxcombChart.highlight(d.name, 400))
+  .mouse.leave(() => coxcombChart.highlight(null, 400))
   .tooltip.on(true)
-  .tooltip.valueFormat(x => x.toFixed(2))
-  .tooltip.valueFormat(y => y.toFixed(2))
-  .size(6)
+  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => scatterPlot.data(getData()).render(1000)
+const changeData = () => coxcombChart.data(getData()).render(1000)
 
-let toggleSize = () => {
-  this.s = !(this.s || 0)
-  scatterPlot.size(this.s ? 6 : undefined).render(1000)
+const toggleRadius = () => {
+  this.r = !(this.r || 0)
+  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
+}
+
+const toggleAngle = () => {
+  this.a = 1 - (this.a || 0)
+  coxcombChart.angle(this.a ? 70 : undefined).render(1000)
+}
+
+const toggleLabels = () => {
+  this.l = 1 - (this.l || 0)
+  coxcombChart.label(this.l ? d => d.label : undefined).render()
 }
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

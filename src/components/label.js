@@ -25,16 +25,16 @@ export default (self, api) => {
      *
      * @method label
      * @methodOf Label
-     * @param {Function?} label Function that takes a single data point as parameter and returns a text representing the
-     * label to show.
+     * @param {Function?} format Function that takes a single data point as parameter and returns a text representing
+     * the label to show.
      * @returns {Widget} Reference to the Widget's API.
      */
-    label: label => {
+    label: format => {
       // Show label if parameter is not empty or null.
-      self._label.show = typeof label !== 'undefined' && label !== null
+      self._label.show = typeof format !== 'undefined' && format !== null
 
       // Update label formatter.
-      self._label.format = label || DEFAULTS.format
+      self._label.format = format || DEFAULTS.format
       return api
     }
   })

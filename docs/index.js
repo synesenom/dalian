@@ -37,6 +37,7 @@ const MODULES = [
   'widgets/bubble-chart',
   'widgets/bullet-chart',
   'widgets/calendar-plot',
+  'widgets/coxcomb-chart',
   'widgets/line-chart',
   'widgets/pie-chart',
   'widgets/scatter-plot',

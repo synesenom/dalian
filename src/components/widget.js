@@ -80,6 +80,13 @@ export default (type, name, parent, elem) => {
       }
     },
 
+    getDefs() {
+      if (typeof _.defs === 'undefined') {
+        _.defs = self._widget.content.append('defs')
+      }
+      return _.defs
+    },
+
     /**
      * @deprecated Use {@link getFontMetrics}
      */

@@ -4,7 +4,7 @@ import extend from '../core/extend'
 import copySvg from '../utils/copy-svg'
 import copyToCanvas from '../utils/copy-to-canvas'
 import download from '../utils/download'
-import { Color } from './color'
+import Color from './color'
 import Description from './description'
 import Font from './font'
 import Mouse from './mouse'
@@ -31,9 +31,9 @@ export default (type, name, parent, elem = 'svg') => {
     Widget(type, name, parent, elem),
     Color,
     Description,
-    Placeholder,
     Font,
-    Mouse
+    Mouse,
+    Placeholder
   )
 
   // Private members
@@ -42,7 +42,7 @@ export default (type, name, parent, elem = 'svg') => {
 
     return {
       clipId,
-      clip: self._widget.content.append('defs').append('clipPath')
+      clip: self._widget.getDefs().append('clipPath')
         .attr('id', clipId)
         .append('rect')
         .attr('x', 0)

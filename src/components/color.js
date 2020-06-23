@@ -128,7 +128,7 @@ function createDivergingMapping (palette, missing, on) {
  *
  * @function Color
  */
-export const Color = (self, api) => {
+export default (self, api) => {
   // Default values.
   const DEFAULTS = {
     policy: POLICIES.categorical,

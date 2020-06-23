@@ -2,7 +2,6 @@ import { select } from 'd3'
 import encode from '../core/encode'
 import styles from '../utils/styles'
 
-// FIXME Plots entering are not affected by the highlight
 
 /**
  * Component implementing the highlighting feature. Highlight fades out all plots except a set of specified ones. When

@@ -1,0 +1,118 @@
+<div id="desc">
+  <p>
+    A coxcomb (or polar area) chart invented by
+    <a href="https://en.wikipedia.org/wiki/Florence_Nightingale">Florence Nightingale</a>. Area of the wedges is
+    proportional to the value they represent. This type of chart is useful to represent
+    <span class="good">cyclic data</span> such as values span over a week or months.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="changeData()">Change data</li>
+    <li onclick="toggleRadius()">Toggle radius</li>
+    <li onclick="toggleAngle()">Toggle angle</li>
+    <li onclick="toggleLabels()">Toggle labels</li>
+  </ul>
+</div>
+
+<script class="card-example">
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
+  dalian.CoxcombChart('coxcomb-chart-card', '#coxcomb-chart')
+    .data([{
+      name: 'work',
+      values: Array.from({ length : 8 }, (d, i) => ({
+        x: months[i],
+        y: 10 * Math.random()
+      }))
+    }, {
+      name: 'sleep',
+      values: Array.from({ length : 8 }, (d, i) => ({
+        x: months[i],
+        y: 5 * Math.random()
+      }))
+    }, {
+      name: 'fun',
+      values: Array.from({ length : 8 }, (d, i) => ({
+        x: months[i],
+        y: Math.random()
+      }))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .font.size(11)
+    .color.palette(COLORS.widget[0])
+    .color.policy('sequential')
+    .color.on(d => 1 - ['work', 'sleep', 'fun'].indexOf(d.name) / 4)
+    .radius(60)
+    .label(d => d.label)
+    .render()
+</script>
+
+<script class="doc">
+// generate data
+// Samples are generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  const length = 5 + Math.floor(3 * Math.random())
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  return [{
+    name: 'sleep',
+    values: (new ranjs.dist.Exponential()).sample(length)
+      .map((d, i) => ({
+        x: days[i],
+        y: d
+      }))
+  }, {
+    name: 'work',
+    values: (new ranjs.dist.Exponential()).sample(length)
+      .map((d, i) => ({
+        x: days[i],
+        y: d
+      }))
+  }, {
+    name: 'fun',
+    values: (new ranjs.dist.Exponential()).sample(length)
+      .map((d, i) => ({
+        x: days[i],
+        y: d
+      }))
+  }]
+}
+</script>
+
+<script class="doc">
+// create chart
+const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
+  .data(getData())
+  .width(600)
+  .height(300)
+  .font.size(14)
+  .color.palette('palette-light')
+  .mouse.over(d => coxcombChart.highlight(d.name, 400))
+  .mouse.leave(() => coxcombChart.highlight(null, 400))
+  .tooltip.on(true)
+  .tooltip.valueFormat(d => d.y.toFixed(2))
+  .render(1000)
+</script>
+
+<script class="doc">
+// api methods
+const changeData = () => coxcombChart.data(getData()).render(1000)
+
+const toggleRadius = () => {
+  this.r = !(this.r || 0)
+  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
+}
+
+const toggleAngle = () => {
+  this.a = 1 - (this.a || 0)
+  coxcombChart.angle(this.a ? 70 : undefined).render(1000)
+}
+
+const toggleLabels = () => {
+  this.l = 1 - (this.l || 0)
+  coxcombChart.label(this.l ? d => d.label : undefined).render()
+}
+</script>
