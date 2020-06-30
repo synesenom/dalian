@@ -194,7 +194,6 @@ export default (name, parent = 'body') => {
       // TODO Replace this with the data points.
       title: x,
       content: {
-        type: 'plots',
         data: plots
       }
     }
