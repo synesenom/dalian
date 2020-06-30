@@ -6,6 +6,7 @@ import BottomAxis from '../components/axis/bottom-axis'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
+import Objects from '../components/objects'
 import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
 import Scale from '../components/scale'
@@ -23,6 +24,7 @@ import YRange from '../components/range/y-range'
  *     specified in the data array.
  *   </li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/line-width.html">Objects</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
  *   <li><a href="../components/x-range.html">XRange</a></li>
  *   <li><a href="../components/y-range.html">YRange</a></li>
@@ -48,6 +50,7 @@ export default (name, parent = 'body') => {
     ElementTooltip,
     Highlight(() => self._chart.plots, ['.plot-group']),
     LeftAxis(scales.y),
+    Objects(scales),
     Opacity(0.6),
     PlotMarker,
     XRange,
