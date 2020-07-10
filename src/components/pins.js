@@ -23,7 +23,6 @@ export default scales => (() => {
         if (typeof _.container === 'undefined') {
           _.container = self._chart.plots.append('g')
             .attr('class', 'pins-container')
-            .attr('clip-path', `url(#${self._chart.clipId})`)
         }
         return _.container
       }

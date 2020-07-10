@@ -80,7 +80,9 @@ export default (type, name, parent, elem = 'svg') => {
 
       plotGroups (attr, duration) {
         // Get plot transition.
-        const t = self._chart.plots.transition().duration(duration)
+        const t = self._chart.plots
+          .attr('clip-path', `url(#${_.clipId})`)
+          .transition().duration(duration)
 
         // Update groups.
         self._chart.plots.selectAll('.plot-group')
@@ -89,7 +91,6 @@ export default (type, name, parent, elem = 'svg') => {
             // Entering groups.
             enter => enter.append('g')
                 .attr('class', d => `plot-group ${encode(d.name)}`)
-                .attr('clip-path', `url(#${_.clipId})`)
                 .style('shape-rendering', 'geometricPrecision')
                 .call(attr.enter || (g => g)),
 

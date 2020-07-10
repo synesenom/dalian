@@ -22,7 +22,6 @@ export default scales => (() => {
         if (typeof _.containers[type] === 'undefined') {
           _.containers[type] = self._chart.plots.append('g')
             .attr('class', 'objects-container')
-            .attr('clip-path', `url(#${self._chart.clipId})`)
           if (type === 'background') {
             _.containers[type].lower()
           } else {
