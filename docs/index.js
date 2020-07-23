@@ -120,7 +120,7 @@ buildFromTemplate('API index page', 'api-index', 'api/index.html', {
 
 
 // Build catalogue index
-buildFromTemplate('Catalogue index page', 'catalogue-index', 'catalogue/index.html', {
+buildFromTemplate('Catalogue index page', 'catalogue', 'catalogue/index.html', {
   dependencies,
   components: MODULES.filter(d => getModuleCategory(d) === 'components')
     .filter(hasExamplePage)

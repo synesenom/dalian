@@ -76,7 +76,7 @@ module.exports = (meta, docs, modulePath) => {
       createPath(path)
 
       // Build template
-      const template = pug.compileFile('./templates/catalogue-page.pug')
+      const template = pug.compileFile('./templates/example.pug')
       const content = fs.readFileSync(`catalogue/${type}/${moduleName}/content.html`, {encoding: 'utf8'})
       const document = new JSDOM(content).window.document
 

@@ -53,5 +53,6 @@ main {
     margin-bottom: 10px;
 }
 .margin-right a:hover {
+    border: none;
     color: royalblue;
 }
