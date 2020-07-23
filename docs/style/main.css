@@ -7,6 +7,22 @@ main {
     overflow-y: scroll;
 }
 
+/* Centered content: main page. */
+.main-content-centered {
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 10%;
+}
+
+/* Centered, wide content. */
+.main-content-wide {
+    display: block;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 10%;
+}
+
 .main-content {
     position: relative;
     width: 60%;
@@ -14,23 +30,9 @@ main {
     margin: 50px auto;
 }
 
-.main-content-centered {
-    position: relative;
-    width: 600px;
-    margin: 40px auto;
-}
-
 .main-content-padded {
     width: calc(100% - 60px);
     padding: 30px;
-}
-
-.main-content-wide {
-    display: block;
-    width: 90%;
-    min-width: 320px;
-    max-width: 1220px;
-    margin: 0 auto 30px auto;
 }
 
 .margin-right {

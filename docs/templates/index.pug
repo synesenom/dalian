@@ -3,7 +3,7 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        each css in ['fonts', 'base', 'link', 'heading', 'code', 'list', 'scrollbar', 'main', 'atelier-lakeside-light']
+        each css in ['fonts', 'scrollbar', 'base', 'main', 'link', 'heading', 'code', 'list', 'desktop', 'atelier-lakeside-light']
             link(rel='stylesheet', type='text/css', href='style/' + css + '.css')
         script(src='js/highlight.min.js')
         script.
@@ -24,11 +24,11 @@ html(lang='en')
 
                 h2 install
                 h3 node
-                pre.install
+                pre
                     code.bash npm install dalian
 
                 h3 browser
-                pre.install
+                pre
                     code.html
                         | #{'<!-- Dependencies -->'}
                         | #{install.browser.dependencies}

@@ -71,7 +71,7 @@ const dependencies = Object.entries(meta.dependencies).map(d => ({
   version: d[1].match(/(\d+.\d+.\d+)$/)[0]
 }))
 buildFromTemplate('Docs index page', 'index', 'index.html', {
-  gitHubBanner: fs.readFileSync('./templates/github-banner.html', {encoding: 'utf-8'}),
+  gitHubBanner: fs.readFileSync('./templates/github-banner-new.html', {encoding: 'utf-8'}),
 
   // Download links
   download: {

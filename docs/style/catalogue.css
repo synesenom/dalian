@@ -10,7 +10,7 @@
     float: left;
     top: 0;
     width: 200px;
-    margin: 29px;
+    margin: 29px calc(50% - 120px);
     padding: 20px;
     background-color: #fff;
     border-radius: 3px;
