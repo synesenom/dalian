@@ -53,7 +53,7 @@ function getData () {
   // Create values for unique dates.
   const year = 2016 + Math.floor(3 * Math.random())
   const minDate = Math.floor(50 * Math.random())
-  const maxDate = 100 + Math.floor(100 * Math.random())
+  const maxDate = 60 + Math.floor(40 * Math.random())
 
   let data = Array.from({ length: 200 }, () => {
     let date = new Date(year, 0, 1)
@@ -77,9 +77,9 @@ function getData () {
 // create chart
 const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
-  .margins({left: 50, top: 50})
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 50, top: 50, right: 50})
   .font.size(12)
   .color.palette([
     '#E5E5E5',

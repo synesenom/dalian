@@ -38,32 +38,20 @@ function getData () {
     name: '𝜒²',
     values: new ranjs.dist.Chi2(1 + 9 * Math.random()).sample(1000)
   }, {
-    name: 'von Mises',
-    values: new ranjs.dist.VonMises(3 * Math.random()).sample(1000)
-  }, {
     name: 'bimodal',
     values: new ranjs.dist.Normal(2 + 2 * Math.random(), 1 + Math.random()).sample(500)
       .concat(new ranjs.dist.Normal(10 + 2 * Math.random(), 1 + Math.random()).sample(500))
   }, {
-    name: 'Poisson',
-    values: new ranjs.dist.Poisson(2 + 10 * Math.random()).sample(1000)
-  }, {
-    name: 'Rice',
-    values: new ranjs.dist.Rice(2 * Math.random(), 5 * Math.random()).sample(1000)
-  }, {
     name: 'Skellam',
     values: new ranjs.dist.Skellam(3 * Math.random(), 10 * Math.random()).sample(1000)
-  }, {
-    name: 'uniform',
-    values: new ranjs.dist.Uniform(Math.random(), 1 + 10 * Math.random()).sample(1000)
   }]
 }
 </script><script class="doc">
 // create chart
 const violinPlot = dalian.ViolinPlot('violin-plot', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
+  .width(WIDTH)
+  .height(HEIGHT)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('distribution')

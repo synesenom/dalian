@@ -86,8 +86,8 @@ function getData () {
 // create chart
 const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
+  .width(WIDTH)
+  .height(HEIGHT)
   .font.size(14)
   .color.palette('palette-light')
   .mouse.over(d => coxcombChart.highlight(d.name, 400))

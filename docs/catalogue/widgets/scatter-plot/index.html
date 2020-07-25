@@ -48,9 +48,9 @@ function getData (labels) {
 // create chart
 const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
-  .margins(40)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 70, right: 40, top: 40, bottom: 40})
   .font.size(14)
   .bottomAxis.label('X')
   .leftAxis.label('Y')

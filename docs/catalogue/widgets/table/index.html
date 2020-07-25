@@ -52,8 +52,8 @@ const table = dalian.Table('table', '#widget')
     {key: 'total', name: 'Total amount', type: 'number'},
     {key: 'currency', name: 'Currency'}
   ])
-  .width(600)
-  .height(300)
+  .width(WIDTH)
+  .height(HEIGHT)
   .margins(40)
   .font.size(14)
   .mouse.over(k => table.highlight(`row-${k.row}`))

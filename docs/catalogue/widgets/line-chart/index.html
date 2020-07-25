@@ -53,9 +53,9 @@ function getData () {
 // create chart
 const lineChart = dalian.LineChart('line-chart', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
-  .margins(40)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 60, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('days')
   .leftAxis.label('price')
