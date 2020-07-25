@@ -42,6 +42,8 @@ function getData () {
 // create chart
 const chart = dalian.LineChart('myChart', '#widget')
   .data(getData())
+  .width(0.8 * WIDTH)
+  .height(0.7 * HEIGHT)
   .margins(40)
   .font.size(14)
   .bottomAxis.label('Elapsed time [h]')
@@ -51,22 +53,22 @@ const chart = dalian.LineChart('myChart', '#widget')
 // api methods
 let changeX = () => {
   this.x = !(this.x || 0)
-  chart.x(this.x ? 100 : undefined).render(1000)
+  chart.x(this.x ? 20 : undefined).render(1000)
 }
 let changeY = () => {
   this.y = !(this.y || 0)
-  chart.y(this.y ? 50 : undefined).render(1000)
+  chart.y(this.y ? 20 : undefined).render(1000)
 }
 let changeWidth = () => {
   this.w = !(this.w || 0)
-  chart.width(this.w ? 400 : undefined).render(1000)
+  chart.width(this.w ? 0.9 * WIDTH : 0.8 * WIDTH).render(1000)
 }
 let changeHeight = () => {
   this.h = !(this.h || 0)
-  chart.height(this.h ? 240 : undefined).render(1000)
+  chart.height(this.h ? 0.8 * HEIGHT : 0.7 * HEIGHT).render(1000)
 }
 let changeMargins = () => {
   this.m = !(this.m || 0)
-  chart.margins(this.m ? {left: 50, right: 60, top: 70, bottom: 80} : 40).render(1000)
+  chart.margins(this.m ? 50 : 40).render(1000)
 }
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

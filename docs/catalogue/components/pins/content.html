@@ -62,9 +62,9 @@ function getData () {
 // create chart
 const chart = dalian.LineChart('myChart', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
-  .margins(40)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 60, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('Elapsed time')
   .leftAxis.label('Temperature [C]')
@@ -93,7 +93,7 @@ let toggleFixedPin = () => {
   if (this.f) {
     chart.pins.add('fixed', 10 + 30 * Math.random(), {
       color: 'yellowgreen',
-      'height': 0.7,
+      'height': 0.65,
       text: 'Fixed pin',
       fixed: true
     }, 1000)

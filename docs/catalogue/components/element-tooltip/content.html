@@ -46,9 +46,9 @@ function getData () {
 // create chart
 const chart = dalian.BarChart('myChart', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
-  .margins({left: 40, right: 40, top: 40, bottom: 50})
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 60, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .color.palette('royalblue')
   .bottomAxis.label('X')
