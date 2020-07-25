@@ -11,13 +11,7 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><!--script.function getSize () {
-  const md = new MobileDetect(window.navigator.userAgent);
-  const width = parseFloat(d3.select('#widget').style('width'));
-  const aspect = md.mobile() === null ? 2 : 1.5;
-  const height = width / aspect;
-  return { width, height };
-}--><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">Change data</li>
     <li onclick="toggleHorizontal()">Change to horizontal</li>
@@ -29,26 +23,26 @@
     <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
     process. Also, it can handle <span class="good">more categories</span> than a pie chart.
   </p>
-</p><h1>code<div class="margin-right"><a href="../../../api/widgets/bar-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bar-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</p><script>// Widget size.
+const WIDTH = parseFloat(d3.select('#widget').style('width'));
+const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
+</script><h1>code<div class="margin-right"><a href="../../../api/widgets/bar-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bar-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [
     {name: "apple", value: 100 * Math.random()},
-    {name: "melon", value: 40 * Math.random()},
     {name: "kiwi", value: 60 * Math.random()},
-    {name: "orange", value: 20 * Math.random()},
   ].concat(Math.random() > 0.5 ? [
-    {name: "coconut", value: 90 * Math.random()},
-    {name: "mango", value: 70 * Math.random()}
+    {name: "pear", value: 90 * Math.random()},
   ] : [])
-  .concat([{name: "pear", value: 30 * Math.random()}])
+  .concat([{name: "mango", value: 30 * Math.random()}])
 }
 </script><script class="doc">
 // create chart
 const barChart = dalian.BarChart('bar-chart', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
+  .width(WIDTH)
+  .height(HEIGHT)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('fruit')

@@ -28,15 +28,19 @@ export default (self, api) => {
   // Inject relevant style.
   StyleInjector.addClass(CLASSES.content, {
     'border-radius': '2px',
-    'font-family': 'inherit'
+    'font-family': 'inherit',
+    padding: '0.7em'
   }).addClass(CLASSES.title, {
     position: 'relative',
     margin: '2px',
-    'margin-bottom': '10px'
+    'margin-bottom': '10px',
+    'line-height': '1em'
   }).addClass(CLASSES.entry, {
     position: 'relative',
     margin: '2px',
-    'padding-right': '10px'
+    height: '1em',
+    'padding-right': '10px',
+    'line-height': '1em'
   }).addClass(CLASSES.label, {
     position: 'relative',
     float: 'left',
@@ -75,21 +79,17 @@ export default (self, api) => {
       // Create content node
       let contentNode = select(document.createElement('div'))
         .attr('class', CLASSES.content)
-        .style('padding', '0.7em')
         .style('border-left', content.stripe ? 'solid 4px ' + content.stripe : null)
 
       // Add title
       contentNode.append('div')
         .attr('class', CLASSES.title)
-        .style('line-height', '1em')
         .html(_.titleFormat(content.title))
 
       // Add content
       content.content.data.forEach(item => {
           let entry = contentNode.append('div')
             .attr('class', CLASSES.entry)
-            .style('height', '1em')
-            .style('line-height', '1em')
           entry.append('div')
             .attr('class', CLASSES.label)
             .html(_.labelFormat(item.name))
@@ -136,8 +136,8 @@ export default (self, api) => {
      *
      * @method valueFormat
      * @methodOf ElementTooltip
-     * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the
-     * entry value. Can be HTML formatted.
+     * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the entry
+     * data. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
     valueFormat: (format = DEFAULTS.valueFormat) => {

@@ -42,14 +42,11 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
 function getData () {
   return [
     {name: "apple", value: 100 * Math.random()},
-    {name: "melon", value: 40 * Math.random()},
     {name: "kiwi", value: 60 * Math.random()},
-    {name: "orange", value: 20 * Math.random()},
   ].concat(Math.random() > 0.5 ? [
-    {name: "coconut", value: 90 * Math.random()},
-    {name: "mango", value: 70 * Math.random()}
+    {name: "pear", value: 90 * Math.random()},
   ] : [])
-  .concat([{name: "pear", value: 30 * Math.random()}])
+  .concat([{name: "mango", value: 30 * Math.random()}])
 }
 </script>
 
@@ -57,8 +54,8 @@ function getData () {
 // create chart
 const barChart = dalian.BarChart('bar-chart', '#widget')
   .data(getData())
-  .width(600)
-  .height(300)
+  .width(WIDTH)
+  .height(HEIGHT)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('fruit')

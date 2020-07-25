@@ -29,14 +29,6 @@ html(lang='en')
               hljs.initHighlighting.called = false;
               hljs.initHighlighting();
             });
-        //script.
-          function getSize () {
-            const md = new MobileDetect(window.navigator.userAgent);
-            const width = parseFloat(d3.select('#widget').style('width'));
-            const aspect = md.mobile() === null ? 2 : 1.5;
-            const height = width / aspect;
-            return { width, height };
-          }
         title #{title} | dalian
     body
         main
@@ -53,6 +45,11 @@ html(lang='en')
                         a(href='../../') Back to the catalogue
                 p#desc
                     | !{description}
+
+                script.
+                    // Widget size.
+                    const WIDTH = parseFloat(d3.select('#widget').style('width'));
+                    const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
 
                 h1 code
                     .margin-right

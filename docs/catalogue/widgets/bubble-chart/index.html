@@ -11,13 +11,7 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><!--script.function getSize () {
-  const md = new MobileDetect(window.navigator.userAgent);
-  const width = parseFloat(d3.select('#widget').style('width'));
-  const aspect = md.mobile() === null ? 2 : 1.5;
-  const height = width / aspect;
-  return { width, height };
-}--><title>BubbleChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>BubbleChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">Change data</li>
     <li onclick="toggleRadius()">Change radius</li>
@@ -27,7 +21,10 @@
     A bubble chart is useful when <span class="good">three or four dimensions</span> need to be plotted for a <span class="good">small number</span> data points. Note that if only simple correlations are to shown for a
     <span class="bad">large data set</span>, a scatter plot is a better choice.
   </p>
-</p><h1>code<div class="margin-right"><a href="../../../api/widgets/bubble-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bubble-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</p><script>// Widget size.
+const WIDTH = parseFloat(d3.select('#widget').style('width'));
+const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
+</script><h1>code<div class="margin-right"><a href="../../../api/widgets/bubble-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bubble-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return ['ackee', 'chayote', 'cherimoya', 'kiwano',

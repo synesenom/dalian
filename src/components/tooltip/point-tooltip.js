@@ -35,23 +35,28 @@ export default (self, api) => {
     position: 'relative'
   }).addClass(CLASSES.container, {
     display: 'inline-block',
-    position: 'relative'
+    position: 'relative',
+    height: '1em'
   }).addClass(CLASSES.inner, {
     display: 'flex',
     position: 'relative',
+    height: '1em',
     'justify-content': 'center',
     'align-items': 'center'
   }).addClass(CLASSES.square, {
     display: 'inline-block',
     position: 'relative',
     float: 'left',
+    width: '0.85em',
+    height: '0.85em',
     'margin-right': '6px',
     'border-radius': '2px'
   }).addClass(CLASSES.label, {
     display: 'table-cell',
     position: 'relative',
     'max-width': '120px',
-    float: 'left'
+    float: 'left',
+    height: '0.8em'
   })
 
   // Default values.
@@ -98,19 +103,14 @@ export default (self, api) => {
           .attr('class', CLASSES.entry)
         let container = entry.append('div')
           .attr('class', CLASSES.container)
-          .style('height', '1em')
           .style('margin-top', (i === 0 ? 6 : 3) + 'px')
         let inner = container.append('div')
           .attr('class', CLASSES.inner)
-          .style('height', '1em')
         inner.append('div')
           .attr('class', CLASSES.square)
-          .style('width', '0.85em')
-          .style('height', '0.85em')
           .style('background', plot.background)
         inner.append('div')
           .attr('class', CLASSES.label)
-          .style('line-height', '0.8em')
           .html(_.valueFormat(plot))
       })
 

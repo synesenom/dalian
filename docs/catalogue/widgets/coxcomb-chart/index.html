@@ -11,13 +11,7 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><!--script.function getSize () {
-  const md = new MobileDetect(window.navigator.userAgent);
-  const width = parseFloat(d3.select('#widget').style('width'));
-  const aspect = md.mobile() === null ? 2 : 1.5;
-  const height = width / aspect;
-  return { width, height };
-}--><title>CoxcombChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>CoxcombChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">Change data</li>
     <li onclick="toggleRadius()">Toggle radius</li>
@@ -31,7 +25,10 @@
     proportional to the value they represent. This type of chart is useful to represent
     <span class="good">cyclic data</span> such as values span over a week or months.
   </p>
-</p><h1>code<div class="margin-right"><a href="../../../api/widgets/coxcomb-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/coxcomb-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</p><script>// Widget size.
+const WIDTH = parseFloat(d3.select('#widget').style('width'));
+const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
+</script><h1>code<div class="margin-right"><a href="../../../api/widgets/coxcomb-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/coxcomb-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Samples are generated with ranjs:
 // https://synesenom.github.io/ran/
