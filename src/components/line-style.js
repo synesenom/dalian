@@ -17,7 +17,7 @@ export default (self, api) => {
         default:
           return null
         case 'dashed':
-          return '4 8'
+          return '5 8'
         case 'dotted':
           return '1 8'
       }

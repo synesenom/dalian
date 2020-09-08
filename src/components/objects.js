@@ -49,22 +49,30 @@ export default scales => (() => {
          * @param {Element} obj The object to insert to the widget.
          * @param {Object} pos Object representing the {x} and {y} coordinates of the point to add the object at. The
          * coordinates are used as the widget's internal (data) coordinates.
-         * @param {Object} [options = {}] Options of inserting the object. Supported values:
+         * @param {Object} options Options of inserting the object. Supported
+         * values:
          * <ul>
          *   <li><code>boolean</code>foreground: Whether to insert the object in the foreground of the widget (on top
          *   of widget elements). Default value is false.</li>
+         *   <li><code>boolean</code>floating: Whether to insert a floating object (position is used as data coordinates
+         *   and the object position is updated when data changes) or fixed (position is used as coordinates relative to
+         *   the widget's top left corner and does not change when data is updated). Set it to true if you want to
+         *   insert objects using data coordinates and want them to follow the changes in data, otherwise leave it
+         *   unset. Default sis false.</li>
          * </ul>
          * @param {number} [duration = 0] Duration of the insert animation.
          * @returns {Widget} Reference to the Widget's API.
          */
-        add: (id, obj, pos, options = {}, duration = 0) => {
+        add: (id, obj, pos, options, duration = 0) => {
           // Fetch scales.
           const scaleX = scales.x.scale
           const scaleY = scales.y.scale
 
           // Add object's own group.
-          const g = _.getContainer(options.foreground ? 'foreground' : 'background').append('g')
-            .attr('transform', `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`)
+          const g = _.getContainer(options && options.foreground ? 'foreground' : 'background').append('g')
+            .attr('transform', options && options.floating
+              ? `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`
+              : `translate(${pos.x}, ${pos.y})`)
             .style('opacity', 0)
 
           // Add object to DOM,
@@ -93,7 +101,9 @@ export default scales => (() => {
             },
             update: duration => {
               g.transition().duration(duration)
-                .attr('transform', `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`)
+                .attr('transform', options && options.floating
+                  ? `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`
+                  : `translate(${pos.x}, ${pos.y})`)
             }
           }
 

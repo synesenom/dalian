@@ -1,8 +1,14 @@
 <div id="desc">
   <p>
     The Objects component allows for inserting arbitrary SVG elements (or groups) in the chart using the data
-    coordinates. Note that when the chart is updated, the inserted elements are not resized, only their position is
-    updated.
+    coordinates or absolute coordinates of the widget. When adding a random object:
+    <ul>
+      <li>Color denotes order: foreground (blue) or background (red).</li>
+      <li>Shape denotes position: floating (circle) or fixed (rectangle) position.</li>
+    </ul>
+
+    Note that when the chart is updated, inserted elements are not resized, only their position is updated if they are
+    floating objects.
     This example shows the available methods for the component and demonstrates its behavior when various properties of
     the chart are changed.
   </p>
@@ -88,52 +94,36 @@ let addObject = () => {
 
   let ns = 'http://www.w3.org/2000/svg'
   let elem
-  let color = ['royalblue', 'firebrick', 'yellowgreen'][Math.floor(3 * Math.random())]
-  switch (Math.floor(3 * Math.random())) {
-    case 0:
-    default:
-      // Circle.
-      elem = document.createElementNS(ns, 'circle')
-      elem.setAttributeNS(null, 'r', 20 * Math.random() + 10)
-      elem.setAttributeNS(null, 'stroke', '#fff')
-      elem.setAttributeNS(null, 'fill', color)
-      break
-    case 1:
-      // Rectangle.
-      elem = document.createElementNS(ns, 'rect')
-      elem.setAttributeNS(null, 'width', 50 * Math.random() + 20)
-      elem.setAttributeNS(null, 'height', 30 * Math.random() + 10)
-      elem.setAttributeNS(null, 'stroke', '#fff')
-      elem.setAttributeNS(null, 'fill', color)
-      elem.setAttributeNS(null, 'transform', `rotate(${180 * Math.random()})`)
-      break
-    case 2:
-      // Group with path and text.
-      elem = document.createElementNS(ns, 'g')
-      let path = document.createElementNS(ns, 'path')
-      path.setAttributeNS(null, 'd', 'M0 0 A20 20 0 0 0 20 -20 M16 -15 L20 -20 L24 -15')
-      path.setAttributeNS(null, 'stroke', color)
-      path.setAttributeNS(null, 'fill', 'none')
-      elem.appendChild(path)
-      let text = document.createElementNS(ns, 'text')
-      text.setAttributeNS(null, 'text-anchor', 'end')
-      text.setAttributeNS(null, 'x', '-4')
-      text.setAttributeNS(null, 'y', '4')
-      text.setAttributeNS(null, 'fill', color)
-      text.textContent = 'A fancy label'
-      elem.appendChild(text)
+  const foreground = Math.random() < 0.5
+  const floating = Math.random() < 0.5
+  const color = foreground ? 'royalblue' : 'firebrick'
+  if (floating) {
+    // Circle.
+    elem = document.createElementNS(ns, 'circle')
+    elem.setAttributeNS(null, 'r', 20 * Math.random() + 10)
+    elem.setAttributeNS(null, 'stroke', '#fff')
+    elem.setAttributeNS(null, 'fill', color)
+  } else {
+    // Rectangle.
+    elem = document.createElementNS(ns, 'rect')
+    elem.setAttributeNS(null, 'width', 50 * Math.random() + 20)
+    elem.setAttributeNS(null, 'height', 30 * Math.random() + 10)
+    elem.setAttributeNS(null, 'stroke', '#fff')
+    elem.setAttributeNS(null, 'fill', color)
+    elem.setAttributeNS(null, 'transform', `rotate(${180 * Math.random()})`)
   }
 
   chart.objects.add(this.a[this.a.length - 1], elem, {
-    x: 10 + 50 * Math.random(),
-    y: 1 + 4 * Math.random()
+    x: 10 + (floating ? 40 : WIDTH) * Math.random(),
+    y: 1 + (floating ? 4 : HEIGHT) * Math.random()
   }, {
-    foreground: Math.random() < 0.5
+    foreground,
+    floating
   }, 1000)
 }
 
 let updateObject = () => {
-  if (this.a.length === 0) {
+  if (!this.a || this.a.length === 0) {
     return
   }
   let id = this.a[Math.floor(this.a.length * Math.random())]
@@ -145,11 +135,14 @@ let updateObject = () => {
   path.setAttributeNS(null, 'fill', 'goldenrod')
 
   // Insert object.
+  const foreground = Math.random() < 0.5
+  const floating = Math.random() < 0.5
   chart.objects.add(id, path, {
-    x: 10 + 50 * Math.random(),
-    y: 1 + 4 * Math.random()
+    x: 10 + (floating ? 50 : WIDTH) * Math.random(),
+    y: 1 + (floating ? 4 : HEIGHT) * Math.random()
   }, {
-    foreground: Math.random() < 0.5
+    foreground,
+    floating
   }, 1000)
 }
 
