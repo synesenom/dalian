@@ -1,0 +1,69 @@
+<!DOCTYPE html><!--mixin resize(elem)//script.
+    function resize() {
+      const { width, height } = getSize();
+      document.getElementById('widget').style.paddingTop = height + 'px';
+      
+        .width(width)
+        .height(height)
+    }
+    window.onresize = resize;
+--><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+  .callback(function() {
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+  });</script><title>LineStyle | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="toggleLineStyle()">Toggle line style</li>
+  </ul>
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
+  <p>
+    The LineStyle component manages the line styles of lines in various widgets.
+  </p>
+</p><script>// Widget size.
+const WIDTH = parseFloat(d3.select('#widget').style('width'));
+const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
+</script><h1>code<div class="margin-right"><a href="../../../api/components/line-style.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/line-style.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+// generate data
+function getData () {
+  return [{
+    name: 'mango',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.pow(i / 40, 2),
+      lo: i / 100,
+      hi: i / 150
+    }))
+  }, {
+    name: 'kiwi',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.log(i + 1)
+        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+      lo: .4,
+      hi: .9
+    }))
+  }]
+}
+</script><script class="doc">
+// create chart
+const chart = dalian.LineChart('myChart', '#widget')
+  .data(getData())
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 60, top: 40, bottom: 40, right: 40})
+  .font.size(14)
+  .bottomAxis.label('days')
+  .leftAxis.label('price')
+  .smoothing(true)
+  .tooltip.on(true)
+  .tooltip.valueFormat(d => d.y === null ? 'No data' : d.y.toFixed(2))
+  .render(1000)
+</script><script class="doc">
+// api methods
+let toggleLineStyle = () => {
+  this.l = ((this.l || 0) + 1) % 3
+  chart.lineStyle({
+    mango: ['solid', 'dashed', 'dotted'][this.l]
+  }).render()
+}
+</script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

@@ -517,6 +517,40 @@ dalian.LineChart('left-axis-card', '#left-axis')
 
 // Highlight component
 d3.select('#left-axis .dalian-axis-container.y').style('color', COLORS.component)
+</script></a><a class="card" href="components/line-style"><div class="card-title">LineStyle</div><div class="card-content" id="line-style"></div><script class="card-example">
+dalian.LineChart('line-style-card', '#line-style')
+  .data([{
+    name: 'mango',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.pow(i / 40, 2),
+      lo: i / 100,
+      hi: i / 150
+    }))
+  }, {
+    name: 'kiwi',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.log(i + 1)
+        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+      lo: .4,
+      hi: .9
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 20, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .color.palette({
+    mango: COLORS.widget[0],
+    kiwi: COLORS.widget[1]
+  })
+  .bottomAxis.label('days')
+  .leftAxis.label('price')
+  .smoothing(true)
+  .render()
 </script></a><a class="card" href="components/mouse"><div class="card-title">Mouse</div><div class="card-content" id="mouse"></div><script class="card-example">
 dalian.BarChart('mouse-card', '#mouse')
   .data(Array.from({ length: 5 }, (d, i) => ({

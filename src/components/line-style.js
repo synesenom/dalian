@@ -1,20 +1,16 @@
-// TODO Add API docs.
-// TODO Add example.
 /**
- * Component implementing line style features.
+ * Component implementing the line style features. When this component is available for a widget, its API is exposed via
+ * the {.lineStyle} namespace.
  *
- * @class LineStyle
- * @param {Object} self Object containing the protected variables and methods.
- * @param {Object} api Object containing the public API methods.
- * @returns {{self: Object, api: Object}} Object containing the extended protected and public containers.
+ * @function LineStyle
  */
 export default (self, api) => {
-  // Private members
+  // Private members.
   const _ = {
-    // Variables
+    // Variables.
     policy: undefined,
 
-    // Methods
+    // Methods.
     getStrokeDashArray: style => {
       switch (style) {
         case 'solid':
@@ -23,12 +19,12 @@ export default (self, api) => {
         case 'dashed':
           return '4 8'
         case 'dotted':
-          return '2 5'
+          return '1 8'
       }
     }
   }
 
-  // Protected members
+  // Protected members.
   self = Object.assign(self || {}, {
     _lineStyle: {
       /**
@@ -39,18 +35,17 @@ export default (self, api) => {
        * @param {string} key Key to return stroke dasharray for.
        * @returns {(null | string)} The stroke dasharray value if policy is defined by a string or an object, null
        * otherwise (no stroke dasharray).
-       * @protected
+       * @ignore
        */
       strokeDashArray: key => {
-        // Update line style mapGroup
         if (typeof _.policy === 'undefined') {
-          // No policy, using default
+          // No policy, using default.
           return null
         } else if (typeof _.policy === 'string') {
-          // Single policy, using the specified line style
+          // Single policy, using the specified line style.
           return _.getStrokeDashArray(_.policy)
         } else {
-          // Line style mapGroup given
+          // Line style mapGroup given.
           return _.getStrokeDashArray(_.policy[key])
         }
       },
@@ -62,17 +57,17 @@ export default (self, api) => {
        * @methodOf LineStyle
        * @param {string} key Key to return style for.
        * @returns {string} The style associated with the key.
-       * @protected
+       * @ignore
        */
       style: key => {
         if (typeof _.policy === 'undefined') {
-          // No policy, using default
+          // No policy, using default.
           return 'solid'
         } else if (typeof _.policy === 'string') {
-          // Single policy, using the specified line style
+          // Single policy, using the specified line style.
           return _.policy
         } else {
-          // Line style mapGroup given
+          // Line style mapGroup given.
           return _.policy[key]
         }
       },
@@ -85,6 +80,7 @@ export default (self, api) => {
        * @param {string} lineStyle Line style to return background pattern for.
        * @param {string} color Color to use for the background pattern.
        * @returns {string} The background CSS property value.
+       * @ignore
        */
       background: (lineStyle, color) => {
         switch (lineStyle) {
@@ -100,7 +96,7 @@ export default (self, api) => {
     }
   })
 
-  // Public API
+  // Public API.
   api = Object.assign(api || {}, {
     /**
      * Sets the line style policy. Supported policies:
@@ -124,6 +120,6 @@ export default (self, api) => {
     }
   })
 
-  // Return protected and public members
+  // Return protected and public members.
   return { self, api }
 }

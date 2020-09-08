@@ -17,6 +17,7 @@ const MODULES = [
   'components/highlight',
   'components/label',
   'components/axis/left-axis',
+  'components/line-style',
   'components/mouse',
   'components/objects',
   'components/opacity',

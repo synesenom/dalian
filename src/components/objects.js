@@ -39,7 +39,7 @@ export default scales => (() => {
 
     api = Object.assign(api || {}, {
       // TODO Add convert method to get sizes using internal coordinates.
-      // TODO Add hidden SVG to draw object in before inserting.
+      // TODO Add hidden SVG to draw object in before inserting and make it an API.
       objects: {
         /**
          * Adds an SVG object to the widget using internal (data level) coordinates.
