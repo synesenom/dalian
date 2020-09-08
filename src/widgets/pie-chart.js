@@ -28,7 +28,7 @@ import Label from '../components/label'
  *
  * @function PieChart
  * @param {string} name Name of the chart. Should be a unique identifier.
- * @param {string} [parent = body] Query selector of the parent element to append widget to.
+ * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
   // Defaults.

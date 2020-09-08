@@ -35,8 +35,9 @@ import YRange from '../components/range/y-range'
  *
  * @function AreaChart
  * @param {string} name Name of the chart. Should be a unique identifier.
- * @param {string} [parent = body] Query selector of the parent element to append widget to.
+ * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
+// TODO Support negative values.
 // TODO Support negative values with different color.
 export default (name, parent = 'body') => {
   // Build widget from components

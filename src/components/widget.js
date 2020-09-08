@@ -7,6 +7,11 @@ import fontMetrics from '../utils/font-metrics'
  * or control elements are inherited from this component.
  *
  * @function Widget
+ * @param {string} type Type of the widget.
+ * @param {string} name Widget name. This is the unique identifier of the widget.
+ * @param {(string|HTMLElement|Selection)} parent Parent to insert widget into. May be a string representing the query
+ * selector of the parent, an HTMLElement or a d3 selection.
+ * @param {string} elem Element type (svg, div, etc).
  */
 export default (type, name, parent, elem) => {
   // Default values.
@@ -26,7 +31,7 @@ export default (type, name, parent, elem) => {
 
   // Private members
   const _ = {
-    parent: select(parent),
+    parent: typeof parent === 'string' || parent instanceof HTMLElement ? select(parent) : parent,
     initialized: false,
     pos: {
       x: {
