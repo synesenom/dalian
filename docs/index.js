@@ -18,6 +18,7 @@ const MODULES = [
   'components/label',
   'components/axis/left-axis',
   'components/line-style',
+  'components/line-width',
   'components/mouse',
   'components/objects',
   'components/opacity',

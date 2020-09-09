@@ -549,6 +549,38 @@ dalian.LineChart('line-style-card', '#line-style')
   .leftAxis.label('price')
   .smoothing(true)
   .render()
+</script></a><a class="card" href="components/line-width"><div class="card-title">LineWidth</div><div class="card-content" id="line-width"></div><script class="card-example">
+dalian.LineChart('line-width-card', '#line-width')
+  .data([{
+    name: 'mango',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.pow(i / 40, 2)
+    }))
+  }, {
+    name: 'kiwi',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.log(i + 1)
+        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2
+    }))
+  }])
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({ left: 20, right: 2, top: 20, bottom: 30 })
+  .font.size(11)
+  .font.color('#ccc')
+  .color.palette(COLORS.component)
+  .lineWidth({
+    kiwi: 4,
+    mango: 1
+  })
+  .bottomAxis.label('days')
+  .leftAxis.label('price')
+  .smoothing(true)
+  .render()
 </script></a><a class="card" href="components/mouse"><div class="card-title">Mouse</div><div class="card-content" id="mouse"></div><script class="card-example">
 dalian.BarChart('mouse-card', '#mouse')
   .data(Array.from({ length: 5 }, (d, i) => ({

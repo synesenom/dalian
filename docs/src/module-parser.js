@@ -39,7 +39,6 @@ module.exports = (meta, docs, modulePath) => {
   blocks = firstBlock.concat(blocks)
 
   let api = {
-    // TODO Remove hard-coded content
     buildReferencePage: () => {
       console.log(`Building: API reference page (${moduleName})`)
       const path = `api/${type}`

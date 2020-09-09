@@ -1,5 +1,3 @@
-// TODO Add API docs.
-// TODO Add example.
 export default defaultValue => {
   return (self, api) => {
     // Private members.

@@ -129,7 +129,6 @@ export default (name, parent = 'body') => {
             .attr('class', 'line')
             .attr('d', d => lineFn(d.values))
             .attr('stroke', 'currentColor')
-            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'none')
             .attr('stroke-linejoin', 'round')
             .attr('stroke-linecap', 'round')
@@ -157,7 +156,8 @@ export default (name, parent = 'body') => {
               const current = lineFn(d.values)
               return interpolatePath(previous, current, null)
             })
-            .style('stroke-dasharray', d => self._lineStyle.strokeDashArray(d.name))
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
+            .attr('stroke-dasharray', d => self._lineStyle.strokeDashArray(d.name))
 
           return g
         },
