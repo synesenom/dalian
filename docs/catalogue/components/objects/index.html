@@ -124,7 +124,9 @@ let updateObject = () => {
 }
 
 let removeLastObject = () => {
-  chart.objects.remove(this.a.pop(), 1000)
+  if (this.a && this.a.length > 0) {
+    chart.objects.remove(this.a.pop(), 1000)
+  }
 }
 
 let removeAllObjects = () => {

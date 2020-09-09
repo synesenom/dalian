@@ -1,4 +1,4 @@
-import { event, select } from 'd3'
+import { event } from 'd3'
 import extend from '../../core/extend'
 import StyleInjector from '../../utils/style-injector'
 
@@ -19,7 +19,7 @@ const CLASSES = {
 export default (self, api) => {
   // Inject relevant style.
   StyleInjector.addClass(CLASSES.tooltip, {
-    position: 'absolute',
+    position: 'fixed',
     'background-color': 'rgba(255, 255, 255, 0.95)',
     'border-radius': '2px',
     'box-shadow': '1px 1px 2px #888, 0 0 1px #aaa',
@@ -38,36 +38,20 @@ export default (self, api) => {
     on: false
   }
 
-  // Private members
+  // Private members.
   let _ = {
-    // Variables
-    container: {
-      id: 'dalian-tooltip-container'
-    },
+    // Variables.
+    container: self._widget.container.append('div')
+      .attr('class', 'dalian-tooltip-container'),
     id: `${self._widget.id}-tooltip`,
     on: DEFAULTS.on,
 
-    // Methods
-    getContainer: () => {
-      // Get or create container.
-      let container = select('#' + _.container.id)
-      if (container.empty()) {
-        container = select('body').append('div')
-          .attr('id', _.container.id)
-      }
-
-      // Update relevant style.
-      container.style('color', self._font.color)
-
-      // Return container.
-      return container
-    },
-
+    // Methods.
     getTooltip: (bbox, scroll) => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
       } else {
-        return _.container.elem.append('div')
+        return _.container.append('div')
           .attr('id', _.id)
           .attr('class', CLASSES.tooltip)
           .style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
@@ -105,9 +89,6 @@ export default (self, api) => {
         _.hideTooltip()
         return
       }
-
-      // Get or create container
-      _.container.elem = _.getContainer()
 
       // Get or create tooltip
       _.elem = _.getTooltip(boundingBox, scroll)
