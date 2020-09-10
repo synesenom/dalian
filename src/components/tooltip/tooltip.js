@@ -1,4 +1,4 @@
-import { event } from 'd3'
+import { event, mouse } from 'd3'
 import extend from '../../core/extend'
 import StyleInjector from '../../utils/style-injector'
 
@@ -19,7 +19,7 @@ const CLASSES = {
 export default (self, api) => {
   // Inject relevant style.
   StyleInjector.addClass(CLASSES.tooltip, {
-    position: 'fixed',
+    position: 'absolute',
     'background-color': 'rgba(255, 255, 255, 0.95)',
     'border-radius': '2px',
     'box-shadow': '1px 1px 2px #888, 0 0 1px #aaa',
@@ -47,7 +47,7 @@ export default (self, api) => {
     on: DEFAULTS.on,
 
     // Methods.
-    getTooltip: (bbox, scroll) => {
+    getTooltip () {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
       } else {
@@ -55,78 +55,65 @@ export default (self, api) => {
           .attr('id', _.id)
           .attr('class', CLASSES.tooltip)
           .style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
-          .style('left', ((bbox.left + bbox.right) / 2 + scroll.left) + 'px')
-          .style('top', ((bbox.top + bbox.bottom) / 2 + scroll.top) + 'px')
       }
     },
 
-    hideTooltip: () => {
+    hideTooltip () {
       if (typeof _.elem !== 'undefined') {
         _.elem.style('opacity', 0)
       }
     },
 
-    showTooltip: () => {
+    showTooltip () {
 
-      let mx = event.pageX
+      const [mx, my] = mouse(self._widget.container.node())
 
-      let my = event.pageY
-
-      let boundingBox = self._widget.container.node().getBoundingClientRect()
-
-      // Get scroll position
-      let scroll = {
-        left: window.pageXOffset || document.documentElement.scrollLeft,
-        top: window.pageYOffset || document.documentElement.scrollTop
-      }
-
-      // If we are outside the charting area just remove tooltip
-      if (mx < boundingBox.left + self._widget.margins.left - scroll.left
-        || mx > boundingBox.right - self._widget.margins.right + scroll.left
-        || my < boundingBox.top + self._widget.margins.top - scroll.top
-        || my > boundingBox.bottom - self._widget.margins.bottom + scroll.top) {
+      // If we are outside the charting area just remove tooltip.
+      const xMax = parseFloat(self._widget.size.width) - self._widget.margins.right
+      const yMax = parseFloat(self._widget.size.height) - self._widget.margins.bottom
+      if (mx < self._widget.margins.left || mx > xMax || my < self._widget.margins.top || my > yMax) {
         self._tooltip.builder()
         _.hideTooltip()
         return
       }
 
-      // Get or create tooltip
-      _.elem = _.getTooltip(boundingBox, scroll)
+      // Get or create tooltip.
+      _.elem = _.getTooltip()
 
-      // Create content
+      // Create content.
       let content = self._tooltip.builder(self._tooltip.content(self._widget.getMouse()))
       if (typeof content === 'undefined') {
         if (typeof _.elem !== 'undefined') {
-          // If content is invalid, remove tooltip
+          // If content is invalid, remove tooltip.
           _.hideTooltip()
           return
         }
       } else {
-        // Otherwise, set content
+        // Otherwise, set content.
         _.elem.html(content)
       }
 
-      // Calculate position
-      let elem = _.elem.node().getBoundingClientRect()
+      // Calculate position.
+      const elem = _.elem.node().getBoundingClientRect()
 
-      let tw = elem.width
+      const tw = elem.width
 
-      let th = elem.height
+      const th = elem.height
 
       let tx = mx + 20
 
       let ty = my + 20
 
-      // Correct for edges
-      let buffer = 10
-      if (tx + tw > boundingBox.right - self._widget.margins.right + scroll.left - buffer) {
-        tx -= tw + scroll.left + 40
+      // Correct for edges.
+      const buffer = 10
+      if (tx + tw > xMax - buffer) {
+        tx -= tw + 30
       }
-      if (ty + th > boundingBox.bottom - self._widget.margins.bottom + scroll.top - buffer) {
-        ty = boundingBox.bottom - self._widget.margins.bottom + scroll.top - buffer - th
+      if (ty + th > yMax - buffer) {
+        ty = yMax - buffer - th
       }
 
-      // Set position
+      // Set position.
       _.elem
         .style('left', tx + 'px')
         .style('top', ty + 'px')
@@ -134,7 +121,7 @@ export default (self, api) => {
     }
   }
 
-  // Extend update method
+  // Extend update method.
   self._widget.update = extend(self._widget.update, () => {
     // Update relevant mouse events.
     self._widget.container
@@ -143,7 +130,7 @@ export default (self, api) => {
       .on('mouseout.tooltip', _.hideTooltip)
   })
 
-  // Protected members
+  // Protected members.
   self = Object.assign(self || {}, {
     _tooltip: {
       isOn: () => _.on,
@@ -152,7 +139,7 @@ export default (self, api) => {
     }
   })
 
-  // Public API
+  // Public API.
   api.tooltip = {
     /**
      * Enables/disables tooltip.
