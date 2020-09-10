@@ -143,7 +143,7 @@ export default (self, api) => {
     valueFormat: (format = DEFAULTS.valueFormat) => {
       _.valueFormat = format
       return api
-    },
+    }
   })
 
   return {self, api}
