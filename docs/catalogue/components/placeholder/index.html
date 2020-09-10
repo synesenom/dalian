@@ -43,6 +43,8 @@ const chart = dalian.LineChart('myChart', '#widget')
   .font.size(14)
   .bottomAxis.label('Elapsed time')
   .leftAxis.label('Temperature [C]')
+  .tooltip.on(true)
+  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render()
 </script><script class="doc">
 // api methods

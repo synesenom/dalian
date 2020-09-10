@@ -70,7 +70,6 @@ export default (self, api) => {
       // If no content provided, remove placeholder and show widget
       if (typeof content === 'undefined') {
         self._widget.content
-          .style('display', 'block')
           .transition().duration(duration)
           .style('opacity', 1)
         self._widget.disable(false)
@@ -86,9 +85,6 @@ export default (self, api) => {
         self._widget.content
           .transition().duration(duration)
           .style('opacity', 0)
-          .on('end', () => {
-            self._widget.content.style('display', 'none')
-          })
         self._widget.disable(true)
 
         // Otherwise fade out widget and add placeholder
