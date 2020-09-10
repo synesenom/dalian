@@ -38,8 +38,6 @@ export default scales => (() => {
     })
 
     api = Object.assign(api || {}, {
-      // TODO Add convert method to get sizes using internal coordinates.
-      // TODO Add hidden SVG to draw object in before inserting and make it an API.
       objects: {
         /**
          * Adds an SVG object to the widget using internal (data level) coordinates.
@@ -63,7 +61,7 @@ export default scales => (() => {
          * @param {number} [duration = 0] Duration of the insert animation.
          * @returns {Widget} Reference to the Widget's API.
          */
-        add: (id, obj, pos, options, duration = 0) => {
+        add (id, obj, pos, options, duration = 0) {
           // Fetch scales.
           const scaleX = scales.x.scale
           const scaleY = scales.y.scale
@@ -121,7 +119,7 @@ export default scales => (() => {
          * @param {number} [duration = 0] Duration of the removal animation.
          * @returns {Widget} Reference to the Widget's API.
          */
-        remove: (id, duration = 0) => {
+        remove (id, duration = 0) {
           // If id is not specified, remove all objects
           if (typeof id === 'undefined' || id === null) {
             _.objects.forEach(obj => obj.remove(duration))

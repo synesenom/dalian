@@ -14,7 +14,9 @@
   });</script><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">Change data</li>
-    <li onclick="changeLineColor()">Change line color</li>
+    <li onclick="toggleLineColor()">Toggle line color</li>
+    <li onclick="toggleLineWidth()">Toggle line width</li>
+    <li onclick="toggleOpacity()">Toggle opacity</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -66,9 +68,21 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
 // api methods
 let changeData = () => areaChart.data(getData()).render(1000)
 
-let changeLineColor = () => {
-  this.l = !(this.l || 0)
-  areaChart.lineColor(this.l ? 'white' : undefined)
+let toggleLineColor = () => {
+  this.l = ((this.l || 0) + 1) % 3
+  areaChart.lineColor([undefined, 'white', 'currentColor'][this.l])
+    .render(1000)
+}
+
+let toggleLineWidth = () => {
+  this.w = 1 - (this.w || 0)
+  areaChart.lineWidth([undefined, 3][this.w])
+    .render(1000)
+}
+
+let toggleOpacity = () => {
+  this.o = 1 - (this.o || 0)
+  areaChart.opacity([undefined, 0.7][this.o])
     .render(1000)
 }
 </script><!--+resize('' + variableName)--></div></main></body><!--script.--><!--    resize();--></html>

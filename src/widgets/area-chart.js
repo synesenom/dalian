@@ -7,6 +7,7 @@ import BottomAxis from '../components/axis/bottom-axis'
 import Highlight from '../components/highlight'
 import LeftAxis from '../components/axis/left-axis'
 import LineColor from '../components/line-color'
+import LineWidth from '../components/line-width'
 import Objects from '../components/objects'
 import Opacity from '../components/opacity'
 import PlotMarker from '../components/plot-marker'
@@ -26,6 +27,7 @@ import YRange from '../components/range/y-range'
  *   </li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/line-color.html">LineColor</a></li>
+ *   <li><a href="../components/line-width.html">LineWidth</a></li>
  *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
  *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
@@ -48,7 +50,8 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Chart('area-chart', name, parent),
     LeftAxis(scales.y),
-    LineColor('currentColor'),
+    LineColor('transparent'),
+    LineWidth(1),
     BottomAxis(scales.x),
     PlotMarker,
     Objects(scales),
@@ -111,7 +114,6 @@ export default (name, parent = 'body') => {
             .attr('class', 'line')
             .attr('d', d => lineFn(d.values))
             .attr('fill', 'none')
-            .attr('stroke', self._lineColor.mapping)
 
           return g
         },
@@ -131,6 +133,7 @@ export default (name, parent = 'body') => {
           // Update line.
           g.select('.line')
             .attr('stroke', self._lineColor.mapping)
+            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attrTween('d', function (d) {
               const previous = select(this).attr('d')
               const current = lineFn(d.values)

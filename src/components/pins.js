@@ -8,7 +8,6 @@ import attributes from '../utils/attributes'
  *
  * @function Pins
  */
-// TODO Add options.fix to show label all the time.
 export default scales => (() => {
   return (self, api) => {
     // Private members

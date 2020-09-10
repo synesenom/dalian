@@ -2,15 +2,15 @@
   <p>
     The Objects component allows for inserting arbitrary SVG elements (or groups) in the chart using the data
     coordinates or absolute coordinates of the widget. When adding a random object:
-    <ul>
-      <li>Color denotes order: foreground (blue) or background (red).</li>
-      <li>Shape denotes position: floating (circle) or fixed (rectangle) position.</li>
-    </ul>
+  <ul>
+    <li>Color denotes order: foreground (green) or background (red).</li>
+    <li>Shape denotes position: floating (circle) or fixed (rectangle) position.</li>
+  </ul>
 
-    Note that when the chart is updated, inserted elements are not resized, only their position is updated if they are
-    floating objects.
-    This example shows the available methods for the component and demonstrates its behavior when various properties of
-    the chart are changed.
+  Note that when the chart is updated, inserted elements are not resized, only their position is updated if they are
+  floating objects.
+  This example shows the available methods for the component and demonstrates its behavior when various properties of
+  the chart are changed.
   </p>
 </div>
 <div id="controls">
@@ -78,9 +78,10 @@ const chart = dalian.AreaChart('myChart', '#widget')
   .height(HEIGHT)
   .margins({left: 60, top: 40, bottom: 40, right: 40})
   .font.size(14)
+  .color.palette('royalblue')
   .bottomAxis.label('Elapsed time [h]')
   .leftAxis.label('Temperature [C]')
-  .opacity(0.2)
+  .opacity(0.5)
   .render()
 </script>
 
@@ -96,7 +97,7 @@ let addObject = () => {
   let elem
   const foreground = Math.random() < 0.5
   const floating = Math.random() < 0.5
-  const color = foreground ? 'royalblue' : 'firebrick'
+  const color = foreground ? 'firebrick' : 'yellowgreen'
   if (floating) {
     // Circle.
     elem = document.createElementNS(ns, 'circle')
@@ -115,7 +116,7 @@ let addObject = () => {
 
   chart.objects.add(this.a[this.a.length - 1], elem, {
     x: 10 + (floating ? 40 : WIDTH) * Math.random(),
-    y: 1 + (floating ? 4 : HEIGHT) * Math.random()
+    y: 2 + (floating ? 3 : HEIGHT) * Math.random()
   }, {
     foreground,
     floating
@@ -138,8 +139,8 @@ let updateObject = () => {
   const foreground = Math.random() < 0.5
   const floating = Math.random() < 0.5
   chart.objects.add(id, path, {
-    x: 10 + (floating ? 50 : WIDTH) * Math.random(),
-    y: 1 + (floating ? 4 : HEIGHT) * Math.random()
+    x: 10 + (floating ? 40 : WIDTH) * Math.random(),
+    y: 2 + (floating ? 3 : HEIGHT) * Math.random()
   }, {
     foreground,
     floating
