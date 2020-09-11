@@ -36,17 +36,49 @@ export default (self, api) => {
     'font-size': 'inherit'
   })
 
-  // Private members
+  // Private members.
   const _ = {
-    // Variables
-    id: `${self._widget.id}-placeholder`
+    // Variables.
+    id: `${self._widget.id}-placeholder`,
+    content: undefined
   }
 
-  // Extend update
+  // Extend update.
   self._widget.update = extend(self._widget.update, duration => {
-    if (typeof _.elem !== 'undefined') {
-      _.elem
-        .style('font-size', 'inherit')
+    // Update widget content.
+    self._widget.content
+      .transition().duration(duration)
+      .style('opacity', typeof _.content === 'undefined' ? 1 : 0)
+    self._widget.disable(typeof _.content !== 'undefined')
+
+    // Update placeholder.
+    if (typeof _.content === 'undefined') {
+      // Update placeholder.
+      if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
+        _.elem
+          .transition().duration(duration)
+          .style('opacity', 0)
+          .remove()
+        delete _.elem
+      }
+    } else {
+      // Otherwise fade out widget and add placeholder
+      if (typeof _.elem === 'undefined' || _.elem.empty()) {
+        _.elem = self._widget.container.append('div')
+          .attr('id', _.id)
+          .attr('class', CLASSES.placeholder)
+          .style('width', self._widget.size.width)
+          .style('height', self._widget.size.height)
+        _.elem.append('span')
+          .attr('class', CLASSES.message)
+          .style('opacity', 0)
+          .html(_.content)
+          .transition().duration(duration)
+          .style('opacity', 1)
+      }
+
+      // Update placeholder.
+      _.elem.style('font-size', 'inherit')
         .transition().duration(duration)
         .style('width', self._widget.size.width)
         .style('height', self._widget.size.height)
@@ -57,51 +89,17 @@ export default (self, api) => {
   // Public methods
   api = Object.assign(api || {}, {
     /**
-     * Shows/hides the placeholder. If no placeholder content is provided, the widget is recovered.
+     * Shows/hides the placeholder. If no placeholder content is provided, the widget is recovered. Note that this only
+     * updates the status of the placeholder and the widget still needs to be rendered in order to take effect.
      *
      * @method placeholder
      * @methodOf Placeholder
      * @param {string} content Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is
      * removed. Note that the content can be an empty string in which case the widget is simply hidden.
-     * @param {number} [duration = 0] Duration of the placeholder animation in ms.
      * @returns {Widget} Reference to the Widget's API.
      */
-    placeholder: (content, duration = 0) => {
-      // If no content provided, remove placeholder and show widget
-      if (typeof content === 'undefined') {
-        self._widget.content
-          .transition().duration(duration)
-          .style('opacity', 1)
-        self._widget.disable(false)
-        if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
-          _.elem
-            .transition().duration(duration)
-            .style('opacity', 0)
-            .remove()
-          delete _.elem
-        }
-      } else {
-        // Otherwise hide widget and add placeholders
-        self._widget.content
-          .transition().duration(duration)
-          .style('opacity', 0)
-        self._widget.disable(true)
-
-        // Otherwise fade out widget and add placeholder
-        if (typeof _.elem === 'undefined' || _.elem.empty()) {
-          _.elem = self._widget.container.append('div')
-            .attr('id', _.id)
-            .attr('class', CLASSES.placeholder)
-            .style('width', self._widget.size.width)
-            .style('height', self._widget.size.height)
-          _.elem.append('span')
-            .attr('class', CLASSES.message)
-            .style('opacity', 0)
-            .html(content)
-            .transition().duration(duration)
-            .style('opacity', 1)
-        }
-      }
+    placeholder: (content) => {
+      _.content = content
       return api
     }
   })

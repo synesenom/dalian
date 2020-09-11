@@ -1,62 +1,100 @@
 <div id="desc">
   <p>
-    A legend
+    A legend widget can be used to add interactive labels to charts or dashboards.
   </p>
 </div>
 <div id="controls">
   <ul>
     <li onclick="toggleLabels()">Toggle labels</li>
-    <li onclick="toggleColor()">Change color</li>
   </ul>
 </div>
 
 <script class="card-example">
-  dalian.Legend('legend-card', '#legend')
-    .labels([
-      {key: 'orange', label: 'Oranges'},
-      {key: 'coconut', label: 'Coconuts'},
-      {key: 'kiwifruit', label: 'Kiwifruits'}
-    ])
-    .x(0)
-    .y(0)
-    .width(WIDTH)
-    .height(HEIGHT)
-    .font.size(11)
-    .color.palette(COLORS.widget[0])
-    .color.policy('sequential')
-    .color.on(d => 1 - ['orange', 'coconut', 'kiwifruits'].indexOf(d.name) / 4)
-    .render()
+dalian.Legend('legend-card', '#legend')
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(0)
+  .font.size(10)
+  .labels([
+    {key: 'ipa', label: 'India Pale Ale'},
+    {key: 'lager', label: 'Lager'},
+    {key: 'stout', label: 'Stout'},
+    {key: 'weiss', label: 'Weissbier'}
+  ])
+  .color({
+    ipa: 'royalblue',
+    lager: 'firebrick'
+  })
+  .render()
+</script>
+
+<script class="doc">
+// generate data
+// Samples are generated with ranjs:
+// https://synesenom.github.io/ran/
+function getData () {
+  const hasCurrency = Math.random() < 0.5
+  return Array.from({ length: ranjs.core.int(2, 30) }, () => ({
+    id: ranjs.core.char('0123456789abcdef', 6).join(''),
+    date: new Date(2019, ranjs.core.int(0, 11), ranjs.core.int(1, 28))
+      .toISOString().substr(0, 10),
+    city: ranjs.core.choice(['Copenhagen', 'Oslo', 'Stockholm', 'Reykjavík']),
+    total: ranjs.core.float(100).toFixed(1),
+    ...(hasCurrency && { currency: ranjs.core.choice(['DKK', 'NOK', 'SEK', 'ISK']) })
+  }))
+}
 </script>
 
 <script class="doc">
 // create chart
-const legend = dalian.Legend('legend', '#widget')
+const table = dalian.Table('table', '#widget')
+  .data(getData())
+  .schema([
+    {key: 'id', name: 'ID'},
+    {key: 'date', name: 'Date', type: 'date'},
+    {key: 'city', name: 'Place of purchase'},
+    {key: 'total', name: 'Total amount', type: 'number'},
+    {key: 'currency', name: 'Currency'}
+  ])
   .width(WIDTH)
   .height(HEIGHT)
+  .margins(40)
   .font.size(14)
-  .color.palette('palette-light')
-  //.mouse.over(d => coxcombChart.highlight(d.name, 400))
-  //.mouse.leave(() => coxcombChart.highlight(null, 400))
-  .render(1000)
+  .mouse.over(k => table.highlight(`row-${k.row}`))
+  .mouse.leave(() => table.highlight())
+  .render()
 </script>
 
 <script class="doc">
 // api methods
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  legend.label(this.l ? [
-    {key: 'orange', label: 'Oranges'},
-    {key: 'coconut', label: 'Coconuts'},
-    {key: 'kiwifruit', label: 'Kiwifruits'}
+const changeData = () => table.data(getData()).render()
+
+const toggleSchema = () => {
+  this.h = 1 - (this.h || 0)
+  table.schema(this.h ? [
+    {key: 'id', name: 'ID'},
+    {key: 'date', name: 'Datum', type: 'date'},
+    {key: 'city', name: 'Ort des Kaufs'},
+    {key: 'total', name: 'Gesamtmenget', type: 'number', format: Math.round},
+    {key: 'currency', name: 'Devisen', format: v => v.toLowerCase()}
   ] : [
-    {key: 'beer', label: 'A can of beer'},
-    {key: 'wine', label: 'A glass of wine'},
-    {key: 'vodka', label: 'A bottle of vodka'}
+    {key: 'id', name: 'ID'},
+    {key: 'date', name: 'Date', type: 'date'},
+    {key: 'city', name: 'Place of purchase'},
+    {key: 'total', name: 'Total amount', type: 'number'},
+    {key: 'currency', name: 'Currency'}
   ]).render()
 }
 
+const togglePaging = () => {
+  this.p = 1 - (this.p || 0)
+  table.paging(this.p ? 5 : undefined).render()
+}
+
 const toggleColor = () => {
-  this.c = !(this.c || 0)
-  legend.color.palette(this.c ? 'palette-wong' : undefined).render(1000)
+  this.c = 1 - (this.c || 0)
+  table.color(this.c ? 'royalblue' : undefined).render()
 }
 </script>
