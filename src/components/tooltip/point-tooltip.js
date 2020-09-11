@@ -47,8 +47,8 @@ export default (self, api) => {
     display: 'inline-block',
     position: 'relative',
     float: 'left',
-    width: '0.85em',
-    height: '0.85em',
+    width: '.85em',
+    height: '.85em',
     'margin-right': '6px',
     'border-radius': '2px'
   }).addClass(CLASSES.label, {
@@ -56,7 +56,7 @@ export default (self, api) => {
     position: 'relative',
     'max-width': '120px',
     float: 'left',
-    height: '0.8em'
+    height: '.9em'
   })
 
   // Default values.
