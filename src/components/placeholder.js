@@ -39,8 +39,7 @@ export default (self, api) => {
   // Private members.
   const _ = {
     // Variables.
-    id: `${self._widget.id}-placeholder`,
-    content: undefined
+    id: `${self._widget.id}-placeholder`
   }
 
   // Extend update.
@@ -48,41 +47,39 @@ export default (self, api) => {
     // Update widget content.
     self._widget.content
       .transition().duration(duration)
-      .style('opacity', typeof _.content === 'undefined' ? 1 : 0)
-    self._widget.disable(typeof _.content !== 'undefined')
+      .style('opacity', typeof _.placeholder === 'undefined' ? 1 : 0)
+    self._widget.disable(typeof _.placeholder !== 'undefined')
 
     // Update placeholder.
-    if (typeof _.content === 'undefined') {
-      // Update placeholder.
-      if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
-        _.elem
+    if (typeof _.placeholder === 'undefined') {
+      if (typeof _.container !== 'undefined' && !_.container.empty()) {
+        _.container
           .transition().duration(duration)
           .style('opacity', 0)
           .remove()
-        delete _.elem
+        delete _.container
       }
     } else {
-      // Otherwise fade out widget and add placeholder
-      if (typeof _.elem === 'undefined' || _.elem.empty()) {
-        _.elem = self._widget.container.append('div')
+      if (typeof _.container === 'undefined' || _.container.empty()) {
+        _.container = self._widget.container.append('div')
           .attr('id', _.id)
           .attr('class', CLASSES.placeholder)
           .style('width', self._widget.size.width)
           .style('height', self._widget.size.height)
-        _.elem.append('span')
-          .attr('class', CLASSES.message)
           .style('opacity', 0)
-          .html(_.content)
-          .transition().duration(duration)
-          .style('opacity', 1)
+        _.content = _.container.append('span')
+          .attr('class', CLASSES.message)
+          .html(_.placeholder)
       }
 
       // Update placeholder.
-      _.elem.style('font-size', 'inherit')
+      _.container.style('font-size', 'inherit')
+        .style('color', 'inherit')
         .transition().duration(duration)
         .style('width', self._widget.size.width)
         .style('height', self._widget.size.height)
-        .style('color', 'inherit')
+        .style('opacity', 1)
+      _.content.html(_.placeholder)
     }
   })
 
@@ -99,7 +96,7 @@ export default (self, api) => {
      * @returns {Widget} Reference to the Widget's API.
      */
     placeholder: (content) => {
-      _.content = content
+      _.placeholder = content
       return api
     }
   })
