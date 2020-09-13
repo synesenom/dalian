@@ -23,7 +23,10 @@ const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
 const chart = dalian.LineChart('chart', '#widget')
   .data([{
     name: 'pilsener',
-    values: Array.from({ length: 100 }, (d, i) => ({x: i, y: Math.exp(i / 100)}))
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.exp(i / 100)
+    }))
   }])
   .width(0.7 * WIDTH)
   .height(HEIGHT)
@@ -33,7 +36,7 @@ const chart = dalian.LineChart('chart', '#widget')
   .render()
 </script><script class="doc">
 // create legend
-const createLegend = () => dalian.Legend('legend', '#widget')
+const legend = dalian.Legend('legend', '#widget')
   .x(0.7 * WIDTH)
   .y(40)
   .width(0.3 * WIDTH)
@@ -54,8 +57,6 @@ const createLegend = () => dalian.Legend('legend', '#widget')
   .mouse.over(k => legend.highlight(k, 400))
   .mouse.leave(() => legend.highlight(null, 400))
   .render()
-
-let legend = createLegend()
 </script><script class="doc">
 // api methods
 const toggleLabels = () => {
