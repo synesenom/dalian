@@ -40,6 +40,7 @@ const MODULES = [
   'widgets/bullet-chart',
   'widgets/calendar-plot',
   'widgets/coxcomb-chart',
+  'widgets/legend',
   'widgets/line-chart',
   'widgets/pie-chart',
   'widgets/scatter-plot',

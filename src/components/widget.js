@@ -151,6 +151,9 @@ export default (type, name, parent, elem) => {
 
   // Public API
   const api = {
+    // TODO Docs.
+    id: () => self._widget.id,
+
     /**
      * Sets the X coordinate of the widget in pixels relative to its parent. If negative, the widget's right side is
      * measured from the right side of the parent, otherwise its left side is measured from the parent's left side.

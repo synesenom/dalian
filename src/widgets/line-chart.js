@@ -32,7 +32,7 @@ import YRange from '../components/range/y-range'
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/line-style.html">LineStyle</a></li>
  *   <li><a href="../components/line-width.html">LineWidth</a></li>
- *   <li><a href="../components/line-width.html">Objects</a></li>
+ *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/pins.html">Pin</a></li>
  *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
  *   <li><a href="../components/smoothing.html">Smoothing</a></li>

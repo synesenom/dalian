@@ -51,6 +51,7 @@ export default (name, parent = 'body') => {
     return c
   }
 
+  // Private members.
   const _ = {
     scale,
 
@@ -192,7 +193,7 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Extend widget update
+  // Extend widget update.
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API.

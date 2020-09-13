@@ -205,6 +205,27 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
     .radius(60)
     .label(d => d.label)
     .render()
+</script></a><a class="card" href="widgets/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
+dalian.Legend('legend-card', '#legend')
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(0)
+  .font.size(14)
+  .entries([
+    {key: 'alice', label: 'Alice'},
+    {key: 'bob', label: 'Bob'},
+    {key: 'charlie', label: 'Charlie'},
+    {key: 'dan', label: 'Dan'}
+  ])
+  .colors({
+    alice: 'rgb(70, 108, 217)',
+    bob: 'rgba(70, 108, 217, 0.8)',
+    charlie: 'rgba(70, 108, 217, 0.5)',
+    dan: 'rgba(70, 108, 217, 0.2)'
+  })
+  .render()
 </script></a><a class="card" href="widgets/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">
 dalian.LineChart('line-chart-card', '#line-chart')
   .data([{
@@ -626,7 +647,7 @@ objectsCard.objects.add('object', (() => {
   elem.setAttributeNS(null, 'fill', COLORS.component)
   elem.setAttributeNS(null, 'transform', 'rotate(-18)')
   return elem
-})(), {x: 43, y: 9})
+})(), {x: 43, y: 9}, {floating: true})
 </script></a><a class="card" href="components/opacity"><div class="card-title">Opacity</div><div class="card-content" id="opacity"></div><script class="card-example">
 dalian.AreaChart('opacity-card', '#opacity')
   .data([{
