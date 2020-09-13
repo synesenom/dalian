@@ -44,8 +44,7 @@ const chart = dalian.LineChart('chart', '#widget')
     name: 'pilsener',
     values: Array.from({ length: 100 }, (d, i) => ({x: i, y: Math.exp(i / 100)}))
   }])
-  .x(0.4 * WIDTH)
-  .width(0.6 * WIDTH)
+  .width(0.7 * WIDTH)
   .height(HEIGHT)
   .margins(40)
   .leftAxis.label('consumption')
@@ -56,7 +55,9 @@ const chart = dalian.LineChart('chart', '#widget')
 <script class="doc">
 // create legend
 const createLegend = () => dalian.Legend('legend', '#widget')
-.width(WIDTH)
+  .x(0.7 * WIDTH)
+  .y(40)
+  .width(0.3 * WIDTH)
   .height(HEIGHT)
   .font.size(14)
   .entries([
