@@ -7,7 +7,6 @@
     <li id="toggleTooltip" onclick="toggleTooltip()">Enable tooltip</li>
     <li onclick="changeTitleFormat()">Change title format</li>
     <li onclick="changeValueFormat()">Change value format</li>
-    <li id="toggleIgnore" onclick="toggleIgnore()">Ignore trend 2</li>
     <li onclick="toggleFontSize()">Change font size</li>
     <li onclick="changeFontColor()">Change font color</li>
   </ul>
@@ -24,15 +23,15 @@ const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
 function getData () {
   return [{
     name: 'trend 1',
-    values: Array.from({ length: 1000 }, (d, i) => ({
-      x: i / 10,
-      y: Math.sin(i / 100)
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.sin(i / 10)
     }))
   }, {
     name: 'trend 2',
-    values: Array.from({ length: 1000 }, (d, i) => ({
-      x: i / 10,
-      y: Math.cos(i / 100)
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: i < 80 ? Math.cos(i / 10) : null
     }))
   }]
 }
@@ -45,7 +44,7 @@ const chart = dalian.LineChart('myChart', '#widget')
   .margins({left: 60, top: 40, bottom: 40, right: 40})
   .bottomAxis.label('Elapsed time [h]')
   .leftAxis.label('Temperature [C]')
-  .tooltip.valueFormat(d => d.y.toFixed(2))
+  .tooltip.valueFormat(d => d.y === null ? null : d.y.toFixed(2))
   .render()
 </script><script class="doc">
 // api methods
@@ -66,12 +65,6 @@ let changeValueFormat = () => {
     .render()
 }
 
-let toggleIgnore = () => {
-  this.i = 1 - (this.i || 0)
-  chart.tooltip.ignore(this.i ? ['trend 2'] : undefined)
-    .render()
-}
-
 let toggleFontSize = () => {
   this.s = ((this.s || 0) + 1) % 3
   chart.font.size([undefined, 10, 16][this.s]).render()
@@ -84,5 +77,4 @@ let changeFontColor = () => {
 </script><script class="doc-hidden">
 // Modify toggle buttons
 toggleTooltip = state(toggleTooltip, 'o', ['Enable tooltip', 'Disable tooltip'])
-toggleIgnore = state(toggleIgnore, 'i', ['Ignore trend 2', 'Include trend 2'])
 </script></div></main></body></html>

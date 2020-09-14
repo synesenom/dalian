@@ -44,7 +44,7 @@ export default (name, parent = 'body') => {
     // Methods.
     entryTransform: (d, i) => `translate(0, ${parseFloat(self._font.size) * (0.7 + 1.4 * i)})`,
 
-    makeMarker (elem, fm) {
+    makeMarker (elem) {
       // Remove existing shape.
       elem.select('.legend-entry-marker-shape')
         .remove()
@@ -55,19 +55,19 @@ export default (name, parent = 'body') => {
           shape = elem.append('rect')
             .attr('x', 0)
             .attr('y', '-.5em')
-            .attr('width', (1 - fm.descender) + 'em')
-            .attr('height', (1 - fm.descender) + 'em')
+            .attr('width','1em')
+            .attr('height', '1em')
           break
         case 'circle':
           shape = elem.append('circle')
             .attr('cx', '.5em')
-            .attr('cy', (fm.ascender - 1) / 2 + 'em')
-            .attr('r', fm.ascender / 2 + 'em')
+            .attr('cy', 0)
+            .attr('r', '.5em')
           break
         default:
           shape = elem.append('path')
             .attr('d', _.markers)
-            .attr('transform', `translate(${parseFloat(self._font.size) / 2}, ${(fm.ascender - 1) * parseFloat(self._font.size) / 2})`)
+            .attr('transform', `translate(${parseFloat(self._font.size) / 2}, 0)`)
       }
 
       shape.attr('class', 'legend-entry-marker-shape')
@@ -115,7 +115,7 @@ export default (name, parent = 'body') => {
             entry.append('text')
               .attr('class', 'legend-entry-label')
               .attr('text-anchor', 'start')
-              .attr('dominant-baseline', 'middle')
+              .attr('dominant-baseline', 'central')
               .attr('font-size', self._font.size)
               .attr('dx', 1.3 * parseFloat(self._font.size))
               .text(d => d.label)
@@ -238,8 +238,8 @@ export default (name, parent = 'body') => {
      * @method markers
      * @methodOf Legend
      * @param {string} markers Marker shape. Either one of the supported values (square, circle) or a custom path. In
-     * case of a custom marker, the passed string is used as the d attribute of a path. Note that the path will be
-     * centered so the definition should take that into account.
+     * case of a custom marker, the passed string is used as the d attribute of a path. Note that the path origin is set
+     * to the center of the square marker.
      * @returns {Object} Reference to the Legend's API.
      * @todo example
      */
@@ -281,7 +281,7 @@ export default (name, parent = 'body') => {
         self._widget.content.append(() => _.container.node())
 
         // Enable container.
-        self._widget.container.style('display', 'block')
+        self._widget.container.style('display', null)
       }
 
       return api

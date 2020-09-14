@@ -9,7 +9,7 @@ const CLASSES = {
   entry: TAG + 'entry',
   container: TAG + 'container',
   inner: TAG + 'inner',
-  square: TAG + 'square',
+  marker: TAG + 'marker',
   label: TAG + 'label'
 }
 
@@ -43,12 +43,10 @@ export default (self, api) => {
     height: '1em',
     'justify-content': 'center',
     'align-items': 'center'
-  }).addClass(CLASSES.square, {
+  }).addClass(CLASSES.marker, {
     display: 'inline-block',
     position: 'relative',
     float: 'left',
-    width: '.85em',
-    height: '.85em',
     'margin-right': '6px',
     'border-radius': '2px'
   }).addClass(CLASSES.label, {
@@ -87,7 +85,6 @@ export default (self, api) => {
         return undefined
       }
 
-
       // Create content node.
       let contentNode = select(document.createElement('div'))
         .attr('class', CLASSES.content)
@@ -98,41 +95,30 @@ export default (self, api) => {
         .text(_.titleFormat(content.title))
 
       // Add content
-      content.content.data.forEach((plot, i) => {
-        let entry = contentNode.append('div')
-          .attr('class', CLASSES.entry)
-        let container = entry.append('div')
-          .attr('class', CLASSES.container)
-          .style('margin-top', (i === 0 ? 6 : 3) + 'px')
-        let inner = container.append('div')
-          .attr('class', CLASSES.inner)
-        inner.append('div')
-          .attr('class', CLASSES.square)
-          .style('background', plot.background)
-        inner.append('div')
-          .attr('class', CLASSES.label)
-          .html(_.valueFormat(plot))
-      })
+      content.content.data.filter(d => _.valueFormat(d) !== null)
+        .forEach((plot, i) => {
+          let entry = contentNode.append('div')
+            .attr('class', CLASSES.entry)
+          let container = entry.append('div')
+            .attr('class', CLASSES.container)
+            .style('margin-top', (i === 0 ? 6 : 3) + 'px')
+          let inner = container.append('div')
+            .attr('class', CLASSES.inner)
+          inner.append('div')
+            .attr('class', CLASSES.marker)
+            .style('width', '1em')
+            .style('height', '1em')
+            .style('background', plot.background)
+          inner.append('div')
+            .attr('class', CLASSES.label)
+            .html(_.valueFormat(plot))
+        })
 
       return contentNode.node().outerHTML
     }
   })
 
   api.tooltip = Object.assign(api.tooltip || {}, {
-    /**
-     * Sets the array of keys that are ignored by the tooltip. Ignored keys are not shown in the tooltip and they don't
-     * have plot markers.
-     *
-     * @method ignore
-     * @methodOf PointTooltip
-     * @param {string[]} [keys = []] Keys of plots to ignore in the tooltip.
-     * @returns {Widget} Reference to the Widget API.
-     */
-    ignore: (keys = DEFAULTS.ignore) => {
-      self._tooltip.ignore = keys
-      return api
-    },
-
     /**
      * Sets the format for the tooltip title.
      *
@@ -153,7 +139,8 @@ export default (self, api) => {
      * @method valueFormat
      * @methodOf PointTooltip
      * @param {Function} [format = d => d.y] Function to use as the formatter. May take one parameter which is the data
-     * point for the current plot's entry containing the plot name and the data. Can be HTML formatted.
+     * point for the current plot's entry containing the plot name and the data. Can be HTML formatted. If the return
+     * value is null, the value is ignored.
      * @returns {Widget} Reference to the Widget API.
      */
     valueFormat: (format = DEFAULTS.valueFormat) => {
