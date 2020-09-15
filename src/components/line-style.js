@@ -90,7 +90,7 @@ export default (self, api) => {
           case 'dashed':
             return `repeating-linear-gradient(-45deg, transparent, transparent 2px, ${color} 2px, ${color} 4px`
           case 'dotted':
-            return `radial-gradient(${color} 30%, transparent 30%) 0.5px 0.5px/4px 4px, radial-gradient(${color} 30%, transparent 30%) 2.5px 2.5px/4px 4px transparent`
+            return `radial-gradient(${color} 37%, transparent 37%) 0px 0px/6px 6px, radial-gradient(${color} 37%, transparent 37%) 3px 3px/6px 6px transparent`
         }
       }
     }

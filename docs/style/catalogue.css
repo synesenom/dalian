@@ -21,7 +21,7 @@
     transition: box-shadow .2s, top .2s;
 }
 .card:hover {
-    box-shadow: 0 15px 30px #ccc;
+    box-shadow: 0 10px 40px #ccc;
     top: -5px;
     transition: box-shadow .2s, top .2s;
 }

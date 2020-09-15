@@ -127,6 +127,7 @@ export default (self, api) => {
     self._widget.container
       .style('pointer-events', _.on ? 'all' : null)
       .on('mousemove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip())
+      .on('touchmove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip())
       .on('mouseout.tooltip', _.hideTooltip)
   })
 

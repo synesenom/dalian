@@ -10,6 +10,9 @@
     <li onclick="toggleEntries()">Toggle entries</li>
     <li onclick="toggleColors()">Toggle colors</li>
     <li onclick="toggleMarkers()">Toggle markers</li>
+    <li onclick="toggleColumns()">Toggle columns</li>
+    <li onclick="toggleVSep()">Toggle vertical separation</li>
+    <li onclick="toggleHSep()">Toggle horizontal separation</li>
     <li onclick="toggleInsert()">Toggle insert</li>
   </ul>
 </div>
@@ -38,7 +41,7 @@ dalian.Legend('legend-card', '#legend')
 </script>
 
 <script class="doc">
-// create some chart
+// create a chart
 const chart = dalian.LineChart('chart', '#widget')
   .data([{
     name: 'pilsener',
@@ -46,34 +49,57 @@ const chart = dalian.LineChart('chart', '#widget')
       x: i,
       y: Math.exp(i / 100)
     }))
+  }, {
+    name: 'weissbier',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.cos(i / 100)**2
+    }))
+  }, {
+    name: 'saison',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: 1 - Math.exp(-i / 100)
+    }))
+  }, {
+    name: 'stout',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i,
+      y: Math.log(i / 10 + 1)
+    }))
   }])
-  .width(0.7 * WIDTH)
+  .lineStyle({
+    saison: 'dashed',
+    stout: 'dotted',
+  })
+  .width(0.6 * WIDTH)
   .height(HEIGHT)
   .margins(40)
   .leftAxis.label('consumption')
   .bottomAxis.label('days')
+  .yRange.max(4)
+  .tooltip.on(true)
+  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render()
 </script>
 
 <script class="doc">
 // create legend
 const legend = dalian.Legend('legend', '#widget')
-  .x(0.7 * WIDTH)
-  .y(40)
-  .width(0.3 * WIDTH)
+  .x(0.6 * WIDTH)
+  .width(0.4 * WIDTH)
   .height(HEIGHT)
-  .font.size(14)
+  .margins({top: 40})
+  .font.size(12)
   .entries([
     {key: 'pilsener', label: 'Pilsner'},
     {key: 'weissbier', label: 'Weissbier'},
     {key: 'saison', label: 'Saison'},
     {key: 'stout', label: 'Stout'}
   ])
-  .colors({
-    pilsener: '#F8F753',
-    weissbier: '#ECE61A',
-    saison: '#BF923B',
-    stout: '#0F0B0A',
+  .styles({
+    saison: 'dashed',
+    stout: 'dotted'
   })
   .mouse.over(k => legend.highlight(k, 400))
   .mouse.leave(() => legend.highlight(null, 400))
@@ -114,12 +140,7 @@ const toggleColors = () => {
   this.c = ((this.c || 0) + 1) % 3
   switch (this.c) {
     case 0:
-      legend.colors({
-        pilsener: '#F8F753',
-        weissbier: '#ECE61A',
-        saison: '#BF923B',
-        stout: '#0F0B0A',
-      }).render(1000)
+      legend.colors().render(1000)
       break
     case 1:
       legend.colors(d => {
@@ -136,7 +157,12 @@ const toggleColors = () => {
       }).render(1000)
       break
     case 2:
-      legend.colors().render(1000)
+      legend.colors({
+        pilsener: '#F8F753',
+        weissbier: '#ECE61A',
+        saison: '#BF923B',
+        stout: '#0F0B0A',
+      }).render(1000)
   }
 }
 
@@ -152,6 +178,21 @@ const toggleMarkers = () => {
     case 2:
       legend.markers('m -7.5 6.495 l 7.5 -13 l 7.5 13 z').render()
   }
+}
+
+const toggleColumns = () => {
+  this.o = 1 - (this.o || 0)
+  legend.columns(this.o ? 2 : undefined).render(1000)
+}
+
+const toggleVSep = () => {
+  this.v = 1 - (this.v || 0)
+  legend.vSep(this.v ? 2 : undefined).render(1000)
+}
+
+const toggleHSep = () => {
+  this.h = 1 - (this.h || 0)
+  legend.hSep(this.h ? 8 : undefined).render(1000)
 }
 
 const toggleInsert = () => {

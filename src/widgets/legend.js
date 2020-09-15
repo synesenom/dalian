@@ -1,6 +1,7 @@
 import compose from '../core/compose'
 import extend from '../core/extend'
 import wong from '../components/palettes/wong'
+import getPattern from '../utils/patterns'
 import Widget from '../components/widget'
 import Font from '../components/font'
 import Highlight from '../components/highlight'
@@ -21,6 +22,8 @@ export default (name, parent = 'body') => {
     })(),
     styles: null,
     markers: 'square',
+    vSep: 1.4,
+    hSep: 6,
     columns: 1,
   }
 
@@ -35,20 +38,28 @@ export default (name, parent = 'body') => {
   // Private members.
   const _ = {
     entries: [],
-    colors: DEFAULTS.colors,
+    colors: d => DEFAULTS.colors(d.key),
     styles: DEFAULTS.styles,
     markers: DEFAULTS.markers,
+    vSep: DEFAULTS.vSep,
+    hSep: DEFAULTS.hSep,
+    columns: DEFAULTS.columns,
+    inserted: false,
     container: self._widget.content.append('g')
       .attr('class', 'legend-container'),
 
     // Methods.
-    entryTransform: (d, i) => `translate(0, ${parseFloat(self._font.size) * (0.7 + 1.4 * i)})`,
+    entryTransform: (d, i) => {
+      const fs = parseFloat(self._font.size)
+      return `translate(${fs * _.hSep * (i % _.columns)}, ${fs * (0.7 + _.vSep * Math.floor(i / _.columns))})`
+    },
 
     makeMarker (elem) {
       // Remove existing shape.
       elem.select('.legend-entry-marker-shape')
         .remove()
 
+      // Add shape.
       let shape
       switch (_.markers) {
         case 'square':
@@ -57,6 +68,8 @@ export default (name, parent = 'body') => {
             .attr('y', '-.5em')
             .attr('width','1em')
             .attr('height', '1em')
+            .attr('rx', 2)
+            .attr('ry', 2)
           break
         case 'circle':
           shape = elem.append('circle')
@@ -70,7 +83,9 @@ export default (name, parent = 'body') => {
             .attr('transform', `translate(${parseFloat(self._font.size) / 2}, 0)`)
       }
 
+      // Add class and style
       shape.attr('class', 'legend-entry-marker-shape')
+        .attr('mask', _.styles)
     },
 
     update (duration) {
@@ -80,7 +95,11 @@ export default (name, parent = 'body') => {
       // Legend transitions.
       const t = _.container.transition().duration(duration)
 
-      // TODO Add entries (d3 selections from _.labels as data).
+      // Transform container with the margins if not inserted.
+      if (!_.inserted) {
+        t.attr('transform', `translate(${parseFloat(self._widget.margins.left)}, ${parseFloat(self._widget.margins.top)})`)
+      }
+
       _.container.selectAll('.legend-entry')
         .data(_.entries, d => d.key)
         .join(
@@ -200,7 +219,9 @@ export default (name, parent = 'body') => {
      * @method colors
      * @methodOf Legend
      * @param {(object|function)} colors Object mapping from the entry keys to color strings or function that takes the
-     * entry (with key and label) and returns a color string.
+     * entry (with key and label) and returns a color string. Default value is the colors from the default categorical
+     * palette in the <a href="../components/color.html">Color</a> component. A typical parameter is the return value
+     * from the Color component's mapper function.
      * @returns {Object} Reference to the Legend's API.
      * @example
      *
@@ -228,7 +249,7 @@ export default (name, parent = 'body') => {
 
     // TODO Implement.
     styles (styles = DEFAULTS.styles) {
-      _.styles = styles
+      _.styles = typeof styles === 'object' ? d => getPattern(styles[d.key]) : d => getPattern(styles(d.key))
       return api
     },
 
@@ -237,20 +258,94 @@ export default (name, parent = 'body') => {
      *
      * @method markers
      * @methodOf Legend
-     * @param {string} markers Marker shape. Either one of the supported values (square, circle) or a custom path. In
-     * case of a custom marker, the passed string is used as the d attribute of a path. Note that the path origin is set
-     * to the center of the square marker.
+     * @param {string} [markers = square] Marker shape. Either one of the supported values (square, circle) or a custom
+     * path. In case of a custom marker, the passed string is used as the d attribute of a path. Note that the path
+     * origin is set to the center of the square marker.
      * @returns {Object} Reference to the Legend's API.
-     * @todo example
+     * @example
+     *
+     * // Set markers to circles.
+     * const legend = dalian.Legend('my-legend')
+     *   .markers('circle')
+     *   .render()
+     *
+     * // Set markers to an equilateral triangle.
+     * legend.markers('m -0.5 4.33 l 0.5 -8.66 l 0.5 8.66 z')
+     *   .render()
      */
     markers (markers = DEFAULTS.markers) {
       _.markers = markers
       return api
     },
 
-    // TODO Implement.
+    /**
+     * Sets the number of columns to organize legend entries in.
+     *
+     * @method columns
+     * @methodOf Legend
+     * @param {number} [columns = 1] Number of columns.
+     * @returns {Object} Reference to the Legend's API.
+     * @example
+     *
+     * // Have 3 columns in the legend.
+     * const legend = dalian.Legend('my-legend')
+     *   .columns(3)
+     *   .render()
+     *
+     * // Reset to single column.
+     * legend.columns()
+     *   .render()
+     */
     columns (columns = DEFAULTS.columns) {
       _.columns = columns
+      return api
+    },
+
+    /**
+     * Sets the vertical separation between the legend entries. The separation is measured between the baseline of the
+     * entry labels.
+     *
+     * @method vSep
+     * @methodOf Legend
+     * @param {number} [length = 1.4] Size of the vertical separation in units of the current font size.
+     * @returns {Object} Reference to the Legend's API.
+     * @example
+     *
+     * // Set vertical separation to 2 em.
+     * const legend = dalian.Legend('my-legend')
+     *   .vSep(2)
+     *   .render()
+     *
+     * // Reset vertical separation to 1.4 em.
+     * legend.vSep()
+     *   .render()
+     */
+    vSep (length = DEFAULTS.vSep) {
+      _.vSep = length
+      return api
+    },
+
+    /**
+     * Sets the horizontal separation between the legend entries. The separation is measured between the center of the
+     * entry markers.
+     *
+     * @method hSep
+     * @methodOf Legend
+     * @param {number} [length = 6] Size of the horizontal separation in units of the current font size.
+     * @returns {Object} Reference to the Legend's API.
+     * @example
+     *
+     * // Set horizontal separation to 10 em.
+     * const legend = dalian.Legend('my-legend')
+     *   .hSep(10)
+     *   .render()
+     *
+     * // Reset vertical separation to 6 em.
+     * legend.hSep()
+     *   .render()
+     */
+    hSep (length = DEFAULTS.hSep) {
+      _.hSep = length
       return api
     },
 
@@ -265,29 +360,39 @@ export default (name, parent = 'body') => {
      * the current parent widget (if there is any).
      * @param {Object} pos Object representing the position within the widget where the legend should be inserted.
      * @returns {Object} Reference to the Legend's API.
-     * @todo example
+     * @example
+     *
+     * // Insert legend in the top left corner of a chart called 'figure'.
+     * const legend = dalian.Legend('my-legend')
+     *   ...
+     *   .render()
+     * legend.insert(figure, {x: 10, y: 10}).
+     *
+     * // Remove the legend from 'figure' and move it back to its own container.
+     * legend.insert()
      */
     insert (widget, pos) {
       if (typeof widget !== 'undefined' && typeof widget.objects !== 'undefined') {
-        // Insert legend to widget.
-        widget.objects.add(`${widget.id()}-legend`, _.container.node(), pos, {
+        // Remove container transform and insert legend to widget.
+        widget.objects.add(`${widget.id()}-legend`, _.container.attr('transform', null).node(), pos, {
           foreground: true
         })
 
         // Disable container.
         self._widget.container.style('display', 'none')
+        _.inserted = true
       } else {
         // Move legend back to its own widget.
-        self._widget.content.append(() => _.container.node())
+        self._widget.content.append(() => _.container
+          .attr('transform', `translate(${parseFloat(self._widget.margins.left)}, ${parseFloat(self._widget.margins.top)})`).node())
 
         // Enable container.
         self._widget.container.style('display', null)
+        _.inserted = false
       }
 
       return api
     }
-
-    // TODO API: legend positioning within widget.
   })
 
   return api
