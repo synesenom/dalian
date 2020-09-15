@@ -8,10 +8,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleRadius()">Toggle radius</li>
-    <li onclick="toggleAngle()">Toggle angle</li>
-    <li onclick="toggleLabels()">Toggle labels</li>
+    <li onclick="toggleAngle()">.angle()</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleLabels()">.label()</li>
+    <li onclick="toggleRadius()">.radius()</li>
   </ul>
 </div>
 
@@ -99,20 +99,20 @@ const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
 
 <script class="doc">
 // api methods
-const changeData = () => coxcombChart.data(getData()).render(1000)
-
-const toggleRadius = () => {
-  this.r = !(this.r || 0)
-  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
-}
-
 const toggleAngle = () => {
   this.a = 1 - (this.a || 0)
   coxcombChart.angle(this.a ? 70 : undefined).render(1000)
 }
 
+const changeData = () => coxcombChart.data(getData()).render(1000)
+
 const toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   coxcombChart.label(this.l ? d => d.label : undefined).render()
+}
+
+const toggleRadius = () => {
+  this.r = !(this.r || 0)
+  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
 }
 </script>

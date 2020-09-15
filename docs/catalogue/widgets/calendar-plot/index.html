@@ -4,13 +4,13 @@
     hljs.initHighlighting();
   });</script><title>CalendarPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleLabels()">Toggle labels</li>
-    <li onclick="toggleBlockMargin()">Toggle block margin</li>
-    <li onclick="toggleMonthNames()">Toggle month names</li>
-    <li onclick="toggleBlockAlign()">Toggle label align</li>
-    <li onclick="toggleDays()">Toggle day names</li>
-    <li onclick="toggleWeekStart()">Toggle week start</li>
+    <li onclick="toggleBlockAlign()">.blockAlign()</li>
+    <li onclick="toggleBlockMargin()">.blockMargin()</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleDays()">.days()</li>
+    <li onclick="toggleLabels()">.label</li>
+    <li onclick="toggleMonths()">.months()</li>
+    <li onclick="toggleWeekStart()">.weekStart()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -66,7 +66,23 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
+let toggleBlockAlign = () => {
+  this.a = 1 - (this.a || 0)
+  calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
+}
+
+let toggleBlockMargin = () => {
+  this.b = 1 - (this.b || 0)
+  calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
+}
+
 let changeData = () => calendarPlot.data(getData()).render(1000)
+
+let toggleDays = () => {
+  this.w = 1 - (this.w || 0)
+  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']: undefined)
+    .render()
+}
 
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
@@ -75,27 +91,11 @@ let toggleLabels = () => {
     .render()
 }
 
-let toggleBlockMargin = () => {
-  this.b = 1 - (this.b || 0)
-  calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
-}
-
-let toggleMonthNames = () => {
+let toggleMonths = () => {
   this.m = 1 - (this.m || 0)
   calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo',
     'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
     'octubre', 'noviembre', 'diciembre'] : undefined).render()
-}
-
-let toggleBlockAlign = () => {
-  this.a = 1 - (this.a || 0)
-  calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
-}
-
-let toggleDays = () => {
-  this.w = 1 - (this.w || 0)
-  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']: undefined)
-    .render()
 }
 
 let toggleWeekStart = () => {

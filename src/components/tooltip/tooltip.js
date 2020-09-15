@@ -1,4 +1,4 @@
-import { event, mouse } from 'd3'
+import { mouse } from 'd3'
 import extend from '../../core/extend'
 import StyleInjector from '../../utils/style-injector'
 
@@ -127,7 +127,7 @@ export default (self, api) => {
     self._widget.container
       .style('pointer-events', _.on ? 'all' : null)
       .on('mousemove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip())
-      .on('touchmove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip())
+      .on('touchmove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip(), {passive: true})
       .on('mouseout.tooltip', _.hideTooltip)
   })
 

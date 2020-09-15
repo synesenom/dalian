@@ -15,10 +15,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleInnerRadius()">Toggle inner radius</li>
-    <li onclick="toggleOuterRadius()">Toggle outer radius</li>
-    <li onclick="toggleLabels()">Toggle labels</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleInnerRadius()">.innerRadius()</li>
+    <li onclick="toggleLabels()">.label()</li>
+    <li onclick="toggleOuterRadius()">.outerRadius()</li>
   </ul>
 </div>
 
@@ -81,14 +81,14 @@ let toggleInnerRadius = () => {
   pieChart.innerRadius(this.i ? 25 : undefined).render()
 }
 
-let toggleOuterRadius = () => {
-  this.o = !(this.o || 0)
-  pieChart.outerRadius(this.o ? 40 : 0.3 * HEIGHT).render()
-}
-
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
+}
+
+let toggleOuterRadius = () => {
+  this.o = !(this.o || 0)
+  pieChart.outerRadius(this.o ? 40 : 0.3 * HEIGHT).render()
 }
 </script>
 

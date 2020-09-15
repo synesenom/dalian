@@ -4,11 +4,11 @@
     hljs.initHighlighting();
   });</script><title>BoxPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleBoxWidth()">Change box width</li>
-    <li onclick="toggleOpacity()">Change box opacity</li>
-    <li onclick="toggleLineWidth()">Change line width</li>
-    <li onclick="toggleHorizontal()">Change to horizontal</li>
+    <li onclick="toggleBoxWidth()">.boxWidth()</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleHorizontal()">.horizontal()</li>
+    <li onclick="toggleLineWidth()">.lineWidth()</li>
+    <li onclick="toggleOpacity()">.opacity()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -93,9 +93,12 @@ let toggleBoxWidth = () => {
   boxPlot.boxWidth(this.w ? 14 : undefined).render(1000)
 }
 
-let toggleOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  boxPlot.opacity(this.o ? 0.8 : undefined).render(1000)
+let toggleHorizontal = () => {
+  this.h = 1 - (this.h || 0)
+  boxPlot.horizontal(this.h)
+    .bottomAxis.label(this.h ? 'sample' : 'distribution')
+    .leftAxis.label(this.h ? 'distribution' : 'sample')
+    .render()
 }
 
 let toggleLineWidth = () => {
@@ -103,11 +106,8 @@ let toggleLineWidth = () => {
   boxPlot.lineWidth(this.l ? 2 : undefined).render(1000)
 }
 
-let toggleHorizontal = () => {
-  this.h = 1 - (this.h || 0)
-  boxPlot.horizontal(this.h)
-    .bottomAxis.label(this.h ? 'sample' : 'distribution')
-    .leftAxis.label(this.h ? 'distribution' : 'sample')
-    .render()
+let toggleOpacity = () => {
+  this.o = 1 - (this.o || 0)
+  boxPlot.opacity(this.o ? 0.8 : undefined).render(1000)
 }
 </script></div></main></body></html>

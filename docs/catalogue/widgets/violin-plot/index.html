@@ -4,12 +4,12 @@
     hljs.initHighlighting();
   });</script><title>ViolinPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleViolinWidth()">Change violin width</li>
-    <li onclick="toggleBandwidth()">Change violin bandwidth</li>
-    <li onclick="toggleOpacity()">Change violin opacity</li>
-    <li onclick="toggleLineWidth()">Change line width</li>
-    <li onclick="toggleHorizontal()">Change to horizontal</li>
+    <li onclick="toggleBandwidth()">.bandwidth()</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleHorizontal()">.horizontal()</li>
+    <li onclick="toggleLineWidth()">.lineWidth()</li>
+    <li onclick="toggleOpacity()">.opacity()</li>
+    <li onclick="toggleViolinWidth()">.violinWidth()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -54,27 +54,12 @@ const violinPlot = dalian.ViolinPlot('violin-plot', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => violinPlot.data(getData()).render(1000)
-
-let toggleViolinWidth = () => {
-  this.w = 1 - (this.w || 0)
-  violinPlot.violinWidth(this.w ? 14 : undefined).render(1000)
-}
-
 let toggleBandwidth = () => {
   this.r = 1 - (this.r || 0)
   violinPlot.bandwidth(this.r ? 0.5 : undefined).render(1000)
 }
 
-let toggleOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  violinPlot.opacity(this.o ? 0.8 : undefined).render(1000)
-}
-
-let toggleLineWidth = () => {
-  this.l = 1 - (this.l || 0)
-  violinPlot.lineWidth(this.l ? 2 : undefined).render(1000)
-}
+let changeData = () => violinPlot.data(getData()).render(1000)
 
 let toggleHorizontal = () => {
   this.h = 1 - (this.h || 0)
@@ -82,5 +67,20 @@ let toggleHorizontal = () => {
     .bottomAxis.label(this.h ? 'sample' : 'distribution')
     .leftAxis.label(this.h ? 'distribution' : 'sample')
     .render()
+}
+
+let toggleLineWidth = () => {
+  this.l = 1 - (this.l || 0)
+  violinPlot.lineWidth(this.l ? 2 : undefined).render(1000)
+}
+
+let toggleOpacity = () => {
+  this.o = 1 - (this.o || 0)
+  violinPlot.opacity(this.o ? 0.8 : undefined).render(1000)
+}
+
+let toggleViolinWidth = () => {
+  this.w = 1 - (this.w || 0)
+  violinPlot.violinWidth(this.w ? 14 : undefined).render(1000)
 }
 </script></div></main></body></html>

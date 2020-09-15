@@ -6,10 +6,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleSchema()">Toggle schema</li>
-    <li onclick="togglePaging()">Toggle paging</li>
-    <li onclick="toggleColor()">Toggle color</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="togglePaging()">.paging()</li>
+    <li onclick="toggleSchema()">.schema()</li>
   </ul>
 </div>
 
@@ -77,6 +77,16 @@ const table = dalian.Table('table', '#widget')
 // api methods
 const changeData = () => table.data(getData()).render()
 
+const toggleColor = () => {
+  this.c = 1 - (this.c || 0)
+  table.color(this.c ? 'royalblue' : undefined).render()
+}
+
+const togglePaging = () => {
+  this.p = 1 - (this.p || 0)
+  table.paging(this.p ? 5 : undefined).render()
+}
+
 const toggleSchema = () => {
   this.h = 1 - (this.h || 0)
   table.schema(this.h ? [
@@ -92,15 +102,5 @@ const toggleSchema = () => {
     {key: 'total', name: 'Total amount', type: 'number'},
     {key: 'currency', name: 'Currency'}
   ]).render()
-}
-
-const togglePaging = () => {
-  this.p = 1 - (this.p || 0)
-  table.paging(this.p ? 5 : undefined).render()
-}
-
-const toggleColor = () => {
-  this.c = 1 - (this.c || 0)
-  table.color(this.c ? 'royalblue' : undefined).render()
 }
 </script>

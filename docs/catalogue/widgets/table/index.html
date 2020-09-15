@@ -4,10 +4,10 @@
     hljs.initHighlighting();
   });</script><title>Table | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleSchema()">Toggle schema</li>
-    <li onclick="togglePaging()">Toggle paging</li>
-    <li onclick="toggleColor()">Toggle color</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="togglePaging()">.paging()</li>
+    <li onclick="toggleSchema()">.schema()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -54,6 +54,16 @@ const table = dalian.Table('table', '#widget')
 // api methods
 const changeData = () => table.data(getData()).render()
 
+const toggleColor = () => {
+  this.c = 1 - (this.c || 0)
+  table.color(this.c ? 'royalblue' : undefined).render()
+}
+
+const togglePaging = () => {
+  this.p = 1 - (this.p || 0)
+  table.paging(this.p ? 5 : undefined).render()
+}
+
 const toggleSchema = () => {
   this.h = 1 - (this.h || 0)
   table.schema(this.h ? [
@@ -69,15 +79,5 @@ const toggleSchema = () => {
     {key: 'total', name: 'Total amount', type: 'number'},
     {key: 'currency', name: 'Currency'}
   ]).render()
-}
-
-const togglePaging = () => {
-  this.p = 1 - (this.p || 0)
-  table.paging(this.p ? 5 : undefined).render()
-}
-
-const toggleColor = () => {
-  this.c = 1 - (this.c || 0)
-  table.color(this.c ? 'royalblue' : undefined).render()
 }
 </script></div></main></body></html>

@@ -27,7 +27,7 @@ import YRange from '../components/range/y-range'
  *   <li><a href="../components/y-range.html">YRange</a></li>
  * </ul>
  *
- * @function ScatterPlot
+ * @function BubbleChart
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */

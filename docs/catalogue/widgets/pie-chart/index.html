@@ -4,10 +4,10 @@
     hljs.initHighlighting();
   });</script><title>PieChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="toggleInnerRadius()">Toggle inner radius</li>
-    <li onclick="toggleOuterRadius()">Toggle outer radius</li>
-    <li onclick="toggleLabels()">Toggle labels</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleInnerRadius()">.innerRadius()</li>
+    <li onclick="toggleLabels()">.label()</li>
+    <li onclick="toggleOuterRadius()">.outerRadius()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -59,13 +59,13 @@ let toggleInnerRadius = () => {
   pieChart.innerRadius(this.i ? 25 : undefined).render()
 }
 
-let toggleOuterRadius = () => {
-  this.o = !(this.o || 0)
-  pieChart.outerRadius(this.o ? 40 : 0.3 * HEIGHT).render()
-}
-
 let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
+}
+
+let toggleOuterRadius = () => {
+  this.o = !(this.o || 0)
+  pieChart.outerRadius(this.o ? 40 : 0.3 * HEIGHT).render()
 }
 </script></div></main></body></html>

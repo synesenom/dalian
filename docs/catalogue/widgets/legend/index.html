@@ -4,14 +4,14 @@
     hljs.initHighlighting();
   });</script><title>Legend | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleLabels()">Toggle labels</li>
-    <li onclick="toggleEntries()">Toggle entries</li>
-    <li onclick="toggleColors()">Toggle colors</li>
-    <li onclick="toggleMarkers()">Toggle markers</li>
-    <li onclick="toggleColumns()">Toggle columns</li>
-    <li onclick="toggleVSep()">Toggle vertical separation</li>
-    <li onclick="toggleHSep()">Toggle horizontal separation</li>
-    <li onclick="toggleInsert()">Toggle insert</li>
+    <li onclick="toggleColors()">.colors()</li>
+    <li onclick="toggleColumns()">.columns()</li>
+    <li onclick="toggleEntries()">.entries()</li>
+    <li onclick="toggleHSep()">.hSep()</li>
+    <li onclick="toggleInsert()">.insert()</li>
+    <li onclick="toggleMarkers()">.markers()</li>
+    <li onclick="toggleStyles()">.styles()</li>
+    <li onclick="toggleVSep()">.vSep()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -59,8 +59,6 @@ const chart = dalian.LineChart('chart', '#widget')
   .leftAxis.label('consumption')
   .bottomAxis.label('days')
   .yRange.max(4)
-  .tooltip.on(true)
-  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render()
 </script><script class="doc">
 // create legend
@@ -80,24 +78,34 @@ const legend = dalian.Legend('legend', '#widget')
     saison: 'dashed',
     stout: 'dotted'
   })
-  .mouse.over(k => legend.highlight(k, 400))
-  .mouse.leave(() => legend.highlight(null, 400))
+  .mouse.over(k => {
+    // Highlight legend and curves.
+    legend.highlight(k, 400)
+    chart.highlight(k, 400)
+  })
+  .mouse.leave(() => {
+    // Remove highlights.
+    legend.highlight(null, 400)
+    chart.highlight(null, 400)
+  })
   .render()
 </script><script class="doc">
 // api methods
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  legend.entries(this.l ? [
-    {key: 'pilsener', label: 'Czech'},
-    {key: 'weissbier', label: 'German'},
-    {key: 'saison', label: 'French'},
-    {key: 'stout', label: 'British'}
-  ] : [
-    {key: 'pilsener', label: 'Pilsner'},
-    {key: 'weissbier', label: 'Weissbier'},
-    {key: 'saison', label: 'Saison'},
-    {key: 'stout', label: 'Stout'}
-  ]).render()
+const toggleColors = () => {
+  this.c = 1 - (this.c || 0)
+  const colors = this.c ? {
+    pilsener: 'royalblue',
+    weissbier: 'yellowgreen',
+    saison: 'goldenrod',
+    stout: 'firebrick',
+  } : undefined
+  legend.colors(colors).render(1000)
+  chart.color.palette(colors).render(1000)
+}
+
+const toggleColumns = () => {
+  this.o = 1 - (this.o || 0)
+  legend.columns(this.o ? 2 : undefined).render(1000)
 }
 
 const toggleEntries = () => {
@@ -113,34 +121,14 @@ const toggleEntries = () => {
   ]).render(1000)
 }
 
-const toggleColors = () => {
-  this.c = ((this.c || 0) + 1) % 3
-  switch (this.c) {
-    case 0:
-      legend.colors().render(1000)
-      break
-    case 1:
-      legend.colors(d => {
-        switch (d) {
-          case 'pilsener':
-            return 'royalblue'
-          case 'weissbier':
-            return 'firebrick'
-          case 'saison':
-            return 'goldenrod'
-          case 'stout':
-            return 'yellowgreen'
-        }
-      }).render(1000)
-      break
-    case 2:
-      legend.colors({
-        pilsener: '#F8F753',
-        weissbier: '#ECE61A',
-        saison: '#BF923B',
-        stout: '#0F0B0A',
-      }).render(1000)
-  }
+const toggleHSep = () => {
+  this.h = 1 - (this.h || 0)
+  legend.hSep(this.h ? 8 : undefined).render(1000)
+}
+
+const toggleInsert = () => {
+  this.i = 1 - (this.i || 0)
+  legend.insert(this.i ? chart : undefined, {x: 20, y: 20})
 }
 
 const toggleMarkers = () => {
@@ -157,23 +145,18 @@ const toggleMarkers = () => {
   }
 }
 
-const toggleColumns = () => {
-  this.o = 1 - (this.o || 0)
-  legend.columns(this.o ? 2 : undefined).render(1000)
+const toggleStyles = () => {
+  this.s = 1 - (this.s || 0)
+  const styles = this.s ? undefined : {
+    saison: 'dashed',
+    stout: 'dotted'
+  }
+  legend.styles(styles).render()
+  chart.lineStyle(styles).render()
 }
 
 const toggleVSep = () => {
   this.v = 1 - (this.v || 0)
   legend.vSep(this.v ? 2 : undefined).render(1000)
-}
-
-const toggleHSep = () => {
-  this.h = 1 - (this.h || 0)
-  legend.hSep(this.h ? 8 : undefined).render(1000)
-}
-
-const toggleInsert = () => {
-  this.i = 1 - (this.i || 0)
-  legend.insert(this.i ? chart : undefined, {x: 20, y: 20})
 }
 </script></div></main></body></html>

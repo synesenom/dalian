@@ -9,6 +9,21 @@ import Mouse from '../components/mouse'
 import encode from '../core/encode'
 
 
+/**
+ * The legend widget. This widget extends the following components:
+ * <ul>
+ *   <li><a href="../components/font.html">Font</a></li>
+ *   <li><a href="../components/highlight.html">Highlight</a>: plot groups can be highlighted by passing their names
+ *   as specified in the data array.</li>
+ *   <li><a href="../components/mouse.html">Mouse</a>: The group name and the wedge {y} value is passed to each mouse
+ *   callback.</li>
+ *   <li><a href="../components/widget.html">Widget</a></li>
+ * </ul>
+ *
+ * @function Legend
+ * @param {string} name Name of the legend. Should be a unique identifier.
+ * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
+ */
 export default (name, parent = 'body') => {
   // Default values.
   const DEFAULTS = {
@@ -20,7 +35,7 @@ export default (name, parent = 'body') => {
         return wong[i > -1 ? i : keys.push(d) - 1]
       }
     })(),
-    styles: null,
+    styles: () => 'solid',
     markers: 'square',
     vSep: 1.4,
     hSep: 6,
@@ -184,7 +199,7 @@ export default (name, parent = 'body') => {
     /**
      * Sets the entries of the legend. Legend entries follow the same order as provided by this method.
      *
-     * @method labels
+     * @method entries
      * @methodOf Legend
      * @param {Object[]} entries Array of objects representing the legend entries. Each entry is defined by a {key} and
      * a {label} property. The key is used for coloring, styling and interactions whereas the label is the displayed
@@ -218,10 +233,9 @@ export default (name, parent = 'body') => {
      *
      * @method colors
      * @methodOf Legend
-     * @param {(object|function)} colors Object mapping from the entry keys to color strings or function that takes the
-     * entry (with key and label) and returns a color string. Default value is the colors from the default categorical
-     * palette in the <a href="../components/color.html">Color</a> component. A typical parameter is the return value
-     * from the Color component's mapper function.
+     * @param {Object} colors Object mapping from the entry keys to color strings. Default value is the colors from the
+     * default categorical palette in the <a href="../components/color.html">Color</a> component. A typical parameter is
+     * the return value from the Color component's mapper function.
      * @returns {Object} Reference to the Legend's API.
      * @example
      *
@@ -237,19 +251,37 @@ export default (name, parent = 'body') => {
      *     b: 'green',
      *     c: 'yellow'
      *   }).render()
-     *
-     * // Change colors to a function.
-     * legend.colors(d => d.key === 'a' ? 'blue' : 'green')
-     *   .render()
      */
     colors (colors = DEFAULTS.colors) {
-      _.colors = typeof colors === 'object' ? d => colors[d.key] : d => colors(d.key)
+      _.colors = d => colors[d.key]
       return api
     },
 
-    // TODO Implement.
+    /**
+     * Sets the background style of the legend entry markers.
+     *
+     * @method styles
+     * @methodOf Legend
+     * @param {Object} styles Object mapping from the entry keys to style strings. If an entry's key is not present in
+     * the mapping, it defaults to solid. Default value is solid for all entries. A typical parameter is the return
+     * value from the <a href="../components/line-style.html">LineStyle</a> component's mapper function.
+     * @returns {Object} Reference to the Legend's API.
+     * @example
+     *
+     * // Set styles.
+     * const legend = dalian.Legend('my-legend')
+     *   .entries([
+     *     {key: 'a', label: 'Alice'},
+     *     {key: 'b', label: 'Bob'},
+     *     {key: 'c', label: 'Charlie'}
+     *   ])
+     *   .styles({
+     *     b: 'dashed',
+     *     c: 'dotted'
+     *   }).render()
+     */
     styles (styles = DEFAULTS.styles) {
-      _.styles = typeof styles === 'object' ? d => getPattern(styles[d.key]) : d => getPattern(styles(d.key))
+      _.styles = d => getPattern(styles[d.key])
       return api
     },
 

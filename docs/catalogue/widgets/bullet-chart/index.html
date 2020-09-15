@@ -4,15 +4,15 @@
     hljs.initHighlighting();
   });</script><title>BulletChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeValue()">Change value</li>
-    <li onclick="changeForecast()">Change forecast</li>
-    <li onclick="changeTarget()">Change target</li>
-    <li onclick="changeRanges()">Change ranges</li>
-    <li onclick="toggleThickness()">Toggle thickness</li>
-    <li onclick="toggleValueColor()">Toggle value color</li>
-    <li onclick="toggleRangeColor()">Toggle range color</li>
-    <li onclick="toggleLabel()">Toggle label</li>
-    <li onclick="toggleUnit()">Toggle unit</li>
+    <li onclick="changeForecast()">.forecast()</li>
+    <li onclick="toggleLabel()">.label()</li>
+    <li onclick="toggleRangeColor()">.rangeColor()</li>
+    <li onclick="changeRanges()">.ranges()</li>
+    <li onclick="changeTarget()">.target()</li>
+    <li onclick="toggleThickness()">.thickness()</li>
+    <li onclick="toggleUnit()">.unit()</li>
+    <li onclick="changeValue()">.value()</li>
+    <li onclick="toggleValueColor()">.valueColor()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -41,12 +41,20 @@ const bulletChart = dalian.BulletChart('bullet-chart', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-let changeValue = () => bulletChart.value(100 * Math.random())
-        .render(1000)
+let changeForecast = () => bulletChart
+  .forecast(4 * Math.random())
+  .render(1000)
 
-let changeTarget = () => bulletChart
-        .target(80 + 20 * Math.random())
-        .render(1000)
+let toggleLabel = () => {
+  this.l = 1 - (this.l || 0)
+  bulletChart.label(this.l ? '' : 'Success').render()
+}
+
+let toggleRangeColor = () => {
+  this.s = 1 - (this.s || 0)
+  bulletChart.rangeColor(this.s ? 'goldenrod' : undefined)
+    .render(1000)
+}
 
 let changeRanges = () => bulletChart.ranges([
   0,
@@ -54,34 +62,26 @@ let changeRanges = () => bulletChart.ranges([
   70 + 20 * Math.random(),
   100]).render(1000)
 
-let changeForecast = () => bulletChart
-        .forecast(4 * Math.random())
-        .render(1000)
+let changeTarget = () => bulletChart
+  .target(80 + 20 * Math.random())
+  .render(1000)
 
 let toggleThickness = () => {
   this.w = 1 - (this.w || 0)
   bulletChart.thickness(this.w ? 50 : undefined).render(1000)
 }
 
+let toggleUnit = () => {
+  this.u = 1 - (this.u || 0)
+  bulletChart.unit(this.u ? '' : 'Minutes of smile').render()
+}
+
+let changeValue = () => bulletChart.value(100 * Math.random())
+        .render(1000)
+
 let toggleValueColor = () => {
   this.c = 1 - (this.c || 0)
   bulletChart.valueColor(this.c ? 'royalblue' : undefined)
           .render(1000)
-}
-
-let toggleRangeColor = () => {
-  this.s = 1 - (this.s || 0)
-  bulletChart.rangeColor(this.s ? 'goldenrod' : undefined)
-          .render(1000)
-}
-
-let toggleLabel = () => {
-  this.l = 1 - (this.l || 0)
-  bulletChart.label(this.l ? '' : 'Success').render()
-}
-
-let toggleUnit = () => {
-  this.u = 1 - (this.u || 0)
-  bulletChart.unit(this.u ? '' : 'Minutes of smile').render()
 }
 </script></div></main></body></html>
