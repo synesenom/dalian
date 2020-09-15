@@ -6,7 +6,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="downloadAsPng()">Downlad as PNG</li>
+    <li onclick="download()">.download()</li>
   </ul>
   <style>
     .dalian-widget {
@@ -64,5 +64,5 @@ const chart = dalian.LineChart('myChart', '#widget')
 
 <script class="doc">
 // api methods
-const downloadAsPng = () => chart.download('chart')
+const download = () => chart.download('chart')
 </script>

@@ -4,7 +4,7 @@
     hljs.initHighlighting();
   });</script><title>Chart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="downloadAsPng()">Downlad as PNG</li>
+    <li onclick="download()">.download()</li>
   </ul>
   <style>
     .dalian-widget {
@@ -43,5 +43,5 @@ const chart = dalian.LineChart('myChart', '#widget')
   .render()
 </script><script class="doc">
 // api methods
-const downloadAsPng = () => chart.download('chart')
+const download = () => chart.download('chart')
 </script></div></main></body></html>

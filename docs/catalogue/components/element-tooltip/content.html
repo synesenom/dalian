@@ -6,11 +6,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li id="toggleTooltip" onclick="toggleTooltip()">Enable tooltip</li>
-    <li onclick="toggleTitleFormat()">Toggle title format</li>
-    <li onclick="toggleLabelFormat()">Toggle entry label format</li>
-    <li onclick="toggleValueFormat()">Toggle entry value format</li>
-    <li onclick="toggleFontColor()">Toggle font color</li>
+    <li onclick="toggleLabelFormat()">.tooltip.labelFormat()</li>
+    <li onclick="toggleTooltip()">.tooltip.on()</li>
+    <li onclick="toggleTitleFormat()">.tooltip.titleFormat()</li>
+    <li onclick="toggleValueFormat()">.tooltip.valueFormat()</li>
   </ul>
 </div>
 
@@ -53,14 +52,21 @@ const chart = dalian.BarChart('myChart', '#widget')
   .color.palette('royalblue')
   .bottomAxis.label('X')
   .leftAxis.label('Y')
+  .tooltip.on(true)
   .render()
 </script>
 
 <script class="doc">
 // api methods
+let toggleLabelFormat = () => {
+  this.l = !(this.l || 0)
+  chart.tooltip.labelFormat(this.l ? label => `<strong>${label}</strong>:` : undefined)
+    .render()
+}
+
 let toggleTooltip = () => {
   this.t = 1 - (this.t || 0)
-  chart.tooltip.on(this.t).render()
+  chart.tooltip.on(!this.t).render()
 }
 
 let toggleTitleFormat = () => {
@@ -69,21 +75,10 @@ let toggleTitleFormat = () => {
     .render()
 }
 
-let toggleLabelFormat = () => {
-  this.l = !(this.l || 0)
-  chart.tooltip.labelFormat(this.l ? label => `<strong>${label}</strong>:` : undefined)
-    .render()
-}
-
 let toggleValueFormat = () => {
   this.v = !(this.v || 0)
   chart.tooltip.valueFormat(this.v ? y => y.toPrecision(2) + ' per capita' : undefined)
     .render()
-}
-
-let toggleFontColor = () => {
-  this.f = !(this.f || 0)
-  chart.font.color(this.f ? 'red' : undefined).render()
 }
 </script>
 
