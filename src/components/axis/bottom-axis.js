@@ -45,7 +45,6 @@ export default scale => {
          * @methodOf BottomAxis
          * @param {string} label Text to set as the label.
          * @returns {Widget} Reference to the Widget's API.
-         *
          * @example
          *
          * // Set bottom axis label to 'time'.
@@ -63,7 +62,6 @@ export default scale => {
          * @methodOf BottomAxis
          * @param {Function} format Function to set as formatter.
          * @returns {Widget} Reference to the Widget's API.
-         *
          * @example
          *
          * // Set bottom axis format to percentages.
@@ -81,7 +79,6 @@ export default scale => {
          * @methodOf BottomAxis
          * @param {(number[] | string[])} values The values to show ticks for.
          * @returns {Widget} Reference to the Widget's API.
-         *
          * @example
          *
          * // Show tick values for bottom axis only at 1, 2 and 3.
@@ -99,7 +96,6 @@ export default scale => {
          * @methodOf BottomAxis
          * @param {boolean} on Whether hiding ticks is on.
          * @returns {Widget} Reference to the Widget's API.
-         *
          * @example
          *
          * // Hide tick lines for bottom axis.
@@ -117,7 +113,6 @@ export default scale => {
          * @methodOf BottomAxis
          * @param {boolean} on Whether hiding the axis line is on.
          * @returns {Widget} Reference to the Widget's API.
-         *
          * @example
          *
          * // Hide axis line for bottom axis.

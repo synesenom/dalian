@@ -261,7 +261,6 @@ export default (name, parent = 'body') => {
      * @methodOf CoxcombChart
      * @param {number} [radius = 100] Radius to set in pixels.
      * @returns {CoxcombChart} Reference to the CoxcombChart API.
-     *
      * @example
      *
      * // Set radius to 50px.
@@ -320,7 +319,6 @@ export default (name, parent = 'body') => {
      * </dl>
      * The value of {y} for missing {x} coordinates are replaced by {null} and are not shown on the chart.
      * @returns {CoxcombChart} Reference to the CoxcombChart API.
-     *
      * @example
      *
      * const coxcomb = dalian.CoxcombChart('my-chart')

@@ -232,7 +232,6 @@ export default (name, parent = 'body') => {
      * @methodOf ViolinPlot
      * @param {number} [width = 30] Width of the violins in pixels.
      * @returns {Object} Reference to the ViolinPlot's API.
-     *
      * @example
      *
      * // Set violin width to 20px.
@@ -264,7 +263,6 @@ export default (name, parent = 'body') => {
      * @methodOf ViolinPlot
      * @param {number} [bandwidth = 1] Bandwidth size.
      * @returns {Object} Reference to the ViolinPlot's API.
-     *
      * @example
      *
      * // Set bandwidth of KDE to 10.
@@ -310,7 +308,6 @@ export default (name, parent = 'body') => {
      * Note that for the violin plot, the raw observations should be passed as values as the chart itself calculates the
      * KDE used to represent the data.
      * @returns {ViolinPlot} Reference to the ViolinPlot API.
-     *
      * @example
      *
      * const violin = dalian.ViolinPlot('my-chart')

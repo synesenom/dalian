@@ -231,7 +231,6 @@ export default (name, parent = 'body') => {
      * @methodOf ScatterPlot
      * @param {number} [value = 4] Radius of the circles to set in pixels
      * @returns {Object} Reference to the ScattePlot's API.
-     *
      * @example
      *
      * // Set dot size to 2px.
@@ -265,7 +264,6 @@ export default (name, parent = 'body') => {
      *   <dt>label</dt> <dd>{(number|string)} An optional label that is used for distinguishing the dots during updates.</dd>
      * </dl>
      * @returns {ScatterPlot} Reference to the ScatterPlot API.
-     *
      * @example
      *
      * const scatter = dalian.ScatterPlot('my-chart')

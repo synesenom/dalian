@@ -60,7 +60,7 @@ const chart = dalian.BarChart('myChart', '#widget')
 // api methods
 let toggleLabelFormat = () => {
   this.l = !(this.l || 0)
-  chart.tooltip.labelFormat(this.l ? label => `<strong>${label}</strong>:` : undefined)
+  chart.tooltip.labelFormat(this.l ? label => `${label.toUpperCase()}:` : undefined)
     .render()
 }
 

@@ -6,7 +6,7 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleColors()">.colors()</li>
+    <li onclick="toggleColors()">.color.palette()</li>
     <li onclick="toggleColumns()">.columns()</li>
     <li onclick="toggleEntries()">.entries()</li>
     <li onclick="toggleHSep()">.hSep()</li>
@@ -25,17 +25,12 @@ dalian.Legend('legend-card', '#legend')
   .height(HEIGHT)
   .margins(WIDTH / 4)
   .font.size(14)
-  .entries([
-    {key: 'alice', label: 'Alice'},
-    {key: 'bob', label: 'Bob'},
-    {key: 'charlie', label: 'Charlie'},
-    {key: 'dan', label: 'Dan'}
-  ])
+  .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
   .colors({
-    alice: 'rgb(70, 108, 217)',
-    bob: 'rgba(70, 108, 217, 0.8)',
-    charlie: 'rgba(70, 108, 217, 0.5)',
-    dan: 'rgba(70, 108, 217, 0.2)'
+    Alice: 'rgb(70, 108, 217)',
+    Bob: 'rgba(70, 108, 217, 0.8)',
+    Charlie: 'rgba(70, 108, 217, 0.5)',
+    Dan: 'rgba(70, 108, 217, 0.2)'
   })
   .render()
 </script>
@@ -44,33 +39,33 @@ dalian.Legend('legend-card', '#legend')
 // create a chart
 const chart = dalian.LineChart('chart', '#widget')
   .data([{
-    name: 'pilsener',
+    name: 'Pilsener',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
       y: Math.exp(i / 100)
     }))
   }, {
-    name: 'weissbier',
+    name: 'Weissbier',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
       y: Math.cos(i / 100)**2
     }))
   }, {
-    name: 'saison',
+    name: 'Saison',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
       y: 1 - Math.exp(-i / 100)
     }))
   }, {
-    name: 'stout',
+    name: 'Stout',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
       y: Math.log(i / 10 + 1)
     }))
   }])
   .lineStyle({
-    saison: 'dashed',
-    stout: 'dotted',
+    Saison: 'dashed',
+    Stout: 'dotted',
   })
   .width(0.6 * WIDTH)
   .height(HEIGHT)
@@ -89,15 +84,10 @@ const legend = dalian.Legend('legend', '#widget')
   .height(HEIGHT)
   .margins({top: 40})
   .font.size(12)
-  .entries([
-    {key: 'pilsener', label: 'Pilsner'},
-    {key: 'weissbier', label: 'Weissbier'},
-    {key: 'saison', label: 'Saison'},
-    {key: 'stout', label: 'Stout'}
-  ])
+  .entries(['Pilsener', 'Weissbier', 'Saison', 'Stout'])
   .styles({
-    saison: 'dashed',
-    stout: 'dotted'
+    Saison: 'dashed',
+    Stout: 'dotted'
   })
   .mouse.over(k => {
     // Highlight legend and curves.
@@ -117,12 +107,12 @@ const legend = dalian.Legend('legend', '#widget')
 const toggleColors = () => {
   this.c = 1 - (this.c || 0)
   const colors = this.c ? {
-    pilsener: 'royalblue',
-    weissbier: 'yellowgreen',
-    saison: 'goldenrod',
-    stout: 'firebrick',
+    Pilsener: 'royalblue',
+    Weissbier: 'yellowgreen',
+    Saison: 'goldenrod',
+    Stout: 'firebrick',
   } : undefined
-  legend.colors(colors).render(1000)
+  legend.color.palette(colors).render(1000)
   chart.color.palette(colors).render(1000)
 }
 
@@ -133,15 +123,9 @@ const toggleColumns = () => {
 
 const toggleEntries = () => {
   this.e = 1 - (this.e || 0)
-  legend.entries(this.e ? [
-    {key: 'pilsener', label: 'Pilsner'},
-    {key: 'saison', label: 'Saison'}
-  ] : [
-    {key: 'pilsener', label: 'Pilsner'},
-    {key: 'weissbier', label: 'Weissbier'},
-    {key: 'saison', label: 'Saison'},
-    {key: 'stout', label: 'Stout'}
-  ]).render(1000)
+  legend.entries(this.e ? ['Pilsener', 'Saison']
+    : ['Pilsener', 'Weissbier', 'Saison', 'Stout'])
+    .render(1000)
 }
 
 const toggleHSep = () => {

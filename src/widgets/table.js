@@ -452,7 +452,6 @@ export default (name, parent = 'body') => {
      * @param {Object[]} data Array of objects representing the rows of the table. Each row is an object with the column
      * IDs as property names and cell values as values.
      * @returns {Table} Reference to the Table API.
-     *
      * @example
      *
      * const table = dalian.Table('my-table')
@@ -495,7 +494,6 @@ export default (name, parent = 'body') => {
      *   representation of the value.</li>
      * </ul>
      * @returns {Table} Reference to the Table API.
-     *
      * @example
      *
      * const table = dalian.Table('my-table')
@@ -518,7 +516,6 @@ export default (name, parent = 'body') => {
      * @methodOf Table
      * @param {string} [color = #888] Color to set.
      * @returns {Table} Reference to the Table API.
-     *
      * @example
      *
      * // Set color to royalblue.
@@ -562,7 +559,6 @@ export default (name, parent = 'body') => {
      * @methodOf Table
      * @param {number} size Number of rows in a single page.
      * @returns {Table} Reference to the Table API.
-     *
      * @example
      *
      * // Set paging with 5 rows per page.

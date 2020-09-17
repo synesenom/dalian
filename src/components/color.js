@@ -292,7 +292,6 @@ export default (self, api) => {
        * @methodOf Color
        * @param {string} [policy = categorical] Policy to set for the color scheme.
        * @returns {Widget} Reference to the Widget's API.
-       *
        * @example
        *
        * // Set color policy to sequential.
@@ -362,7 +361,6 @@ export default (self, api) => {
        * @param {string} missing Color to be used for missing values. This is mostly relevant for the sequential and
        * diverging color policies. Default value is policy dependent.
        * @returns {Widget} Reference to the Widget's API.
-       *
        * @example
        *
        * // Set color palette to single color.
@@ -422,7 +420,6 @@ export default (self, api) => {
        * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. If it is not specified, true colors
        * are restored.
        * @returns {Widget} Reference to the Widget's API.
-       *
        * @example
        *
        * // Set deficiency to protanotopia.
@@ -452,7 +449,6 @@ export default (self, api) => {
        * @param {Function} [on = d => d.name] Function that maps from a data point to a set of categories, the interval
        * [0, 1] or the interval [-1, 1].
        * @returns {Widget} Reference to the Widget's API.
-       *
        * @example
        *
        * // Set color mapping to the first letter of the plot name (for categorical policy).
@@ -469,7 +465,9 @@ export default (self, api) => {
         _.on = on
         self._color.mapper = _.buildMapper()
         return api
-      }
+      },
+
+      getMapper: () => _.buildMapper()
     }
   })
 

@@ -213,17 +213,12 @@ dalian.Legend('legend-card', '#legend')
   .height(HEIGHT)
   .margins(WIDTH / 4)
   .font.size(14)
-  .entries([
-    {key: 'alice', label: 'Alice'},
-    {key: 'bob', label: 'Bob'},
-    {key: 'charlie', label: 'Charlie'},
-    {key: 'dan', label: 'Dan'}
-  ])
+  .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
   .colors({
-    alice: 'rgb(70, 108, 217)',
-    bob: 'rgba(70, 108, 217, 0.8)',
-    charlie: 'rgba(70, 108, 217, 0.5)',
-    dan: 'rgba(70, 108, 217, 0.2)'
+    Alice: 'rgb(70, 108, 217)',
+    Bob: 'rgba(70, 108, 217, 0.8)',
+    Charlie: 'rgba(70, 108, 217, 0.5)',
+    Dan: 'rgba(70, 108, 217, 0.2)'
   })
   .render()
 </script></a><a class="card" href="widgets/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">

@@ -205,7 +205,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {number} [value = 0] Value to set the bar to.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set value to 50.
@@ -229,7 +228,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {number} [forecast = 1] Forecast value in units of the bar value.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set forecast to the triple of the value.
@@ -253,7 +251,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {number} target Target value to set.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set target to 80.
@@ -274,7 +271,6 @@ export default (name, parent = 'body') => {
      * @param {number[]} [ranges = [0, 50, 80, 100] Array representing the boundaries of the ranges. Must have four
      * values corresponding to the boundaries of the three ranges.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set poor, satisfactory, good ranges to (0, 60), (60, 90), (90, 100).
@@ -298,7 +294,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {number} [thickness = 30] Thickness to set.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set thickness to 20px.
@@ -323,7 +318,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} [color = #000] Color to set for the bar, forecast and target.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set value, forecast and target color to blue.
@@ -347,7 +341,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} [color = #888] Color to set for the ranges.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * // Set range color to red.
@@ -371,7 +364,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} label Label to set for the chart.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * const bullet = dalian.BulletChart('my-chart')
@@ -390,7 +382,6 @@ export default (name, parent = 'body') => {
      * @methodOf BulletChart
      * @param {string} unit Unit description.
      * @returns {BulletChart} Reference to the BulletChart API.
-     *
      * @example
      *
      * const bullet = dalian.BulletChart('my-chart')

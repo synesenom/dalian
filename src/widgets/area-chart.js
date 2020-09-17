@@ -236,7 +236,6 @@ export default (name, parent = 'body') => {
      *   <dt>y</dt> <dd>{number} Y coordinate of the data point.</dd>
      * </dl>
      * @returns {AreaChart} Reference to the AreaChart API.
-     *
      * @example
      *
      * const area = dalian.AreaChart('my-chart')

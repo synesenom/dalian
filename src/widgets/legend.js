@@ -1,17 +1,18 @@
 import compose from '../core/compose'
 import extend from '../core/extend'
-import wong from '../components/palettes/wong'
 import getPattern from '../utils/patterns'
 import Widget from '../components/widget'
 import Font from '../components/font'
 import Highlight from '../components/highlight'
 import Mouse from '../components/mouse'
+import Color from '../components/color'
 import encode from '../core/encode'
 
 
 /**
  * The legend widget. This widget extends the following components:
  * <ul>
+ *   <li><a href="../components/color.html">Color</a></li>
  *   <li><a href="../components/font.html">Font</a></li>
  *   <li><a href="../components/highlight.html">Highlight</a>: plot groups can be highlighted by passing their names
  *   as specified in the data array.</li>
@@ -27,14 +28,6 @@ import encode from '../core/encode'
 export default (name, parent = 'body') => {
   // Default values.
   const DEFAULTS = {
-    // Wong palette is used as default colors.
-    colors: (() => {
-      const keys = []
-      return d => {
-        const i = keys.indexOf(d)
-        return wong[i > -1 ? i : keys.push(d) - 1]
-      }
-    })(),
     styles: () => 'solid',
     markers: 'square',
     vSep: 1.4,
@@ -45,6 +38,7 @@ export default (name, parent = 'body') => {
   // Build widget from components.
   let { self, api } = compose(
     Widget('legend', name, parent, 'svg'),
+    Color,
     Font,
     Highlight(() => _.container, ['.legend-entry']),
     Mouse
@@ -53,7 +47,6 @@ export default (name, parent = 'body') => {
   // Private members.
   const _ = {
     entries: [],
-    colors: d => DEFAULTS.colors(d.key),
     styles: DEFAULTS.styles,
     markers: DEFAULTS.markers,
     vSep: DEFAULTS.vSep,
@@ -116,20 +109,20 @@ export default (name, parent = 'body') => {
       }
 
       _.container.selectAll('.legend-entry')
-        .data(_.entries, d => d.key)
+        .data(_.entries, d => d.name)
         .join(
           // Entering entries.
           enter => {
             const entry = enter.append('g')
-              .attr('class', d => `legend-entry ${encode(d.key)}`)
+              .attr('class', d => `legend-entry ${encode(d.name)}`)
               // TODO Get rid of hard coded dy values.
               .attr('transform', _.entryTransform)
               .style('shape-rendering', 'geometricPrecision')
               .style('opacity', 0)
               .style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
               .style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
-              .on('mouseover', d => self._mouse.over(d.key))
-              .on('mouseleave', d => self._mouse.leave(d.key))
+              .on('mouseover', d => self._mouse.over(d.name))
+              .on('mouseleave', d => self._mouse.leave(d.name))
 
             // Fade in.
             entry.transition(t)
@@ -139,7 +132,7 @@ export default (name, parent = 'body') => {
             // TODO Add mask using style.
             const marker = entry.append('g')
               .attr('class', 'legend-entry-marker')
-              .attr('fill', _.colors)
+              .attr('fill', self._color.mapper)
 
             // Add marker.
             marker.call(_.makeMarker, fm)
@@ -152,7 +145,7 @@ export default (name, parent = 'body') => {
               .attr('dominant-baseline', 'central')
               .attr('font-size', self._font.size)
               .attr('dx', 1.3 * parseFloat(self._font.size))
-              .text(d => d.label)
+              .text(d => d.name)
 
             return entry
           },
@@ -172,11 +165,11 @@ export default (name, parent = 'body') => {
               .attr('font-size', self._font.size)
               .call(_.makeMarker, fm)
               .transition(t)
-              .attr('fill', _.colors)
+              .attr('fill', self._color.mapper)
 
             // Update label.
             update.select('.legend-entry-label')
-              .text(d => d.label)
+              .text(d => d.name)
 
             return update
           },
@@ -201,8 +194,8 @@ export default (name, parent = 'body') => {
      *
      * @method entries
      * @methodOf Legend
-     * @param {Object[]} entries Array of objects representing the legend entries. Each entry is defined by a {key} and
-     * a {label} property. The key is used for coloring, styling and interactions whereas the label is the displayed
+     * @param {Object[]} entries Array of objects representing the legend entries. Each entry is defined by a {name} and
+     * a {label} property. The name is used for coloring, styling and interactions whereas the label is the displayed
      * name of the entry.
      * @returns {Object} Reference to the Legend's API.
      * @example
@@ -210,50 +203,21 @@ export default (name, parent = 'body') => {
      * // Set labels to the legend.
      * const legend = dalian.Legend('my-legend')
      *   .entries([
-     *     {key: 'a', label: 'Apple'},
-     *     {key: 'b', label: 'Banana'},
-     *     {key: 'c', label: 'Cranberries'}
+     *     {name'a', label: 'Apple'},
+     *     {name: 'b', label: 'Banana'},
+     *     {name: 'c', label: 'Cranberries'}
      *   ])
      *   .render()
      *
      * // Change labels.
      * legend.entries([
-     *   {key: 'a', label: 'Alice'},
-     *   {key: 'b', label: 'Bob'},
-     *   {key: 'c', label: 'Charlie'}
+     *   {name: 'a', label: 'Alice'},
+     *   {name: 'b', label: 'Bob'},
+     *   {name: 'c', label: 'Charlie'}
      * ]).render()
      */
     entries (entries) {
-      _.entries = entries
-      return api
-    },
-
-    /**
-     * Sets the color of the legend entry markers.
-     *
-     * @method colors
-     * @methodOf Legend
-     * @param {Object} colors Object mapping from the entry keys to color strings. Default value is the colors from the
-     * default categorical palette in the <a href="../components/color.html">Color</a> component. A typical parameter is
-     * the return value from the Color component's mapper function.
-     * @returns {Object} Reference to the Legend's API.
-     * @example
-     *
-     * // Set colors.
-     * const legend = dalian.Legend('my-legend')
-     *   .entries([
-     *     {key: 'a', label: 'Alice'},
-     *     {key: 'b', label: 'Bob'},
-     *     {key: 'c', label: 'Charlie'}
-     *   ])
-     *   .colors({
-     *     a: 'blue',
-     *     b: 'green',
-     *     c: 'yellow'
-     *   }).render()
-     */
-    colors (colors = DEFAULTS.colors) {
-      _.colors = d => colors[d.key]
+      _.entries = entries.map(name => ({name}))
       return api
     },
 
@@ -262,7 +226,7 @@ export default (name, parent = 'body') => {
      *
      * @method styles
      * @methodOf Legend
-     * @param {Object} styles Object mapping from the entry keys to style strings. If an entry's key is not present in
+     * @param {Object} styles Object mapping from the entry names to style strings. If an entry's name is not present in
      * the mapping, it defaults to solid. Default value is solid for all entries. A typical parameter is the return
      * value from the <a href="../components/line-style.html">LineStyle</a> component's mapper function.
      * @returns {Object} Reference to the Legend's API.
@@ -271,9 +235,9 @@ export default (name, parent = 'body') => {
      * // Set styles.
      * const legend = dalian.Legend('my-legend')
      *   .entries([
-     *     {key: 'a', label: 'Alice'},
-     *     {key: 'b', label: 'Bob'},
-     *     {key: 'c', label: 'Charlie'}
+     *     {name: 'a', label: 'Alice'},
+     *     {name: 'b', label: 'Bob'},
+     *     {name: 'c', label: 'Charlie'}
      *   ])
      *   .styles({
      *     b: 'dashed',
@@ -281,7 +245,7 @@ export default (name, parent = 'body') => {
      *   }).render()
      */
     styles (styles = DEFAULTS.styles) {
-      _.styles = d => getPattern(styles[d.key])
+      _.styles = d => getPattern(styles[d.name])
       return api
     },
 

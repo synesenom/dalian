@@ -66,7 +66,6 @@ export default (self, api) => {
      * @param {string} [content] Content of the description. Can be HTML formatted. If not provided, description is
      * disabled.
      * @returns {Widget} Reference to the Widget's API.
-     *
      * @example
      *
      * // Enable description with the content 'Beautiful data'.

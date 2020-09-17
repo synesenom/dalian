@@ -207,7 +207,6 @@ export default (name, parent = 'body') => {
    *   <dt>value</dt> <dd>{number} Category value.</dd>
    * </dl>
    * @returns {BarChart} Reference to the BarChart API.
-   *
    * @example
    *
    * const bar = dalian.BarChart('my-chart')

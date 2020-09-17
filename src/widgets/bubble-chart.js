@@ -209,7 +209,6 @@ export default (name, parent = 'body') => {
      * @methodOf BubbleChart
      * @param {number} [radius = 30] Maximum radius in pixels.
      * @returns {Object} Reference to the BubbleChart API.
-     *
      * @example
      *
      * // Set the maximum radius to 20px.
@@ -245,7 +244,6 @@ export default (name, parent = 'body') => {
      *   proportional to this value.</dd>
      * </dl>
      * @returns {BubbleChart} Reference to the BubbleChart API.
-     *
      * @example
      *
      * const bubbles = dalian.BubbleChart('my-chart')

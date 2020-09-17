@@ -185,8 +185,8 @@ export default scales => (() => {
          *
          * @method remove
          * @methodOf Trends
-         * @param {string} [id = undefined] Identifier of the trends to remove. If trends with the specified identifier does
-         * not exist, no change is applied. If it is not specified, all trends are removed from the current chart.
+         * @param {string} [id = undefined] Identifier of the trends to remove. If trends with the specified identifier
+         * does not exist, no change is applied. If it is not specified, all trends are removed from the current chart.
          * @param {number} [duration = 0] Duration of the remove animation.
          */
         remove: (id, duration = 0) => {
