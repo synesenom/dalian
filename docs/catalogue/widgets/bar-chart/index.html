@@ -22,7 +22,7 @@ const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
 function getData () {
   return [
     {name: "apple", value: 100 * Math.random()},
-    {name: "kiwi", value: 60 * Math.random()},
+    {name: "kiwi", value: 60 * Math.random() - 30},
   ].concat(Math.random() > 0.5 ? [
     {name: "pear", value: 90 * Math.random()},
   ] : [])
@@ -37,7 +37,7 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
   .bottomAxis.label('fruit')
-  .leftAxis.label('stock')
+  .leftAxis.label('price')
   .color.palette('royalblue')
   .mouse.over(k => barChart.highlight(k.name))
   .mouse.leave(() => barChart.highlight())

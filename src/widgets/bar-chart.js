@@ -1,4 +1,4 @@
-import { max } from 'd3'
+import { max, min } from 'd3'
 import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
 import extend from '../core/extend'
@@ -69,8 +69,9 @@ export default (name, parent = 'body') => {
     measureX: (d, bandwidth, style) => {
       const ts = measureText(self._label.format(d), style)
       const dx = Math.max((bandwidth - ts.height) / 2, 5)
-      const x = _.scales.x.scale(d.value)
-      const inside = x > 2 * dx + ts.width
+      const x = _.scales.x.scale(Math.max(0, d.value))
+      const w = Math.abs(x - _.scales.x.scale(0))
+      const inside = w > 2 * dx + ts.width
       return {
         inside,
         x: inside ? x - dx : x + dx + ts.width,
@@ -79,11 +80,12 @@ export default (name, parent = 'body') => {
       }
     },
 
+    // TODO Merge this with measureX.
     measureY: (d, bandwidth, style) => {
       const ts = measureText(self._label.format(d), style)
       const dy = Math.max((bandwidth - ts.width) / 2, 5)
-      const y = _.scales.y.scale(d.value)
-      const h = parseFloat(self._widget.size.innerHeight) - y
+      const y = _.scales.y.scale(Math.max(0, d.value))
+      const h = Math.abs(y - _.scales.y.scale(0))
       const inside = h > 2 * dy + ts.height
       return {
         inside,
@@ -102,15 +104,21 @@ export default (name, parent = 'body') => {
       // Compute some constants beforehand.
       const style = self._widget.getStyle()
 
-      // Collect X values and Y max.
+      // Collect X values and Y range.
       const xValues = self._chart.data.map(d => d.name)
-      const yMax = 1.01 * max(self._chart.data.map(d => d.value)) || 1
+      let yMin = Math.min(0, min(self._chart.data.map(d => d.value)))
+      let yMax = max(self._chart.data.map(d => d.value)) || 1
+      const yRange = yMax - yMin
+      yMax += 0.01 * yRange
+      if (yMin < 0) {
+        yMin -= 0.01 * yRange
+      }
 
       // Update scales.
       _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(horizontal ? [0, yMax] : xValues)
+        .domain(horizontal ? [yMin, yMax] : xValues)
       _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
-        .domain(horizontal ? xValues : [0, yMax])
+        .domain(horizontal ? xValues : [yMin, yMax])
 
       // Add plots.
       self._chart.plotGroups({
@@ -155,11 +163,12 @@ export default (name, parent = 'body') => {
 
           // Update bars.
           g.select('.bar')
-            .attr('x', d => _.scales.x.scale(horizontal ? 0 : d.name))
-            .attr('y', d => _.scales.y.scale(horizontal ? d.name : d.value))
-            .attr('width', d => horizontal ? _.scales.x.scale(d.value) : bandwidth)
+            .attr('x', d => _.scales.x.scale(horizontal ? Math.min(0, d.value) : d.name))
+            .attr('y', d => _.scales.y.scale(horizontal ? d.name : Math.max(d.value, 0)))
+            .attr('width', d => horizontal
+              ? Math.abs(_.scales.x.scale(d.value) - _.scales.x.scale(0)) : bandwidth)
             .attr('height', d => horizontal ? bandwidth
-              : (parseInt(self._widget.size.innerHeight) - _.scales.y.scale(d.value)))
+              : Math.abs(_.scales.y.scale(d.value) - _.scales.y.scale(0)))
             .attr('fill', self._color.mapper)
 
           // Update labels.
