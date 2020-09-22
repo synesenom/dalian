@@ -21,6 +21,7 @@ function getData () {
   const tau = 2 * Math.random()
   const phi = 5 * Math.random() + 10
   const scale = 1 + Math.random() * 3
+  const length = Math.floor(Math.random() * 50 + 20)
   return [{
     name: 'mango',
     values: Array.from({ length: 100 }, (d, i) => ({
@@ -33,7 +34,7 @@ function getData () {
     name: 'kiwi',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
-      y: i < 70 ? Math.log(i + 1)
+      y: i < length ? Math.log(i + 1)
         * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2 : null,
       lo: .4,
       hi: .6

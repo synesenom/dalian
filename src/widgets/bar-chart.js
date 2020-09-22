@@ -10,6 +10,7 @@ import Highlight from '../components/highlight'
 import Horizontal from '../components/horizontal'
 import Label from '../components/label'
 import LeftAxis from '../components/axis/left-axis'
+import Objects from '../components/objects'
 import Scale from '../components/scale'
 import YGrid from '../components/grid/y-grid'
 
@@ -27,6 +28,7 @@ import YGrid from '../components/grid/y-grid'
  *   <li><a href="../components/label.html">Label</a></li> Labels are shown at the top of the bars. If the fit in the
  *   bar they are inside, otherwise they are outside.
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
+ *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/y-grid.html">YGrid</a> The same component (and namespace) is used for the default and
  *   horizontal modes, adapting to the orientation.</li>
  * </ul>
@@ -50,6 +52,7 @@ export default (name, parent = 'body') => {
     Highlight(() => self._chart.plots, ['.plot-group']),
     Horizontal(scales),
     Label,
+    Objects(scales),
     YGrid
   )
 

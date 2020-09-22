@@ -77,13 +77,13 @@ export default (self, api) => {
        *
        * @method background
        * @methodOf LinkStyle
-       * @param {string} lineStyle Line style to return background pattern for.
+       * @param {string} style Line style to return background pattern for.
        * @param {string} color Color to use for the background pattern.
        * @returns {string} The background CSS property value.
        * @ignore
        */
-      background: (lineStyle, color) => {
-        switch (lineStyle) {
+      background (style, color) {
+        switch (style) {
           case 'solid':
           default:
             return color

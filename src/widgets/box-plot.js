@@ -8,6 +8,7 @@ import Highlight from '../components/highlight'
 import Horizontal from '../components/horizontal'
 import LeftAxis from '../components/axis/left-axis'
 import LineWidth from '../components/line-width'
+import Objects from '../components/objects'
 import Opacity from '../components/opacity'
 import Scale from '../components/scale'
 
@@ -27,6 +28,7 @@ import Scale from '../components/scale'
  *   <li><a href="../components/horizontal.html">Horizontal</a></li>
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/line-width.html">LineWidth</a></li>
+ *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
  * </ul>
  *
@@ -48,6 +50,7 @@ export default (name, parent = 'body') => {
     Horizontal(scales),
     LeftAxis(scales.y),
     LineWidth(1),
+    Objects(scales),
     Opacity(0.2)
   )
 
