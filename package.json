@@ -16,9 +16,21 @@
     "d3-interpolate-path": "^2.1.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^3.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "cross-env": "^7.0.2",
     "eslint-config-standard": "^14.1.1",
+    "istanbul": "^0.4.5",
+    "jsdom": "^16.4.0",
+    "mocha": "^8.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^2.0.3",
     "node-sass": "^4.14.1",
+    "nyc": "^15.1.0",
     "pug": "^2.0.4",
     "pug-cli": "^1.0.0-alpha6",
     "rollup": "^2.9.1",
@@ -27,16 +39,35 @@
     "standard": "^14.3.3"
   },
   "scripts": {
-    "standard": "./node_modules/.bin/standard --fix src/**/*.js",
-    "build:demo:pug": "./node_modules/.bin/pug demo/index.pug",
-    "watch:demo:pug": "./node_modules/.bin/nodemon -x 'npm run build:demo:pug' -w demo -e pug",
-    "build:demo:scss": "./node_modules/.bin/node-sass demo/style.scss > demo/style.css",
-    "watch:demo:scss": "./node_modules/.bin/nodemon -x 'npm run build:demo:scss' -w demo -e scss",
-    "build:demo": "npm run build:demo:pug & npm run build:demo:scss",
-    "watch:demo": "npm run watch:demo:pug & npm run watch:demo:scss",
+    "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",
     "build:docs": "cd docs; npm run build; cd ..",
     "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
-    "watch": "./node_modules/.bin/nodemon -x 'npm run build' -w src -e js",
-    "dev": "npm run watch & npm run watch:demo"
+    "standard": "./node_modules/.bin/standard --fix src/**/*.js",
+    "test": "./node_modules/.bin/mocha --recursive --require babel-core/register"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  },
+  "nyc": {
+    "exclude": [
+      "test"
+    ],
+    "include": [
+      "src/**/*.js"
+    ],
+    "sourceMap": false,
+    "instrument": false,
+    "require": [
+      "babel-register"
+    ]
   }
 }

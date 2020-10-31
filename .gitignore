@@ -1,10 +1,7 @@
-# Node modules
-node_modules/
-/docs/node_modules/
-
-# .idea
-/.idea/
-
-# Builds
-/dist/
-/docs/dl/
+node_modules
+docs/node_modules
+.idea
+dist
+docs/dl
+.nyc_output
+coverage
