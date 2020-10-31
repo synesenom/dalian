@@ -26,7 +26,7 @@ dalian.Legend('legend-card', '#legend')
   .margins(WIDTH / 4)
   .font.size(14)
   .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
-  .colors({
+  .color.palette({
     Alice: 'rgb(70, 108, 217)',
     Bob: 'rgba(70, 108, 217, 0.8)',
     Charlie: 'rgba(70, 108, 217, 0.5)',
@@ -155,8 +155,8 @@ const toggleMarkers = () => {
 const toggleStyles = () => {
   this.s = 1 - (this.s || 0)
   const styles = this.s ? undefined : {
-    saison: 'dashed',
-    stout: 'dotted'
+    Saison: 'dashed',
+    Stout: 'dotted'
   }
   legend.styles(styles).render()
   chart.lineStyle(styles).render()

@@ -137,8 +137,8 @@ const toggleMarkers = () => {
 const toggleStyles = () => {
   this.s = 1 - (this.s || 0)
   const styles = this.s ? undefined : {
-    saison: 'dashed',
-    stout: 'dotted'
+    Saison: 'dashed',
+    Stout: 'dotted'
   }
   legend.styles(styles).render()
   chart.lineStyle(styles).render()

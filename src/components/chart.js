@@ -81,7 +81,7 @@ export default (type, name, parent, elem = 'svg') => {
       plotGroups (attr, duration) {
         // Get plot transition.
         const t = self._chart.plots
-          //.attr('clip-path', `url(#${_.clipId})`)
+          .attr('clip-path', `url(#${_.clipId})`)
           .transition().duration(duration)
 
         // Update groups.
