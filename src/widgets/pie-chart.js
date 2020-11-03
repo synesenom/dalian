@@ -1,7 +1,7 @@
 import { arc, pie } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import { backgroundAdjustedColor } from '../utils/color-utils'
+import { backgroundAdjustedColor } from '../utils/color'
 import { measureText } from '../utils/measure-text'
 import { attrTween } from '../utils/tweens'
 import Chart from '../components/chart'

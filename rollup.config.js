@@ -1,6 +1,7 @@
+import * as meta from './package.json'
 import { terser } from 'rollup-plugin-terser'
 import gzipPlugin from 'rollup-plugin-gzip'
-import * as meta from './package.json'
+import stripCode from 'rollup-plugin-strip-code'
 
 const copyright = `// ${meta.homepage} v${meta.version} Copyright ${(new Date).getFullYear()} ${meta.author.name}`
 const dependencies = {
@@ -12,8 +13,11 @@ export default {
     external: Object.keys(dependencies),
     input: meta.module,
     plugins: [
-        terser({output: {preamble: copyright}})
-        // gzipPlugin()
+        terser({output: {preamble: copyright}}),
+        stripCode({
+            start_comment: 'test-code',
+            end_comment: 'end-test-code'
+        })
     ],
     output: {
         globals: dependencies,

@@ -2,8 +2,8 @@ import { extent, min, max, sum, scaleLinear } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import * as utc from '../utils/utc'
-import { unrotate } from '../utils/array'
-import {backgroundAdjustedColor} from '../utils/color-utils'
+import unrotate from '../utils/unrotate'
+import {backgroundAdjustedColor} from '../utils/color'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
@@ -254,7 +254,7 @@ export default (name, parent = 'body') => {
 
     // Parse dates.
     const convertedData = data.map(d => ({
-      date: utc.utcFromISO(d.date),
+      date: utc.fromISO(d.date),
       value: +d.value
     }))
 
@@ -268,8 +268,8 @@ export default (name, parent = 'body') => {
     const blocks = Array.from({length: lastMonth - firstMonth + 1}, (d, index) => {
       // Do some counting.
       const month = (firstMonth + index) % 12
-      const numDays = utc.utcFromYMD(year, month + 1, 0).getDate()
-      const firstDay = utc.utcFromYMD(year, month, 1)
+      const numDays = utc.fromYMD(year, month + 1, 0).getDate()
+      const firstDay = utc.fromYMD(year, month, 1)
 
       // Add dates.
       const block = {

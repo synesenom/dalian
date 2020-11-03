@@ -7,8 +7,8 @@ import Mouse from '../components/mouse'
 import Placeholder from '../components/placeholder'
 import Widget from '../components/widget'
 import StyleInjector from '../utils/style-injector'
-import {utcFromISO} from '../utils/utc'
-import { backgroundAdjustedColor, lighter } from '../utils/color-utils'
+import {fromISO} from '../utils/utc'
+import { backgroundAdjustedColor, lighter } from '../utils/color'
 
 // Default values.
 const DEFAULTS = {
@@ -199,7 +199,7 @@ export default (name, parent = 'body') => {
           case 'number':
             return (a, b) => factor * (a[key] - b[key])
           case 'date':
-            return (a, b) => factor * (utcFromISO(a[key]) - utcFromISO(b[key]))
+            return (a, b) => factor * (fromISO(a[key]) - fromISO(b[key]))
         }
       },
 

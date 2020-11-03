@@ -1,8 +1,8 @@
 import { select } from 'd3'
 
-const TAG = 'dalian-style-container'
-
 export default (() => {
+  const TAG = 'dalian-style-container'
+
   const _ = {
     // Style container.
     container: undefined,
@@ -31,39 +31,61 @@ export default (() => {
     }
   }
 
-  function buildEntry (selector, styles, type) {
-    const content = Object.entries(styles).map(([name, value]) => `${name}:${value};`).join('')
-    return `${getMarker(type)}${selector}{${content}}`
+  function buildEntry (selector, styles) {
+    const content = Object.entries(styles).map(([name, value]) => `${name}:${value}`).join(';')
+    return `${selector}{${content}}`
   }
 
-  function addStyle (selector, styles, type = 'class') {
+  // TODO Remove default values.
+  function addStyle (name, styles, type = 'class') {
     // Take action only if selector is not yet added.
+    const selector = getMarker(type) + name
     if (typeof _.styles.find(d => d.selector === selector) === 'undefined') {
       // Build entry.
-      const entry = buildEntry(selector, styles, type)
+      const entry = buildEntry(selector, styles)
 
       // Inject style to head.
       const container = getContainer()
       container.text(container.text() + entry)
 
       // Add selector to recorded selectors.
-      _.styles.push({selector, type, entry})
+      _.styles.push({
+        selector,
+        entry
+      })
     }
   }
 
-  function updateStyle (selector, styles, type) {
-    // Find ir create style.
-    let style = _.styles.find(d => d.selector === selector)
-    if (typeof styles !== 'undefined') {
+  function updateStyle (name, styles, type) {
+    // Find style.
+    const selector = getMarker(type) + name
+    const style = _.styles.find(d => d.selector === selector)
+    if (typeof style !== 'undefined') {
       // Update entry.
-      style.entry = buildEntry(selector, styles, type)
+      style.entry = buildEntry(selector, styles)
 
       // Replace entire style content.
       getContainer().text(_.styles.map(d => d.entry).join(''))
     }
   }
 
-  let api = {}
+  const api = {}
+
+  /* test-code */
+  api.__test__ = {
+    _reset () {
+      _.container = undefined
+      _.styles = []
+      return api
+    },
+    addStyle,
+    buildEntry,
+    getContainer,
+    getMarker,
+    updateStyle,
+    TAG,
+  }
+  /* end-test-code */
 
   api.addClass = (selector, styles) => {
     addStyle(selector, styles, 'class')
