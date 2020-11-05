@@ -4,7 +4,7 @@ import { makeDom } from '../test-utils'
 import * as d3 from 'd3'
 import StyleInjector from '../../src/utils/style-injector'
 
-describe('utils.style-injector', () => {
+describe('utils.StyleInjector', () => {
   before(makeDom)
   beforeEach(() => {
     document.head.innerHTML = ''

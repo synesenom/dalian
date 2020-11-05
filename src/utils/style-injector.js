@@ -4,16 +4,12 @@ export default (() => {
   const TAG = 'dalian-style-container'
 
   const _ = {
-    // Style container.
-    container: undefined,
-
     // Styles added to the head.
     styles: [],
   }
 
   function getContainer () {
-    let container = _.container || select(`#${TAG}`)
-    if (container.empty()) {
+    if (typeof _.container === 'undefined') {
       _.container = select('head')
         .append('style')
         .attr('id', TAG)

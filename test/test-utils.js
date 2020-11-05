@@ -12,8 +12,3 @@ export function makeDom () {
   global['window'] = dom.window
   global['document'] = dom.window.document
 }
-
-export function cleanDom () {
-  document.head.innerHTML = ''
-  document.body.innerHTML = ''
-}
