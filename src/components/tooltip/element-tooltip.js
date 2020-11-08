@@ -17,8 +17,8 @@ const CLASSES = {
  * data point and displays its attributes in the tooltip with a colored left border. The name of the plot group the
  * element belongs to is used as the tooltip title and the various attributes are displayed in a column of entries. Each
  * entry is a label-value pair.
- * The element tooltip can be used in widgets where the tooltip displays info for a specific element in the widget
- * (hence the name), such as bar widgets or pie widgets. It inherits all methods from the
+ * The element tooltip can be used in charts where the tooltip displays info for a specific element in the widget
+ * (hence the name), such as bar charts or pie charts. It inherits all methods from the
  * <a href="../components/tooltip.html">Tooltip</a> component.
  *
  * @function ElementTooltip

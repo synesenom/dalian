@@ -74,14 +74,23 @@ export default (type, name, parent, elem) => {
       return [m[0] - self._widget.margins.left, m[1] - self._widget.margins.top]
     },
 
-    getElem: (elem, duration) => {
+    /**
+     * Returns a selection with different behavior based on whether the widget has been initialized yet. If the widget is already initialized, it returns the transitioned form of the selection, otherwise it returns the selection and initializes the widget.
+     *
+     * @method getElem
+     * @methodOf Widget
+     * @param {Object} selection Selection to retrieve.
+     * @param {number} duration Duration of the
+     * @return {Object} The selection or transition of the selection.
+     */
+    getElem: (selection, duration) => {
       if (_.initialized) {
-        return elem.transition().duration(duration)
+        return selection.transition().duration(duration)
       } else {
         setTimeout(() => {
           _.initialized = true
         }, duration)
-        return elem
+        return selection
       }
     },
 

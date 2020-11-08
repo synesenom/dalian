@@ -15,8 +15,8 @@ const CLASSES = {
 
 /**
  * Component implementing the point tooltip feature. The point tooltip is a pre-formatted tooltip that takes an array of
- * plot data and displays it in the tooltip as a list of plots with colored square markers. Can be used in widgets where
- * the tooltip displays info at a specific point of the widget (hence the name), such as line widgets or heat maps.
+ * plot data and displays it in the tooltip as a list of plots with colored square markers. Can be used in charts where
+ * the tooltip displays info at a specific point of the widget (hence the name), such as line charts or heat maps.
  * It inherits all methods from the [Tooltip]{@link ../components/tooltip.html} component. The tooltip consists of the
  * X coordinate of the current data point(s) (which can be formatted using
  * [xFormat]{@link ../components/tooltip.html#titleFormat}) and the list of Y coordinates for the plots (formatted using

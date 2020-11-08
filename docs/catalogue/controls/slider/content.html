@@ -1,0 +1,104 @@
+<div id="desc">
+  <p>
+    A slider control widget. It can be used as a controller for <span class="good">one dimensional</span> variables.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="toggleCallback()">.callback()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="toggleFormat()">.format()</li>
+    <li onclick="toggleMax()">.max()</li>
+    <li onclick="toggleMin()">.min()</li>
+    <li onclick="toggleStep()">.step()</li>
+    <li onclick="toggleThickness()">.thickness()</li>
+    <li onclick="toggleTrackColor()">.trackColor()</li>
+    <li onclick="toggleValue()">.value()</li>
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.Slider('slider-card', '#slider')
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(20)
+  .color('yellowgreen')
+  .font.size(11)
+  .value(0.6)
+  .render()
+</script>
+
+<script class="doc">
+// add label.
+const label = document.createElement('div')
+label.id = 'value-label'
+label.style.display = 'inline-block'
+label.style.width = '50%'
+label.style.marginLeft = '25%'
+label.style.marginTop = '20%'
+label.textContent = 'Value: 0'
+document.getElementById('widget')
+  .appendChild(label)
+</script>
+
+<script class="doc">
+// create control
+const slider = dalian.Slider('slider', '#widget')
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(40)
+  .font.size(14)
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleCallback = () => {
+  this.a = 1 - (this.a || 0)
+  slider.callback(this.a
+    ? v => document.getElementById('value-label').textContent = `Value: ${v.toFixed(2)}`
+    : undefined).render(1000)
+}
+
+let toggleColor = () => {
+  this.c = 1 - (this.c || 0)
+  slider.color(this.c ? 'yellowgreen' : undefined).render(1000)
+}
+
+let toggleFormat = () => {
+  this.f = 1 - (this.f || 0)
+  slider.format(this.f ? x => x + 'mm' : undefined).render(1000)
+}
+
+let toggleMax = () => {
+  this.m = 1 - (this.m || 0)
+  slider.max(this.m ? 3 : undefined).render(1000)
+}
+
+let toggleMin = () => {
+  this.i = 1 - (this.i || 0)
+  slider.min(this.i ? -2 : undefined).render(1000)
+}
+
+let toggleStep = () => {
+  this.s = 1 - (this.s || 0)
+  slider.step(this.s ? 0.2 : undefined).render(1000)
+}
+
+let toggleThickness = () => {
+  this.t = 1 - (this.t || 0)
+  slider.thickness(this.t ? 16 : undefined).render(1000)
+}
+
+let toggleTrackColor = () => {
+  this.r = 1 - (this.r || 0)
+  slider.trackColor(this.r ? '#000' : undefined).render(1000)
+}
+
+let toggleValue = () => {
+  this.v = 1 - (this.v || 0)
+  slider.value(this.v ? 0.85 : undefined).render(1000)
+}
+</script>

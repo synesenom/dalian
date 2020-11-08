@@ -7,6 +7,19 @@ const { JSDOM } = require('jsdom')
 
 
 const MODULES = [
+  'charts/area-chart',
+  'charts/bar-chart',
+  'charts/box-plot',
+  'charts/bubble-chart',
+  'charts/bullet-chart',
+  'charts/calendar-plot',
+  'charts/coxcomb-chart',
+  'charts/legend',
+  'charts/line-chart',
+  'charts/pie-chart',
+  'charts/scatter-plot',
+  'charts/table',
+  'charts/violin-plot',
   'components/grid/base-grid',
   'components/axis/bottom-axis',
   'components/chart',
@@ -33,19 +46,7 @@ const MODULES = [
   'components/range/x-range',
   'components/grid/y-grid',
   'components/range/y-range',
-  'widgets/area-chart',
-  'widgets/bar-chart',
-  'widgets/box-plot',
-  'widgets/bubble-chart',
-  'widgets/bullet-chart',
-  'widgets/calendar-plot',
-  'widgets/coxcomb-chart',
-  'widgets/legend',
-  'widgets/line-chart',
-  'widgets/pie-chart',
-  'widgets/scatter-plot',
-  'widgets/table',
-  'widgets/violin-plot'
+  'controls/slider'
 ]
 
 
@@ -68,11 +69,28 @@ function buildFromTemplate(name, templateName, outputPath, config) {
   fs.writeFileSync(outputPath, template(config));
 }
 
+function getSection (modules, section) {
+  return modules.filter(d => getModuleCategory(d) === section)
+    .filter(hasExamplePage)
+    .map(d => {
+      const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
+      const document = new JSDOM(content).window.document
+      const script = document.getElementsByClassName('card-example')[0].outerHTML
+      return {
+        category: getModuleCategory(d),
+        name: getModuleName(d),
+        factory: kebabToCamel(getModuleName(d)),
+        script
+      }
+    })
+}
+
 // Build root page
 const dependencies = Object.entries(meta.dependencies).map(d => ({
   lib: d[0],
   version: d[1].match(/(\d+.\d+.\d+)$/)[0]
 }))
+
 buildFromTemplate('Docs index page', 'index', 'index.html', {
   gitHubBanner: fs.readFileSync('./templates/github-banner-new.html', {encoding: 'utf-8'}),
 
@@ -138,17 +156,8 @@ buildFromTemplate('Catalogue index page', 'catalogue', 'catalogue/index.html', {
         script
       }
     }),
-  widgets: MODULES.filter(d => getModuleCategory(d) === 'widgets').map(d => {
-    const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
-    const document = new JSDOM(content).window.document
-    const script = document.getElementsByClassName('card-example')[0].outerHTML
-    return {
-      category: getModuleCategory(d),
-      name: getModuleName(d),
-      factory: kebabToCamel(getModuleName(d)),
-      script
-    }
-  })
+  controls: getSection(MODULES, 'controls'),
+  charts: getSection(MODULES, 'charts')
 })
 
 MODULES.forEach(async d => {

@@ -2,63 +2,55 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>LineChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>BubbleChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">.data()</li>
+    <li onclick="toggleRadius()">.radius()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
-    As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
-    other.
+    A bubble chart is useful when <span class="good">three or four dimensions</span> need to be plotted for a <span class="good">small number</span> data points. Note that if only simple correlations are to shown for a
+    <span class="bad">large data set</span>, a scatter plot is a better choice.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/widgets/line-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/line-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/charts/bubble-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/bubble-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
-  const tau = 2 * Math.random()
-  const phi = 5 * Math.random() + 10
-  const scale = 1 + Math.random() * 3
-  const length = Math.floor(Math.random() * 50 + 20)
-  return [{
-    name: 'mango',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: scale * Math.pow(i / 40, tau),
-      lo: i / 100,
-      hi: i / 150
-    }))
-  }].concat(Math.random() > 0.0 ? [{
-    name: 'kiwi',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: i < length ? Math.log(i + 1)
-        * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2 : null,
-      lo: .4,
-      hi: .6
-    }))
-  }] : [])
+  return ['ackee', 'chayote', 'cherimoya', 'kiwano',
+    'lucuma', 'rambutan', 'salak', 'sapote'].map(d => ({
+    name: d,
+    value: {
+      x: 100 * Math.random(),
+      y: 100 * Math.random(),
+      size: 0.01 + 0.99 * Math.random()
+    }
+  })).filter(() => Math.random() < 0.8)
 }
 </script><script class="doc">
 // create chart
-const lineChart = dalian.LineChart('line-chart', '#widget')
+const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
-  .margins({left: 60, top: 40, bottom: 40, right: 40})
+  .margins({left: 70, top: 40, bottom: 40, right: 40})
+  .color.palette('palette-light')
   .font.size(14)
-  .bottomAxis.label('days')
-  .leftAxis.label('price')
-  .smoothing(true)
-  .lineStyle({
-    mango: 'dashed'
-  })
+  .bottomAxis.label('fruit')
+  .leftAxis.label('stock')
+  .mouse.over(k => bubbleChart.highlight(k.name))
+  .mouse.leave(() => bubbleChart.highlight())
+  .mouse.click(k => alert(k.name))
   .tooltip.on(true)
-  .tooltip.valueFormat(d => d.y === null ? 'No data' : d.y.toFixed(2))
+  .tooltip.valueFormat(y => y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods
-const changeData = () => lineChart.data(getData()).render(1000)
+let changeData = () => bubbleChart.data(getData()).render(1000)
+
+let toggleRadius = () => {
+  this.h = 1 - (this.h || 0)
+  bubbleChart.radius(this.h ? 50 : undefined).render(1000)
+}
 </script></div></main></body></html>

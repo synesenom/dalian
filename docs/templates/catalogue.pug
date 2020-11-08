@@ -21,26 +21,35 @@ html(lang='en')
         main
             .main-content-wide
                 h1 catalogue
-                p On this page you can see live examples of all widgets and components available in dalian, and explore
-                    | their APIs.
+                p On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.
 
-                h2 widgets
-                p Widgets are interactive blocks that represent a specific kind of visualization or control behavior.
-                    |  They are all made from various components and each widget inherits all the API of a component they
-                    | are composed of. To explore a specific component listed on a widget's documentation page under its
-                    | factory method, see the component's own demo page.
+                h2 charts
+                p Charts are special interactive widgets that represent specific kinds of visualizations or non-control elements of a dashboard (such as legends).
+                    | They are all made from various components and each widget inherits all the API of a component they are composed of.
+                    | To explore a specific component listed on a chart's documentation page under its factory method, see the component's own demo page.
                 .card-container
-                    each widget in widgets
-                        a.card(href=widget.category + '/' + widget.name)
-                            .card-title #{widget.factory}
-                            .card-content(id='' + widget.name)
-                            | !{widget.script}
+                    each chart in charts
+                        a.card(href=chart.category + '/' + chart.name)
+                            .card-title #{chart.factory}
+                            .card-content(id='' + chart.name)
+                            | !{chart.script}
+
+                h2 controls
+                p Controls are special widgets that can be used to change the variables on a dashboard.
+                    | Their sole purpose is to control other elements.
+
+                .card-container
+                    each control in controls
+                        a.card(href=control.category + '/' + control.name)
+                            .card-title #{control.factory}
+                            .card-content(id='' + control.name)
+                            | !{control.script}
 
                 h2 components
-                p Components are the building blocks that are used to compose the widgets. Each component implements a
-                    | single functionality and API that is exposed either through the widget's API or the component's
-                    | own namespace. This section contains live examples and demos that help you explore the function
-                    | and behavior of all the components that have an exposed API.
+                p Components are the building blocks that are used to compose the widgets.
+                    | Each component implements a single functionality and API that is exposed either through the widget's API or the component's own namespace.
+                    | Note that components are not accessible directly but each widget inherits a subset of them to implement various functionalities.
+                    | This section contains live examples and demos that help you explore the function and behavior of all the components that have an exposed API.
                 .card-container
                     each component in components
                         a.card(href=component.category + '/' + component.name)

@@ -2,82 +2,63 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>CoxcombChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleAngle()">.angle()</li>
     <li onclick="changeData()">.data()</li>
+    <li onclick="toggleHorizontal()">.horizontal()</li>
     <li onclick="toggleLabels()">.label()</li>
-    <li onclick="toggleRadius()">.radius()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A coxcomb (or polar area) chart invented by
-    <a href="https://en.wikipedia.org/wiki/Florence_Nightingale">Florence Nightingale</a>. Area of the wedges is
-    proportional to the value they represent. This type of chart is useful to represent
-    <span class="good">cyclic data</span> such as values span over a week or months.
+    A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
+    <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
+    process. Also, it can handle <span class="good">more categories</span> than a pie chart.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/widgets/coxcomb-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/coxcomb-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/charts/bar-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/bar-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
-// Samples are generated with ranjs:
-// https://synesenom.github.io/ran/
 function getData () {
-  const length = 5 + Math.floor(3 * Math.random())
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  return [{
-    name: 'sleep',
-    values: (new ranjs.dist.Exponential()).sample(length)
-      .map((d, i) => ({
-        x: days[i],
-        y: d
-      }))
-  }, {
-    name: 'work',
-    values: (new ranjs.dist.Exponential()).sample(length)
-      .map((d, i) => ({
-        x: days[i],
-        y: d
-      }))
-  }, {
-    name: 'fun',
-    values: (new ranjs.dist.Exponential()).sample(length)
-      .map((d, i) => ({
-        x: days[i],
-        y: d
-      }))
-  }]
+  return [
+    {name: "apple", value: 100 * Math.random()},
+    {name: "kiwi", value: 60 * Math.random() - 30},
+  ].concat(Math.random() > 0.5 ? [
+    {name: "pear", value: 90 * Math.random()},
+  ] : [])
+  .concat([{name: "mango", value: 30 * Math.random()}])
 }
 </script><script class="doc">
 // create chart
-const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
+const barChart = dalian.BarChart('bar-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
+  .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
-  .color.palette('palette-light')
-  .mouse.over(d => coxcombChart.highlight(d.name, 400))
-  .mouse.leave(() => coxcombChart.highlight(null, 400))
+  .bottomAxis.label('fruit')
+  .leftAxis.label('price')
+  .color.palette('royalblue')
+  .mouse.over(k => barChart.highlight(k.name))
+  .mouse.leave(() => barChart.highlight())
   .tooltip.on(true)
-  .tooltip.valueFormat(d => d.y.toFixed(2))
+  .tooltip.valueFormat(y => y.toFixed(1))
   .render(1000)
 </script><script class="doc">
 // api methods
-const toggleAngle = () => {
-  this.a = 1 - (this.a || 0)
-  coxcombChart.angle(this.a ? 70 : undefined).render(1000)
+let changeData = () => barChart.data(getData()).render(1000)
+
+let toggleHorizontal = () => {
+  this.h = 1 - (this.h || 0)
+  barChart.horizontal(this.h)
+    .bottomAxis.label(this.h ? 'stock' : 'fruit')
+    .leftAxis.label(this.h ? 'fruit' : 'stock')
+    .render()
 }
 
-const changeData = () => coxcombChart.data(getData()).render(1000)
-
-const toggleLabels = () => {
+let toggleLabels = () => {
   this.l = 1 - (this.l || 0)
-  coxcombChart.label(this.l ? d => d.label : undefined).render()
-}
-
-const toggleRadius = () => {
-  this.r = !(this.r || 0)
-  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
+  barChart.label(this.l ? d => d.value.toFixed(1) : undefined)
+    .render()
 }
 </script></div></main></body></html>

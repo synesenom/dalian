@@ -2,78 +2,63 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>LineChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">.data()</li>
-    <li onclick="toggleLineColor()">.lineColor()</li>
-    <li onclick="toggleLineWidth()">.lineWidth()</li>
-    <li onclick="toggleOpacity()">.opacity()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
-    relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
-    distribution of some quantity (probability density). Due to its transparent nature, only a
-    <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
+    Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
+    As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
+    other.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/widgets/area-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/area-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/charts/line-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/line-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
-// Data is generated with ranjs:
-// https://synesenom.github.io/ran/
 function getData () {
-  const mu = 5 * Math.random() + 2
-  const sigma = 1 + 3 * Math.random()
-  const lambda = 3 * Math.random()
+  const tau = 2 * Math.random()
+  const phi = 5 * Math.random() + 10
+  const scale = 1 + Math.random() * 3
+  const length = Math.floor(Math.random() * 50 + 20)
   return [{
-    name: 'normal',
+    name: 'mango',
     values: Array.from({ length: 100 }, (d, i) => ({
-      x: i / 10,
-      y: new ranjs.dist.Normal(mu, sigma).pdf(i / 10)
+      x: i,
+      y: scale * Math.pow(i / 40, tau),
+      lo: i / 100,
+      hi: i / 150
     }))
-  }, {
-    name: 'exponential',
+  }].concat(Math.random() > 0.0 ? [{
+    name: 'kiwi',
     values: Array.from({ length: 100 }, (d, i) => ({
-      x: i / 10,
-      y: new ranjs.dist.Exponential(lambda).pdf(i / 10)
+      x: i,
+      y: i < length ? Math.log(i + 1)
+        * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2 : null,
+      lo: .4,
+      hi: .6
     }))
-  }]
+  }] : [])
 }
 </script><script class="doc">
 // create chart
-const areaChart = dalian.AreaChart('myChart', '#widget')
+const lineChart = dalian.LineChart('line-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
   .margins({left: 60, top: 40, bottom: 40, right: 40})
   .font.size(14)
-  .bottomAxis.label('value')
-  .leftAxis.label('density')
+  .bottomAxis.label('days')
+  .leftAxis.label('price')
   .smoothing(true)
+  .lineStyle({
+    mango: 'dashed'
+  })
   .tooltip.on(true)
-  .tooltip.valueFormat(d => d.y.toFixed(2))
+  .tooltip.valueFormat(d => d.y === null ? 'No data' : d.y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => areaChart.data(getData()).render(1000)
-
-let toggleLineColor = () => {
-  this.l = ((this.l || 0) + 1) % 3
-  areaChart.lineColor([undefined, 'white', 'currentColor'][this.l])
-    .render(1000)
-}
-
-let toggleLineWidth = () => {
-  this.w = 1 - (this.w || 0)
-  areaChart.lineWidth([undefined, 3][this.w])
-    .render(1000)
-}
-
-let toggleOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  areaChart.opacity([undefined, 0.7][this.o])
-    .render(1000)
-}
+const changeData = () => lineChart.data(getData()).render(1000)
 </script></div></main></body></html>

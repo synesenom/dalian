@@ -9,7 +9,7 @@ const CLASSES = {
 
 /**
  * Component implementing the placeholder feature. The placeholder is a blank div with a message in the middle that
- * replaces the widget. It is useful when no data is available, or when the widgets needs to be hidden/shown
+ * replaces the widget. It is useful when no data is available, or when the charts needs to be hidden/shown
  * dynamically. When this component is available for a widget, its API is exposed directly via the widget's own
  * namespace.
  *

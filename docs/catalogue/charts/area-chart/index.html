@@ -2,55 +2,78 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>BubbleChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>AreaChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">.data()</li>
-    <li onclick="toggleRadius()">.radius()</li>
+    <li onclick="toggleLineColor()">.lineColor()</li>
+    <li onclick="toggleLineWidth()">.lineWidth()</li>
+    <li onclick="toggleOpacity()">.opacity()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A bubble chart is useful when <span class="good">three or four dimensions</span> need to be plotted for a <span class="good">small number</span> data points. Note that if only simple correlations are to shown for a
-    <span class="bad">large data set</span>, a scatter plot is a better choice.
+    Area charts are used to show <span class="good">numerical series</span> in which consecutive values have a
+    relationship. Good examples are time series of <span class="good">volume type data</span> (e.g., sales) or a density
+    distribution of some quantity (probability density). Due to its transparent nature, only a
+    <span class="bad">few plots</span> should be used to avoid unrecognizable boundaries.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/widgets/bubble-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/widgets/bubble-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/charts/area-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/area-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
+// Data is generated with ranjs:
+// https://synesenom.github.io/ran/
 function getData () {
-  return ['ackee', 'chayote', 'cherimoya', 'kiwano',
-    'lucuma', 'rambutan', 'salak', 'sapote'].map(d => ({
-    name: d,
-    value: {
-      x: 100 * Math.random(),
-      y: 100 * Math.random(),
-      size: 0.01 + 0.99 * Math.random()
-    }
-  })).filter(() => Math.random() < 0.8)
+  const mu = 5 * Math.random() + 2
+  const sigma = 1 + 3 * Math.random()
+  const lambda = 3 * Math.random()
+  return [{
+    name: 'normal',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: new ranjs.dist.Normal(mu, sigma).pdf(i / 10)
+    }))
+  }, {
+    name: 'exponential',
+    values: Array.from({ length: 100 }, (d, i) => ({
+      x: i / 10,
+      y: new ranjs.dist.Exponential(lambda).pdf(i / 10)
+    }))
+  }]
 }
 </script><script class="doc">
 // create chart
-const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
+const areaChart = dalian.AreaChart('myChart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
-  .margins({left: 70, top: 40, bottom: 40, right: 40})
-  .color.palette('palette-light')
+  .margins({left: 60, top: 40, bottom: 40, right: 40})
   .font.size(14)
-  .bottomAxis.label('fruit')
-  .leftAxis.label('stock')
-  .mouse.over(k => bubbleChart.highlight(k.name))
-  .mouse.leave(() => bubbleChart.highlight())
-  .mouse.click(k => alert(k.name))
+  .bottomAxis.label('value')
+  .leftAxis.label('density')
+  .smoothing(true)
   .tooltip.on(true)
-  .tooltip.valueFormat(y => y.toFixed(2))
+  .tooltip.valueFormat(d => d.y.toFixed(2))
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => bubbleChart.data(getData()).render(1000)
+let changeData = () => areaChart.data(getData()).render(1000)
 
-let toggleRadius = () => {
-  this.h = 1 - (this.h || 0)
-  bubbleChart.radius(this.h ? 50 : undefined).render(1000)
+let toggleLineColor = () => {
+  this.l = ((this.l || 0) + 1) % 3
+  areaChart.lineColor([undefined, 'white', 'currentColor'][this.l])
+    .render(1000)
+}
+
+let toggleLineWidth = () => {
+  this.w = 1 - (this.w || 0)
+  areaChart.lineWidth([undefined, 3][this.w])
+    .render(1000)
+}
+
+let toggleOpacity = () => {
+  this.o = 1 - (this.o || 0)
+  areaChart.opacity([undefined, 0.7][this.o])
+    .render(1000)
 }
 </script></div></main></body></html>

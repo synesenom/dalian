@@ -3,9 +3,8 @@ const HEIGHT = 240 - 42 - 30;
 COLORS = {
   widget: ['royalblue', 'black'],
   component: 'firebrick'
-};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and exploretheir APIs.</p><h2>widgets</h2><p>Widgets are interactive blocks that represent a specific kind of visualization or control behavior. They are all made from various components and each widget inherits all the API of a component they
-are composed of. To explore a specific component listed on a widget's documentation page under its
-factory method, see the component's own demo page.</p><div class="card-container"><a class="card" href="widgets/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
+};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.</p><h2>charts</h2><p>Charts are special interactive widgets that represent specific kinds of visualizations or non-control elements of a dashboard (such as legends).They are all made from various components and each widget inherits all the API of a component they are composed of.
+To explore a specific component listed on a chart's documentation page under its factory method, see the component's own demo page.</p><div class="card-container"><a class="card" href="charts/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
 dalian.AreaChart('area-chart-card', '#area-chart')
   .data([{
     name: 'normal',
@@ -34,7 +33,7 @@ dalian.AreaChart('area-chart-card', '#area-chart')
   .leftAxis.label('density')
   .smoothing(true)
   .render()
-</script></a><a class="card" href="widgets/bar-chart"><div class="card-title">BarChart</div><div class="card-content" id="bar-chart"></div><script class="card-example">
+</script></a><a class="card" href="charts/bar-chart"><div class="card-title">BarChart</div><div class="card-content" id="bar-chart"></div><script class="card-example">
 dalian.BarChart('bar-chart-card', '#bar-chart')
   .data([
     {name: "plum", value: 13},
@@ -56,7 +55,7 @@ dalian.BarChart('bar-chart-card', '#bar-chart')
   .label(d => Math.round(d.value))
   .color.palette(COLORS.widget[0])
   .render()
-</script></a><a class="card" href="widgets/box-plot"><div class="card-title">BoxPlot</div><div class="card-content" id="box-plot"></div><script class="card-example">
+</script></a><a class="card" href="charts/box-plot"><div class="card-title">BoxPlot</div><div class="card-content" id="box-plot"></div><script class="card-example">
 function makeBox(sample) {
   let sorted = sample.sort(d3.ascending)
   let median = d3.median(sorted)
@@ -107,7 +106,7 @@ dalian.BoxPlot('box-plot-card', '#box-plot')
   .bottomAxis.hideTicks(true)
   .leftAxis.label('sample')
   .render()
-</script></a><a class="card" href="widgets/bubble-chart"><div class="card-title">BubbleChart</div><div class="card-content" id="bubble-chart"></div><script class="card-example">
+</script></a><a class="card" href="charts/bubble-chart"><div class="card-title">BubbleChart</div><div class="card-content" id="bubble-chart"></div><script class="card-example">
 dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
   .data(['ackee', 'chayote', 'cherimoya', 'kiwano'].map(d => ({
     name: d,
@@ -128,7 +127,7 @@ dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
   .leftAxis.label('fruit')
   .radius(20)
   .render()
-</script></a><a class="card" href="widgets/bullet-chart"><div class="card-title">BulletChart</div><div class="card-content" id="bullet-chart"></div><script class="card-example">
+</script></a><a class="card" href="charts/bullet-chart"><div class="card-title">BulletChart</div><div class="card-content" id="bullet-chart"></div><script class="card-example">
 dalian.BulletChart('bullet-chart-card', '#bullet-chart')
   .x(0)
   .y(0)
@@ -144,7 +143,7 @@ dalian.BulletChart('bullet-chart-card', '#bullet-chart')
   .unit('# Hugs')
   .valueColor(COLORS.widget[0])
   .render()
-</script></a><a class="card" href="widgets/calendar-plot"><div class="card-title">CalendarPlot</div><div class="card-content" id="calendar-plot"></div><script class="card-example">
+</script></a><a class="card" href="charts/calendar-plot"><div class="card-title">CalendarPlot</div><div class="card-content" id="calendar-plot"></div><script class="card-example">
 dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
   .data((() => {
     let data = Array.from({ length: 200 }, () => {
@@ -172,7 +171,7 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
   .blockMargin(2)
   .blockAlign('middle')
   .render()
-</script></a><a class="card" href="widgets/coxcomb-chart"><div class="card-title">CoxcombChart</div><div class="card-content" id="coxcomb-chart"></div><script class="card-example">
+</script></a><a class="card" href="charts/coxcomb-chart"><div class="card-title">CoxcombChart</div><div class="card-content" id="coxcomb-chart"></div><script class="card-example">
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
   dalian.CoxcombChart('coxcomb-chart-card', '#coxcomb-chart')
     .data([{
@@ -205,23 +204,23 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
     .radius(60)
     .label(d => d.label)
     .render()
-</script></a><a class="card" href="widgets/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
-dalian.Legend('legend-card', '#legend')
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins(WIDTH / 4)
-  .font.size(14)
-  .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
-  .color.palette({
+</script></a><a class="card" href="charts/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
+  dalian.Legend('legend-card', '#legend')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins(WIDTH / 4)
+    .font.size(14)
+    .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
+    .color.palette({
     Alice: 'rgb(70, 108, 217)',
     Bob: 'rgba(70, 108, 217, 0.8)',
     Charlie: 'rgba(70, 108, 217, 0.5)',
     Dan: 'rgba(70, 108, 217, 0.2)'
   })
-  .render()
-</script></a><a class="card" href="widgets/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">
+    .render()
+</script></a><a class="card" href="charts/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">
 dalian.LineChart('line-chart-card', '#line-chart')
   .data([{
     name: 'mango',
@@ -258,7 +257,7 @@ dalian.LineChart('line-chart-card', '#line-chart')
     mango: 'dashed'
   })
   .render()
-</script></a><a class="card" href="widgets/pie-chart"><div class="card-title">PieChart</div><div class="card-content" id="pie-chart"></div><script class="card-example">
+</script></a><a class="card" href="charts/pie-chart"><div class="card-title">PieChart</div><div class="card-content" id="pie-chart"></div><script class="card-example">
 dalian.PieChart('pie-chart-card', '#pie-chart')
   .data([
     {name: "plum", value: 13},
@@ -278,7 +277,7 @@ dalian.PieChart('pie-chart-card', '#pie-chart')
   .outerRadius(60)
   .label(d => parseInt(d.value))
   .render()
-</script></a><a class="card" href="widgets/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
+</script></a><a class="card" href="charts/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
 dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .data([{
     name: 'blueberry',
@@ -307,7 +306,7 @@ dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
   .leftAxis.label('Y')
   .size(4)
   .render()
-</script></a><a class="card" href="widgets/table"><div class="card-title">Table</div><div class="card-content" id="table"></div><script class="card-example">
+</script></a><a class="card" href="charts/table"><div class="card-title">Table</div><div class="card-content" id="table"></div><script class="card-example">
 dalian.Table('table-card', '#table')
   .data([
     {name: 'Harriet', year: 1822, place: 'USA'},
@@ -328,7 +327,7 @@ dalian.Table('table-card', '#table')
   .font.size(10)
   .color(COLORS.widget[0])
   .render()
-</script></a><a class="card" href="widgets/violin-plot"><div class="card-title">ViolinPlot</div><div class="card-content" id="violin-plot"></div><script class="card-example">
+</script></a><a class="card" href="charts/violin-plot"><div class="card-title">ViolinPlot</div><div class="card-content" id="violin-plot"></div><script class="card-example">
 dalian.ViolinPlot('violin-plot-card', '#violin-plot')
   .data([{
     name: 'normal',
@@ -351,9 +350,20 @@ dalian.ViolinPlot('violin-plot-card', '#violin-plot')
   .bottomAxis.hideTicks(true)
   .leftAxis.label('sample')
   .render()
-</script></a></div><h2>components</h2><p>Components are the building blocks that are used to compose the widgets. Each component implements asingle functionality and API that is exposed either through the widget's API or the component's
-own namespace. This section contains live examples and demos that help you explore the function
-and behavior of all the components that have an exposed API.</p><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
+</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change the variables on a dashboard.Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/slider"><div class="card-title">Slider</div><div class="card-content" id="slider"></div><script class="card-example">
+dalian.Slider('slider-card', '#slider')
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(20)
+  .color('yellowgreen')
+  .font.size(11)
+  .value(0.6)
+  .render()
+</script></a></div><h2>components</h2><p>Components are the building blocks that are used to compose the widgets.Each component implements a single functionality and API that is exposed either through the widget's API or the component's own namespace.
+Note that components are not accessible directly but each widget inherits a subset of them to implement various functionalities.
+This section contains live examples and demos that help you explore the function and behavior of all the components that have an exposed API.</p><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
 dalian.LineChart('bottom-axis-card', '#bottom-axis')
   .data([{
     name: 'trend',

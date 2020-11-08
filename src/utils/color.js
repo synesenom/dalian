@@ -19,11 +19,11 @@ export function lighter(col, factor = 0.4) {
  * Source: https://www.w3.org/TR/AERT/#color-contrast
  *
  * @method brightness
- * @param {string} rgb String representing the color.
+ * @param {string} col String representing the color.
  * @return {number} The perceived brightness.
  */
-export function brightness (rgb) {
-  const c = color(rgb)
+export function brightness (col) {
+  const c = color(col)
   return 0.229 * c.r + 0.587 * c.g + 0.114 * c.b
 }
 
@@ -32,9 +32,9 @@ export function brightness (rgb) {
  * s brightness.
  *
  * @method backgroundAdjustedColor
- * @param {string} color String representing the background color.
+ * @param {string} col String representing the background color.
  * @return {string} Hex color representing black or white depending on the background brightness.
  */
-export function backgroundAdjustedColor (color) {
-  return brightness(color) > 150 ? '#000' : '#fff'
+export function backgroundAdjustedColor (col) {
+  return brightness(col) > 150 ? '#000' : '#fff'
 }

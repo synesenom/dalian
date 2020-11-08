@@ -1,3 +1,21 @@
+<script class="card-example">
+  dalian.Legend('legend-card', '#legend')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins(WIDTH / 4)
+    .font.size(14)
+    .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
+    .color.palette({
+    Alice: 'rgb(70, 108, 217)',
+    Bob: 'rgba(70, 108, 217, 0.8)',
+    Charlie: 'rgba(70, 108, 217, 0.5)',
+    Dan: 'rgba(70, 108, 217, 0.2)'
+  })
+    .render()
+</script>
+
 <div id="desc">
   <p>
     A legend widget can be used to add interactive labels to charts or dashboards. You can also insert this widget into
@@ -16,24 +34,6 @@
     <li onclick="toggleVSep()">.vSep()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.Legend('legend-card', '#legend')
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins(WIDTH / 4)
-  .font.size(14)
-  .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
-  .color.palette({
-    Alice: 'rgb(70, 108, 217)',
-    Bob: 'rgba(70, 108, 217, 0.8)',
-    Charlie: 'rgba(70, 108, 217, 0.5)',
-    Dan: 'rgba(70, 108, 217, 0.2)'
-  })
-  .render()
-</script>
 
 <script class="doc">
 // create a chart
