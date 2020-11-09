@@ -8,6 +8,7 @@ import Placeholder from '../components/placeholder'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
+// TODO Make it touch compatible.
 /**
  * The slider control widget.
  *
@@ -54,8 +55,8 @@ export default (name, parent = 'body') => {
     },
 
     internal: {
-      value: DEFAULTS.value,
-      domain: []
+      domain: [],
+      value: DEFAULTS.value
     },
 
     // DOM.
@@ -81,9 +82,9 @@ export default (name, parent = 'body') => {
       // Overlay: to catch clicks on the track itself.
       const overlay = container.append('line')
         .attr('class', 'slider-overlay')
-        .attr('class', 'slider-track')
         .attr('y1', 0)
         .attr('y2', 0)
+        .attr('stroke', 'none')
         .style('cursor', 'pointer')
         .style('pointer-events', 'all')
         .call(drag()
@@ -110,7 +111,6 @@ export default (name, parent = 'body') => {
       // Handle.
       const handle = container.append('circle')
         .attr('class', 'slider-handle')
-        .attr('cx', self._widget.margins.left)
         .attr('cy', 0)
         .attr('fill', '#fff')
 
@@ -144,7 +144,7 @@ export default (name, parent = 'body') => {
     },
 
     update (duration) {
-      _.scale.range(0, parseInt(self._widget.size.innerWidth))
+      _.scale.range(0, parseFloat(self._widget.size.innerWidth))
         .domain([_.ui.min, _.ui.max])
 
       // Update internals.
@@ -195,7 +195,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {Function} callback Callback to bind when the handle is dragged. The current value is passed as parameter.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Print current value to console.
+     * const slider = dalian.Slider('my-control')
+     *   .callback(console.log)
+     *   .render()
+     *
+     * // Remove callback.
+     * slider.callback()
+     *   .render()
      */
     callback (callback) {
       _.internal.callback = callback
@@ -209,7 +218,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {string} [color = grey] Color to set.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set slider color.
+     * const slider = dalian.Slider('my-control')
+     *   .color('royalblue')
+     *   .render()
+     *
+     * // Reset color to default.
+     * slider.color()
+     *   .render()
      */
     color (color = DEFAULTS.color) {
       _.ui.color = color
@@ -223,7 +241,15 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {Function} format Format to set. The tick value is passed as parameter.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set format to percentages.
+     * const slider = dalian.Slider('my-control')
+     *   .format(x => x + '%')
+     *
+     * // Reset format to raw tick value.
+     * slider.format()
+     *   .render()
      */
     format (format) {
       self._bottomAxis.format(format)
@@ -237,7 +263,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {number} [value = 1] Maximum value to set.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set the maximum value.
+     * const slider = dalian.Slider('my-control')
+     *   .max(2)
+     *   .render()
+     *
+     * // Reset max to 1.
+     * slider.max()
+     *   .render()
      */
     max (value = DEFAULTS.max) {
       _.ui.max = value
@@ -251,7 +286,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {number} [value = 0] Minimum value to set.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set the minimum value.
+     * const slider = dalian.Slider('my-control')
+     *   .min(-3)
+     *   .render()
+     *
+     * // Reset min to 0.
+     * slider.min()
+     *   .render()
      */
     min (value = DEFAULTS.min) {
       _.ui.min = value
@@ -265,7 +309,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {number} [value = 0] Step size to set. Only the absolute value of the provided number is considered.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set step size to 0.1.
+     * const slider = dalian.Slider('my-control')
+     *   .step(0.1)
+     *   .render()
+     *
+     * // Reset step size to 0.
+     * slider.step()
+     *   .render()
      */
     step (value = DEFAULTS.step) {
       _.ui.step = Math.abs(value)
@@ -279,7 +332,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {number} [thickness = 8] Thickness to set.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set thickness to 10px.
+     * const slider = dalian.Slider('my-control')
+     *   .thickness(10)
+     *   .render()
+     *
+     * // Reset thickness to default.
+     * slider.thickness()
+     *   .render()
      */
     thickness (thickness = DEFAULTS.thickness) {
       _.ui.thickness = thickness
@@ -293,7 +355,16 @@ export default (name, parent = 'body') => {
      * @methodOf Slider
      * @param {string} [color = #ddd] Color to set.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set track color to white.
+     * const slider = dalian.Slider('my-control')
+     *   .trackColor('#fff')
+     *   .render()
+     *
+     * // Reset track color.
+     * slider.trackColor()
+     *   .render()
      */
     trackColor (color = DEFAULTS.trackColor) {
       _.ui.trackColor = color
@@ -305,12 +376,19 @@ export default (name, parent = 'body') => {
      *
      * @method value
      * @methodOf Slider
-     * @param {number} [value = 0] Value to set handle to.
+     * @param {number} [value = 0] Value to set handle to. If it is not specified, no change is taking place.
      * @returns {Slider} Reference to the Slider API.
-     * @example TODO
+     * @example
+     *
+     * // Set value to 0.7.
+     * const slider = dalian.Slider('my-control')
+     *   .value(0.7)
+     *   .render()
      */
-    value (value = DEFAULTS.value) {
-      _.internal.value = value
+    value (value) {
+      if (typeof value !== 'undefined') {
+        _.internal.value = value
+      }
       return api
     }
   })

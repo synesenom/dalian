@@ -51,11 +51,13 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Build widget from components
+  // Build scales.
   const scales = {
     x: Scale('linear'),
     y: Scale('linear')
   }
+
+  // Build widget from components.
   const { self, api } = compose(
     Chart('line-chart', name, parent),
     LeftAxis(scales.y),

@@ -46,7 +46,8 @@ const MODULES = [
   'components/range/x-range',
   'components/grid/y-grid',
   'components/range/y-range',
-  'controls/slider'
+  'controls/slider',
+  'controls/trackpad'
 ]
 
 
