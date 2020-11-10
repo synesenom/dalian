@@ -1,4 +1,4 @@
-import {area, curveBasis, extent, max, mean, median, min, range, scaleLinear, select, sum} from 'd3'
+import { area, curveBasis, max, mean, median, min, range, scaleLinear, select, sum } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import extend from '../core/extend'
 import compose from '../core/compose'
@@ -118,8 +118,8 @@ export default (name, parent = 'body') => {
     update (duration) {
       // Collect X values and Y max.
       const xValues = self._chart.data.map(d => d.name)
-      let yMin = min(self._chart.data.map(d => d.min))
-      let yMax = max(self._chart.data.map(d => d.max))
+      const yMin = min(self._chart.data.map(d => d.min))
+      const yMax = max(self._chart.data.map(d => d.max))
       const yRange = [yMin, yMax]
       const yBuffer = 0.05 * (yRange[1] - yRange[0])
       yRange[1] += yBuffer
@@ -189,9 +189,9 @@ export default (name, parent = 'body') => {
     stripe: self._color.mapper(_.current),
     content: {
       data: [
-        {name: 'mean', value: _.current.stats.mean},
-        {name: 'median', value: _.current.stats.median},
-        {name: 'bimodality', value: _.current.stats.bimodality}
+        { name: 'mean', value: _.current.stats.mean },
+        { name: 'median', value: _.current.stats.median },
+        { name: 'bimodality', value: _.current.stats.bimodality }
       ]
     }
   }

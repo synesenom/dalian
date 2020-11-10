@@ -1,4 +1,4 @@
-import {color, hsl} from 'd3'
+import { color, hsl } from 'd3'
 
 /**
  * Returns a lighter version of a color.
@@ -8,7 +8,7 @@ import {color, hsl} from 'd3'
  * @param {number} factor Factor of lightening.
  * @return {Object} D3 color object representing the lightened color.
  */
-export function lighter(col, factor = 0.4) {
+export function lighter (col, factor = 0.4) {
   const c = hsl(col)
   c.l += factor * (1 - c.l)
   return c

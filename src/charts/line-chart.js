@@ -1,4 +1,4 @@
-import {bisector, extent, select, line, area } from 'd3'
+import { bisector, extent, select, line, area } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import compose from '../core/compose'
 import extend from '../core/extend'

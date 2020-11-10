@@ -82,9 +82,9 @@ export default (name, parent = 'body') => {
       // Collect X values and Y max.
       const xValues = self._chart.data.map(d => d.name)
       let yMin = min(self._chart.data,
-          d => min(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.lower])))
+        d => min(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.lower])))
       let yMax = max(self._chart.data,
-          d => max(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.upper])))
+        d => max(d.value.outliers.extreme.concat(d.value.outliers.mild).concat([d.value.whiskers.upper])))
       const yRange = yMax - yMin
       yMin -= 0.05 * yRange
       yMax += 0.05 * yRange
@@ -253,13 +253,13 @@ export default (name, parent = 'body') => {
     stripe: self._color.mapper(_.current),
     content: {
       data: [
-        {name: 'median', value: _.current.value.median},
-        {name: 'q1', value: _.current.value.q1},
-        {name: 'q3', value: _.current.value.q3},
-        {name: 'low', value: _.current.value.whiskers.lower},
-        {name: 'high', value: _.current.value.whiskers.upper},
-        {name: 'mild outliers', value: _.current.value.outliers.mild.length},
-        {name: 'extreme outliers', value: _.current.value.outliers.extreme.length}
+        { name: 'median', value: _.current.value.median },
+        { name: 'q1', value: _.current.value.q1 },
+        { name: 'q3', value: _.current.value.q3 },
+        { name: 'low', value: _.current.value.whiskers.lower },
+        { name: 'high', value: _.current.value.whiskers.upper },
+        { name: 'mild outliers', value: _.current.value.outliers.mild.length },
+        { name: 'extreme outliers', value: _.current.value.outliers.extreme.length }
       ]
     }
   }

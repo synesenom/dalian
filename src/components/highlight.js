@@ -2,19 +2,18 @@ import { select } from 'd3'
 import encode from '../core/encode'
 import styles from '../utils/styles'
 
-
 /**
  * Component implementing the highlighting feature. Highlight fades out all plots except a set of specified ones. When
  * this component is available for a widget, its API is exposed directly via the widget's own namespace.
  *
  * @function Highlight
  */
-export default (container, selectors, highlightStyle = {blur: {opacity: 0.1}}) => (() => {
+export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } }) => (() => {
   return (self, api) => {
     function createRemoveStyle (style) {
       const properties = Object.keys(style.focus || {})
         .concat(Object.keys(style.blur || {}))
-      return properties.reduce((obj, d) => Object.assign(obj, {[d]: null}), {})
+      return properties.reduce((obj, d) => Object.assign(obj, { [d]: null }), {})
     }
 
     // Private members.
@@ -99,6 +98,6 @@ export default (container, selectors, highlightStyle = {blur: {opacity: 0.1}}) =
       }
     })
 
-    return {self, api}
+    return { self, api }
   }
 })()

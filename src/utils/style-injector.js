@@ -5,7 +5,7 @@ export default (() => {
 
   const _ = {
     // Styles added to the head.
-    styles: [],
+    styles: []
   }
 
   function getContainer () {
@@ -79,7 +79,7 @@ export default (() => {
     getContainer,
     getMarker,
     updateStyle,
-    TAG,
+    TAG
   }
   /* end-test-code */
 

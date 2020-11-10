@@ -8,9 +8,10 @@
     <li onclick="toggleCallback()">.callback()</li>
     <li onclick="toggleColor()">.color()</li>
     <li onclick="toggleFormat()">.format()</li>
-    <li onclick="toggleLabels()">.labels()</li>
-    <li onclick="toggleRanges()">.ranges()</li>
-    <li onclick="toggleValues()">.values()</li>
+    <li onclick="toggleGuide()">.guide()</li>
+    <li onclick="toggleLabel()">.label()</li>
+    <li onclick="toggleRange()">.range()</li>
+    <li onclick="toggleValue()">.value()</li>
   </ul>
 </div>
 
@@ -47,6 +48,7 @@ const trackpad = dalian.Trackpad('trackpad', '#widget')
   .height(0.8 * HEIGHT)
   .margins(60)
   .font.size(14)
+  .range([0, 360], [0, 100])
   .render()
 </script>
 
@@ -57,7 +59,7 @@ let toggleCallback = () => {
   trackpad.callback(this.a
     ? v => {
       const el = document.getElementById('trackpad-flag')
-      el.style.backgroundColor = `hsl(${360 * v[0]}, ${100 * v[1]}%, 50%)`
+      el.style.backgroundColor = `hsl(${v[0]}, ${v[1]}%, 50%)`
     } : undefined).render(1000)
 }
 
@@ -74,27 +76,33 @@ let toggleFormat = () => {
   ).render(1000)
 }
 
-let toggleLabels = () => {
+let toggleGuide = () => {
+  this.g = 1 - (this.g || 0)
+  trackpad.guide(this.g)
+    .render(1000)
+}
+
+let toggleLabel = () => {
   this.l = 1 - (this.l || 0)
-  trackpad.labels(
+  trackpad.label(
     this.l ? 'Hue' : undefined,
     this.l ? 'Saturation' : undefined
   ).render()
 }
 
-let toggleRanges = () => {
+let toggleRange = () => {
   this.r = 1 - (this.r || 0)
-  trackpad.ranges(
-    this.r ? [0.2, 0.7] : [0, 1],
-    this.r ? [0.4, 0.8] : [0, 1]
+  trackpad.range(
+    this.r ? [120, 200] : [0, 360],
+    this.r ? [40, 80] : [0, 100]
   ).render(1000)
 }
 
-let toggleValues = () => {
+let toggleValue = () => {
   this.v = 1 - (this.v || 0)
-  trackpad.values(
-    this.v ? 0.85 : undefined,
-    this.v ? 0.65 : undefined
+  trackpad.value(
+    this.v ? 165 : undefined,
+    this.v ? 65 : undefined
   ).render(1000)
 }
 </script>

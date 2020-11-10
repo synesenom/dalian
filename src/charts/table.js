@@ -7,7 +7,7 @@ import Mouse from '../components/mouse'
 import Placeholder from '../components/placeholder'
 import Widget from '../components/widget'
 import StyleInjector from '../utils/style-injector'
-import {fromISO} from '../utils/utc'
+import { fromISO } from '../utils/utc'
 import { backgroundAdjustedColor, lighter } from '../utils/color'
 
 // Default values.
@@ -63,7 +63,7 @@ export default (name, parent = 'body') => {
   StyleInjector.addClass(SELECTORS.container, {
     position: 'relative',
     overflow: 'auto',
-    'pointer-events': 'all',
+    'pointer-events': 'all'
   }).addClass(SELECTORS.scrollbarTrack, {
     background: 'transparent'
   }).addClass(SELECTORS.table, {
@@ -225,7 +225,7 @@ export default (name, parent = 'body') => {
         _.updateBody()
         _.dom.header.selectAll('.' + SELECTORS.headMarker)
           .attr('d',
-              h => _.sorting.arrow(h.key === _.sorting.key ? _.sorting.ascending ? 'up' : 'down': undefined))
+            h => _.sorting.arrow(h.key === _.sorting.key ? _.sorting.ascending ? 'up' : 'down' : undefined))
       }
     },
 
@@ -279,7 +279,7 @@ export default (name, parent = 'body') => {
       })()
 
       return {
-        update(duration) {
+        update (duration) {
           dom.g.style('display', size > 0 ? null : 'none')
           if (size > 0) {
             dom.g.transition().duration(duration)
@@ -291,8 +291,8 @@ export default (name, parent = 'body') => {
 
         filter (data) {
           if (size > 0) {
-            let idMin = page * size
-            let idMax = idMin + size
+            const idMin = page * size
+            const idMax = idMin + size
             return data.filter((d, i) => i >= idMin && i < idMax)
           } else {
             return data
@@ -326,7 +326,7 @@ export default (name, parent = 'body') => {
       const schema = _.data.schema.filter(h => _.data.cols.indexOf(h.key) > -1)
 
       // Get page data.
-      let data = _.paging.filter(_.data.values)
+      const data = _.paging.filter(_.data.values)
 
       // Update body.
       _.dom.body.selectAll('tr')
@@ -363,7 +363,7 @@ export default (name, parent = 'body') => {
           update => update,
           exit => {
             // If we have too few rows (when paging), keep some rows and clear them.
-            let buffer = _.paging.size() - data.length
+            const buffer = _.paging.size() - data.length
             exit.filter((d, i) => i < buffer)
               // Move empty rows to the bottom of the table.
               .raise()
@@ -465,7 +465,7 @@ export default (name, parent = 'body') => {
      */
     data (data) {
       // Add index.
-      _.data.values = data.map((d, i) => Object.assign(d, {_id: i}))
+      _.data.values = data.map((d, i) => Object.assign(d, { _id: i }))
 
       // Reset paging.
       _.paging.reset()

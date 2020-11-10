@@ -1,4 +1,4 @@
-import {backgroundAdjustedColor} from '../utils/color'
+import { backgroundAdjustedColor } from '../utils/color'
 import extend from '../core/extend'
 import attributes from '../utils/attributes'
 

@@ -33,7 +33,7 @@ export default (scales) => {
        * @param {boolean} on Whether the chart should be horizontal.
        * @returns {Widget} Reference to the Widget's API.
        */
-      horizontal(on = DEFAULTS.on) {
+      horizontal (on = DEFAULTS.on) {
         _.on = on
 
         // Assign scales
@@ -53,6 +53,6 @@ export default (scales) => {
       }
     })
 
-    return {self, api}
+    return { self, api }
   }
 }

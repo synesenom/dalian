@@ -2,7 +2,7 @@ import { max, min } from 'd3'
 import { measureText } from '../utils/measure-text'
 import compose from '../core/compose'
 import extend from '../core/extend'
-import {backgroundAdjustedColor} from '../utils/color'
+import { backgroundAdjustedColor } from '../utils/color'
 import BottomAxis from '../components/axis/bottom-axis'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
@@ -44,7 +44,7 @@ export default (name, parent = 'body') => {
     x: Scale('band'),
     y: Scale('linear')
   }
-  let { self, api } = compose(
+  const { self, api } = compose(
     Chart('bar-chart', name, parent),
     LeftAxis(scales.y),
     BottomAxis(scales.x),

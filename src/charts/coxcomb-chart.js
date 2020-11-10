@@ -106,8 +106,8 @@ export default (name, parent = 'body') => {
           outerRadius: _.scale.scale(dd.y || 0)
         }))
 
-        d.outerRadius = Math.max(0.6 * _.radius, _.scale.scale(max(d.data, dd => dd.y || 0)))
-          + 0.5 * parseFloat(self._font.size)
+        d.outerRadius = Math.max(0.6 * _.radius, _.scale.scale(max(d.data, dd => dd.y || 0))) +
+          0.5 * parseFloat(self._font.size)
       })
 
       // Plot transition.
@@ -132,7 +132,7 @@ export default (name, parent = 'body') => {
         .attrTween('d', attrTween(d => _.labelArc(d)))
 
       // Add wedges.
-      let wedges = _.plots.selectAll('.wedge-group')
+      const wedges = _.plots.selectAll('.wedge-group')
         .data(_.data, d => d.index)
         .join(
           enter => enter.append('g')
@@ -141,7 +141,7 @@ export default (name, parent = 'body') => {
             .style('opacity', 0)
             .call(g => {
               // Paths.
-              let paths = g.selectAll('path')
+              const paths = g.selectAll('path')
                 .data(d => d.data)
                 .enter().append('path')
                 .attr('stroke', 'white')
@@ -158,7 +158,7 @@ export default (name, parent = 'body') => {
           update => update
             .call(g => {
               // Update wedges.
-              let paths = g.selectAll('path')
+              const paths = g.selectAll('path')
                 .data(d => d.data)
                 .join(
                   enter => enter.append('path')
@@ -235,7 +235,7 @@ export default (name, parent = 'body') => {
           endAngle,
           innerRadius: 0,
           data: data.map(d => {
-            let w = d.values.find(v => v.x === label)
+            const w = d.values.find(v => v.x === label)
             return {
               label,
               name: d.name,

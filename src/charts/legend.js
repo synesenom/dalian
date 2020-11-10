@@ -8,7 +8,6 @@ import Mouse from '../components/mouse'
 import Color from '../components/color'
 import encode from '../core/encode'
 
-
 /**
  * The legend widget. This widget extends the following components:
  * <ul>
@@ -32,7 +31,7 @@ export default (name, parent = 'body') => {
     markers: 'square',
     vSep: 1.4,
     hSep: 6,
-    columns: 1,
+    columns: 1
   }
 
   // Build widget from components.
@@ -74,7 +73,7 @@ export default (name, parent = 'body') => {
           shape = elem.append('rect')
             .attr('x', 0)
             .attr('y', '-.5em')
-            .attr('width','1em')
+            .attr('width', '1em')
             .attr('height', '1em')
             .attr('rx', 2)
             .attr('ry', 2)
@@ -217,7 +216,7 @@ export default (name, parent = 'body') => {
      * ]).render()
      */
     entries (entries) {
-      _.entries = entries.map(name => ({name}))
+      _.entries = entries.map(name => ({ name }))
       return api
     },
 

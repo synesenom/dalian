@@ -8,7 +8,6 @@ import Placeholder from '../components/placeholder'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
-// TODO Make it touch compatible.
 /**
  * The slider control widget.
  *
@@ -155,7 +154,7 @@ export default (name, parent = 'body') => {
       const marginTop = parseFloat(self._widget.size.height) / 2
 
       // Adjust container.
-      self._widget.getElem(_.dom.container,  duration)
+      self._widget.getElem(_.dom.container, duration)
         .attr('transform', `translate(${self._widget.margins.left}, ${marginTop})`)
 
       // Adjust track and overlay.
@@ -166,7 +165,7 @@ export default (name, parent = 'body') => {
       self._widget.getElem(_.dom.overlay, duration)
         .attr('x1', -_.ui.thickness)
         .attr('x2', parseFloat(self._widget.size.innerWidth) + _.ui.thickness)
-        .attr('stroke-width', 2  * _.ui.thickness)
+        .attr('stroke-width', 2 * _.ui.thickness)
 
       // Adjust value and handle.
       self._widget.getElem(_.dom.value, duration)

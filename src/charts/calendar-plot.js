@@ -3,7 +3,7 @@ import compose from '../core/compose'
 import extend from '../core/extend'
 import * as utc from '../utils/utc'
 import unrotate from '../utils/unrotate'
-import {backgroundAdjustedColor} from '../utils/color'
+import { backgroundAdjustedColor } from '../utils/color'
 import Chart from '../components/chart'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
@@ -78,7 +78,7 @@ export default (name, parent = 'body') => {
     },
     tiles: {
       names: DEFAULTS.tiles.names,
-      weekStart: 0,
+      weekStart: 0
     },
 
     // Font metrics to position labels.
@@ -265,7 +265,7 @@ export default (name, parent = 'body') => {
 
     // Create month blocks.
     let daysOffset = 0
-    const blocks = Array.from({length: lastMonth - firstMonth + 1}, (d, index) => {
+    const blocks = Array.from({ length: lastMonth - firstMonth + 1 }, (d, index) => {
       // Do some counting.
       const month = (firstMonth + index) % 12
       const numDays = utc.fromYMD(year, month + 1, 0).getDate()
@@ -281,7 +281,7 @@ export default (name, parent = 'body') => {
 
         // Name and tiles.
         name: `month-${month}`,
-        tiles: Array.from({length: numDays}, (tile, i) => {
+        tiles: Array.from({ length: numDays }, (tile, i) => {
           const date = new Date(firstDay)
           date.setDate(firstDay.getDate() + i)
           return {

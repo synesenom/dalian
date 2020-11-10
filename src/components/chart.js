@@ -90,9 +90,9 @@ export default (type, name, parent, elem = 'svg') => {
           .join(
             // Entering groups.
             enter => enter.append('g')
-                .attr('class', d => `plot-group ${encode(d.name)}`)
-                .style('shape-rendering', 'geometricPrecision')
-                .call(attr.enter || (g => g)),
+              .attr('class', d => `plot-group ${encode(d.name)}`)
+              .style('shape-rendering', 'geometricPrecision')
+              .call(attr.enter || (g => g)),
 
             // Groups that only update: do nothing (updates are applied to all groups at the end).
             update => update,
@@ -101,7 +101,7 @@ export default (type, name, parent, elem = 'svg') => {
             exit => exit.transition(t)
               .call(attr.exit || (g => g))
               .remove()
-            )
+          )
           .on('mouseover.chart', self._mouse.over)
           .on('mouseleave.chart', self._mouse.leave)
           .on('click.chart', self._mouse.click)
@@ -112,19 +112,19 @@ export default (type, name, parent, elem = 'svg') => {
           })
 
         // Updates: before and after transition.
-        .call(attr.updateBefore || (g => g))
+          .call(attr.updateBefore || (g => g))
           .transition(t)
           .call(attr.update || (g => g))
 
         // At the end, restore pointer events.
-        .on('end', () => {
+          .on('end', () => {
           // Enable pointer events if any of the followings hold:
           // - Mouse events are enabled.
           // - Tooltip is enabled.
-          self._chart.plots.style('pointer-events',
-            ((self._tooltip && self._tooltip.isOn()) || self._mouse.hasAny()) ? 'all' : 'none')
-          self._widget.transition = false
-        })
+            self._chart.plots.style('pointer-events',
+              ((self._tooltip && self._tooltip.isOn()) || self._mouse.hasAny()) ? 'all' : 'none')
+            self._widget.transition = false
+          })
       }
     }
   })

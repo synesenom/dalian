@@ -137,7 +137,7 @@ export default (name, parent = 'body') => {
       self._widget.getElem(_.dom.plot, duration)
         .attr('transform', `translate(${self._widget.margins.left}, ${marginTop + self._widget.margins.top})`)
 
-        // Adjust axis.
+      // Adjust axis.
       self._bottomAxis.margin({ bottom: marginTop })
         .tickColor(_.ui.rangeColor)
 

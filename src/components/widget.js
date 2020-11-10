@@ -94,7 +94,7 @@ export default (type, name, parent, elem) => {
       }
     },
 
-    getDefs() {
+    getDefs () {
       if (typeof _.defs === 'undefined') {
         _.defs = self._widget.content.append('defs')
       }

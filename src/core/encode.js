@@ -14,7 +14,7 @@ export default function (name) {
 
   return 'da-' + Array.from(name).map(d => {
     // Convert character to lower case.
-    let c = d.toLowerCase()
+    const c = d.toLowerCase()
 
     // If it is a valid digit or letter, just return it.
     if (CHARS.indexOf(c) > -1) {

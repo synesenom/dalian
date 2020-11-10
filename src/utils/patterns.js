@@ -14,11 +14,11 @@ export default (() => {
   const _ = {}
 
   function createPattern (id) {
-    return Defs.addPattern(id, {x: 0, y: 0}, {width: 4, height: 4})
+    return Defs.addPattern(id, { x: 0, y: 0 }, { width: 4, height: 4 })
   }
 
   function createMask (maskId, patternId) {
-    return Defs.addMask(maskId, {x: 0, y: 0}, {width: 4, height: 4})
+    return Defs.addMask(maskId, { x: 0, y: 0 }, { width: 4, height: 4 })
       .append('rect')
       .attr('x', '-50%')
       .attr('y', '-50%')
