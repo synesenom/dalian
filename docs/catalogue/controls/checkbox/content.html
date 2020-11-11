@@ -1,0 +1,78 @@
+<div id="desc">
+  <p>
+    A simple stylized checkbox.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="toggleCallback()">.callback()</li>
+    <li onclick="toggleChecked()">.checked()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="toggleDisabled()">.disabled()</li>
+    <li onclick="toggleLabel()">.label()</li>
+    <!--
+    <li onclick="toggleMax()">.max()</li>
+    <li onclick="toggleMin()">.min()</li>
+    <li onclick="toggleStep()">.step()</li>
+    <li onclick="toggleThickness()">.thickness()</li>
+    <li onclick="toggleTrackColor()">.trackColor()</li>
+    <li onclick="toggleValue()">.value()</li>
+    -->
+  </ul>
+</div>
+
+<script class="card-example">
+dalian.Checkbox('checkbox-card', '#checkbox')
+  .x(0)
+  .y(0)
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(100)
+  .color('yellowgreen')
+  .font.size(11)
+  .render()
+</script>
+
+<script class="doc">
+// create control
+const checkbox = dalian.Checkbox('checkbox', '#widget')
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 100, right: 250})
+  .font.size(14)
+  .label(`I'm a checkbox`)
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleCallback = () => {
+  this.a = 1 - (this.a || 0)
+  checkbox.callback(this.a ? x => alert(x ? 'On!' : 'Off') : undefined)
+    .render()
+}
+
+let toggleChecked = () => {
+  this.c = 1 - (this.c || 0)
+  checkbox.checked(this.c)
+    .render()
+}
+
+let toggleColor = () => {
+  this.o = 1 - (this.o || 0)
+  checkbox.color(this.o ? 'yellowgreen' : undefined)
+    .render(1000)
+}
+
+let toggleDisabled = () => {
+  this.d = 1 - (this.d || 0)
+  checkbox.disabled(this.d)
+    .render()
+}
+
+let toggleLabel = () => {
+  this.l = 1 - (this.l || 0)
+  checkbox.label(this.l ? 'Click on me!' : `I'm a checkbox`)
+    .render()
+}
+</script>

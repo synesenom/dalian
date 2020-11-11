@@ -46,6 +46,7 @@ const MODULES = [
   'components/range/x-range',
   'components/grid/y-grid',
   'components/range/y-range',
+  'controls/checkbox',
   'controls/slider',
   'controls/trackpad'
 ]

@@ -2,14 +2,13 @@ import { drag, event } from 'd3'
 import extend from '../core/extend'
 import compose from '../core/compose'
 import BottomAxis from '../components/axis/bottom-axis'
-import Description from '../components/description'
 import Font from '../components/font'
-import Placeholder from '../components/placeholder'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
+// TODO Move style to head.
 /**
- * The slider control widget.
+ * The slider control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The slider is constrained to a rectangle defined by the width/height and the margins. It is vertically centered.
  *
  * @function Slider
  * @param {string} name Name of the widget. Should be a unique identifier.
@@ -24,7 +23,7 @@ export default (name, parent = 'body') => {
     step: 0,
     thickness: 8,
     trackColor: '#ccc',
-    value: 0
+    value: 0,
   }
 
   // Scale.
@@ -34,8 +33,6 @@ export default (name, parent = 'body') => {
   let { self, api } = compose(
     Widget('slider', name, parent, 'svg'),
     BottomAxis(scale),
-    Description,
-    Placeholder,
     Font
   )
 
@@ -43,20 +40,8 @@ export default (name, parent = 'body') => {
   const _ = {
     scale,
 
-    // UI elements.
-    ui: {
-      color: DEFAULTS.color,
-      max: DEFAULTS.max,
-      min: DEFAULTS.min,
-      step: DEFAULTS.step,
-      thickness: DEFAULTS.thickness,
-      trackColor: DEFAULTS.trackColor
-    },
-
-    internal: {
-      domain: [],
-      value: DEFAULTS.value
-    },
+    // Internal variables.
+    internal: Object.assign({domain: []}, DEFAULTS),
 
     // DOM.
     dom: (() => {
@@ -88,7 +73,7 @@ export default (name, parent = 'body') => {
         .style('pointer-events', 'all')
         .call(drag()
           .on('start drag', () => {
-            handle.attr('fill', _.ui.color)
+            handle.attr('fill', _.internal.color)
               .attr('stroke', '#fff')
               .attr('stroke-width', 2)
 
@@ -102,7 +87,7 @@ export default (name, parent = 'body') => {
           })
           .on('end', () => {
             handle.attr('fill', '#fff')
-              .attr('stroke', _.ui.trackColor)
+              .attr('stroke', _.internal.trackColor)
               .attr('stroke-width', 1)
           })
         )
@@ -123,28 +108,28 @@ export default (name, parent = 'body') => {
     })(),
 
     updateDomain () {
-      if (_.ui.step === 0) {
+      if (_.internal.step === 0) {
         return []
       }
 
       _.internal.domain = []
-      for (let i = _.ui.min; i <= _.ui.max; i += _.ui.step) {
+      for (let i = _.internal.min; i <= _.internal.max; i += _.internal.step) {
         _.internal.domain.push(i)
       }
     },
 
     updateValue (initialValue) {
       const x = typeof initialValue === 'undefined' ? event.x : _.scale.scale(initialValue)
-      if (_.ui.step > 0) {
+      if (_.internal.step > 0) {
         _.internal.value = _.internal.domain.reduce((prev, curr) => (Math.abs(_.scale.scale(curr) - x) < Math.abs(_.scale.scale(prev) - x) ? curr : prev))
       } else {
-        _.internal.value = Math.max(_.ui.min, Math.min(_.ui.max, _.scale.scale.invert(x)))
+        _.internal.value = Math.max(_.internal.min, Math.min(_.internal.max, _.scale.scale.invert(x)))
       }
     },
 
     update (duration) {
       _.scale.range(0, parseFloat(self._widget.size.innerWidth))
-        .domain([_.ui.min, _.ui.max])
+        .domain([_.internal.min, _.internal.max])
 
       // Update internals.
       _.updateDomain()
@@ -160,25 +145,25 @@ export default (name, parent = 'body') => {
       // Adjust track and overlay.
       self._widget.getElem(_.dom.track, duration)
         .attr('x2', self._widget.size.innerWidth)
-        .attr('stroke', _.ui.trackColor)
-        .attr('stroke-width', _.ui.thickness)
+        .attr('stroke', _.internal.trackColor)
+        .attr('stroke-width', _.internal.thickness)
       self._widget.getElem(_.dom.overlay, duration)
-        .attr('x1', -_.ui.thickness)
-        .attr('x2', parseFloat(self._widget.size.innerWidth) + _.ui.thickness)
-        .attr('stroke-width', 2 * _.ui.thickness)
+        .attr('x1', -_.internal.thickness)
+        .attr('x2', parseFloat(self._widget.size.innerWidth) + _.internal.thickness)
+        .attr('stroke-width', 2 * _.internal.thickness)
 
       // Adjust value and handle.
       self._widget.getElem(_.dom.value, duration)
         .attr('x2', _.scale.scale(_.internal.value) + 0.5)
-        .attr('stroke', _.ui.color)
-        .attr('stroke-width', _.ui.thickness)
+        .attr('stroke', _.internal.color)
+        .attr('stroke-width', _.internal.thickness)
       self._widget.getElem(_.dom.handle, duration)
         .attr('cx', _.scale.scale(_.internal.value) + 0.5)
-        .attr('r', 1.1 * _.ui.thickness)
-        .attr('stroke', _.ui.trackColor)
+        .attr('r', 1.1 * _.internal.thickness)
+        .attr('stroke', _.internal.trackColor)
 
       // Adjust axis.
-      self._bottomAxis.margin({ bottom: marginTop - self._widget.margins.bottom - _.ui.thickness / 2 })
+      self._bottomAxis.margin({ bottom: marginTop - self._widget.margins.bottom - _.internal.thickness / 2 })
     }
   }
 
@@ -192,7 +177,7 @@ export default (name, parent = 'body') => {
      *
      * @method callback
      * @methodOf Slider
-     * @param {Function} callback Callback to bind when the handle is dragged. The current value is passed as parameter.
+     * @param {Function} [callback = null] Callback to bind when the handle is dragged. The current value is passed as parameter.
      * @returns {Slider} Reference to the Slider API.
      * @example
      *
@@ -229,7 +214,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.ui.color = color
+      _.internal.color = color
       return api
     },
 
@@ -238,7 +223,7 @@ export default (name, parent = 'body') => {
      *
      * @method format
      * @methodOf Slider
-     * @param {Function} format Format to set. The tick value is passed as parameter.
+     * @param {Function} [format = x => x] Format to set. The tick value is passed as parameter.
      * @returns {Slider} Reference to the Slider API.
      * @example
      *
@@ -274,7 +259,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     max (value = DEFAULTS.max) {
-      _.ui.max = value
+      _.internal.max = value
       return api
     },
 
@@ -297,7 +282,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     min (value = DEFAULTS.min) {
-      _.ui.min = value
+      _.internal.min = value
       return api
     },
 
@@ -320,7 +305,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     step (value = DEFAULTS.step) {
-      _.ui.step = Math.abs(value)
+      _.internal.step = Math.abs(value)
       return api
     },
 
@@ -343,7 +328,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     thickness (thickness = DEFAULTS.thickness) {
-      _.ui.thickness = thickness
+      _.internal.thickness = thickness
       return api
     },
 
@@ -366,7 +351,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     trackColor (color = DEFAULTS.trackColor) {
-      _.ui.trackColor = color
+      _.internal.trackColor = color
       return api
     },
 

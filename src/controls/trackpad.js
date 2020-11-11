@@ -2,18 +2,17 @@ import { drag, event } from 'd3'
 import extend from '../core/extend'
 import compose from '../core/compose'
 import BottomAxis from '../components/axis/bottom-axis'
-import Description from '../components/description'
 import Font from '../components/font'
 import LeftAxis from '../components/axis/left-axis'
-import Placeholder from '../components/placeholder'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 import { lighter } from '../utils/color'
 
+// TODO Move style to head.
 // TODO Implement radial type.
 // TODO Make it touch compatible.
 /**
- * The trackpad control widget.
+ * The trackpad control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The trackpad is constrained to a rectangle defined by the width/height and the margins (it fills  the container as much as the margins allow).
  *
  * @function Trackpad
  * @param {string} name Name of the widget. Should be a unique identifier.
@@ -38,11 +37,9 @@ export default (name, parent = 'body') => {
 
   // Build widget from components.
   let { self, api } = compose(
-    Widget('slider', name, parent, 'svg'),
+    Widget('trackpad', name, parent, 'svg'),
     BottomAxis(scales.x),
-    Description,
     LeftAxis(scales.y),
-    Placeholder,
     Font
   )
 
@@ -50,18 +47,8 @@ export default (name, parent = 'body') => {
   const _ = {
     scales,
 
-    // UI elements.
-    ui: {
-      color: DEFAULTS.color,
-      guide: DEFAULTS.guide,
-      labels: DEFAULTS.labels,
-      ranges: DEFAULTS.ranges
-    },
-
-    internal: {
-      type: DEFAULTS.type,
-      values: DEFAULTS.values
-    },
+    // Internal variables.
+    internal: Object.assign({}, DEFAULTS),
 
     // DOM.
     dom: (() => {
@@ -127,7 +114,7 @@ export default (name, parent = 'body') => {
         .style('pointer-events', 'all')
         .call(drag()
           .on('start drag', () => {
-            handle.attr('fill', _.ui.color)
+            handle.attr('fill', _.internal.color)
               .attr('stroke', '#fff')
               .attr('stroke-width', 2)
 
@@ -142,7 +129,7 @@ export default (name, parent = 'body') => {
           })
           .on('end', () => {
             handle.attr('fill', '#fff')
-              .attr('stroke', _.ui.color)
+              .attr('stroke', _.internal.color)
               .attr('stroke-width', 1)
           })
         )
@@ -160,8 +147,8 @@ export default (name, parent = 'body') => {
       const x = typeof initialValues === 'undefined' ? event.x : _.scales.x.scale(initialValues[0])
       const y = typeof initialValues === 'undefined' ? event.y : _.scales.y.scale(initialValues[1])
       _.internal.values = [
-        Math.max(_.ui.ranges[0][0], Math.min(_.ui.ranges[0][1], _.scales.x.scale.invert(x))),
-        Math.max(_.ui.ranges[1][0], Math.min(_.ui.ranges[1][1], _.scales.y.scale.invert(y)))
+        Math.max(_.internal.ranges[0][0], Math.min(_.internal.ranges[0][1], _.scales.x.scale.invert(x))),
+        Math.max(_.internal.ranges[1][0], Math.min(_.internal.ranges[1][1], _.scales.y.scale.invert(y)))
       ]
     },
 
@@ -170,25 +157,25 @@ export default (name, parent = 'body') => {
       const y = _.scales.y.scale(_.internal.values[1]) + 0.5
       handle.attr('cx', x)
         .attr('cy', y)
-        .attr('stroke', _.ui.color)
+        .attr('stroke', _.internal.color)
       guide.clip.attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight)
       guide.x.attr('x2', self._widget.size.innerWidth)
         .attr('y1', y)
         .attr('y2', y)
-        .attr('stroke', _.ui.color)
+        .attr('stroke', _.internal.color)
       guide.y.attr('x1', x)
         .attr('x2', x)
         .attr('y2', self._widget.size.innerHeight)
-        .attr('stroke', _.ui.color)
+        .attr('stroke', _.internal.color)
     },
 
     update (duration) {
       // Update scales.
       _.scales.x.range(0, parseFloat(self._widget.size.innerWidth))
-        .domain(_.ui.ranges[0])
+        .domain(_.internal.ranges[0])
       _.scales.y.range(parseFloat(self._widget.size.innerHeight), 0)
-        .domain(_.ui.ranges[1])
+        .domain(_.internal.ranges[1])
 
       // Update internals.
       _.updateValues(_.internal.values)
@@ -201,8 +188,8 @@ export default (name, parent = 'body') => {
       self._widget.getElem(_.dom.track, duration)
         .attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight)
-        .attr('fill', lighter(_.ui.color, 0.8))
-        .attr('stroke', _.ui.color)
+        .attr('fill', lighter(_.internal.color, 0.8))
+        .attr('stroke', _.internal.color)
       self._widget.getElem(_.dom.overlay, duration)
         .attr('width', parseFloat(self._widget.size.innerWidth) + 20)
         .attr('height', parseFloat(self._widget.size.innerHeight) + 20)
@@ -212,9 +199,9 @@ export default (name, parent = 'body') => {
         self._widget.getElem(_.dom.handle, duration), {
           clip: self._widget.getElem(_.dom.guide.clip, duration),
           x: self._widget.getElem(_.dom.guide.x, duration)
-            .style('opacity', _.ui.guide ? 1 : 0),
+            .style('opacity', _.internal.guide ? 1 : 0),
           y: self._widget.getElem(_.dom.guide.y, duration)
-            .style('opacity', _.ui.guide ? 1 : 0)
+            .style('opacity', _.internal.guide ? 1 : 0)
         }
       )
     }
@@ -267,7 +254,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.ui.color = color
+      _.internal.color = color
       return api
     },
 
@@ -323,7 +310,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     guide (on = DEFAULTS.guide) {
-      _.ui.guide = on
+      _.internal.guide = on
       return api
     },
 
@@ -384,14 +371,12 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     range (range1, range2) {
-      _.ui.ranges = [
-        Array.isArray(range1) ? range1 : _.ui.range[0],
-        Array.isArray(range2) ? range2 : _.ui.range[1]
+      _.internal.ranges = [
+        Array.isArray(range1) ? range1 : _.internal.range[0],
+        Array.isArray(range2) ? range2 : _.internal.range[1]
       ]
       return api
     },
-
-    // TODO .type()
 
     /**
      * Sets one/all of the trackpad values. If null or undefined is passed to any of the values that value remains unchanged.

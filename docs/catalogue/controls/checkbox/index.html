@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+  .callback(function() {
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+  });</script><title>Checkbox | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  <ul>
+    <li onclick="toggleCallback()">.callback()</li>
+    <li onclick="toggleChecked()">.checked()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="toggleDisabled()">.disabled()</li>
+    <li onclick="toggleLabel()">.label()</li>
+    <!--
+    <li onclick="toggleMax()">.max()</li>
+    <li onclick="toggleMin()">.min()</li>
+    <li onclick="toggleStep()">.step()</li>
+    <li onclick="toggleThickness()">.thickness()</li>
+    <li onclick="toggleTrackColor()">.trackColor()</li>
+    <li onclick="toggleValue()">.value()</li>
+    -->
+  </ul>
+</div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
+  <p>
+    A simple stylized checkbox.
+  </p>
+</p><script>// Widget size.
+const WIDTH = parseFloat(d3.select('#widget').style('width'));
+const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
+</script><h1>code<div class="margin-right"><a href="../../../api/controls/checkbox.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/controls/checkbox.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+// create control
+const checkbox = dalian.Checkbox('checkbox', '#widget')
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins({left: 100, right: 250})
+  .font.size(14)
+  .label(`I'm a checkbox`)
+  .render()
+</script><script class="doc">
+// api methods
+let toggleCallback = () => {
+  this.a = 1 - (this.a || 0)
+  checkbox.callback(this.a ? x => alert(x ? 'On!' : 'Off') : undefined)
+    .render()
+}
+
+let toggleChecked = () => {
+  this.c = 1 - (this.c || 0)
+  checkbox.checked(this.c)
+    .render()
+}
+
+let toggleColor = () => {
+  this.o = 1 - (this.o || 0)
+  checkbox.color(this.o ? 'yellowgreen' : undefined)
+    .render(1000)
+}
+
+let toggleDisabled = () => {
+  this.d = 1 - (this.d || 0)
+  checkbox.disabled(this.d)
+    .render()
+}
+
+let toggleLabel = () => {
+  this.l = 1 - (this.l || 0)
+  checkbox.label(this.l ? 'Click on me!' : `I'm a checkbox`)
+    .render()
+}
+</script></div></main></body></html>
