@@ -34,8 +34,9 @@ export default (name, parent = 'body') => {
     'user-select': 'none'
   }).addClass(CLASSES.label, {
     position: 'absolute',
-    top: 0,
-    'margin-left': '2em'
+    top: '0.1em',
+    'margin-left': '2em',
+    'line-height': '1.35em'
   }).addClass(CLASSES.box, {
     width: '1.35em',
     height: '1.35em'
