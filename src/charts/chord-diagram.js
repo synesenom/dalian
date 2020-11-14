@@ -7,6 +7,7 @@ import extend from '../core/extend'
 import { attrTween } from '../utils/tweens'
 import encode from '../core/encode'
 
+// TODO Add ticks.
 /**
  * The chord chart widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -21,7 +22,7 @@ import encode from '../core/encode'
  *   </li>
  * </ul>
  *
- * @function ChordChart
+ * @function ChordDiagram
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
@@ -33,7 +34,7 @@ export default (name, parent = 'body') => {
   }
 
   let { self, api } = compose(
-    Chart('chord-chart', name, parent),
+    Chart('chord-diagram', name, parent),
     Highlight(() => self._chart.plots, ['.chord-ribbon']),
     Label
   )
@@ -58,8 +59,8 @@ export default (name, parent = 'body') => {
       return enter.append('path')
         .attr('class', d => `chord-ribbon ${encode(d.name)} ${encode(d.name2)}`)
         .attr('fill', 'currentColor')
-        .attr('stroke', '#fff')
         .attr('fill-opacity', 0.6)
+        .attr('stroke', '#fff')
         .attr('d', ribbonFn)
     },
 
@@ -80,7 +81,7 @@ export default (name, parent = 'body') => {
 
       // Create ribbon.
       const ribbonFn = ribbon()
-        .radius(innerRadius)
+        .radius(innerRadius - 1)
 
       // Add plots.
       const t = self._chart.plots
@@ -92,12 +93,6 @@ export default (name, parent = 'body') => {
             .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
             .style('opacity', 0)
 
-          // Arcs.
-          g.append('path')
-            .attr('class', 'chord-arc')
-            .attr('d', _.arc)
-            .attr('fill', 'currentColor')
-
           // Labels.
           g.append('text')
             .attr('class', 'chord-label')
@@ -106,6 +101,12 @@ export default (name, parent = 'body') => {
             .attr('text-anchor', _.textAnchor)
             .style('display', self._label.show ? null : 'none')
             .text(d => d.name)
+
+          // Arcs.
+          g.append('path')
+            .attr('class', 'chord-arc')
+            .attr('d', _.arc)
+            .attr('fill', 'currentColor')
 
           // Ribbons.
           _.addRibbons(g.selectAll('.chord-ribbon')
@@ -220,13 +221,13 @@ export default (name, parent = 'body') => {
      * Sets the radius of the chord chart.
      *
      * @method radius
-     * @methodOf ChordChart
+     * @methodOf ChordDiagram
      * @param {number} [value = 100] Chart radius in pixels.
-     * @returns {ChordChart} Reference to the ChordChart API.
+     * @returns {ChordChart} Reference to the ChordDiagram API.
      * @example
      *
      * // Set radius to 150px.
-     * const chord = dalian.ChordChart('my-chart')
+     * const chord = dalian.ChordDiagram('my-chart')
      *   .radius(150)
      *   .render()
      *
@@ -243,13 +244,13 @@ export default (name, parent = 'body') => {
      * Sets the thickness of the outer arcs.
      *
      * @method thickness
-     * @methodOf ChordChart
+     * @methodOf ChordDiagram
      * @param {number} [value = 10] Thickness of the arcs in pixel.
-     * @returns {ChordChart} Reference to the ChordChart API.
+     * @returns {ChordChart} Reference to the ChordDiagram API.
      * @example
      *
      * // Set thickness to 20px.
-     * const chord = dalian.ChordChart('my-chart')
+     * const chord = dalian.ChordDiagram('my-chart')
      *   .thickness(20)
      *   .render()
      *
@@ -267,7 +268,7 @@ export default (name, parent = 'body') => {
      * methods that operate on plot groups are applied on the arc level.
      *
      * @method data
-     * @methodOf ChordChart
+     * @methodOf ChordDiagram
      * @param {Object[]} plots Array of objects representing the flows from one group to another. Each flow has three properties:
      * <dl>
      *   <dt>source</dt> <dd>{string} Name of the source group.</dd>
@@ -275,10 +276,10 @@ export default (name, parent = 'body') => {
      *   <dt>value</dt> <dd>{number} Flow strength.</dd>
      * </dl>
      * Unspecified elements of the flow matrix are set to 0.
-     * @returns {ChordChart} Reference to the ChordChart API.
+     * @returns {ChordChart} Reference to the ChordDiagram API.
      * @example
      *
-     * const chord = dalian.ChordChart('my-chart')
+     * const chord = dalian.ChordDiagram('my-chart')
      *   .data([
      *     {source: 'group 1', target: 'group 2', value: 21},
      *     {source: 'group 1', target: 'group 3', value: 34},

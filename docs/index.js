@@ -13,7 +13,7 @@ const MODULES = [
   'charts/bubble-chart',
   'charts/bullet-chart',
   'charts/calendar-plot',
-  'charts/chord-chart',
+  'charts/chord-diagram',
   'charts/coxcomb-chart',
   'charts/legend',
   'charts/line-chart',

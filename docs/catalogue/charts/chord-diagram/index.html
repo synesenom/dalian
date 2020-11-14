@@ -2,7 +2,7 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>ChordChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>ChordDiagram | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">.data()</li>
     <li onclick="toggleLabel()">.label()</li>
@@ -11,56 +11,56 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A chord chart ...
-    TODO
+    A <a href="https://www.data-to-viz.com/graph/chord.html">chord diagram</a> displays flow data between various groups, can be used to represent <span class="good">matrix data</span> when only the <span class="good">net flow</span> between two entities is important. If <span class="bad">all elements of the matrix</span> are relevant, other visualizations are recommended.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/charts/chord-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/chord-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/charts/chord-diagram.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/chord-diagram.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
   return [
-    {source: 'melon', target: 'plum', value: 4 * Math.random()},
-    {source: 'melon', target: 'pear', value: 4 * Math.random()},
-    {source: 'plum', target: 'melon', value: 4 * Math.random()},
-    {source: 'plum', target: 'pear', value: 5 * Math.random()},
-    {source: 'pear', target: 'melon', value: 7 * Math.random()},
-    {source: 'pear', target: 'plum', value: 8 * Math.random()}
+    {source: 'melon', target: 'plum', value: Math.random()},
+    {source: 'melon', target: 'pear', value: Math.random()},
+    {source: 'melon', target: 'melon', value: Math.random()},
+    {source: 'plum', target: 'melon', value: Math.random()},
+    {source: 'plum', target: 'pear', value: Math.random()},
+    {source: 'pear', target: 'melon', value: Math.random()},
+    {source: 'pear', target: 'plum', value: Math.random()}
   ].concat([
-    {source: 'kiwi', target: 'melon', value: 10 * Math.random()},
-    {source: 'kiwi', target: 'plum', value: 11 * Math.random()},
-    {source: 'kiwi', target: 'pear', value: 12 * Math.random()}
+    {source: 'kiwi', target: 'melon', value: Math.random()},
+    {source: 'kiwi', target: 'plum', value: Math.random()},
+    {source: 'kiwi', target: 'pear', value: Math.random()}
   ].filter(() => Math.random() > 0.5))
 }
 </script><script class="doc">
 // create chart
-const chordChart = dalian.ChordChart('chord-chart', '#widget')
+const chord = dalian.ChordDiagram('chord-diagram', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(14)
-  .mouse.over(k => chordChart.highlight(k.name, 700))
-  .mouse.leave(() => chordChart.highlight(null, 700))
+  .mouse.over(k => chord.highlight(k.name, 700))
+  .mouse.leave(() => chord.highlight(null, 700))
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => chordChart.data(getData()).render(1000)
+let changeData = () => chord.data(getData()).render(1000)
 
 let toggleLabel = () => {
   this.l = 1 - (this.l || 0)
-  chordChart.label(this.l ? x => x : undefined).render()
+  chord.label(this.l ? x => x : undefined).render()
 }
 
 let toggleRadius = () => {
   this.r = 1 - (this.r || 0)
-  chordChart.radius(this.r ? 80 : undefined)
+  chord.radius(this.r ? 80 : undefined)
     .render(1000)
 }
 
 let toggleThickness = () => {
   this.t = 1 - (this.t || 0)
-  chordChart.thickness(this.t ? 20 : undefined)
+  chord.thickness(this.t ? 20 : undefined)
     .render(1000)
 }
 </script></div></main></body></html>
