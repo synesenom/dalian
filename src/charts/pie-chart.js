@@ -254,7 +254,8 @@ export default (name, parent = 'body') => {
   // Overrides
   // Transform data to pie chart compatible data.
   self._chart.transformData = data => {
-    const pieFn = pie().value(d => d.value).sort(null)
+    const pieFn = pie().value(d => d.value)
+      .sort(null)
     return pieFn(data.sort((a, b) => b.value - a.value))
       .map(d => Object.assign(d, { name: d.data.name }))
   }
@@ -271,7 +272,7 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Extend widget update
+  // Extend widget update.
   self._widget.update = extend(self._widget.update, _.update)
 
   // Public API

@@ -5,6 +5,7 @@ export const attrTween = (callback, tag) => {
   return function (d) {
     const i = interpolate(this[key], d)
     this[key] = i(0)
+    // TODO Should the second parameter be removed?
     return t => callback(i(t), d)
   }
 }

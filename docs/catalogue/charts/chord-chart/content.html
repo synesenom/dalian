@@ -1,0 +1,92 @@
+<script class="card-example">
+  dalian.ChordChart('chord-chart-card', '#chord-chart')
+    .data([
+      {source: 'NO', target: 'FI', value: 4},
+      {source: 'NO', target: 'SE', value: 5},
+      {source: 'NO', target: 'DK', value: 6},
+      {source: 'NO', target: 'NO', value: 11},
+      {source: 'SE', target: 'NO', value: 8},
+      {source: 'SE', target: 'DK', value: 9},
+      {source: 'FI', target: 'SE', value: 7},
+      {source: 'DK', target: 'SE', value: 12}
+    ])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .font.size(11)
+    .color.palette(COLORS.widget[0])
+    .color.policy('sequential')
+    .color.on(d => 1 - d.index / 4)
+    .radius(50)
+    .thickness(5)
+    .label(d => d)
+    .render()
+</script>
+
+<div id="desc">
+  <p>
+    A chord chart ...
+    TODO
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleLabel()">.label()</li>
+    <li onclick="toggleRadius()">.radius()</li>
+    <li onclick="toggleThickness()">.thickness()</li>
+  </ul>
+</div>
+
+<script class="doc">
+// generate data
+function getData () {
+  return [
+    {source: 'melon', target: 'plum', value: 4 * Math.random()},
+    {source: 'melon', target: 'pear', value: 4 * Math.random()},
+    {source: 'plum', target: 'melon', value: 4 * Math.random()},
+    {source: 'plum', target: 'pear', value: 5 * Math.random()},
+    {source: 'pear', target: 'melon', value: 7 * Math.random()},
+    {source: 'pear', target: 'plum', value: 8 * Math.random()}
+  ].concat([
+    {source: 'kiwi', target: 'melon', value: 10 * Math.random()},
+    {source: 'kiwi', target: 'plum', value: 11 * Math.random()},
+    {source: 'kiwi', target: 'pear', value: 12 * Math.random()}
+  ].filter(() => Math.random() > 0.5))
+}
+</script>
+
+<script class="doc">
+// create chart
+const chordChart = dalian.ChordChart('chord-chart', '#widget')
+  .data(getData())
+  .width(WIDTH)
+  .height(HEIGHT)
+  .font.size(14)
+  .mouse.over(k => chordChart.highlight(k.name, 700))
+  .mouse.leave(() => chordChart.highlight(null, 700))
+  .render(1000)
+</script>
+
+<script class="doc">
+// api methods
+let changeData = () => chordChart.data(getData()).render(1000)
+
+let toggleLabel = () => {
+  this.l = 1 - (this.l || 0)
+  chordChart.label(this.l ? x => x : undefined).render()
+}
+
+let toggleRadius = () => {
+  this.r = 1 - (this.r || 0)
+  chordChart.radius(this.r ? 80 : undefined)
+    .render(1000)
+}
+
+let toggleThickness = () => {
+  this.t = 1 - (this.t || 0)
+  chordChart.thickness(this.t ? 20 : undefined)
+    .render(1000)
+}
+</script>

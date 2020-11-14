@@ -171,6 +171,30 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
   .blockMargin(2)
   .blockAlign('middle')
   .render()
+</script></a><a class="card" href="charts/chord-chart"><div class="card-title">ChordChart</div><div class="card-content" id="chord-chart"></div><script class="card-example">
+  dalian.ChordChart('chord-chart-card', '#chord-chart')
+    .data([
+      {source: 'NO', target: 'FI', value: 4},
+      {source: 'NO', target: 'SE', value: 5},
+      {source: 'NO', target: 'DK', value: 6},
+      {source: 'NO', target: 'NO', value: 11},
+      {source: 'SE', target: 'NO', value: 8},
+      {source: 'SE', target: 'DK', value: 9},
+      {source: 'FI', target: 'SE', value: 7},
+      {source: 'DK', target: 'SE', value: 12}
+    ])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .font.size(11)
+    .color.palette(COLORS.widget[0])
+    .color.policy('sequential')
+    .color.on(d => 1 - d.index / 4)
+    .radius(50)
+    .thickness(5)
+    .label(d => d)
+    .render()
 </script></a><a class="card" href="charts/coxcomb-chart"><div class="card-title">CoxcombChart</div><div class="card-content" id="coxcomb-chart"></div><script class="card-example">
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
   dalian.CoxcombChart('coxcomb-chart-card', '#coxcomb-chart')
@@ -260,11 +284,11 @@ dalian.LineChart('line-chart-card', '#line-chart')
 </script></a><a class="card" href="charts/pie-chart"><div class="card-title">PieChart</div><div class="card-content" id="pie-chart"></div><script class="card-example">
 dalian.PieChart('pie-chart-card', '#pie-chart')
   .data([
-    {name: "plum", value: 13},
-    {name: "banana", value: 8},
-    {name: "mango", value: 7},
-    {name: "kiwi", value: 3},
-    {name: "pear", value: 2}
+    {name: 'plum', value: 13},
+    {name: 'banana', value: 8},
+    {name: 'mango', value: 7},
+    {name: 'kiwi', value: 3},
+    {name: 'pear', value: 2}
   ])
   .x(0)
   .y(0)

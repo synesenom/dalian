@@ -55,7 +55,7 @@ export default (name, parent = 'body') => {
     y: Scale('band')
   }
   let { self, api } = compose(
-    Chart('pie-chart', name, parent),
+    Chart('calendar-plot', name, parent),
     ElementTooltip,
     Highlight(() => self._chart.plots, ['.plot-group']),
     Label,
