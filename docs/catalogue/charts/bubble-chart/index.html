@@ -9,9 +9,17 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A bubble chart is useful when <span class="good">three or four dimensions</span> need to be plotted for a <span class="good">small number</span> data points. Note that if only simple correlations are to shown for a
-    <span class="bad">large data set</span>, a scatter plot is a better choice.
+    <a href="https://en.wikipedia.org/wiki/Bubble_chart">Bubble charts</a> display three variables: two using position and a third used for the circles' size.
+    They are similar to <a href="../scatter-plot/">scatter plots</a> with the crucial difference of having varying size for the dots.
   </p>
+  <p>
+    They are useful when the <span class="good">volume like quantity</span> related to the entities is to be shown beyond the correlations provided by the positions.
+  </p>
+  <p>
+    It can be very crowded if <span class="bad">too many data points</span> are shown.
+    Also, if the <span class="bad">size dimension spans multiple scales</span>, small bubbles are hard to detect.
+  </p>
+    <!-- TODO Data types: x: continuous, y: continuous. z: continuous-->
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
@@ -24,7 +32,7 @@ function getData () {
     value: {
       x: 100 * Math.random(),
       y: 100 * Math.random(),
-      size: 0.01 + 0.99 * Math.random()
+      size: 1 + 9 * Math.random()
     }
   })).filter(() => Math.random() < 0.8)
 }
@@ -47,9 +55,9 @@ const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => bubbleChart.data(getData()).render(1000)
+const changeData = () => bubbleChart.data(getData()).render(1000)
 
-let toggleRadius = () => {
+const toggleRadius = () => {
   this.h = 1 - (this.h || 0)
   bubbleChart.radius(this.h ? 50 : undefined).render(1000)
 }

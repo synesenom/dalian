@@ -9,10 +9,11 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
-    <span class="good">monotonic relationship</span> between two quantities, such as
-    <span class="good">correlations</span>.
+    <a href="https://en.wikipedia.org/wiki/Scatter_plot">Scatter plots</a> display pairs of values against each other as dots. They can be used to illustrate even complicated functional relation (such as correlations) between two variables.
   </p>
+  <!-- TODO Data types: x: num, y: num. -->
+  <!-- TODO Use cases: correlations, functional dependency. -->
+  <!-- TODO Limitations: for a few data points and more dimensions use a bubble chart; if not scaled properly it can 'fake' correlation (see https://science.sciencemag.org/content/216/4550/1138). -->
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
@@ -55,9 +56,9 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => scatterPlot.data(getData()).render(1000)
+const changeData = () => scatterPlot.data(getData()).render(1000)
 
-let toggleSize = () => {
+const toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
 }

@@ -1,3 +1,16 @@
+<script class="card-example">
+  dalian.Slider('slider-card', '#slider')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins(20)
+    .color('yellowgreen')
+    .font.size(11)
+    .value(0.6)
+    .render()
+</script>
+
 <div id="desc">
   <p>
     A slider control widget. It can be used as a controller for <span class="good">one dimensional</span> variables.
@@ -7,7 +20,6 @@
   <ul>
     <li onclick="toggleCallback()">.callback()</li>
     <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleFormat()">.format()</li>
     <li onclick="toggleMax()">.max()</li>
     <li onclick="toggleMin()">.min()</li>
     <li onclick="toggleStep()">.step()</li>
@@ -16,19 +28,6 @@
     <li onclick="toggleValue()">.value()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.Slider('slider-card', '#slider')
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins(20)
-  .color('yellowgreen')
-  .font.size(11)
-  .value(0.6)
-  .render()
-</script>
 
 <script class="doc">
 // add label.
@@ -65,11 +64,6 @@ let toggleCallback = () => {
 let toggleColor = () => {
   this.c = 1 - (this.c || 0)
   slider.color(this.c ? 'yellowgreen' : undefined).render(1000)
-}
-
-let toggleFormat = () => {
-  this.f = 1 - (this.f || 0)
-  slider.format(this.f ? x => x + 'mm' : undefined).render(1000)
 }
 
 let toggleMax = () => {

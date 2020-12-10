@@ -1,0 +1,106 @@
+<script class="card-example">
+  dalian.RadioButton('radio-button-card', '#radio-button')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .color('yellowgreen')
+    .margins({left: 60})
+    .font.size(11)
+    .entries(['Dark', 'Light'])
+    .render()
+</script>
+
+<div id="desc">
+  <p>
+    A simple stylized set of radio buttons.
+  </p>
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="toggleCallback()">.callback()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="toggleColumns()">.columns()</li>
+    <li onclick="toggleDisable()">.disable()</li>
+    <li onclick="toggleEntries()">.entries()</li>
+    <li onclick="toggleHSep()">.hSep()</li>
+    <li onclick="toggleSelect()">.select()</li>
+    <li onclick="toggleVSep()">.vSep()</li>
+  </ul>
+</div>
+
+<script class="doc">
+// create control
+const radio = dalian.RadioButton('radio-button', '#widget')
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(50)
+  .font.size(14)
+  .entries([
+    'Dark olive green',
+    'Light golden rod yellow',
+    'Dark turquoise',
+    'Light salmon'
+  ])
+  .vSep(3)
+  .render()
+</script>
+
+<script class="doc">
+// api methods
+let toggleCallback = () => {
+  this.c = 1 - (this.c || 0)
+  radio.callback(this.c ? d => alert(`Selected ${d}`) : undefined)
+    .render()
+}
+
+let toggleSelect = () => {
+  this.s = 1 - (this.s || 0)
+  radio.select(this.s ? 'Dark turquoise' : null)
+    .render()
+}
+
+let toggleColor = () => {
+  this.o = 1 - (this.o || 0)
+  radio.color(this.o ? 'yellowgreen' : undefined)
+    .render(1000)
+}
+
+const toggleColumns = () => {
+  this.l = 1 - (this.l || 0)
+  radio.columns(this.l ? 2 : undefined)
+    .render(1000)
+}
+
+let toggleDisable = () => {
+  this.d = 1 - (this.d || 0)
+  radio.disable(this.d)
+    .render()
+}
+
+let toggleEntries = () => {
+  this.e = 1 - (this.e || 0)
+  radio.entries(this.e ? [
+    'Green',
+    'Blue',
+    'Black'
+  ] : [
+    'Dark olive green',
+    'Light golden rod yellow',
+    'Dark turquoise',
+    'Light salmon'
+  ]).render()
+}
+
+let toggleHSep = () => {
+  this.h = 1 - (this.h || 0)
+  radio.hSep(this.h ? 9 : undefined)
+    .render(1000)
+}
+
+let toggleVSep = () => {
+  this.v = 1 - (this.v || 0)
+  radio.vSep(this.v ? 4 : 3)
+    .render(1000)
+}
+</script>

@@ -26,8 +26,16 @@
 
 <div id="desc">
   <p>
-    A <a href="https://www.data-to-viz.com/graph/chord.html">chord diagram</a> displays flow data between various groups, can be used to represent <span class="good">matrix data</span> when only the <span class="good">net flow</span> between two entities is important. If <span class="bad">all elements of the matrix</span> are relevant, other visualizations are recommended.
+    A <a href="https://en.wikipedia.org/wiki/Chord_diagram">chord diagram</a> displays flow data between various groups.
+    Arcs represent the relative size of the groups and ribbons display flow between them colored by the dominating target.
   </p>
+  <p>
+    It is useful to show <span class="good">matrix data</span> when only the <span class="good">net flow</span> between the groups is of interest.
+  </p>
+  <p>
+    Since this chart type is already more difficult to interpret than the basic ones, having <span class="bad">too many groups</span> makes it very hard to understand.
+  </p>
+  <!-- TODO Data types: matrix. -->
 </div>
 <div id="controls">
   <ul>
@@ -71,20 +79,20 @@ const chord = dalian.ChordDiagram('chord-diagram', '#widget')
 
 <script class="doc">
 // api methods
-let changeData = () => chord.data(getData()).render(1000)
+const changeData = () => chord.data(getData()).render(1000)
 
-let toggleLabel = () => {
+const toggleLabel = () => {
   this.l = 1 - (this.l || 0)
   chord.label(this.l ? x => x : undefined).render()
 }
 
-let toggleRadius = () => {
+const toggleRadius = () => {
   this.r = 1 - (this.r || 0)
   chord.radius(this.r ? 80 : undefined)
     .render(1000)
 }
 
-let toggleThickness = () => {
+const toggleThickness = () => {
   this.t = 1 - (this.t || 0)
   chord.thickness(this.t ? 20 : undefined)
     .render(1000)

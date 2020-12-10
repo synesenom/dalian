@@ -3,174 +3,174 @@ const HEIGHT = 240 - 42 - 30;
 COLORS = {
   widget: ['royalblue', 'black'],
   component: 'firebrick'
-};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.</p><h2>charts</h2><p>Charts are special interactive widgets that represent specific kinds of visualizations or non-control elements of a dashboard (such as legends).They are all made from various components and each widget inherits all the API of a component they are composed of.
+};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.</p><h2>charts</h2><p>Charts are interactive widgets each representing a specific kind of visualization or non-control element (such as legends). They are all made from various components and each widget inherits all the API of a component they are composed of.
 To explore a specific component listed on a chart's documentation page under its factory method, see the component's own demo page.</p><div class="card-container"><a class="card" href="charts/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
-dalian.AreaChart('area-chart-card', '#area-chart')
-  .data([{
-    name: 'normal',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i / 10,
-      y: new ranjs.dist.Normal(5, 2).pdf(i / 10)
-    }))
-  }, {
-    name: 'exponential',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i / 10,
-      y: new ranjs.dist.Exponential(1).pdf(i / 10)
-    }))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 30, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
+  dalian.AreaChart('area-chart-card', '#area-chart')
+    .data([{
+      name: 'normal',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i / 10,
+        y: new ranjs.dist.Normal(5, 2).pdf(i / 10)
+      }))
+    }, {
+      name: 'exponential',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i / 10,
+        y: new ranjs.dist.Exponential(1).pdf(i / 10)
+      }))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 30, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
     normal: COLORS.widget[0],
     exponential: COLORS.widget[1]
   })
-  .bottomAxis.label('value')
-  .leftAxis.label('density')
-  .smoothing(true)
-  .render()
+    .bottomAxis.label('value')
+    .leftAxis.label('density')
+    .smoothing(true)
+    .render()
 </script></a><a class="card" href="charts/bar-chart"><div class="card-title">BarChart</div><div class="card-content" id="bar-chart"></div><script class="card-example">
-dalian.BarChart('bar-chart-card', '#bar-chart')
-  .data([
-    {name: "plum", value: 13},
-    {name: "banana", value: 4},
-    {name: "mango", value: 6},
-    {name: "kiwi", value: 7},
-    {name: "pear", value: 3}
-  ])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 50, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .bottomAxis.label('stock')
-  .leftAxis.label('fruit')
-  .leftAxis.hideTicks(true)
-  .horizontal(true)
-  .label(d => Math.round(d.value))
-  .color.palette(COLORS.widget[0])
-  .render()
+  dalian.BarChart('bar-chart-card', '#bar-chart')
+    .data([
+      {name: "plum", value: 13},
+      {name: "banana", value: 4},
+      {name: "mango", value: 6},
+      {name: "kiwi", value: 7},
+      {name: "pear", value: 3}
+    ])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 50, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .bottomAxis.label('stock')
+    .leftAxis.label('fruit')
+    .leftAxis.hideTicks(true)
+    .horizontal(true)
+    .label(d => Math.round(d.value))
+    .color.palette(COLORS.widget[0])
+    .render()
 </script></a><a class="card" href="charts/box-plot"><div class="card-title">BoxPlot</div><div class="card-content" id="box-plot"></div><script class="card-example">
-function makeBox(sample) {
-  let sorted = sample.sort(d3.ascending)
-  let median = d3.median(sorted)
-  let q1 = d3.quantile(sorted, 0.25)
-  let q3 = d3.quantile(sorted, 0.75)
-  let iqr = q3 - q1
-  let outliers = sorted.filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
-  return {
-    median, q1, q3,
-    whiskers: {
-      lower: d3.min(sorted.filter(d => d > q1 - 1.5 * iqr)),
-      upper: d3.max(sorted.filter(d => d < q3 + 1.5 * iqr))
-    },
-    outliers: (() => {
-      const extreme = []
-      const mild = []
-      outliers.map(d => {
-        if (d < q1 - 3 * iqr || d > q3 + 3 * iqr) {
-          extreme.push(d)
-        } else {
-          mild.push(d)
-        }
-      })
-      return {mild, extreme}
-    })()
+  function makeBox(sample) {
+    let sorted = sample.sort(d3.ascending)
+    let median = d3.median(sorted)
+    let q1 = d3.quantile(sorted, 0.25)
+    let q3 = d3.quantile(sorted, 0.75)
+    let iqr = q3 - q1
+    let outliers = sorted.filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
+    return {
+      median, q1, q3,
+      whiskers: {
+        lower: d3.min(sorted.filter(d => d > q1 - 1.5 * iqr)),
+        upper: d3.max(sorted.filter(d => d < q3 + 1.5 * iqr))
+      },
+      outliers: (() => {
+        const extreme = []
+        const mild = []
+        outliers.map(d => {
+          if (d < q1 - 3 * iqr || d > q3 + 3 * iqr) {
+            extreme.push(d)
+          } else {
+            mild.push(d)
+          }
+        })
+        return {mild, extreme}
+      })()
+    }
   }
-}
 
-dalian.BoxPlot('box-plot-card', '#box-plot')
-  .data([{
-    name: 'normal',
-    value: makeBox(new ranjs.dist.Normal(4, 2).sample(1000))
-  }, {
-    name: 'Poisson',
-    value: makeBox(new ranjs.dist.Poisson(4).sample(1000))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 25, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
+  dalian.BoxPlot('box-plot-card', '#box-plot')
+    .data([{
+      name: 'normal',
+      value: makeBox(new ranjs.dist.Normal(4, 2).sample(1000))
+    }, {
+      name: 'Poisson',
+      value: makeBox(new ranjs.dist.Poisson(4).sample(1000))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 25, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
     normal: COLORS.widget[0],
     Poisson: COLORS.widget[1]
   })
-  .bottomAxis.label('dist')
-  .bottomAxis.hideTicks(true)
-  .leftAxis.label('sample')
-  .render()
+    .bottomAxis.label('dist')
+    .bottomAxis.hideTicks(true)
+    .leftAxis.label('sample')
+    .render()
 </script></a><a class="card" href="charts/bubble-chart"><div class="card-title">BubbleChart</div><div class="card-content" id="bubble-chart"></div><script class="card-example">
-dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
-  .data(['ackee', 'chayote', 'cherimoya', 'kiwano'].map(d => ({
-    name: d,
-    value: {
-      x: 100 * Math.random(),
-      y: 100 * Math.random(),
-      size: 0.1 + 0.9 * Math.random()
-    }
-  })))
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 30, right: 10, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette(COLORS.widget[0])
-  .bottomAxis.label('stock')
-  .leftAxis.label('fruit')
-  .radius(20)
-  .render()
-</script></a><a class="card" href="charts/bullet-chart"><div class="card-title">BulletChart</div><div class="card-content" id="bullet-chart"></div><script class="card-example">
-dalian.BulletChart('bullet-chart-card', '#bullet-chart')
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({left: 60, bottom: 10, right: 10})
-  .font.size(11)
-  .thickness(18)
-  .value(23)
-  .forecast(4)
-  .target(85)
-  .label('KPI')
-  .unit('# Hugs')
-  .valueColor(COLORS.widget[0])
-  .render()
-</script></a><a class="card" href="charts/calendar-plot"><div class="card-title">CalendarPlot</div><div class="card-content" id="calendar-plot"></div><script class="card-example">
-dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
-  .data((() => {
-    let data = Array.from({ length: 200 }, () => {
-      let date = new Date(Date.UTC(2019, 3, 1))
-      date.setDate(date.getDate() + Math.floor(50 * Math.random()) + 1)
-      return {
-        date: date.toISOString().substr(0, 10),
-        value: (date.getDay() === 0 || date.getDay() === 6) ? 3 * Math.random() : 5 + 3 * Math.random()
+  dalian.BubbleChart('bubble-chart-card', '#bubble-chart')
+    .data(['ackee', 'chayote', 'cherimoya', 'kiwano'].map(d => ({
+      name: d,
+      value: {
+        x: 100 * Math.random(),
+        y: 100 * Math.random(),
+        size: 1 + 9 * Math.random()
       }
-    }).reduce((map, d) => map.set(d.date, d.value), new Map())
+    })))
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 30, right: 10, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette(COLORS.widget[0])
+    .bottomAxis.label('stock')
+    .leftAxis.label('fruit')
+    .radius(20)
+    .render()
+</script></a><a class="card" href="charts/bullet-chart"><div class="card-title">BulletChart</div><div class="card-content" id="bullet-chart"></div><script class="card-example">
+  dalian.BulletChart('bullet-chart-card', '#bullet-chart')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({left: 60, bottom: 10, right: 10})
+    .font.size(11)
+    .thickness(18)
+    .value(23)
+    .forecast(4)
+    .target(85)
+    .label('KPI')
+    .unit('# Hugs')
+    .valueColor(COLORS.widget[0])
+    .render()
+</script></a><a class="card" href="charts/calendar-plot"><div class="card-title">CalendarPlot</div><div class="card-content" id="calendar-plot"></div><script class="card-example">
+  dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
+    .data((() => {
+      let data = Array.from({ length: 200 }, () => {
+        let date = new Date(Date.UTC(2019, 3, 1))
+        date.setDate(date.getDate() + Math.floor(50 * Math.random()) + 1)
+        return {
+          date: date.toISOString().substr(0, 10),
+          value: (date.getDay() === 0 || date.getDay() === 6) ? 3 * Math.random() : 5 + 3 * Math.random()
+        }
+      }).reduce((map, d) => map.set(d.date, d.value), new Map())
 
-    // Convert to an array.
-    return Array.from(data).map(([date, value]) => ({
-      date,
-      value
-    }))
-  })())
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({top: 10, left: 35})
-  .font.size(11)
-  .color.palette(['#eee', COLORS.widget[0]], '#eee')
-  .blockMargin(2)
-  .blockAlign('middle')
-  .render()
+      // Convert to an array.
+      return Array.from(data).map(([date, value]) => ({
+        date,
+        value
+      }))
+    })())
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({top: 10, left: 35})
+    .font.size(11)
+    .color.palette(['#eee', COLORS.widget[0]], '#eee')
+    .blockMargin(2)
+    .blockAlign('middle')
+    .render()
 </script></a><a class="card" href="charts/chord-diagram"><div class="card-title">ChordDiagram</div><div class="card-content" id="chord-diagram"></div><script class="card-example">
   dalian.ChordDiagram('chord-diagram-card', '#chord-diagram')
     .data([
@@ -245,137 +245,148 @@ dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
   })
     .render()
 </script></a><a class="card" href="charts/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">
-dalian.LineChart('line-chart-card', '#line-chart')
-  .data([{
-    name: 'mango',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.pow(i / 40, 2),
-      lo: i / 100,
-      hi: i / 150
-    }))
-  }, {
-    name: 'kiwi',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.log(i + 1)
-        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
-      lo: .4,
-      hi: .9
-    }))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 20, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
+  dalian.LineChart('line-chart-card', '#line-chart')
+    .data([{
+      name: 'mango',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.pow(i / 40, 2),
+        lo: i / 100,
+        hi: i / 150
+      }))
+    }, {
+      name: 'kiwi',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.log(i + 1)
+          * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+        lo: .4,
+        hi: .9
+      }))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 20, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
     mango: COLORS.widget[0],
     kiwi: COLORS.widget[1]
   })
-  .bottomAxis.label('days')
-  .leftAxis.label('price')
-  .smoothing(true)
-  .lineStyle({
-    mango: 'dashed'
-  })
-  .render()
+    .bottomAxis.label('days')
+    .leftAxis.label('price')
+    .smoothing(true)
+    .lineStyle({
+      mango: 'dashed'
+    })
+    .render()
 </script></a><a class="card" href="charts/pie-chart"><div class="card-title">PieChart</div><div class="card-content" id="pie-chart"></div><script class="card-example">
-dalian.PieChart('pie-chart-card', '#pie-chart')
-  .data([
-    {name: 'plum', value: 13},
-    {name: 'banana', value: 8},
-    {name: 'mango', value: 7},
-    {name: 'kiwi', value: 3},
-    {name: 'pear', value: 2}
-  ])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .font.size(11)
-  .color.palette(COLORS.widget[0])
-  .color.policy('sequential')
-  .color.on(d => 1 - d.index / 5)
-  .outerRadius(60)
-  .label(d => parseInt(d.value))
-  .render()
+  dalian.PieChart('pie-chart-card', '#pie-chart')
+    .data([
+      {name: 'plum', value: 13},
+      {name: 'banana', value: 8},
+      {name: 'mango', value: 7},
+      {name: 'kiwi', value: 3},
+      {name: 'pear', value: 2}
+    ])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .font.size(11)
+    .color.palette(COLORS.widget[0])
+    .color.policy('sequential')
+    .color.on(d => 1 - d.index / 5)
+    .outerRadius(60)
+    .label(d => parseInt(d.value))
+    .render()
 </script></a><a class="card" href="charts/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
-dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
-  .data([{
-    name: 'blueberry',
-    values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
-      x: i + Math.random() - 0.5,
-      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
-    }))
-  }, {
-    name: 'blackberry',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i + Math.random() * 8 - 4,
-      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
-    }))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 30, right: 10, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
+  dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
+    .data([{
+      name: 'blueberry',
+      values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
+        x: i + Math.random() - 0.5,
+        y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
+      }))
+    }, {
+      name: 'blackberry',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i + Math.random() * 8 - 4,
+        y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
+      }))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 30, right: 10, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
     blueberry: COLORS.widget[0],
     blackberry: COLORS.widget[1]
   })
-  .bottomAxis.label('X')
-  .leftAxis.label('Y')
-  .size(4)
-  .render()
+    .bottomAxis.label('X')
+    .leftAxis.label('Y')
+    .size(4)
+    .render()
 </script></a><a class="card" href="charts/table"><div class="card-title">Table</div><div class="card-content" id="table"></div><script class="card-example">
-dalian.Table('table-card', '#table')
-  .data([
-    {name: 'Harriet', year: 1822, place: 'USA'},
-    {name: 'Loujain', year: 1989, place: 'Saudi Arabia'},
-    {name: 'Malala', year: 1997, place: 'Pakistan'},
-    {name: 'Greta', year: 2003, place: 'Sweden'},
-  ])
-  .schema([
-    {key: 'name', name: 'Name'},
-    {key: 'year', name: 'Year', type: 'number'},
-    {key: 'place', name: 'Place'}
-  ])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins(0)
-  .font.size(10)
-  .color(COLORS.widget[0])
-  .render()
+  dalian.Table('table-card', '#table')
+    .data([
+      {name: 'Harriet', year: 1822, place: 'USA'},
+      {name: 'Loujain', year: 1989, place: 'Saudi Arabia'},
+      {name: 'Malala', year: 1997, place: 'Pakistan'},
+      {name: 'Greta', year: 2003, place: 'Sweden'},
+    ])
+    .schema([
+      {key: 'name', name: 'Name'},
+      {key: 'year', name: 'Year', type: 'number'},
+      {key: 'place', name: 'Place'}
+    ])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins(0)
+    .font.size(10)
+    .color(COLORS.widget[0])
+    .render()
 </script></a><a class="card" href="charts/violin-plot"><div class="card-title">ViolinPlot</div><div class="card-content" id="violin-plot"></div><script class="card-example">
-dalian.ViolinPlot('violin-plot-card', '#violin-plot')
-  .data([{
-    name: 'normal',
-    values: new ranjs.dist.Normal(4, 2).sample(1000)
-  }, {
-    name: 'Poisson',
-    values: new ranjs.dist.Poisson(4).sample(1000)
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 25, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
+  dalian.ViolinPlot('violin-plot-card', '#violin-plot')
+    .data([{
+      name: 'normal',
+      values: new ranjs.dist.Normal(4, 2).sample(1000)
+    }, {
+      name: 'Poisson',
+      values: new ranjs.dist.Poisson(4).sample(1000)
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 25, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
     normal: COLORS.widget[0],
     Poisson: COLORS.widget[1]
   })
-  .bottomAxis.label('dist')
-  .bottomAxis.hideTicks(true)
-  .leftAxis.label('sample')
-  .render()
-</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change the variables on a dashboard.Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/checkbox"><div class="card-title">Checkbox</div><div class="card-content" id="checkbox"></div><script class="card-example">
+    .bottomAxis.label('dist')
+    .bottomAxis.hideTicks(true)
+    .leftAxis.label('sample')
+    .render()
+</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change the variables on a dashboard. Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/checkbox"><div class="card-title">Checkbox</div><div class="card-content" id="checkbox"></div><script class="card-example">
   dalian.Checkbox('checkbox-card', '#checkbox')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .color('yellowgreen')
+    .margins({left: 60, top: 70})
+    .font.size(11)
+    .label('Click on me!')
+    .render()
+</script></a><a class="card" href="controls/radio-button"><div class="card-title">RadioButton</div><div class="card-content" id="radio-button"></div><script class="card-example">
+  dalian.RadioButton('radio-button-card', '#radio-button')
     .x(0)
     .y(0)
     .width(WIDTH)
@@ -383,19 +394,19 @@ dalian.ViolinPlot('violin-plot-card', '#violin-plot')
     .color('yellowgreen')
     .margins({left: 60})
     .font.size(11)
-    .label('Click on me!')
+    .entries(['Dark', 'Light'])
     .render()
 </script></a><a class="card" href="controls/slider"><div class="card-title">Slider</div><div class="card-content" id="slider"></div><script class="card-example">
-dalian.Slider('slider-card', '#slider')
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins(20)
-  .color('yellowgreen')
-  .font.size(11)
-  .value(0.6)
-  .render()
+  dalian.Slider('slider-card', '#slider')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins(20)
+    .color('yellowgreen')
+    .font.size(11)
+    .value(0.6)
+    .render()
 </script></a><a class="card" href="controls/trackpad"><div class="card-title">Trackpad</div><div class="card-content" id="trackpad"></div><script class="card-example">
 dalian.Trackpad('trackpad-card', '#trackpad')
   .x(30)
@@ -406,7 +417,7 @@ dalian.Trackpad('trackpad-card', '#trackpad')
   .color('yellowgreen')
   .font.size(11)
   .render()
-</script></a></div><h2>components</h2><p>Components are the building blocks that are used to compose the widgets.Each component implements a single functionality and API that is exposed either through the widget's API or the component's own namespace.
+</script></a></div><h2>components</h2><p>Components are the building blocks that are used to compose the widgets. Each component implements a single functionality and API that is exposed either through the widget's API or the component's own namespace.
 Note that components are not accessible directly but each widget inherits a subset of them to implement various functionalities.
 This section contains live examples and demos that help you explore the function and behavior of all the components that have an exposed API.</p><div class="card-container"><a class="card" href="components/bottom-axis"><div class="card-title">BottomAxis</div><div class="card-content" id="bottom-axis"></div><script class="card-example">
 dalian.LineChart('bottom-axis-card', '#bottom-axis')

@@ -8,16 +8,16 @@ import StyleInjector from '../utils/style-injector'
 // Classes.
 const TAG = 'dalian-checkbox-'
 const CLASSES = {
-  container: TAG + 'container',
   wrapper: TAG + 'wrapper',
   label: TAG + 'label',
   box: TAG + 'box',
   mark: TAG + 'mark'
 }
 
-// TODO Move style to head.
+// TODO Highlight checkbox if hovered.
+
 /**
- * The checkbox control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The checkbox is constrained to a rectangle defined by the width/height and the margins. It is vertically centered.
+ * The checkbox control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The checkbox is constrained to a rectangle defined by the width/height and the margins. By default the checkbox is positioned on the top left corner of its bounding box and can be adjusted by the margins. The label is bounded by the inner width (widget width minus the side margins).
  *
  * @function Checkbox
  * @param {string} name Name of the widget. Should be a unique identifier.
@@ -25,10 +25,7 @@ const CLASSES = {
  */
 export default (name, parent = 'body') => {
   // Inject relevant style.
-  StyleInjector.addClass(CLASSES.container, {
-    display: 'table-cell',
-    'vertical-align': 'middle'
-  }).addClass(CLASSES.wrapper, {
+  StyleInjector.addClass(CLASSES.wrapper, {
     display: 'inline-block',
     position: 'relative',
     'user-select': 'none'
@@ -70,7 +67,8 @@ export default (name, parent = 'body') => {
     _.internal.checked = !_.internal.checked
 
     // TODO Make separate method to update checkbox.
-    _.dom.box.style('background', _.internal.checked ? _.internal.color : lighter(_.internal.color, 0.6))
+    _.dom.box.style('background', _.internal.checked ? _.internal.color
+      : lighter(_.internal.color, 0.6))
     _.dom.mark.style('display', _.internal.checked ? null : 'none')
 
     // Trigger callback.
@@ -86,18 +84,18 @@ export default (name, parent = 'body') => {
     dom: (() => {
       // Container.
       const container = self._widget.content.append('div')
-        .attr('class', CLASSES.container)
+        .attr('class', 'container')
 
-      // Label.
+      // Wrapper.
       const wrapper = container.append('div')
         .attr('class', CLASSES.wrapper)
 
-      // Label text.
+      // Label.
       const label = wrapper.append('div')
         .attr('class', CLASSES.label)
         .on('click', onClick)
 
-      // Checkmark.
+      // Box and mark.
       const box = wrapper.append('div')
         .attr('class', CLASSES.box)
         .on('click', onClick)
@@ -119,22 +117,21 @@ export default (name, parent = 'body') => {
         .style('width', self._widget.size.width)
         .style('height', self._widget.size.height)
 
-      // Adjust label.
+      // Adjust wrapper.
       self._widget.getElem(_.dom.wrapper, duration)
         .style('margin-left', self._widget.margins.left + 'px')
+        .style('margin-top', self._widget.margins.top + 'px')
         .style('width', self._widget.size.innerWidth)
         .style('opacity', _.internal.disabled ? 0.4 : 1)
-
-      // Adjust text.
-      _.dom.label.text(_.internal.label)
         .style('cursor', _.internal.disabled ? 'default' : 'pointer')
         .style('pointer-events', _.internal.disabled ? 'none' : 'all')
+
+      // Adjust label.
+      _.dom.label.text(_.internal.label)
 
       // Adjust box.
       self._widget.getElem(_.dom.box, duration)
         .style('background', _.internal.checked ? _.internal.color : lighter(_.internal.color, 0.6))
-        .style('cursor', _.internal.disabled ? 'default' : 'pointer')
-        .style('pointer-events', _.internal.disabled ? 'none' : 'all')
 
       // Adjust mark.
       _.dom.mark.style('display', _.internal.checked ? null : 'none')
@@ -171,7 +168,7 @@ export default (name, parent = 'body') => {
     /**
      * Checks/unchecks the checkbox.
      *
-     * @method checked
+     * @method check
      * @methodOf Checkbox
      * @param {boolean} on Whether to check the box.
      * @returns {Checkbox} Reference to the Checkbox API.
@@ -179,14 +176,14 @@ export default (name, parent = 'body') => {
      *
      * // Set the box checked.
      * const checkbox = dalian.Checkbox('my-control')
-     *   .checked(true)
+     *   .check(true)
      *   .render()
      *
      * // Uncheck the box.
-     * checkbox.checked(false)
+     * checkbox.check(false)
      *   .render()
      */
-    checked (on = DEFAULTS.checked) {
+    check (on = DEFAULTS.checked) {
       _.internal.checked = on
       return api
     },
@@ -217,7 +214,7 @@ export default (name, parent = 'body') => {
     /**
      * Disables/enables the checkbox. If disabled, the checkbox cannot be interacted with.
      *
-     * @method disabled
+     * @method disable
      * @methodOf Checkbox
      * @param {boolean} [on = false] Whether to disable the checkbox or not.
      * @returns {Checkbox} Reference to the Checkbox API.
@@ -225,14 +222,14 @@ export default (name, parent = 'body') => {
      *
      * // Disable checkbox.
      * const checkbox = dalian.Checkbox('my-control')
-     *   .disabled(true)
+     *   .disable(true)
      *   .render()
      *
      * // Enable checkbox.
-     * checkbox.disabled()
+     * checkbox.disable()
      *   .render()
      */
-    disabled (on = DEFAULTS.disabled) {
+    disable (on = DEFAULTS.disabled) {
       _.internal.disabled = on
       return api
     },

@@ -8,6 +8,7 @@ import Mouse from '../components/mouse'
 import Color from '../components/color'
 import encode from '../core/encode'
 
+// TODO Move to controls.
 /**
  * The legend widget. This widget extends the following components:
  * <ul>
@@ -114,7 +115,6 @@ export default (name, parent = 'body') => {
           enter => {
             const entry = enter.append('g')
               .attr('class', d => `legend-entry ${encode(d.name)}`)
-              // TODO Get rid of hard coded dy values.
               .attr('transform', _.entryTransform)
               .style('shape-rendering', 'geometricPrecision')
               .style('opacity', 0)
@@ -150,7 +150,6 @@ export default (name, parent = 'body') => {
           },
 
           // Updated entries.
-          // TODO Update style.
           update => {
             // Update entry.
             update.style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
@@ -178,8 +177,6 @@ export default (name, parent = 'body') => {
             .style('opacity', 0)
             .remove()
         )
-
-      // TODO Assign mouse events to entries.
     }
   }
 

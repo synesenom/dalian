@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/api.css"><script src="../../js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><title>Legend | dalian</title></head><body><aside><div class="menu-title">Methods</div><ul class="methods"><li><a id="toc-Legend" href="#Legend">Legend</a></li><li><a id="toc-columns" href="#columns">columns</a></li><li><a id="toc-entries" href="#entries">entries</a></li><li><a id="toc-hSep" href="#hSep">hSep</a></li><li><a id="toc-insert" href="#insert">insert</a></li><li><a id="toc-markers" href="#markers">markers</a></li><li><a id="toc-styles" href="#styles">styles</a></li><li><a id="toc-vSep" href="#vSep">vSep</a></li></ul><a class="back" href="../">Back to index</a></aside><main><div class="main-content-padded"><h1>Legend</h1><p></p><h2>live example</h2><p>Explore the API in the <a href="../../catalogue/charts/legend">live example</a>.</p><h2>api reference</h2><div class="card"><pre class="title" id="Legend">Legend(name[, parent])</pre><div class="desc">The legend widget. This widget extends the following components: <ul> <li><a href="../components/color.html">Color</a></li> <li><a href="../components/font.html">Font</a></li> <li><a href="../components/highlight.html">Highlight</a>: plot groups can be highlighted by passing their names as specified in the data array.</li> <li><a href="../components/mouse.html">Mouse</a>: The group name and the wedge <code>y</code> value is passed to each mouse callback.</li> <li><a href="../components/widget.html">Widget</a></li> </ul></div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>name</td><td class="param-type">string</td><td class="param-desc">Name of the legend. Should be a unique identifier.</td></tr><tr><td>parent</td><td class="param-type">string</td><td class="param-desc"><span class="param-optional">optional</span>See <a href="../components/widget.html">Widget</a> for description.&nbsp;Default value is <code>body</code>.</td></tr></tbody></table></div><div class="card"><pre class="title" id="columns">Legend.columns([columns])</pre><div class="desc">Sets the number of columns to organize legend entries in.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>columns</td><td class="param-type">number</td><td class="param-desc"><span class="param-optional">optional</span>Number of columns.&nbsp;Default value is <code>1</code>.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Have 3 columns in the legend.
+const legend = dalian.Legend('my-legend')
+  .columns(3)
+  .render()
+
+// Reset to single column.
+legend.columns()
+  .render()</code></pre></div><div class="card"><pre class="title" id="entries">Legend.entries(entries)</pre><div class="desc">Sets the entries of the legend. Legend entries follow the same order as provided by this method.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>entries</td><td class="param-type">Object[]</td><td class="param-desc">Array of objects representing the legend entries. Each entry is defined by a <code>name</code> and a <code>label</code> property. The name is used for coloring, styling and interactions whereas the label is the displayed name of the entry.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set labels to the legend.
+const legend = dalian.Legend('my-legend')
+  .entries([
+    {name'a', label: 'Apple'},
+    {name: 'b', label: 'Banana'},
+    {name: 'c', label: 'Cranberries'}
+  ])
+  .render()
+
+// Change labels.
+legend.entries([
+  {name: 'a', label: 'Alice'},
+  {name: 'b', label: 'Bob'},
+  {name: 'c', label: 'Charlie'}
+]).render()</code></pre></div><div class="card"><pre class="title" id="hSep">Legend.hSep([length])</pre><div class="desc">Sets the horizontal separation between the legend entries. The separation is measured between the center of the entry markers.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>length</td><td class="param-type">number</td><td class="param-desc"><span class="param-optional">optional</span>Size of the horizontal separation in units of the current font size.&nbsp;Default value is <code>6</code>.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set horizontal separation to 10 em.
+const legend = dalian.Legend('my-legend')
+  .hSep(10)
+  .render()
+
+// Reset vertical separation to 6 em.
+legend.hSep()
+  .render()</code></pre></div><div class="card"><pre class="title" id="insert">Legend.insert(widget, pos)</pre><div class="desc">Inserts the legend in a widget if that widget supports the <a href="../components/objects.html"> Objects </a> component. Note that this will remove the legend's widget as such and makes the legend part of the parent widget. However, all Legend API methods continue to function as expected.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>widget</td><td class="param-type">Widget</td><td class="param-desc">Any widget that supports inserting objects. If not specified, the legend is removed from the current parent widget (if there is any).</td></tr><tr><td>pos</td><td class="param-type">Object</td><td class="param-desc">Object representing the position within the widget where the legend should be inserted.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Insert legend in the top left corner of a chart called 'figure'.
+const legend = dalian.Legend('my-legend')
+  ...
+  .render()
+legend.insert(figure, {x: 10, y: 10}).
+
+// Remove the legend from 'figure' and move it back to its own container.
+legend.insert()</code></pre></div><div class="card"><pre class="title" id="markers">Legend.markers([markers])</pre><div class="desc">Sets the legend marker shape.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>markers</td><td class="param-type">string</td><td class="param-desc"><span class="param-optional">optional</span>Marker shape. Either one of the supported values (square, circle) or a custom path. In case of a custom marker, the passed string is used as the d attribute of a path. Note that the path origin is set to the center of the square marker.&nbsp;Default value is <code>square</code>.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set markers to circles.
+const legend = dalian.Legend('my-legend')
+  .markers('circle')
+  .render()
+
+// Set markers to an equilateral triangle.
+legend.markers('m -0.5 4.33 l 0.5 -8.66 l 0.5 8.66 z')
+  .render()</code></pre></div><div class="card"><pre class="title" id="styles">Legend.styles(styles)</pre><div class="desc">Sets the background style of the legend entry markers.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>styles</td><td class="param-type">Object</td><td class="param-desc">Object mapping from the entry names to style strings. If an entry's name is not present in the mapping, it defaults to solid. Default value is solid for all entries. A typical parameter is the return value from the <a href="../components/line-style.html"> LineStyle </a> component's mapper function.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set styles.
+const legend = dalian.Legend('my-legend')
+  .entries([
+    {name: 'a', label: 'Alice'},
+    {name: 'b', label: 'Bob'},
+    {name: 'c', label: 'Charlie'}
+  ])
+  .styles({
+    b: 'dashed',
+    c: 'dotted'
+  }).render()</code></pre></div><div class="card"><pre class="title" id="vSep">Legend.vSep([length])</pre><div class="desc">Sets the vertical separation between the legend entries. The separation is measured between the baseline of the entry labels.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>length</td><td class="param-type">number</td><td class="param-desc"><span class="param-optional">optional</span>Size of the vertical separation in units of the current font size.&nbsp;Default value is <code>1.4</code>.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the Legend's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set vertical separation to 2 em.
+const legend = dalian.Legend('my-legend')
+  .vSep(2)
+  .render()
+
+// Reset vertical separation to 1.4 em.
+legend.vSep()
+  .render()</code></pre></div></div></main></body></html>

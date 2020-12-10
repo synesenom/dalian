@@ -2,79 +2,94 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>Trackpad | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>RadioButton | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="toggleCallback()">.callback()</li>
     <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleGuide()">.guide()</li>
-    <li onclick="toggleRange()">.range()</li>
-    <li onclick="toggleValue()">.value()</li>
+    <li onclick="toggleColumns()">.columns()</li>
+    <li onclick="toggleDisable()">.disable()</li>
+    <li onclick="toggleEntries()">.entries()</li>
+    <li onclick="toggleHSep()">.hSep()</li>
+    <li onclick="toggleSelect()">.select()</li>
+    <li onclick="toggleVSep()">.vSep()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A trackpad control widget. It can be used as a controller for <span class="good">two dimensional</span> variables.
+    A simple stylized set of radio buttons.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/controls/trackpad.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/controls/trackpad.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
-// add flag.
-const flag = document.createElement('div')
-flag.id = 'trackpad-flag'
-flag.style.width = '60%'
-flag.style.paddingBottom = '10%'
-flag.style.marginLeft = '20%'
-flag.style.backgroundColor = 'orange'
-document.getElementById('widget')
-  .appendChild(flag)
-</script><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/controls/radio-button.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/controls/radio-button.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // create control
-const trackpad = dalian.Trackpad('trackpad', '#widget')
-  .x(0.1 * WIDTH)
-  .y(0.1 * HEIGHT)
-  .width(0.8 * WIDTH)
-  .height(0.8 * HEIGHT)
-  .margins(60)
+const radio = dalian.RadioButton('radio-button', '#widget')
+  .width(WIDTH)
+  .height(HEIGHT)
+  .margins(50)
   .font.size(14)
-  .range([0, 360], [0, 100])
-  .leftAxis.label('Saturation')
-  .bottomAxis.label('Hue')
+  .entries([
+    'Dark olive green',
+    'Light golden rod yellow',
+    'Dark turquoise',
+    'Light salmon'
+  ])
+  .vSep(3)
   .render()
 </script><script class="doc">
 // api methods
 let toggleCallback = () => {
-  this.a = 1 - (this.a || 0)
-  trackpad.callback(this.a
-    ? v => {
-      const el = document.getElementById('trackpad-flag')
-      el.style.backgroundColor = `hsl(${v[0]}, ${v[1]}%, 50%)`
-    } : undefined).render(1000)
+  this.c = 1 - (this.c || 0)
+  radio.callback(this.c ? d => alert(`Selected ${d}`) : undefined)
+    .render()
+}
+
+let toggleSelect = () => {
+  this.s = 1 - (this.s || 0)
+  radio.select(this.s ? 'Dark turquoise' : null)
+    .render()
 }
 
 let toggleColor = () => {
-  this.c = 1 - (this.c || 0)
-  trackpad.color(this.c ? 'yellowgreen' : undefined).render(1000)
-}
-
-let toggleGuide = () => {
-  this.g = 1 - (this.g || 0)
-  trackpad.guide(this.g)
+  this.o = 1 - (this.o || 0)
+  radio.color(this.o ? 'yellowgreen' : undefined)
     .render(1000)
 }
 
-let toggleRange = () => {
-  this.r = 1 - (this.r || 0)
-  trackpad.range(
-    this.r ? [120, 200] : [0, 360],
-    this.r ? [40, 80] : [0, 100]
-  ).render(1000)
+const toggleColumns = () => {
+  this.l = 1 - (this.l || 0)
+  radio.columns(this.l ? 2 : undefined)
+    .render(1000)
 }
 
-let toggleValue = () => {
+let toggleDisable = () => {
+  this.d = 1 - (this.d || 0)
+  radio.disable(this.d)
+    .render()
+}
+
+let toggleEntries = () => {
+  this.e = 1 - (this.e || 0)
+  radio.entries(this.e ? [
+    'Green',
+    'Blue',
+    'Black'
+  ] : [
+    'Dark olive green',
+    'Light golden rod yellow',
+    'Dark turquoise',
+    'Light salmon'
+  ]).render()
+}
+
+let toggleHSep = () => {
+  this.h = 1 - (this.h || 0)
+  radio.hSep(this.h ? 9 : undefined)
+    .render(1000)
+}
+
+let toggleVSep = () => {
   this.v = 1 - (this.v || 0)
-  trackpad.value(
-    this.v ? 165 : undefined,
-    this.v ? 65 : undefined
-  ).render(1000)
+  radio.vSep(this.v ? 4 : 3)
+    .render(1000)
 }
 </script></div></main></body></html>

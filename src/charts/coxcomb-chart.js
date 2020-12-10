@@ -59,6 +59,7 @@ export default (name, parent = 'body') => {
     // Scale for the wedges.
     scale: Scale('sqrt'),
 
+    // Variables.
     arc: arc(),
     radius: DEFAULTS.radius,
     angle: DEFAULTS.angle,

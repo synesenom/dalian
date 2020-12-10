@@ -1,9 +1,41 @@
+<script class="card-example">
+  dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
+    .data([{
+      name: 'blueberry',
+      values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
+        x: i + Math.random() - 0.5,
+        y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
+      }))
+    }, {
+      name: 'blackberry',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i + Math.random() * 8 - 4,
+        y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
+      }))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 30, right: 10, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
+    blueberry: COLORS.widget[0],
+    blackberry: COLORS.widget[1]
+  })
+    .bottomAxis.label('X')
+    .leftAxis.label('Y')
+    .size(4)
+    .render()
+</script>
+
 <div id="desc">
   <p>
-    A scatter plot is useful to display <span class="good">two dimensional numerical</span> data. It can be used to show
-    <span class="good">monotonic relationship</span> between two quantities, such as
-    <span class="good">correlations</span>.
+    <a href="https://en.wikipedia.org/wiki/Scatter_plot">Scatter plots</a> display pairs of values against each other as dots. They can be used to illustrate even complicated functional relation (such as correlations) between two variables.
   </p>
+  <!-- TODO Data types: x: num, y: num. -->
+  <!-- TODO Use cases: correlations, functional dependency. -->
+  <!-- TODO Limitations: for a few data points and more dimensions use a bubble chart; if not scaled properly it can 'fake' correlation (see https://science.sciencemag.org/content/216/4550/1138). -->
 </div>
 <div id="controls">
   <ul>
@@ -11,37 +43,6 @@
     <li onclick="toggleSize()">.size()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
-  .data([{
-    name: 'blueberry',
-    values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
-      x: i + Math.random() - 0.5,
-      y: 10 * Math.pow(i / 40, 2) + Math.random() * 10
-    }))
-  }, {
-    name: 'blackberry',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i + Math.random() * 8 - 4,
-      y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10
-    }))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 30, right: 10, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
-    blueberry: COLORS.widget[0],
-    blackberry: COLORS.widget[1]
-  })
-  .bottomAxis.label('X')
-  .leftAxis.label('Y')
-  .size(4)
-  .render()
-</script>
 
 <script class="doc">
 // generate data
@@ -86,9 +87,9 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
 
 <script class="doc">
 // api methods
-let changeData = () => scatterPlot.data(getData()).render(1000)
+const changeData = () => scatterPlot.data(getData()).render(1000)
 
-let toggleSize = () => {
+const toggleSize = () => {
   this.s = !(this.s || 0)
   scatterPlot.size(this.s ? 6 : undefined).render(1000)
 }

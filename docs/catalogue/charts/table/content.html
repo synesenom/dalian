@@ -1,8 +1,33 @@
+<script class="card-example">
+  dalian.Table('table-card', '#table')
+    .data([
+      {name: 'Harriet', year: 1822, place: 'USA'},
+      {name: 'Loujain', year: 1989, place: 'Saudi Arabia'},
+      {name: 'Malala', year: 1997, place: 'Pakistan'},
+      {name: 'Greta', year: 2003, place: 'Sweden'},
+    ])
+    .schema([
+      {key: 'name', name: 'Name'},
+      {key: 'year', name: 'Year', type: 'number'},
+      {key: 'place', name: 'Place'}
+    ])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins(0)
+    .font.size(10)
+    .color(COLORS.widget[0])
+    .render()
+</script>
+
 <div id="desc">
   <p>
-    A table widget to represent simple data with <span class="good">no actual relationship</span> between the data
-    points. The columns can be sorted by clicking on the column head.
+    <a href="https://en.wikipedia.org/wiki/Table_(information)">Tables</a> show data in its raw format organized in a matrix. They are ideal when <span class="good">details are important</span> and <span class="good">no relationship</span> between the data points is of interest. As implemented in dalian, columns can be sorted by clicking on the header.
   </p>
+  <!-- TODO Data types: x: any, y: any, ... -->
+  <!-- TODO Use cases: -->
+  <!-- TODO Limitations: if relationship between data points is to be shown; differences are to be shown with no details. -->
 </div>
 <div id="controls">
   <ul>
@@ -12,29 +37,6 @@
     <li onclick="toggleSchema()">.schema()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.Table('table-card', '#table')
-  .data([
-    {name: 'Harriet', year: 1822, place: 'USA'},
-    {name: 'Loujain', year: 1989, place: 'Saudi Arabia'},
-    {name: 'Malala', year: 1997, place: 'Pakistan'},
-    {name: 'Greta', year: 2003, place: 'Sweden'},
-  ])
-  .schema([
-    {key: 'name', name: 'Name'},
-    {key: 'year', name: 'Year', type: 'number'},
-    {key: 'place', name: 'Place'}
-  ])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins(0)
-  .font.size(10)
-  .color(COLORS.widget[0])
-  .render()
-</script>
 
 <script class="doc">
 // generate data

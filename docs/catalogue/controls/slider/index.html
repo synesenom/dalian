@@ -6,7 +6,6 @@
   <ul>
     <li onclick="toggleCallback()">.callback()</li>
     <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleFormat()">.format()</li>
     <li onclick="toggleMax()">.max()</li>
     <li onclick="toggleMin()">.min()</li>
     <li onclick="toggleStep()">.step()</li>
@@ -52,11 +51,6 @@ let toggleCallback = () => {
 let toggleColor = () => {
   this.c = 1 - (this.c || 0)
   slider.color(this.c ? 'yellowgreen' : undefined).render(1000)
-}
-
-let toggleFormat = () => {
-  this.f = 1 - (this.f || 0)
-  slider.format(this.f ? x => x + 'mm' : undefined).render(1000)
 }
 
 let toggleMax = () => {

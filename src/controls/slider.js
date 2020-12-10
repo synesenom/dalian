@@ -6,9 +6,9 @@ import Font from '../components/font'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
-// TODO Move style to head.
+// TODO Add API .disabled().
 /**
- * The slider control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The slider is constrained to a rectangle defined by the width/height and the margins. It is vertically centered.
+ * The slider control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The slider is constrained to a rectangle defined by the width/height and the margins. It is vertically centered. The scale ticks are implemented using <a href="../components/bottom-axis.html">BottomAxis</a>, making all the API for that component available for the slider.
  *
  * @function Slider
  * @param {string} name Name of the widget. Should be a unique identifier.
@@ -215,28 +215,6 @@ export default (name, parent = 'body') => {
      */
     color (color = DEFAULTS.color) {
       _.internal.color = color
-      return api
-    },
-
-    /**
-     * Sets the format of the slider ticks.
-     *
-     * @method format
-     * @methodOf Slider
-     * @param {Function} [format = x => x] Format to set. The tick value is passed as parameter.
-     * @returns {Slider} Reference to the Slider API.
-     * @example
-     *
-     * // Set format to percentages.
-     * const slider = dalian.Slider('my-control')
-     *   .format(x => x + '%')
-     *
-     * // Reset format to raw tick value.
-     * slider.format()
-     *   .render()
-     */
-    format (format) {
-      self._bottomAxis.format(format)
       return api
     },
 

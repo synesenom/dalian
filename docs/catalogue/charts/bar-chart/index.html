@@ -10,10 +10,17 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A bar chart displays one dimensional <span class="good">categorical data</span>. Useful when there is
-    <span class="good">no relationship</span> between the values, for instance if the data is the result of a counting
-    process. Also, it can handle <span class="good">more categories</span> than a pie chart.
+    <a href="https://en.wikipedia.org/wiki/Bar_chart">Bar charts</a> display values by the height of the bars making them easy and quick to read.
   </p>
+  <p>
+    They can be used to show <span class="good">values in different categories</span> where there is <span class="good">no inherent relationship</span> between the categories is assumed.
+  </p>
+  <p>
+    However, they are hard to read and can introduce biases when <span class="bad">differences are too small</span> (see <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">Weber-Fechner law</a>).
+    Also when the data points are <span class="bad">related temporally or otherwise</span>, other charts (e.g., <a href="../area-chart">area</a> or <a href="../line-chart">line</a> charts are a better choice.
+    Finally, if the relative size of the values to the whole are to be shown, a <a href="../pie-chart">pie chart</a> may be more intuitive.
+  </p>
+  <!-- TODO Data types: x: categorical, y: continuous. -->
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
@@ -46,9 +53,9 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => barChart.data(getData()).render(1000)
+const changeData = () => barChart.data(getData()).render(1000)
 
-let toggleHorizontal = () => {
+const toggleHorizontal = () => {
   this.h = 1 - (this.h || 0)
   barChart.horizontal(this.h)
     .bottomAxis.label(this.h ? 'stock' : 'fruit')
@@ -56,7 +63,7 @@ let toggleHorizontal = () => {
     .render()
 }
 
-let toggleLabels = () => {
+const toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   barChart.label(this.l ? d => d.value.toFixed(1) : undefined)
     .render()

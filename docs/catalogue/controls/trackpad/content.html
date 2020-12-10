@@ -7,9 +7,7 @@
   <ul>
     <li onclick="toggleCallback()">.callback()</li>
     <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleFormat()">.format()</li>
     <li onclick="toggleGuide()">.guide()</li>
-    <li onclick="toggleLabel()">.label()</li>
     <li onclick="toggleRange()">.range()</li>
     <li onclick="toggleValue()">.value()</li>
   </ul>
@@ -49,6 +47,8 @@ const trackpad = dalian.Trackpad('trackpad', '#widget')
   .margins(60)
   .font.size(14)
   .range([0, 360], [0, 100])
+  .leftAxis.label('Saturation')
+  .bottomAxis.label('Hue')
   .render()
 </script>
 
@@ -68,26 +68,10 @@ let toggleColor = () => {
   trackpad.color(this.c ? 'yellowgreen' : undefined).render(1000)
 }
 
-let toggleFormat = () => {
-  this.f = 1 - (this.f || 0)
-  trackpad.format(
-    this.f ? x => x.toFixed(2) : x => x,
-    this.f ? y => y.toFixed(2) : y => y
-  ).render(1000)
-}
-
 let toggleGuide = () => {
   this.g = 1 - (this.g || 0)
   trackpad.guide(this.g)
     .render(1000)
-}
-
-let toggleLabel = () => {
-  this.l = 1 - (this.l || 0)
-  trackpad.label(
-    this.l ? 'Hue' : undefined,
-    this.l ? 'Saturation' : undefined
-  ).render()
 }
 
 let toggleRange = () => {

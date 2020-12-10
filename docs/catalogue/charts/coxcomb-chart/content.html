@@ -1,20 +1,3 @@
-<div id="desc">
-  <p>
-    A coxcomb (or polar area) chart invented by
-    <a href="https://en.wikipedia.org/wiki/Florence_Nightingale">Florence Nightingale</a>. Area of the wedges is
-    proportional to the value they represent. This type of chart is useful to represent
-    <span class="good">cyclic data</span> such as values span over a week or months.
-  </p>
-</div>
-<div id="controls">
-  <ul>
-    <li onclick="toggleAngle()">.angle()</li>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleLabels()">.label()</li>
-    <li onclick="toggleRadius()">.radius()</li>
-  </ul>
-</div>
-
 <script class="card-example">
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
   dalian.CoxcombChart('coxcomb-chart-card', '#coxcomb-chart')
@@ -49,6 +32,24 @@
     .label(d => d.label)
     .render()
 </script>
+
+<div id="desc">
+  <p>
+    <a href="https://en.wikipedia.org/wiki/Pie_chart#Polar_area_diagram">Coxcomb charts</a> (or polar area diagrams) invented by <a href="https://en.wikipedia.org/wiki/Florence_Nightingale">Florence Nightingale</a> show different groups of categorical data arranged along a circle. Humans naturally perceive areas, hence the area of the wedges is proportional to the values they represent. Coxcombs are useful to represent
+    <span class="good">cyclic data</span> such as values span over a week or months.
+  </p>
+  <!-- TODO Data types: x: categorical, y: vector. -->
+  <!-- TODO Use cases. -->
+  <!-- TODO Limitations: Too many makes it hard to read; Easy to see pattern as shapes but difficult to see nuances. Not too many data sets, especially when they are not sorted. -->
+</div>
+<div id="controls">
+  <ul>
+    <li onclick="toggleAngle()">.angle()</li>
+    <li onclick="changeData()">.data()</li>
+    <li onclick="toggleLabels()">.label()</li>
+    <li onclick="toggleRadius()">.radius()</li>
+  </ul>
+</div>
 
 <script class="doc">
 // generate data

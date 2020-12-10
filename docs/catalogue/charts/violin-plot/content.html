@@ -1,9 +1,35 @@
+<script class="card-example">
+  dalian.ViolinPlot('violin-plot-card', '#violin-plot')
+    .data([{
+      name: 'normal',
+      values: new ranjs.dist.Normal(4, 2).sample(1000)
+    }, {
+      name: 'Poisson',
+      values: new ranjs.dist.Poisson(4).sample(1000)
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 25, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
+    normal: COLORS.widget[0],
+    Poisson: COLORS.widget[1]
+  })
+    .bottomAxis.label('dist')
+    .bottomAxis.hideTicks(true)
+    .leftAxis.label('sample')
+    .render()
+</script>
+
 <div id="desc">
   <p>
-    Violin plots are used to <span class="good">compare distributions</span> by encapsulating the entire distribution
-    in a small geometric objects.
-    Similar to box plots they are good to detect differences in <span class="good">summary metrics</span> but provide more details about the underlying distributions using <span class="good">kernel density estimate</span>.
+    <a href="https://en.wikipedia.org/wiki/Violin_plot">Violin plots</a> are used to <span class="good">compare distributions</span> by encapsulating the entire probability densities in small geometric objects. Similar to <a href="../box-plot">box plots</a> they are good to detect differences in <span class="good">summary metrics</span> but provide more details about the underlying distributions using <span class="good">kernel density estimate</span>.
   </p>
+  <!-- TODO Data types: x: any, y: any, ... -->
+  <!-- TODO Use cases: -->
+  <!-- TODO Limitations: Harder to read than box plots (use those for unimodal distributions); visual depends on the kernel size and may be hard to adjust; -->
 </div>
 <div id="controls">
   <ul>
@@ -15,31 +41,6 @@
     <li onclick="toggleViolinWidth()">.violinWidth()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.ViolinPlot('violin-plot-card', '#violin-plot')
-  .data([{
-    name: 'normal',
-    values: new ranjs.dist.Normal(4, 2).sample(1000)
-  }, {
-    name: 'Poisson',
-    values: new ranjs.dist.Poisson(4).sample(1000)
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 25, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
-    normal: COLORS.widget[0],
-    Poisson: COLORS.widget[1]
-  })
-  .bottomAxis.label('dist')
-  .bottomAxis.hideTicks(true)
-  .leftAxis.label('sample')
-  .render()
-</script>
 
 <script class="doc">
 // generate data
@@ -79,14 +80,14 @@ const violinPlot = dalian.ViolinPlot('violin-plot', '#widget')
 
 <script class="doc">
 // api methods
-let toggleBandwidth = () => {
+const toggleBandwidth = () => {
   this.r = 1 - (this.r || 0)
   violinPlot.bandwidth(this.r ? 0.5 : undefined).render(1000)
 }
 
-let changeData = () => violinPlot.data(getData()).render(1000)
+const changeData = () => violinPlot.data(getData()).render(1000)
 
-let toggleHorizontal = () => {
+const toggleHorizontal = () => {
   this.h = 1 - (this.h || 0)
   violinPlot.horizontal(this.h)
     .bottomAxis.label(this.h ? 'sample' : 'distribution')
@@ -94,17 +95,17 @@ let toggleHorizontal = () => {
     .render()
 }
 
-let toggleLineWidth = () => {
+const toggleLineWidth = () => {
   this.l = 1 - (this.l || 0)
   violinPlot.lineWidth(this.l ? 2 : undefined).render(1000)
 }
 
-let toggleOpacity = () => {
+const toggleOpacity = () => {
   this.o = 1 - (this.o || 0)
   violinPlot.opacity(this.o ? 0.8 : undefined).render(1000)
 }
 
-let toggleViolinWidth = () => {
+const toggleViolinWidth = () => {
   this.w = 1 - (this.w || 0)
   violinPlot.violinWidth(this.w ? 14 : undefined).render(1000)
 }

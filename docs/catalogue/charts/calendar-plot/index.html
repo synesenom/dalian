@@ -14,9 +14,14 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    The calendar plot can be used to visualize values distributed over <span class="good">days of a month or year</span>.
-    This type of chart is especially useful when the data has inherent <span class="good">weekly or monthly
-    patterns</span> (such as number of emails, commits, etc).
+    Calendar plots display values arranged in a Gregorian calendar with days as tiles grouped by months.
+  </p>
+  <p>
+    They can be used to visualize temporal patterns, especially with inherent <span class="good">weekly or monthly patterns</span>.
+  </p>
+  <p>
+    One of the most obvious limitations is that they can show only a <span class="bad">single value</span>.
+    <!-- TODO Data types: x: date, y: continuous -->
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
@@ -66,39 +71,39 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-let toggleBlockAlign = () => {
+const toggleBlockAlign = () => {
   this.a = 1 - (this.a || 0)
   calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
 }
 
-let toggleBlockMargin = () => {
+const toggleBlockMargin = () => {
   this.b = 1 - (this.b || 0)
   calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
 }
 
-let changeData = () => calendarPlot.data(getData()).render(1000)
+const changeData = () => calendarPlot.data(getData()).render(1000)
 
-let toggleDays = () => {
+const toggleDays = () => {
   this.w = 1 - (this.w || 0)
   calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']: undefined)
     .render()
 }
 
-let toggleLabels = () => {
+const toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   calendarPlot
     .label(this.l ? d => d.value === null ? '' : Math.round(d.value) : undefined)
     .render()
 }
 
-let toggleMonths = () => {
+const toggleMonths = () => {
   this.m = 1 - (this.m || 0)
   calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo',
     'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
     'octubre', 'noviembre', 'diciembre'] : undefined).render()
 }
 
-let toggleWeekStart = () => {
+const toggleWeekStart = () => {
   this.s = 1 - (this.s || 0)
   calendarPlot.weekStart(this.s ? 2 : undefined).render(1000)
 }

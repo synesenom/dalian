@@ -1,3 +1,4 @@
+// TODO Calculate only if family or size has changed.
 export default (() => {
   const _ = {}
 

@@ -24,8 +24,8 @@ html(lang='en')
                 p On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.
 
                 h2 charts
-                p Charts are special interactive widgets that represent specific kinds of visualizations or non-control elements of a dashboard (such as legends).
-                    | They are all made from various components and each widget inherits all the API of a component they are composed of.
+                p Charts are interactive widgets each representing a specific kind of visualization or non-control element (such as legends).
+                    |  They are all made from various components and each widget inherits all the API of a component they are composed of.
                     | To explore a specific component listed on a chart's documentation page under its factory method, see the component's own demo page.
                 .card-container
                     each chart in charts
@@ -36,7 +36,7 @@ html(lang='en')
 
                 h2 controls
                 p Controls are special widgets that can be used to change the variables on a dashboard.
-                    | Their sole purpose is to control other elements.
+                    |  Their sole purpose is to control other elements.
 
                 .card-container
                     each control in controls
@@ -47,7 +47,7 @@ html(lang='en')
 
                 h2 components
                 p Components are the building blocks that are used to compose the widgets.
-                    | Each component implements a single functionality and API that is exposed either through the widget's API or the component's own namespace.
+                    |  Each component implements a single functionality and API that is exposed either through the widget's API or the component's own namespace.
                     | Note that components are not accessible directly but each widget inherits a subset of them to implement various functionalities.
                     | This section contains live examples and demos that help you explore the function and behavior of all the components that have an exposed API.
                 .card-container

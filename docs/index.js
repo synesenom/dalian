@@ -48,6 +48,7 @@ const MODULES = [
   'components/grid/y-grid',
   'components/range/y-range',
   'controls/checkbox',
+  'controls/radio-button',
   'controls/slider',
   'controls/trackpad'
 ]

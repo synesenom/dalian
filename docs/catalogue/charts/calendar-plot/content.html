@@ -1,8 +1,43 @@
+<script class="card-example">
+  dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
+    .data((() => {
+      let data = Array.from({ length: 200 }, () => {
+        let date = new Date(Date.UTC(2019, 3, 1))
+        date.setDate(date.getDate() + Math.floor(50 * Math.random()) + 1)
+        return {
+          date: date.toISOString().substr(0, 10),
+          value: (date.getDay() === 0 || date.getDay() === 6) ? 3 * Math.random() : 5 + 3 * Math.random()
+        }
+      }).reduce((map, d) => map.set(d.date, d.value), new Map())
+
+      // Convert to an array.
+      return Array.from(data).map(([date, value]) => ({
+        date,
+        value
+      }))
+    })())
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({top: 10, left: 35})
+    .font.size(11)
+    .color.palette(['#eee', COLORS.widget[0]], '#eee')
+    .blockMargin(2)
+    .blockAlign('middle')
+    .render()
+</script>
+
 <div id="desc">
   <p>
-    The calendar plot can be used to visualize values distributed over <span class="good">days of a month or year</span>.
-    This type of chart is especially useful when the data has inherent <span class="good">weekly or monthly
-    patterns</span> (such as number of emails, commits, etc).
+    Calendar plots display values arranged in a Gregorian calendar with days as tiles grouped by months.
+  </p>
+  <p>
+    They can be used to visualize temporal patterns, especially with inherent <span class="good">weekly or monthly patterns</span>.
+  </p>
+  <p>
+    One of the most obvious limitations is that they can show only a <span class="bad">single value</span>.
+    <!-- TODO Data types: x: date, y: continuous -->
   </p>
 </div>
 <div id="controls">
@@ -16,36 +51,6 @@
     <li onclick="toggleWeekStart()">.weekStart()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.CalendarPlot('calendar-plot-card', '#calendar-plot')
-  .data((() => {
-    let data = Array.from({ length: 200 }, () => {
-      let date = new Date(Date.UTC(2019, 3, 1))
-      date.setDate(date.getDate() + Math.floor(50 * Math.random()) + 1)
-      return {
-        date: date.toISOString().substr(0, 10),
-        value: (date.getDay() === 0 || date.getDay() === 6) ? 3 * Math.random() : 5 + 3 * Math.random()
-      }
-    }).reduce((map, d) => map.set(d.date, d.value), new Map())
-
-    // Convert to an array.
-    return Array.from(data).map(([date, value]) => ({
-      date,
-      value
-    }))
-  })())
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({top: 10, left: 35})
-  .font.size(11)
-  .color.palette(['#eee', COLORS.widget[0]], '#eee')
-  .blockMargin(2)
-  .blockAlign('middle')
-  .render()
-</script>
 
 <script class="doc">
 // generate data
@@ -96,39 +101,39 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
 
 <script class="doc">
 // api methods
-let toggleBlockAlign = () => {
+const toggleBlockAlign = () => {
   this.a = 1 - (this.a || 0)
   calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
 }
 
-let toggleBlockMargin = () => {
+const toggleBlockMargin = () => {
   this.b = 1 - (this.b || 0)
   calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
 }
 
-let changeData = () => calendarPlot.data(getData()).render(1000)
+const changeData = () => calendarPlot.data(getData()).render(1000)
 
-let toggleDays = () => {
+const toggleDays = () => {
   this.w = 1 - (this.w || 0)
   calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']: undefined)
     .render()
 }
 
-let toggleLabels = () => {
+const toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   calendarPlot
     .label(this.l ? d => d.value === null ? '' : Math.round(d.value) : undefined)
     .render()
 }
 
-let toggleMonths = () => {
+const toggleMonths = () => {
   this.m = 1 - (this.m || 0)
   calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo',
     'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
     'octubre', 'noviembre', 'diciembre'] : undefined).render()
 }
 
-let toggleWeekStart = () => {
+const toggleWeekStart = () => {
   this.s = 1 - (this.s || 0)
   calendarPlot.weekStart(this.s ? 2 : undefined).render(1000)
 }

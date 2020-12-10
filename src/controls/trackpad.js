@@ -8,11 +8,11 @@ import Scale from '../components/scale'
 import Widget from '../components/widget'
 import { lighter } from '../utils/color'
 
-// TODO Move style to head.
+// TODO Add API .disabled().
 // TODO Implement radial type.
 // TODO Make it touch compatible.
 /**
- * The trackpad control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The trackpad is constrained to a rectangle defined by the width/height and the margins (it fills  the container as much as the margins allow).
+ * The trackpad control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The trackpad is constrained to a rectangle defined by the width/height and the margins (it fills  the container as much as the margins allow). The scale ticks are implemented using <a href="../components/bottom-axis.html">BottomAxis</a> and <a href="../components/left-axis.html">LeftAxis</a>, making all the API for those component available for the trackpad.
  *
  * @function Trackpad
  * @param {string} name Name of the widget. Should be a unique identifier.
@@ -23,7 +23,6 @@ export default (name, parent = 'body') => {
   const DEFAULTS = {
     color: 'grey',
     guide: false,
-    labels: ['', ''],
     ranges: [[0, 1], [0, 1]],
     type: 'cartesian',
     values: [0, 0]
@@ -259,39 +258,6 @@ export default (name, parent = 'body') => {
     },
 
     /**
-     * Sets one/all of the axis formats. If null or undefined is passed to any of the formats that axis is reversed to the default format.
-     *
-     * @method format
-     * @methodOf Trackpad
-     * @param {(Function|null)?} [format1 = x => x] First (x) format.
-     * @param {(Function|null)?} [format2 = x => x] Second (y) format.
-     * @returns {Trackpad} Reference to the Trackpad API.
-     * @example
-     *
-     * // Set both formats.
-     * const trackpad = dalian.Trackpad('my-control')
-     *   .formats(x => x + '%', y => y + 'mm')
-     *   .render()
-     *
-     * // Set the first format and reset the second.
-     * trackpad.format(x => x.toFixed(2))
-     *   .render()
-     *
-     * // Reset the first format and set the second.
-     * trackpad.format(null, y => y + 'cm')
-     *   .render()
-     *
-     * // Reset both axes.
-     * trackpad.format()
-     *   .render()
-     */
-    format (format1, format2) {
-      self._bottomAxis.format(format1)
-      self._leftAxis.format(format2)
-      return api
-    },
-
-    /**
      * Turns on/off guiding lines.
      *
      * @method guide
@@ -311,39 +277,6 @@ export default (name, parent = 'body') => {
      */
     guide (on = DEFAULTS.guide) {
       _.internal.guide = on
-      return api
-    },
-
-    /**
-     * Sets one/all of the axis labels. If null or undefined is passed to any of the labels that label is reset to default.
-     *
-     * @method label
-     * @methodOf Trackpad
-     * @param {(string|null)?} [label1 = ''] First (x) label.
-     * @param {(string|null)?} [label2 = ''] Second (y) label.
-     * @returns {Trackpad} Reference to the Trackpad API.
-     * @example
-     *
-     * // Set both labels.
-     * const trackpad = dalian.Trackpad('my-control')
-     *   .label('x', 'y')
-     *   .render()
-     *
-     * // Set the first label and reset second.
-     * trackpad.label('distance')
-     *   .render()
-     *
-     * // Reset first label and set second.
-     * trackpad.label(null, 'velocity')
-     *   .render()
-     *
-     * // Reset both labels.
-     * trackpad.label()
-     *   .render()
-     */
-    label (label1, label2) {
-      api.bottomAxis.label(label1)
-      api.leftAxis.label(label2)
       return api
     },
 

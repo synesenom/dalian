@@ -1,54 +1,55 @@
+<script class="card-example">
+  dalian.LineChart('line-chart-card', '#line-chart')
+    .data([{
+      name: 'mango',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.pow(i / 40, 2),
+        lo: i / 100,
+        hi: i / 150
+      }))
+    }, {
+      name: 'kiwi',
+      values: Array.from({ length: 100 }, (d, i) => ({
+        x: i,
+        y: Math.log(i + 1)
+          * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
+        lo: .4,
+        hi: .9
+      }))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 20, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
+    mango: COLORS.widget[0],
+    kiwi: COLORS.widget[1]
+  })
+    .bottomAxis.label('days')
+    .leftAxis.label('price')
+    .smoothing(true)
+    .lineStyle({
+      mango: 'dashed'
+    })
+    .render()
+</script>
+
 <div id="desc">
   <p>
-    Line charts are most commonly used to show <span class="good">temporal changes</span> or trends inquantitative data.
-    As the data points are connected, it is expected that consecutive points are <span class="good">related</span> to each
-    other.
+    <a href="https://en.wikipedia.org/wiki/Line_chart">Line charts</a> display data in a way that neighboring values are connected. As such, they are ideal to illustrate <span class="good">temporal changes</span> or other <span class="good">dependencies</span>.
   </p>
+  <!-- TODO Data types: x: continuous, y: vector. -->
+  <!-- TODO Use cases: trends; analytic dependency between variables. -->
+  <!-- TODO Limitations: Too many is crowded; It can lead to non-existent relationship (if not used for temporal or continuous data): use bars. -->
 </div>
 <div id="controls">
   <ul>
     <li onclick="changeData()">.data()</li>
   </ul>
 </div>
-
-<script class="card-example">
-dalian.LineChart('line-chart-card', '#line-chart')
-  .data([{
-    name: 'mango',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.pow(i / 40, 2),
-      lo: i / 100,
-      hi: i / 150
-    }))
-  }, {
-    name: 'kiwi',
-    values: Array.from({ length: 100 }, (d, i) => ({
-      x: i,
-      y: Math.log(i + 1)
-        * Math.pow(Math.cos(Math.PI * i / 15), 2) + 2,
-      lo: .4,
-      hi: .9
-    }))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 20, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
-    mango: COLORS.widget[0],
-    kiwi: COLORS.widget[1]
-  })
-  .bottomAxis.label('days')
-  .leftAxis.label('price')
-  .smoothing(true)
-  .lineStyle({
-    mango: 'dashed'
-  })
-  .render()
-</script>
 
 <script class="doc">
 // generate data

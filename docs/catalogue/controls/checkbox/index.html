@@ -5,18 +5,10 @@
   });</script><title>Checkbox | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleChecked()">.checked()</li>
+    <li onclick="toggleCheck()">.check()</li>
     <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleDisabled()">.disabled()</li>
+    <li onclick="toggleDisable()">.disable()</li>
     <li onclick="toggleLabel()">.label()</li>
-    <!--
-    <li onclick="toggleMax()">.max()</li>
-    <li onclick="toggleMin()">.min()</li>
-    <li onclick="toggleStep()">.step()</li>
-    <li onclick="toggleThickness()">.thickness()</li>
-    <li onclick="toggleTrackColor()">.trackColor()</li>
-    <li onclick="toggleValue()">.value()</li>
-    -->
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -30,7 +22,7 @@ const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
 const checkbox = dalian.Checkbox('checkbox', '#widget')
   .width(WIDTH)
   .height(HEIGHT)
-  .margins({left: 100, right: 250})
+  .margins({left: 100, right: 250, top: HEIGHT / 2})
   .font.size(14)
   .label(`I'm a checkbox`)
   .render()
@@ -42,9 +34,9 @@ let toggleCallback = () => {
     .render()
 }
 
-let toggleChecked = () => {
+let toggleCheck = () => {
   this.c = 1 - (this.c || 0)
-  checkbox.checked(this.c)
+  checkbox.check(this.c)
     .render()
 }
 
@@ -54,9 +46,9 @@ let toggleColor = () => {
     .render(1000)
 }
 
-let toggleDisabled = () => {
+let toggleDisable = () => {
   this.d = 1 - (this.d || 0)
-  checkbox.disabled(this.d)
+  checkbox.disable(this.d)
     .render()
 }
 

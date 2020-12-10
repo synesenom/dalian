@@ -11,18 +11,11 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    A pie chart represents one dimensional <span class="good">categorical data</span> of positive numbers only.
-    The angle of each sector is proportional to the value of the corresponding category.
-    It is useful when <span class="good">fractions</span> of a whole (especially percentages) are to be shown for a
-    <span class="good">few categories</span> (5-7) and the focus is on <span class="good">large differences</span> among
-    categories rather than nuances.
+    <a href="https://en.wikipedia.org/wiki/Pie_chart">Pie charts</a> are used to show part-to-whole relationships for a set of positive values. The angle (and thus the area) of each sector is proportional to the fraction of each value relative to the total.
   </p>
-  <p>
-    However, <span class="bad">changes</span> are hard to perceive on a pie chart, and should be used only for static
-    data.
-    Furthermore, <span class="bad">small values</span> are difficult to distinguish or notice and therefore, avoid using
-    pie charts when the data spans multiple orders of magnitude.
-  </p>
+  <!-- TODO Data types: x: categorical, y: vector. -->
+  <!-- TODO Use cases. -->
+  <!-- TODO Limitations: Can be safely used for a small number of values (3-5); Changes from one pie to another not visible; If differences are too small/too large it is hard to detect. -->
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
@@ -52,19 +45,19 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .render(1000)
 </script><script class="doc">
 // api methods
-let changeData = () => pieChart.data(getData()).render(1000)
+const changeData = () => pieChart.data(getData()).render(1000)
 
-let toggleInnerRadius = () => {
+const toggleInnerRadius = () => {
   this.i = !(this.i || 0)
   pieChart.innerRadius(this.i ? 25 : undefined).render()
 }
 
-let toggleLabels = () => {
+const toggleLabels = () => {
   this.l = 1 - (this.l || 0)
   pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
 }
 
-let toggleOuterRadius = () => {
+const toggleOuterRadius = () => {
   this.o = !(this.o || 0)
   pieChart.outerRadius(this.o ? 40 : 0.3 * HEIGHT).render()
 }

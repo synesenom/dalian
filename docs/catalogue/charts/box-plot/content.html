@@ -1,9 +1,71 @@
+<script class="card-example">
+  function makeBox(sample) {
+    let sorted = sample.sort(d3.ascending)
+    let median = d3.median(sorted)
+    let q1 = d3.quantile(sorted, 0.25)
+    let q3 = d3.quantile(sorted, 0.75)
+    let iqr = q3 - q1
+    let outliers = sorted.filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
+    return {
+      median, q1, q3,
+      whiskers: {
+        lower: d3.min(sorted.filter(d => d > q1 - 1.5 * iqr)),
+        upper: d3.max(sorted.filter(d => d < q3 + 1.5 * iqr))
+      },
+      outliers: (() => {
+        const extreme = []
+        const mild = []
+        outliers.map(d => {
+          if (d < q1 - 3 * iqr || d > q3 + 3 * iqr) {
+            extreme.push(d)
+          } else {
+            mild.push(d)
+          }
+        })
+        return {mild, extreme}
+      })()
+    }
+  }
+
+  dalian.BoxPlot('box-plot-card', '#box-plot')
+    .data([{
+      name: 'normal',
+      value: makeBox(new ranjs.dist.Normal(4, 2).sample(1000))
+    }, {
+      name: 'Poisson',
+      value: makeBox(new ranjs.dist.Poisson(4).sample(1000))
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({ left: 25, right: 2, top: 20, bottom: 30 })
+    .font.size(11)
+    .color.palette({
+    normal: COLORS.widget[0],
+    Poisson: COLORS.widget[1]
+  })
+    .bottomAxis.label('dist')
+    .bottomAxis.hideTicks(true)
+    .leftAxis.label('sample')
+    .render()
+</script>
+
 <div id="desc">
   <p>
-    Box plots are useful to <span class="good">compare data sets</span> by simple <span class="good">summary statistics</span> such as median and extremal values.
-    Box plots are based on simple metrics and <span class="bad">hides details</span> of the underlying distributions.
-    If details are needed, use a violin plot instead.
+    <a href="https://en.wikipedia.org/wiki/Box_plot">Box plots</a> (as per John Tukey) represent five-number summary of sets of observations over different categories.
+    Boxes display lower/upper quartiles (<code>Q1</code> and <code>Q3</code>) with the median line in the middle.
+    Lower (upper) whisker is defined by the highest (lowest) observation among those that are below <code>Q1 - 1.5 * IQR</code> (above <code>Q3 + 1.5 * IQR</code>) the boundary values included.
+    Finally, mild outliers are defined by the data points outside the whiskers but still within a radius of <code>3 * IQR</code>. The rest of the outliers are defined as extreme.
   </p>
+  <p>
+    Box plots are perfect for displaying <span class="good">summary statistics</span> of data sets when the underlying <span class="good">distributions are unimodal</span> (having a single mode).
+    As such, they are good companions for <span class="good">simple hypotheses tests</span>.
+  </p>
+  <p>
+    It should be noted that they <span class="bad">hinder the details</span> of the distributions. Therefore, if the observations have multimodal distributions a <a href="../violin-plot">violin plot</a> is a more appropriate choice.
+  </p>
+    <!-- TODO Data types. x: categorical, y: multiple values. -->
 </div>
 <div id="controls">
   <ul>
@@ -14,59 +76,6 @@
     <li onclick="toggleOpacity()">.opacity()</li>
   </ul>
 </div>
-
-<script class="card-example">
-function makeBox(sample) {
-  let sorted = sample.sort(d3.ascending)
-  let median = d3.median(sorted)
-  let q1 = d3.quantile(sorted, 0.25)
-  let q3 = d3.quantile(sorted, 0.75)
-  let iqr = q3 - q1
-  let outliers = sorted.filter(d => d < q1 - 1.5 * iqr || d > q3 + 1.5 * iqr)
-  return {
-    median, q1, q3,
-    whiskers: {
-      lower: d3.min(sorted.filter(d => d > q1 - 1.5 * iqr)),
-      upper: d3.max(sorted.filter(d => d < q3 + 1.5 * iqr))
-    },
-    outliers: (() => {
-      const extreme = []
-      const mild = []
-      outliers.map(d => {
-        if (d < q1 - 3 * iqr || d > q3 + 3 * iqr) {
-          extreme.push(d)
-        } else {
-          mild.push(d)
-        }
-      })
-      return {mild, extreme}
-    })()
-  }
-}
-
-dalian.BoxPlot('box-plot-card', '#box-plot')
-  .data([{
-    name: 'normal',
-    value: makeBox(new ranjs.dist.Normal(4, 2).sample(1000))
-  }, {
-    name: 'Poisson',
-    value: makeBox(new ranjs.dist.Poisson(4).sample(1000))
-  }])
-  .x(0)
-  .y(0)
-  .width(WIDTH)
-  .height(HEIGHT)
-  .margins({ left: 25, right: 2, top: 20, bottom: 30 })
-  .font.size(11)
-  .color.palette({
-    normal: COLORS.widget[0],
-    Poisson: COLORS.widget[1]
-  })
-  .bottomAxis.label('dist')
-  .bottomAxis.hideTicks(true)
-  .leftAxis.label('sample')
-  .render()
-</script>
 
 <script class="doc">
 // generate data
@@ -139,14 +148,14 @@ const boxPlot = dalian.BoxPlot('box-plot', '#widget')
 
 <script class="doc">
 // api methods
-let changeData = () => boxPlot.data(getData()).render(1000)
+const changeData = () => boxPlot.data(getData()).render(1000)
 
-let toggleBoxWidth = () => {
+const toggleBoxWidth = () => {
   this.w = 1 - (this.w || 0)
   boxPlot.boxWidth(this.w ? 14 : undefined).render(1000)
 }
 
-let toggleHorizontal = () => {
+const toggleHorizontal = () => {
   this.h = 1 - (this.h || 0)
   boxPlot.horizontal(this.h)
     .bottomAxis.label(this.h ? 'sample' : 'distribution')
@@ -154,12 +163,12 @@ let toggleHorizontal = () => {
     .render()
 }
 
-let toggleLineWidth = () => {
+const toggleLineWidth = () => {
   this.l = 1 - (this.l || 0)
   boxPlot.lineWidth(this.l ? 2 : undefined).render(1000)
 }
 
-let toggleOpacity = () => {
+const toggleOpacity = () => {
   this.o = 1 - (this.o || 0)
   boxPlot.opacity(this.o ? 0.8 : undefined).render(1000)
 }
