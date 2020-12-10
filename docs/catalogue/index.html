@@ -3,7 +3,7 @@ const HEIGHT = 240 - 42 - 30;
 COLORS = {
   widget: ['royalblue', 'black'],
   component: 'firebrick'
-};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.</p><h2>charts</h2><p>Charts are interactive widgets each representing a specific kind of visualization or non-control element (such as legends). They are all made from various components and each widget inherits all the API of a component they are composed of.
+};</script><main><div class="main-content-wide"><h1>catalogue</h1><p>On this page you can see live examples of all widgets and components available in dalian, and explore their APIs.</p><h2>charts</h2><p>Charts are interactive widgets each representing a specific kind of visualization. They are all made from various components and each widget inherits all the API of a component they are composed of.
 To explore a specific component listed on a chart's documentation page under its factory method, see the component's own demo page.</p><div class="card-container"><a class="card" href="charts/area-chart"><div class="card-title">AreaChart</div><div class="card-content" id="area-chart"></div><script class="card-example">
   dalian.AreaChart('area-chart-card', '#area-chart')
     .data([{
@@ -228,22 +228,6 @@ To explore a specific component listed on a chart's documentation page under its
     .radius(60)
     .label(d => d.label)
     .render()
-</script></a><a class="card" href="charts/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
-  dalian.Legend('legend-card', '#legend')
-    .x(0)
-    .y(0)
-    .width(WIDTH)
-    .height(HEIGHT)
-    .margins(WIDTH / 4)
-    .font.size(14)
-    .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
-    .color.palette({
-    Alice: 'rgb(70, 108, 217)',
-    Bob: 'rgba(70, 108, 217, 0.8)',
-    Charlie: 'rgba(70, 108, 217, 0.5)',
-    Dan: 'rgba(70, 108, 217, 0.2)'
-  })
-    .render()
 </script></a><a class="card" href="charts/line-chart"><div class="card-title">LineChart</div><div class="card-content" id="line-chart"></div><script class="card-example">
   dalian.LineChart('line-chart-card', '#line-chart')
     .data([{
@@ -374,7 +358,7 @@ To explore a specific component listed on a chart's documentation page under its
     .bottomAxis.hideTicks(true)
     .leftAxis.label('sample')
     .render()
-</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change the variables on a dashboard. Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/checkbox"><div class="card-title">Checkbox</div><div class="card-content" id="checkbox"></div><script class="card-example">
+</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change or highlight variables on a dashboard. Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/checkbox"><div class="card-title">Checkbox</div><div class="card-content" id="checkbox"></div><script class="card-example">
   dalian.Checkbox('checkbox-card', '#checkbox')
     .x(0)
     .y(0)
@@ -384,6 +368,22 @@ To explore a specific component listed on a chart's documentation page under its
     .margins({left: 60, top: 70})
     .font.size(11)
     .label('Click on me!')
+    .render()
+</script></a><a class="card" href="controls/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
+  dalian.Legend('legend-card', '#legend')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .margins({left: WIDTH / 3, top: WIDTH / 5})
+    .font.size(14)
+    .entries(['Alice', 'Bob', 'Charlie', 'Dan'])
+    .color.palette({
+    Alice: 'rgb(154, 205, 50)',
+    Bob: 'rgba(154, 205, 50, 0.8)',
+    Charlie: 'rgba(154, 205, 50, 0.5)',
+    Dan: 'rgba(154, 205, 50, 0.2)'
+  })
     .render()
 </script></a><a class="card" href="controls/radio-button"><div class="card-title">RadioButton</div><div class="card-content" id="radio-button"></div><script class="card-example">
   dalian.RadioButton('radio-button-card', '#radio-button')

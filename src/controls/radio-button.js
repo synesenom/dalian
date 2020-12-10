@@ -40,7 +40,8 @@ export default (name, parent = 'body') => {
     display: 'inline-block',
     float: 'right',
     width: 'calc(100% - 1.75em)',
-    height: '100%'
+    height: '100%',
+    'line-height': '1.35em'
   })
 
   // Default values.

@@ -10,7 +10,7 @@ import encode from '../core/encode'
 
 // TODO Move to controls.
 /**
- * The legend widget. This widget extends the following components:
+ * The legend control widget. This widget extends the following components:
  * <ul>
  *   <li><a href="../components/color.html">Color</a></li>
  *   <li><a href="../components/font.html">Font</a></li>

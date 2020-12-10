@@ -15,7 +15,6 @@ const MODULES = [
   'charts/calendar-plot',
   'charts/chord-diagram',
   'charts/coxcomb-chart',
-  'charts/legend',
   'charts/line-chart',
   'charts/pie-chart',
   'charts/scatter-plot',
@@ -48,6 +47,7 @@ const MODULES = [
   'components/grid/y-grid',
   'components/range/y-range',
   'controls/checkbox',
+  'controls/legend',
   'controls/radio-button',
   'controls/slider',
   'controls/trackpad'
