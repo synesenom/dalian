@@ -1,4 +1,5 @@
 import extend from '../core/extend'
+import { select } from 'd3'
 
 /**
  * Component implementing the objects feature. This feature allows for inserting various SVG elements to the background
@@ -11,9 +12,7 @@ export default scales => (() => {
     // Private members
     const _ = {
       // Variables
-      containers: {
-        background: undefined
-      },
+      containers: {},
       objects: new Map(),
 
       // Methods
@@ -40,11 +39,11 @@ export default scales => (() => {
     api = Object.assign(api || {}, {
       objects: {
         /**
-         * Adds an SVG object to the widget using internal (data level) coordinates.
+         * Adds an SVG element to the widget using internal (data level) or widget coordinates.
          *
          * @param {string} id Unique identifier of the object to add. If an object with the ID already exists, no action
          * is taken.
-         * @param {Element} obj The object to insert to the widget.
+         * @param {Element} obj The SVG HTML element to insert to the widget.
          * @param {Object} pos Object representing the {x} and {y} coordinates of the point to add the object at. The
          * coordinates are used as the widget's internal (data) coordinates.
          * @param {Object} options Options of inserting the object. Supported
@@ -133,6 +132,24 @@ export default scales => (() => {
           }
 
           return api
+        },
+
+        /**
+         * Returns a D3 selection to an invisible SVG that can be used to draw an object to add. Useful if you want to use D3's simple chainable API to create objects to add.
+         *
+         * @method svg
+         * @methodOf Objects
+         * @return {Selection} D3 selection to the Objects API SVG.
+         */
+        svg () {
+          // Create object SVG if not yet created.
+          if (typeof _.svg === 'undefined') {
+            _.svg = select('body').append('svg')
+              .style('display', 'none')
+              .style('opacity', 0)
+              .style('position', 'fixed')
+          }
+          return _.svg
         }
       }
     })

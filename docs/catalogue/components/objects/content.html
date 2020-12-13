@@ -98,14 +98,17 @@ let addObject = () => {
   const foreground = Math.random() < 0.5
   const floating = Math.random() < 0.5
   const color = foreground ? 'firebrick' : 'yellowgreen'
+
   if (floating) {
-    // Circle.
-    elem = document.createElementNS(ns, 'circle')
-    elem.setAttributeNS(null, 'r', 20 * Math.random() + 10)
-    elem.setAttributeNS(null, 'stroke', '#fff')
-    elem.setAttributeNS(null, 'fill', color)
+    // Circle: we are using the Objects API's svg() method.
+    elem = chart.objects.svg()
+      .append('circle')
+      .attr('r', 20 * Math.random() + 10)
+      .attr('stroke', '#fff')
+      .attr('fill', color)
+      .node()
   } else {
-    // Rectangle.
+    // Rectangle: we are creating an object the traditional way.
     elem = document.createElementNS(ns, 'rect')
     elem.setAttributeNS(null, 'width', 50 * Math.random() + 20)
     elem.setAttributeNS(null, 'height', 30 * Math.random() + 10)
