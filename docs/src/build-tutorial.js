@@ -8,13 +8,16 @@ const PAGES = [
 
 
 function build (name) {
-  compile(`docs/tutorials/${name}/index.pug`, `docs/tutorials/${name}/index.html`, {
+  compile(`./docs/tutorials/${name}/index.pug`, `./docs/tutorials/${name}/index.html`, {
     dependencies
   })
 }
 
 module.exports = function (name) {
-  const pages = typeof name === 'undefined' ? PAGES : [name]
+  if (typeof name === 'undefined')
+    return
+
+  const pages = name === 'all' ? PAGES : [name]
   pages.forEach(page => {
     console.log(`Building tutorials: ${page}`)
     build(page)
