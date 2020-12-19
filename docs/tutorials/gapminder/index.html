@@ -559,6 +559,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
 
     // Highlight continents on hover.
     .mouse.over(d => {
+      console.log(countries.get(d))
       legend.highlight(d, 100)
       chart.highlight(countries.get(d), 100)
     })

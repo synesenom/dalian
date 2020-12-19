@@ -161,8 +161,14 @@ export default (name, parent = 'body') => {
         .on('mousemove.bubble', () => {
           // Find current bubble.
           const bubble = _.diagram.find(...self._widget.getMouse(), 20)
+          const closest = (bubble && bubble.data) || undefined
 
-          if (bubble === null) {
+          // If it's the same as the current closest, just do nothing.
+          if (closest === _.current.closest) {
+            return
+          }
+
+          if (typeof closest === 'undefined') {
             // If no bubble was found, call mouse leave on current closest and remove it.
             self._mouse.leave(_.current.closest)
             _.current.closest = undefined
@@ -180,7 +186,7 @@ export default (name, parent = 'body') => {
             }
 
             // Update closest and call mouse over.
-            _.current.closest = bubble.data
+            _.current.closest = closest
             self._mouse.over(_.current.closest)
           }
         })

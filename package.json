@@ -43,7 +43,7 @@
     "standard": "^14.3.3"
   },
   "scripts": {
-    "build:tutorial": "node docs/index.js --tutorial",
+    "build:tutorials": "node docs/index.js --tutorial",
     "build:docs": "cd docs; node index.js --docs all; cd ..",
     "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",

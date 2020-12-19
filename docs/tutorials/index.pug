@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        each css in ['fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'catalogue', 'desktop']
+            link(rel='stylesheet', type='text/css', href='../style/' + css + '.css')
+        title tutorials
+    body
+        main
+            .main-content-wide
+                h1 tutorials
+                p Here you can find some guided tutorials that demonstrate the flexibility of the library.
+
+                .card-container
+                    a.card(href='gapminder')
+                        .card-title Gapminder
+                        .card-content A bubble chart displaying life expectancy data that can be adjusted with a slider.

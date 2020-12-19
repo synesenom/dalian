@@ -14,12 +14,15 @@ function build (name) {
 }
 
 module.exports = function (name) {
-  if (typeof name === 'undefined')
-    return
+  // Index.
+  compile('./docs/tutorials/index.pug', './docs/tutorials/index.html')
 
-  const pages = name === 'undefined' ? PAGES : [name]
-  pages.forEach(page => {
-    console.log(`Building tutorials: ${page}`)
-    build(page)
-  })
+  // Tutorial pages.
+  if (typeof name !== 'undefined') {
+    const pages = name === 'all' ? PAGES : [name]
+    pages.forEach(page => {
+      console.log(`Building tutorials: ${page}`)
+      build(page)
+    })
+  }
 }
