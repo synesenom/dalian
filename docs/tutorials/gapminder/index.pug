@@ -17,7 +17,7 @@ html(lang='en')
                 h1 Gapminder
                 p In this tutorial we recreate the deservedly famous #[a(href='https://www.gapminder.org/tools/?from=world#$chart-type=bubbles') life expectancy chart] of Gapminder designed and popularized by #[a(href='https://en.wikipedia.org/wiki/Hans_Rosling') Hans Rosling] as a tribute to his tremendous efforts to bring understanding of statistics to everyone.
 
-                h2#sec-data Data
+                h2 Data
                 p We will use data collected from #[a(href='https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita') Our World in Data] and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the #[a(href='data.json') data file]:
                 pre.data.
                     {
@@ -54,7 +54,7 @@ html(lang='en')
                       ...
                     }
 
-                h2#sec-step1 Building a static chart
+                h2 Building a static chart
                 p We will build the interactive chart step-by-step adding one single element to it at each stage. First we build just a static chart with a data for one year:
 
                 pre
@@ -79,13 +79,12 @@ html(lang='en')
                             .render()
                         })()
                 .chart-container#chart-step-1
-                    .margin-right(style='top:30px') <b>First version</b>. Not that bad for a chart added in 10 lines.
                 script
                     include steps/step-1.js
 
                 p As you can see there are quite a number of issues: colors are messed up (most of the bubbles are black), the X axis seems a bit off (linear is not the best for this kind of data) and the chart is not really interactive yet. Let's fix the colors and the axes first!
 
-                h2#sec-step2 Logarithmic X-axis
+                h2 Logarithmic X-axis
                 p To change the X-axis to logarithmic scale, we simply map the x values of the data and also set the exact values to the axis. Axis related settings are done through the #[a(href='../../catalogue/components/bottom-axis') BottomAxis] component' API.
 
                 pre
@@ -105,11 +104,10 @@ html(lang='en')
                         // Add $ and a suffix to the values.
                         .bottomAxis.format(x => `$${Math.floor(Math.pow(10, x - 3))}k`)
                 .chart-container#chart-step-2
-                    .margin-right(style='top:30px') <b>Fixing X-axis.</b> After changing the axis to logarithmic scale.
                 script
                     include steps/step-2.js
 
-                h2#sec-step3 Colors
+                h2 Colors
                 p Next we fix the colors. Colors for traditional charts in dalian are managed through the #[a(href='../../catalogue/components/color') Color] component's API. Among others, the API lets us a mapping that we want to apply on the data points before setting the color. Also, the reason why most bubbles are black is because each bubble is a separate plot group and they are assigned from a palette with limited number of colors.
 
                 pre
@@ -124,12 +122,11 @@ html(lang='en')
                 p Regarding the color palette, we just went with the default one, which is the Wong color palette (see the default for the #[a(href='../../api/components/color.html#policy') categorical] policy).
 
                 .chart-container#chart-step-3
-                    .margin-right(style='top:30px') <b>Better color management.</b> Colors are assigned by the continent.
                 script
                     include steps/step-3.js
 
 
-                h2#sec-step4 Interactions
+                h2 Interactions
                 p There are various types of interactions we can add to the chart. Let's start with a tooltip that shows the details when hovering over a country. We can add tooltip through the #[a(href='../../api/components/element-tooltip.html') ElementTooltip] API, quite easily actually:
 
                 pre
@@ -169,11 +166,10 @@ html(lang='en')
                         .mouse.leave(() => chart.highlight(null))
 
                 .chart-container#chart-step-4
-                    .margin-right(style='top:30px') <b>With interactions.</b> A minimalistic tooltip and some highlight.
                 script
                     include steps/step-4.js
 
-                h2#sec-step5 Changing data
+                h2 Changing data
 
                 p To complete the chart, we add a #[a(href='../../catalogue/controls/slider') Slider] to be able to change the data displayed in our chart. Adding the slider and binding the chart update to it  is rather easy:
 
@@ -205,11 +201,10 @@ html(lang='en')
                 p The callback function is simply the copy of the previous data binding from <i>Logarithmic X-axis</i>. Also, when the year is changed, the rendering is not instant but we add a 100ms transition to make the update more smooth.
 
                 .chart-container#chart-step-5
-                    .margin-right(style='top:30px') <b>With a slider.</b> Now we can control the chart data easily.
                 script
                     include steps/step-5.js
 
-                h2#sec-step6 Final improvements
+                h2 Final improvements
 
                 p Our life expectancy tool is basically ready, it is functionally complete and we could just call it a day. But for a really nice end result we can spice the chart a bit up by fixing the following:
 
@@ -281,7 +276,6 @@ html(lang='en')
                 p And this is how the final chart looks like in less than 150 lines of code:
 
                 .chart-container#chart-step-6
-                    .margin-right(style='top:30px') <b>The final chart.</b> The fully functioning and polished chart.
                 script
                     include steps/step-6.js
 

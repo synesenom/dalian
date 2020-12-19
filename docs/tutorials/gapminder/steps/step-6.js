@@ -26,7 +26,7 @@
 
     // Read dimensions from the container.
     .width(parseFloat(d3.select('#chart-step-6').style('width')))
-    .height(0.9 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
+    .height(parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
     .margins(50)
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
@@ -81,7 +81,7 @@
     .mouse.leave(() => chart.highlight(null))
 
     // Set fixed ranges.
-    .xRange.min(Math.log10(300))
+    .xRange.min(Math.log10(100))
     .xRange.max(Math.log10(2e5))
     .yRange.min(15)
     .yRange.max(90)
@@ -92,7 +92,7 @@
   // Add slider.
   dalian.Slider('slider-step-6', '#chart-step-6')
     // Adjusting slider position and size.
-    .y(0.8 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
+    .y(0.9 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
     .width(parseFloat(d3.select('#chart-step-6').style('width')))
     .height(0.2 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
     .margins(50)
@@ -118,7 +118,7 @@
   const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     .width(200)
     .height(100)
-    .font.size(10)
+    .font.size(11)
     .entries(['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
     .color.palette({
       'Africa': '#4477aa',
@@ -141,8 +141,8 @@
 
     // Insert in the chart.
     .insert(chart, {
-      x: parseFloat(d3.select('#chart-step-6').style('width')) - 200,
-      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 240
+      x: parseFloat(d3.select('#chart-step-6').style('width')) - 210,
+      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 200
     })
     .render()
 })()

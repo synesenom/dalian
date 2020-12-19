@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/tutorial.css"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/list.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/catalogue.css"><link rel="stylesheet" type="text/css" href="../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../js/lib/highlight.min.js"></script><script type="text/javascript" src="../../dl/dalian.min.js"></script><title>Gapminder | tutorials</title></head><body><!-- TODO Adjust size by the largest.--><main><div class="main-content-centered"><h1>Gapminder</h1><p>In this tutorial we recreate the deservedly famous <a href="https://www.gapminder.org/tools/?from=world#$chart-type=bubbles">life expectancy chart</a> of Gapminder designed and popularized by <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> as a tribute to his tremendous efforts to bring understanding of statistics to everyone.</p><h2 id="sec-data">Data</h2><p>We will use data collected from <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">Our World in Data</a> and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the <a href="data.json">data file</a>:</p><pre class="data">{
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/tutorial.css"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/list.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/catalogue.css"><link rel="stylesheet" type="text/css" href="../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../js/lib/highlight.min.js"></script><script type="text/javascript" src="../../dl/dalian.min.js"></script><title>Gapminder | tutorials</title></head><body><!-- TODO Adjust size by the largest.--><main><div class="main-content-centered"><h1>Gapminder</h1><p>In this tutorial we recreate the deservedly famous <a href="https://www.gapminder.org/tools/?from=world#$chart-type=bubbles">life expectancy chart</a> of Gapminder designed and popularized by <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> as a tribute to his tremendous efforts to bring understanding of statistics to everyone.</p><h2>Data</h2><p>We will use data collected from <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">Our World in Data</a> and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the <a href="data.json">data file</a>:</p><pre class="data">{
   "1950": [
     {
       "name": "Afghanistan",
@@ -28,7 +28,7 @@
   "Algeria": "Africa",
   ...
 }
-</pre><h2 id="sec-step1">Building a static chart</h2><p>We will build the interactive chart step-by-step adding one single element to it at each stage. First we build just a static chart with a data for one year:</p><pre><code class="hljs javascript">(async() => {
+</pre><h2>Building a static chart</h2><p>We will build the interactive chart step-by-step adding one single element to it at each stage. First we build just a static chart with a data for one year:</p><pre><code class="hljs javascript">(async() => {
   // Load data.
   const data = await d3.json('data.json')
 
@@ -46,7 +46,7 @@
     .leftAxis.label('Life expectancy')
     .bottomAxis.label('GDP per capita')
     .render()
-})()</code></pre><div class="chart-container" id="chart-step-1"><div class="margin-right" style="top:30px"><b>First version</b>. Not that bad for a chart added in 10 lines.</div></div><script>(async() => {
+})()</code></pre><div class="chart-container" id="chart-step-1"></div><script>(async() => {
   // Load data.
   const data = await d3.json('data.json')
 
@@ -65,7 +65,7 @@
     .bottomAxis.label('GDP per capita')
     .render()
 })()
-</script><p>As you can see there are quite a number of issues: colors are messed up (most of the bubbles are black), the X axis seems a bit off (linear is not the best for this kind of data) and the chart is not really interactive yet. Let's fix the colors and the axes first!</p><h2 id="sec-step2">Logarithmic X-axis</h2><p>To change the X-axis to logarithmic scale, we simply map the x values of the data and also set the exact values to the axis. Axis related settings are done through the <a href="../../catalogue/components/bottom-axis">BottomAxis</a> component' API.</p><pre><code class="hljs javascript">// Take the logarithm of the data.
+</script><p>As you can see there are quite a number of issues: colors are messed up (most of the bubbles are black), the X axis seems a bit off (linear is not the best for this kind of data) and the chart is not really interactive yet. Let's fix the colors and the axes first!</p><h2>Logarithmic X-axis</h2><p>To change the X-axis to logarithmic scale, we simply map the x values of the data and also set the exact values to the axis. Axis related settings are done through the <a href="../../catalogue/components/bottom-axis">BottomAxis</a> component' API.</p><pre><code class="hljs javascript">// Take the logarithm of the data.
 .data(data[1950].map(d => ({
   name: d.name,
   value: {
@@ -78,7 +78,7 @@
 ...
 
 // Add $ and a suffix to the values.
-.bottomAxis.format(x => `$${Math.floor(Math.pow(10, x - 3))}k`)</code></pre><div class="chart-container" id="chart-step-2"><div class="margin-right" style="top:30px"><b>Fixing X-axis.</b> After changing the axis to logarithmic scale.</div></div><script>(async() => {
+.bottomAxis.format(x => `$${Math.floor(Math.pow(10, x - 3))}k`)</code></pre><div class="chart-container" id="chart-step-2"></div><script>(async() => {
   // Load data.
   const data = await d3.json('data.json')
 
@@ -111,13 +111,13 @@
     })
     .render()
 })()
-</script><h2 id="sec-step3">Colors</h2><p>Next we fix the colors. Colors for traditional charts in dalian are managed through the <a href="../../catalogue/components/color">Color</a> component's API. Among others, the API lets us a mapping that we want to apply on the data points before setting the color. Also, the reason why most bubbles are black is because each bubble is a separate plot group and they are assigned from a palette with limited number of colors.</p><pre><code class="hljs javascript">// Load continents.
+</script><h2>Colors</h2><p>Next we fix the colors. Colors for traditional charts in dalian are managed through the <a href="../../catalogue/components/color">Color</a> component's API. Among others, the API lets us a mapping that we want to apply on the data points before setting the color. Also, the reason why most bubbles are black is because each bubble is a separate plot group and they are assigned from a palette with limited number of colors.</p><pre><code class="hljs javascript">// Load continents.
 const continents = await d3.json('continents.json')
 
 // Set color palette and assign colors by continent.
 .color.palette('palette-light')
 .color.on(d => continents[d.name])
-</code></pre><p>Regarding the color palette, we just went with the default one, which is the Wong color palette (see the default for the <a href="../../api/components/color.html#policy">categorical</a> policy).</p><div class="chart-container" id="chart-step-3"><div class="margin-right" style="top:30px"><b>Better color management.</b> Colors are assigned by the continent.</div></div><script>(async() => {
+</code></pre><p>Regarding the color palette, we just went with the default one, which is the Wong color palette (see the default for the <a href="../../api/components/color.html#policy">categorical</a> policy).</p><div class="chart-container" id="chart-step-3"></div><script>(async() => {
   // Load data and continents.
   const data = await d3.json('data.json')
   const continents = await d3.json('continents.json')
@@ -162,7 +162,7 @@ const continents = await d3.json('continents.json')
     })
     .render()
 })()
-</script><h2 id="sec-step4">Interactions</h2><p>There are various types of interactions we can add to the chart. Let's start with a tooltip that shows the details when hovering over a country. We can add tooltip through the <a href="../../api/components/element-tooltip.html">ElementTooltip</a> API, quite easily actually:</p><pre><code class="hljs javascript">// Add tooltip. Each entry is formatted differently.
+</script><h2>Interactions</h2><p>There are various types of interactions we can add to the chart. Let's start with a tooltip that shows the details when hovering over a country. We can add tooltip through the <a href="../../api/components/element-tooltip.html">ElementTooltip</a> API, quite easily actually:</p><pre><code class="hljs javascript">// Add tooltip. Each entry is formatted differently.
 .tooltip.on(true)
 .tooltip.labelFormat(d => d === 'size' ? 'Population:' : d + ':')
 .tooltip.valueFormat((d, label) => {
@@ -188,7 +188,7 @@ const continents = await d3.json('continents.json')
 </code></pre><p>Note that the tooltip API allows for formatting each entry in the tooltip separately as the name of the entry label is passed as the second argument to the value formatter. Also, the labels passed to the tooltip are just the axis labels and 'size' for the bubble sizes (see the docs for <a href="../../catalogue/charts/bubble-chart">BubbleChart</a>).</p><p>We can also add some highlight when hovered over a country to see it a bit better. All mouse interactions are added through the <a href="../../api/components/mouse.html">Mouse</a> component which simply binds a callback to the bubbles:</p><pre><code class="hljs javascript">// Highlight bubble on hover.
 .mouse.over(d => chart.highlight(d.name))
 .mouse.leave(() => chart.highlight(null))
-</code></pre><div class="chart-container" id="chart-step-4"><div class="margin-right" style="top:30px"><b>With interactions.</b> A minimalistic tooltip and some highlight.</div></div><script>(async() => {
+</code></pre><div class="chart-container" id="chart-step-4"></div><script>(async() => {
   // Load data and continents.
   const data = await d3.json('data.json')
   const continents = await d3.json('continents.json')
@@ -262,7 +262,7 @@ const continents = await d3.json('continents.json')
     .mouse.leave(() => chart.highlight(null))
     .render()
 })()
-</script><h2 id="sec-step5">Changing data</h2><p>To complete the chart, we add a <a href="../../catalogue/controls/slider">Slider</a> to be able to change the data displayed in our chart. Adding the slider and binding the chart update to it  is rather easy:</p><pre><code class="hljs javascript">// Add slider.
+</script><h2>Changing data</h2><p>To complete the chart, we add a <a href="../../catalogue/controls/slider">Slider</a> to be able to change the data displayed in our chart. Adding the slider and binding the chart update to it  is rather easy:</p><pre><code class="hljs javascript">// Add slider.
 dalian.Slider('slider-step-5', '#chart-step-5')
   // Adjusting slider position and size.
   .y(0.8 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
@@ -284,7 +284,7 @@ dalian.Slider('slider-step-5', '#chart-step-5')
     }))).render(100)
   })
   .render()
-</code></pre><p>The callback function is simply the copy of the previous data binding from <i>Logarithmic X-axis</i>. Also, when the year is changed, the rendering is not instant but we add a 100ms transition to make the update more smooth.</p><div class="chart-container" id="chart-step-5"><div class="margin-right" style="top:30px"><b>With a slider.</b> Now we can control the chart data easily.</div></div><script>(async() => {
+</code></pre><p>The callback function is simply the copy of the previous data binding from <i>Logarithmic X-axis</i>. Also, when the year is changed, the rendering is not instant but we add a 100ms transition to make the update more smooth.</p><div class="chart-container" id="chart-step-5"></div><script>(async() => {
   // Load data and continents.
   const data = await d3.json('data.json')
   const continents = await d3.json('continents.json')
@@ -303,7 +303,7 @@ dalian.Slider('slider-step-5', '#chart-step-5')
 
     // Read dimensions from the container.
     .width(parseFloat(d3.select('#chart-step-5').style('width')))
-    .height(0.9 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
+    .height(parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
     .margins(50)
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
@@ -361,7 +361,7 @@ dalian.Slider('slider-step-5', '#chart-step-5')
   // Add slider.
   dalian.Slider('slider-step-5', '#chart-step-5')
     // Adjusting slider position and size.
-    .y(0.8 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
+    .y(0.9 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
     .width(parseFloat(d3.select('#chart-step-5').style('width')))
     .height(0.2 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
     .margins(50)
@@ -381,7 +381,7 @@ dalian.Slider('slider-step-5', '#chart-step-5')
     })
     .render()
 })()
-</script><h2 id="sec-step6">Final improvements</h2><p>Our life expectancy tool is basically ready, it is functionally complete and we could just call it a day. But for a really nice end result we can spice the chart a bit up by fixing the following:</p><h3>Axes</h3><p>The axes change along with the data so we cannot really observe the overall trends only countries relative to each other. This can be easily resolved by fixing the axis ranges with the <a href="../../api/components/x-range">XRange</a> and <a href="../../api/components/y-range">YRange</a> components. For the sake of simplicity we manually set these values now.</p><pre><code class="hljs javascript">// Set fixed ranges.
+</script><h2>Final improvements</h2><p>Our life expectancy tool is basically ready, it is functionally complete and we could just call it a day. But for a really nice end result we can spice the chart a bit up by fixing the following:</p><h3>Axes</h3><p>The axes change along with the data so we cannot really observe the overall trends only countries relative to each other. This can be easily resolved by fixing the axis ranges with the <a href="../../api/components/x-range">XRange</a> and <a href="../../api/components/y-range">YRange</a> components. For the sake of simplicity we manually set these values now.</p><pre><code class="hljs javascript">// Set fixed ranges.
 .xRange.min(Math.log10(300))
 .xRange.max(Math.log10(2e5))
 .yRange.min(15)
@@ -426,7 +426,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 260
   })
   .render()
-</code></pre><p>And this is how the final chart looks like in less than 150 lines of code:</p><div class="chart-container" id="chart-step-6"><div class="margin-right" style="top:30px"><b>The final chart.</b> The fully functioning and polished chart.</div></div><script>(async() => {
+</code></pre><p>And this is how the final chart looks like in less than 150 lines of code:</p><div class="chart-container" id="chart-step-6"></div><script>(async() => {
   // Load data and continents.
   const data = await d3.json('data.json')
   const continents = await d3.json('continents.json')
@@ -454,7 +454,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
 
     // Read dimensions from the container.
     .width(parseFloat(d3.select('#chart-step-6').style('width')))
-    .height(0.9 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
+    .height(parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
     .margins(50)
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
@@ -509,7 +509,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     .mouse.leave(() => chart.highlight(null))
 
     // Set fixed ranges.
-    .xRange.min(Math.log10(300))
+    .xRange.min(Math.log10(100))
     .xRange.max(Math.log10(2e5))
     .yRange.min(15)
     .yRange.max(90)
@@ -520,7 +520,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
   // Add slider.
   dalian.Slider('slider-step-6', '#chart-step-6')
     // Adjusting slider position and size.
-    .y(0.8 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
+    .y(0.9 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
     .width(parseFloat(d3.select('#chart-step-6').style('width')))
     .height(0.2 * parseFloat(d3.select('#chart-step-6').style('padding-bottom')))
     .margins(50)
@@ -546,7 +546,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
   const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     .width(200)
     .height(100)
-    .font.size(10)
+    .font.size(11)
     .entries(['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
     .color.palette({
       'Africa': '#4477aa',
@@ -569,8 +569,8 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
 
     // Insert in the chart.
     .insert(chart, {
-      x: parseFloat(d3.select('#chart-step-6').style('width')) - 200,
-      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 240
+      x: parseFloat(d3.select('#chart-step-6').style('width')) - 210,
+      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 200
     })
     .render()
 })()

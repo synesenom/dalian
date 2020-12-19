@@ -17,7 +17,7 @@ module.exports = function (name) {
   if (typeof name === 'undefined')
     return
 
-  const pages = name === 'all' ? PAGES : [name]
+  const pages = name === 'undefined' ? PAGES : [name]
   pages.forEach(page => {
     console.log(`Building tutorials: ${page}`)
     build(page)

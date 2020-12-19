@@ -17,7 +17,7 @@
 
     // Read dimensions from the container.
     .width(parseFloat(d3.select('#chart-step-5').style('width')))
-    .height(0.9 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
+    .height(parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
     .margins(50)
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
@@ -75,7 +75,7 @@
   // Add slider.
   dalian.Slider('slider-step-5', '#chart-step-5')
     // Adjusting slider position and size.
-    .y(0.8 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
+    .y(0.9 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
     .width(parseFloat(d3.select('#chart-step-5').style('width')))
     .height(0.2 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
     .margins(50)
