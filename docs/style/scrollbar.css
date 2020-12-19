@@ -6,7 +6,7 @@
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(74, 118, 255, 0.18);
+    background: rgba(74, 118, 255, 0.1);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: royalblue;

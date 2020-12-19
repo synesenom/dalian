@@ -1,0 +1,8 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        each css in ['fonts', 'scrollbar', 'base', 'main', 'link', 'heading', 'code', 'list', 'desktop', 'atelier-lakeside-light']
+            link(rel='stylesheet', type='text/css', href='style/' + css + '.css')
+        title tutorials

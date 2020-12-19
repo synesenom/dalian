@@ -17,7 +17,7 @@ import YRange from '../components/range/y-range'
  * its available APIs. Furthermore, it extends the following components:
  * <ul>
  *   <li><a href="../components/bottom-axis.html">BottomAxis</a></li>
- *   <li><a href="../components/point-tooltip.html">ElementTooltip</a></li>
+ *   <li><a href="../components/point-tooltip.html">ElementTooltip</a> The tooltip contains the X and Y values as well as the bubble size. The labels used in the tooltip are the axis labels for X and Y and 'size' for the size entry. These labels can be used to customize and format the tooltip entries.</li>
  *   <li>
  *     <a href="../components/highlight.html">Highlight</a> Bubbles can be highlighted by passing their names as
  *     specified in the data array.
@@ -191,7 +191,6 @@ export default (name, parent = 'body') => {
         data: [
           { name: self._bottomAxis.label.text(), value: bubble.value.x },
           { name: self._leftAxis.label.text(), value: bubble.value.y },
-          // TODO Add size label.
           { name: 'size', value: bubble.value.size }
         ]
       }

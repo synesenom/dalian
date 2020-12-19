@@ -136,8 +136,7 @@ export default (self, api) => {
      *
      * @method valueFormat
      * @methodOf ElementTooltip
-     * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the entry
-     * data. Can be HTML formatted.
+     * @param {Function} [format = d => d] Function to use as the formatter. May take two parameters: the value for the entry and the entry name (label before the value). Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */
     valueFormat: (format = DEFAULTS.valueFormat) => {
