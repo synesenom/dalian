@@ -69,7 +69,16 @@ export default (name, parent = 'body') => {
     computeDiagram: data => voronoi()
       .x(d => _.scales.x.scale(d.value.x))
       .y(d => _.scales.y.scale(d.value.y))
-      .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(data),
+      .extent([[0, 0], [
+        parseInt(self._widget.size.innerWidth),
+        parseInt(self._widget.size.innerHeight)]
+      ])(data),
+
+    updateCurrent (bubble) {
+      if (typeof bubble === 'undefined') {
+
+      }
+    },
 
     // Update.
     update (duration) {
@@ -149,22 +158,33 @@ export default (name, parent = 'body') => {
 
       // Add event to detect hovering events.
       self._widget.container
-        .on('mousemove.scatter', () => {
-          const bubble = _.diagram.find(...self._widget.getMouse(), 10) || undefined
+        .on('mousemove.bubble', () => {
+          // Find current bubble.
+          const bubble = _.diagram.find(...self._widget.getMouse(), 20)
 
-          // Mouse events.
-          if (typeof bubble !== 'undefined' && bubble !== _.current.closest) {
-            // If bubble is different from current closest, call mouseover.
-            self._mouse.over(bubble.data)
-          } else if (typeof _.current.hovered === 'undefined' && typeof _.current.closest !== 'undefined') {
-            // If current hovered is empty but closest was not empty, call mouse leave.
+          if (bubble === null) {
+            // If no bubble was found, call mouse leave on current closest and remove it.
             self._mouse.leave(_.current.closest)
-          }
+            _.current.closest = undefined
 
-          // Update current closest.
-          _.current.closest = (bubble && bubble.data) || undefined
+            // If there is a hovered one, call mouse over on it.
+            if (typeof _.current.hovered !== 'undefined') {
+              self._mouse.over(_.current.hovered)
+            }
+          } else {
+            // Bubble is found.
+
+            // If currently hovered over a bubble, call leave on that one.
+            if (typeof _.current.hovered !== 'undefined') {
+              self._mouse.leave(_.current.hovered)
+            }
+
+            // Update closest and call mouse over.
+            _.current.closest = bubble.data
+            self._mouse.over(_.current.closest)
+          }
         })
-        .on('click.scatter', () => {
+        .on('click.bubble', () => {
           if (typeof _.current.closest !== 'undefined') {
             self._mouse.click(_.current.closest)
           }
@@ -179,7 +199,7 @@ export default (name, parent = 'body') => {
     }
 
     // Find closest site.
-    const bubble = _.current.hovered || _.current.closest
+    const bubble = _.current.closest || _.current.hovered
     if (!bubble) {
       return
     }
