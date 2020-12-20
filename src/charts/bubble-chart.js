@@ -74,12 +74,6 @@ export default (name, parent = 'body') => {
         parseInt(self._widget.size.innerHeight)]
       ])(data),
 
-    updateCurrent (bubble) {
-      if (typeof bubble === 'undefined') {
-
-      }
-    },
-
     // Update.
     update (duration) {
       // Determine boundaries.
@@ -117,20 +111,34 @@ export default (name, parent = 'body') => {
         enter: g => {
           g.style('opacity', 0)
             .style('color', self._color.mapper)
-            // Update hovered bubble.
             .on('mouseover.bubble', d => {
+              // Update currently hovered.
               _.current.hovered = d
+
+              // If there is no closest, call mouse over on hovered.
+              if (typeof _.current.closest === 'undefined') {
+                self._mouse.over(_.current.hovered)
+              }
             })
             .on('mouseleave.bubble', () => {
+              // If no current closest, call leave on hovered.
+              if (typeof _.current.closest === 'undefined') {
+                self._mouse.leave(_.current.hovered)
+              }
+
+              // Update hovered.
               _.current.hovered = undefined
             })
+            // Remove chart mouse events.
+            .on('mouseover.chart', null)
+            .on('mouseleave.chart', null)
 
           // Add bubble.
           g.append('circle')
             .attr('class', 'bubble')
             .attr('cx', d => _.scales.x.scale(d.value.x))
             .attr('cy', d => _.scales.y.scale(d.value.y))
-            .attr('r', d => _.scales.size.scale(d.value.size))
+            .attr('r', d => Math.max(_.scales.size.scale(d.value.size), 1))
             .attr('stroke', 'currentColor')
             .attr('fill', 'currentColor')
             .raise()
@@ -145,7 +153,7 @@ export default (name, parent = 'body') => {
           g.select('.bubble')
             .attr('cx', d => _.scales.x.scale(d.value.x))
             .attr('cy', d => _.scales.y.scale(d.value.y))
-            .attr('r', d => _.scales.size.scale(d.value.size))
+            .attr('r', d => Math.max(_.scales.size.scale(d.value.size), 1))
             .attr('fill-opacity', self._opacity.value())
 
           return g

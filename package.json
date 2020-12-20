@@ -44,7 +44,7 @@
   },
   "scripts": {
     "build:tutorials": "node docs/index.js --tutorial",
-    "build:docs": "cd docs; node index.js --docs all; cd ..",
+    "build:docs": "node docs/index.js --docs all",
     "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",
     "dev:tutorials": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/tutorials --ext pug,js --exec 'node docs/index.js --tutorial'",

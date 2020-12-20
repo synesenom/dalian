@@ -92,6 +92,9 @@ export default (type, name, parent, elem = 'svg') => {
             enter => enter.append('g')
               .attr('class', d => `plot-group ${encode(d.name)}`)
               .style('shape-rendering', 'geometricPrecision')
+              .on('mouseover.chart', self._mouse.over)
+              .on('mouseleave.chart', self._mouse.leave)
+              .on('click.chart', self._mouse.click)
               .call(attr.enter || (g => g)),
 
             // Groups that only update: do nothing (updates are applied to all groups at the end).
@@ -102,9 +105,6 @@ export default (type, name, parent, elem = 'svg') => {
               .call(attr.exit || (g => g))
               .remove()
           )
-          .on('mouseover.chart', self._mouse.over)
-          .on('mouseleave.chart', self._mouse.leave)
-          .on('click.chart', self._mouse.click)
           .each(() => {
             // Disable pointer events before transition.
             self._chart.plots.style('pointer-events', 'none')
