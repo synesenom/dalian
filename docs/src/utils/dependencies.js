@@ -1,4 +1,4 @@
-const meta = require('../../package')
+const meta = require('../../../package')
 
 
 module.exports = Object.entries(meta.dependencies)

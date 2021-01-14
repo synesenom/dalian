@@ -1,20 +1,31 @@
 const { ArgumentParser } = require('argparse')
-const dependencies = require('./src/dependencies')
+const dependencies = require('./src/utils/dependencies')
 const documentation = require('documentation')
 const ModuleParser = require('./src/module-parser')
 const meta = require('../package')
 const fs = require('fs')
 const pug = require('pug')
 const { JSDOM } = require('jsdom')
-const buildTutorial = require('./src/build-tutorial')
+const buildHome = require('./src/pages/home')
+const buildApi = require('./src/pages/api')
+const buildTutorial = require('./src/pages/tutorial')
 
 
 const parser = new ArgumentParser({
   description: 'Documentation builder'
 })
+parser.add_argument('-i', '--home', {
+  help: 'Compile home page [off].',
+  action: 'store_true'
+})
+parser.add_argument('-a', '--api', {
+  help: 'Compile API pages [off].',
+  nargs: '?'
+})
 parser.add_argument('-t', '--tutorial', {
   help: 'Compile tutorial pages [off].',
-  nargs: '?'
+  nargs: '?',
+  default: null
 })
 parser.add_argument('-d', '--docs', {
   help: 'Compile documentation [off].'
@@ -23,10 +34,21 @@ parser.add_argument('-d', '--docs', {
 const args = parser.parse_args()
 
 
+// Build home page.
+if (args.home) {
+  buildHome()
+}
+
+// Build API pages.
+if (typeof args.api === 'string') {
+  buildApi()
+}
+
 // Build tutorial.
 buildTutorial(args.tutorial)
 
-
+// Build docs
+// TODO Separate API and examples.
 if (typeof args.docs !== 'undefined') {
   const MODULES = [
     'charts/area-chart',
@@ -79,9 +101,7 @@ if (typeof args.docs !== 'undefined') {
 
   const getModuleName = path => path.split('/').slice(-1)[0]
 
-  const getFileSizeInBytes = path => fs.statSync(path).size
-
-  const getExamplePath = d => `catalogue/${getModuleCategory(d)}/${getModuleName(d)}/content.html`
+  const getExamplePath = d => `./docs/catalogue/${getModuleCategory(d)}/${getModuleName(d)}/content.html`
 
   const hasExamplePage = d => fs.existsSync(getExamplePath(d))
 
@@ -91,7 +111,7 @@ if (typeof args.docs !== 'undefined') {
   // eslint-disable-next-line no-inner-declarations
   function buildFromTemplate(name, templateName, outputPath, config) {
     console.log(`Building: ${name}`)
-    const template = pug.compileFile(`./templates/${templateName}.pug`)
+    const template = pug.compileFile(`./docs/templates/${templateName}.pug`)
     fs.writeFileSync(outputPath, template(config));
   }
 
@@ -100,7 +120,7 @@ if (typeof args.docs !== 'undefined') {
     return modules.filter(d => getModuleCategory(d) === section)
       .filter(hasExamplePage)
       .map(d => {
-        const content = fs.readFileSync(`catalogue/${d}/content.html`, {encoding: 'utf8'})
+        const content = fs.readFileSync(`./docs/catalogue/${d}/content.html`, {encoding: 'utf8'})
         const document = new JSDOM(content).window.document
         const script = document.getElementsByClassName('card-example')[0].outerHTML
         return {
@@ -112,56 +132,8 @@ if (typeof args.docs !== 'undefined') {
       })
   }
 
-  buildFromTemplate('Docs index page', 'index', 'index.html', {
-    gitHubBanner: fs.readFileSync('./templates/github-banner-new.html', {encoding: 'utf-8'}),
-
-    // Download links
-    download: {
-      minjs: {
-        url: 'dl/dalian.min.js',
-        size: Math.round(getFileSizeInBytes('dl/dalian.min.js') / 1000)
-      },
-      gzip: {
-        url: 'dl/dalian.min.js.gz',
-        size: Math.round(getFileSizeInBytes('dl/dalian.min.js.gz') / 1000)
-      }
-    },
-
-    // Install commands
-    install: {
-      node: 'dalian.min.js',
-      browser: {
-        dependencies: dependencies
-          .map(d => `<script src="https://unpkg.com/${d.lib}@${d.version}"></script>`).join('\n'),
-        module: {
-          unpkg: `<script src="https://unpkg.com/${meta.name}"></script>`,
-          local: `<script src="${meta.name}.min.js"></script>`
-        }
-      }
-    }
-  });
-
-
-// Build API root page
-  buildFromTemplate('API index page', 'api-index', 'api/index.html', {
-    modules: Object.entries(MODULES.reduce((acc, d) => {
-      const category = getModuleCategory(d)
-      if (typeof acc[category] === 'undefined') {
-        acc[category] = []
-      }
-      acc[category].push({
-        name: getModuleName(d),
-        factory: kebabToCamel(getModuleName(d))
-      })
-      return acc
-    }, {})).map(d => ({
-      category: d[0],
-      entries: d[1]
-    }))
-  })
-
 // Build catalogue index
-  buildFromTemplate('Catalogue index page', 'catalogue', 'catalogue/index.html', {
+  buildFromTemplate('Catalogue index page', 'catalogue', './docs/catalogue/index.html', {
     dependencies,
     components: MODULES.filter(d => getModuleCategory(d) === 'components')
       .filter(hasExamplePage)

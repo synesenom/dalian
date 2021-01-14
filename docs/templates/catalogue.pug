@@ -3,7 +3,7 @@ html(lang='en')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        each css in ['fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'catalogue', 'desktop']
+        each css in ['fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'cards', 'desktop']
             link(rel='stylesheet', type='text/css', href='../style/' + css + '.css')
         each dependency in dependencies
             script(type='text/javascript', src='../js/' + dependency.lib + '.' + dependency.version + '.min.js')

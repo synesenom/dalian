@@ -41,11 +41,11 @@ module.exports = (meta, docs, modulePath) => {
   let api = {
     buildReferencePage: () => {
       console.log(`Building: API reference page (${moduleName})`)
-      const path = `api/${type}`
+      const path = `docs/api/${type}`
       createPath(path)
 
       // Build template
-      const template = pug.compileFile('./templates/api-page.pug')
+      const template = pug.compileFile('./docs/templates/api-page.pug')
       fs.writeFileSync(`${path}/${moduleName}.html`, template({
         // Documentation root directory
         rootDir: '../../',
@@ -64,19 +64,19 @@ module.exports = (meta, docs, modulePath) => {
             })()
         })),
 
-        exampleUrl: `../../catalogue/${type}/${moduleName}`
+        exampleUrl: `../../docs/catalogue/${type}/${moduleName}`
       }))
       return api
     },
 
     buildExamplePage: () => {
       console.log(`Building: Example page (${moduleName})`)
-      const path = `catalogue/${type}`
+      const path = `docs/catalogue/${type}`
       createPath(path)
 
       // Build template
-      const template = pug.compileFile('./templates/example.pug')
-      const content = fs.readFileSync(`catalogue/${type}/${moduleName}/content.html`, {encoding: 'utf8'})
+      const template = pug.compileFile('./docs/templates/example.pug')
+      const content = fs.readFileSync(`docs/catalogue/${type}/${moduleName}/content.html`, {encoding: 'utf8'})
       const document = new JSDOM(content).window.document
 
       fs.writeFileSync(`${path}/${moduleName}/index.html`, template({
