@@ -100,7 +100,7 @@ function createSequentialMapping (palette, missing, on) {
       return value === null ? missing : i(value)
     }
   } else if (Array.isArray(palette)) {
-    // Array: interpolate within array. We also apply a recommended gamma of 2.2.
+    // Array: interpolate within array.
     const i = piecewise(interpolateRgb.gamma(2.2), palette)
     return d => {
       const value = on(d)

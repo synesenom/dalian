@@ -64,21 +64,21 @@ export default (name, parent = 'body') => {
 
   function onClick () {
     // Update checked status.
-    _.internal.checked = !_.internal.checked
+    _.i.checked = !_.i.checked
 
     // TODO Make separate method to update checkbox.
-    _.dom.box.style('background', _.internal.checked ? _.internal.color
-      : lighter(_.internal.color, 0.6))
-    _.dom.mark.style('display', _.internal.checked ? null : 'none')
+    _.dom.box.style('background', _.i.checked ? _.i.color
+      : lighter(_.i.color, 0.6))
+    _.dom.mark.style('display', _.i.checked ? null : 'none')
 
     // Trigger callback.
-    _.internal.callback && _.internal.callback(_.internal.checked)
+    _.i.callback && _.i.callback(_.i.checked)
   }
 
   // Private members.
   const _ = {
     // Internal variables.
-    internal: Object.assign({}, DEFAULTS),
+    i: Object.assign({}, DEFAULTS),
 
     // DOM.
     dom: (() => {
@@ -122,19 +122,19 @@ export default (name, parent = 'body') => {
         .style('margin-left', self._widget.margins.left + 'px')
         .style('margin-top', self._widget.margins.top + 'px')
         .style('width', self._widget.size.innerWidth)
-        .style('opacity', _.internal.disabled ? 0.4 : 1)
-        .style('cursor', _.internal.disabled ? 'default' : 'pointer')
-        .style('pointer-events', _.internal.disabled ? 'none' : 'all')
+        .style('opacity', _.i.disabled ? 0.4 : 1)
+        .style('cursor', _.i.disabled ? 'default' : 'pointer')
+        .style('pointer-events', _.i.disabled ? 'none' : 'all')
 
       // Adjust label.
-      _.dom.label.text(_.internal.label)
+      _.dom.label.text(_.i.label)
 
       // Adjust box.
       self._widget.getElem(_.dom.box, duration)
-        .style('background', _.internal.checked ? _.internal.color : lighter(_.internal.color, 0.6))
+        .style('background', _.i.checked ? _.i.color : lighter(_.i.color, 0.6))
 
       // Adjust mark.
-      _.dom.mark.style('display', _.internal.checked ? null : 'none')
+      _.dom.mark.style('display', _.i.checked ? null : 'none')
     }
   }
 
@@ -161,7 +161,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     callback (callback) {
-      _.internal.callback = callback
+      _.i.callback = callback
       return api
     },
 
@@ -184,7 +184,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     check (on = DEFAULTS.checked) {
-      _.internal.checked = on
+      _.i.checked = on
       return api
     },
 
@@ -207,7 +207,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.internal.color = color
+      _.i.color = color
       return api
     },
 
@@ -230,7 +230,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     disable (on = DEFAULTS.disabled) {
-      _.internal.disabled = on
+      _.i.disabled = on
       return api
     },
 
@@ -253,7 +253,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     label (text = DEFAULTS.label) {
-      _.internal.label = text
+      _.i.label = text
       return api
     }
   })

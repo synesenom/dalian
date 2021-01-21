@@ -62,26 +62,26 @@ export default (name, parent = 'body') => {
 
   function onSelect (d) {
     // If selected the same option, do nothing.
-    if (_.internal.selected === d) {
+    if (_.i.selected === d) {
       return
     }
 
     // Update selected status.
-    _.internal.selected = d
+    _.i.selected = d
 
     _.dom.container.selectAll('.' + CLASSES.entry)
       .select('.' + CLASSES.marker)
-      .style('border-color', d => d === _.internal.selected ? _.internal.color : 'transparent')
-      .style('background', d => d === _.internal.selected ? '#fff' : lighter(_.internal.color, 0.6))
+      .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
+      .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
 
     // Trigger callback.
-    _.internal.callback && _.internal.callback(_.internal.selected)
+    _.i.callback && _.i.callback(_.i.selected)
   }
 
   // Private members.
   const _ = {
     // Internal variables.
-    internal: Object.assign({
+    i: Object.assign({
       entries: [],
       rows: 1
     }, DEFAULTS),
@@ -97,27 +97,27 @@ export default (name, parent = 'body') => {
     })(),
 
     entryWidth () {
-      if (_.internal.hSep === null || _.internal.columns === 1)  {
-        return parseFloat(self._widget.size.innerWidth) / _.internal.columns + 'px'
+      if (_.i.hSep === null || _.i.columns === 1)  {
+        return parseFloat(self._widget.size.innerWidth) / _.i.columns + 'px'
       } else {
-        return parseFloat(self._font.size) * _.internal.hSep + 'px'
+        return parseFloat(self._font.size) * _.i.hSep + 'px'
       }
     },
 
     entryHeight () {
-      return parseFloat(self._font.size) * _.internal.vSep + 'px'
+      return parseFloat(self._font.size) * _.i.vSep + 'px'
     },
 
     entryLeft (d, i) {
-      const xi = i % _.internal.columns
-      if (_.internal.hSep === null) {
-        return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._widget.size.innerWidth) / _.internal.columns}px`
+      const xi = i % _.i.columns
+      if (_.i.hSep === null) {
+        return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._widget.size.innerWidth) / _.i.columns}px`
       }
-      return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._font.size) * _.internal.hSep}px`
+      return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._font.size) * _.i.hSep}px`
     },
 
     entryTop (d, i) {
-      return `${parseFloat(self._widget.margins.top) + Math.floor(i / _.internal.columns)  * parseFloat(self._font.size) * _.internal.vSep}px`
+      return `${parseFloat(self._widget.margins.top) + Math.floor(i / _.i.columns)  * parseFloat(self._font.size) * _.i.vSep}px`
     },
 
     update (duration) {
@@ -130,7 +130,7 @@ export default (name, parent = 'body') => {
       const t = _.dom.container.transition().duration(duration)
 
       _.dom.container.selectAll('.' + CLASSES.entry)
-        .data(_.internal.entries, d => d)
+        .data(_.i.entries, d => d)
         .join(
           // Entering entries.
           enter => {
@@ -140,16 +140,16 @@ export default (name, parent = 'body') => {
               .style('height', _.entryHeight)
               .style('left', _.entryLeft)
               .style('top', _.entryTop)
-              .style('cursor', _.internal.disabled ? 'default' : 'pointer')
-              .style('pointer-events', _.internal.disabled ? 'none' : 'all')
-              .style('opacity', _.internal.disabled ? 0.4 : 1)
+              .style('cursor', _.i.disabled ? 'default' : 'pointer')
+              .style('pointer-events', _.i.disabled ? 'none' : 'all')
+              .style('opacity', _.i.disabled ? 0.4 : 1)
               .on('click', onSelect)
 
             // Marker
             entry.append('div')
               .attr('class', CLASSES.marker)
-              .style('border-color', d => d === _.internal.selected ? _.internal.color : 'transparent')
-              .style('background', d => d === _.internal.selected ? '#fff' : lighter(_.internal.color, 0.6))
+              .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
+              .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
 
             // Label.
             entry.append('div')
@@ -162,9 +162,9 @@ export default (name, parent = 'body') => {
           // Updated entries.
           update => {
             // Update entry
-            update.style('cursor', _.internal.disabled ? 'default' : 'pointer')
-              .style('pointer-events', _.internal.disabled ? 'none' : 'all')
-              .style('opacity', _.internal.disabled ? 0.4 : 1)
+            update.style('cursor', _.i.disabled ? 'default' : 'pointer')
+              .style('pointer-events', _.i.disabled ? 'none' : 'all')
+              .style('opacity', _.i.disabled ? 0.4 : 1)
               .call(elem => elem.transition(t)
                 .style('width', _.entryWidth)
                 .style('height', _.entryHeight)
@@ -175,8 +175,8 @@ export default (name, parent = 'body') => {
             // Update marker.
             update.transition(t)
               .select('.' + CLASSES.marker)
-              .style('border-color', d => d === _.internal.selected ? _.internal.color : 'transparent')
-              .style('background', d => d === _.internal.selected ? '#fff' : lighter(_.internal.color, 0.6))
+              .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
+              .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
 
             return update
           },
@@ -211,7 +211,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     callback (callback) {
-      _.internal.callback = callback
+      _.i.callback = callback
       return api
     },
 
@@ -234,7 +234,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.internal.color = color
+      _.i.color = color
       return api
     },
 
@@ -257,8 +257,8 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     columns (columns = DEFAULTS.columns) {
-      _.internal.columns = columns
-      _.internal.rows = Math.ceil(_.internal.entries.length / columns)
+      _.i.columns = columns
+      _.i.rows = Math.ceil(_.i.entries.length / columns)
       return api
     },
 
@@ -281,7 +281,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     disable (on = DEFAULTS.disabled) {
-      _.internal.disabled = on
+      _.i.disabled = on
       return api
     },
 
@@ -304,8 +304,8 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     entries (labels = []) {
-      _.internal.entries = labels
-      _.internal.rows = Math.ceil(labels.length / _.internal.columns)
+      _.i.entries = labels
+      _.i.rows = Math.ceil(labels.length / _.i.columns)
       return api
     },
 
@@ -328,7 +328,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     hSep (length = DEFAULTS.hSep) {
-      _.internal.hSep = typeof length === 'number' ? length : null
+      _.i.hSep = typeof length === 'number' ? length : null
       return api
     },
 
@@ -353,11 +353,11 @@ export default (name, parent = 'body') => {
      */
     select (entry) {
       // Make selection and update buttons if entry is a valid one.
-      if (_.internal.entries.indexOf(entry) > -1) {
-        _.internal.selected = entry
+      if (_.i.entries.indexOf(entry) > -1) {
+        _.i.selected = entry
       } else {
         // If it is invalid, unset all radio buttons.
-        _.internal.selected = undefined
+        _.i.selected = undefined
       }
       return api
     },
@@ -381,7 +381,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     vSep (length = DEFAULTS.vSep) {
-      _.internal.vSep = length
+      _.i.vSep = length
       return api
     }
   })

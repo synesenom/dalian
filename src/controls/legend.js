@@ -47,6 +47,8 @@ export default (name, parent = 'body') => {
   // Private members.
   const _ = {
     entries: [],
+
+    // Move these to internals.
     styles: DEFAULTS.styles,
     markers: DEFAULTS.markers,
     vSep: DEFAULTS.vSep,

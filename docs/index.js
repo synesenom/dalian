@@ -59,6 +59,7 @@ if (typeof args.docs !== 'undefined') {
     'charts/calendar-plot',
     'charts/chord-diagram',
     'charts/coxcomb-chart',
+    'charts/heatmap',
     'charts/line-chart',
     'charts/pie-chart',
     'charts/scatter-plot',

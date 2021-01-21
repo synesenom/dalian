@@ -41,7 +41,7 @@ export default (name, parent = 'body') => {
     scale,
 
     // Internal variables.
-    internal: Object.assign({domain: []}, DEFAULTS),
+    i: Object.assign({domain: []}, DEFAULTS),
 
     // DOM.
     dom: (() => {
@@ -73,7 +73,7 @@ export default (name, parent = 'body') => {
         .style('pointer-events', 'all')
         .call(drag()
           .on('start drag', () => {
-            handle.attr('fill', _.internal.color)
+            handle.attr('fill', _.i.color)
               .attr('stroke', '#fff')
               .attr('stroke-width', 2)
 
@@ -81,13 +81,13 @@ export default (name, parent = 'body') => {
             _.updateValue()
 
             // Update handle position.
-            _.dom.handle.attr('cx', _.scale.scale(_.internal.value) + 0.5)
-            _.dom.value.attr('x2', _.scale.scale(_.internal.value) + 0.5)
-            _.internal.callback && _.internal.callback(_.internal.value)
+            _.dom.handle.attr('cx', _.scale.scale(_.i.value) + 0.5)
+            _.dom.value.attr('x2', _.scale.scale(_.i.value) + 0.5)
+            _.i.callback && _.i.callback(_.i.value)
           })
           .on('end', () => {
             handle.attr('fill', '#fff')
-              .attr('stroke', _.internal.trackColor)
+              .attr('stroke', _.i.trackColor)
               .attr('stroke-width', 1)
           })
         )
@@ -108,32 +108,32 @@ export default (name, parent = 'body') => {
     })(),
 
     updateDomain () {
-      if (_.internal.step === 0) {
+      if (_.i.step === 0) {
         return []
       }
 
-      _.internal.domain = []
-      for (let i = _.internal.min; i <= _.internal.max; i += _.internal.step) {
-        _.internal.domain.push(i)
+      _.i.domain = []
+      for (let i = _.i.min; i <= _.i.max; i += _.i.step) {
+        _.i.domain.push(i)
       }
     },
 
     updateValue (initialValue) {
       const x = typeof initialValue === 'undefined' ? event.x : _.scale.scale(initialValue)
-      if (_.internal.step > 0) {
-        _.internal.value = _.internal.domain.reduce((prev, curr) => (Math.abs(_.scale.scale(curr) - x) < Math.abs(_.scale.scale(prev) - x) ? curr : prev))
+      if (_.i.step > 0) {
+        _.i.value = _.i.domain.reduce((prev, curr) => (Math.abs(_.scale.scale(curr) - x) < Math.abs(_.scale.scale(prev) - x) ? curr : prev))
       } else {
-        _.internal.value = Math.max(_.internal.min, Math.min(_.internal.max, _.scale.scale.invert(x)))
+        _.i.value = Math.max(_.i.min, Math.min(_.i.max, _.scale.scale.invert(x)))
       }
     },
 
     update (duration) {
       _.scale.range(0, parseFloat(self._widget.size.innerWidth))
-        .domain([_.internal.min, _.internal.max])
+        .domain([_.i.min, _.i.max])
 
       // Update internals.
       _.updateDomain()
-      _.updateValue(_.internal.value)
+      _.updateValue(_.i.value)
 
       // Adjust margin.
       const marginTop = parseFloat(self._widget.size.height) / 2
@@ -145,25 +145,25 @@ export default (name, parent = 'body') => {
       // Adjust track and overlay.
       self._widget.getElem(_.dom.track, duration)
         .attr('x2', self._widget.size.innerWidth)
-        .attr('stroke', _.internal.trackColor)
-        .attr('stroke-width', _.internal.thickness)
+        .attr('stroke', _.i.trackColor)
+        .attr('stroke-width', _.i.thickness)
       self._widget.getElem(_.dom.overlay, duration)
-        .attr('x1', -_.internal.thickness)
-        .attr('x2', parseFloat(self._widget.size.innerWidth) + _.internal.thickness)
-        .attr('stroke-width', 2 * _.internal.thickness)
+        .attr('x1', -_.i.thickness)
+        .attr('x2', parseFloat(self._widget.size.innerWidth) + _.i.thickness)
+        .attr('stroke-width', 2 * _.i.thickness)
 
       // Adjust value and handle.
       self._widget.getElem(_.dom.value, duration)
-        .attr('x2', _.scale.scale(_.internal.value) + 0.5)
-        .attr('stroke', _.internal.color)
-        .attr('stroke-width', _.internal.thickness)
+        .attr('x2', _.scale.scale(_.i.value) + 0.5)
+        .attr('stroke', _.i.color)
+        .attr('stroke-width', _.i.thickness)
       self._widget.getElem(_.dom.handle, duration)
-        .attr('cx', _.scale.scale(_.internal.value) + 0.5)
-        .attr('r', 1.1 * _.internal.thickness)
-        .attr('stroke', _.internal.trackColor)
+        .attr('cx', _.scale.scale(_.i.value) + 0.5)
+        .attr('r', 1.1 * _.i.thickness)
+        .attr('stroke', _.i.trackColor)
 
       // Adjust axis.
-      self._bottomAxis.margin({ bottom: marginTop - self._widget.margins.bottom - _.internal.thickness / 2 })
+      self._bottomAxis.margin({ bottom: marginTop - self._widget.margins.bottom - _.i.thickness / 2 })
     }
   }
 
@@ -191,7 +191,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     callback (callback) {
-      _.internal.callback = callback
+      _.i.callback = callback
       return api
     },
 
@@ -214,7 +214,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.internal.color = color
+      _.i.color = color
       return api
     },
 
@@ -237,7 +237,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     max (value = DEFAULTS.max) {
-      _.internal.max = value
+      _.i.max = value
       return api
     },
 
@@ -260,7 +260,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     min (value = DEFAULTS.min) {
-      _.internal.min = value
+      _.i.min = value
       return api
     },
 
@@ -283,7 +283,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     step (value = DEFAULTS.step) {
-      _.internal.step = Math.abs(value)
+      _.i.step = Math.abs(value)
       return api
     },
 
@@ -306,7 +306,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     thickness (thickness = DEFAULTS.thickness) {
-      _.internal.thickness = thickness
+      _.i.thickness = thickness
       return api
     },
 
@@ -329,7 +329,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     trackColor (color = DEFAULTS.trackColor) {
-      _.internal.trackColor = color
+      _.i.trackColor = color
       return api
     },
 
@@ -349,7 +349,7 @@ export default (name, parent = 'body') => {
      */
     value (value) {
       if (typeof value !== 'undefined') {
-        _.internal.value = value
+        _.i.value = value
       }
       return api
     }

@@ -47,7 +47,7 @@ export default (name, parent = 'body') => {
     scales,
 
     // Internal variables.
-    internal: Object.assign({}, DEFAULTS),
+    i: Object.assign({}, DEFAULTS),
 
     // DOM.
     dom: (() => {
@@ -113,7 +113,7 @@ export default (name, parent = 'body') => {
         .style('pointer-events', 'all')
         .call(drag()
           .on('start drag', () => {
-            handle.attr('fill', _.internal.color)
+            handle.attr('fill', _.i.color)
               .attr('stroke', '#fff')
               .attr('stroke-width', 2)
 
@@ -124,11 +124,11 @@ export default (name, parent = 'body') => {
             _.updateHandle(_.dom.handle, _.dom.guide)
 
             // Callback.
-            _.internal.callback && _.internal.callback(_.internal.values)
+            _.i.callback && _.i.callback(_.i.values)
           })
           .on('end', () => {
             handle.attr('fill', '#fff')
-              .attr('stroke', _.internal.color)
+              .attr('stroke', _.i.color)
               .attr('stroke-width', 1)
           })
         )
@@ -145,39 +145,39 @@ export default (name, parent = 'body') => {
     updateValues (initialValues) {
       const x = typeof initialValues === 'undefined' ? event.x : _.scales.x.scale(initialValues[0])
       const y = typeof initialValues === 'undefined' ? event.y : _.scales.y.scale(initialValues[1])
-      _.internal.values = [
-        Math.max(_.internal.ranges[0][0], Math.min(_.internal.ranges[0][1], _.scales.x.scale.invert(x))),
-        Math.max(_.internal.ranges[1][0], Math.min(_.internal.ranges[1][1], _.scales.y.scale.invert(y)))
+      _.i.values = [
+        Math.max(_.i.ranges[0][0], Math.min(_.i.ranges[0][1], _.scales.x.scale.invert(x))),
+        Math.max(_.i.ranges[1][0], Math.min(_.i.ranges[1][1], _.scales.y.scale.invert(y)))
       ]
     },
 
     updateHandle (handle, guide) {
-      const x = _.scales.x.scale(_.internal.values[0]) + 0.5
-      const y = _.scales.y.scale(_.internal.values[1]) + 0.5
+      const x = _.scales.x.scale(_.i.values[0]) + 0.5
+      const y = _.scales.y.scale(_.i.values[1]) + 0.5
       handle.attr('cx', x)
         .attr('cy', y)
-        .attr('stroke', _.internal.color)
+        .attr('stroke', _.i.color)
       guide.clip.attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight)
       guide.x.attr('x2', self._widget.size.innerWidth)
         .attr('y1', y)
         .attr('y2', y)
-        .attr('stroke', _.internal.color)
+        .attr('stroke', _.i.color)
       guide.y.attr('x1', x)
         .attr('x2', x)
         .attr('y2', self._widget.size.innerHeight)
-        .attr('stroke', _.internal.color)
+        .attr('stroke', _.i.color)
     },
 
     update (duration) {
       // Update scales.
       _.scales.x.range(0, parseFloat(self._widget.size.innerWidth))
-        .domain(_.internal.ranges[0])
+        .domain(_.i.ranges[0])
       _.scales.y.range(parseFloat(self._widget.size.innerHeight), 0)
-        .domain(_.internal.ranges[1])
+        .domain(_.i.ranges[1])
 
       // Update internals.
-      _.updateValues(_.internal.values)
+      _.updateValues(_.i.values)
 
       // Adjust container.
       self._widget.getElem(_.dom.container, duration)
@@ -187,8 +187,8 @@ export default (name, parent = 'body') => {
       self._widget.getElem(_.dom.track, duration)
         .attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight)
-        .attr('fill', lighter(_.internal.color, 0.8))
-        .attr('stroke', _.internal.color)
+        .attr('fill', lighter(_.i.color, 0.8))
+        .attr('stroke', _.i.color)
       self._widget.getElem(_.dom.overlay, duration)
         .attr('width', parseFloat(self._widget.size.innerWidth) + 20)
         .attr('height', parseFloat(self._widget.size.innerHeight) + 20)
@@ -198,9 +198,9 @@ export default (name, parent = 'body') => {
         self._widget.getElem(_.dom.handle, duration), {
           clip: self._widget.getElem(_.dom.guide.clip, duration),
           x: self._widget.getElem(_.dom.guide.x, duration)
-            .style('opacity', _.internal.guide ? 1 : 0),
+            .style('opacity', _.i.guide ? 1 : 0),
           y: self._widget.getElem(_.dom.guide.y, duration)
-            .style('opacity', _.internal.guide ? 1 : 0)
+            .style('opacity', _.i.guide ? 1 : 0)
         }
       )
     }
@@ -230,7 +230,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     callback (callback) {
-      _.internal.callback = callback
+      _.i.callback = callback
       return api
     },
 
@@ -253,7 +253,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.internal.color = color
+      _.i.color = color
       return api
     },
 
@@ -276,7 +276,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     guide (on = DEFAULTS.guide) {
-      _.internal.guide = on
+      _.i.guide = on
       return api
     },
 
@@ -304,9 +304,9 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     range (range1, range2) {
-      _.internal.ranges = [
-        Array.isArray(range1) ? range1 : _.internal.range[0],
-        Array.isArray(range2) ? range2 : _.internal.range[1]
+      _.i.ranges = [
+        Array.isArray(range1) ? range1 : _.i.range[0],
+        Array.isArray(range2) ? range2 : _.i.range[1]
       ]
       return api
     },
@@ -335,9 +335,9 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     value (value1, value2) {
-      _.internal.values = [
-        typeof value1 === 'number' ? value1 : _.internal.values[0],
-        typeof value2 === 'number' ? value2 : _.internal.values[1]
+      _.i.values = [
+        typeof value1 === 'number' ? value1 : _.i.values[0],
+        typeof value2 === 'number' ? value2 : _.i.values[1]
       ]
       return api
     }
