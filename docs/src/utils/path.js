@@ -1,9 +1,11 @@
-module.exports = {
-  getModuleCategory (path) {
-    return path.split('/')[0]
-  },
+const kebabToPascal = require('./kebab-to-pascal')
 
-  getModuleName (path) {
-    return path.split('/').slice(-1)[0]
-  }
+const getModuleName = path => path.split('/').slice(-1)[0]
+
+module.exports = {
+  getModuleName,
+
+  getModuleCategory: path => path.split('/')[0],
+
+  getFactoryName: path => kebabToPascal(getModuleName(path))
 }

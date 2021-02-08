@@ -24,7 +24,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "cross-env": "^7.0.2",
-    "documentation": "^13.1.0",
+    "documentation": "^13.1.1",
     "eslint-config-standard": "^14.1.1",
     "istanbul": "^0.4.5",
     "jsdom": "^16.4.0",
@@ -43,9 +43,11 @@
     "standard": "^14.3.3"
   },
   "scripts": {
-    "build:api": "node docs/index.js --api",
-    "build:tutorial": "node docs/index.js --tutorial",
     "build:home": "node docs/index.js --home",
+    "build:tutorials": "node docs/index.js --tutorials",
+    "build:catalogue": "node docs/index.js --catalogue",
+    "build:api": "node docs/index.js --api",
+
     "build:docs": "node docs/index.js --docs all",
     "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",

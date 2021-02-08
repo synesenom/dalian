@@ -1,4 +1,4 @@
-const _extractDesc = require('./dfs')
+const _extractDesc = require('../utils/dfs')
 const ParamParser = require('./param-parser')
 
 module.exports = block => {

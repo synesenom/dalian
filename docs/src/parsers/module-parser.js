@@ -1,35 +1,18 @@
 const fs = require('fs')
+const dependencies = require('../utils/dependencies')
 const BlockParser = require('./block-parser')
 const pug = require('pug')
 const { JSDOM } = require('jsdom')
+const createPath = require('../utils/create-path')
+const { getModuleName, getModuleCategory, getFactoryName } = require('../utils/path')
+const compile = require('../utils/compile')
 
 
-const createDir = path => {
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path)
-  }
-}
-
-const createPath = path => {
-  let dirs = path.split('/')
-  dirs.reduce((current, dir) => {
-    current += '/' + dir
-    createDir(current)
-    return current
-  }, '.')
-}
+const CATALOGUE_ROOT = './docs/catalogue'
 
 
-module.exports = (meta, docs, modulePath) => {
-  const type = modulePath.split('/')[0]
-  const moduleName = modulePath.split('/').slice(-1)[0]
-  const factoryName = moduleName.split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
-
-  // Dependencies
-  const dependencies = Object.entries(meta.dependencies).map(d => ({
-    lib: d[0],
-    version: d[1].match(/(\d+.\d+.\d+)$/)[0]
-  }))
+module.exports = (docs, modulePath) => {
+  const factoryName = getModuleName(modulePath).split('-').map(d => d.charAt(0).toUpperCase() + d.substring(1)).join('')
 
   // Parse documentation blocks and sort them alphabetically, but put the factory method to the first place.
   let blocks = docs.map(BlockParser)
@@ -40,8 +23,11 @@ module.exports = (meta, docs, modulePath) => {
 
   let api = {
     buildReferencePage: () => {
+      const factoryName = getFactoryName(modulePath)
+      const moduleName = getModuleName(modulePath)
+      const category = getModuleCategory(modulePath)
       console.log(`Building: API reference page (${moduleName})`)
-      const path = `docs/api/${type}`
+      const path = `docs/api/${category}`
       createPath(path)
 
       // Build template
@@ -51,7 +37,7 @@ module.exports = (meta, docs, modulePath) => {
         rootDir: '../../',
 
         // Type
-        type,
+        type: category,
 
         // Content
         pageTitle: `${factoryName} | dalian`,
@@ -64,35 +50,37 @@ module.exports = (meta, docs, modulePath) => {
             })()
         })),
 
-        exampleUrl: `../../docs/catalogue/${type}/${moduleName}`
+        exampleUrl: `../../.${CATALOGUE_ROOT}/${category}/${moduleName}/`
       }))
       return api
     },
 
+    // TODO Move this to src/pages/catalogue
     buildExamplePage: () => {
-      console.log(`Building: Example page (${moduleName})`)
-      const path = `docs/catalogue/${type}`
+      console.log(`Building example page: ${modulePath}`)
+      const moduleName = getModuleName(modulePath)
+      const category = getModuleCategory(modulePath)
+      const path = `${CATALOGUE_ROOT}/${category}`
       createPath(path)
 
-      // Build template
-      const template = pug.compileFile('./docs/templates/example.pug')
-      const content = fs.readFileSync(`docs/catalogue/${type}/${moduleName}/content.html`, {encoding: 'utf8'})
+      const content = fs.readFileSync(`${CATALOGUE_ROOT}/${category}/${moduleName}/content.html`, {encoding: 'utf8'})
       const document = new JSDOM(content).window.document
 
-      fs.writeFileSync(`${path}/${moduleName}/index.html`, template({
-        type,
+      // Build template
+      compile('./docs/templates/example.pug', `${path}/${moduleName}/index.html`, {
+        category,
         modulePath,
-        title: factoryName,
+        moduleName,
+        factoryName: getFactoryName(modulePath),
         dependencies,
         description: document.getElementById('desc').innerHTML,
         code: Array.from(document.getElementsByClassName('doc')).map(d => d.outerHTML)
           .concat(Array.from(document.getElementsByClassName('doc-hidden')).map(d => d.outerHTML))
           .join(''),
         controls: document.getElementById('controls') && document.getElementById('controls').innerHTML,
-        minjs: '../../../dl/dalian.min.js',
-        widgetName: moduleName,
-        variableName: type === 'widgets' ? factoryName.charAt(0).toLowerCase() + factoryName.substring(1) : 'chart'
-      }))
+        minjs: '../../../dl/dalian.min.js'
+      })
+
       return api
     }
   }

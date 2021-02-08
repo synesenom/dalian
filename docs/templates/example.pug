@@ -17,7 +17,7 @@ html(lang='en')
               hljs.initHighlighting.called = false;
               hljs.initHighlighting();
             });
-        title #{title} | dalian
+        title #{factoryName} | dalian
     body
         main
             .main-content-centered
@@ -41,7 +41,7 @@ html(lang='en')
 
                 h1 code
                     .margin-right
-                        a(href='../../../api/' + type + '/' + widgetName + '.html') Documentation
+                        a(href='../../../api/' + category + '/' + moduleName + '.html') Documentation
                         a(href='https://github.com/synesenom/dalian/blob/master/src/' + modulePath + '.js') Source code
                 #code-doc
                 | !{code}
