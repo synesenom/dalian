@@ -50,7 +50,7 @@ module.exports = (docs, modulePath) => {
             })()
         })),
 
-        exampleUrl: `../../.${CATALOGUE_ROOT}/${category}/${moduleName}/`
+        exampleUrl: `../../catalogue/${category}/${moduleName}/`
       }))
       return api
     },
