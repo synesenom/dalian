@@ -14,6 +14,7 @@ import YRange from '../components/range/y-range'
 // TODO Add Objects.
 // TODO Add XRange and YRange.
 // TODO Convert canvas to SVG before downloading or add canvas conversion to Chart.download.
+// TODO Handle missing values.
 /**
  * The heatmap widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
@@ -66,10 +67,19 @@ export default (name, parent = 'body') => {
         .style('position', 'absolute')
         .style('width', '100%')
         .style('height', '100%')
-        .style('image-rendering', 'crisp-edges')
         .style('image-rendering', 'pixelated')
       const context = canvas.node().getContext('2d')
       const img = context.createImageData(...DEFAULTS.grid).data
+
+      // Init color of heatmap to something neutral: fully transparent white.
+      for (let j = 0, k = 0, l = 0; j < DEFAULTS.grid[1]; j++) {
+        for (let i = 0; i < DEFAULTS.grid[0]; i++, k++, l += 4) {
+          img[l] = 255
+          img[l + 1] = 255
+          img[l + 2] = 255
+          img[l + 3] = 0
+        }
+      }
 
       return {container, canvas, context, img}
     })(),
@@ -107,7 +117,7 @@ export default (name, parent = 'body') => {
       self._widget.transition = true
       const transition = timer(function (elapsed) {
         // Create scale variable.
-        let t = duration >> 0 ? elapsed / duration : 1
+        let t = duration > 0 ? elapsed / duration : 1
         _.interpolateImage(_.dom.img, self._chart.data, t)
 
         // Stop transition.
@@ -132,7 +142,7 @@ export default (name, parent = 'body') => {
         })
 
       // Update sizes.
-      _.dom.container.attr('x', 1 + self._widget.margins.left + 'px')
+      _.dom.container.attr('x', 0.5 + self._widget.margins.left + 'px')
         .attr('y', self._widget.margins.top + 'px')
         .attr('width', self._widget.size.innerWidth)
         .attr('height', self._widget.size.innerHeight)
@@ -140,23 +150,23 @@ export default (name, parent = 'body') => {
   }
 
   self._chart.transformData = data => {
-    // TODO
     // Determine size of the tiles.
     const xRange = extent(data.map(d => d.x))
     const yRange = extent(data.map(d => d.y))
-    const sx = (xRange[1] - xRange[0]) / _.i.grid[0]
-    const sy = (yRange[1] - yRange[0]) / _.i.grid[1]
+    const sx = Math.ceil((xRange[1] - xRange[0]) / _.i.grid[0])
+    const sy = Math.ceil((yRange[1] - yRange[0]) / _.i.grid[1])
 
     // Aggregate grid values.
-    let values = new Array(_.i.grid[0] * _.i.grid[1]).fill(0)
+    let values = new Array(_.i.grid[0] * _.i.grid[1]).fill(null)
     data.forEach(d => {
       const i = Math.floor((d.x - xRange[0]) / sx)
-      const j = Math.floor((d.y - yRange[0]) / sy)
-      values[i + j * _.i.grid[0]] += d.value || 1
+      const j = Math.floor((yRange[1] - (d.y - yRange[0])) / sy)
+      if (values[i + j * _.i.grid[0]] === null) {
+        values[i + j * _.i.grid[0]] = d.value
+      } else if (d.value !== null) {
+        values[i + j * _.i.grid[0]] += d.value
+      }
     })
-
-    // Remove values outside the grid.
-    values = values.filter(d => !isNaN(d))
 
     return {
       data,
@@ -188,13 +198,12 @@ export default (name, parent = 'body') => {
 
       return api
     }
-    // TODO grid
-    // TODO
+    // TODO Data
   })
 
   // Set some defaults for the color mapping.
   api.color.policy('sequential')
-    .color.palette(['transparent', '#000'])
+    .color.palette('palette-iridescent')
     .color.on(d => d)
 
   return api

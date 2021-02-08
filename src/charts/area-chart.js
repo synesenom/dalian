@@ -10,6 +10,7 @@ import LineColor from '../components/line-color'
 import LineWidth from '../components/line-width'
 import Objects from '../components/objects'
 import Opacity from '../components/opacity'
+import Pins from '../components/pins'
 import PlotMarker from '../components/plot-marker'
 import PointTooltip from '../components/tooltip/point-tooltip'
 import Scale from '../components/scale'
@@ -30,6 +31,8 @@ import YRange from '../components/range/y-range'
  *   <li><a href="../components/line-width.html">LineWidth</a></li>
  *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/opacity.html">Opacity</a></li>
+ *   <li><a href="../components/pins.html">Pins</a></li>
+ *   <li><a href="../components/plot-marker.html">PlotMarker</a></li>
  *   <li><a href="../components/point-tooltip.html">PointTooltip</a></li>
  *   <li><a href="../components/smoothing.html">Smoothing</a></li>
  *   <li><a href="../components/y-range.html">YRange</a></li>
@@ -53,6 +56,7 @@ export default (name, parent = 'body') => {
     LineColor('transparent'),
     LineWidth(1),
     BottomAxis(scales.x),
+    Pins(scales),
     PlotMarker,
     Objects(scales),
     Opacity(0.4),

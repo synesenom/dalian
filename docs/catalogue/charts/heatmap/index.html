@@ -6,6 +6,8 @@
   <ul>
     <li onclick="changeData()">.data()</li>
     <li onclick="toggleGrid()">.grid()</li>
+    <li onclick="toggleColorPalette()">.color.palette()</li>
+    <li onclick="toggleColorOn()">.color.on()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -24,18 +26,17 @@ const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
 </script><h1>code<div class="margin-right"><a href="../../../api/charts/heatmap.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/heatmap.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 function getData () {
-  const normal1 = new ranjs.dist.Normal(Math.random() < 0.5 ? 7 : -2, 2)
-  const normal2 = new ranjs.dist.Normal(1, 3)
+  const peak1x = new ranjs.dist.Normal(30 + Math.random() * 40, 16)
+  const peak1y = new ranjs.dist.Normal(Math.random() * 10, 4)
+  const peak2x = new ranjs.dist.Normal(10 + Math.random() * 20, 10)
+  const peak2y = new ranjs.dist.Normal(70 + Math.random() * 20, 10)
 
-  return Array.from({length: 1e5}, () => {
-    return Math.random() < 0.5 ? {
-      x: normal1.sample(),
-      y: normal2.sample()
-    } : {
-      x: normal2.sample(),
-      y: normal1.sample()
-    }
-  })
+  return Array.from({length: 100}, (i, x) => {
+    return Array.from({length: 100}, (j, y) => ({
+      x, y,
+      value: peak1x.pdf(x) * peak1y.pdf(y) + peak2x.pdf(x) * peak2y.pdf(y)
+    }))
+  }).flat()
 }
 </script><script class="doc">
 // create chart
@@ -56,7 +57,19 @@ const changeData = () => heatmap.data(getData()).render(1000)
 
 const toggleGrid = () => {
   this.g = 1 - (this.g || 0)
-  heatmap.grid(this.g ? [60, 40] : [100, 100])
+  heatmap.grid(this.g ? [20, 20] : [100, 100])
     .render()
+}
+
+const toggleColorPalette = () => {
+  this.c = 1 - (this.c || 0)
+  heatmap.color.palette(this.c ? ['transparent', '#000'] : undefined)
+    .render(1000)
+}
+
+const toggleColorOn = () => {
+  this.o = 1 - (this.o || 0)
+  heatmap.color.on(this.o ? d => Math.pow(d, 3) : d => d)
+    .render(1000)
 }
 </script></div></main></body></html>
