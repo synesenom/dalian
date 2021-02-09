@@ -34,7 +34,7 @@ function getData () {
   return Array.from({length: 100}, (i, x) => {
     return Array.from({length: 100}, (j, y) => ({
       x, y,
-      value: peak1x.pdf(x) * peak1y.pdf(y) + peak2x.pdf(x) * peak2y.pdf(y)
+      value: peak1x.pdf(x) * peak1y.pdf(y) - peak2x.pdf(x) * peak2y.pdf(y)
     }))
   }).flat()
 }
@@ -46,6 +46,8 @@ const heatmap = dalian.Heatmap('heatmap', '#widget')
   .height(HEIGHT)
   .margins({left: 70, top: 40, bottom: 40, right: 40})
   .font.size(14)
+  .color.policy('diverging')
+  .color.palette('palette-sunset')
   .bottomAxis.label('x')
   .leftAxis.label('y')
   //.tooltip.on(true)
@@ -63,7 +65,7 @@ const toggleGrid = () => {
 
 const toggleColorPalette = () => {
   this.c = 1 - (this.c || 0)
-  heatmap.color.palette(this.c ? ['transparent', '#000'] : undefined)
+  heatmap.color.palette(this.c ? ['#000', '#777', '#fff'] : undefined)
     .render(1000)
 }
 

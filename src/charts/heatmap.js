@@ -1,4 +1,4 @@
-import { extent, interpolateLab, max, min, rgb, timer } from 'd3'
+import { extent, interpolateLab, max, rgb, timer } from 'd3'
 import compose from '../core/compose'
 import extend from '../core/extend'
 import BottomAxis from '../components/axis/bottom-axis'
@@ -8,13 +8,9 @@ import Scale from '../components/scale'
 import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 
-// TODO Support negative values.
 // TODO Add colormap widget.
 // TODO Add Tooltip.
-// TODO Add Objects.
-// TODO Add XRange and YRange.
 // TODO Convert canvas to SVG before downloading or add canvas conversion to Chart.download.
-// TODO Handle missing values.
 /**
  * The heatmap widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
@@ -172,8 +168,7 @@ export default (name, parent = 'body') => {
       data,
       xRange,
       yRange,
-      min: min(values),
-      max: max(values),
+      max: max(values, d => Math.abs(d)),
       values
     }
   }
@@ -183,6 +178,19 @@ export default (name, parent = 'body') => {
 
   // Public API.
   api = Object.assign(api || {}, {
+    /**
+     * Sets the grid of the heatmap. Initial size is 100x100.
+     *
+     * @method grid
+     * @methodOf Heatmap
+     * @param {number[]} grid Array containing the horizontal and vertical grid size.
+     * @returns {Heatmap} Reference to the Heatmap API.
+     * @example
+     *
+     * // Create a heatmap with a grid of 30x20.
+     * const heatmap = dalian.Heatmap('my-chart')
+     *   .grid([30, 20])
+     */
     grid (grid) {
       // Set grid.
       _.i.grid = grid
@@ -198,7 +206,33 @@ export default (name, parent = 'body') => {
 
       return api
     }
-    // TODO Data
+
+    /**
+     * Set/updates the chart data.
+     *
+     * @method data
+     * @methodOf Heatmap
+     * @param {Object[]} plots Array of objects representing the density to display. Each object describes a grid with its value:
+     * <dl>
+     *   <dt>x</dt>     <dd>{number} Horizontal grid index.</dd>
+     *   <dt>y</dt>     <dd>{number} Vertical grid index.</dd>
+     *   <dt>value</dt> <dd>{number} Density value in grid point.</dd>
+     * </dl>
+     *
+     * The data may contains missing grid points. Also, values can be negative. In that case, the color policy should be set to diverging and an appropriate palette should be specified.
+     *
+     * @returns {Heatmap} Reference to the Heatmap API.
+     * @example
+     *
+     * const bubbles = dalian.Heatmap('my-chart')
+     *   .data([
+     *     {x: 1, y: 1, value: 2},
+     *     {x: 1, y: 2, value: 3},
+     *     {x: 2, y: 1, value: 5},
+     *     {x: 2, y: 2, value: 1},
+     *   ])
+     *   .render()
+     */
   })
 
   // Set some defaults for the color mapping.
