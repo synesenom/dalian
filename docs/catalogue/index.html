@@ -315,6 +315,39 @@ To explore a specific component listed on a chart's documentation page under its
     .outerRadius(60)
     .label(d => parseInt(d.value))
     .render()
+</script></a><a class="card" href="charts/radar-chart"><div class="card-title">RadarChart</div><div class="card-content" id="radar-chart"></div><script class="card-example">
+  dalian.RadarChart('radar-chart-card', '#radar-chart')
+    .data([{
+      name: 'first',
+      values: {
+        sweetness: 2,
+        body: 5,
+        tannin: 4,
+        acidity: 3,
+        alcohol: 4
+      }
+    }, {
+      name: 'second',
+      values: {
+        sweetness: 4,
+        body: 3,
+        tannin: 1,
+        acidity: 3,
+        alcohol: 1
+      }
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .font.size(11)
+    .color.palette({
+      first: COLORS.widget[0],
+      second: COLORS.widget[1]
+    })
+    .radius(50)
+    .smoothing(true)
+    .render()
 </script></a><a class="card" href="charts/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
   dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')
     .data([{

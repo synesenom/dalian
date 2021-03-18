@@ -50,6 +50,7 @@
     "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",
     "dev:tutorial": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/tutorial --ext pug,js --exec 'node docs/index.js --tutorial all'",
+    "dev": "./node_modules/.bin/nodemon --watch src --ext js --exec 'npm run-script build'",
     "reload": "./node_modules/.bin/reload --dir docs --watch-dir docs --port 8081",
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
     "test": "./node_modules/.bin/mocha --recursive --require babel-core/register"

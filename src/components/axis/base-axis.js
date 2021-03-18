@@ -11,14 +11,14 @@ export default (type, self, axisFn, scale, labelAttr) => {
     tickColor: 'currentColor'
   }
 
-  // Container: an SVG group that contains all axis related DOM elements
-  let container = self._widget.content.append('g')
+  // Container: an SVG group that contains all axis related DOM elements.
+  const container = self._widget.content.append('g')
     .attr('class', `dalian-axis-container ${type}`)
     .style('font-family', 'inherit')
     .style('font-size', 'inherit')
 
   // The axis group
-  let axis = container.append('g')
+  const axis = container.append('g')
     .attr('class', `axis ${type}`)
     .style('font-family', 'inherit')
     .style('font-size', 'inherit')
@@ -31,7 +31,7 @@ export default (type, self, axisFn, scale, labelAttr) => {
     .style('stroke', 'currentColor')
 
   // Private members.
-  let _ = {
+  const _ = {
     margin: {left: 0, top: 0, right: 0, bottom: 0},
     format: DEFAULTS.format,
     values: DEFAULTS.values,
@@ -73,7 +73,7 @@ export default (type, self, axisFn, scale, labelAttr) => {
   self._widget.update = extend(self._widget.update, _.update)
 
   // Public members.
-  let api = {
+  const api = {
     // Axis function.
     fn: axisFn().ticks(5),
 

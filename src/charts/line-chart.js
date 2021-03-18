@@ -106,18 +106,19 @@ export default (name, parent = 'body') => {
         .defined(d => d.y !== null)
         .x(d => _.scales.x.scale(d.x))
         .y(d => _.scales.y.scale(d.y))
-        .curve(self._smoothing.curve())
+        .curve(self._smoothing.open())
       const errorFn = area()
         .defined(d => d.y !== null)
         .x(d => _.scales.x.scale(d.x))
         .y0(d => _.scales.y.scale(d.y - d.lo))
         .y1(d => _.scales.y.scale(d.y + d.hi))
-        .curve(self._smoothing.curve())
+        .curve(self._smoothing.open())
 
       // Add plots
       self._chart.plotGroups({
         enter: g => {
           g.style('opacity', 0)
+            .style('color', self._color.mapper)
 
           // Add error bands
           g.append('path')
@@ -137,6 +138,7 @@ export default (name, parent = 'body') => {
             .attr('stroke-linecap', 'round')
           return g
         },
+
         update: g => {
           // Show group.
           g.style('opacity', 1)

@@ -25,7 +25,7 @@ export default scale => {
         /**
          * Sets the Y label for the chart.
          *
-         * @method yLabel
+         * @method label
          * @methodOf LeftAxis
          * @param {string} label Text to set as the label.
          * @returns {Object} Reference to the LeftAxis API.
@@ -38,7 +38,7 @@ export default scale => {
         /**
          * Sets the Y tick format of the chart.
          *
-         * @method yTickFormat
+         * @method format
          * @methodOf LeftAxis
          * @param {Function} format Function to set as formatter.
          * @returns {Object} Reference to the LeftAxis API.

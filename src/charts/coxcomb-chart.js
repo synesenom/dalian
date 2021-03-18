@@ -60,6 +60,7 @@ export default (name, parent = 'body') => {
     scale: Scale('sqrt'),
 
     // Variables.
+    // TODO Make these internal under i.
     arc: arc(),
     radius: DEFAULTS.radius,
     angle: DEFAULTS.angle,

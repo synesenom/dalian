@@ -10,6 +10,7 @@ module.exports = [
   'charts/heatmap',
   'charts/line-chart',
   'charts/pie-chart',
+  'charts/radar-chart',
   'charts/scatter-plot',
   'charts/table',
   'charts/violin-plot',

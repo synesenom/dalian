@@ -1,4 +1,4 @@
-import { curveMonotoneX, curveLinear } from 'd3'
+import {curveMonotoneX, curveLinear, curveCardinalClosed, curveLinearClosed, curveCatmullRomClosed} from 'd3'
 
 /**
  * Component implementing the polygon smoothing feature. This component allows for smoothing polygons in charts that
@@ -21,7 +21,11 @@ export default (self, api) => {
   // Protected members
   self = Object.assign(self || {}, {
     _smoothing: {
-      curve: () => _.on ? curveMonotoneX : curveLinear
+      open: () => _.on ? curveMonotoneX : curveLinear,
+
+      closed: () => _.on ? curveCardinalClosed : curveLinearClosed,
+
+      isOn: () => _.on
     }
   })
 

@@ -66,7 +66,7 @@ export default (name, parent = 'body') => {
     YRange
   )
 
-  // Private members
+  // Private members.
   const _ = {
     // Variables.
     scales,
@@ -94,11 +94,11 @@ export default (name, parent = 'body') => {
         .x(d => _.scales.x.scale(d.x))
         .y0(_.scales.y.scale(0))
         .y1(d => _.scales.y.scale(d.y))
-        .curve(self._smoothing.curve())
+        .curve(self._smoothing.open())
       const lineFn = line()
         .x(d => _.scales.x.scale(d.x))
         .y(d => _.scales.y.scale(d.y))
-        .curve(self._smoothing.curve())
+        .curve(self._smoothing.open())
 
       // Add plots
       self._chart.plotGroups({
@@ -151,7 +151,7 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Overrides
+  // Overrides..
   self._tooltip.content = mouse => {
     // If outside the plot, hide tooltip
     if (typeof mouse === 'undefined') {
@@ -218,8 +218,7 @@ export default (name, parent = 'body') => {
     }))
   }
 
-  // Extend widget update
-  // Update plot before widget
+  // Extend widget update: update plot before widget.
   self._widget.update = extend(self._widget.update, _.update, true)
 
   // Public API.
@@ -263,5 +262,6 @@ export default (name, parent = 'body') => {
      *   .render()
      */
   })
+
   return api
 }
