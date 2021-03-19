@@ -97,7 +97,7 @@ export default (name, parent = 'body') => {
       const dimensions = _.i.dimensions || Object.keys(self._chart.data[0].values).sort()
 
       // Map data.
-      return dimensions.map(c => d.values[c])
+      return dimensions.map(c => +d.values[c])
     },
 
     axisX (i, n) {
