@@ -28,7 +28,8 @@ export default (name, parent = 'body') => {
   // Default values.
   const DEFAULTS = {
     radius: 100,
-    dimensions: null
+    dimensions: null,
+    max: 1
   }
 
   // Build scales.
@@ -251,7 +252,7 @@ export default (name, parent = 'body') => {
 
       // Update scales.
       _.scales.radius.range(0, _.i.radius)
-        .domain([0, dimensions.length])
+        .domain([0, _.i.max])
       _.scales.angle.range(0, (dimensions.length - 1) * 2 * Math.PI / dimensions.length)
         .domain([0, dimensions.length - 1])
 
@@ -421,6 +422,13 @@ export default (name, parent = 'body') => {
      */
     radius (radius = DEFAULTS.radius) {
       _.i.radius = radius
+      return api
+    },
+
+    // TODO Move this to RadialRange.
+    // TODO Default to data max.
+    max (max = DEFAULTS.max) {
+      _.i.max = max
       return api
     },
 
