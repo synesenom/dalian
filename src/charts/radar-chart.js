@@ -99,7 +99,7 @@ export default (name, parent = 'body') => {
       // Map data.
       return dimensions.map(c => +d.values[c])
     },
-
+    
     axisX (i, n) {
       return _.i.radius * Math.sin(i * 2 * Math.PI / n)
     },
