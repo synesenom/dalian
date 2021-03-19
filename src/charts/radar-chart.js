@@ -97,9 +97,13 @@ export default (name, parent = 'body') => {
       const dimensions = _.i.dimensions || Object.keys(self._chart.data[0].values).sort()
 
       // Map data.
-      return dimensions.map(c => +d.values[c])
+      return dimensions.map(c => ({
+        y: +d.values[c].y,
+        lo: +d.values[c].lo,
+        hi: +d.values[c].hi
+      }))
     },
-    
+
     axisX (i, n) {
       return _.i.radius * Math.sin(i * 2 * Math.PI / n)
     },
