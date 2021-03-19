@@ -8,6 +8,7 @@ import { scaleBand, scaleLinear, scaleLog, scalePoint, scalePow } from 'd3'
  */
 export default (type = 'linear') => {
   // Private members
+  // TODO Save domain and range.
   const _ = {
     type,
     scale: (() => {
@@ -28,7 +29,9 @@ export default (type = 'linear') => {
   }
 
   const api = {
-    scale: _.scale,
+    get scale () {
+      return _.scale
+    },
 
     range: (min, max) => {
       _.scale.range([min, max])
@@ -73,6 +76,7 @@ export default (type = 'linear') => {
             _.scale = scalePoint().padding(0.5)
         }
       }
+      return api
     },
 
     measure: size => Math.abs(_.scale.invert(size) - _.scale.invert(0))
