@@ -93,34 +93,7 @@ function getData () {
 <script class="doc">
 // create chart
 const radarChart = dalian.RadarChart('myChart', '#widget')
-  .data([{
-    name: 'Cabernet Sauvignon',
-    values: {
-      sweetness: 2,
-      body: 5,
-      tannin: 4,
-      acidity: 3,
-      alcohol: 4
-    }
-  }, {
-    name: 'Chardonnay',
-    values: {
-      sweetness: 2,
-      body: 3,
-      tannin: 1,
-      acidity: 3,
-      alcohol: 4
-    }
-  }, {
-    name: 'Muscat of Alexandria',
-    values: {
-      sweetness: 4,
-      body: 3,
-      tannin: 1,
-      acidity: 3,
-      alcohol: 1
-    }
-  }])
+  .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
   .margins(60)
