@@ -375,9 +375,9 @@ export default (name, parent = 'body') => {
       values: Object.entries(values)
         .reduce((obj, [key, d]) => Object.assign(obj, {
           [key]: {
-              y: d[0] || d,
-              lo: d[1] || 0,
-              hi: d[2] || 0
+              y: typeof d[0] === 'number' ? d[0] : d,
+              lo: typeof d[1] === 'number' ? d[1] : 0,
+              hi: typeof d[2] === 'number' ? d[2] : 0
           }
         }), {})
     }))
