@@ -7,6 +7,7 @@
     <li onclick="changeData()">.data()</li>
     <li onclick="toggleDimensions()">.dimensions()</li>
     <li onclick="toggleRadius()">.radius()</li>
+    <li onclick="toggleScale()">.scale()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -117,5 +118,10 @@ const toggleDimensions = () => {
 const toggleRadius = () => {
   this.r = 1 - (this.r || 0)
   radarChart.radius(this.r ? 80 : undefined).render(1000)
+}
+
+const toggleScale = () => {
+  this.s = 1 - (this.s || 0)
+  radarChart.scale(this.s ? 'sqrt' : undefined).render(1000)
 }
 </script></div></main></body></html>

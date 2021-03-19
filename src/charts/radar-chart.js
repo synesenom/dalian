@@ -29,7 +29,8 @@ export default (name, parent = 'body') => {
   const DEFAULTS = {
     radius: 100,
     dimensions: null,
-    max: 1
+    max: 1,
+    scale: 'linear'
   }
 
   // Build scales.
@@ -255,7 +256,8 @@ export default (name, parent = 'body') => {
       const dimensions = _.i.dimensions || Object.keys(self._chart.data[0].values).sort()
 
       // Update scales.
-      _.scales.radius.range(0, _.i.radius)
+      _.scales.radius = Scale(_.i.scale)
+        .range(0, _.i.radius)
         .domain([0, _.i.max])
       _.scales.angle.range(0, (dimensions.length - 1) * 2 * Math.PI / dimensions.length)
         .domain([0, dimensions.length - 1])
@@ -433,6 +435,11 @@ export default (name, parent = 'body') => {
     // TODO Default to data max.
     max (max = DEFAULTS.max) {
       _.i.max = max
+      return api
+    },
+
+    scale (scale = DEFAULTS.scale) {
+      _.i.scale = scale
       return api
     },
 
