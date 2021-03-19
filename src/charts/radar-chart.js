@@ -208,7 +208,7 @@ export default (name, parent = 'body') => {
         _.radialGrid.container
           .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
           .selectAll('circle')
-          .data([1, 2, 3, 4, 5])
+          .data(_.tickValues)
           .join(
             enter => enter.append('circle')
               .attr('cx', 0)
@@ -228,7 +228,7 @@ export default (name, parent = 'body') => {
           .radius(_.scales.radius.scale)
           .curve(curveLinearClosed)
 
-        const gridData = _.tickValues.map(d => Array(5).fill(d))
+        const gridData = _.tickValues.map(d => Array(dimensions.length).fill(d))
         _.radialGrid.container
           .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
           .selectAll('path')
