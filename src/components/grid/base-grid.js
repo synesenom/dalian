@@ -9,6 +9,7 @@ export default type => {
   return (self, api) => {
     // Private members.
     let _ = {
+      // TODO Move these to DEFAULTS.
       defaults: {
         opacity: 0.3,
         lineStyle: '4 8'

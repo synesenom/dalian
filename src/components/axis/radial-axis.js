@@ -13,7 +13,7 @@ const DEFAULTS = {
  *
  * @function RadialAxis
  */
-export default scale => {
+export default (radialScale, angularScale) => {
   return (self, api) => {
     // Axis container.
     const container = self._widget.content.insert('g', ':first-child')
@@ -27,14 +27,18 @@ export default scale => {
       .style('font-family', 'inherit')
       .style('font-size', 'inherit')
 
-    let axisFn = axisRight(scale.copy()
-      .range([0, -scale.scale.range()[1]]))
+    let axisFn = axisRight(radialScale.copy()
+      .range([0, -radialScale.scale.range()[1]]))
 
     // TODO Docstring.
-    const axisX = (i, n) => scale.scale.range()[1] * Math.sin(i * 2 * Math.PI / n)
+    function axisX (i, n) {
+      radialScale.scale.range()[1] * Math.sin(i * 2 * Math.PI / n)
+    }
 
     // TODO Docstring.
-    const axisY = (i, n) => -scale.scale.range()[1] * Math.cos(i * 2 * Math.PI / n)
+    function axisY (i, n) {
+      -radialScale.scale.range()[1] * Math.cos(i * 2 * Math.PI / n)
+    }
 
     // TODO Docstring.
     function textAnchor (i, n) {
@@ -69,13 +73,29 @@ export default scale => {
     // Protected members.
     self = Object.assign(self, {
       _radialAxis: {
+        // TODO Docstring.
         labels (labels) {
-          _.labels = labels
-          return self
+          if (typeof labels === 'undefined') {
+            return _.labels
+          } else {
+            _.labels = labels
+            return self
+          }
         },
 
+        // TODO Docstring.
         ticks () {
           return _.values === null ? axisFn.scale().ticks() : _.values
+        },
+
+        // TODO Docstring.
+        radialScale() {
+          return radialScale
+        },
+
+        // TODO Docstring.
+        angularScale() {
+          return angularScale
         }
       }
     })
@@ -83,8 +103,8 @@ export default scale => {
     // Extend update.
     self._widget.update = extend(self._widget.update, duration => {
       // Create axis function.
-      axisFn = axisRight(scale.copy()
-        .range([0, -scale.scale.range()[1]]))
+      axisFn = axisRight(radialScale.copy()
+        .range([0, -radialScale.scale.range()[1]]))
         .tickFormat(_.format)
         .tickValues(_.values)
         .tickSize(0)
@@ -125,7 +145,6 @@ export default scale => {
           exit => exit.remove()
         )
 
-      // TODO Adjust text position.
       axis.selectAll('.axis-label')
         .data(_.labels, d => d)
         .join(
@@ -162,7 +181,6 @@ export default scale => {
           return api
         },
 
-        // Tick format.
         // TODO Docstring.
         format: (format = DEFAULTS.format) => {
           _.format = format

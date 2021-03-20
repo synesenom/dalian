@@ -69,6 +69,7 @@ export default scale => {
          * @param {boolean} on Whether hiding ticks is on.
          * @returns {Widget} Reference to the Widget's API.
          */
+        // TODO Change this to color.
         hideTicks: on => {
           base.hideTicks(on)
           return api
@@ -82,6 +83,7 @@ export default scale => {
          * @param {boolean} on Whether hiding the axis line is on.
          * @returns {Widget} Reference to the Widget's API.
          */
+        // TODO Change this to color.
         hideAxisLine: on => {
           base.hideAxisLine(on)
           return api

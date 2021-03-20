@@ -40,37 +40,34 @@ export default (type, self, axisFn, scale, labelAttr) => {
     tickColor: DEFAULTS.tickColor,
     ticks: true,
     tickAnchor: DEFAULTS.tickAnchor,
-    axisLine: true,
-
-    // Update method.
-    update: duration => {
-      // Update container
-      self._widget.getElem(_.container, duration)
-        .attr('transform', 'translate(' + (self._widget.margins.left + _.margin.left - _.margin.right) + ',' + (self._widget.margins.top + _.margin.top - _.margin.bottom) + ')')
-        .style('width', self._widget.size.innerWidth)
-        .style('height', self._widget.size.innerHeight)
-
-      // Update axis
-      api.fn.scale(_.scale.scale)
-        .tickFormat(_.format)
-        .tickSize(_.ticks ? 6 : 0)
-        .tickPadding(_.ticks ? 3 : 9)
-        .tickValues(_.values || null)
-      self._widget.getElem(api.axis, duration)
-        .call(api.fn)
-        .selectAll('path')
-        .style('opacity', _.axisLine ? 1 : 0)
-
-      // Update ticks.
-      axis.selectAll('.tick > text')
-        .attr('text-anchor', _.tickAnchor)
-      axis.selectAll('.tick > line')
-        .attr('stroke', _.tickColor)
-    }
+    axisLine: true
   }
 
   // Extend update.
-  self._widget.update = extend(self._widget.update, _.update)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Update container
+    self._widget.getElem(_.container, duration)
+      .attr('transform', 'translate(' + (self._widget.margins.left + _.margin.left - _.margin.right) + ',' + (self._widget.margins.top + _.margin.top - _.margin.bottom) + ')')
+      .style('width', self._widget.size.innerWidth)
+      .style('height', self._widget.size.innerHeight)
+
+    // Update axis
+    api.fn.scale(_.scale.scale)
+      .tickFormat(_.format)
+      .tickSize(_.ticks ? 6 : 0)
+      .tickPadding(_.ticks ? 3 : 9)
+      .tickValues(_.values || null)
+    self._widget.getElem(api.axis, duration)
+      .call(api.fn)
+      .selectAll('path')
+      .style('opacity', _.axisLine ? 1 : 0)
+
+    // Update ticks.
+    axis.selectAll('.tick > text')
+      .attr('text-anchor', _.tickAnchor)
+    axis.selectAll('.tick > line')
+      .attr('stroke', _.tickColor)
+  })
 
   // Public members.
   const api = {

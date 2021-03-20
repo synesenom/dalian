@@ -16,20 +16,14 @@ export default scale => {
       dy: '2.5em'
     })
 
-    // Private members.
-    let _ = {
-      // Update method.
-      update: duration => {
-        self._widget.getElem(base.label, duration)
-          .attr('x', self._widget.size.innerWidth)
-      }
-    }
-
     // Protected members: just inherit from base axis.
     self = Object.assign(self || {}, { _topAxis: base })
 
     // Extend update method.
-    self._widget.update = extend(self._widget.update, _.update)
+    self._widget.update = extend(self._widget.update, duration => {
+      self._widget.getElem(base.label, duration)
+        .attr('x', self._widget.size.innerWidth)
+    })
 
     // Public API
     api = Object.assign(api || {}, {
@@ -81,6 +75,7 @@ export default scale => {
          * @param {boolean} on Whether hiding ticks is on.
          * @returns {Widget} Reference to the Widget's API.
          */
+        // TODO Change this to color.
         hideTicks: on => {
           base.self.hideTicks(on)
           return api
@@ -94,6 +89,7 @@ export default scale => {
          * @param {boolean} on Whether hiding the axis line is on.
          * @returns {Widget} Reference to the Widget's API.
          */
+        // TODO Change this to color.
         hideAxisLine: on => {
           base.hideAxisLine(on)
           return api

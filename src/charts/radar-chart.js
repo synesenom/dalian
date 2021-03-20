@@ -6,10 +6,11 @@ import LineStyle from '../components/line-style'
 import Opacity from '../components/opacity'
 import Smoothing from '../components/smoothing'
 import RadialAxis from '../components/axis/radial-axis'
+import RadialGrid from '../components/grid/radial-grid'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import extend from '../core/extend'
-import {areaRadial, lineRadial, curveLinearClosed} from 'd3'
+import {areaRadial, lineRadial} from 'd3'
 
 // Default values.
 const DEFAULTS = {
@@ -20,10 +21,15 @@ const DEFAULTS = {
 
 /**
  * The radar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
- * its available APIs. Furthermore it extends the following components:
+ * its available APIs. Each plot data is represented by a shape. Furthermore it extends the following components:
  * <ul>
- *   <li><a href="../components/line-width.html">LineWidth</a></li>
- *   <li><a href="../components/smoothing.html">Smoothing</a></li>
+ *   <li><a href="../components/highlight.html">Highlight</a>: Highlight one or more plots.</li>
+ *   <li><a href="../components/line-style.html">LineStyle</a>: Using dashed or dotted lines for the plots.</li>
+ *   <li><a href="../components/line-width.html">LineWidth</a>: Width of the plot lines.</li>
+ *   <li><a href="../components/opacity.html">Opacity</a>: Fill opacity of the plots.</li>
+ *   <li><a href="../components/radial-axis.html">RadialAxis</a>: The axis used in the chart.</li>
+ *   <li><a href="../components/radial-grid.html">RadialAxis</a>: The grid illustrating axis values.</li>
+ *   <li><a href="../components/smoothing.html">Smoothing</a>: Whether to use polygons or splines.</li>
  * </ul>
  *
  * @function RadarChart
@@ -38,23 +44,30 @@ export default (name, parent = 'body') => {
   const scales = {
     angle: Scale(),
     radius: Scale()
-      .domain([0, 1])
   }
 
   // Build widget from components
   let { self, api } = compose(
     Chart('radar-chart', name, parent),
-    RadialAxis(scales.radius),
+    ElementTooltip,
+    Highlight(() => self._chart.plots, ['.plot-group']),
     LineStyle,
     LineWidth(1),
     Opacity(0),
-    Smoothing,
-    ElementTooltip,
-    Highlight(() => self._chart.plots, ['.plot-group']),
+    RadialAxis(scales.radius, scales.angle),
+    RadialGrid,
+    Smoothing
   )
 
-  // Private methods.
-  // TODO Docstring.
+  /**
+   * Maps a plot data using the current dimensions.
+   *
+   * @method mapData
+   * @memberOf RadarChart
+   * @param {object} d Plot data.
+   * @return {object[]} Array of objects representing the selected values.
+   * @private
+   */
   function mapData(d) {
     // Determine dimensions.
     const dimensions = _.dimensions || Object.keys(self._chart.data[0].values).sort()
@@ -68,63 +81,6 @@ export default (name, parent = 'body') => {
         hi: +value.hi
       }
     })
-  }
-
-  // TODO Move this to RadialGrid.
-  const radialGrid = (() => {
-    const container = self._widget.content.insert('g', ':first-child')
-      .attr('class', 'dalian-grid-container')
-
-    return {
-      container
-    }
-  })()
-
-  function updateGrid (dimensions, duration) {
-    if (self._smoothing.isOn()) {
-      radialGrid.container
-        .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
-        .selectAll('circle')
-        .data(self._radialAxis.ticks())
-        .join(
-          enter => enter.append('circle')
-            .attr('cx', 0)
-            .attr('cy', 0)
-            .attr('r', scales.radius)
-            .attr('fill', 'none')
-            .attr('stroke', '#bbb'),
-
-          update => update.transition().duration(duration)
-            .attr('r', scales.radius),
-
-          exit => exit.remove()
-        )
-    } else {
-      const lineFn = lineRadial()
-        .angle((d, i) => scales.angle(i))
-        .radius(scales.radius)
-        .curve(curveLinearClosed)
-
-      const gridData = self._radialAxis.ticks()
-        .map(d => Array(dimensions.length).fill(d))
-      radialGrid.container
-        .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
-        .selectAll('path')
-        .data(gridData)
-        .join(
-          enter => enter.append('path')
-            .attr('d', lineFn)
-            .attr('fill', 'none')
-            // TODO Use font color.
-            .attr('stroke', '#bbb'),
-
-          update => update.transition().duration(duration)
-            .attr('d', lineFn),
-
-          // TODO Opacity first.
-          exit => exit.remove()
-        )
-    }
   }
 
   // Overrides.
@@ -177,11 +133,7 @@ export default (name, parent = 'body') => {
     // Update axis.
     self._radialAxis.labels(dimensions)
 
-    // Update grid.
-    updateGrid(dimensions, duration)
-
     // Create line and error path functions.
-    // TODO Add flag to decide if is should be filled.
     const lineFn = lineRadial()
       .angle((d, i) => scales.angle(i))
       .radius(d => scales.radius(d.y))
@@ -252,9 +204,6 @@ export default (name, parent = 'body') => {
 
       exit: g => g.style('opacity', 0)
     }, duration)
-
-    // TODO Add grid lines if needed.
-    // TODO Make separate component RadialGrid.
   }, true)
 
   // Public API.
