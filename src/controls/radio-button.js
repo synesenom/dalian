@@ -60,6 +60,26 @@ export default (name, parent = 'body') => {
     Font
   )
 
+  // Private members.
+  const _ = {
+    // Internal variables.
+    i: Object.assign({
+      entries: [],
+      rows: 1
+    }, DEFAULTS),
+
+    // DOM.
+    // TODO Move this outside.
+    dom: (() => {
+      // Container.
+      const container = self._widget.content.append('div')
+
+      return {
+        container
+      }
+    })()
+  }
+
   function onSelect (d) {
     // If selected the same option, do nothing.
     if (_.i.selected === d) {
@@ -78,118 +98,93 @@ export default (name, parent = 'body') => {
     _.i.callback && _.i.callback(_.i.selected)
   }
 
-  // Private members.
-  const _ = {
-    // Internal variables.
-    i: Object.assign({
-      entries: [],
-      rows: 1
-    }, DEFAULTS),
-
-    // DOM.
-    dom: (() => {
-      // Container.
-      const container = self._widget.content.append('div')
-
-      return {
-        container
-      }
-    })(),
-
-    entryWidth () {
-      if (_.i.hSep === null || _.i.columns === 1)  {
-        return parseFloat(self._widget.size.innerWidth) / _.i.columns + 'px'
-      } else {
-        return parseFloat(self._font.size) * _.i.hSep + 'px'
-      }
-    },
-
-    entryHeight () {
-      return parseFloat(self._font.size) * _.i.vSep + 'px'
-    },
-
-    entryLeft (d, i) {
-      const xi = i % _.i.columns
-      if (_.i.hSep === null) {
-        return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._widget.size.innerWidth) / _.i.columns}px`
-      }
-      return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._font.size) * _.i.hSep}px`
-    },
-
-    entryTop (d, i) {
-      return `${parseFloat(self._widget.margins.top) + Math.floor(i / _.i.columns)  * parseFloat(self._font.size) * _.i.vSep}px`
-    },
-
-    update (duration) {
-      // Adjust container.
-      self._widget.getElem(_.dom.container, duration)
-        .style('width', self._widget.size.width)
-        .style('height', self._widget.size.height)
-
-      // Widget transitions.
-      const t = _.dom.container.transition().duration(duration)
-
-      _.dom.container.selectAll('.' + CLASSES.entry)
-        .data(_.i.entries, d => d)
-        .join(
-          // Entering entries.
-          enter => {
-            const entry = enter.append('div')
-              .attr('class', CLASSES.entry)
-              .style('width', _.entryWidth)
-              .style('height', _.entryHeight)
-              .style('left', _.entryLeft)
-              .style('top', _.entryTop)
-              .style('cursor', _.i.disabled ? 'default' : 'pointer')
-              .style('pointer-events', _.i.disabled ? 'none' : 'all')
-              .style('opacity', _.i.disabled ? 0.4 : 1)
-              .on('click', onSelect)
-
-            // Marker
-            entry.append('div')
-              .attr('class', CLASSES.marker)
-              .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
-              .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
-
-            // Label.
-            entry.append('div')
-              .attr('class', CLASSES.label)
-              .text(d => d)
-
-            return entry
-          },
-
-          // Updated entries.
-          update => {
-            // Update entry
-            update.style('cursor', _.i.disabled ? 'default' : 'pointer')
-              .style('pointer-events', _.i.disabled ? 'none' : 'all')
-              .style('opacity', _.i.disabled ? 0.4 : 1)
-              .call(elem => elem.transition(t)
-                .style('width', _.entryWidth)
-                .style('height', _.entryHeight)
-                .style('left', _.entryLeft)
-                .style('top', _.entryTop)
-              )
-
-            // Update marker.
-            update.transition(t)
-              .select('.' + CLASSES.marker)
-              .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
-              .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
-
-            return update
-          },
-
-          // Exiting entries.
-          exit => exit.transition(t)
-            .style('opacity', 0)
-            .remove()
-        )
+  function entryWidth () {
+    if (_.i.hSep === null || _.i.columns === 1)  {
+      return parseFloat(self._widget.size.innerWidth) / _.i.columns + 'px'
+    } else {
+      return parseFloat(self._font.size) * _.i.hSep + 'px'
     }
   }
 
-  self._widget.update = extend(self._widget.update, _.update, true)
+  const entryHeight = () => parseFloat(self._font.size) * _.i.vSep + 'px'
+
+  function entryLeft (d, i) {
+    const xi = i % _.i.columns
+    if (_.i.hSep === null) {
+      return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._widget.size.innerWidth) / _.i.columns}px`
+    }
+    return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._font.size) * _.i.hSep}px`
+  }
+
+  const entryTop = (d, i) =>  `${parseFloat(self._widget.margins.top) + Math.floor(i / _.i.columns)  * parseFloat(self._font.size) * _.i.vSep}px`
+
+  self._widget.update = extend(self._widget.update, duration => {
+    // Adjust container.
+    self._widget.getElem(_.dom.container, duration)
+      .style('width', self._widget.size.width)
+      .style('height', self._widget.size.height)
+
+    // Widget transitions.
+    const t = _.dom.container.transition().duration(duration)
+
+    _.dom.container.selectAll('.' + CLASSES.entry)
+      .data(_.i.entries, d => d)
+      .join(
+        // Entering entries.
+        enter => {
+          const entry = enter.append('div')
+            .attr('class', CLASSES.entry)
+            .style('width', entryWidth)
+            .style('height', entryHeight)
+            .style('left', entryLeft)
+            .style('top', entryTop)
+            .style('cursor', _.i.disabled ? 'default' : 'pointer')
+            .style('pointer-events', _.i.disabled ? 'none' : 'all')
+            .style('opacity', _.i.disabled ? 0.4 : 1)
+            .on('click', onSelect)
+
+          // Marker
+          entry.append('div')
+            .attr('class', CLASSES.marker)
+            .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
+            .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
+
+          // Label.
+          entry.append('div')
+            .attr('class', CLASSES.label)
+            .text(d => d)
+
+          return entry
+        },
+
+        // Updated entries.
+        update => {
+          // Update entry
+          update.style('cursor', _.i.disabled ? 'default' : 'pointer')
+            .style('pointer-events', _.i.disabled ? 'none' : 'all')
+            .style('opacity', _.i.disabled ? 0.4 : 1)
+            .call(elem => elem.transition(t)
+              .style('width', entryWidth)
+              .style('height', entryHeight)
+              .style('left', entryLeft)
+              .style('top', entryTop)
+            )
+
+          // Update marker.
+          update.transition(t)
+            .select('.' + CLASSES.marker)
+            .style('border-color', d => d === _.i.selected ? _.i.color : 'transparent')
+            .style('background', d => d === _.i.selected ? '#fff' : lighter(_.i.color, 0.6))
+
+          return update
+        },
+
+        // Exiting entries.
+        exit => exit.transition(t)
+          .style('opacity', 0)
+          .remove()
+      )
+  }, true)
 
   api = Object.assign(api, {
     /**

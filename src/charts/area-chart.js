@@ -47,8 +47,8 @@ import YRange from '../components/range/y-range'
 export default (name, parent = 'body') => {
   // Build widget from components
   const scales = {
-    x: Scale('linear'),
-    y: Scale('linear')
+    x: Scale(),
+    y: Scale()
   }
   let { self, api } = compose(
     Chart('area-chart', name, parent),
@@ -66,91 +66,6 @@ export default (name, parent = 'body') => {
     YRange
   )
 
-  // Private members.
-  const _ = {
-    // Variables.
-    scales,
-
-    // Methods.
-    update (duration) {
-      // Collect all data points
-      const flatData = self._chart.data.map(d => d.values).flat()
-
-      // Add some buffer one sided to the vertical range.
-      const yData = flatData.map(d => d.y)
-      const yRange = extent(yData)
-      const yBuffer = 0.01 * (yRange[1] - yRange[0])
-      yRange[1] += yBuffer
-
-      // Update scales
-      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-        .domain(extent(flatData.map(d => d.x)))
-      // Make sure scale starts at 0
-      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-        .domain(self._yRange.range(yRange))
-
-      // Create area and line.
-      const areaFn = area()
-        .x(d => _.scales.x(d.x))
-        .y0(_.scales.y(0))
-        .y1(d => _.scales.y(d.y))
-        .curve(self._smoothing.open())
-      const lineFn = line()
-        .x(d => _.scales.x(d.x))
-        .y(d => _.scales.y(d.y))
-        .curve(self._smoothing.open())
-
-      // Add plots
-      self._chart.plotGroups({
-        enter: g => {
-          g.style('opacity', 0)
-            .style('color', self._color.mapper)
-
-          // Add area.
-          g.append('path')
-            .attr('class', 'area')
-            .attr('d', d => areaFn(d.values))
-            .attr('stroke', 'none')
-            .attr('fill', 'currentColor')
-
-          // Add line.
-          g.append('path')
-            .attr('class', 'line')
-            .attr('d', d => lineFn(d.values))
-            .attr('fill', 'none')
-
-          return g
-        },
-        update: g => {
-          g.style('opacity', 1)
-            .style('color', self._color.mapper)
-
-          // Update area.
-          g.select('.area')
-            .attrTween('d', function (d) {
-              const previous = select(this).attr('d')
-              const current = areaFn(d.values)
-              return interpolatePath(previous, current, null)
-            })
-            .attr('fill-opacity', self._opacity.value())
-
-          // Update line.
-          g.select('.line')
-            .attr('stroke', self._lineColor.mapping)
-            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
-            .attrTween('d', function (d) {
-              const previous = select(this).attr('d')
-              const current = lineFn(d.values)
-              return interpolatePath(previous, current, null)
-            })
-
-          return g
-        },
-        exit: g => g.style('opacity', 0)
-      }, duration)
-    }
-  }
-
   // Overrides..
   self._tooltip.content = mouse => {
     // If outside the plot, hide tooltip
@@ -160,7 +75,7 @@ export default (name, parent = 'body') => {
     }
 
     // Get bisection
-    const bisect = bisector(d => _.scales.x(d.x)).left
+    const bisect = bisector(d => scales.x(d.x)).left
     const index = mouse ? self._chart.data.map(d => bisect(d.values, mouse[0])) : undefined
 
     // If no data point is found, just remove tooltip elements
@@ -170,7 +85,7 @@ export default (name, parent = 'body') => {
     }
 
     // Get plots
-    let x = _.scales.x.scale.invert(mouse[0])
+    let x = scales.x.scale.invert(mouse[0])
     const plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
       .map((d, i) => {
         // Data point
@@ -186,7 +101,7 @@ export default (name, parent = 'body') => {
         x = point.x
 
         // Marker
-        self._plotMarker.add(_.scales.x(x), _.scales.y(point.y), d.name, d)
+        self._plotMarker.add(scales.x(x), scales.y(point.y), d.name, d)
 
         return {
           name: d.name,
@@ -219,7 +134,83 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update: update plot before widget.
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Collect all data points
+    const flatData = self._chart.data.map(d => d.values).flat()
+
+    // Add some buffer one sided to the vertical range.
+    const yData = flatData.map(d => d.y)
+    const yRange = extent(yData)
+    const yBuffer = 0.01 * (yRange[1] - yRange[0])
+    yRange[1] += yBuffer
+
+    // Update scales
+    scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain(extent(flatData.map(d => d.x)))
+    // Make sure scale starts at 0
+    scales.y.range([parseInt(self._widget.size.innerHeight), 0])
+      .domain(self._yRange.range(yRange))
+
+    // Create area and line.
+    const areaFn = area()
+      .x(d => scales.x(d.x))
+      .y0(scales.y(0))
+      .y1(d => scales.y(d.y))
+      .curve(self._smoothing.open())
+    const lineFn = line()
+      .x(d => scales.x(d.x))
+      .y(d => scales.y(d.y))
+      .curve(self._smoothing.open())
+
+    // Add plots
+    self._chart.plotGroups({
+      enter: g => {
+        g.style('opacity', 0)
+          .style('color', self._color.mapper)
+
+        // Add area.
+        g.append('path')
+          .attr('class', 'area')
+          .attr('d', d => areaFn(d.values))
+          .attr('stroke', 'none')
+          .attr('fill', 'currentColor')
+
+        // Add line.
+        g.append('path')
+          .attr('class', 'line')
+          .attr('d', d => lineFn(d.values))
+          .attr('fill', 'none')
+
+        return g
+      },
+      update: g => {
+        g.style('opacity', 1)
+          .style('color', self._color.mapper)
+
+        // Update area.
+        g.select('.area')
+          .attrTween('d', function (d) {
+            const previous = select(this).attr('d')
+            const current = areaFn(d.values)
+            return interpolatePath(previous, current, null)
+          })
+          .attr('fill-opacity', self._opacity.value())
+
+        // Update line.
+        g.select('.line')
+          .attr('stroke', self._lineColor.mapping)
+          .attr('stroke-width', d => self._lineWidth.mapping(d.name))
+          .attrTween('d', function (d) {
+            const previous = select(this).attr('d')
+            const current = lineFn(d.values)
+            return interpolatePath(previous, current, null)
+          })
+
+        return g
+      },
+      exit: g => g.style('opacity', 0)
+    }, duration)
+  }, true)
 
   // Public API.
   api = Object.assign(api || {}, {

@@ -42,14 +42,41 @@ export default (name, parent = 'body') => {
     Font
   )
 
+  // Private methods.
+  function updateValues (initialValues) {
+    const x = typeof initialValues === 'undefined' ? event.x : scales.x.scale(initialValues[0])
+    const y = typeof initialValues === 'undefined' ? event.y : scales.y.scale(initialValues[1])
+    _.i.values = [
+      Math.max(_.i.ranges[0][0], Math.min(_.i.ranges[0][1], scales.x.scale.invert(x))),
+      Math.max(_.i.ranges[1][0], Math.min(_.i.ranges[1][1], scales.y.scale.invert(y)))
+    ]
+  }
+
+  function updateHandle (handle, guide) {
+    const x = scales.x.scale(_.i.values[0]) + 0.5
+    const y = scales.y.scale(_.i.values[1]) + 0.5
+    handle.attr('cx', x)
+      .attr('cy', y)
+      .attr('stroke', _.i.color)
+    guide.clip.attr('width', self._widget.size.innerWidth)
+      .attr('height', self._widget.size.innerHeight)
+    guide.x.attr('x2', self._widget.size.innerWidth)
+      .attr('y1', y)
+      .attr('y2', y)
+      .attr('stroke', _.i.color)
+    guide.y.attr('x1', x)
+      .attr('x2', x)
+      .attr('y2', self._widget.size.innerHeight)
+      .attr('stroke', _.i.color)
+  }
+
   // Private members.
   const _ = {
-    scales,
-
     // Internal variables.
     i: Object.assign({}, DEFAULTS),
 
     // DOM.
+    // TODO Move these out.
     dom: (() => {
       // Container.
       const container = self._widget.content.append('g')
@@ -118,10 +145,10 @@ export default (name, parent = 'body') => {
               .attr('stroke-width', 2)
 
             // Calculate value.
-            _.updateValues()
+            updateValues()
 
             // Update handle position.
-            _.updateHandle(_.dom.handle, _.dom.guide)
+            updateHandle(_.dom.handle, _.dom.guide)
 
             // Callback.
             _.i.callback && _.i.callback(_.i.values)
@@ -140,74 +167,45 @@ export default (name, parent = 'body') => {
         handle,
         overlay
       }
-    })(),
-
-    updateValues (initialValues) {
-      const x = typeof initialValues === 'undefined' ? event.x : _.scales.x.scale(initialValues[0])
-      const y = typeof initialValues === 'undefined' ? event.y : _.scales.y.scale(initialValues[1])
-      _.i.values = [
-        Math.max(_.i.ranges[0][0], Math.min(_.i.ranges[0][1], _.scales.x.scale.invert(x))),
-        Math.max(_.i.ranges[1][0], Math.min(_.i.ranges[1][1], _.scales.y.scale.invert(y)))
-      ]
-    },
-
-    updateHandle (handle, guide) {
-      const x = _.scales.x.scale(_.i.values[0]) + 0.5
-      const y = _.scales.y.scale(_.i.values[1]) + 0.5
-      handle.attr('cx', x)
-        .attr('cy', y)
-        .attr('stroke', _.i.color)
-      guide.clip.attr('width', self._widget.size.innerWidth)
-        .attr('height', self._widget.size.innerHeight)
-      guide.x.attr('x2', self._widget.size.innerWidth)
-        .attr('y1', y)
-        .attr('y2', y)
-        .attr('stroke', _.i.color)
-      guide.y.attr('x1', x)
-        .attr('x2', x)
-        .attr('y2', self._widget.size.innerHeight)
-        .attr('stroke', _.i.color)
-    },
-
-    update (duration) {
-      // Update scales.
-      _.scales.x.range([0, parseFloat(self._widget.size.innerWidth)])
-        .domain(_.i.ranges[0])
-      _.scales.y.range([parseFloat(self._widget.size.innerHeight), 0])
-        .domain(_.i.ranges[1])
-
-      // Update internals.
-      _.updateValues(_.i.values)
-
-      // Adjust container.
-      self._widget.getElem(_.dom.container, duration)
-        .attr('transform', `translate(${self._widget.margins.left}, ${self._widget.margins.top})`)
-
-      // Adjust track and overlay.
-      self._widget.getElem(_.dom.track, duration)
-        .attr('width', self._widget.size.innerWidth)
-        .attr('height', self._widget.size.innerHeight)
-        .attr('fill', lighter(_.i.color, 0.8))
-        .attr('stroke', _.i.color)
-      self._widget.getElem(_.dom.overlay, duration)
-        .attr('width', parseFloat(self._widget.size.innerWidth) + 20)
-        .attr('height', parseFloat(self._widget.size.innerHeight) + 20)
-
-      // Adjust guide and handle.
-      _.updateHandle(
-        self._widget.getElem(_.dom.handle, duration), {
-          clip: self._widget.getElem(_.dom.guide.clip, duration),
-          x: self._widget.getElem(_.dom.guide.x, duration)
-            .style('opacity', _.i.guide ? 1 : 0),
-          y: self._widget.getElem(_.dom.guide.y, duration)
-            .style('opacity', _.i.guide ? 1 : 0)
-        }
-      )
-    }
+    })()
   }
 
   // Extend widget update.
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Update scales.
+    scales.x.range([0, parseFloat(self._widget.size.innerWidth)])
+      .domain(_.i.ranges[0])
+    scales.y.range([parseFloat(self._widget.size.innerHeight), 0])
+      .domain(_.i.ranges[1])
+
+    // Update internals.
+    updateValues(_.i.values)
+
+    // Adjust container.
+    self._widget.getElem(_.dom.container, duration)
+      .attr('transform', `translate(${self._widget.margins.left}, ${self._widget.margins.top})`)
+
+    // Adjust track and overlay.
+    self._widget.getElem(_.dom.track, duration)
+      .attr('width', self._widget.size.innerWidth)
+      .attr('height', self._widget.size.innerHeight)
+      .attr('fill', lighter(_.i.color, 0.8))
+      .attr('stroke', _.i.color)
+    self._widget.getElem(_.dom.overlay, duration)
+      .attr('width', parseFloat(self._widget.size.innerWidth) + 20)
+      .attr('height', parseFloat(self._widget.size.innerHeight) + 20)
+
+    // Adjust guide and handle.
+    updateHandle(
+      self._widget.getElem(_.dom.handle, duration), {
+        clip: self._widget.getElem(_.dom.guide.clip, duration),
+        x: self._widget.getElem(_.dom.guide.x, duration)
+          .style('opacity', _.i.guide ? 1 : 0),
+        y: self._widget.getElem(_.dom.guide.y, duration)
+          .style('opacity', _.i.guide ? 1 : 0)
+      }
+    )
+  }, true)
 
   // Public API.
   api = Object.assign(api, {

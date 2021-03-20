@@ -56,134 +56,132 @@ export default (name, parent = 'body') => {
     columns: DEFAULTS.columns,
     inserted: false,
     container: self._widget.content.append('g')
-      .attr('class', 'legend-container'),
+      .attr('class', 'legend-container')
+  }
 
-    // Methods.
-    entryTransform: (d, i) => {
-      const fs = parseFloat(self._font.size)
-      return `translate(${fs * _.hSep * (i % _.columns)}, ${fs * (0.7 + _.vSep * Math.floor(i / _.columns))})`
-    },
+  // Private methods.
+  function entryTransform (d, i) {
+    const fs = parseFloat(self._font.size)
+    return `translate(${fs * _.hSep * (i % _.columns)}, ${fs * (0.7 + _.vSep * Math.floor(i / _.columns))})`
+  }
 
-    makeMarker (elem) {
-      // Remove existing shape.
-      elem.select('.legend-entry-marker-shape')
-        .remove()
+  function makeMarker (elem) {
+    // Remove existing shape.
+    elem.select('.legend-entry-marker-shape')
+      .remove()
 
-      // Add shape.
-      let shape
-      switch (_.markers) {
-        case 'square':
-          shape = elem.append('rect')
-            .attr('x', 0)
-            .attr('y', '-.5em')
-            .attr('width', '1em')
-            .attr('height', '1em')
-            .attr('rx', 2)
-            .attr('ry', 2)
-          break
-        case 'circle':
-          shape = elem.append('circle')
-            .attr('cx', '.5em')
-            .attr('cy', 0)
-            .attr('r', '.5em')
-          break
-        default:
-          shape = elem.append('path')
-            .attr('d', _.markers)
-            .attr('transform', `translate(${parseFloat(self._font.size) / 2}, 0)`)
-      }
-
-      // Add class and style
-      shape.attr('class', 'legend-entry-marker-shape')
-        .attr('mask', _.styles)
-    },
-
-    update (duration) {
-      // Font metrics to position the markers.
-      const fm = self._widget.getFontMetrics()
-
-      // Legend transitions.
-      const t = _.container.transition().duration(duration)
-
-      // Transform container with the margins if not inserted.
-      if (!_.inserted) {
-        t.attr('transform', `translate(${parseFloat(self._widget.margins.left)}, ${parseFloat(self._widget.margins.top)})`)
-      }
-
-      _.container.selectAll('.legend-entry')
-        .data(_.entries, d => d.name)
-        .join(
-          // Entering entries.
-          enter => {
-            const entry = enter.append('g')
-              .attr('class', d => `legend-entry ${encode(d.name)}`)
-              .attr('transform', _.entryTransform)
-              .style('shape-rendering', 'geometricPrecision')
-              .style('opacity', 0)
-              .style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
-              .style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
-              .on('mouseover', d => self._mouse.over(d.name))
-              .on('mouseleave', d => self._mouse.leave(d.name))
-
-            // Fade in.
-            entry.transition(t)
-              .style('opacity', 1)
-
-            // Add marker group.
-            // TODO Add mask using style.
-            const marker = entry.append('g')
-              .attr('class', 'legend-entry-marker')
-              .attr('fill', self._color.mapper)
-
-            // Add marker.
-            marker.call(_.makeMarker, fm)
-              .attr('font-size', self._font.size)
-
-            // Add label.
-            entry.append('text')
-              .attr('class', 'legend-entry-label')
-              .attr('text-anchor', 'start')
-              .attr('dominant-baseline', 'central')
-              .attr('font-size', self._font.size)
-              .attr('dx', 1.3 * parseFloat(self._font.size))
-              .text(d => d.name)
-
-            return entry
-          },
-
-          // Updated entries.
-          update => {
-            // Update entry.
-            update.style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
-              .style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
-              .transition(t)
-              .attr('transform', _.entryTransform)
-              .style('opacity', 1)
-
-            // Update marker.
-            update.select('.legend-entry-marker')
-              .attr('font-size', self._font.size)
-              .call(_.makeMarker, fm)
-              .transition(t)
-              .attr('fill', self._color.mapper)
-
-            // Update label.
-            update.select('.legend-entry-label')
-              .text(d => d.name)
-
-            return update
-          },
-
-          // Exiting entries.
-          exit => exit.transition(t)
-            .style('opacity', 0)
-            .remove()
-        )
+    // Add shape.
+    let shape
+    switch (_.markers) {
+      case 'square':
+        shape = elem.append('rect')
+          .attr('x', 0)
+          .attr('y', '-.5em')
+          .attr('width', '1em')
+          .attr('height', '1em')
+          .attr('rx', 2)
+          .attr('ry', 2)
+        break
+      case 'circle':
+        shape = elem.append('circle')
+          .attr('cx', '.5em')
+          .attr('cy', 0)
+          .attr('r', '.5em')
+        break
+      default:
+        shape = elem.append('path')
+          .attr('d', _.markers)
+          .attr('transform', `translate(${parseFloat(self._font.size) / 2}, 0)`)
     }
+
+    // Add class and style
+    shape.attr('class', 'legend-entry-marker-shape')
+      .attr('mask', _.styles)
   }
 
   // Extend widget update.
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Font metrics to position the markers.
+    const fm = self._widget.getFontMetrics()
+
+    // Legend transitions.
+    const t = _.container.transition().duration(duration)
+
+    // Transform container with the margins if not inserted.
+    if (!_.inserted) {
+      t.attr('transform', `translate(${parseFloat(self._widget.margins.left)}, ${parseFloat(self._widget.margins.top)})`)
+    }
+
+    _.container.selectAll('.legend-entry')
+      .data(_.entries, d => d.name)
+      .join(
+        // Entering entries.
+        enter => {
+          const entry = enter.append('g')
+            .attr('class', d => `legend-entry ${encode(d.name)}`)
+            .attr('transform', entryTransform)
+            .style('shape-rendering', 'geometricPrecision')
+            .style('opacity', 0)
+            .style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
+            .style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
+            .on('mouseover', d => self._mouse.over(d.name))
+            .on('mouseleave', d => self._mouse.leave(d.name))
+
+          // Fade in.
+          entry.transition(t)
+            .style('opacity', 1)
+
+          // Add marker group.
+          // TODO Add mask using style.
+          const marker = entry.append('g')
+            .attr('class', 'legend-entry-marker')
+            .attr('fill', self._color.mapper)
+
+          // Add marker.
+          marker.call(makeMarker, fm)
+            .attr('font-size', self._font.size)
+
+          // Add label.
+          entry.append('text')
+            .attr('class', 'legend-entry-label')
+            .attr('text-anchor', 'start')
+            .attr('dominant-baseline', 'central')
+            .attr('font-size', self._font.size)
+            .attr('dx', 1.3 * parseFloat(self._font.size))
+            .text(d => d.name)
+
+          return entry
+        },
+
+        // Updated entries.
+        update => {
+          // Update entry.
+          update.style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
+            .style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
+            .transition(t)
+            .attr('transform', entryTransform)
+            .style('opacity', 1)
+
+          // Update marker.
+          update.select('.legend-entry-marker')
+            .attr('font-size', self._font.size)
+            .call(makeMarker, fm)
+            .transition(t)
+            .attr('fill', self._color.mapper)
+
+          // Update label.
+          update.select('.legend-entry-label')
+            .text(d => d.name)
+
+          return update
+        },
+
+        // Exiting entries.
+        exit => exit.transition(t)
+          .style('opacity', 0)
+          .remove()
+      )
+  }, true)
 
   // Public API.
   api = Object.assign(api, {

@@ -6,6 +6,7 @@ import { scaleBand, scaleLinear, scalePoint, scalePow } from 'd3'
  * @function Scale
  * @param {string} [type = linear] Type of scale: linear, band or point.
  */
+// TODO Get rid of this component.
 export default (type = 'linear') => {
   // Private members
   // TODO Save domain and range.

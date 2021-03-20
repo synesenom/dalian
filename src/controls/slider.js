@@ -38,12 +38,11 @@ export default (name, parent = 'body') => {
 
   // Private members.
   const _ = {
-    scale,
-
     // Internal variables.
     i: Object.assign({domain: []}, DEFAULTS),
 
     // DOM.
+    // TODO Move this outside.
     dom: (() => {
       // Container.
       const container = self._widget.content.append('g')
@@ -78,11 +77,11 @@ export default (name, parent = 'body') => {
               .attr('stroke-width', 2)
 
             // Calculate value.
-            _.updateValue()
+            updateValue()
 
             // Update handle position.
-            _.dom.handle.attr('cx', _.scale.scale(_.i.value) + 0.5)
-            _.dom.value.attr('x2', _.scale.scale(_.i.value) + 0.5)
+            _.dom.handle.attr('cx', scale.scale(_.i.value) + 0.5)
+            _.dom.value.attr('x2', scale.scale(_.i.value) + 0.5)
             _.i.callback && _.i.callback(_.i.value)
           })
           .on('end', () => {
@@ -105,70 +104,69 @@ export default (name, parent = 'body') => {
         overlay,
         handle
       }
-    })(),
+    })()
+  }
 
-    updateDomain () {
-      if (_.i.step === 0) {
-        return []
-      }
+  // Private methods.
+  function updateDomain () {
+    if (_.i.step === 0) {
+      return []
+    }
 
-      _.i.domain = []
-      for (let i = _.i.min; i <= _.i.max; i += _.i.step) {
-        _.i.domain.push(i)
-      }
-    },
+    _.i.domain = []
+    for (let i = _.i.min; i <= _.i.max; i += _.i.step) {
+      _.i.domain.push(i)
+    }
+  }
 
-    updateValue (initialValue) {
-      const x = typeof initialValue === 'undefined' ? event.x : _.scale.scale(initialValue)
-      if (_.i.step > 0) {
-        _.i.value = _.i.domain.reduce((prev, curr) => (Math.abs(_.scale.scale(curr) - x) < Math.abs(_.scale.scale(prev) - x) ? curr : prev))
-      } else {
-        _.i.value = Math.max(_.i.min, Math.min(_.i.max, _.scale.scale.invert(x)))
-      }
-    },
-
-    update (duration) {
-      _.scale.range([0, parseFloat(self._widget.size.innerWidth)])
-        .domain([_.i.min, _.i.max])
-
-      // Update internals.
-      _.updateDomain()
-      _.updateValue(_.i.value)
-
-      // Adjust margin.
-      const marginTop = parseFloat(self._widget.size.height) / 2
-
-      // Adjust container.
-      self._widget.getElem(_.dom.container, duration)
-        .attr('transform', `translate(${self._widget.margins.left}, ${marginTop})`)
-
-      // Adjust track and overlay.
-      self._widget.getElem(_.dom.track, duration)
-        .attr('x2', self._widget.size.innerWidth)
-        .attr('stroke', _.i.trackColor)
-        .attr('stroke-width', _.i.thickness)
-      self._widget.getElem(_.dom.overlay, duration)
-        .attr('x1', -_.i.thickness)
-        .attr('x2', parseFloat(self._widget.size.innerWidth) + _.i.thickness)
-        .attr('stroke-width', 2 * _.i.thickness)
-
-      // Adjust value and handle.
-      self._widget.getElem(_.dom.value, duration)
-        .attr('x2', _.scale.scale(_.i.value) + 0.5)
-        .attr('stroke', _.i.color)
-        .attr('stroke-width', _.i.thickness)
-      self._widget.getElem(_.dom.handle, duration)
-        .attr('cx', _.scale.scale(_.i.value) + 0.5)
-        .attr('r', 1.1 * _.i.thickness)
-        .attr('stroke', _.i.trackColor)
-
-      // Adjust axis.
-      self._bottomAxis.margin({ bottom: marginTop - self._widget.margins.bottom - _.i.thickness / 2 })
+  function updateValue (initialValue) {
+    const x = typeof initialValue === 'undefined' ? event.x : scale.scale(initialValue)
+    if (_.i.step > 0) {
+      _.i.value = _.i.domain.reduce((prev, curr) => (Math.abs(scale.scale(curr) - x) < Math.abs(scale.scale(prev) - x) ? curr : prev))
+    } else {
+      _.i.value = Math.max(_.i.min, Math.min(_.i.max, scale.scale.invert(x)))
     }
   }
 
   // Extend widget update.
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    scale.range([0, parseFloat(self._widget.size.innerWidth)])
+      .domain([_.i.min, _.i.max])
+
+    // Update internals.
+    updateDomain()
+    updateValue(_.i.value)
+
+    // Adjust margin.
+    const marginTop = parseFloat(self._widget.size.height) / 2
+
+    // Adjust container.
+    self._widget.getElem(_.dom.container, duration)
+      .attr('transform', `translate(${self._widget.margins.left}, ${marginTop})`)
+
+    // Adjust track and overlay.
+    self._widget.getElem(_.dom.track, duration)
+      .attr('x2', self._widget.size.innerWidth)
+      .attr('stroke', _.i.trackColor)
+      .attr('stroke-width', _.i.thickness)
+    self._widget.getElem(_.dom.overlay, duration)
+      .attr('x1', -_.i.thickness)
+      .attr('x2', parseFloat(self._widget.size.innerWidth) + _.i.thickness)
+      .attr('stroke-width', 2 * _.i.thickness)
+
+    // Adjust value and handle.
+    self._widget.getElem(_.dom.value, duration)
+      .attr('x2', scale.scale(_.i.value) + 0.5)
+      .attr('stroke', _.i.color)
+      .attr('stroke-width', _.i.thickness)
+    self._widget.getElem(_.dom.handle, duration)
+      .attr('cx', scale.scale(_.i.value) + 0.5)
+      .attr('r', 1.1 * _.i.thickness)
+      .attr('stroke', _.i.trackColor)
+
+    // Adjust axis.
+    self._bottomAxis.margin({ bottom: marginTop - self._widget.margins.bottom - _.i.thickness / 2 })
+  }, true)
 
   // Public API.
   api = Object.assign(api, {

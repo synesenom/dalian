@@ -138,6 +138,19 @@ export default (name, parent = 'body') => {
     background: DEFAULTS.color
   })
 
+  // Private methods.
+  function align (d) {
+    switch (d.type) {
+      default:
+      case 'string':
+      case 'date':
+        return 'left'
+      case 'number':
+        return 'right'
+    }
+  }
+
+  // Private members.
   const _ = {
     // Font metrics for proper positioning of the head marker.
     fm: self._widget.getFontMetrics(),
@@ -310,17 +323,6 @@ export default (name, parent = 'body') => {
       }
     })(),
 
-    align (d) {
-      switch (d.type) {
-        default:
-        case 'string':
-        case 'date':
-          return 'left'
-        case 'number':
-          return 'right'
-      }
-    },
-
     updateBody () {
       // Determine effective schema.
       const schema = _.data.schema.filter(h => _.data.cols.indexOf(h.key) > -1)
@@ -352,7 +354,7 @@ export default (name, parent = 'body') => {
               .attr('class', d => `row-${d.row} column-${d.column} cell-${d.row}-${d.column}`)
               .style('padding', '0.25em 0.5em')
               .style('white-space', 'nowrap')
-              .style('text-align', _.align)
+              .style('text-align', align)
               .on('mouseover.table', self._mouse.over)
               .on('mouseleave.table', self._mouse.leave)
               .on('click.table', self._mouse.click)
@@ -376,70 +378,68 @@ export default (name, parent = 'body') => {
               .remove()
           }
         )
-    },
-
-    update (duration) {
-      // Adjust container.
-      _.dom.container.transition().duration(duration)
-        .style('width', self._widget.size.innerWidth)
-        .style('height', self._widget.size.innerHeight)
-        .style('margin-left', self._widget.margins.left + 'px')
-        .style('margin-top', self._widget.margins.top + 'px')
-      _.dom.table
-        .style('height', self._widget.size.innerHeight)
-
-      // Calculate effective schema.
-      const schema = _.data.schema.filter(h => _.data.cols.indexOf(h.key) > -1)
-
-      // Update header.
-      const tableHeader = _.dom.header.selectAll('th')
-        .data(schema, d => d.key)
-        .join(
-          enter => {
-            // Add row.
-            const row = enter.append('th')
-              .style('user-select', 'none')
-
-            // Add head label and sorting arrow.
-            const div = row.append('div')
-              .attr('class', SELECTORS.headContainer)
-              .style('float', _.align)
-            div.append('span')
-              .attr('class', SELECTORS.headLabel)
-            div.append('svg')
-              .attr('class', SELECTORS.headSvg)
-              .attr('viewBox', '0 0 10 10')
-              .style('width', `${_.fm.capHeight}em`)
-              .style('height', `${_.fm.capHeight}em`)
-              .append('path')
-              .attr('class', SELECTORS.headMarker)
-              .attr('fill', 'currentColor')
-              .attr('d', _.sorting.arrow())
-
-            return row
-          },
-          update => update,
-          exit => exit.remove()
-        )
-        .on('click', _.sorting.sort)
-
-      tableHeader
-        .attr('class', SELECTORS.head)
-        .style('background', _.colors.main)
-        .style('color', backgroundAdjustedColor(_.colors.main))
-        .select('.' + SELECTORS.headLabel)
-        .html(h => h.name)
-
-      // Update body.
-      _.updateBody()
-
-      // Update paging box.
-      _.paging.update(duration)
     }
   }
 
   // Extend widget update
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Adjust container.
+    _.dom.container.transition().duration(duration)
+      .style('width', self._widget.size.innerWidth)
+      .style('height', self._widget.size.innerHeight)
+      .style('margin-left', self._widget.margins.left + 'px')
+      .style('margin-top', self._widget.margins.top + 'px')
+    _.dom.table
+      .style('height', self._widget.size.innerHeight)
+
+    // Calculate effective schema.
+    const schema = _.data.schema.filter(h => _.data.cols.indexOf(h.key) > -1)
+
+    // Update header.
+    const tableHeader = _.dom.header.selectAll('th')
+      .data(schema, d => d.key)
+      .join(
+        enter => {
+          // Add row.
+          const row = enter.append('th')
+            .style('user-select', 'none')
+
+          // Add head label and sorting arrow.
+          const div = row.append('div')
+            .attr('class', SELECTORS.headContainer)
+            .style('float', align)
+          div.append('span')
+            .attr('class', SELECTORS.headLabel)
+          div.append('svg')
+            .attr('class', SELECTORS.headSvg)
+            .attr('viewBox', '0 0 10 10')
+            .style('width', `${_.fm.capHeight}em`)
+            .style('height', `${_.fm.capHeight}em`)
+            .append('path')
+            .attr('class', SELECTORS.headMarker)
+            .attr('fill', 'currentColor')
+            .attr('d', _.sorting.arrow())
+
+          return row
+        },
+        update => update,
+        exit => exit.remove()
+      )
+      .on('click', _.sorting.sort)
+
+    tableHeader
+      .attr('class', SELECTORS.head)
+      .style('background', _.colors.main)
+      .style('color', backgroundAdjustedColor(_.colors.main))
+      .select('.' + SELECTORS.headLabel)
+      .html(h => h.name)
+
+    // Update body.
+    _.updateBody()
+
+    // Update paging box.
+    _.paging.update(duration)
+  }, true)
 
   // Public API.
   api = Object.assign(api, {

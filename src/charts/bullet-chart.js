@@ -34,9 +34,9 @@ export default (name, parent = 'body') => {
     rangeColor: '#888'
   }
 
-  const scale = Scale('linear')
+  const scale = Scale()
 
-  // Build widget from components.
+  // Build widget.
   let { self, api } = compose(
     Widget('bullet-chart', name, parent, 'svg'),
     BottomAxis(scale),
@@ -53,8 +53,6 @@ export default (name, parent = 'body') => {
 
   // Private members.
   const _ = {
-    scale,
-
     // UI elements.
     ui: {
       thickness: DEFAULTS.thickness,
@@ -125,76 +123,74 @@ export default (name, parent = 'body') => {
             .attr('dominant-baseline', 'hanging')
         }
       }
-    })(),
-
-    update (duration) {
-      // Update scale.
-      _.scale.range([0, parseInt(self._widget.size.innerWidth)])
-        .domain([_.data.ranges[0], _.data.ranges[3]])
-
-      // Adjust plot.
-      const marginTop = (parseFloat(self._widget.size.innerHeight) - _.ui.thickness) / 2
-      self._widget.getElem(_.dom.plot, duration)
-        .attr('transform', `translate(${self._widget.margins.left}, ${marginTop + self._widget.margins.top})`)
-
-      // Adjust axis.
-      self._bottomAxis.margin({ bottom: marginTop })
-        .tickColor(_.ui.rangeColor)
-
-      // Update colors.
-      const t = self._widget.container.transition().duration(duration)
-      _.dom.range.g.transition(t)
-        .attr('color', _.ui.rangeColor)
-      _.dom.value.g.transition(t)
-        .attr('color', _.ui.valueColor)
-
-      // Update range
-      _.dom.range.high.transition(t)
-        .attr('x', _.scale(_.data.ranges[0]))
-        .attr('y', 0)
-        .attr('width', _.scale(_.data.ranges[3]) + 1)
-        .attr('height', _.ui.thickness)
-      _.dom.range.mid.transition(t)
-        .attr('x', _.scale(_.data.ranges[0]))
-        .attr('y', 0)
-        .attr('width', _.scale(_.data.ranges[2]) + 1)
-        .attr('height', _.ui.thickness)
-      _.dom.range.low.transition(t)
-        .attr('x', _.scale(_.data.ranges[0]))
-        .attr('y', 0)
-        .attr('width', _.scale(_.data.ranges[1]) + 1)
-        .attr('height', _.ui.thickness)
-
-      // Update value.
-      _.dom.value.bar.transition(t)
-        .attr('x', _.scale(_.data.ranges[0]))
-        .attr('y', _.ui.thickness / 3)
-        .attr('width', _.scale(_.data.value))
-        .attr('height', _.ui.thickness / 3)
-      _.dom.value.forecast.transition(t)
-        .attr('x', _.scale(_.data.ranges[0]))
-        .attr('y', _.ui.thickness / 3)
-        .attr('width', _.scale(Math.min(_.data.value * _.data.forecast, _.data.ranges[3])))
-        .attr('height', _.ui.thickness / 3)
-        .attr('fill', forecastColor(_.ui.valueColor))
-      _.dom.value.target.transition(t)
-        .attr('x1', _.scale(_.data.target))
-        .attr('y1', _.ui.thickness / 6)
-        .attr('x2', _.scale(_.data.target))
-        .attr('y2', 5 * _.ui.thickness / 6)
-
-      // Update title.
-      _.dom.title.label.transition(t)
-        .attr('y', _.ui.thickness / 2)
-        .text(_.data.label)
-      _.dom.title.unit.transition(t)
-        .attr('y', 2 * _.ui.thickness / 3)
-        .text(_.data.unit)
-    }
+    })()
   }
 
   // Extend widget update.
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Update scale.
+    scale.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain([_.data.ranges[0], _.data.ranges[3]])
+
+    // Adjust plot.
+    const marginTop = (parseFloat(self._widget.size.innerHeight) - _.ui.thickness) / 2
+    self._widget.getElem(_.dom.plot, duration)
+      .attr('transform', `translate(${self._widget.margins.left}, ${marginTop + self._widget.margins.top})`)
+
+    // Adjust axis.
+    self._bottomAxis.margin({ bottom: marginTop })
+      .tickColor(_.ui.rangeColor)
+
+    // Update colors.
+    const t = self._widget.container.transition().duration(duration)
+    _.dom.range.g.transition(t)
+      .attr('color', _.ui.rangeColor)
+    _.dom.value.g.transition(t)
+      .attr('color', _.ui.valueColor)
+
+    // Update range
+    _.dom.range.high.transition(t)
+      .attr('x', scale(_.data.ranges[0]))
+      .attr('y', 0)
+      .attr('width', scale(_.data.ranges[3]) + 1)
+      .attr('height', _.ui.thickness)
+    _.dom.range.mid.transition(t)
+      .attr('x', scale(_.data.ranges[0]))
+      .attr('y', 0)
+      .attr('width', scale(_.data.ranges[2]) + 1)
+      .attr('height', _.ui.thickness)
+    _.dom.range.low.transition(t)
+      .attr('x', scale(_.data.ranges[0]))
+      .attr('y', 0)
+      .attr('width', scale(_.data.ranges[1]) + 1)
+      .attr('height', _.ui.thickness)
+
+    // Update value.
+    _.dom.value.bar.transition(t)
+      .attr('x', scale(_.data.ranges[0]))
+      .attr('y', _.ui.thickness / 3)
+      .attr('width', scale(_.data.value))
+      .attr('height', _.ui.thickness / 3)
+    _.dom.value.forecast.transition(t)
+      .attr('x', scale(_.data.ranges[0]))
+      .attr('y', _.ui.thickness / 3)
+      .attr('width', scale(Math.min(_.data.value * _.data.forecast, _.data.ranges[3])))
+      .attr('height', _.ui.thickness / 3)
+      .attr('fill', forecastColor(_.ui.valueColor))
+    _.dom.value.target.transition(t)
+      .attr('x1', scale(_.data.target))
+      .attr('y1', _.ui.thickness / 6)
+      .attr('x2', scale(_.data.target))
+      .attr('y2', 5 * _.ui.thickness / 6)
+
+    // Update title.
+    _.dom.title.label.transition(t)
+      .attr('y', _.ui.thickness / 2)
+      .text(_.data.label)
+    _.dom.title.unit.transition(t)
+      .attr('y', 2 * _.ui.thickness / 3)
+      .text(_.data.unit)
+  }, true)
 
   // Public API.
   api = Object.assign(api, {

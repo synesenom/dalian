@@ -49,9 +49,9 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Compose factory.
+  // Build widget.
   const scales = {
-    x: Scale('linear'),
+    x: Scale(),
     y: Scale('band')
   }
   let { self, api } = compose(
@@ -63,10 +63,59 @@ export default (name, parent = 'body') => {
     TopAxis(scales.x)
   )
 
+  // Private methods.
+  const shiftDay = (day, shift) => ((day - shift + 7) % 7)
+
+  function tileX (d) {
+    const i = Math.ceil((d.date - _.metrics.firstDay) / (1000 * 3600 * 24))
+    return Math.floor((i + shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)) / 7)
+  }
+
+  const labelFill = d => backgroundAdjustedColor(self._color.mapper(d))
+
+  function addTiles (enter, size, labelDy, labelFontSize) {
+    const tiles = enter.append('g')
+      .attr('class', d => `tile date-${d.date.getDate()}`)
+      // Y translation is shifted by the specified week start.
+      .attr('transform', d => `translate(${tileX(d) * size}, ${shiftDay(d.date.getDay(), _.tiles.weekStart) * size})`)
+      .on('mouseover.calendar', d => {
+        _.current = d
+      })
+      .on('mouseleave.calendar', () => {
+        _.current = undefined
+      })
+
+    // Add rectangles.
+    tiles.append('rect')
+      .attr('x', 1)
+      .attr('y', 1)
+      .attr('width', size - 2)
+      .attr('height', size - 2)
+      .attr('rx', 0.1 * size)
+      .attr('ry', 0.1 * size)
+      .attr('stroke', 'transparent')
+      .attr('stroke-width', 2)
+      .attr('fill', self._color.mapper)
+
+    // Add labels.
+    tiles.append('text')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('dx', 0.5 * size)
+      .attr('dy', labelDy)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', labelFontSize)
+      .attr('fill', labelFill)
+      .style('display', self._label.show ? null : 'none')
+      .style('user-select', 'none')
+      .text(self._label.format)
+
+    return tiles
+  }
+
   // Private members.
   const _ = {
     // Variables
-    scales,
     current: undefined,
     metrics: {},
 
@@ -82,170 +131,7 @@ export default (name, parent = 'body') => {
     },
 
     // Font metrics to position labels.
-    fm: self._widget.getFontMetrics(),
-
-    // Calculations.
-    shiftDay: (day, shift) => ((day - shift + 7) % 7),
-
-    tileX (d) {
-      const i = Math.ceil((d.date - _.metrics.firstDay) / (1000 * 3600 * 24))
-      return Math.floor((i + _.shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)) / 7)
-    },
-
-    labelFill: d => backgroundAdjustedColor(self._color.mapper(d)),
-
-    addTiles (enter, size, labelDy, labelFontSize) {
-      const tiles = enter.append('g')
-        .attr('class', d => `tile date-${d.date.getDate()}`)
-        // Y translation is shifted by the specified week start.
-        .attr('transform', d => `translate(${_.tileX(d) * size}, ${_.shiftDay(d.date.getDay(), _.tiles.weekStart) * size})`)
-        .on('mouseover.calendar', d => {
-          _.current = d
-        })
-        .on('mouseleave.calendar', () => {
-          _.current = undefined
-        })
-
-      // Add rectangles.
-      tiles.append('rect')
-        .attr('x', 1)
-        .attr('y', 1)
-        .attr('width', size - 2)
-        .attr('height', size - 2)
-        .attr('rx', 0.1 * size)
-        .attr('ry', 0.1 * size)
-        .attr('stroke', 'transparent')
-        .attr('stroke-width', 2)
-        .attr('fill', self._color.mapper)
-
-      // Add labels.
-      tiles.append('text')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('dx', 0.5 * size)
-        .attr('dy', labelDy)
-        .attr('text-anchor', 'middle')
-        .attr('font-size', labelFontSize)
-        .attr('fill', _.labelFill)
-        .style('display', self._label.show ? null : 'none')
-        .style('user-select', 'none')
-        .text(self._label.format)
-
-      return tiles
-    },
-
-    // Update method.
-    update (duration) {
-      // TODO Move these to a method.
-      const firstWeekLength = 7 - _.shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)
-      const numWeeks = Math.ceil((_.metrics.numDays - firstWeekLength) / 7) + 1
-
-      // Adjust block positions.
-      self._chart.data.forEach(block => {
-        block.x = Math.floor((block.daysOffset - firstWeekLength) / 7) + 1
-        block.length = Math.ceil((block.daysOffset + block.numDays - firstWeekLength) / 7) + 1 - block.x
-      })
-
-      // Calculate some metrics for positioning the calendar:
-      // - Start week day.
-      // - Number of full weeks.
-      // Determine tile size: it is the lowest from the calculated sizes based on the width and height
-      // of the widget.
-      const lx = parseFloat(self._widget.size.innerWidth) / (numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))
-      const ly = parseFloat(self._widget.size.innerHeight) / 7
-      const size = Math.min(lx, ly)
-
-      // Update color mapper scale.
-      self._color.scale(scaleLinear()
-        .domain(extent(self._chart.data.map(d => d.tiles).flat(), d => d.value))
-        .range([0, 1])
-      )
-
-      // Some constants.
-      const marginLeft = (parseFloat(self._widget.size.innerWidth) - size * (numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))) / 2
-      const marginTop = (parseFloat(self._widget.size.innerHeight) - size * 7) / 2
-      const labelFontSize = Math.min(0.6 * size, parseFloat(self._font.size)) + 'px'
-      const labelDy = (size + _.fm.capHeight * parseFloat(labelFontSize)) / 2
-
-      // Scales.
-      _.scales.x.range([marginLeft, parseInt(self._widget.size.innerWidth) - marginLeft])
-        .domain([0, numWeeks + _.blocks.margin * (_.metrics.numMonths - 1)])
-      _.scales.y.range([marginTop, parseInt(self._widget.size.innerHeight) - marginTop])
-        // Labels are rotated backwards by the specified week start.
-        .domain(unrotate(_.tiles.names, _.tiles.weekStart))
-
-      // Adjust axes.
-      self._leftAxis.hideAxisLine(true)
-        .hideTicks(true)
-        .margin({ left: marginLeft })
-      self._topAxis.tickAnchor(_.blocks.align)
-        .hideAxisLine(true)
-        .hideTicks(true)
-        .margin({ top: marginTop })
-        .values(self._chart.data
-          .map(d => d.x + (_.blocks.align === 'middle' ? 0.5 * d.length : 0) + _.blocks.margin * d.index))
-        .format((d, i) => _.blocks.names[self._chart.data[i].month])
-
-      // Add blocks: each block is a plot group.
-      // Implementation is similar to the scatter plot.
-      self._chart.plotGroups({
-        enter: g => {
-          g.style('opacity', 0)
-            // Add year class to block.
-            .classed(`year-${_.metrics.firstDay.getFullYear()}`, true)
-
-            // Transformations:
-            // - Calendar margin to center it in container.
-            // - Translate by the block margin.
-            .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.index * size}, ${marginTop})`)
-
-          // Add tiles.
-          _.addTiles(g.selectAll('.tile').data(d => d.tiles).enter(), size, labelDy, labelFontSize)
-
-          return g
-        },
-        updateBefore: g => {
-          // Update tiles.
-          const tiles = g.selectAll('.tile')
-            .data(d => d.tiles)
-            .join(
-              enter => {
-                return _.addTiles(enter, size, labelDy, labelFontSize)
-                  .style('opacity', 0)
-              },
-              update => update,
-              exit => exit.transition().duration(duration)
-                .style('opacity', 0)
-                .remove()
-            )
-            .transition().duration(duration)
-            .attr('transform', d => `translate(${_.tileX(d) * size}, ${_.shiftDay(d.date.getDay(), _.tiles.weekStart) * size})`)
-            .style('opacity', 1)
-
-          // Update rectangles.
-          tiles.select('rect')
-            .attr('width', size - 2)
-            .attr('height', size - 2)
-            .attr('rx', 0.1 * size)
-            .attr('ry', 0.1 * size)
-            .attr('fill', self._color.mapper)
-
-          // Update labels.
-          tiles.select('text')
-            .attr('dx', 0.5 * size)
-            .attr('dy', labelDy)
-            .attr('font-size', labelFontSize)
-            .attr('fill', _.labelFill)
-            .style('display', self._label.show ? null : 'none')
-            .text(self._label.format)
-
-          return g
-        },
-        update: g => g.style('opacity', 1)
-          .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.index * size}, ${marginTop})`),
-        exit: g => g.style('opacity', 0)
-      }, duration)
-    }
+    fm: self._widget.getFontMetrics()
   }
 
   // Overrides
@@ -330,7 +216,117 @@ export default (name, parent = 'body') => {
     }
   }
 
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // TODO Move these to a method.
+    const firstWeekLength = 7 - shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)
+    const numWeeks = Math.ceil((_.metrics.numDays - firstWeekLength) / 7) + 1
+
+    // Adjust block positions.
+    self._chart.data.forEach(block => {
+      block.x = Math.floor((block.daysOffset - firstWeekLength) / 7) + 1
+      block.length = Math.ceil((block.daysOffset + block.numDays - firstWeekLength) / 7) + 1 - block.x
+    })
+
+    // Calculate some metrics for positioning the calendar:
+    // - Start week day.
+    // - Number of full weeks.
+    // Determine tile size: it is the lowest from the calculated sizes based on the width and height
+    // of the widget.
+    const lx = parseFloat(self._widget.size.innerWidth) / (numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))
+    const ly = parseFloat(self._widget.size.innerHeight) / 7
+    const size = Math.min(lx, ly)
+
+    // Update color mapper scale.
+    self._color.scale(scaleLinear()
+      .domain(extent(self._chart.data.map(d => d.tiles).flat(), d => d.value))
+      .range([0, 1])
+    )
+
+    // Some constants.
+    const marginLeft = (parseFloat(self._widget.size.innerWidth) - size * (numWeeks + _.blocks.margin * (_.metrics.numMonths - 1))) / 2
+    const marginTop = (parseFloat(self._widget.size.innerHeight) - size * 7) / 2
+    const labelFontSize = Math.min(0.6 * size, parseFloat(self._font.size)) + 'px'
+    const labelDy = (size + _.fm.capHeight * parseFloat(labelFontSize)) / 2
+
+    // Scales.
+    scales.x.range([marginLeft, parseInt(self._widget.size.innerWidth) - marginLeft])
+      .domain([0, numWeeks + _.blocks.margin * (_.metrics.numMonths - 1)])
+    scales.y.range([marginTop, parseInt(self._widget.size.innerHeight) - marginTop])
+      // Labels are rotated backwards by the specified week start.
+      .domain(unrotate(_.tiles.names, _.tiles.weekStart))
+
+    // Adjust axes.
+    self._leftAxis.hideAxisLine(true)
+      .hideTicks(true)
+      .margin({ left: marginLeft })
+    self._topAxis.tickAnchor(_.blocks.align)
+      .hideAxisLine(true)
+      .hideTicks(true)
+      .margin({ top: marginTop })
+      .values(self._chart.data
+        .map(d => d.x + (_.blocks.align === 'middle' ? 0.5 * d.length : 0) + _.blocks.margin * d.index))
+      .format((d, i) => _.blocks.names[self._chart.data[i].month])
+
+    // Add blocks: each block is a plot group.
+    // Implementation is similar to the scatter plot.
+    self._chart.plotGroups({
+      enter: g => {
+        g.style('opacity', 0)
+          // Add year class to block.
+          .classed(`year-${_.metrics.firstDay.getFullYear()}`, true)
+
+          // Transformations:
+          // - Calendar margin to center it in container.
+          // - Translate by the block margin.
+          .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.index * size}, ${marginTop})`)
+
+        // Add tiles.
+        addTiles(g.selectAll('.tile').data(d => d.tiles).enter(), size, labelDy, labelFontSize)
+
+        return g
+      },
+      updateBefore: g => {
+        // Update tiles.
+        const tiles = g.selectAll('.tile')
+          .data(d => d.tiles)
+          .join(
+            enter => {
+              return addTiles(enter, size, labelDy, labelFontSize)
+                .style('opacity', 0)
+            },
+            update => update,
+            exit => exit.transition().duration(duration)
+              .style('opacity', 0)
+              .remove()
+          )
+          .transition().duration(duration)
+          .attr('transform', d => `translate(${tileX(d) * size}, ${shiftDay(d.date.getDay(), _.tiles.weekStart) * size})`)
+          .style('opacity', 1)
+
+        // Update rectangles.
+        tiles.select('rect')
+          .attr('width', size - 2)
+          .attr('height', size - 2)
+          .attr('rx', 0.1 * size)
+          .attr('ry', 0.1 * size)
+          .attr('fill', self._color.mapper)
+
+        // Update labels.
+        tiles.select('text')
+          .attr('dx', 0.5 * size)
+          .attr('dy', labelDy)
+          .attr('font-size', labelFontSize)
+          .attr('fill', labelFill)
+          .style('display', self._label.show ? null : 'none')
+          .text(self._label.format)
+
+        return g
+      },
+      update: g => g.style('opacity', 1)
+        .attr('transform', d => `translate(${marginLeft + _.blocks.margin * d.index * size}, ${marginTop})`),
+      exit: g => g.style('opacity', 0)
+    }, duration)
+  }, true)
 
   api = Object.assign(api || {}, {
     /**

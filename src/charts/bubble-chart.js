@@ -36,8 +36,8 @@ import YRange from '../components/range/y-range'
 export default (name, parent = 'body') => {
   // Build widget from components
   const scales = {
-    x: Scale('linear'),
-    y: Scale('linear'),
+    x: Scale(),
+    y: Scale(),
     size: Scale('sqrt')
   }
   let { self, api } = compose(
@@ -52,158 +52,23 @@ export default (name, parent = 'body') => {
     YRange
   )
 
+  // Private methods.
+  const computeDiagram = data => voronoi()
+    .x(d => scales.x(d.value.x))
+    .y(d => scales.y(d.value.y))
+    .extent([[0, 0], [
+      parseInt(self._widget.size.innerWidth),
+      parseInt(self._widget.size.innerHeight)]
+    ])(data)
+
   // Private members
   const _ = {
-    // Variables
-    scales,
     current: {
       hovered: undefined,
       closest: undefined
     },
     diagram: undefined,
-
-    // UI elements.
-    radius: 30,
-
-    // Calculations.
-    computeDiagram: data => voronoi()
-      .x(d => _.scales.x(d.value.x))
-      .y(d => _.scales.y(d.value.y))
-      .extent([[0, 0], [
-        parseInt(self._widget.size.innerWidth),
-        parseInt(self._widget.size.innerHeight)]
-      ])(data),
-
-    // Update.
-    update (duration) {
-      // Determine boundaries.
-      // TODO Make this a utility.
-      const flatData = self._chart.data.map(d => d.value).flat()
-
-      // Update size scale.
-      const sizeMax = max(flatData.map(d => d.size))
-      _.scales.size.range([0, _.radius])
-        .domain([0, sizeMax])
-
-      // Init scales.
-      // TODO Make this a utility as used by several places: ScatterPlot.
-      let xRange = extent(flatData.map(d => d.x))
-      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-        .domain(xRange)
-      let yRange = extent(flatData.map(d => d.y))
-      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-        .domain(yRange)
-
-      // Adjust scales with sizes.
-      xRange = flatData.map(d => {
-        const dx = _.scales.x.measure(1.5 * _.scales.size(d.size))
-        return [d.x - dx, d.x + dx]
-      }).flat()
-      _.scales.x.domain(self._xRange.range(xRange))
-      yRange = flatData.map(d => {
-        const dy = _.scales.y.measure(1.5 * _.scales.size(d.size))
-        return [d.y - dy, d.y + dy]
-      }).flat()
-      _.scales.y.domain(self._yRange.range(yRange))
-
-      // Add bubbles.
-      self._chart.plotGroups({
-        enter: g => {
-          g.style('opacity', 0)
-            .style('color', self._color.mapper)
-            .on('mouseover.bubble', d => {
-              // Update currently hovered.
-              _.current.hovered = d
-
-              // If there is no closest, call mouse over on hovered.
-              if (typeof _.current.closest === 'undefined') {
-                self._mouse.over(_.current.hovered)
-              }
-            })
-            .on('mouseleave.bubble', () => {
-              // If no current closest, call leave on hovered.
-              if (typeof _.current.closest === 'undefined') {
-                self._mouse.leave(_.current.hovered)
-              }
-
-              // Update hovered.
-              _.current.hovered = undefined
-            })
-            // Remove chart mouse events.
-            .on('mouseover.chart', null)
-            .on('mouseleave.chart', null)
-
-          // Add bubble.
-          g.append('circle')
-            .attr('class', 'bubble')
-            .attr('cx', d => _.scales.x(d.value.x))
-            .attr('cy', d => _.scales.y(d.value.y))
-            .attr('r', d => Math.max(_.scales.size(d.value.size), 1))
-            .attr('stroke', 'currentColor')
-            .attr('fill', 'currentColor')
-            .raise()
-
-          return g
-        },
-        update: g => {
-          g.style('opacity', 1)
-            .style('color', self._color.mapper)
-
-          // Update bubble.
-          g.select('.bubble')
-            .attr('cx', d => _.scales.x(d.value.x))
-            .attr('cy', d => _.scales.y(d.value.y))
-            .attr('r', d => Math.max(_.scales.size(d.value.size), 1))
-            .attr('fill-opacity', self._opacity.value())
-
-          return g
-        },
-        exit: g => g.style('opacity', 0)
-      }, duration)
-
-      // Update Voronoi tessellation.
-      _.diagram = _.computeDiagram(self._chart.data)
-
-      // Add event to detect hovering events.
-      self._widget.container
-        .on('mousemove.bubble', () => {
-          // Find current bubble.
-          const bubble = _.diagram.find(...self._widget.getMouse(), 20)
-          const closest = (bubble && bubble.data) || undefined
-
-          // If it's the same as the current closest, just do nothing.
-          if (closest === _.current.closest) {
-            return
-          }
-
-          if (typeof closest === 'undefined') {
-            // If no bubble was found, call mouse leave on current closest and remove it.
-            self._mouse.leave(_.current.closest)
-            _.current.closest = undefined
-
-            // If there is a hovered one, call mouse over on it.
-            if (typeof _.current.hovered !== 'undefined') {
-              self._mouse.over(_.current.hovered)
-            }
-          } else {
-            // Bubble is found.
-
-            // If currently hovered over a bubble, call leave on that one.
-            if (typeof _.current.hovered !== 'undefined') {
-              self._mouse.leave(_.current.hovered)
-            }
-
-            // Update closest and call mouse over.
-            _.current.closest = closest
-            self._mouse.over(_.current.closest)
-          }
-        })
-        .on('click.bubble', () => {
-          if (typeof _.current.closest !== 'undefined') {
-            self._mouse.click(_.current.closest)
-          }
-        })
-    }
+    radius: 30
   }
 
   // Overrides
@@ -234,7 +99,135 @@ export default (name, parent = 'body') => {
   self._chart.transformData = data => data.sort((a, b) => b.value.size - a.value.size)
 
   // Extend widget update
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Determine boundaries.
+    // TODO Make this a utility.
+    const flatData = self._chart.data.map(d => d.value).flat()
+
+    // Update size scale.
+    const sizeMax = max(flatData.map(d => d.size))
+    scales.size.range([0, _.radius])
+      .domain([0, sizeMax])
+
+    // Init scales.
+    // TODO Make this a utility as used by several places: ScatterPlot.
+    let xRange = extent(flatData.map(d => d.x))
+    scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain(xRange)
+    let yRange = extent(flatData.map(d => d.y))
+    scales.y.range([parseInt(self._widget.size.innerHeight), 0])
+      .domain(yRange)
+
+    // Adjust scales with sizes.
+    xRange = flatData.map(d => {
+      const dx = scales.x.measure(1.5 * scales.size(d.size))
+      return [d.x - dx, d.x + dx]
+    }).flat()
+    scales.x.domain(self._xRange.range(xRange))
+    yRange = flatData.map(d => {
+      const dy = scales.y.measure(1.5 * scales.size(d.size))
+      return [d.y - dy, d.y + dy]
+    }).flat()
+    scales.y.domain(self._yRange.range(yRange))
+
+    // Add bubbles.
+    self._chart.plotGroups({
+      enter: g => {
+        g.style('opacity', 0)
+          .style('color', self._color.mapper)
+          .on('mouseover.bubble', d => {
+            // Update currently hovered.
+            _.current.hovered = d
+
+            // If there is no closest, call mouse over on hovered.
+            if (typeof _.current.closest === 'undefined') {
+              self._mouse.over(_.current.hovered)
+            }
+          })
+          .on('mouseleave.bubble', () => {
+            // If no current closest, call leave on hovered.
+            if (typeof _.current.closest === 'undefined') {
+              self._mouse.leave(_.current.hovered)
+            }
+
+            // Update hovered.
+            _.current.hovered = undefined
+          })
+          // Remove chart mouse events.
+          .on('mouseover.chart', null)
+          .on('mouseleave.chart', null)
+
+        // Add bubble.
+        g.append('circle')
+          .attr('class', 'bubble')
+          .attr('cx', d => scales.x(d.value.x))
+          .attr('cy', d => scales.y(d.value.y))
+          .attr('r', d => Math.max(scales.size(d.value.size), 1))
+          .attr('stroke', 'currentColor')
+          .attr('fill', 'currentColor')
+          .raise()
+
+        return g
+      },
+      update: g => {
+        g.style('opacity', 1)
+          .style('color', self._color.mapper)
+
+        // Update bubble.
+        g.select('.bubble')
+          .attr('cx', d => scales.x(d.value.x))
+          .attr('cy', d => scales.y(d.value.y))
+          .attr('r', d => Math.max(scales.size(d.value.size), 1))
+          .attr('fill-opacity', self._opacity.value())
+
+        return g
+      },
+      exit: g => g.style('opacity', 0)
+    }, duration)
+
+    // Update Voronoi tessellation.
+    _.diagram = computeDiagram(self._chart.data)
+
+    // Add event to detect hovering events.
+    self._widget.container
+      .on('mousemove.bubble', () => {
+        // Find current bubble.
+        const bubble = _.diagram.find(...self._widget.getMouse(), 20)
+        const closest = (bubble && bubble.data) || undefined
+
+        // If it's the same as the current closest, just do nothing.
+        if (closest === _.current.closest) {
+          return
+        }
+
+        if (typeof closest === 'undefined') {
+          // If no bubble was found, call mouse leave on current closest and remove it.
+          self._mouse.leave(_.current.closest)
+          _.current.closest = undefined
+
+          // If there is a hovered one, call mouse over on it.
+          if (typeof _.current.hovered !== 'undefined') {
+            self._mouse.over(_.current.hovered)
+          }
+        } else {
+          // Bubble is found.
+
+          // If currently hovered over a bubble, call leave on that one.
+          if (typeof _.current.hovered !== 'undefined') {
+            self._mouse.leave(_.current.hovered)
+          }
+
+          // Update closest and call mouse over.
+          _.current.closest = closest
+          self._mouse.over(_.current.closest)
+        }
+      })
+      .on('click.bubble', () => {
+        if (typeof _.current.closest !== 'undefined') {
+          self._mouse.click(_.current.closest)
+        }
+      })
+  }, true)
 
   // Public API.
   api = Object.assign(api || {}, {

@@ -42,6 +42,28 @@ export default (name, parent = 'body') => {
     YRange
   )
 
+  // Private methods.
+  function interpolateImage(imgData, data, t) {
+    // Go through data.
+    const img = _.dom.context.createImageData(..._.i.grid)
+    for (let j = 0, k = 0, l = 0; j < _.i.grid[1]; j++) {
+      for (let i = 0; i < _.i.grid[0]; i++, k++, l += 4) {
+        // Get interpolated color.
+        const c0 = rgb(imgData[l], imgData[l + 1], imgData[l + 2], imgData[l + 3] / 255)
+        const c1 = self._color.mapper(data.values[k] / data.max)
+        const c = rgb(interpolateLab(c0, c1)(t))
+
+        // Set current color.
+        img.data[l] = c.r
+        img.data[l + 1] = c.g
+        img.data[l + 2] = c.b
+        img.data[l + 3] = 255 * c.opacity
+      }
+    }
+    _.dom.context.putImageData(img, 0, 0)
+    return img
+  }
+
   // Private members.
   const _ = {
     // Variables.
@@ -78,71 +100,7 @@ export default (name, parent = 'body') => {
       }
 
       return {container, canvas, context, img}
-    })(),
-
-    interpolateImage(imgData, data, t) {
-      // Go through data.
-      const img = _.dom.context.createImageData(..._.i.grid)
-      for (let j = 0, k = 0, l = 0; j < _.i.grid[1]; j++) {
-        for (let i = 0; i < _.i.grid[0]; i++, k++, l += 4) {
-          // Get interpolated color.
-          const c0 = rgb(imgData[l], imgData[l + 1], imgData[l + 2], imgData[l + 3] / 255)
-          const c1 = self._color.mapper(data.values[k] / data.max)
-          const c = rgb(interpolateLab(c0, c1)(t))
-
-          // Set current color.
-          img.data[l] = c.r
-          img.data[l + 1] = c.g
-          img.data[l + 2] = c.b
-          img.data[l + 3] = 255 * c.opacity
-        }
-      }
-      _.dom.context.putImageData(img, 0, 0)
-      return img
-    },
-
-    // Update.
-    update (duration) {
-      // Init scales.
-      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-        .domain(self._xRange.range(self._chart.data.xRange))
-      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-        .domain(self._yRange.range(self._chart.data.yRange))
-
-      // Add tiles.
-      self._widget.transition = true
-      const transition = timer(function (elapsed) {
-        // Create scale variable.
-        let t = duration > 0 ? elapsed / duration : 1
-        _.interpolateImage(_.dom.img, self._chart.data, t)
-
-        // Stop transition.
-        if (t >= 1) {
-          // Finish interpolation.
-          const img = _.interpolateImage(_.dom.img, self._chart.data, 1)
-
-          // Update image data and stop transition.
-          _.dom.img = img.data.slice()
-          self._widget.transition = false
-          transition.stop()
-        }
-      })
-
-      // Add event to detect hovering events.
-      self._widget.container
-        .on('mousemove.heatmap', () => {
-          // TODO Update current tile.
-        })
-        .on('click.heatmap', () => {
-          // TODO
-        })
-
-      // Update sizes.
-      _.dom.container.attr('x', 0.5 + self._widget.margins.left + 'px')
-        .attr('y', self._widget.margins.top + 'px')
-        .attr('width', self._widget.size.innerWidth)
-        .attr('height', self._widget.size.innerHeight)
-    }
+    })()
   }
 
   self._chart.transformData = data => {
@@ -174,7 +132,47 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Init scales.
+    _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain(self._xRange.range(self._chart.data.xRange))
+    _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
+      .domain(self._yRange.range(self._chart.data.yRange))
+
+    // Add tiles.
+    self._widget.transition = true
+    const transition = timer(function (elapsed) {
+      // Create scale variable.
+      let t = duration > 0 ? elapsed / duration : 1
+      interpolateImage(_.dom.img, self._chart.data, t)
+
+      // Stop transition.
+      if (t >= 1) {
+        // Finish interpolation.
+        const img = interpolateImage(_.dom.img, self._chart.data, 1)
+
+        // Update image data and stop transition.
+        _.dom.img = img.data.slice()
+        self._widget.transition = false
+        transition.stop()
+      }
+    })
+
+    // Add event to detect hovering events.
+    self._widget.container
+      .on('mousemove.heatmap', () => {
+        // TODO Update current tile.
+      })
+      .on('click.heatmap', () => {
+        // TODO
+      })
+
+    // Update sizes.
+    _.dom.container.attr('x', 0.5 + self._widget.margins.left + 'px')
+      .attr('y', self._widget.margins.top + 'px')
+      .attr('width', self._widget.size.innerWidth)
+      .attr('height', self._widget.size.innerHeight)
+  }, true)
 
   // Public API.
   api = Object.assign(api || {}, {

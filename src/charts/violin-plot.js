@@ -56,6 +56,52 @@ export default (name, parent = 'body') => {
     YRange
   )
 
+  // Private methods.
+  function kde (kernel, dist) {
+    return sample => dist.map(x => ({ x, y: mean(sample, v => kernel(x - v)) }))
+  }
+
+  function epanechnikovKernel (bandwidth) {
+    return u => Math.abs(u /= bandwidth) <= 1 ? 0.75 * (1 - u * u) / bandwidth : 0
+  }
+
+  function makeViolin (data) {
+    const yMin = min(data)
+    const yMax = max(data)
+    const yRange = yMax - yMin
+    const kdeFn = kde(epanechnikovKernel(_.bandwidth),
+      range(Math.floor(yRange / _.bandwidth) + 1).map(d => yMin + _.bandwidth * d))
+    const values = kdeFn(data)
+
+    return {
+      yMin,
+      yMax,
+      values,
+      scale: scaleLinear()
+        .range([_.violinWidth / 2 - 1, 0])
+        .domain([0, max(values, v => v.y)])
+    }
+  }
+
+  function bimodality (values) {
+    const n = values.length
+
+    // Moments.
+    const m = mean(values)
+    const m2 = sum(values, d => (d - m) * (d - m)) / n
+    const m3 = sum(values, d => Math.pow(d - m, 3)) / n
+    const m4 = sum(values, d => Math.pow(d - m, 4)) / n
+
+    // Sample skewness: https://en.wikipedia.org/wiki/Skewness#Sample_skewness
+    const g = Math.sqrt(n * (n - 1)) * m3 / ((n - 2) * Math.pow(m2, 1.5))
+
+    // Sample excess kurtosis: https://en.wikipedia.org/wiki/Kurtosis#Sample_kurtosis
+    const k = m4 / (m2 * m2) - 3
+
+    // Bimodality coefficient: https://en.wikipedia.org/wiki/Multimodal_distribution#Bimodality_coefficient
+    return (g * g + 1) / (k + 3 * (n - 1) * (n - 1) / ((n - 2) * (n - 3)))
+  }
+
   // Private members.
   const _ = {
     // Variables.
@@ -66,121 +112,7 @@ export default (name, parent = 'body') => {
     // UI elements.
     violinWidth: 30,
     horizontal: false,
-    bandwidth: 1,
-
-    // Calculations.
-    kde (kernel, dist) {
-      return sample => dist.map(x => ({ x, y: mean(sample, v => kernel(x - v)) }))
-    },
-
-    epanechnikovKernel (bandwidth) {
-      return u => Math.abs(u /= bandwidth) <= 1 ? 0.75 * (1 - u * u) / bandwidth : 0
-    },
-
-    makeViolin (data) {
-      const yMin = min(data)
-      const yMax = max(data)
-      const yRange = yMax - yMin
-      const kde = _.kde(_.epanechnikovKernel(_.bandwidth),
-        range(Math.floor(yRange / _.bandwidth) + 1).map(d => yMin + _.bandwidth * d))
-      const values = kde(data)
-
-      return {
-        yMin,
-        yMax,
-        values,
-        scale: scaleLinear()
-          .range([_.violinWidth / 2 - 1, 0])
-          .domain([0, max(values, v => v.y)])
-      }
-    },
-
-    bimodality (values) {
-      const n = values.length
-
-      // Moments.
-      const m = mean(values)
-      const m2 = sum(values, d => (d - m) * (d - m)) / n
-      const m3 = sum(values, d => Math.pow(d - m, 3)) / n
-      const m4 = sum(values, d => Math.pow(d - m, 4)) / n
-
-      // Sample skewness: https://en.wikipedia.org/wiki/Skewness#Sample_skewness
-      const g = Math.sqrt(n * (n - 1)) * m3 / ((n - 2) * Math.pow(m2, 1.5))
-
-      // Sample excess kurtosis: https://en.wikipedia.org/wiki/Kurtosis#Sample_kurtosis
-      const k = m4 / (m2 * m2) - 3
-
-      // Bimodality coefficient: https://en.wikipedia.org/wiki/Multimodal_distribution#Bimodality_coefficient
-      return (g * g + 1) / (k + 3 * (n - 1) * (n - 1) / ((n - 2) * (n - 3)))
-    },
-
-    // Update.
-    update (duration) {
-      // Collect X values and Y max.
-      const xValues = self._chart.data.map(d => d.name)
-      const yMin = min(self._chart.data.map(d => d.min))
-      const yMax = max(self._chart.data.map(d => d.max))
-      const yRange = [yMin, yMax]
-      const yBuffer = 0.05 * (yRange[1] - yRange[0])
-      yRange[1] += yBuffer
-      yRange[0] -= yBuffer
-
-      // Update scales.
-      _.horizontal = self._horizontal.on()
-      _.scales = self._horizontal.scales()
-      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-        .domain(_.horizontal ? self._yRange.range(yRange) : xValues)
-      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-        .domain(_.horizontal ? xValues : self._yRange.range(yRange))
-
-      // Add plots.
-      const yShift = _.violinWidth / 2 - 0.5
-      const rotate = _.horizontal ? '' : 'rotate(90)'
-      self._chart.plotGroups({
-        enter: g => {
-          g.style('opacity', 0)
-            .on('mouseover.violin', d => {
-              _.current = d
-            })
-            .on('mouseleave.violin', () => {
-              _.current = undefined
-            })
-            .style('color', self._color.mapper)
-
-          // Add violin.
-          g.append('path')
-            .attr('class', 'violin')
-            .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x(d.name) + yShift}, ${_.horizontal ? _.scales.y(d.name) - yShift : 0}) ${rotate}`)
-            .attr('d', d => {
-              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x(dd.x) : _.scales.y(dd.x))
-              return areaFn(d.values)
-            })
-            .attr('stroke', 'currentColor')
-            .attr('fill', 'currentColor')
-            .style('fill-opacity', 0)
-
-          return g
-        },
-        update: g => {
-          g.style('opacity', 1)
-            .style('color', self._color.mapper)
-
-          g.select('.violin')
-            .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x(d.name) + yShift}, ${_.horizontal ? _.scales.y(d.name) - yShift : 0}) ${rotate}`)
-            .attrTween('d', function (d) {
-              const previous = select(this).attr('d')
-              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x(dd.x) : _.scales.y(dd.x))
-              const current = areaFn(d.values)
-              return interpolatePath(previous, current, null)
-            })
-            .attr('stroke-width', d => self._lineWidth.mapping(d.name))
-            .style('fill-opacity', self._opacity.value())
-
-          return g
-        },
-        exit: g => g.style('opacity', 0)
-      }, duration)
-    }
+    bandwidth: 1
   }
 
   // Overrides.
@@ -202,7 +134,7 @@ export default (name, parent = 'body') => {
 
     // Return calculated metrics.
     return data.map(d => {
-      const { yMin, yMax, values, scale } = _.makeViolin(d.values)
+      const { yMin, yMax, values, scale } = makeViolin(d.values)
 
       return {
         name: d.name,
@@ -211,7 +143,7 @@ export default (name, parent = 'body') => {
         stats: {
           mean: mean(d.values),
           median: median(d.values.sort((a, b) => a - b)),
-          bimodality: _.bimodality(d.values)
+          bimodality: bimodality(d.values)
         },
         values,
         scale,
@@ -224,7 +156,72 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Collect X values and Y max.
+    const xValues = self._chart.data.map(d => d.name)
+    const yMin = min(self._chart.data.map(d => d.min))
+    const yMax = max(self._chart.data.map(d => d.max))
+    const yRange = [yMin, yMax]
+    const yBuffer = 0.05 * (yRange[1] - yRange[0])
+    yRange[1] += yBuffer
+    yRange[0] -= yBuffer
+
+    // Update scales.
+    _.horizontal = self._horizontal.on()
+    _.scales = self._horizontal.scales()
+    _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain(_.horizontal ? self._yRange.range(yRange) : xValues)
+    _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
+      .domain(_.horizontal ? xValues : self._yRange.range(yRange))
+
+    // Add plots.
+    const yShift = _.violinWidth / 2 - 0.5
+    const rotate = _.horizontal ? '' : 'rotate(90)'
+    self._chart.plotGroups({
+      enter: g => {
+        g.style('opacity', 0)
+          .on('mouseover.violin', d => {
+            _.current = d
+          })
+          .on('mouseleave.violin', () => {
+            _.current = undefined
+          })
+          .style('color', self._color.mapper)
+
+        // Add violin.
+        g.append('path')
+          .attr('class', 'violin')
+          .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x(d.name) + yShift}, ${_.horizontal ? _.scales.y(d.name) - yShift : 0}) ${rotate}`)
+          .attr('d', d => {
+            const areaFn = d.area.x(dd => _.horizontal ? _.scales.x(dd.x) : _.scales.y(dd.x))
+            return areaFn(d.values)
+          })
+          .attr('stroke', 'currentColor')
+          .attr('fill', 'currentColor')
+          .style('fill-opacity', 0)
+
+        return g
+      },
+      update: g => {
+        g.style('opacity', 1)
+          .style('color', self._color.mapper)
+
+        g.select('.violin')
+          .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x(d.name) + yShift}, ${_.horizontal ? _.scales.y(d.name) - yShift : 0}) ${rotate}`)
+          .attrTween('d', function (d) {
+            const previous = select(this).attr('d')
+            const areaFn = d.area.x(dd => _.horizontal ? _.scales.x(dd.x) : _.scales.y(dd.x))
+            const current = areaFn(d.values)
+            return interpolatePath(previous, current, null)
+          })
+          .attr('stroke-width', d => self._lineWidth.mapping(d.name))
+          .style('fill-opacity', self._opacity.value())
+
+        return g
+      },
+      exit: g => g.style('opacity', 0)
+    }, duration)
+  }, true)
 
   // Public API.
   api = Object.assign(api || {}, {
@@ -282,7 +279,7 @@ export default (name, parent = 'body') => {
 
       // Update values, scales and areas.
       self._chart.data.map((d, i) => {
-        const { values, scale } = _.makeViolin(_.data[i].values)
+        const { values, scale } = makeViolin(_.data[i].values)
 
         Object.assign(d, {
           values,

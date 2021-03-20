@@ -62,24 +62,12 @@ export default (name, parent = 'body') => {
     Font
   )
 
-  function onClick () {
-    // Update checked status.
-    _.i.checked = !_.i.checked
-
-    // TODO Make separate method to update checkbox.
-    _.dom.box.style('background', _.i.checked ? _.i.color
-      : lighter(_.i.color, 0.6))
-    _.dom.mark.style('display', _.i.checked ? null : 'none')
-
-    // Trigger callback.
-    _.i.callback && _.i.callback(_.i.checked)
-  }
-
   // Private members.
   const _ = {
     // Internal variables.
     i: Object.assign({}, DEFAULTS),
 
+    // TODO Move this outside.
     // DOM.
     dom: (() => {
       // Container.
@@ -109,37 +97,49 @@ export default (name, parent = 'body') => {
         box,
         mark
       }
-    })(),
+    })()
+  }
 
-    update (duration) {
-      // Adjust container.
-      self._widget.getElem(_.dom.container, duration)
-        .style('width', self._widget.size.width)
-        .style('height', self._widget.size.height)
+  // Private members.
+  function onClick () {
+    // Update checked status.
+    _.i.checked = !_.i.checked
 
-      // Adjust wrapper.
-      self._widget.getElem(_.dom.wrapper, duration)
-        .style('margin-left', self._widget.margins.left + 'px')
-        .style('margin-top', self._widget.margins.top + 'px')
-        .style('width', self._widget.size.innerWidth)
-        .style('opacity', _.i.disabled ? 0.4 : 1)
-        .style('cursor', _.i.disabled ? 'default' : 'pointer')
-        .style('pointer-events', _.i.disabled ? 'none' : 'all')
+    // TODO Make separate method to update checkbox.
+    _.dom.box.style('background', _.i.checked ? _.i.color
+      : lighter(_.i.color, 0.6))
+    _.dom.mark.style('display', _.i.checked ? null : 'none')
 
-      // Adjust label.
-      _.dom.label.text(_.i.label)
-
-      // Adjust box.
-      self._widget.getElem(_.dom.box, duration)
-        .style('background', _.i.checked ? _.i.color : lighter(_.i.color, 0.6))
-
-      // Adjust mark.
-      _.dom.mark.style('display', _.i.checked ? null : 'none')
-    }
+    // Trigger callback.
+    _.i.callback && _.i.callback(_.i.checked)
   }
 
   // Extend widget update.
-  self._widget.update = extend(self._widget.update, _.update, true)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Adjust container.
+    self._widget.getElem(_.dom.container, duration)
+      .style('width', self._widget.size.width)
+      .style('height', self._widget.size.height)
+
+    // Adjust wrapper.
+    self._widget.getElem(_.dom.wrapper, duration)
+      .style('margin-left', self._widget.margins.left + 'px')
+      .style('margin-top', self._widget.margins.top + 'px')
+      .style('width', self._widget.size.innerWidth)
+      .style('opacity', _.i.disabled ? 0.4 : 1)
+      .style('cursor', _.i.disabled ? 'default' : 'pointer')
+      .style('pointer-events', _.i.disabled ? 'none' : 'all')
+
+    // Adjust label.
+    _.dom.label.text(_.i.label)
+
+    // Adjust box.
+    self._widget.getElem(_.dom.box, duration)
+      .style('background', _.i.checked ? _.i.color : lighter(_.i.color, 0.6))
+
+    // Adjust mark.
+    _.dom.mark.style('display', _.i.checked ? null : 'none')
+  }, true)
 
   api = Object.assign(api, {
     /**

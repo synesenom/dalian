@@ -54,151 +54,39 @@ export default (name, parent = 'body') => {
     PointTooltip
   )
 
+  // Private methods.
+  const labelArc = d => `M${d.outerRadius * Math.sin(d.startAngle)},${-d.outerRadius * Math.cos(d.startAngle)}A${d.outerRadius},${d.outerRadius},0,0,1,${d.outerRadius * Math.sin(d.endAngle)},${-d.outerRadius * Math.cos(d.endAngle)}`
+
+  const updateWedges = (selection, t) => selection
+      .attr('class', d => `wedge ${encode(d.name)}`)
+      .order()
+      // Mouse events that are attached through the API.
+      .on('mouseover.chart', d => self._mouse.over({
+        name: d.name,
+        y: d.y
+      }))
+      .on('mouseleave.chart', d => self._mouse.leave({
+        name: d.name,
+        y: d.y
+      }))
+      .on('click.chart', d => self._mouse.click({
+        name: d.name,
+        y: d.y
+      }))
+      .transition(t)
+      .attr('fill', self._color.mapper)
+      .attrTween('d', attrTween(d => _.arc(d)))
+
   // Private members
   const _ = {
-    // Scale for the wedges.
     scale: Scale('sqrt'),
-
-    // Variables.
-    // TODO Make these internal under i.
     arc: arc(),
     radius: DEFAULTS.radius,
     angle: DEFAULTS.angle,
     data: [],
     current: undefined,
     plots: self._widget.content.append('g')
-      .attr('class', 'dalian-plot-container'),
-
-    labelArc (d) {
-      return `M${d.outerRadius * Math.sin(d.startAngle)},${-d.outerRadius * Math.cos(d.startAngle)}A${d.outerRadius},${d.outerRadius},0,0,1,${d.outerRadius * Math.sin(d.endAngle)},${-d.outerRadius * Math.cos(d.endAngle)}`
-    },
-
-    updateWedges (selection, t) {
-      return selection
-        .attr('class', d => `wedge ${encode(d.name)}`)
-        .order()
-        // Mouse events that are attached through the API.
-        .on('mouseover.chart', d => self._mouse.over({
-          name: d.name,
-          y: d.y
-        }))
-        .on('mouseleave.chart', d => self._mouse.leave({
-          name: d.name,
-          y: d.y
-        }))
-        .on('click.chart', d => self._mouse.click({
-          name: d.name,
-          y: d.y
-        }))
-        .transition(t)
-        .attr('fill', self._color.mapper)
-        .attrTween('d', attrTween(d => _.arc(d)))
-    },
-
-    // Update method.
-    update (duration) {
-      // Update size scale.
-      const maxValue = max(_.data.map(d => d.data).flat().map(d => d.y))
-      _.scale.range([0, _.radius])
-        .domain([0, maxValue])
-
-      // Scale values.
-      _.data.map(d => {
-        d.data.map(dd => Object.assign(dd, {
-          outerRadius: _.scale.scale(dd.y || 0)
-        }))
-
-        d.outerRadius = Math.max(0.6 * _.radius, _.scale.scale(max(d.data, dd => dd.y || 0))) +
-          0.5 * parseFloat(self._font.size)
-      })
-
-      // Plot transition.
-      const t = _.plots.transition().duration(duration)
-
-      // Add label paths.
-      self._widget.getDefs().selectAll('.wedge-label-path')
-        .data(_.data, d => d.index)
-        .join(
-          enter => enter.append('path')
-            .attr('class', 'wedge-label-path')
-            .attr('id', d => `${self._widget.id}-wedge-${d.index}`)
-            .attr('stroke', 'red')
-            .attr('d', _.labelArc),
-          update => update,
-          exit => exit
-            // Dummy transition to make sure label is faded out when this is removed.
-            .transition().duration(duration)
-            .remove()
-        )
-        .transition().duration(duration)
-        .attrTween('d', attrTween(d => _.labelArc(d)))
-
-      // Add wedges.
-      const wedges = _.plots.selectAll('.wedge-group')
-        .data(_.data, d => d.index)
-        .join(
-          enter => enter.append('g')
-            .attr('class', 'wedge-group')
-            .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2}) rotate(${_.angle})`)
-            .style('opacity', 0)
-            .call(g => {
-              // Paths.
-              const paths = g.selectAll('path')
-                .data(d => d.data)
-                .enter().append('path')
-                .attr('stroke', 'white')
-              _.updateWedges(paths, t)
-
-              // Labels.
-              g.append('text')
-                .attr('text-anchor', 'middle')
-                .append('textPath')
-                .attr('href', d => `#${self._widget.id}-wedge-${d.index}`)
-                .attr('method', 'stretch')
-                .attr('startOffset', '50%')
-            }),
-          update => update
-            .call(g => {
-              // Update wedges.
-              const paths = g.selectAll('path')
-                .data(d => d.data)
-                .join(
-                  enter => enter.append('path')
-                    .attr('stroke', 'white')
-                    .style('opacity', 0),
-                  update => update,
-                  exit => exit.transition(t)
-                    .style('opacity', 0)
-                    .remove()
-                )
-              _.updateWedges(paths, t)
-                .style('opacity', 1)
-            }),
-          exit => exit.transition(t)
-            .style('opacity', 0)
-            .remove()
-        )
-        // Mouse events for keeping track of the current wedge.
-        .on('mouseover.coxcomb', d => {
-          _.current = d
-        })
-        .on('mouseleave.coxcomb', () => {
-          _.current = undefined
-        })
-        .transition(t)
-        .style('opacity', 1)
-        .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2}) rotate(${_.angle})`)
-
-      // Update labels.
-      wedges.select('text')
-        .style('display', self._label.show ? null : 'none')
-        .select('textPath')
-        .text(self._label.format)
-
-      // Update plot container.
-      _.plots.style('pointer-events',
-        ((self._tooltip && self._tooltip.isOn()) || self._mouse.hasAny()) ? 'all' : 'none')
-    }
+      .attr('class', 'dalian-plot-container')
   }
 
   // Override.
@@ -214,7 +102,109 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update
-  self._widget.update = extend(self._widget.update, _.update)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Update size scale.
+    const maxValue = max(_.data.map(d => d.data).flat().map(d => d.y))
+    _.scale.range([0, _.radius])
+      .domain([0, maxValue])
+
+    // Scale values.
+    _.data.map(d => {
+      d.data.map(dd => Object.assign(dd, {
+        outerRadius: _.scale.scale(dd.y || 0)
+      }))
+
+      d.outerRadius = Math.max(0.6 * _.radius, _.scale.scale(max(d.data, dd => dd.y || 0))) +
+        0.5 * parseFloat(self._font.size)
+    })
+
+    // Plot transition.
+    const t = _.plots.transition().duration(duration)
+
+    // Add label paths.
+    self._widget.getDefs().selectAll('.wedge-label-path')
+      .data(_.data, d => d.index)
+      .join(
+        enter => enter.append('path')
+          .attr('class', 'wedge-label-path')
+          .attr('id', d => `${self._widget.id}-wedge-${d.index}`)
+          .attr('stroke', 'red')
+          .attr('d', labelArc),
+        update => update,
+        exit => exit
+          // Dummy transition to make sure label is faded out when this is removed.
+          .transition().duration(duration)
+          .remove()
+      )
+      .transition().duration(duration)
+      .attrTween('d', attrTween(d => labelArc(d)))
+
+    // Add wedges.
+    const wedges = _.plots.selectAll('.wedge-group')
+      .data(_.data, d => d.index)
+      .join(
+        enter => enter.append('g')
+          .attr('class', 'wedge-group')
+          .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2}) rotate(${_.angle})`)
+          .style('opacity', 0)
+          .call(g => {
+            // Paths.
+            const paths = g.selectAll('path')
+              .data(d => d.data)
+              .enter().append('path')
+              .attr('stroke', 'white')
+            updateWedges(paths, t)
+
+            // Labels.
+            g.append('text')
+              .attr('text-anchor', 'middle')
+              .append('textPath')
+              .attr('href', d => `#${self._widget.id}-wedge-${d.index}`)
+              .attr('method', 'stretch')
+              .attr('startOffset', '50%')
+          }),
+        update => update
+          .call(g => {
+            // Update wedges.
+            const paths = g.selectAll('path')
+              .data(d => d.data)
+              .join(
+                enter => enter.append('path')
+                  .attr('stroke', 'white')
+                  .style('opacity', 0),
+                update => update,
+                exit => exit.transition(t)
+                  .style('opacity', 0)
+                  .remove()
+              )
+            updateWedges(paths, t)
+              .style('opacity', 1)
+          }),
+        exit => exit.transition(t)
+          .style('opacity', 0)
+          .remove()
+      )
+      // Mouse events for keeping track of the current wedge.
+      .on('mouseover.coxcomb', d => {
+        _.current = d
+      })
+      .on('mouseleave.coxcomb', () => {
+        _.current = undefined
+      })
+      .transition(t)
+      .style('opacity', 1)
+      .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2}) rotate(${_.angle})`)
+
+    // Update labels.
+    wedges.select('text')
+      .style('display', self._label.show ? null : 'none')
+      .select('textPath')
+      .text(self._label.format)
+
+    // Update plot container.
+    _.plots.style('pointer-events',
+      ((self._tooltip && self._tooltip.isOn()) || self._mouse.hasAny()) ? 'all' : 'none')
+  })
 
   api = Object.assign(api || {}, {
     data (data) {

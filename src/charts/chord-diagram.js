@@ -22,7 +22,7 @@ import encode from '../core/encode'
  *   </li>
  * </ul>
  *
- * @function ChordDiagram
+ * @function ChordChart
  * @param {string} name Name of the chart. Should be a unique identifier.
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
@@ -33,123 +33,38 @@ export default (name, parent = 'body') => {
     thickness: 10
   }
 
+  // Build widget.
   let { self, api } = compose(
     Chart('chord-diagram', name, parent),
     Highlight(() => self._chart.plots, ['.chord-ribbon']),
     Label
   )
 
+  // Private methods.
+  const ribbonId = (source, target) => source < target ?
+    source + '-' + target : target + '-' + source
+
+  const addRibbons = (enter, ribbonFn) => enter.append('path')
+      .attr('class', d => `chord-ribbon ${encode(d.name)} ${encode(d.name2)}`)
+      .attr('fill', 'currentColor')
+      .attr('fill-opacity', 0.6)
+      .attr('stroke', '#fff')
+      .attr('d', ribbonFn)
+
+  function textTransform (d) {
+    d.angle = (d.startAngle + d.endAngle) / 2
+    return `rotate(${d.angle * 180 / Math.PI - 90}) translate(${_.radius - self._widget.margins.left + 5}) ${d.angle > Math.PI ? ' rotate(180)' : ''}`
+  }
+
+  const textAnchor = d => (d.startAngle + d.endAngle) / 2 > Math.PI ? 'end' : 'start'
+
   // Private members.
   const _ = {
     radius: DEFAULTS.radius,
     thickness: DEFAULTS.thickness,
-
-    // Currently hovered chord or wedge.
     indexByName: new Map(),
     nameByIndex: new Map(),
-    arc: null,
-
-    ribbonId (source, target) {
-      return source < target ?
-        source + '-' + target :
-        target + '-' + source
-    },
-
-    addRibbons (enter, ribbonFn) {
-      return enter.append('path')
-        .attr('class', d => `chord-ribbon ${encode(d.name)} ${encode(d.name2)}`)
-        .attr('fill', 'currentColor')
-        .attr('fill-opacity', 0.6)
-        .attr('stroke', '#fff')
-        .attr('d', ribbonFn)
-    },
-
-    textTransform: d => {
-      d.angle = (d.startAngle + d.endAngle) / 2
-      return `rotate(${d.angle * 180 / Math.PI - 90}) translate(${_.radius - self._widget.margins.left + 5}) ${d.angle > Math.PI ? ' rotate(180)' : ''}`
-    },
-
-    textAnchor: d => (d.startAngle + d.endAngle) / 2 > Math.PI ? 'end' : 'start',
-
-    update: duration => {
-      // Create arc.
-      const innerRadius = _.radius - _.thickness - self._widget.margins.left
-      const outerRadius = _.radius - self._widget.margins.left
-      _.arc = arc()
-        .innerRadius(innerRadius)
-        .outerRadius(outerRadius)
-
-      // Create ribbon.
-      const ribbonFn = ribbon()
-        .radius(innerRadius - 1)
-
-      // Add plots.
-      const t = self._chart.plots
-        .transition().duration(duration)
-      self._chart.plotGroups({
-        enter: g => {
-          // Group.
-          g.style('color', self._color.mapper)
-            .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
-            .style('opacity', 0)
-
-          // Labels.
-          g.append('text')
-            .attr('class', 'chord-label')
-            .attr('dy', '.35em')
-            .attr('transform', _.textTransform)
-            .attr('text-anchor', _.textAnchor)
-            .style('display', self._label.show ? null : 'none')
-            .text(d => d.name)
-
-          // Arcs.
-          g.append('path')
-            .attr('class', 'chord-arc')
-            .attr('d', _.arc)
-            .attr('fill', 'currentColor')
-
-          // Ribbons.
-          _.addRibbons(g.selectAll('.chord-ribbon')
-            .data(d => d.ribbons, d => d.id).enter(), ribbonFn)
-
-          return g
-        },
-        updateBefore: g => {
-          g.selectAll('.chord-ribbon')
-            .data(d => d.ribbons, d => d.id)
-            .join(
-              enter => _.addRibbons(enter, ribbonFn)
-                .style('opacity', 0),
-              update => update,
-              exit => exit.transition(t)
-                .style('opacity', 0)
-                .remove()
-            )
-            .transition(t)
-            .style('opacity', 1)
-            .attrTween('d', attrTween(ribbonFn, 'ribbon'))
-        },
-        update: g => {
-          // Update group.
-          g.style('color', self._color.mapper)
-            .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
-            .style('opacity', 1)
-
-          // Update arcs.
-          g.select('.chord-arc')
-            .attrTween('d', attrTween(_.arc, 'arc'))
-
-          // Labels.
-          g.select('.chord-label')
-            .style('display', self._label.show ? null : 'none')
-            .attrTween('transform', attrTween(_.textTransform, 'transform'))
-            .attrTween('text-anchor', attrTween(_.textAnchor, 'textAnchor'))
-
-          return g
-        },
-        exit: g => g.style('opacity', 0)
-      }, duration)
-    }
+    arc: null
   }
 
   self._chart.transformData = data => {
@@ -204,7 +119,7 @@ export default (name, parent = 'body') => {
     for (const ribbon of chordData) {
       const g = groups.find(d => d.index === ribbon.source.index)
       g.ribbons.push(Object.assign(ribbon, {
-        id: _.ribbonId(ribbon.source.index, ribbon.target.index),
+        id: ribbonId(ribbon.source.index, ribbon.target.index),
         name: _.nameByIndex.get(ribbon.source.index),
         name2: _.nameByIndex.get(ribbon.target.index)
       }))
@@ -214,7 +129,85 @@ export default (name, parent = 'body') => {
   }
 
   // Extend widget update.
-  self._widget.update = extend(self._widget.update, _.update)
+  self._widget.update = extend(self._widget.update, duration => {
+    // Create arc.
+    const innerRadius = _.radius - _.thickness - self._widget.margins.left
+    const outerRadius = _.radius - self._widget.margins.left
+    _.arc = arc()
+      .innerRadius(innerRadius)
+      .outerRadius(outerRadius)
+
+    // Create ribbon.
+    const ribbonFn = ribbon()
+      .radius(innerRadius - 1)
+
+    // Add plots.
+    const t = self._chart.plots
+      .transition().duration(duration)
+    self._chart.plotGroups({
+      enter: g => {
+        // Group.
+        g.style('color', self._color.mapper)
+          .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
+          .style('opacity', 0)
+
+        // Labels.
+        g.append('text')
+          .attr('class', 'chord-label')
+          .attr('dy', '.35em')
+          .attr('transform', textTransform)
+          .attr('text-anchor', _.textAnchor)
+          .style('display', self._label.show ? null : 'none')
+          .text(d => d.name)
+
+        // Arcs.
+        g.append('path')
+          .attr('class', 'chord-arc')
+          .attr('d', _.arc)
+          .attr('fill', 'currentColor')
+
+        // Ribbons.
+        addRibbons(g.selectAll('.chord-ribbon')
+          .data(d => d.ribbons, d => d.id).enter(), ribbonFn)
+
+        return g
+      },
+      updateBefore: g => {
+        g.selectAll('.chord-ribbon')
+          .data(d => d.ribbons, d => d.id)
+          .join(
+            enter => addRibbons(enter, ribbonFn)
+              .style('opacity', 0),
+            update => update,
+            exit => exit.transition(t)
+              .style('opacity', 0)
+              .remove()
+          )
+          .transition(t)
+          .style('opacity', 1)
+          .attrTween('d', attrTween(ribbonFn, 'ribbon'))
+      },
+      update: g => {
+        // Update group.
+        g.style('color', self._color.mapper)
+          .attr('transform', `translate(${parseFloat(self._widget.size.innerWidth) / 2}, ${parseFloat(self._widget.size.innerHeight) / 2})`)
+          .style('opacity', 1)
+
+        // Update arcs.
+        g.select('.chord-arc')
+          .attrTween('d', attrTween(_.arc, 'arc'))
+
+        // Labels.
+        g.select('.chord-label')
+          .style('display', self._label.show ? null : 'none')
+          .attrTween('transform', attrTween(textTransform, 'transform'))
+          .attrTween('text-anchor', attrTween(textAnchor, 'textAnchor'))
+
+        return g
+      },
+      exit: g => g.style('opacity', 0)
+    }, duration)
+  })
 
   api = Object.assign(api, {
     /**
