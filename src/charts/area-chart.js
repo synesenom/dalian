@@ -45,11 +45,13 @@ import YRange from '../components/range/y-range'
 // TODO Support negative values.
 // TODO Support negative values with different color.
 export default (name, parent = 'body') => {
-  // Build widget from components
+  // Define scales.
   const scales = {
     x: Scale(),
     y: Scale()
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('area-chart', name, parent),
     LeftAxis(scales.y),

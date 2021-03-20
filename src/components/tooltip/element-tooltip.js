@@ -12,6 +12,13 @@ const CLASSES = {
   value: TAG + 'value'
 }
 
+// Default values.
+const DEFAULTS = {
+  titleFormat: d => d,
+  labelFormat: d => (d + ':'),
+  valueFormat: d => d
+}
+
 /**
  * Component implementing the element tooltip feature. The element tooltip is a pre-formatted tooltip that takes a
  * data point and displays its attributes in the tooltip with a colored left border. The name of the plot group the
@@ -49,13 +56,6 @@ export default (self, api) => {
     position: 'relative',
     float: 'right'
   })
-
-  // Default values.
-  const DEFAULTS = {
-    titleFormat: d => d,
-    labelFormat: d => (d + ':'),
-    valueFormat: d => d
-  }
 
   // Inherit from base tooltip
   let base = BaseTooltip(self, api)

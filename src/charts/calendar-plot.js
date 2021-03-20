@@ -12,6 +12,20 @@ import LeftAxis from '../components/axis/left-axis'
 import Scale from '../components/scale'
 import TopAxis from '../components/axis/top-axis'
 
+// Default values.
+const DEFAULTS = {
+  blocks: {
+    names: ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'],
+    margin: 0,
+    align: 'start'
+  },
+  tiles: {
+    names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekStart: 0
+  }
+}
+
 // TODO Support incomplete months.
 // TODO Support multiple years.
 /**
@@ -35,25 +49,13 @@ import TopAxis from '../components/axis/top-axis'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    blocks: {
-      names: ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'],
-      margin: 0,
-      align: 'start'
-    },
-    tiles: {
-      names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      weekStart: 0
-    }
-  }
-
-  // Build widget.
+  // Define scales.
   const scales = {
     x: Scale(),
     y: Scale('band')
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('calendar-plot', name, parent),
     ElementTooltip,

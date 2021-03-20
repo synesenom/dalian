@@ -1,16 +1,16 @@
 import extend from '../../core/extend'
 import attributes from '../../utils/attributes'
 
+// Default values.
+const DEFAULTS = {
+  format: x => x,
+  values: null,
+  tickAnchor: null,
+  tickColor: 'currentColor'
+}
 
+// TODO Docstring.
 export default (type, self, axisFn, scale, labelAttr) => {
-  // Default values.
-  const DEFAULTS = {
-    format: x => x,
-    values: null,
-    tickAnchor: null,
-    tickColor: 'currentColor'
-  }
-
   // Container: an SVG group that contains all axis related DOM elements.
   const container = self._widget.content.append('g')
     .attr('class', `dalian-axis-container ${type}`)

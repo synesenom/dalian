@@ -1,10 +1,11 @@
+// Default values.
+const DEFAULTS = {
+  on: false
+}
+
+// TODO Docstring.
 export default (scales) => {
   return (self, api) => {
-    // Default values.
-    const DEFAULTS = {
-      on: false
-    }
-
     // Private members.
     const _ = {
       on: DEFAULTS.on,

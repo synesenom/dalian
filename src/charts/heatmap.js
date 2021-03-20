@@ -8,6 +8,11 @@ import Scale from '../components/scale'
 import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 
+// Default values.
+const DEFAULTS = {
+  grid: [100, 100]
+}
+
 // TODO Add colormap widget.
 // TODO Add Tooltip.
 // TODO Convert canvas to SVG before downloading or add canvas conversion to Chart.download.
@@ -24,16 +29,13 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    grid: [100, 100]
-  }
-
-  // Build widget from components
+  // Define scales.
   const scales = {
     x: Scale('linear'),
     y: Scale('linear')
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('heatmap', name, parent),
     LeftAxis(scales.y),

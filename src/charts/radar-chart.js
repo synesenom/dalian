@@ -11,6 +11,13 @@ import Highlight from '../components/highlight'
 import extend from '../core/extend'
 import {areaRadial, lineRadial, curveLinearClosed} from 'd3'
 
+// Default values.
+const DEFAULTS = {
+  radius: 100,
+  dimensions: null,
+  max: 1
+}
+
 /**
  * The radar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore it extends the following components:
@@ -24,13 +31,6 @@ import {areaRadial, lineRadial, curveLinearClosed} from 'd3'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    radius: 100,
-    dimensions: null,
-    max: 1
-  }
-
   // Private members.
   const _ = Object.assign({}, DEFAULTS)
 

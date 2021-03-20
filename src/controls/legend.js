@@ -8,6 +8,15 @@ import Mouse from '../components/mouse'
 import Color from '../components/color'
 import encode from '../core/encode'
 
+// Default values.
+const DEFAULTS = {
+  styles: () => 'solid',
+  markers: 'square',
+  vSep: 1.4,
+  hSep: 6,
+  columns: 1
+}
+
 // TODO Move to controls.
 /**
  * The legend control widget. This widget extends the following components:
@@ -26,16 +35,7 @@ import encode from '../core/encode'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    styles: () => 'solid',
-    markers: 'square',
-    vSep: 1.4,
-    hSep: 6,
-    columns: 1
-  }
-
-  // Build widget from components.
+  // Build widget.
   let { self, api } = compose(
     Widget('legend', name, parent, 'svg'),
     Color,

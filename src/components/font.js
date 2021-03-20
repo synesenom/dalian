@@ -1,5 +1,11 @@
 import extend from '../core/extend'
 
+// Default values.
+const DEFAULTS = {
+  size: 12,
+  color: 'black'
+}
+
 /**
  * Component implementing the font features. When this component is available for a widget, its API is exposed via the
  * {.font} namespace.
@@ -7,13 +13,7 @@ import extend from '../core/extend'
  * @function Font
  */
 export default (self, api) => {
-  // Default values.
-  const DEFAULTS = {
-    size: 12,
-    color: 'black'
-  }
-
-  // Protected members
+  // Protected members.
   self = Object.assign(self || {}, {
     _font: {
       size: DEFAULTS.size + 'px',
@@ -21,7 +21,7 @@ export default (self, api) => {
     }
   })
 
-  // Extend widget update
+  // Extend widget update.
   self._widget.update = extend(self._widget.update, () => {
     self._widget.container
       .style('font-size', self._font.size)

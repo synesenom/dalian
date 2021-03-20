@@ -1,6 +1,12 @@
 import extend from '../../core/extend'
 import {axisRight} from 'd3'
 
+// Default values.
+const DEFAULTS = {
+  format: x => x,
+  values: null
+}
+
 /**
  * Component implementing the radial axis for charts. When this component is available for a widget, its API is exposed
  * via the {.radialAxis} namespace.
@@ -9,12 +15,6 @@ import {axisRight} from 'd3'
  */
 export default scale => {
   return (self, api) => {
-    // Default values.
-    const DEFAULTS = {
-      format: x => x,
-      values: null
-    }
-
     // Axis container.
     const container = self._widget.content.insert('g', ':first-child')
       .attr('class', 'dalian-axis-container radial')

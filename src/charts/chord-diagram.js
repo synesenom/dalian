@@ -7,6 +7,12 @@ import extend from '../core/extend'
 import { attrTween } from '../utils/tweens'
 import encode from '../core/encode'
 
+// Defaults.
+const DEFAULTS = {
+  radius: 100,
+  thickness: 10
+}
+
 // TODO Add ticks.
 /**
  * The chord chart widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
@@ -27,12 +33,6 @@ import encode from '../core/encode'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Defaults.
-  const DEFAULTS = {
-    radius: 100,
-    thickness: 10
-  }
-
   // Build widget.
   let { self, api } = compose(
     Chart('chord-diagram', name, parent),

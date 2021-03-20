@@ -14,6 +14,14 @@ const CLASSES = {
   mark: TAG + 'mark'
 }
 
+// Default values.
+const DEFAULTS = {
+  checked: false,
+  color: 'grey',
+  disabled: false,
+  label: ''
+}
+
 // TODO Highlight checkbox if hovered.
 
 /**
@@ -48,15 +56,7 @@ export default (name, parent = 'body') => {
     'border-width': '0 .15em .15em 0'
   })
 
-  // Default values.
-  const DEFAULTS = {
-    checked: false,
-    color: 'grey',
-    disabled: false,
-    label: ''
-  }
-
-  // Build widget from components.
+  // Build widget.
   let { self, api } = compose(
     Widget('checkbox', name, parent, 'div'),
     Font

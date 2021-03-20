@@ -2,6 +2,21 @@ import { mouse, select } from 'd3'
 import styles from '../utils/styles'
 import fontMetrics from '../utils/font-metrics'
 
+// Default values.
+const DEFAULTS = {
+  pos: {
+    x: 0,
+    y: 0
+  },
+
+  size: {
+    width: 300,
+    height: 200
+  },
+
+  margins: 0
+}
+
 /**
  * Component implementing a generic widget. A widget is the most abstract element of the library and most of the charts
  * or control elements are inherited from this component.
@@ -14,21 +29,6 @@ import fontMetrics from '../utils/font-metrics'
  * @param {string} elem Element type (svg, div, etc).
  */
 export default (type, name, parent, elem) => {
-  // Default values.
-  const DEFAULTS = {
-    pos: {
-      x: 0,
-      y: 0
-    },
-
-    size: {
-      width: 300,
-      height: 200
-    },
-
-    margins: 0
-  }
-
   // Private members
   const _ = {
     parent: typeof parent === 'string' || parent instanceof HTMLElement ? select(parent) : parent,

@@ -8,6 +8,16 @@ import Placeholder from '../components/placeholder'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
+// Default values.
+const DEFAULTS = {
+  value: 0,
+  forecast: 1,
+  ranges: [0, 50, 80, 100],
+  thickness: 30,
+  valueColor: '#000',
+  rangeColor: '#888'
+}
+
 /**
  * The <a href="http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">bullet chart</a> widget.
  * The chart extends the following components:
@@ -24,16 +34,6 @@ import Widget from '../components/widget'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    value: 0,
-    forecast: 1,
-    ranges: [0, 50, 80, 100],
-    thickness: 30,
-    valueColor: '#000',
-    rangeColor: '#888'
-  }
-
   const scale = Scale()
 
   // Build widget.

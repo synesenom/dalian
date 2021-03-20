@@ -113,7 +113,7 @@ export default (name, parent = 'body') => {
     opacity: 1
   })
 
-  // Build widget from components.
+  // Build widget.
   let { self, api } = compose(
     Widget('table', name, parent, 'div'),
     Description,

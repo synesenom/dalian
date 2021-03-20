@@ -37,11 +37,13 @@ import Scale from '../components/scale'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Build widget from components
+  // Define scales.
   const scales = {
     x: Scale('point'),
     y: Scale()
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('box-plot', name, parent),
     BottomAxis(scales.x),

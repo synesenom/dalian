@@ -39,11 +39,13 @@ import YGrid from '../components/grid/y-grid'
  */
 // TODO Support negative values.
 export default (name, parent = 'body') => {
-  // Build widget from components
+  // Define scales.
   const scales = {
     x: Scale('band'),
     y: Scale()
   }
+
+  // Build widget.
   const { self, api } = compose(
     Chart('bar-chart', name, parent),
     LeftAxis(scales.y),

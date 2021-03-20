@@ -9,6 +9,12 @@ import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import Label from '../components/label'
 
+// Defaults.
+const DEFAULTS = {
+  innerRadius: 0,
+  outerRadius: 100
+}
+
 /**
  * The pie chart widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:
@@ -31,12 +37,7 @@ import Label from '../components/label'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Defaults.
-  const DEFAULTS = {
-    innerRadius: 0,
-    outerRadius: 100
-  }
-
+  // Build widget.
   let { self, api } = compose(
     Chart('pie-chart', name, parent),
     ElementTooltip,
@@ -44,6 +45,7 @@ export default (name, parent = 'body') => {
     Label
   )
 
+  // Private methods.
   function measure (d, i, style) {
     // Measure the diameter of the label's rectangle
     const m = measureText(self._label.format(d), style)

@@ -8,6 +8,15 @@ import Scale from '../components/scale'
 import Widget from '../components/widget'
 import { lighter } from '../utils/color'
 
+// Default values.
+const DEFAULTS = {
+  color: 'grey',
+  guide: false,
+  ranges: [[0, 1], [0, 1]],
+  type: 'cartesian',
+  values: [0, 0]
+}
+
 // TODO Add API .disabled().
 // TODO Implement radial type.
 // TODO Make it touch compatible.
@@ -19,19 +28,10 @@ import { lighter } from '../utils/color'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    color: 'grey',
-    guide: false,
-    ranges: [[0, 1], [0, 1]],
-    type: 'cartesian',
-    values: [0, 0]
-  }
-
   // Build scales.
   const scales = {
-    x: Scale('linear'),
-    y: Scale('linear')
+    x: Scale(),
+    y: Scale()
   }
 
   // Build widget from components.

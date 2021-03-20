@@ -1,3 +1,8 @@
+// Default values.
+const DEFAULTS = {
+  format: () => ''
+}
+
 /**
  * Component implementing the label feature. A label is an arbitrary text content attached to the widget's elements.
  * When this component is available, its API is exposed directly via the widget's own namespace.
@@ -5,11 +10,6 @@
  * @function Label
  */
 export default (self, api) => {
-  // Default values.
-  const DEFAULTS = {
-    format: () => ''
-  }
-
   // Protected members.
   self = Object.assign(self || {}, {
     _label: {

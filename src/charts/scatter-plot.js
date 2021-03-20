@@ -13,6 +13,11 @@ import Scale from '../components/scale'
 import XRange from '../components/range/x-range'
 import YRange from '../components/range/y-range'
 
+// Defaults.
+const DEFAULTS = {
+  size: 4
+}
+
 /**
  * The scatter plot widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
  * its available APIs. Furthermore, it extends the following components:
@@ -35,15 +40,13 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Defaults.
-  const DEFAULTS = {
-    size: 4
-  }
-
+  // Define scales.
   const scales = {
     x: Scale('linear'),
     y: Scale('linear')
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('scatter-plot', name, parent),
     BottomAxis(scales.x),

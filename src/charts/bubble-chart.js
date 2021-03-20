@@ -34,12 +34,14 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Build widget from components
+  // Define scales.
   const scales = {
     x: Scale(),
     y: Scale(),
     size: Scale('sqrt')
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('bubble-chart', name, parent),
     LeftAxis(scales.y),

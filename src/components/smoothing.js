@@ -1,4 +1,9 @@
-import {curveMonotoneX, curveLinear, curveCardinalClosed, curveLinearClosed, curveCatmullRomClosed} from 'd3'
+import {curveMonotoneX, curveLinear, curveCardinalClosed, curveLinearClosed} from 'd3'
+
+// Default values.
+const DEFAULTS = {
+  on: false
+}
 
 /**
  * Component implementing the polygon smoothing feature. This component allows for smoothing polygons in charts that
@@ -8,11 +13,6 @@ import {curveMonotoneX, curveLinear, curveCardinalClosed, curveLinearClosed, cur
  * @function Smoothing
  */
 export default (self, api) => {
-  // Default values.
-  const DEFAULTS = {
-    on: false
-  }
-
   // Private members
   const _ = {
     on: DEFAULTS.on

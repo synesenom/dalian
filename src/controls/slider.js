@@ -6,6 +6,17 @@ import Font from '../components/font'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
+// Default values.
+const DEFAULTS = {
+  color: 'grey',
+  max: 1,
+  min: 0,
+  step: 0,
+  thickness: 8,
+  trackColor: '#ccc',
+  value: 0,
+}
+
 // TODO Add API .disabled().
 /**
  * The slider control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. The slider is constrained to a rectangle defined by the width/height and the margins. It is vertically centered. The scale ticks are implemented using <a href="../components/bottom-axis.html">BottomAxis</a>, making all the API for that component available for the slider.
@@ -15,21 +26,10 @@ import Widget from '../components/widget'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Default values.
-  const DEFAULTS = {
-    color: 'grey',
-    max: 1,
-    min: 0,
-    step: 0,
-    thickness: 8,
-    trackColor: '#ccc',
-    value: 0,
-  }
-
-  // Scale.
+  // Define scale.
   const scale = Scale('linear')
 
-  // Build widget from components.
+  // Build widget.
   let { self, api } = compose(
     Widget('slider', name, parent, 'svg'),
     BottomAxis(scale),

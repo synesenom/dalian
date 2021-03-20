@@ -3,6 +3,8 @@ import attributes from '../utils/attributes'
 import styles from '../utils/styles'
 import extend from '../core/extend'
 
+// TODO Docstring
+// TODO Example
 export default (self, api) => {
   // Private members.
   const _ = {

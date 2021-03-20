@@ -10,6 +10,11 @@ const CLASSES = {
   tooltip: 'dalian-tooltip'
 }
 
+// Default values.
+const DEFAULTS = {
+  on: false
+}
+
 /**
  * Component implementing the tooltip feature. When this component is available for a widget, its API is exposed via the
  * {.tooltip} namespace.
@@ -33,11 +38,6 @@ export default (self, api) => {
     'z-index': 9999
   })
 
-  // Default values.
-  const DEFAULTS = {
-    on: false
-  }
-
   // Private members.
   let _ = {
     // Variables.
@@ -45,80 +45,80 @@ export default (self, api) => {
       .attr('class', 'dalian-tooltip-container'),
     id: `${self._widget.id}-tooltip`,
     on: DEFAULTS.on,
+  }
 
-    // Methods.
-    getTooltip () {
-      if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
-        return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
-      } else {
-        return _.container.append('div')
-          .attr('id', _.id)
-          .attr('class', CLASSES.tooltip)
-          .style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
-      }
-    },
+  // Private methods.
+  function getTooltip () {
+    if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
+      return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
+    } else {
+      return _.container.append('div')
+        .attr('id', _.id)
+        .attr('class', CLASSES.tooltip)
+        .style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
+    }
+  }
 
-    hideTooltip () {
+  function hideTooltip () {
+    if (typeof _.elem !== 'undefined') {
+      _.elem.style('opacity', 0)
+    }
+  }
+
+  function showTooltip () {
+
+    const [mx, my] = mouse(self._widget.container.node())
+
+    // If we are outside the charting area just remove tooltip.
+    const xMax = parseFloat(self._widget.size.width) - self._widget.margins.right
+    const yMax = parseFloat(self._widget.size.height) - self._widget.margins.bottom
+    if (mx < self._widget.margins.left || mx > xMax || my < self._widget.margins.top || my > yMax) {
+      self._tooltip.builder()
+      hideTooltip()
+      return
+    }
+
+    // Get or create tooltip.
+    _.elem = getTooltip()
+
+    // Create content.
+    let content = self._tooltip.builder(self._tooltip.content(self._widget.getMouse()))
+    if (typeof content === 'undefined') {
       if (typeof _.elem !== 'undefined') {
-        _.elem.style('opacity', 0)
-      }
-    },
-
-    showTooltip () {
-
-      const [mx, my] = mouse(self._widget.container.node())
-
-      // If we are outside the charting area just remove tooltip.
-      const xMax = parseFloat(self._widget.size.width) - self._widget.margins.right
-      const yMax = parseFloat(self._widget.size.height) - self._widget.margins.bottom
-      if (mx < self._widget.margins.left || mx > xMax || my < self._widget.margins.top || my > yMax) {
-        self._tooltip.builder()
-        _.hideTooltip()
+        // If content is invalid, remove tooltip.
+        hideTooltip()
         return
       }
-
-      // Get or create tooltip.
-      _.elem = _.getTooltip()
-
-      // Create content.
-      let content = self._tooltip.builder(self._tooltip.content(self._widget.getMouse()))
-      if (typeof content === 'undefined') {
-        if (typeof _.elem !== 'undefined') {
-          // If content is invalid, remove tooltip.
-          _.hideTooltip()
-          return
-        }
-      } else {
-        // Otherwise, set content.
-        _.elem.html(content)
-      }
-
-      // Calculate position.
-      const elem = _.elem.node().getBoundingClientRect()
-
-      const tw = elem.width
-
-      const th = elem.height
-
-      let tx = mx + 20
-
-      let ty = my + 20
-
-      // Correct for edges.
-      const buffer = 10
-      if (tx + tw > xMax - buffer) {
-        tx -= tw + 30
-      }
-      if (ty + th > yMax - buffer) {
-        ty = yMax - buffer - th
-      }
-
-      // Set position.
-      _.elem
-        .style('left', tx + 'px')
-        .style('top', ty + 'px')
-        .style('opacity', 1)
+    } else {
+      // Otherwise, set content.
+      _.elem.html(content)
     }
+
+    // Calculate position.
+    const elem = _.elem.node().getBoundingClientRect()
+
+    const tw = elem.width
+
+    const th = elem.height
+
+    let tx = mx + 20
+
+    let ty = my + 20
+
+    // Correct for edges.
+    const buffer = 10
+    if (tx + tw > xMax - buffer) {
+      tx -= tw + 30
+    }
+    if (ty + th > yMax - buffer) {
+      ty = yMax - buffer - th
+    }
+
+    // Set position.
+    _.elem
+      .style('left', tx + 'px')
+      .style('top', ty + 'px')
+      .style('opacity', 1)
   }
 
   // Extend update method.
@@ -126,9 +126,9 @@ export default (self, api) => {
     // Update relevant mouse events.
     self._widget.container
       .style('pointer-events', _.on ? 'all' : null)
-      .on('mousemove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip())
-      .on('touchmove.tooltip', () => _.on && !self._widget.disabled && _.showTooltip(), {passive: true})
-      .on('mouseout.tooltip', _.hideTooltip)
+      .on('mousemove.tooltip', () => _.on && !self._widget.disabled && showTooltip())
+      .on('touchmove.tooltip', () => _.on && !self._widget.disabled && showTooltip(), {passive: true})
+      .on('mouseout.tooltip', hideTooltip)
   })
 
   // Protected members.

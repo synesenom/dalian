@@ -17,47 +17,45 @@ export default type => {
       on: false,
       grid: undefined,
       opacity: undefined,
-      lineStyle: undefined,
-
-      update: duration => {
-        // Add grid
-        if (_.on) {
-          if (typeof _.grid === 'undefined') {
-            // If not yet added, create grid.
-            _.grid = self._chart.plots.insert('g', ':first-child')
-              .attr('class', 'grid')
-              .style('opacity', 0)
-              .style('stroke', 'currentColor')
-              .style('stroke-width', '1px')
-          }
-
-          // Update grid.
-          const axis = _.type === 'x' ? self._bottomAxis.fn : self._leftAxis.fn
-          const length = _.type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
-          _.grid.transition().duration(duration)
-            .call(
-              axis.tickSizeInner(length)
-                .tickFormat('')
-            )
-            .style('stroke-opacity', _.opacity || _.defaults.opacity)
-            .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
-            .style('opacity', 1)
-
-          // Remove path.
-          _.grid.select('path').remove()
-        } else {
-          if (typeof _.grid !== 'undefined') {
-            _.grid.transition().duration(duration)
-              .style('opacity', 0)
-              .remove()
-            _.grid = undefined
-          }
-        }
-      }
+      lineStyle: undefined
     }
 
     // Extend update
-    self._widget.update = extend(self._widget.update, _.update)
+    self._widget.update = extend(self._widget.update, duration => {
+      // Add grid
+      if (_.on) {
+        if (typeof _.grid === 'undefined') {
+          // If not yet added, create grid.
+          _.grid = self._chart.plots.insert('g', ':first-child')
+            .attr('class', 'grid')
+            .style('opacity', 0)
+            .style('stroke', 'currentColor')
+            .style('stroke-width', '1px')
+        }
+
+        // Update grid.
+        const axis = _.type === 'x' ? self._bottomAxis.fn : self._leftAxis.fn
+        const length = _.type === 'x' ? parseFloat(self._widget.size.innerHeight) : -parseFloat(self._widget.size.innerWidth)
+        _.grid.transition().duration(duration)
+          .call(
+            axis.tickSizeInner(length)
+              .tickFormat('')
+          )
+          .style('stroke-opacity', _.opacity || _.defaults.opacity)
+          .style('stroke-dasharray', _.lineStyle || _.defaults.lineStyle)
+          .style('opacity', 1)
+
+        // Remove path.
+        _.grid.select('path').remove()
+      } else {
+        if (typeof _.grid !== 'undefined') {
+          _.grid.transition().duration(duration)
+            .style('opacity', 0)
+            .remove()
+          _.grid = undefined
+        }
+      }
+    })
 
     // Protected methods.
     let baseSelf = {

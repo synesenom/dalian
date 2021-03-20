@@ -1,3 +1,4 @@
+// TODO Docstring.
 export default () => {
   // Private members
   let _ = {

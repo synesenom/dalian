@@ -30,12 +30,12 @@ export default (self, api) => {
     'pointer-events': 'none'
   })
 
-  // Private members
+  // Private members.
   const _ = {
-    // Variables
+    // Variables.
     id: `${self._widget.id}-description`,
 
-    // Methods
+    // Methods.
     getDescription: () => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem

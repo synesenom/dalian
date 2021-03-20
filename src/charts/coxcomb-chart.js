@@ -14,6 +14,12 @@ import PointTooltip from '../components/tooltip/point-tooltip'
 import Scale from '../components/scale'
 import Widget from '../components/widget'
 
+// Defaults.
+const DEFAULTS = {
+  radius: 100,
+  angle: 0
+}
+
 /**
  * The coxcomb chart widget. The chart extends the following components:
  * <ul>
@@ -36,12 +42,7 @@ import Widget from '../components/widget'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Defaults.
-  const DEFAULTS = {
-    radius: 100,
-    angle: 0
-  }
-
+  // Build widget.
   let { self, api } = compose(
     Widget('coxcomb-chart', name, parent, 'svg'),
     Color,

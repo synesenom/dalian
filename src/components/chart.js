@@ -26,7 +26,7 @@ import Widget from './widget'
  * @function Chart
  */
 export default (type, name, parent, elem = 'svg') => {
-  // Build component from other components
+  // Build component.
   let { self, api } = compose(
     Widget(type, name, parent, elem),
     Color,

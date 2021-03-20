@@ -38,11 +38,13 @@ import YRange from '../components/range/y-range'
  * @param {string} [parent = body] See [Widget]{@link ../components/widget.html} for description.
  */
 export default (name, parent = 'body') => {
-  // Build widget from components
+  // Define scales.
   const scales = {
     x: Scale('point'),
-    y: Scale('linear')
+    y: Scale()
   }
+
+  // Build widget.
   let { self, api } = compose(
     Chart('violin-plot', name, parent),
     BottomAxis(scales.x),

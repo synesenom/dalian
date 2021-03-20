@@ -13,6 +13,13 @@ const CLASSES = {
   label: TAG + 'label'
 }
 
+// Default values.
+const DEFAULTS = {
+  ignore: [],
+  titleFormat: d => d,
+  valueFormat: d => d.y
+}
+
 /**
  * Component implementing the point tooltip feature. The point tooltip is a pre-formatted tooltip that takes an array of
  * plot data and displays it in the tooltip as a list of plots with colored square markers. Can be used in charts where
@@ -56,13 +63,6 @@ export default (self, api) => {
     float: 'left',
     height: '.9em'
   })
-
-  // Default values.
-  const DEFAULTS = {
-    ignore: [],
-    titleFormat: d => d,
-    valueFormat: d => d.y
-  }
 
   // Inherit from base tooltip
   let base = Tooltip(self, api)
