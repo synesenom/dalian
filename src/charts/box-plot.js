@@ -68,15 +68,15 @@ export default (name, parent = 'body') => {
     // TODO Merge these to a whisker method.
     whiskerPath (side) {
       const quartile = side === 'lower' ? 'q1' : 'q3'
-      return d => `M${_.scales.x.scale(_.horizontal ? d.value[quartile] : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value[quartile])}
-      L${_.scales.x.scale(_.horizontal ? d.value.whiskers[side] : d.name)} ${_.scales.y.scale(_.horizontal ? d.name : d.value.whiskers[side])}
+      return d => `M${_.scales.x(_.horizontal ? d.value[quartile] : d.name)} ${_.scales.y(_.horizontal ? d.name : d.value[quartile])}
+      L${_.scales.x(_.horizontal ? d.value.whiskers[side] : d.name)} ${_.scales.y(_.horizontal ? d.name : d.value.whiskers[side])}
       m${_.horizontal ? 0 : -0.4 * _.boxWidth} ${_.horizontal ? -0.4 * _.boxWidth : 0}
       l${_.horizontal ? 0 : 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
     },
 
-    outlierX: d => _.scales.x.scale(_.horizontal ? d : d.name),
+    outlierX: d => _.scales.x(_.horizontal ? d : d.name),
 
-    outlierY: d => _.scales.y.scale(_.horizontal ? d.name : d),
+    outlierY: d => _.scales.y(_.horizontal ? d.name : d),
 
     update (duration) {
       // Collect X values and Y max.
@@ -92,9 +92,9 @@ export default (name, parent = 'body') => {
       // Update scales.
       _.horizontal = self._horizontal.on()
       _.scales = self._horizontal.scales()
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
         .domain(_.horizontal ? [yMin, yMax] : xValues)
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(_.horizontal ? xValues : [yMin, yMax])
 
       // Add plots
@@ -120,16 +120,16 @@ export default (name, parent = 'body') => {
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill', 'currentColor')
             .attr('fill-opacity', self._opacity.value())
-            .attr('x', d => _.scales.x.scale(_.horizontal ? d.value.q1 : d.name) - xShift)
-            .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value.q3) - yShift)
-            .attr('width', d => _.horizontal ? _.scales.x.scale(d.value.q3) - _.scales.x.scale(d.value.q1) : _.boxWidth)
-            .attr('height', d => _.horizontal ? _.boxWidth : _.scales.y.scale(d.value.q1) - _.scales.y.scale(d.value.q3))
+            .attr('x', d => _.scales.x(_.horizontal ? d.value.q1 : d.name) - xShift)
+            .attr('y', d => _.scales.y(_.horizontal ? d.name : d.value.q3) - yShift)
+            .attr('width', d => _.horizontal ? _.scales.x(d.value.q3) - _.scales.x(d.value.q1) : _.boxWidth)
+            .attr('height', d => _.horizontal ? _.boxWidth : _.scales.y(d.value.q1) - _.scales.y(d.value.q3))
           g.append('line')
             .attr('class', 'box-median')
-            .attr('x1', d => _.scales.x.scale(_.horizontal ? d.value.median : d.name) - xShift)
-            .attr('y1', d => _.scales.y.scale(_.horizontal ? d.name : d.value.median) - yShift)
-            .attr('x2', d => _.scales.x.scale(_.horizontal ? d.value.median : d.name) + xShift)
-            .attr('y2', d => _.scales.y.scale(_.horizontal ? d.name : d.value.median) + yShift)
+            .attr('x1', d => _.scales.x(_.horizontal ? d.value.median : d.name) - xShift)
+            .attr('y1', d => _.scales.y(_.horizontal ? d.name : d.value.median) - yShift)
+            .attr('x2', d => _.scales.x(_.horizontal ? d.value.median : d.name) + xShift)
+            .attr('y2', d => _.scales.y(_.horizontal ? d.name : d.value.median) + yShift)
             .attr('stroke', 'currentColor')
             .attr('stroke-width', '2px')
           g.append('path')
@@ -222,17 +222,17 @@ export default (name, parent = 'body') => {
             .style('color', self._color.mapper)
 
           g.select('.box-body')
-            .attr('x', d => _.scales.x.scale(_.horizontal ? d.value.q1 : d.name) - xShift)
-            .attr('y', d => _.scales.y.scale(_.horizontal ? d.name : d.value.q3) - yShift)
-            .attr('width', d => _.horizontal ? _.scales.x.scale(d.value.q3) - _.scales.x.scale(d.value.q1) : _.boxWidth)
-            .attr('height', d => _.horizontal ? _.boxWidth : _.scales.y.scale(d.value.q1) - _.scales.y.scale(d.value.q3))
+            .attr('x', d => _.scales.x(_.horizontal ? d.value.q1 : d.name) - xShift)
+            .attr('y', d => _.scales.y(_.horizontal ? d.name : d.value.q3) - yShift)
+            .attr('width', d => _.horizontal ? _.scales.x(d.value.q3) - _.scales.x(d.value.q1) : _.boxWidth)
+            .attr('height', d => _.horizontal ? _.boxWidth : _.scales.y(d.value.q1) - _.scales.y(d.value.q3))
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))
             .attr('fill-opacity', self._opacity.value())
           g.select('.box-median')
-            .attr('x1', d => _.scales.x.scale(_.horizontal ? d.value.median : d.name) - xShift)
-            .attr('y1', d => _.scales.y.scale(_.horizontal ? d.name : d.value.median) - yShift)
-            .attr('x2', d => _.scales.x.scale(_.horizontal ? d.value.median : d.name) + xShift)
-            .attr('y2', d => _.scales.y.scale(_.horizontal ? d.name : d.value.median) + yShift)
+            .attr('x1', d => _.scales.x(_.horizontal ? d.value.median : d.name) - xShift)
+            .attr('y1', d => _.scales.y(_.horizontal ? d.name : d.value.median) - yShift)
+            .attr('x2', d => _.scales.x(_.horizontal ? d.value.median : d.name) + xShift)
+            .attr('y2', d => _.scales.y(_.horizontal ? d.name : d.value.median) + yShift)
           g.select('.box-whisker-lower')
             .attr('d', _.whiskerPath('lower'))
             .attr('stroke-width', d => self._lineWidth.mapping(d.name))

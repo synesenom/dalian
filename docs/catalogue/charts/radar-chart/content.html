@@ -28,8 +28,9 @@
       first: COLORS.widget[0],
       second: COLORS.widget[1]
     })
+    .radialAxis.values([1, 2, 3, 4, 5])
+    .max(5)
     .radius(50)
-    .smoothing(true)
     .render()
 </script>
 
@@ -62,29 +63,29 @@ function getData () {
   return [{
     name: 'Cabernet Sauvignon',
     values: {
-      sweetness: 2,
-      body: 5,
-      tannin: 4,
-      acidity: 3,
-      alcohol: 4
+      sweetness: 2 + Math.random() - 0.5,
+      body: 5 + Math.random() - 0.5,
+      tannin: 4 + Math.random() - 0.5,
+      acidity: 3 + Math.random() - 0.5,
+      alcohol: 4 + Math.random() - 0.5
     }
   }, {
     name: 'Chardonnay',
     values: {
-      sweetness: 2,
-      body: 3,
-      tannin: 1,
-      acidity: 3,
-      alcohol: 4
+      sweetness: 2 + Math.random() - 0.5,
+      body: 3 + Math.random() - 0.5,
+      tannin: 1 + Math.random() - 0.5,
+      acidity: 3 + Math.random() - 0.5,
+      alcohol: 4 + Math.random() - 0.5
     }
   }, {
     name: 'Muscat of Alexandria',
     values: {
-      sweetness: 4,
-      body: 3,
-      tannin: 1,
-      acidity: 3,
-      alcohol: 1
+      sweetness: 4 + Math.random() - 0.5,
+      body: 3 + Math.random() - 0.5,
+      tannin: 1 + Math.random() - 0.5,
+      acidity: 3 + Math.random() - 0.5,
+      alcohol: 1 + Math.random() - 0.5
     }
   }]
 }
@@ -104,7 +105,7 @@ const radarChart = dalian.RadarChart('myChart', '#widget')
     'Muscat of Alexandria': '#dc6333'
   })
   .radialAxis.values([1, 2, 3, 4, 5])
-  //.smoothing(true)
+  .smoothing(true)
   .tooltip.on(true)
   .lineWidth(2)
   .opacity(0.2)
@@ -120,7 +121,8 @@ const changeData = () => radarChart.data(getData()).render(1000)
 
 const toggleDimensions = () => {
   this.d = 1 - (this.d || 0)
-  radarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol'] : undefined).render(1000)
+  radarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol']
+    : undefined).render(1000)
 }
 
 const toggleRadius = () => {

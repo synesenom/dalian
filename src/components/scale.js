@@ -1,4 +1,4 @@
-import { scaleBand, scaleLinear, scaleLog, scalePoint, scalePow } from 'd3'
+import { scaleBand, scaleLinear, scalePoint, scalePow } from 'd3'
 
 /**
  * Component implementing a scale.
@@ -18,8 +18,6 @@ export default (type = 'linear') => {
           return scaleLinear()
         case 'sqrt':
           return scalePow().exponent(0.5)
-        case 'log':
-          return scaleLog()
         case 'band':
           return scaleBand().padding(0.1)
         case 'point':
@@ -28,6 +26,50 @@ export default (type = 'linear') => {
     })()
   }
 
+  const api = x => _.scale(x)
+
+  // TODO Get rid of this getter.
+  Object.defineProperty(api, 'scale', {
+    get: () => _.scale
+  })
+
+  api.copy = () => _.scale.copy()
+
+  api.range = range => {
+    _.scale.range(range)
+    return api
+  }
+
+  api.domain = values => {
+    _.scale.domain(values)
+    return api
+  }
+
+  api.type = value => {
+    if (typeof value === 'undefined') {
+      return _.type
+    } else {
+      switch (value) {
+        default:
+        case 'linear':
+          _.scale = scaleLinear()
+          break
+        case 'sqrt':
+          _.scale = scalePow().exponent(0.5)
+          break
+        case 'band':
+          _.scale = scaleBand().padding(0.1)
+          break
+        case 'point':
+          _.scale = scalePoint().padding(0.5)
+      }
+    }
+    return api
+  }
+
+  api.measure = size => Math.abs(_.scale.invert(size) - _.scale.invert(0))
+
+  /*
   const api = {
     get scale () {
       return _.scale
@@ -39,18 +81,7 @@ export default (type = 'linear') => {
     },
 
     domain: values => {
-      switch (_.type) {
-        default:
-        case 'linear':
-        case 'sqrt':
-        case 'log':
-          _.scale.domain([Math.min(...values), Math.max(...values)])
-          break
-        case 'band':
-        case 'point':
-          _.scale.domain(values)
-          break
-      }
+      _.scale.domain(values)
       return api
     },
 
@@ -62,9 +93,6 @@ export default (type = 'linear') => {
           default:
           case 'linear':
             _.scale = scaleLinear()
-            break
-          case 'log':
-            _.scale = scaleLog()
             break
           case 'sqrt':
             _.scale = scalePow().exponent(0.5)
@@ -81,6 +109,7 @@ export default (type = 'linear') => {
 
     measure: size => Math.abs(_.scale.invert(size) - _.scale.invert(0))
   }
+   */
 
   return api
 }

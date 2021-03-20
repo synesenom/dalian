@@ -76,8 +76,8 @@ export default (name, parent = 'body') => {
       }))).flat()
 
       return voronoi()
-        .x(d => _.scales.x.scale(d.x))
-        .y(d => _.scales.y.scale(d.y))
+        .x(d => _.scales.x(d.x))
+        .y(d => _.scales.y(d.y))
         .extent([[0, 0], [parseInt(self._widget.size.innerWidth), parseInt(self._widget.size.innerHeight)]])(sites)
     },
 
@@ -88,10 +88,10 @@ export default (name, parent = 'body') => {
 
       // Init scales.
       const xRange = extent(flatData.map(d => d.x))
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
         .domain(xRange)
       const yRange = extent(flatData.map(d => d.y))
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(yRange)
 
       // Adjust scales to fit circles within the axes.
@@ -113,8 +113,8 @@ export default (name, parent = 'body') => {
           g.selectAll('circle').data(d => d.values)
             .enter().append('circle')
             .attr('class', 'dot')
-            .attr('cx', d => _.scales.x.scale(d.x))
-            .attr('cy', d => _.scales.y.scale(d.y))
+            .attr('cx', d => _.scales.x(d.x))
+            .attr('cy', d => _.scales.y(d.y))
             .attr('r', _.size / 2)
             .style('opacity', 0)
 
@@ -129,8 +129,8 @@ export default (name, parent = 'body') => {
             .join(
               enter => enter.append('circle')
                 .attr('class', 'dot')
-                .attr('cx', d => _.scales.x.scale(d.x))
-                .attr('cy', d => _.scales.y.scale(d.y))
+                .attr('cx', d => _.scales.x(d.x))
+                .attr('cy', d => _.scales.y(d.y))
                 .attr('r', _.size / 2)
                 .style('opacity', 0),
               update => update,
@@ -139,8 +139,8 @@ export default (name, parent = 'body') => {
                 .remove()
             )
             .transition().duration(duration)
-            .attr('cx', d => _.scales.x.scale(d.x))
-            .attr('cy', d => _.scales.y.scale(d.y))
+            .attr('cx', d => _.scales.x(d.x))
+            .attr('cy', d => _.scales.y(d.y))
             .attr('r', _.size / 2)
             .style('opacity', self._opacity.value())
 
@@ -188,7 +188,7 @@ export default (name, parent = 'body') => {
       self._plotMarker.remove()
       return
     } else {
-      self._plotMarker.add(_.scales.x.scale(_.current.x), _.scales.y.scale(_.current.y), 'marker', _.current,
+      self._plotMarker.add(_.scales.x(_.current.x), _.scales.y(_.current.y), 'marker', _.current,
         Math.max(5, 0.75 * _.size))
     }
 

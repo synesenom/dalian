@@ -128,7 +128,7 @@ export default (name, parent = 'body') => {
     },
 
     update (duration) {
-      _.scale.range(0, parseFloat(self._widget.size.innerWidth))
+      _.scale.range([0, parseFloat(self._widget.size.innerWidth)])
         .domain([_.i.min, _.i.max])
 
       // Update internals.

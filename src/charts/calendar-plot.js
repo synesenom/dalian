@@ -168,9 +168,9 @@ export default (name, parent = 'body') => {
       const labelDy = (size + _.fm.capHeight * parseFloat(labelFontSize)) / 2
 
       // Scales.
-      _.scales.x.range(marginLeft, parseInt(self._widget.size.innerWidth) - marginLeft)
+      _.scales.x.range([marginLeft, parseInt(self._widget.size.innerWidth) - marginLeft])
         .domain([0, numWeeks + _.blocks.margin * (_.metrics.numMonths - 1)])
-      _.scales.y.range(marginTop, parseInt(self._widget.size.innerHeight) - marginTop)
+      _.scales.y.range([marginTop, parseInt(self._widget.size.innerHeight) - marginTop])
         // Labels are rotated backwards by the specified week start.
         .domain(unrotate(_.tiles.names, _.tiles.weekStart))
 

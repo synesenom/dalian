@@ -27,9 +27,9 @@ export default scale => {
       .style('font-family', 'inherit')
       .style('font-size', 'inherit')
 
-    let axisFn = axisRight()
+    let axisFn = axisRight(scale.copy()
+      .range([0, -scale.scale.range()[1]]))
 
-    // TODO Read 100 out from scale.range.
     const axisX = (i, n) => scale.scale.range()[1] * Math.sin(i * 2 * Math.PI / n)
 
     const axisY = (i, n) => -scale.scale.range()[1] * Math.cos(i * 2 * Math.PI / n)
@@ -79,7 +79,7 @@ export default scale => {
     // Extend update.
     self._widget.update = extend(self._widget.update, duration => {
       // Create axis function.
-      axisFn = axisRight(scale.scale.copy()
+      axisFn = axisRight(scale.copy()
         .range([0, -scale.scale.range()[1]]))
         .tickFormat(_.format)
         .tickValues(_.values)

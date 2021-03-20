@@ -104,9 +104,9 @@ export default (name, parent = 'body') => {
     // Update.
     update (duration) {
       // Init scales.
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
         .domain(self._xRange.range(self._chart.data.xRange))
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(self._yRange.range(self._chart.data.yRange))
 
       // Add tiles.

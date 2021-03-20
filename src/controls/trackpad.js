@@ -171,9 +171,9 @@ export default (name, parent = 'body') => {
 
     update (duration) {
       // Update scales.
-      _.scales.x.range(0, parseFloat(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseFloat(self._widget.size.innerWidth)])
         .domain(_.i.ranges[0])
-      _.scales.y.range(parseFloat(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseFloat(self._widget.size.innerHeight), 0])
         .domain(_.i.ranges[1])
 
       // Update internals.

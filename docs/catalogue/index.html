@@ -345,8 +345,9 @@ To explore a specific component listed on a chart's documentation page under its
       first: COLORS.widget[0],
       second: COLORS.widget[1]
     })
+    .radialAxis.values([1, 2, 3, 4, 5])
+    .max(5)
     .radius(50)
-    .smoothing(true)
     .render()
 </script></a><a class="card" href="charts/scatter-plot"><div class="card-title">ScatterPlot</div><div class="card-content" id="scatter-plot"></div><script class="card-example">
   dalian.ScatterPlot('scatter-plot-card', '#scatter-plot')

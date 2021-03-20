@@ -67,8 +67,8 @@ export default (name, parent = 'body') => {
 
     // Calculations.
     computeDiagram: data => voronoi()
-      .x(d => _.scales.x.scale(d.value.x))
-      .y(d => _.scales.y.scale(d.value.y))
+      .x(d => _.scales.x(d.value.x))
+      .y(d => _.scales.y(d.value.y))
       .extent([[0, 0], [
         parseInt(self._widget.size.innerWidth),
         parseInt(self._widget.size.innerHeight)]
@@ -82,26 +82,26 @@ export default (name, parent = 'body') => {
 
       // Update size scale.
       const sizeMax = max(flatData.map(d => d.size))
-      _.scales.size.range(0, _.radius)
+      _.scales.size.range([0, _.radius])
         .domain([0, sizeMax])
 
       // Init scales.
       // TODO Make this a utility as used by several places: ScatterPlot.
       let xRange = extent(flatData.map(d => d.x))
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
         .domain(xRange)
       let yRange = extent(flatData.map(d => d.y))
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(yRange)
 
       // Adjust scales with sizes.
       xRange = flatData.map(d => {
-        const dx = _.scales.x.measure(1.5 * _.scales.size.scale(d.size))
+        const dx = _.scales.x.measure(1.5 * _.scales.size(d.size))
         return [d.x - dx, d.x + dx]
       }).flat()
       _.scales.x.domain(self._xRange.range(xRange))
       yRange = flatData.map(d => {
-        const dy = _.scales.y.measure(1.5 * _.scales.size.scale(d.size))
+        const dy = _.scales.y.measure(1.5 * _.scales.size(d.size))
         return [d.y - dy, d.y + dy]
       }).flat()
       _.scales.y.domain(self._yRange.range(yRange))
@@ -136,9 +136,9 @@ export default (name, parent = 'body') => {
           // Add bubble.
           g.append('circle')
             .attr('class', 'bubble')
-            .attr('cx', d => _.scales.x.scale(d.value.x))
-            .attr('cy', d => _.scales.y.scale(d.value.y))
-            .attr('r', d => Math.max(_.scales.size.scale(d.value.size), 1))
+            .attr('cx', d => _.scales.x(d.value.x))
+            .attr('cy', d => _.scales.y(d.value.y))
+            .attr('r', d => Math.max(_.scales.size(d.value.size), 1))
             .attr('stroke', 'currentColor')
             .attr('fill', 'currentColor')
             .raise()
@@ -151,9 +151,9 @@ export default (name, parent = 'body') => {
 
           // Update bubble.
           g.select('.bubble')
-            .attr('cx', d => _.scales.x.scale(d.value.x))
-            .attr('cy', d => _.scales.y.scale(d.value.y))
-            .attr('r', d => Math.max(_.scales.size.scale(d.value.size), 1))
+            .attr('cx', d => _.scales.x(d.value.x))
+            .attr('cy', d => _.scales.y(d.value.y))
+            .attr('r', d => Math.max(_.scales.size(d.value.size), 1))
             .attr('fill-opacity', self._opacity.value())
 
           return g

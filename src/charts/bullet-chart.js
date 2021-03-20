@@ -129,7 +129,7 @@ export default (name, parent = 'body') => {
 
     update (duration) {
       // Update scale.
-      _.scale.range(0, parseInt(self._widget.size.innerWidth))
+      _.scale.range([0, parseInt(self._widget.size.innerWidth)])
         .domain([_.data.ranges[0], _.data.ranges[3]])
 
       // Adjust plot.
@@ -150,37 +150,37 @@ export default (name, parent = 'body') => {
 
       // Update range
       _.dom.range.high.transition(t)
-        .attr('x', _.scale.scale(_.data.ranges[0]))
+        .attr('x', _.scale(_.data.ranges[0]))
         .attr('y', 0)
-        .attr('width', _.scale.scale(_.data.ranges[3]) + 1)
+        .attr('width', _.scale(_.data.ranges[3]) + 1)
         .attr('height', _.ui.thickness)
       _.dom.range.mid.transition(t)
-        .attr('x', _.scale.scale(_.data.ranges[0]))
+        .attr('x', _.scale(_.data.ranges[0]))
         .attr('y', 0)
-        .attr('width', _.scale.scale(_.data.ranges[2]) + 1)
+        .attr('width', _.scale(_.data.ranges[2]) + 1)
         .attr('height', _.ui.thickness)
       _.dom.range.low.transition(t)
-        .attr('x', _.scale.scale(_.data.ranges[0]))
+        .attr('x', _.scale(_.data.ranges[0]))
         .attr('y', 0)
-        .attr('width', _.scale.scale(_.data.ranges[1]) + 1)
+        .attr('width', _.scale(_.data.ranges[1]) + 1)
         .attr('height', _.ui.thickness)
 
       // Update value.
       _.dom.value.bar.transition(t)
-        .attr('x', _.scale.scale(_.data.ranges[0]))
+        .attr('x', _.scale(_.data.ranges[0]))
         .attr('y', _.ui.thickness / 3)
-        .attr('width', _.scale.scale(_.data.value))
+        .attr('width', _.scale(_.data.value))
         .attr('height', _.ui.thickness / 3)
       _.dom.value.forecast.transition(t)
-        .attr('x', _.scale.scale(_.data.ranges[0]))
+        .attr('x', _.scale(_.data.ranges[0]))
         .attr('y', _.ui.thickness / 3)
-        .attr('width', _.scale.scale(Math.min(_.data.value * _.data.forecast, _.data.ranges[3])))
+        .attr('width', _.scale(Math.min(_.data.value * _.data.forecast, _.data.ranges[3])))
         .attr('height', _.ui.thickness / 3)
         .attr('fill', forecastColor(_.ui.valueColor))
       _.dom.value.target.transition(t)
-        .attr('x1', _.scale.scale(_.data.target))
+        .attr('x1', _.scale(_.data.target))
         .attr('y1', _.ui.thickness / 6)
-        .attr('x2', _.scale.scale(_.data.target))
+        .attr('x2', _.scale(_.data.target))
         .attr('y2', 5 * _.ui.thickness / 6)
 
       // Update title.

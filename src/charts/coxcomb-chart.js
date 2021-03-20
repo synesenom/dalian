@@ -99,7 +99,7 @@ export default (name, parent = 'body') => {
     update (duration) {
       // Update size scale.
       const maxValue = max(_.data.map(d => d.data).flat().map(d => d.y))
-      _.scale.range(0, _.radius)
+      _.scale.range([0, _.radius])
         .domain([0, maxValue])
 
       // Scale values.

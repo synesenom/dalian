@@ -128,9 +128,9 @@ export default (name, parent = 'body') => {
       // Update scales.
       _.horizontal = self._horizontal.on()
       _.scales = self._horizontal.scales()
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
         .domain(_.horizontal ? self._yRange.range(yRange) : xValues)
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(_.horizontal ? xValues : self._yRange.range(yRange))
 
       // Add plots.
@@ -150,9 +150,9 @@ export default (name, parent = 'body') => {
           // Add violin.
           g.append('path')
             .attr('class', 'violin')
-            .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x.scale(d.name) + yShift}, ${_.horizontal ? _.scales.y.scale(d.name) - yShift : 0}) ${rotate}`)
+            .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x(d.name) + yShift}, ${_.horizontal ? _.scales.y(d.name) - yShift : 0}) ${rotate}`)
             .attr('d', d => {
-              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
+              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x(dd.x) : _.scales.y(dd.x))
               return areaFn(d.values)
             })
             .attr('stroke', 'currentColor')
@@ -166,10 +166,10 @@ export default (name, parent = 'body') => {
             .style('color', self._color.mapper)
 
           g.select('.violin')
-            .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x.scale(d.name) + yShift}, ${_.horizontal ? _.scales.y.scale(d.name) - yShift : 0}) ${rotate}`)
+            .attr('transform', d => `translate(${_.horizontal ? 0 : _.scales.x(d.name) + yShift}, ${_.horizontal ? _.scales.y(d.name) - yShift : 0}) ${rotate}`)
             .attrTween('d', function (d) {
               const previous = select(this).attr('d')
-              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x.scale(dd.x) : _.scales.y.scale(dd.x))
+              const areaFn = d.area.x(dd => _.horizontal ? _.scales.x(dd.x) : _.scales.y(dd.x))
               const current = areaFn(d.values)
               return interpolatePath(previous, current, null)
             })

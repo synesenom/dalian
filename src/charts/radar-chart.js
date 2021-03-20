@@ -84,24 +84,24 @@ export default (name, parent = 'body') => {
       radialGrid.container
         .attr('transform', `translate(${parseFloat(self._widget.size.width) / 2}, ${parseFloat(self._widget.size.height) / 2})`)
         .selectAll('circle')
-        .data(_.tickValues)
+        .data(self._radialAxis.ticks())
         .join(
           enter => enter.append('circle')
             .attr('cx', 0)
             .attr('cy', 0)
-            .attr('r', scales.radius.scale)
+            .attr('r', scales.radius)
             .attr('fill', 'none')
             .attr('stroke', '#bbb'),
 
           update => update.transition().duration(duration)
-            .attr('r', scales.radius.scale),
+            .attr('r', scales.radius),
 
           exit => exit.remove()
         )
     } else {
       const lineFn = lineRadial()
-        .angle((d, i) => scales.angle.scale(i))
-        .radius(scales.radius.scale)
+        .angle((d, i) => scales.angle(i))
+        .radius(scales.radius)
         .curve(curveLinearClosed)
 
       const gridData = self._radialAxis.ticks()
@@ -167,10 +167,10 @@ export default (name, parent = 'body') => {
 
     // Update scales.
     scales.radius
-      .range(0, _.radius)
+      .range([0, _.radius])
       .domain([0, _.max])
     scales.angle
-      .range(0, (dimensions.length - 1) * 2 * Math.PI / dimensions.length)
+      .range([0, (dimensions.length - 1) * 2 * Math.PI / dimensions.length])
       .domain([0, dimensions.length - 1])
 
     // Update axis.
@@ -182,13 +182,13 @@ export default (name, parent = 'body') => {
     // Create line and error path functions.
     // TODO Add flag to decide if is should be filled.
     const lineFn = lineRadial()
-      .angle((d, i) => scales.angle.scale(i))
-      .radius(d => scales.radius.scale(d.y))
+      .angle((d, i) => scales.angle(i))
+      .radius(d => scales.radius(d.y))
       .curve(self._smoothing.closed())
     const errorFn = areaRadial()
-      .angle((d, i) => scales.angle.scale(i))
-      .innerRadius(d => scales.radius.scale(d.y - d.lo))
-      .outerRadius(d => scales.radius.scale(d.y + d.hi))
+      .angle((d, i) => scales.angle(i))
+      .innerRadius(d => scales.radius(d.y - d.lo))
+      .outerRadius(d => scales.radius(d.y + d.hi))
       .curve(self._smoothing.closed())
 
     // Add plots.

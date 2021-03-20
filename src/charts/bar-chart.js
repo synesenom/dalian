@@ -69,13 +69,13 @@ export default (name, parent = 'body') => {
     measureX: (d, bandwidth, style) => {
       const ts = measureText(self._label.format(d), style)
       const dx = Math.max((bandwidth - ts.height) / 2, 5)
-      const x = _.scales.x.scale(Math.max(0, d.value))
-      const w = Math.abs(x - _.scales.x.scale(0))
+      const x = _.scales.x(Math.max(0, d.value))
+      const w = Math.abs(x - _.scales.x(0))
       const inside = w > 2 * dx + ts.width
       return {
         inside,
         x: inside ? x - dx : x + dx + ts.width,
-        y: _.scales.y.scale(d.name) + bandwidth / 2,
+        y: _.scales.y(d.name) + bandwidth / 2,
         color: inside ? backgroundAdjustedColor(self._color.mapper(d)) : style.color
       }
     },
@@ -84,12 +84,12 @@ export default (name, parent = 'body') => {
     measureY: (d, bandwidth, style) => {
       const ts = measureText(self._label.format(d), style)
       const dy = Math.max((bandwidth - ts.width) / 2, 5)
-      const y = _.scales.y.scale(Math.max(0, d.value))
-      const h = Math.abs(y - _.scales.y.scale(0))
+      const y = _.scales.y(Math.max(0, d.value))
+      const h = Math.abs(y - _.scales.y(0))
       const inside = h > 2 * dy + ts.height
       return {
         inside,
-        x: _.scales.x.scale(d.name) + bandwidth / 2,
+        x: _.scales.x(d.name) + bandwidth / 2,
         y: inside ? y + dy : y - dy - ts.height,
         color: inside ? backgroundAdjustedColor(self._color.mapper(d)) : style.color
       }
@@ -115,9 +115,9 @@ export default (name, parent = 'body') => {
       }
 
       // Update scales.
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
         .domain(horizontal ? [yMin, yMax] : xValues)
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(horizontal ? xValues : [yMin, yMax])
 
       // Add plots.
@@ -134,8 +134,8 @@ export default (name, parent = 'body') => {
             .on('mouseleave.bar', () => {
               _.current = undefined
             })
-            .attr('x', d => _.scales.x.scale(horizontal ? 0 : d.name))
-            .attr('y', d => _.scales.y.scale(horizontal ? d.name : 0))
+            .attr('x', d => _.scales.x(horizontal ? 0 : d.name))
+            .attr('y', d => _.scales.y(horizontal ? d.name : 0))
             .attr('width', horizontal ? 0 : bandwidth)
             .attr('height', horizontal ? bandwidth : 0)
             .attr('fill', self._color.mapper)
@@ -150,8 +150,8 @@ export default (name, parent = 'body') => {
             .text(self._label.format)
             .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
             .attr('fill', d => d._measures.color)
-            .attr('x', d => horizontal ? _.scales.x.scale(0) : d._measures.x)
-            .attr('y', d => horizontal ? d._measures.y : _.scales.y.scale(0))
+            .attr('x', d => horizontal ? _.scales.x(0) : d._measures.x)
+            .attr('y', d => horizontal ? d._measures.y : _.scales.y(0))
 
           return g
         },
@@ -163,12 +163,12 @@ export default (name, parent = 'body') => {
 
           // Update bars.
           g.select('.bar')
-            .attr('x', d => _.scales.x.scale(horizontal ? Math.min(0, d.value) : d.name))
-            .attr('y', d => _.scales.y.scale(horizontal ? d.name : Math.max(d.value, 0)))
+            .attr('x', d => _.scales.x(horizontal ? Math.min(0, d.value) : d.name))
+            .attr('y', d => _.scales.y(horizontal ? d.name : Math.max(d.value, 0)))
             .attr('width', d => horizontal
-              ? Math.abs(_.scales.x.scale(d.value) - _.scales.x.scale(0)) : bandwidth)
+              ? Math.abs(_.scales.x(d.value) - _.scales.x(0)) : bandwidth)
             .attr('height', d => horizontal ? bandwidth
-              : Math.abs(_.scales.y.scale(d.value) - _.scales.y.scale(0)))
+              : Math.abs(_.scales.y(d.value) - _.scales.y(0)))
             .attr('fill', self._color.mapper)
 
           // Update labels.

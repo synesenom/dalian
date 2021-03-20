@@ -83,21 +83,21 @@ export default (name, parent = 'body') => {
       yRange[1] += yBuffer
 
       // Update scales
-      _.scales.x.range(0, parseInt(self._widget.size.innerWidth))
-        .domain(flatData.map(d => d.x))
+      _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+        .domain(extent(flatData.map(d => d.x)))
       // Make sure scale starts at 0
-      _.scales.y.range(parseInt(self._widget.size.innerHeight), 0)
+      _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
         .domain(self._yRange.range(yRange))
 
       // Create area and line.
       const areaFn = area()
-        .x(d => _.scales.x.scale(d.x))
-        .y0(_.scales.y.scale(0))
-        .y1(d => _.scales.y.scale(d.y))
+        .x(d => _.scales.x(d.x))
+        .y0(_.scales.y(0))
+        .y1(d => _.scales.y(d.y))
         .curve(self._smoothing.open())
       const lineFn = line()
-        .x(d => _.scales.x.scale(d.x))
-        .y(d => _.scales.y.scale(d.y))
+        .x(d => _.scales.x(d.x))
+        .y(d => _.scales.y(d.y))
         .curve(self._smoothing.open())
 
       // Add plots
@@ -160,7 +160,7 @@ export default (name, parent = 'body') => {
     }
 
     // Get bisection
-    const bisect = bisector(d => _.scales.x.scale(d.x)).left
+    const bisect = bisector(d => _.scales.x(d.x)).left
     const index = mouse ? self._chart.data.map(d => bisect(d.values, mouse[0])) : undefined
 
     // If no data point is found, just remove tooltip elements
@@ -186,7 +186,7 @@ export default (name, parent = 'body') => {
         x = point.x
 
         // Marker
-        self._plotMarker.add(_.scales.x.scale(x), _.scales.y.scale(point.y), d.name, d)
+        self._plotMarker.add(_.scales.x(x), _.scales.y(point.y), d.name, d)
 
         return {
           name: d.name,
