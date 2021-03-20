@@ -1,117 +1,119 @@
 import { select } from 'd3'
 
-// TODO Docstring.
-export default (() => {
-  const TAG = 'dalian-style-container'
 
-  const _ = {
-    // Styles added to the head.
-    styles: []
+/*
+ * Hidden variables
+ */
+
+// Create container.
+const container = select('head')
+  .append('style')
+  .attr('id', 'dalian-style-container')
+
+// Styles.
+const styles = []
+
+
+/*
+ * Methods
+ */
+
+/**
+ * Builds a style entry.
+ *
+ * @method buildEntry
+ * @param {string} selector Style query selector.
+ * @param {object} styles Styles to add to the selector.
+ * @return {string} The prepared style entry.
+ */
+function buildEntry (selector, styles) {
+  const content = Object.entries(styles)
+    .map(([name, value]) => `${name}:${value}`)
+    .join(';')
+  return `${selector}{${content}}`
+}
+
+/**
+ * Injects a new style to the page.
+ *
+ * @method injectClass
+ * @param {string} queryName Name of the selector.
+ * @param {object} styleSheet Style sheet.
+ * @param {string} marker Selector marker (. for class, # for ID).
+ */
+function injectStyle (queryName, styleSheet, marker = '.') {
+  // Take action only if selector is not yet added.
+  const selector = marker + queryName
+  if (typeof styles.find(d => d.selector === selector) === 'undefined') {
+    // Build entry.
+    const entry = buildEntry(selector, styleSheet)
+
+    // Inject style to head.
+    container.text(container.text() + entry)
+
+    // Add selector to recorded selectors.
+    styles.push({
+      selector,
+      entry
+    })
   }
+}
 
-  // TODO Docstring.
-  function getContainer () {
-    if (typeof _.container === 'undefined') {
-      _.container = select('head')
-        .append('style')
-        .attr('id', TAG)
-    }
-    return _.container
+/**
+ * Updates a style entry.
+ *
+ * @method updateStyle
+ * @param {string} queryName Name of the selector.
+ * @param {object} styleSheet Style sheet.
+ * @param {string} marker Selector marker (. for class, # for ID).
+ */
+function updateStyle (queryName, styleSheet, marker) {
+  // Find style.
+  const selector = marker + queryName
+  const style = styles.find(d => d.selector === selector)
+  if (typeof style !== 'undefined') {
+    // Update entry.
+    style.entry = buildEntry(selector, styleSheet)
+
+    // Replace entire style content.
+    container.text(styles.map(d => d.entry).join(''))
   }
+}
 
-  // TODO Docstring.
-  function getMarker (type) {
-    switch (type) {
-      default:
-      case 'class':
-        return '.'
-      case 'id':
-        return '#'
-    }
-  }
 
-  // TODO Docstring.
-  function buildEntry (selector, styles) {
-    const content = Object.entries(styles).map(([name, value]) => `${name}:${value}`).join(';')
-    return `${selector}{${content}}`
-  }
+/*
+ * Exports
+ */
 
-  // TODO Remove default values.
-  // TODO Docstring.
-  function addStyle (name, styles, type = 'class') {
-    // Take action only if selector is not yet added.
-    const selector = getMarker(type) + name
-    if (typeof _.styles.find(d => d.selector === selector) === 'undefined') {
-      // Build entry.
-      const entry = buildEntry(selector, styles)
+/**
+ * Injects a new class style to the page.
+ *
+ * @method injectClass
+ * @param {string} selector Class name.
+ * @param {object} styles Style entries.
+ */
+export function injectClass(selector, styles) {
+  injectStyle(selector, styles)
+}
 
-      // Inject style to head.
-      const container = getContainer()
-      container.text(container.text() + entry)
+/**
+ * Injects a new ID style to the page.
+ *
+ * @method injectId
+ * @param {string} selector ID name.
+ * @param {object} styles Style entries.
+ */
+export function injectId(selector, styles) {
+  injectStyle(selector, styles, '#')
+}
 
-      // Add selector to recorded selectors.
-      _.styles.push({
-        selector,
-        entry
-      })
-    }
-  }
-
-  // TODO Docstring.
-  function updateStyle (name, styles, type) {
-    // Find style.
-    const selector = getMarker(type) + name
-    const style = _.styles.find(d => d.selector === selector)
-    if (typeof style !== 'undefined') {
-      // Update entry.
-      style.entry = buildEntry(selector, styles)
-
-      // Replace entire style content.
-      getContainer().text(_.styles.map(d => d.entry).join(''))
-    }
-  }
-
-  const api = {}
-
-  /* test-code */
-  api.__test__ = {
-    _reset () {
-      _.container = undefined
-      _.styles = []
-      return api
-    },
-    addStyle,
-    buildEntry,
-    getContainer,
-    getMarker,
-    updateStyle,
-    TAG
-  }
-  /* end-test-code */
-
-  // TODO Docstring.
-  api.addClass = (selector, styles) => {
-    addStyle(selector, styles, 'class')
-    return api
-  }
-
-  // TODO Docstring.
-  api.updateClass = (selector, styles) => {
-    updateStyle(selector, styles, 'class')
-    return api
-  }
-
-  // TODO Docstring.
-  api.addId = (selector, styles) => {
-    addStyle(selector, styles, 'id')
-    return api
-  }
-
-  // TODO Docstring.
-  api.updateId = (selector, styles) => {
-    updateStyle(selector, styles, 'id')
-    return api
-  }
-
-  return api
-})()
+/**
+ * Updates an existing ID style to the page.
+ *
+ * @method updateId
+ * @param {string} selector ID name.
+ * @param {object} styles New style entries.
+ */
+export function updateId(selector, styles) {
+  updateStyle(selector, styles, '#')
+}
