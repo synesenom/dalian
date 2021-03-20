@@ -43,6 +43,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function updateValues (initialValues) {
     const x = typeof initialValues === 'undefined' ? event.x : scales.x.scale(initialValues[0])
     const y = typeof initialValues === 'undefined' ? event.y : scales.y.scale(initialValues[1])
@@ -52,6 +53,7 @@ export default (name, parent = 'body') => {
     ]
   }
 
+  // TODO Docstring.
   function updateHandle (handle, guide) {
     const x = scales.x.scale(_.i.values[0]) + 0.5
     const y = scales.y.scale(_.i.values[1]) + 0.5

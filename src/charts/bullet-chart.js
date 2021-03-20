@@ -45,6 +45,7 @@ export default (name, parent = 'body') => {
     Font
   )
 
+  // TODO Docstring.
   const forecastColor = color => {
     const c = hsl(color)
     c.l += 0.4 * (1 - c.l)

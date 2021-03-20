@@ -55,6 +55,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   const computeDiagram = data => voronoi()
     .x(d => scales.x(d.value.x))
     .y(d => scales.y(d.value.y))

@@ -11,6 +11,7 @@ export default (self, api) => {
     policy: undefined,
 
     // Methods.
+    // TODO Docstring.
     getStrokeDashArray: style => {
       switch (style) {
         case 'solid':

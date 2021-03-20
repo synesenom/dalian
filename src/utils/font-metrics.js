@@ -1,7 +1,9 @@
 // TODO Calculate only if family or size has changed.
+// TODO Docstring.
 export default (() => {
   const _ = {}
 
+  // TODO Docstring.
   function getCanvas () {
     if (typeof _.canvas === 'undefined') {
       _.canvas = document.createElement('canvas')
@@ -9,6 +11,7 @@ export default (() => {
     return _.canvas
   }
 
+  // TODO Docstring.
   function getContext () {
     const canvas = getCanvas()
     if (typeof _.context === 'undefined') {
@@ -18,6 +21,7 @@ export default (() => {
   }
 
   // Create canvas and context that we use to draw characters in.
+  // TODO Docstring.
   function resize (width, height) {
     const canvas = getCanvas()
     canvas.style.width = width + 'px'
@@ -26,6 +30,7 @@ export default (() => {
     canvas.height = height
   }
 
+  // TODO Docstring.
   function measureCharacter (char, fontFamily, fontSize) {
     const context = getContext()
 
@@ -60,6 +65,7 @@ export default (() => {
   }
 
   // Return font metrics method.
+  // TODO Docstring.
   return fontFamily => {
     // Set font size to some large enough value.
     const fontSize = 100

@@ -59,14 +59,17 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function kde (kernel, dist) {
     return sample => dist.map(x => ({ x, y: mean(sample, v => kernel(x - v)) }))
   }
 
+  // TODO Docstring.
   function epanechnikovKernel (bandwidth) {
     return u => Math.abs(u /= bandwidth) <= 1 ? 0.75 * (1 - u * u) / bandwidth : 0
   }
 
+  // TODO Docstring.
   function makeViolin (data) {
     const yMin = min(data)
     const yMax = max(data)
@@ -85,6 +88,7 @@ export default (name, parent = 'body') => {
     }
   }
 
+  // TODO Docstring.
   function bimodality (values) {
     const n = values.length
 

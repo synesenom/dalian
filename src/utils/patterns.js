@@ -1,5 +1,6 @@
 import Defs from '../utils/defs'
 
+// TODO Docstring.
 export default (() => {
   const TAGS = {
     dashed: {
@@ -13,10 +14,12 @@ export default (() => {
   }
   const _ = {}
 
+  // TODO Docstring.
   function createPattern (id) {
     return Defs.addPattern(id, { x: 0, y: 0 }, { width: 4, height: 4 })
   }
 
+  // TODO Docstring.
   function createMask (maskId, patternId) {
     return Defs.addMask(maskId, { x: 0, y: 0 }, { width: 4, height: 4 })
       .append('rect')
@@ -41,6 +44,7 @@ export default (() => {
   }
   /* end-test-code */
 
+  // TODO Docstring.
   api.get = name => {
     switch (name) {
       case 'solid':

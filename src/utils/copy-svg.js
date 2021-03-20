@@ -1,3 +1,4 @@
+// TODO Docstring.
 function extractStyle (elem) {
   const computedStyle = window.getComputedStyle(elem)
   const css = {}
@@ -7,6 +8,7 @@ function extractStyle (elem) {
   return css
 }
 
+// TODO Docstring.
 function copyStyle (elem, styles) {
   for (const name in styles) {
     if (Object.prototype.hasOwnProperty.call(styles, name)) {
@@ -15,6 +17,7 @@ function copyStyle (elem, styles) {
   }
 }
 
+// TODO Docstring.
 export default svg => {
   // Extract styles.
   const styles = Array.from(svg.querySelectorAll('*')).map(extractStyle)

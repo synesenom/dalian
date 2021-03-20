@@ -56,8 +56,10 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   const labelArc = d => `M${d.outerRadius * Math.sin(d.startAngle)},${-d.outerRadius * Math.cos(d.startAngle)}A${d.outerRadius},${d.outerRadius},0,0,1,${d.outerRadius * Math.sin(d.endAngle)},${-d.outerRadius * Math.cos(d.endAngle)}`
 
+  // TODO Docstring.
   const updateWedges = (selection, t) => selection
       .attr('class', d => `wedge ${encode(d.name)}`)
       .order()

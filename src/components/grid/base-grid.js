@@ -7,7 +7,7 @@ import extend from '../../core/extend'
  */
 export default type => {
   return (self, api) => {
-    // Private members
+    // Private members.
     let _ = {
       defaults: {
         opacity: 0.3,
@@ -20,7 +20,7 @@ export default type => {
       lineStyle: undefined
     }
 
-    // Extend update
+    // Extend update.
     self._widget.update = extend(self._widget.update, duration => {
       // Add grid
       if (_.on) {

@@ -45,6 +45,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function interpolateImage(imgData, data, t) {
     // Go through data.
     const img = _.dom.context.createImageData(..._.i.grid)

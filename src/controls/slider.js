@@ -108,6 +108,7 @@ export default (name, parent = 'body') => {
   }
 
   // Private methods.
+  // TODO Docstring.
   function updateDomain () {
     if (_.i.step === 0) {
       return []
@@ -119,6 +120,7 @@ export default (name, parent = 'body') => {
     }
   }
 
+  // TODO Docstring.
   function updateValue (initialValue) {
     const x = typeof initialValue === 'undefined' ? event.x : scale.scale(initialValue)
     if (_.i.step > 0) {

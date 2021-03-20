@@ -61,6 +61,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function computeDiagram (data) {
     const sites = data.map(plot => plot.values.map(d => ({
       name: plot.name,

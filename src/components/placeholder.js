@@ -38,7 +38,6 @@ export default (self, api) => {
 
   // Private members.
   const _ = {
-    // Variables.
     id: `${self._widget.id}-placeholder`
   }
 
@@ -83,7 +82,7 @@ export default (self, api) => {
     }
   })
 
-  // Public methods
+  // Public methods.
   api = Object.assign(api || {}, {
     /**
      * Shows/hides the placeholder. If no placeholder content is provided, the widget is recovered. Note that this only

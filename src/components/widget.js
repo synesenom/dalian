@@ -29,7 +29,7 @@ const DEFAULTS = {
  * @param {string} elem Element type (svg, div, etc).
  */
 export default (type, name, parent, elem) => {
-  // Private members
+  // Private members.
   const _ = {
     parent: typeof parent === 'string' || parent instanceof HTMLElement ? select(parent) : parent,
     initialized: false,
@@ -47,7 +47,7 @@ export default (type, name, parent, elem) => {
     }
   }
 
-  // Protected members
+  // Protected members.
   const self = {}
   self._widget = {
     // Variables
@@ -158,9 +158,9 @@ export default (type, name, parent, elem) => {
     throw Error('MissingDOMException: DOM is not present.')
   }
 
-  // Public API
+  // Public API.
   const api = {
-    // TODO Docs.
+    // TODO Docstring.
     id: () => self._widget.id,
 
     /**

@@ -1,5 +1,6 @@
 const a = document.createElement('a')
 
+// TODO Docstring.
 export default (data, name, format) => {
   // Set content and action.
   a.download = `${name}.${format}`

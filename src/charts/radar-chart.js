@@ -54,6 +54,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function mapData(d) {
     // Determine dimensions.
     const dimensions = _.dimensions || Object.keys(self._chart.data[0].values).sort()

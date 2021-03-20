@@ -13,18 +13,21 @@ const DEFAULTS = {
  * @function Smoothing
  */
 export default (self, api) => {
-  // Private members
+  // Private members.
   const _ = {
     on: DEFAULTS.on
   }
 
-  // Protected members
+  // Protected members.
   self = Object.assign(self || {}, {
     _smoothing: {
+      // TODO Docstring.
       open: () => _.on ? curveMonotoneX : curveLinear,
 
+      // TODO Docstring.
       closed: () => _.on ? curveCardinalClosed : curveLinearClosed,
 
+      // TODO Docstring.
       isOn: () => _.on
     }
   })

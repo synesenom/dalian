@@ -79,6 +79,7 @@ export default (self, api) => {
     ignore: [],
 
     // Override methods.
+    // TODO Docstring.
     builder: content => {
       if (typeof content === 'undefined') {
         self._tooltip.content()

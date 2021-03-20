@@ -11,8 +11,10 @@ export default (self, api) => {
     markers: new Map()
   }
 
+  // Protected members.
   self = Object.assign(self || {}, {
     _plotMarker: {
+      // TODO Docstring.
       add (x, y, id, point, size) {
         // Get or create marker.
         _.markers.set(id, _.markers.get(id) || self._chart.plots.append('circle'))
@@ -33,6 +35,7 @@ export default (self, api) => {
         })
       },
 
+      // TODO Docstring.
       remove (id) {
         if (typeof id === 'undefined') {
           _.markers.forEach((d, k) => {

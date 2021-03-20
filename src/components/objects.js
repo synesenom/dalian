@@ -9,13 +9,14 @@ import { select } from 'd3'
  */
 export default scales => (() => {
   return (self, api) => {
-    // Private members
+    // Private members.
     const _ = {
-      // Variables
+      // Variables.
       containers: {},
       objects: new Map(),
 
       // Methods
+      // TODO Docstring.
       getContainer (type = 'background') {
         // Get or create container.
         if (typeof _.containers[type] === 'undefined') {
@@ -31,7 +32,7 @@ export default scales => (() => {
       }
     }
 
-    // Extend widget update
+    // Extend widget update.
     self._widget.update = extend(self._widget.update, duration => {
       _.objects.forEach(obj => obj.update(duration))
     })

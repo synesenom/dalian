@@ -5,36 +5,41 @@
  * @function Mouse
  */
 export default (self, api) => {
-  // Private members
+  // Private members.
   const _ = {
     callbacks: {}
   }
 
-  // Protected members
+  // Protected members.
   self = Object.assign(self || {}, {
     _mouse: {
+      // TODO Docstring.
       over: (...args) => {
         if (typeof _.callbacks.over === 'function') {
           _.callbacks.over(...args)
         }
       },
 
+      // TODO Docstring.
       leave: (...args) => {
         if (typeof _.callbacks.leave === 'function') {
           _.callbacks.leave(...args)
         }
       },
 
+      // TODO Docstring.
       click: (...args) => {
         if (typeof _.callbacks.click === 'function') {
           _.callbacks.click(...args)
         }
       },
 
+      // TODO Docstring.
       isEnabled: type => {
         return typeof _.callbacks[type] === 'function'
       },
 
+      // TODO Docstring.
       hasAny: () => Object.values(_.callbacks).reduce((has, d) => has || typeof d === 'function', false)
     }
   })

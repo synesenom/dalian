@@ -101,6 +101,7 @@ export default (name, parent = 'body') => {
   }
 
   // Private members.
+  // TODO Docstring.
   function onClick () {
     // Update checked status.
     _.i.checked = !_.i.checked

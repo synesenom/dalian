@@ -6,19 +6,20 @@
  */
 export default defaultValue => {
   return (self, api) => {
-    // Private members
+    // Private members.
     const _ = {
       value: defaultValue
     }
 
-    // Protected members
+    // Protected members.
     self = Object.assign(self || {}, {
       _opacity: {
+        // TODO Docstring.
         value: () => _.value
       }
     })
 
-    // Public API
+    // Public API.
     api = Object.assign(api || {}, {
       /**
        * Sets the opacity value of the widget's elements.

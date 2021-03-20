@@ -46,6 +46,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function measure (d, i, style) {
     // Measure the diameter of the label's rectangle
     const m = measureText(self._label.format(d), style)
@@ -71,6 +72,7 @@ export default (name, parent = 'body') => {
     }
   }
 
+  // TODO Docstring.
   function labelLinePath (d) {
     // Start and initial middle positions of the path.
     let p1 = _.labels.arcs.inner.centroid(d)
@@ -99,9 +101,11 @@ export default (name, parent = 'body') => {
   }
 
   // Private methods.
+  // TODO Docstring.
   const labelTextAnchor = d => _.labels.left(d) ? 'end' : 'start'
 
   // Adjustment in the horizontal position to avoid overlapping labels.
+  // TODO Docstring.
   function labelTextX (d) {
     const dx = 0.25 * _.outerRadius
     if (_.labels.left(d)) {
@@ -112,6 +116,7 @@ export default (name, parent = 'body') => {
   }
 
   // Adjustment in the vertical position to avoid overlapping labels.
+  // TODO Docstring.
   const labelTextY = d => Math.max(_.labels.arcs.outer.centroid(d)[1], d._measures.y)
 
   // Private members.

@@ -1,5 +1,6 @@
 import { select } from 'd3'
 
+// TODO Docstring.
 export default (() => {
   const TAG = 'dalian-style-container'
 
@@ -8,6 +9,7 @@ export default (() => {
     styles: []
   }
 
+  // TODO Docstring.
   function getContainer () {
     if (typeof _.container === 'undefined') {
       _.container = select('head')
@@ -17,6 +19,7 @@ export default (() => {
     return _.container
   }
 
+  // TODO Docstring.
   function getMarker (type) {
     switch (type) {
       default:
@@ -27,12 +30,14 @@ export default (() => {
     }
   }
 
+  // TODO Docstring.
   function buildEntry (selector, styles) {
     const content = Object.entries(styles).map(([name, value]) => `${name}:${value}`).join(';')
     return `${selector}{${content}}`
   }
 
   // TODO Remove default values.
+  // TODO Docstring.
   function addStyle (name, styles, type = 'class') {
     // Take action only if selector is not yet added.
     const selector = getMarker(type) + name
@@ -52,6 +57,7 @@ export default (() => {
     }
   }
 
+  // TODO Docstring.
   function updateStyle (name, styles, type) {
     // Find style.
     const selector = getMarker(type) + name
@@ -83,21 +89,25 @@ export default (() => {
   }
   /* end-test-code */
 
+  // TODO Docstring.
   api.addClass = (selector, styles) => {
     addStyle(selector, styles, 'class')
     return api
   }
 
+  // TODO Docstring.
   api.updateClass = (selector, styles) => {
     updateStyle(selector, styles, 'class')
     return api
   }
 
+  // TODO Docstring.
   api.addId = (selector, styles) => {
     addStyle(selector, styles, 'id')
     return api
   }
 
+  // TODO Docstring.
   api.updateId = (selector, styles) => {
     updateStyle(selector, styles, 'id')
     return api

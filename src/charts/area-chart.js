@@ -68,7 +68,7 @@ export default (name, parent = 'body') => {
     YRange
   )
 
-  // Overrides..
+  // Overrides.
   self._tooltip.content = mouse => {
     // If outside the plot, hide tooltip
     if (typeof mouse === 'undefined') {

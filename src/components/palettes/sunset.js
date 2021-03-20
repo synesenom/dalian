@@ -1,3 +1,4 @@
+// TODO Docstring.
 export default {
   missing: '#eee',
   colors: [

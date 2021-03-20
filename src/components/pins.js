@@ -56,31 +56,31 @@ export default scales => (() => {
          * @returns {Widget} Reference to the Widget's API.
          */
         add: (id, position, options = {}, duration = 0) => {
-          // Check if pins exists
+          // Check if pins exists.
           if (_.pins.has(id)) {
             return api
           }
 
-          // Get pins positions
+          // Get pins positions.
           const scaleX = scales.x.scale
           const scaleY = scales.y.scale
           const color = options.color || self._font.color
           const height = (1 - (options.height || 0.8)) * scaleY.range()[0]
           const text = options.text || ''
 
-          // Add pins group
+          // Add pins group.
           const g = _.getContainer().append('g')
             .attr('class', 'pin')
             .style('color', color)
             .style('opacity', 0)
 
-          // Pin label
+          // Pin label.
           const label = g.append('g')
             .attr('class', 'pin-label')
             .style('opacity', options.fixed ? 1 : 0)
             .style('pointer-events', 'none')
 
-          // Label text
+          // Label text.
           const labelText = attributes(label.append('text'), {
             class: 'pin-label-text',
             y: height - (options.size || 6) - 10,
@@ -89,12 +89,12 @@ export default scales => (() => {
             fill: backgroundAdjustedColor(color)
           }).text(text)
 
-          // Compute text length, adjust text
+          // Compute text length, adjust text.
           const length = labelText.node().getComputedTextLength() * 1.05
           labelText.attr('x', Math.min(scaleX(position), scaleX.range()[1] - length - 10))
             .attr('textLength', length)
 
-          // Label box
+          // Label box.
           let bbox = labelText.node().getBBox()
           const labelBox = attributes(label.append('rect'), {
             class: 'pin-label-box',
@@ -106,21 +106,21 @@ export default scales => (() => {
             stroke: 'none',
             fill: text === '' ? 'none' : color
           })
-          // Move box behind text
+          // Move box behind text.
           label.node().insertBefore(labelBox.node(), labelText.node())
 
-          // Mouse event handlers
+          // Mouse event handlers.
           const mouseover = () => {
-            // Show label
+            // Show label.
             label.transition().duration(300).style('opacity', 1)
           }
 
           const mouseleave = () => {
-            // Hide label
+            // Hide label.
             label.transition().duration(300).style('opacity', options.fixed ? 1 : 0)
           }
 
-          // Pin needle with mouse interactions
+          // Pin needle with mouse interactions.
           const needle = attributes(g.append('line'), {
             class: 'pin-needle',
             x1: scaleX(position) + 1,
@@ -133,7 +133,7 @@ export default scales => (() => {
             .on('mouseover.pins', mouseover)
             .on('mouseleave.pins', mouseleave)
 
-          // Pin head with mouse interactions
+          // Pin head with mouse interactions.
           const head = attributes(g.append('circle'), {
             class: 'pin-head',
             cx: scaleX(position) + 1,
@@ -146,7 +146,7 @@ export default scales => (() => {
             .on('mouseover.pins', mouseover)
             .on('mouseleave.pins', mouseleave)
 
-          // Show pins
+          // Show pins.
           g.transition().duration(duration)
             .style('opacity', 1)
 
@@ -178,7 +178,7 @@ export default scales => (() => {
             }
           }
 
-          // Add to pins
+          // Add to pins.
           _.pins.set(id, pin)
           return api
         },
@@ -194,14 +194,14 @@ export default scales => (() => {
          * @returns {Widget} Reference to the Widget's API.
          */
         remove: (id, duration = 0) => {
-          // If id is not specified, remove all pins
+          // If id is not specified, remove all pins.
           if (typeof id === 'undefined') {
             _.pins.forEach(pin => pin.remove())
             _.pins.clear()
           }
 
           if (_.pins.has(id)) {
-            // Otherwise, remove pins if it exists
+            // Otherwise, remove pins if it exists.
             _.pins.get(id).remove(duration)
             _.pins.delete(id)
           }

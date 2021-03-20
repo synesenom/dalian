@@ -1,3 +1,4 @@
+// TODO Docstring.
 export default [
   '#333333',
   '#0072b2',

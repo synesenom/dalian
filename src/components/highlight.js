@@ -23,6 +23,7 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
       highlightStyle,
       removeStyle: createRemoveStyle(highlightStyle),
 
+      // TODO Docstring.
       highlight: (selector, keys, duration) => {
         // Ignore highlight during animation.
         if (self._widget.transition) {
@@ -63,6 +64,7 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
     // Protected members.
     self = Object.assign(self || {}, {
       _highlight: {
+        // TODO Docstring.
         style (style) {
           _.highlightStyle = style
           _.removeStyle = createRemoveStyle(style)

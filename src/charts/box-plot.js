@@ -57,6 +57,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function whiskerPath (side) {
     const quartile = side === 'lower' ? 'q1' : 'q3'
     return d => `M${_.scales.x(_.horizontal ? d.value[quartile] : d.name)} ${_.scales.y(_.horizontal ? d.name : d.value[quartile])}
@@ -65,8 +66,10 @@ export default (name, parent = 'body') => {
       l${_.horizontal ? 0 : 0.8 * _.boxWidth} ${_.horizontal ? 0.8 * _.boxWidth : 0}`
   }
 
+  // TODO Docstring.
   const outlierX = d => _.scales.x(_.horizontal ? d : d.name)
 
+  // TODO Docstring.
   const outlierY = d => _.scales.y(_.horizontal ? d.name : d)
 
   // Private members.

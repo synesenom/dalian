@@ -15,6 +15,7 @@ const POLICIES = {
 
 // TODO Fallback to group color and currentColor if _.on is not set.
 // TODO Clean up module.
+// TODO Docstring.
 function selectDefaultPalette (policy) {
   switch (policy) {
     default:
@@ -27,6 +28,7 @@ function selectDefaultPalette (policy) {
   }
 }
 
+// TODO Docstring.
 function selectDefaultMissingColor (policy) {
   switch (policy) {
     default:
@@ -39,6 +41,7 @@ function selectDefaultMissingColor (policy) {
   }
 }
 
+// TODO Docstring.
 function applyDeficiency (palette, converter) {
   // Single color.
   if (typeof palette === 'string') {
@@ -58,6 +61,7 @@ function applyDeficiency (palette, converter) {
   }
 }
 
+// TODO Docstring.
 function createCategoricalMapping (palette, missing, on) {
   // Single color.
   if (typeof palette === 'string') {
@@ -85,6 +89,7 @@ function createCategoricalMapping (palette, missing, on) {
   }
 }
 
+// TODO Docstring.
 function createSequentialMapping (palette, missing, on) {
   if (typeof palette !== 'string' && !Array.isArray(palette)) {
     // Any other case: warning and set to default palette.
@@ -109,6 +114,7 @@ function createSequentialMapping (palette, missing, on) {
   }
 }
 
+// TODO Docstring.
 function createDivergingMapping (palette, missing, on) {
   if (!Array.isArray(palette)) {
     // Incompatible palette: warning and set to default palette.

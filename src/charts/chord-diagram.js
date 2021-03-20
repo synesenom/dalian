@@ -41,9 +41,11 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   const ribbonId = (source, target) => source < target ?
     source + '-' + target : target + '-' + source
 
+  // TODO Docstring.
   const addRibbons = (enter, ribbonFn) => enter.append('path')
       .attr('class', d => `chord-ribbon ${encode(d.name)} ${encode(d.name2)}`)
       .attr('fill', 'currentColor')
@@ -51,11 +53,13 @@ export default (name, parent = 'body') => {
       .attr('stroke', '#fff')
       .attr('d', ribbonFn)
 
+  // TODO Docstring.
   function textTransform (d) {
     d.angle = (d.startAngle + d.endAngle) / 2
     return `rotate(${d.angle * 180 / Math.PI - 90}) translate(${_.radius - self._widget.margins.left + 5}) ${d.angle > Math.PI ? ' rotate(180)' : ''}`
   }
 
+  // TODO Docstring.
   const textAnchor = d => (d.startAngle + d.endAngle) / 2 > Math.PI ? 'end' : 'start'
 
   // Private members.

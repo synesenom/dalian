@@ -1,5 +1,6 @@
 import { rgb } from 'd3'
 
+// TODO Docstring.
 const coefficients = {
   protan: {
     cpu: 0.735, cpv: 0.265, am: 1.273463, ayi: -0.073894
@@ -12,6 +13,7 @@ const coefficients = {
   }
 }
 
+// TODO Docstring.
 function rgb2xyz (rgb) {
   return {
     x: 0.430574 * rgb.r + 0.341550 * rgb.g + 0.178325 * rgb.b,
@@ -20,6 +22,7 @@ function rgb2xyz (rgb) {
   }
 }
 
+// TODO Docstring.
 function xyz2rgb (xyz) {
   return {
     r: 3.063218 * xyz.x - 1.393325 * xyz.y - 0.475802 * xyz.z,
@@ -28,6 +31,7 @@ function xyz2rgb (xyz) {
   }
 }
 
+// TODO Docstring.
 function anomaly (a, b) {
   let v = 1.75
   let d = v + 1
@@ -35,11 +39,13 @@ function anomaly (a, b) {
   return rgb((v * b.r + a.r) / d, (v * b.g + a.g) / d, (v * b.b + a.b) / d)
 }
 
+// TODO Docstring.
 function monochrome (color) {
   let z = Math.round(color.r * 0.299 + color.g * 0.587 + color.b * 0.114)
   return rgb(z, z, z)
 }
 
+// TODO Docstring.
 function convertColor (color, type) {
   let gamma = 2.2
   let wx = 0.312713
@@ -113,6 +119,7 @@ function convertColor (color, type) {
   )
 }
 
+// TODO Docstring.
 const converters = {
   protanopia: color => convertColor(color, 'protan'),
   protanomaly: color => anomaly(color, convertColor(color, 'protan')),
@@ -124,6 +131,7 @@ const converters = {
   achromatomaly: color => anomaly(color, monochrome(color))
 }
 
+// TODO Docstring.
 export default type => {
   if (typeof converters[type] === 'undefined') {
     return color => color

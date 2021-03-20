@@ -60,11 +60,13 @@ export default (name, parent = 'body') => {
   }
 
   // Private methods.
+  // TODO Docstring.
   function entryTransform (d, i) {
     const fs = parseFloat(self._font.size)
     return `translate(${fs * _.hSep * (i % _.columns)}, ${fs * (0.7 + _.vSep * Math.floor(i / _.columns))})`
   }
 
+  // TODO Docstring.
   function makeMarker (elem) {
     // Remove existing shape.
     elem.select('.legend-entry-marker-shape')

@@ -10,6 +10,7 @@ export default defaultValue => {
     self = Object.assign(self || {}, {
       _lineWidth: {
         // Mapping used internally.
+        // TODO Docstring.
         mapping: key => _.mapping(key)
       }
     })

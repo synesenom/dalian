@@ -81,6 +81,7 @@ export default (name, parent = 'body') => {
     })()
   }
 
+  // TODO Docstring.
   function onSelect (d) {
     // If selected the same option, do nothing.
     if (_.i.selected === d) {
@@ -99,6 +100,7 @@ export default (name, parent = 'body') => {
     _.i.callback && _.i.callback(_.i.selected)
   }
 
+  // TODO Docstring.
   function entryWidth () {
     if (_.i.hSep === null || _.i.columns === 1)  {
       return parseFloat(self._widget.size.innerWidth) / _.i.columns + 'px'
@@ -107,8 +109,10 @@ export default (name, parent = 'body') => {
     }
   }
 
+  // TODO Docstring.
   const entryHeight = () => parseFloat(self._font.size) * _.i.vSep + 'px'
 
+  // TODO Docstring.
   function entryLeft (d, i) {
     const xi = i % _.i.columns
     if (_.i.hSep === null) {
@@ -117,6 +121,7 @@ export default (name, parent = 'body') => {
     return `${parseFloat(self._widget.margins.left) + xi * parseFloat(self._font.size) * _.i.hSep}px`
   }
 
+  // TODO Docstring.
   const entryTop = (d, i) =>  `${parseFloat(self._widget.margins.top) + Math.floor(i / _.i.columns)  * parseFloat(self._font.size) * _.i.vSep}px`
 
   self._widget.update = extend(self._widget.update, duration => {

@@ -36,6 +36,7 @@ export default (self, api) => {
     id: `${self._widget.id}-description`,
 
     // Methods.
+    // TODO Docstring.
     getDescription: () => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         return _.elem
@@ -48,6 +49,7 @@ export default (self, api) => {
       }
     },
 
+    // TODO Docstring.
     removeDescription: () => {
       if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
         _.elem.remove()

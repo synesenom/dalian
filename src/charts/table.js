@@ -139,6 +139,7 @@ export default (name, parent = 'body') => {
   })
 
   // Private methods.
+  // TODO Docstring.
   function align (d) {
     switch (d.type) {
       default:

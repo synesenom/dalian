@@ -30,10 +30,13 @@ export default scale => {
     let axisFn = axisRight(scale.copy()
       .range([0, -scale.scale.range()[1]]))
 
+    // TODO Docstring.
     const axisX = (i, n) => scale.scale.range()[1] * Math.sin(i * 2 * Math.PI / n)
 
+    // TODO Docstring.
     const axisY = (i, n) => -scale.scale.range()[1] * Math.cos(i * 2 * Math.PI / n)
 
+    // TODO Docstring.
     function textAnchor (i, n) {
       if (i === 0 || i === n / 2) {
         return 'middle'
@@ -44,6 +47,7 @@ export default scale => {
       return 'end'
     }
 
+    // TODO Docstring.
     function dominantBaseline (i, n) {
       if (n % 4 === 0) {
         const n4 = Math.round(n / 4)
@@ -152,12 +156,14 @@ export default scale => {
     // Public methods.
     api = Object.assign(api || {}, {
       radialAxis: {
+        // TODO Docstring.
         values: (values = DEFAULTS.values) => {
           _.values = values
           return api
         },
 
         // Tick format.
+        // TODO Docstring.
         format: (format = DEFAULTS.format) => {
           _.format = format
           return api

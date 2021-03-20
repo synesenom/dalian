@@ -18,8 +18,10 @@ export default (scales) => {
     // Protected members.
     self = Object.assign(self || {}, {
       _horizontal: {
+        // TODO Docstring.
         on: () => _.on,
 
+        // TODO Docstring.
         scales: () => _.scales
       }
     })

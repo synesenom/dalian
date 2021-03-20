@@ -59,6 +59,7 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   function measureX (d, bandwidth, style) {
     const ts = measureText(self._label.format(d), style)
     const dx = Math.max((bandwidth - ts.height) / 2, 5)
@@ -73,20 +74,21 @@ export default (name, parent = 'body') => {
     }
   }
 
-    // TODO Merge this with measureX.
-    function measureY (d, bandwidth, style) {
-      const ts = measureText(self._label.format(d), style)
-      const dy = Math.max((bandwidth - ts.width) / 2, 5)
-      const y = _.scales.y(Math.max(0, d.value))
-      const h = Math.abs(y - _.scales.y(0))
-      const inside = h > 2 * dy + ts.height
-      return {
-        inside,
-        x: _.scales.x(d.name) + bandwidth / 2,
-        y: inside ? y + dy : y - dy - ts.height,
-        color: inside ? backgroundAdjustedColor(self._color.mapper(d)) : style.color
-      }
+  // TODO Merge this with measureX.
+  // TODO Docstring.
+  function measureY (d, bandwidth, style) {
+    const ts = measureText(self._label.format(d), style)
+    const dy = Math.max((bandwidth - ts.width) / 2, 5)
+    const y = _.scales.y(Math.max(0, d.value))
+    const h = Math.abs(y - _.scales.y(0))
+    const inside = h > 2 * dy + ts.height
+    return {
+      inside,
+      x: _.scales.x(d.name) + bandwidth / 2,
+      y: inside ? y + dy : y - dy - ts.height,
+      color: inside ? backgroundAdjustedColor(self._color.mapper(d)) : style.color
     }
+  }
 
   // Private members
   const _ = {

@@ -10,6 +10,7 @@ export default (() => {
   const TAG = 'dalian-defs'
   const _ = {}
 
+  // TODO Docstring.
   function getDefs () {
     if (typeof _.defs === 'undefined') {
       console.log('create defs')
@@ -33,6 +34,7 @@ export default (() => {
   }
   /* end-test-code */
 
+  // TODO Docstring.
   api.addMask = (id, pos, size) => {
     return getDefs().append('mask')
       .attr('id', id)
@@ -42,6 +44,7 @@ export default (() => {
       .attr('height', size.height)
   }
 
+  // TODO Docstring.
   api.addPattern = (id, pos, size) => {
     return getDefs().append('pattern')
       .attr('id', id)

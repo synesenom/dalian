@@ -80,6 +80,7 @@ export default (type, self, axisFn, scale, labelAttr) => {
     // Axis selection.
     axis,
 
+    // TODO Docstring.
     margin: margin => {
       _.margin = Object.assign(_.margin, margin)
       return api
@@ -92,41 +93,48 @@ export default (type, self, axisFn, scale, labelAttr) => {
       .style('font-size', '1em')
       .text(''), labelAttr),
 
+    // TODO Docstring.
     tickAnchor: (tickAnchor = DEFAULTS.tickAnchor) => {
       _.tickAnchor = tickAnchor
       return api
     },
 
     // Change scale object.
+    // TODO Docstring.
     scale: scale => {
       _.scale = scale
       return api
     },
 
     // Hide axis line.
+    // TODO Docstring.
     hideAxisLine: on => {
       _.axisLine = !on
       return api
     },
 
     // Hide tick lines.
+    // TODO Docstring.
     hideTicks: on => {
       _.ticks = !on
       return api
     },
 
     // Tick format.
+    // TODO Docstring.
     format: (format = DEFAULTS.format) => {
       _.format = format
       return api
     },
 
     // Set specific tick values.
+    // TODO Docstring.
     values: (values = DEFAULTS.values) => {
       _.values = values
       return api
     },
 
+    // TODO Docstring.
     tickColor (color = 'currentColor') {
       _.tickColor = color
       return api

@@ -66,15 +66,19 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
+  // TODO Docstring.
   const shiftDay = (day, shift) => ((day - shift + 7) % 7)
 
+  // TODO Docstring.
   function tileX (d) {
     const i = Math.ceil((d.date - _.metrics.firstDay) / (1000 * 3600 * 24))
     return Math.floor((i + shiftDay(_.metrics.firstDay.getDay(), _.tiles.weekStart)) / 7)
   }
 
+  // TODO Docstring.
   const labelFill = d => backgroundAdjustedColor(self._color.mapper(d))
 
+  // TODO Docstring.
   function addTiles (enter, size, labelDy, labelFontSize) {
     const tiles = enter.append('g')
       .attr('class', d => `tile date-${d.date.getDate()}`)

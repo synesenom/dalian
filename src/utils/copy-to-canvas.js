@@ -5,6 +5,7 @@ const hidden = document.createElement('div')
 hidden.style.opacty = 0
 const img = document.createElement('img')
 
+// TODO Docstring.
 function getSvgBBox (svg) {
   hidden.appendChild(svg)
   document.body.appendChild(hidden)
@@ -13,6 +14,7 @@ function getSvgBBox (svg) {
   return bbox
 }
 
+// TODO Docstring.
 export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
   // Get SVG data.
   const svgData = new window.XMLSerializer().serializeToString(svg)

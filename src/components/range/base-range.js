@@ -1,6 +1,6 @@
 // TODO Docstring.
 export default () => {
-  // Private members
+  // Private members.
   let _ = {
     min: undefined,
     max: undefined,
@@ -8,16 +8,21 @@ export default () => {
     compressMin: 0
   }
 
-  // Public API
+  // Public API.
   return {
+    // TODO Docstring.
     min: value => _.min = value,
 
+    // TODO Docstring.
     max: value => _.max = value,
 
+    // TODO Docstring.
     compressMin: value => _.compressMin = Math.abs(value || 0),
 
+    // TODO Docstring.
     compressMax: value => _.compressMax = Math.abs(value || 0),
 
+    // TODO Docstring.
     range: data => {
       // Determine final boundaries.
       let min = typeof _.min !== 'undefined' ? _.min : Math.min(...data)
@@ -32,6 +37,7 @@ export default () => {
       return [min, max]
     },
 
+    // TODO Docstring.
     contains: value => (typeof _.min === 'undefined' || value >= _.min)
       && (typeof _.max === 'undefined' || value <= _.max)
   }

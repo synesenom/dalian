@@ -57,7 +57,7 @@ export default (self, api) => {
     float: 'right'
   })
 
-  // Inherit from base tooltip
+  // Inherit from base tooltip.
   let base = BaseTooltip(self, api)
 
   // Private members.
@@ -67,9 +67,10 @@ export default (self, api) => {
     valueFormat: DEFAULTS.valueFormat
   }
 
-  // Protected members
+  // Protected members.
   self._tooltip = Object.assign(base.self._tooltip, {
-    // Override methods
+    // Override methods.
+    // TODO Docstring.
     builder: content => {
       if (typeof content === 'undefined') {
         self._tooltip.content()

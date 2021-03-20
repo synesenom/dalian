@@ -1,5 +1,6 @@
 import { interpolate } from 'd3'
 
+// TODO Docstring.
 export const attrTween = (callback, tag) => {
   const key = '_current' + (tag || '')
   return function (d) {

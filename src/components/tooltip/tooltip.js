@@ -48,6 +48,7 @@ export default (self, api) => {
   }
 
   // Private methods.
+  // TODO Docstring.
   function getTooltip () {
     if (typeof _.elem !== 'undefined' && !_.elem.empty()) {
       return _.elem.style('font-size', 0.85 * parseFloat(self._font.size) + 'px')
@@ -59,12 +60,14 @@ export default (self, api) => {
     }
   }
 
+  // TODO Docstring.
   function hideTooltip () {
     if (typeof _.elem !== 'undefined') {
       _.elem.style('opacity', 0)
     }
   }
 
+  // TODO Docstring.
   function showTooltip () {
 
     const [mx, my] = mouse(self._widget.container.node())

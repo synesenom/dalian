@@ -12,66 +12,67 @@ import attributes from '../utils/attributes'
 // TODO Add API .text()
 export default scales => (() => {
   return (self, api) => {
-    // Private members
+    // Private members.
     const _ = {
       // Variables.
       container: undefined,
-      trends: new Map(),
+      trends: new Map()
+    }
 
-      // Methods
-      getContainer: () => {
-        // Get or create container.
-        if (typeof _.container === 'undefined') {
-          _.container = self._chart.plots.append('g')
-            .attr('class', 'trends-container')
-        }
-        return _.container
-      },
+    // TODO Docstring.
+    function getContainer () {
+      // Get or create container.
+      if (typeof _.container === 'undefined') {
+        _.container = self._chart.plots.append('g')
+          .attr('class', 'trends-container')
+      }
+      return _.container
+    }
 
-      adjustTrend: (key, start, end) => {
-        const data = self._chart.data.find(d => d.name === key)
-        if (typeof data === 'undefined') {
-          return
-        }
+    // TODO Docstring.
+    function adjustTrend (key, start, end) {
+      const data = self._chart.data.find(d => d.name === key)
+      if (typeof data === 'undefined') {
+        return
+      }
 
-        // Get trends data point indices
-        const bisect = bisector(d => d.x).left
-        const i1 = bisect(data.values, start)
-        const i2 = bisect(data.values, end)
-        if (i1 === null || i2 === null) {
-          return
-        }
+      // Get trends data point indices
+      const bisect = bisector(d => d.x).left
+      const i1 = bisect(data.values, start)
+      const i2 = bisect(data.values, end)
+      if (i1 === null || i2 === null) {
+        return
+      }
 
-        // Get coordinates and color
-        const x1 = data.values[i1].x
+      // Get coordinates and color
+      const x1 = data.values[i1].x
 
-        const y1 = data.values[i1].y
+      const y1 = data.values[i1].y
 
-        const x2 = data.values[i2].x
+      const x2 = data.values[i2].x
 
-        const y2 = data.values[i2].y
-        const plateau = y1 < y2 ? y2 : y1
+      const y2 = data.values[i2].y
+      const plateau = y1 < y2 ? y2 : y1
 
-        return {
-          start: {
-            x: x1,
-            y: y1
-          },
-          end: {
-            x: x2,
-            y: y2
-          },
-          plateau
-        }
+      return {
+        start: {
+          x: x1,
+          y: y1
+        },
+        end: {
+          x: x2,
+          y: y2
+        },
+        plateau
       }
     }
 
-    // Extend widget update
+    // Extend widget update.
     self._widget.update = extend(self._widget.update, duration => {
       _.trends.forEach(trend => trend.update(duration))
     })
 
-    // Public API
+    // Public API.
     api = Object.assign(api || {}, {
       trends: {
         /**
@@ -98,10 +99,10 @@ export default scales => (() => {
           // Get trends positions
           const scaleX = scales.x.scale
           const scaleY = scales.y.scale
-          const pos = _.adjustTrend(key, start, end)
+          const pos = adjustTrend(key, start, end)
 
           // Build group without showing it
-          const g = _.getContainer().append('g')
+          const g = getContainer().append('g')
             .attr('class', 'trend trend-' + encode(key))
             .style('color', color || '#000')
             .style('opacity', 0)
@@ -155,7 +156,7 @@ export default scales => (() => {
                 .style('color', color || '#000')
 
               // Update elements.
-              const pos = _.adjustTrend(key, start, end)
+              const pos = adjustTrend(key, start, end)
               path.transition().duration(duration)
                 .attr('d', `M${scaleX(pos.start.x)},${scaleY(pos.start.y)}V${scaleY(pos.plateau)}H${scaleX(pos.end.x)}V${scaleY(pos.end.y)}`)
               circleStart
