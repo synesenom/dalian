@@ -69,14 +69,14 @@ describe('utils.StyleInjector', () => {
     })
   })
 
-  describe('.addClass()', () => {
+  describe('.injectClass()', () => {
     it('should add class', () => {
       StyleInjector.__test__._reset()
-      StyleInjector.addClass('foo', {
+      StyleInjector.injectClass('foo', {
         color: 'red',
         'background-color': 'orange'
       })
-      StyleInjector.addClass('bar', {
+      StyleInjector.injectClass('bar', {
         color: 'green',
         'background-color': 'blue'
       })
@@ -87,7 +87,7 @@ describe('utils.StyleInjector', () => {
   describe('.updateClass()', () => {
     it('should update class', () => {
       StyleInjector.__test__._reset()
-      StyleInjector.addClass('foo', {
+      StyleInjector.injectClass('foo', {
         color: 'red',
         'background-color': 'orange'
       })
@@ -99,14 +99,14 @@ describe('utils.StyleInjector', () => {
     })
   })
 
-  describe('.addId()', () => {
+  describe('.injectId()', () => {
     it('should add identifier', () => {
       StyleInjector.__test__._reset()
-      StyleInjector.addId('foo', {
+      StyleInjector.injectId('foo', {
         color: 'red',
         'background-color': 'orange'
       })
-      StyleInjector.addId('bar', {
+      StyleInjector.injectId('bar', {
         color: 'green',
         'background-color': 'blue'
       })
@@ -117,7 +117,7 @@ describe('utils.StyleInjector', () => {
   describe('.updateId()', () => {
     it('should update identifier', () => {
       StyleInjector.__test__._reset()
-      StyleInjector.addId('foo', {
+      StyleInjector.injectId('foo', {
         color: 'red',
         'background-color': 'orange'
       })

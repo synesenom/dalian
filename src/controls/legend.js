@@ -1,6 +1,6 @@
 import compose from '../core/compose'
 import extend from '../core/extend'
-import Patterns from '../utils/patterns'
+import getPattern from '../utils/patterns'
 import Widget from '../components/widget'
 import Font from '../components/font'
 import Highlight from '../components/highlight'
@@ -243,7 +243,7 @@ export default (name, parent = 'body') => {
      *   }).render()
      */
     styles (styles = DEFAULTS.styles) {
-      _.styles = d => Patterns.get(styles[d.name])
+      _.styles = d => getPattern(styles[d.name])
       return api
     },
 

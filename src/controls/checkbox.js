@@ -3,7 +3,7 @@ import Widget from '../components/widget'
 import Font from '../components/font'
 import extend from '../core/extend'
 import {lighter} from '../utils/color'
-import StyleInjector from '../utils/style-injector'
+import {injectClass} from '../utils/style-injector'
 
 // Classes.
 const TAG = 'dalian-checkbox-'
@@ -33,19 +33,22 @@ const DEFAULTS = {
  */
 export default (name, parent = 'body') => {
   // Inject relevant style.
-  StyleInjector.addClass(CLASSES.wrapper, {
+  injectClass(CLASSES.wrapper, {
     display: 'inline-block',
     position: 'relative',
     'user-select': 'none'
-  }).addClass(CLASSES.label, {
+  })
+  injectClass(CLASSES.label, {
     position: 'absolute',
     top: '0.1em',
     'margin-left': '2em',
     'line-height': '1.35em'
-  }).addClass(CLASSES.box, {
+  })
+  injectClass(CLASSES.box, {
     width: '1.35em',
     height: '1.35em'
-  }).addClass(CLASSES.mark, {
+  })
+  injectClass(CLASSES.mark, {
     position: 'absolute',
     left: '.45em',
     top: '.15em',

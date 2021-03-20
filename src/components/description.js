@@ -1,5 +1,5 @@
 import { event, select } from 'd3'
-import StyleInjector from '../utils/style-injector'
+import {injectClass} from '../utils/style-injector'
 
 // Classes.
 const CLASSES = {
@@ -15,7 +15,7 @@ const CLASSES = {
  */
 export default (self, api) => {
   // Inject relevant style.
-  StyleInjector.addClass(CLASSES.description, {
+  injectClass(CLASSES.description, {
     position: 'absolute',
     width: 'auto',
     'max-width': '500px',

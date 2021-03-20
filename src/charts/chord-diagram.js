@@ -42,16 +42,19 @@ export default (name, parent = 'body') => {
 
   // Private methods.
   // TODO Docstring.
-  const ribbonId = (source, target) => source < target ?
-    source + '-' + target : target + '-' + source
+  function ribbonId (source, target) {
+    source < target ? source + '-' + target : target + '-' + source
+  }
 
   // TODO Docstring.
-  const addRibbons = (enter, ribbonFn) => enter.append('path')
+  function addRibbons (enter, ribbonFn) {
+    return enter.append('path')
       .attr('class', d => `chord-ribbon ${encode(d.name)} ${encode(d.name2)}`)
       .attr('fill', 'currentColor')
       .attr('fill-opacity', 0.6)
       .attr('stroke', '#fff')
       .attr('d', ribbonFn)
+  }
 
   // TODO Docstring.
   function textTransform (d) {
@@ -60,7 +63,9 @@ export default (name, parent = 'body') => {
   }
 
   // TODO Docstring.
-  const textAnchor = d => (d.startAngle + d.endAngle) / 2 > Math.PI ? 'end' : 'start'
+  function textAnchor (d) {
+    return (d.startAngle + d.endAngle) / 2 > Math.PI ? 'end' : 'start'
+  }
 
   // Private members.
   const _ = {

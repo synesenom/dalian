@@ -1,5 +1,5 @@
 import extend from '../core/extend'
-import StyleInjector from '../utils/style-injector'
+import {injectClass} from '../utils/style-injector'
 
 // Classes.
 const CLASSES = {
@@ -17,7 +17,7 @@ const CLASSES = {
  */
 export default (self, api) => {
   // Inject relevant style.
-  StyleInjector.addClass(CLASSES.placeholder, {
+  injectClass(CLASSES.placeholder, {
     display: 'table',
     position: 'absolute',
     left: 0,
@@ -26,7 +26,8 @@ export default (self, api) => {
     'font-family': 'inherit',
     'font-size': 'inherit',
     'pointer-events': 'none'
-  }).addClass(CLASSES.message, {
+  })
+  injectClass(CLASSES.message, {
     display: 'table-cell',
     'vertical-align': 'middle',
     'line-height': 'normal',

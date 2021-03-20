@@ -1,6 +1,13 @@
 const a = document.createElement('a')
 
-// TODO Docstring.
+/**
+ * Downloads some data.
+ *
+ * @method download
+ * @param {string} data Data to download in string format.
+ * @param {string} name file name to download under.
+ * @param {string} format File format.
+ */
 export default (data, name, format) => {
   // Set content and action.
   a.download = `${name}.${format}`

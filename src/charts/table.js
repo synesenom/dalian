@@ -6,7 +6,7 @@ import Highlight from '../components/highlight'
 import Mouse from '../components/mouse'
 import Placeholder from '../components/placeholder'
 import Widget from '../components/widget'
-import StyleInjector from '../utils/style-injector'
+import { injectClass, injectId, updateId } from '../utils/style-injector'
 import { fromISO } from '../utils/utc'
 import { backgroundAdjustedColor, lighter } from '../utils/color'
 
@@ -60,17 +60,20 @@ const SELECTORS = {
  */
 export default (name, parent = 'body') => {
   // Inject fixed styles.
-  StyleInjector.addClass(SELECTORS.container, {
+  injectClass(SELECTORS.container, {
     position: 'relative',
     overflow: 'auto',
     'pointer-events': 'all'
-  }).addClass(SELECTORS.scrollbarTrack, {
+  })
+  injectClass(SELECTORS.scrollbarTrack, {
     background: 'transparent'
-  }).addClass(SELECTORS.table, {
+  })
+  injectClass(SELECTORS.table, {
     width: '100%',
     'border-collapse': 'collapse',
     'user-select': 'none'
-  }).addClass(SELECTORS.head, {
+  })
+  injectClass(SELECTORS.head, {
     position: 'sticky',
     top: 0,
     padding: '5px 10px',
@@ -78,38 +81,47 @@ export default (name, parent = 'body') => {
     'white-space': 'nowrap',
     'font-weight': 'normal',
     'font-variant': 'all-small-caps'
-  }).addClass(SELECTORS.headContainer, {
+  })
+  injectClass(SELECTORS.headContainer, {
     position: 'relative',
     display: 'inline-block'
-  }).addClass(SELECTORS.headLabel, {
+  })
+  injectClass(SELECTORS.headLabel, {
     'margin-right': '12px'
-  }).addClass(SELECTORS.headSvg, {
+  })
+  injectClass(SELECTORS.headSvg, {
     position: 'absolute',
     right: 0,
     top: 'calc(50% - 4px)'
-  }).addClass(SELECTORS.paging, {
+  })
+  injectClass(SELECTORS.paging, {
     position: 'relative',
     float: 'right',
     width: '100px',
     height: '25px',
     'pointer-events': 'all',
     'user-select': 'none'
-  }).addClass(SELECTORS.pagingBlock, {
+  })
+  injectClass(SELECTORS.pagingBlock, {
     position: 'relative',
     float: 'left',
     width: '25px',
     height: '25px'
-  }).addClass(SELECTORS.pagingNumber, {
+  })
+  injectClass(SELECTORS.pagingNumber, {
     'text-align': 'center',
     'line-height': '25px'
-  }).addClass(SELECTORS.pagingTotalBefore, {
+  })
+  injectClass(SELECTORS.pagingTotalBefore, {
     content: '"/"',
     position: 'absolute',
     left: '-2px'
-  }).addClass(SELECTORS.pagingButton, {
+  })
+  injectClass(SELECTORS.pagingButton, {
     cursor: 'pointer',
     opacity: 0.2
-  }).addClass(SELECTORS.pagingButtonHover, {
+  })
+  injectClass(SELECTORS.pagingButtonHover, {
     opacity: 1
   })
 
@@ -132,9 +144,10 @@ export default (name, parent = 'body') => {
   )
 
   // Add scrollbar styles.
-  StyleInjector.addId(SELECTORS.scrollbarThumb(self._widget.id), {
+  injectId(SELECTORS.scrollbarThumb(self._widget.id), {
     background: lighter(DEFAULTS.color, 0.8)
-  }).addId(SELECTORS.scrollbarThumbHover(self._widget.id), {
+  })
+  injectId(SELECTORS.scrollbarThumbHover(self._widget.id), {
     background: DEFAULTS.color
   })
 
@@ -536,9 +549,10 @@ export default (name, parent = 'body') => {
       }
 
       // Update scrollbar style.
-      StyleInjector.updateId(SELECTORS.scrollbarThumb(self._widget.id), {
+      updateId(SELECTORS.scrollbarThumb(self._widget.id), {
         background: _.colors.light
-      }).updateId(SELECTORS.scrollbarThumbHover(self._widget.id), {
+      })
+      updateId(SELECTORS.scrollbarThumbHover(self._widget.id), {
         background: color
       })
 

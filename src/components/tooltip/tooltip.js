@@ -1,6 +1,6 @@
 import { mouse } from 'd3'
 import extend from '../../core/extend'
-import StyleInjector from '../../utils/style-injector'
+import {injectClass} from '../../utils/style-injector'
 
 // TODO Add more liberty in setting tooltipTitle based on closest data point or element
 // TODO Add more liberty in setting tooltipContent based on closest data point or element
@@ -23,7 +23,7 @@ const DEFAULTS = {
  */
 export default (self, api) => {
   // Inject relevant style.
-  StyleInjector.addClass(CLASSES.tooltip, {
+  injectClass(CLASSES.tooltip, {
     position: 'absolute',
     'background-color': 'rgba(255, 255, 255, 0.95)',
     'border-radius': '2px',

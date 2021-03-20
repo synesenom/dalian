@@ -7,8 +7,9 @@
  * @return {Object} The selection with the attributes set.
  */
 export default function attributes (selection, attributes) {
-  Object.entries(attributes).forEach(([name, value]) => {
-    selection.attr(name, value)
-  })
+  Object.entries(attributes)
+    .forEach(([name, value]) => {
+      selection.attr(name, value)
+    })
   return selection
 }

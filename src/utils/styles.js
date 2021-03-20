@@ -7,8 +7,9 @@
  * @return {Object} The selection with the styles set.
  */
 export default (selection, styles) => {
-  Object.entries(styles).forEach(([name, value]) => {
-    selection.style(name, value)
-  })
+  Object.entries(styles)
+    .forEach(([name, value]) => {
+      selection.style(name, value)
+    })
   return selection
 }

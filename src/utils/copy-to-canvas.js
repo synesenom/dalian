@@ -1,12 +1,24 @@
-// Re-usable elements.
+/*
+ * Hidden variables
+ */
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')
 const hidden = document.createElement('div')
-hidden.style.opacty = 0
 const img = document.createElement('img')
 
-// TODO Docstring.
+
+/*
+ * Methods
+ */
+/**
+ * Retrieves the bounding client for an SVG element.
+ *
+ * @method getSvgBBox
+ * @param {SVGElement} svg SVG element to get bounding box for.
+ * @return {DOMRect} The bounding client rectangle.
+ */
 function getSvgBBox (svg) {
+  hidden.style.opacty = 0
   hidden.appendChild(svg)
   document.body.appendChild(hidden)
   const bbox = svg.getBoundingClientRect()
@@ -14,7 +26,22 @@ function getSvgBBox (svg) {
   return bbox
 }
 
-// TODO Docstring.
+
+/*
+ * Export
+ */
+
+/**
+ * Copies the content of an SVG element to canvas and returns the string representation of the canvas image.
+ *
+ * @method copyToCanvas
+ * @param {SVGElement} svg SVG element to copy content of.
+ * @param {number} [scale = 3] Scaling to apply for the content during the copy.
+ * @param {string} format Format of the canvas image.
+ * @param {number} [quality = 0.92] Quality of the image.
+ * @return {Promise<string>} Promise containing the canvas image as a string.
+ * @async
+ */
 export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
   // Get SVG data.
   const svgData = new window.XMLSerializer().serializeToString(svg)

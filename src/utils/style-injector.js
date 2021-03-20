@@ -6,9 +6,7 @@ import { select } from 'd3'
  */
 
 // Create container.
-const container = select('head')
-  .append('style')
-  .attr('id', 'dalian-style-container')
+let container = undefined
 
 // Styles.
 const styles = []
@@ -17,6 +15,21 @@ const styles = []
 /*
  * Methods
  */
+
+/**
+ * Gets or creates the container.
+ *
+ * @method getContainer
+ * @return {object} D3 selection of the container.
+ */
+function getContainer () {
+  if (typeof container === 'undefined') {
+    container = select('head')
+      .append('style')
+      .attr('id', 'dalian-style-container')
+  }
+  return container
+}
 
 /**
  * Builds a style entry.
@@ -49,7 +62,8 @@ function injectStyle (queryName, styleSheet, marker = '.') {
     const entry = buildEntry(selector, styleSheet)
 
     // Inject style to head.
-    container.text(container.text() + entry)
+    const cont = getContainer()
+    cont.text(cont.text() + entry)
 
     // Add selector to recorded selectors.
     styles.push({
@@ -76,7 +90,7 @@ function updateStyle (queryName, styleSheet, marker) {
     style.entry = buildEntry(selector, styleSheet)
 
     // Replace entire style content.
-    container.text(styles.map(d => d.entry).join(''))
+    getContainer().text(styles.map(d => d.entry).join(''))
   }
 }
 

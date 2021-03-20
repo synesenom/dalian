@@ -2,7 +2,7 @@ import compose from '../core/compose'
 import Widget from '../components/widget'
 import Font from '../components/font'
 import extend from '../core/extend'
-import StyleInjector from '../utils/style-injector'
+import {injectClass} from '../utils/style-injector'
 import { lighter } from '../utils/color'
 
 // Classes.
@@ -35,10 +35,11 @@ const DEFAULTS = {
 export default (name, parent = 'body') => {
   // TODO Inject relevant style.
   // TODO Remove container style?
-  StyleInjector.addClass(CLASSES.entry, {
+  injectClass(CLASSES.entry, {
     position: 'absolute',
     display: 'block'
-  }).addClass(CLASSES.marker, {
+  })
+  injectClass(CLASSES.marker, {
     position: 'relative',
     float: 'left',
     display: 'inline-block',
@@ -47,7 +48,8 @@ export default (name, parent = 'body') => {
     border: '.4em solid transparent',
     'border-radius': '50%',
     background: '#fff'
-  }).addClass(CLASSES.label, {
+  })
+  injectClass(CLASSES.label, {
     display: 'inline-block',
     float: 'right',
     width: 'calc(100% - 1.75em)',

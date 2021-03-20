@@ -1,5 +1,5 @@
 import { select } from 'd3'
-import StyleInjector from '../../utils/style-injector'
+import {injectClass} from '../../utils/style-injector'
 import Tooltip from './tooltip'
 
 // Classes.
@@ -33,30 +33,35 @@ const DEFAULTS = {
  */
 export default (self, api) => {
   // Inject relevant style.
-  StyleInjector.addClass(CLASSES.content, {
+  injectClass(CLASSES.content, {
     display: 'table',
     padding: '10px',
     'min-width': '60px'
-  }).addClass(CLASSES.entry, {
+  })
+  injectClass(CLASSES.entry, {
     display: 'table-row',
     position: 'relative'
-  }).addClass(CLASSES.container, {
+  })
+  injectClass(CLASSES.container, {
     display: 'inline-block',
     position: 'relative',
     height: '1em'
-  }).addClass(CLASSES.inner, {
+  })
+  injectClass(CLASSES.inner, {
     display: 'flex',
     position: 'relative',
     height: '1em',
     'justify-content': 'center',
     'align-items': 'center'
-  }).addClass(CLASSES.marker, {
+  })
+  injectClass(CLASSES.marker, {
     display: 'inline-block',
     position: 'relative',
     float: 'left',
     'margin-right': '6px',
     'border-radius': '2px'
-  }).addClass(CLASSES.label, {
+  })
+  injectClass(CLASSES.label, {
     display: 'table-cell',
     position: 'relative',
     'max-width': '120px',
