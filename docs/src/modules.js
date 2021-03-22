@@ -12,6 +12,7 @@ module.exports = [
   'charts/pie-chart',
   'charts/radar-chart',
   'charts/scatter-plot',
+  'charts/stellar-chart',
   'charts/table',
   'charts/violin-plot',
   'components/grid/base-grid',

@@ -366,10 +366,10 @@ export default (name, parent = 'body') => {
      * legend.insert()
      */
     insert (widget, pos) {
-      if (typeof widget !== 'undefined' && typeof widget.objects !== 'undefined') {
+      if (typeof widget !== 'undefined' && typeof widget.objects === 'object') {
         // Remove container transform and insert legend to widget.
         widget.objects.add(`${widget.id()}-legend`, _.container.attr('transform', null).node(), pos, {
-          foreground: true
+          layer: 'outside'
         })
 
         // Disable container.

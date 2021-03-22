@@ -15,19 +15,27 @@ export default scales => (() => {
       containers: {},
       objects: new Map(),
 
-      // Methods
+      // Methods.
       // TODO Docstring.
-      getContainer (type = 'background') {
-        // Get or create container.
+      getContainer (type = 'outside') {
         if (typeof _.containers[type] === 'undefined') {
-          _.containers[type] = self._chart.plots.append('g')
-            .attr('class', 'objects-container')
+          // Add container.
+          if (type === 'outside') {
+            _.containers[type] = self._widget.content.append('g')
+              .attr('class', 'objects-container')
+          } else {
+            _.containers[type] = self._chart.plots.append('g')
+              .attr('class', 'objects-container')
+          }
+
+          // Move relevant containers on top.
           if (type === 'background') {
             _.containers[type].lower()
           } else {
             _.containers[type].raise()
           }
         }
+
         return _.containers[type]
       }
     }
@@ -37,6 +45,7 @@ export default scales => (() => {
       _.objects.forEach(obj => obj.update(duration))
     })
 
+    // Public methods.
     api = Object.assign(api || {}, {
       objects: {
         /**
@@ -50,8 +59,7 @@ export default scales => (() => {
          * @param {Object} options Options of inserting the object. Supported
          * values:
          * <ul>
-         *   <li><code>boolean</code>foreground: Whether to insert the object in the foreground of the widget (on top
-         *   of widget elements). Default value is false.</li>
+         *   <li><code>boolean</code>layer: Where to insert the object: {background} of the plot area, {foreground} of the plot area or {outside}. In case of foreground or background, the object is clipped by the plot region. Default value is outside.</li>
          *   <li><code>boolean</code>floating: Whether to insert a floating object (position is used as data coordinates
          *   and the object position is updated when data changes) or fixed (position is used as coordinates relative to
          *   the widget's top left corner and does not change when data is updated). Set it to true if you want to
@@ -67,7 +75,7 @@ export default scales => (() => {
           const scaleY = scales.y.scale
 
           // Add object's own group.
-          const g = _.getContainer(options && options.foreground ? 'foreground' : 'background').append('g')
+          const g = _.getContainer(options && options.layer).append('g')
             .attr('transform', options && options.floating
               ? `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`
               : `translate(${pos.x}, ${pos.y})`)

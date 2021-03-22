@@ -1,5 +1,5 @@
 <script class="card-example">
-  dalian.RadarChart('radar-chart-card', '#radar-chart')
+  dalian.StellarChart('stellar-chart-card', '#stellar-chart')
     .data([{
       name: 'first',
       values: {
@@ -37,7 +37,7 @@
 
 <div id="desc">
   <p>
-    TODO
+    TODO https://medium.com/nightingale/the-stellar-chart-an-elegant-alternative-to-radar-charts-ae6a6931a28e
   </p>
   <p>
     TODO
@@ -94,7 +94,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const radarChart = dalian.RadarChart('myChart', '#widget')
+const stellarChart = dalian.StellarChart('myChart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -106,34 +106,35 @@ const radarChart = dalian.RadarChart('myChart', '#widget')
     'Muscat of Alexandria': '#dc6333'
   })
   .radialAxis.values([1, 2, 3, 4, 5])
+  //.smoothing(true)
   .tooltip.on(true)
   .lineWidth(2)
   .opacity(0.2)
   .max(5)
   .radialGrid.on(true)
   .radialGrid.curved(true)
-  .mouse.over(k => radarChart.highlight(k.name, 200))
-  .mouse.leave(() => radarChart.highlight(null, 200))
+  .mouse.over(k => stellarChart.highlight(k.name, 200))
+  .mouse.leave(() => stellarChart.highlight(null, 200))
   .render(1000)
 </script>
 
 <script class="doc">
 // api methods
-const changeData = () => radarChart.data(getData()).render(1000)
+const changeData = () => stellarChart.data(getData()).render(1000)
 
 const toggleDimensions = () => {
   this.d = 1 - (this.d || 0)
-  radarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol']
+  stellarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol']
     : undefined).render(1000)
 }
 
 const toggleRadius = () => {
   this.r = 1 - (this.r || 0)
-  radarChart.radius(this.r ? 80 : undefined).render(1000)
+  stellarChart.radius(this.r ? 80 : undefined).render(1000)
 }
 
 const toggleScale = () => {
   this.s = 1 - (this.s || 0)
-  radarChart.scale(this.s ? 'sqrt' : undefined).render(1000)
+  stellarChart.scale(this.s ? 'sqrt' : undefined).render(1000)
 }
 </script>

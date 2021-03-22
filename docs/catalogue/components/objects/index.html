@@ -15,7 +15,7 @@
     The Objects component allows for inserting arbitrary SVG elements (or groups) in the chart using the data
     coordinates or absolute coordinates of the widget. When adding a random object:
   </p><ul>
-    <li>Color denotes order: foreground (green) or background (red).</li>
+    <li>Color denotes order: foreground (green) or background (red) or outside the plot area (blue).</li>
     <li>Shape denotes position: floating (circle) or fixed (rectangle) position.</li>
   </ul>
 
@@ -63,9 +63,13 @@ let addObject = () => {
 
   let ns = 'http://www.w3.org/2000/svg'
   let elem
-  const foreground = Math.random() < 0.5
+  const layer = ['outside', 'foreground', 'background'][Math.floor(Math.random() * 3)]
   const floating = Math.random() < 0.5
-  const color = foreground ? 'firebrick' : 'yellowgreen'
+  const color = {
+    background: 'firebrick',
+    foreground: 'yellowgreen',
+    outside: 'royalblue'
+  }[layer]
 
   if (floating) {
     // Circle: we are using the Objects API's svg() method.
@@ -89,7 +93,7 @@ let addObject = () => {
     x: 10 + (floating ? 40 : WIDTH) * Math.random(),
     y: 2 + (floating ? 3 : HEIGHT) * Math.random()
   }, {
-    foreground,
+    layer,
     floating
   }, 1000)
 }
@@ -107,13 +111,13 @@ let updateObject = () => {
   path.setAttributeNS(null, 'fill', 'goldenrod')
 
   // Insert object.
-  const foreground = Math.random() < 0.5
+  const layer = ['outside', 'foreground', 'background'][Math.floor(Math.random() * 3)]
   const floating = Math.random() < 0.5
   chart.objects.add(id, path, {
     x: 10 + (floating ? 40 : WIDTH) * Math.random(),
     y: 2 + (floating ? 3 : HEIGHT) * Math.random()
   }, {
-    foreground,
+    layer,
     floating
   }, 1000)
 }

@@ -2,7 +2,7 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>RadarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>StellarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
     <li onclick="changeData()">.data()</li>
     <li onclick="toggleDimensions()">.dimensions()</li>
@@ -11,7 +11,7 @@
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    TODO
+    TODO https://medium.com/nightingale/the-stellar-chart-an-elegant-alternative-to-radar-charts-ae6a6931a28e
   </p>
   <p>
     TODO
@@ -23,7 +23,7 @@
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/charts/radar-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/radar-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+</script><h1>code<div class="margin-right"><a href="../../../api/charts/stellar-chart.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/charts/stellar-chart.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
 // generate data
 // Data is generated with ranjs:
 // https://synesenom.github.io/ran/
@@ -59,7 +59,7 @@ function getData () {
 }
 </script><script class="doc">
 // create chart
-const radarChart = dalian.RadarChart('myChart', '#widget')
+const stellarChart = dalian.StellarChart('myChart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -71,32 +71,33 @@ const radarChart = dalian.RadarChart('myChart', '#widget')
     'Muscat of Alexandria': '#dc6333'
   })
   .radialAxis.values([1, 2, 3, 4, 5])
+  //.smoothing(true)
   .tooltip.on(true)
   .lineWidth(2)
   .opacity(0.2)
   .max(5)
   .radialGrid.on(true)
   .radialGrid.curved(true)
-  .mouse.over(k => radarChart.highlight(k.name, 200))
-  .mouse.leave(() => radarChart.highlight(null, 200))
+  .mouse.over(k => stellarChart.highlight(k.name, 200))
+  .mouse.leave(() => stellarChart.highlight(null, 200))
   .render(1000)
 </script><script class="doc">
 // api methods
-const changeData = () => radarChart.data(getData()).render(1000)
+const changeData = () => stellarChart.data(getData()).render(1000)
 
 const toggleDimensions = () => {
   this.d = 1 - (this.d || 0)
-  radarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol']
+  stellarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol']
     : undefined).render(1000)
 }
 
 const toggleRadius = () => {
   this.r = 1 - (this.r || 0)
-  radarChart.radius(this.r ? 80 : undefined).render(1000)
+  stellarChart.radius(this.r ? 80 : undefined).render(1000)
 }
 
 const toggleScale = () => {
   this.s = 1 - (this.s || 0)
-  radarChart.scale(this.s ? 'sqrt' : undefined).render(1000)
+  stellarChart.scale(this.s ? 'sqrt' : undefined).render(1000)
 }
 </script></div></main></body></html>

@@ -346,6 +346,7 @@ To explore a specific component listed on a chart's documentation page under its
       second: COLORS.widget[1]
     })
     .radialAxis.values([1, 2, 3, 4, 5])
+    .radialGrid.on(true)
     .max(5)
     .radius(50)
     .render()
@@ -377,6 +378,41 @@ To explore a specific component listed on a chart's documentation page under its
     .bottomAxis.label('X')
     .leftAxis.label('Y')
     .size(4)
+    .render()
+</script></a><a class="card" href="charts/stellar-chart"><div class="card-title">StellarChart</div><div class="card-content" id="stellar-chart"></div><script class="card-example">
+  dalian.StellarChart('stellar-chart-card', '#stellar-chart')
+    .data([{
+      name: 'first',
+      values: {
+        sweetness: 2,
+        body: 5,
+        tannin: 4,
+        acidity: 3,
+        alcohol: 4
+      }
+    }, {
+      name: 'second',
+      values: {
+        sweetness: 4,
+        body: 3,
+        tannin: 1,
+        acidity: 3,
+        alcohol: 1
+      }
+    }])
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .font.size(11)
+    .color.palette({
+      first: COLORS.widget[0],
+      second: COLORS.widget[1]
+    })
+    .radialAxis.values([1, 2, 3, 4, 5])
+    .radialGrid.on(true)
+    .max(5)
+    .radius(50)
     .render()
 </script></a><a class="card" href="charts/table"><div class="card-title">Table</div><div class="card-content" id="table"></div><script class="card-example">
   dalian.Table('table-card', '#table')

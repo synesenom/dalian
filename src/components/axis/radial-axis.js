@@ -32,12 +32,12 @@ export default (radialScale, angularScale) => {
 
     // TODO Docstring.
     function axisX (i, n) {
-      radialScale.scale.range()[1] * Math.sin(i * 2 * Math.PI / n)
+      return radialScale.scale.range()[1] * Math.sin(i * 2 * Math.PI / n)
     }
 
     // TODO Docstring.
     function axisY (i, n) {
-      -radialScale.scale.range()[1] * Math.cos(i * 2 * Math.PI / n)
+      return -radialScale.scale.range()[1] * Math.cos(i * 2 * Math.PI / n)
     }
 
     // TODO Docstring.
