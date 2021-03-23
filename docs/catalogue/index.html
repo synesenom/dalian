@@ -345,8 +345,10 @@ To explore a specific component listed on a chart's documentation page under its
       first: COLORS.widget[0],
       second: COLORS.widget[1]
     })
+    .opacity(0.5)
     .radialAxis.values([1, 2, 3, 4, 5])
     .radialGrid.on(true)
+    .radialGrid.curved(true)
     .max(5)
     .radius(50)
     .render()
@@ -809,7 +811,7 @@ objectsCard.objects.add('object', (() => {
   elem.setAttributeNS(null, 'fill', COLORS.component)
   elem.setAttributeNS(null, 'transform', 'rotate(-18)')
   return elem
-})(), {x: 43, y: 9}, {floating: true})
+})(), {x: 43, y: 9}, {layer: 'background', floating: true})
 </script></a><a class="card" href="components/opacity"><div class="card-title">Opacity</div><div class="card-content" id="opacity"></div><script class="card-example">
 dalian.AreaChart('opacity-card', '#opacity')
   .data([{

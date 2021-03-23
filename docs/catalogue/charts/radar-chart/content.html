@@ -28,8 +28,10 @@
       first: COLORS.widget[0],
       second: COLORS.widget[1]
     })
+    .opacity(0.5)
     .radialAxis.values([1, 2, 3, 4, 5])
     .radialGrid.on(true)
+    .radialGrid.curved(true)
     .max(5)
     .radius(50)
     .render()

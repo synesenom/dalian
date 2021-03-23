@@ -3,6 +3,7 @@ import compose from '../core/compose'
 import Chart from '../components/chart'
 import LineWidth from '../components/line-width'
 import LineStyle from '../components/line-style'
+import Objects from '../components/objects'
 import Opacity from '../components/opacity'
 import Smoothing from '../components/smoothing'
 import RadialAxis from '../components/axis/radial-axis'
@@ -26,6 +27,7 @@ const DEFAULTS = {
  *   <li><a href="../components/highlight.html">Highlight</a>: Highlight one or more plots.</li>
  *   <li><a href="../components/line-style.html">LineStyle</a>: Using dashed or dotted lines for the plots.</li>
  *   <li><a href="../components/line-width.html">LineWidth</a>: Width of the plot lines.</li>
+ *   <li><a href="../components/objects.html">Objects</a>: You can add arbitrary SVG objects to the chart or insert a legend into it.</li>
  *   <li><a href="../components/opacity.html">Opacity</a>: Fill opacity of the plots.</li>
  *   <li><a href="../components/radial-axis.html">RadialAxis</a>: The axis used in the chart.</li>
  *   <li><a href="../components/radial-grid.html">RadialAxis</a>: The grid illustrating axis values.</li>
@@ -53,6 +55,7 @@ export default (name, parent = 'body') => {
     Highlight(() => self._chart.plots, ['.plot-group']),
     LineStyle,
     LineWidth(1),
+    Objects(scales),
     Opacity(0),
     RadialAxis(scales.radius, scales.angle),
     RadialGrid,

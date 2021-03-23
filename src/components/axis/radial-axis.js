@@ -135,7 +135,7 @@ export default (radialScale, angularScale) => {
             .attr('x2', (d, i) => 1.05 * axisX(i, _.labels.length))
             .attr('y2', (d, i) => 1.05 * axisY(i, _.labels.length))
             .style('stroke-width', '1px')
-            .style('shape-rendering', 'crispEdges')
+            .style('shape-rendering', 'geometricPrecision')
             .style('stroke', 'currentColor'),
 
           update => update.transition().duration(duration)
