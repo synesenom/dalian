@@ -70,14 +70,11 @@ export default scales => (() => {
          * @returns {Widget} Reference to the Widget's API.
          */
         add (id, obj, pos, options, duration = 0) {
-          // Fetch scales.
-          const scaleX = scales.x.scale
-          const scaleY = scales.y.scale
-
           // Add object's own group.
           const g = _.getContainer(options && options.layer).append('g')
             .attr('transform', options && options.floating
-              ? `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`
+              // TODO Check if scales are radial or Cartesian.
+              ? `translate(${scales.x(pos.x)}, ${scales.y(pos.y)})`
               : `translate(${pos.x}, ${pos.y})`)
             .style('opacity', 0)
 
@@ -108,7 +105,7 @@ export default scales => (() => {
             update: duration => {
               g.transition().duration(duration)
                 .attr('transform', options && options.floating
-                  ? `translate(${scaleX(pos.x)}, ${scaleY(pos.y)})`
+                  ? `translate(${scales.x(pos.x)}, ${scales.x(pos.y)})`
                   : `translate(${pos.x}, ${pos.y})`)
             }
           }
