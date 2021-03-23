@@ -460,18 +460,7 @@ To explore a specific component listed on a chart's documentation page under its
     .bottomAxis.hideTicks(true)
     .leftAxis.label('sample')
     .render()
-</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change or highlight variables on a dashboard. Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/checkbox"><div class="card-title">Checkbox</div><div class="card-content" id="checkbox"></div><script class="card-example">
-  dalian.Checkbox('checkbox-card', '#checkbox')
-    .x(0)
-    .y(0)
-    .width(WIDTH)
-    .height(HEIGHT)
-    .color('yellowgreen')
-    .margins({left: 60, top: 70})
-    .font.size(11)
-    .label('Click on me!')
-    .render()
-</script></a><a class="card" href="controls/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
+</script></a></div><h2>controls</h2><p>Controls are special widgets that can be used to change or highlight variables on a dashboard. Their sole purpose is to control other elements.</p><div class="card-container"><a class="card" href="controls/legend"><div class="card-title">Legend</div><div class="card-content" id="legend"></div><script class="card-example">
   dalian.Legend('legend-card', '#legend')
     .x(0)
     .y(0)
@@ -509,6 +498,17 @@ To explore a specific component listed on a chart's documentation page under its
     .color('yellowgreen')
     .font.size(11)
     .value(0.6)
+    .render()
+</script></a><a class="card" href="controls/switch"><div class="card-title">Switch</div><div class="card-content" id="switch"></div><script class="card-example">
+  dalian.Switch('switch-card', '#switch')
+    .x(0)
+    .y(0)
+    .width(WIDTH)
+    .height(HEIGHT)
+    .color('yellowgreen')
+    .margins({left: 60, top: 70})
+    .font.size(11)
+    .label('Click on me!')
     .render()
 </script></a><a class="card" href="controls/trackpad"><div class="card-title">Trackpad</div><div class="card-content" id="trackpad"></div><script class="card-example">
 dalian.Trackpad('trackpad-card', '#trackpad')

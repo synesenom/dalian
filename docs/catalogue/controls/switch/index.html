@@ -2,72 +2,60 @@
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
-  });</script><title>XGrid | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
+  });</script><title>Switch | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">Change data</li>
-    <li onclick="changeFontColor()">Change font color</li>
-    <li id="toggleGrid" onclick="toggleGrid()">Show grid lines</li>
-    <li onclick="changeOpacity()">Change grid opacity</li>
-    <li onclick="changeLineStyle()">Change grid line style</li>
+    <li onclick="toggleCallback()">.callback()</li>
+    <li onclick="toggleToggle()">.toggle()</li>
+    <li onclick="toggleColor()">.color()</li>
+    <li onclick="toggleDisable()">.disable()</li>
+    <li onclick="toggleLabel()">.label()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
-    The XGrid component adds vertical grid lines to a chart (grid to the X axis). This example shows the available
-    methods for the component and demonstrates its behavior when various properties of the chart are changed.
+    A simple stylized toggle switch button.
   </p>
 </p><script>// Widget size.
 const WIDTH = parseFloat(d3.select('#widget').style('width'));
 const HEIGHT = parseFloat(d3.select('#widget').style('padding-bottom'));
-</script><h1>code<div class="margin-right"><a href="../../../api/components/x-grid.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/components/grid/x-grid.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
-// generate data
-function getData () {
-  const length = 50 + Math.floor(50 * Math.random())
-  const lambda = 10 * Math.random() + 5
-  return [{
-    name: 'trend',
-    values: Array.from({ length }, (d, i) => ({
-      x: i,
-      y: Math.exp(i / 50) * Math.sin(i / lambda) + 10
-    }))
-  }]
-}
-</script><script class="doc">
-// create chart
-const chart = dalian.LineChart('myChart', '#widget')
-  .data(getData())
+</script><h1>code<div class="margin-right"><a href="../../../api/controls/switch.html">Documentation</a><a href="https://github.com/synesenom/dalian/blob/master/src/controls/switch.js">Source code</a></div></h1><div id="code-doc"></div><script class="doc">
+// create control
+const switchBtn = dalian.Switch('switch', '#widget')
   .width(WIDTH)
   .height(HEIGHT)
-  .margins({left: 60, top: 40, bottom: 40, right: 40})
+  .margins({left: 100, right: 250, top: HEIGHT / 2})
   .font.size(14)
-  .bottomAxis.label('Elapsed time')
-  .leftAxis.label('Temperature [C]')
+  .label(`I'm a toggle switch`)
   .render()
 </script><script class="doc">
 // api methods
-let changeData = () => chart.data(getData()).render(1000)
-
-let changeFontColor = () => {
-  this.f = !(this.f || 0)
-  chart.font.color(this.f ? 'red' : undefined).render(400)
+let toggleCallback = () => {
+  this.a = 1 - (this.a || 0)
+  switchBtn.callback(this.a ? x => alert(x ? 'On!' : 'Off')
+    : undefined)
+    .render()
 }
 
-let toggleGrid = () => {
+let toggleToggle = () => {
   this.t = 1 - (this.t || 0)
-  chart.xGrid.on(this.t).render(400)
-}
-
-let changeOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  chart.xGrid.opacity(this.o ? 0.8 : undefined)
+  switchBtn.toggle(this.t)
     .render(400)
 }
 
-let changeLineStyle = () => {
-  this.s = ((this.s || 0) + 1) % 3
-  chart.xGrid.lineStyle([undefined, 'dotted', 'solid'][this.s])
+let toggleColor = () => {
+  this.o = 1 - (this.o || 0)
+  switchBtn.color(this.o ? 'yellowgreen' : undefined)
+    .render(1000)
+}
+
+let toggleDisable = () => {
+  this.d = 1 - (this.d || 0)
+  switchBtn.disable(this.d)
     .render()
 }
-</script><script class="doc-hidden">
-// Modify switch buttons
-toggleGrid = state(toggleGrid, 't', ['Show grid lines', 'Hide grid lines'])
+
+let toggleLabel = () => {
+  this.l = 1 - (this.l || 0)
+  switchBtn.label(this.l ? 'Switch!' : `I'm a toggle switch`)
+    .render()
+}
 </script></div></main></body></html>

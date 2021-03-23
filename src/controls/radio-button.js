@@ -23,7 +23,7 @@ const DEFAULTS = {
   vSep: 2
 }
 
-// TODO Highlight checkbox if hovered.
+// TODO Highlight switchBtn if hovered.
 
 /**
  * The radio button control widget. Inherits all API from the [Widget]{@link ../components/widget.html} component. All the radio buttons are constrained to a rectangle defined by the width/height and the margins. The labels are bounded by the available space (widget width minus the side margins).
