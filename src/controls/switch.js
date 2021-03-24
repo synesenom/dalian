@@ -42,17 +42,18 @@ export default (name, parent = 'body') => {
     'line-height': '1.5em'
   })
   injectClass(CLASSES.box, {
-    width: '2.6em',
-    height: '1.5em',
-    'border-radius': '.75em'
+    width: '2.4em',
+    height: '1.3em',
+    'border-radius': '1em',
+    border: '.2em solid transparent'
   })
   injectClass(CLASSES.slider, {
     position: 'absolute',
-    width: '1.2em',
-    height: '1.2em',
+    width: '1.4em',
+    height: '1.4em',
     top: '.15em',
     left: '.15em',
-    'border-radius': '.6em',
+    'border-radius': '.7em',
     background: '#fff'
   })
 
@@ -109,6 +110,7 @@ export default (name, parent = 'body') => {
     // Update box and slider.
     _.dom.box.transition().duration(300)
       .style('background', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
+      .style('border-color', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
     _.dom.slider.transition().duration(300)
       .style('left', _.i.on ? '1.2em' : '.15em')
 
@@ -138,6 +140,7 @@ export default (name, parent = 'body') => {
     // Adjust box.
     self._widget.getElem(_.dom.box, duration)
       .style('background', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
+      .style('border-color', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
 
     // TODO Move slider.
     self._widget.getElem(_.dom.slider, duration)

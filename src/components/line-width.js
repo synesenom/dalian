@@ -1,8 +1,13 @@
+/**
+ * Component implementing the line width features. When this component is available for a widget, its API is exposed via
+ * the {.lineWidth} namespace.
+ *
+ * @function LineWidth
+ */
 export default defaultValue => {
   return (self, api) => {
     // Private members.
     const _ = {
-      // Default behavior.
       mapping: () => defaultValue + 'px'
     }
 
@@ -10,7 +15,15 @@ export default defaultValue => {
     self = Object.assign(self || {}, {
       _lineWidth: {
         // Mapping used internally.
-        // TODO Docstring.
+        /**
+         * Returns the current line width mapping for a key.
+         *
+         * @method mapping
+         * @methodOf LineWidth
+         * @param {string} key Key to return line-width for.
+         * @returns {string} The current line width in pixels with the 'px' suffix.
+         * @protected
+         */
         mapping: key => _.mapping(key)
       }
     })

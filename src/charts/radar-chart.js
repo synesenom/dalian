@@ -66,7 +66,7 @@ export default (name, parent = 'body') => {
    * Maps a plot data using the current dimensions.
    *
    * @method mapData
-   * @memberOf RadarChart
+   * @methodOf RadarChart
    * @param {object} d Plot data.
    * @return {object[]} Array of objects representing the selected values.
    * @private

@@ -8,7 +8,7 @@ const ModuleParser = require('../parsers/module-parser')
 const ROOT = './docs/api'
 const SRC_DIR = 'src'
 
-
+// TODO Compile public methods only.
 module.exports = {
   index() {
     // Index page.

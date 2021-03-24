@@ -12,6 +12,11 @@ export default (self, api) => {
 
     // Methods.
     // TODO Docstring.
+    /**
+     *
+     * @param style
+     * @returns {string|null}
+     */
     getStrokeDashArray: style => {
       switch (style) {
         case 'solid':
@@ -46,7 +51,7 @@ export default (self, api) => {
           // Single policy, using the specified line style.
           return _.getStrokeDashArray(_.policy)
         } else {
-          // Line style mapGroup given.
+          // Line style mapping given.
           return _.getStrokeDashArray(_.policy[key])
         }
       },

@@ -14,7 +14,14 @@ export default defaultValue => {
     // Protected members.
     self = Object.assign(self || {}, {
       _opacity: {
-        // TODO Docstring.
+        /**
+         * Returns the current opacity value.
+         *
+         * @method value
+         * @memberOf Opacity
+         * @protected
+         * @returns {number} The current opacity value.
+         */
         value: () => _.value
       }
     })

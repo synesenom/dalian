@@ -41,7 +41,7 @@ module.exports = [
   'components/range/x-range',
   'components/grid/y-grid',
   'components/range/y-range',
-  'controls/switchBtn',
+  'controls/checkbox',
   'controls/legend',
   'controls/radio-button',
   'controls/slider',

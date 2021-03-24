@@ -17,7 +17,6 @@ const DEFAULTS = {
   columns: 1
 }
 
-// TODO Move to controls.
 /**
  * The legend control widget. This widget extends the following components:
  * <ul>
@@ -60,13 +59,28 @@ export default (name, parent = 'body') => {
   }
 
   // Private methods.
-  // TODO Docstring.
+  /**
+   * Computes the current transform for a legend entry.
+   *
+   * @method entryTransform
+   * @param {Object} d Data of the current entry.
+   * @param {number} i Index of the current entry.
+   * @return {string} String representing the transform.
+   * @private
+   */
   function entryTransform (d, i) {
     const fs = parseFloat(self._font.size)
     return `translate(${fs * _.hSep * (i % _.columns)}, ${fs * (0.7 + _.vSep * Math.floor(i / _.columns))})`
   }
 
-  // TODO Docstring.
+  /**
+   * Creates a legend marker for a legend entry.
+   *
+   * @method makeMarker
+   * @param {Object} elem D3 selection of the current legend entry.
+   * @return {Object} D3 selection of the marker.
+   * @private
+   */
   function makeMarker (elem) {
     // Remove existing shape.
     elem.select('.legend-entry-marker-shape')

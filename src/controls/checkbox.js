@@ -66,83 +66,77 @@ export default (name, parent = 'body') => {
   )
 
   // Private members.
-  const _ = {
-    // Internal variables.
-    i: Object.assign({}, DEFAULTS),
+  const container = self._widget.content.append('div')
+    .attr('class', 'container')
+  const wrapper = container.append('div')
+    .attr('class', CLASSES.wrapper)
+  const label = wrapper.append('div')
+    .attr('class', CLASSES.label)
+    .on('click', onClick)
+  const box = wrapper.append('div')
+    .attr('class', CLASSES.box)
+    .on('click', onClick)
+  const mark = box.append('div')
+    .attr('class', CLASSES.mark)
 
-    // TODO Move this outside.
-    // DOM.
-    dom: (() => {
-      // Container.
-      const container = self._widget.content.append('div')
-        .attr('class', 'container')
-
-      // Wrapper.
-      const wrapper = container.append('div')
-        .attr('class', CLASSES.wrapper)
-
-      // Label.
-      const label = wrapper.append('div')
-        .attr('class', CLASSES.label)
-        .on('click', onClick)
-
-      // Box and mark.
-      const box = wrapper.append('div')
-        .attr('class', CLASSES.box)
-        .on('click', onClick)
-      const mark = box.append('div')
-        .attr('class', CLASSES.mark)
-
-      return {
-        container,
-        wrapper,
-        label,
-        box,
-        mark
-      }
-    })()
-  }
+  // Configurable parameters.
+  const _ = Object.assign({}, DEFAULTS)
 
   // Private members.
-  // TODO Docstring.
-  function onClick () {
-    // Update checked status.
-    _.i.checked = !_.i.checked
+  /**
+   * Updates checkbox UI according to the current checked status.
+   *
+   * @method updateUi
+   * @memberOf Checkbox
+   * @private
+   */
+  function updateUi () {
+    box.style('background', _.checked ? _.color
+      : lighter(_.color, 0.6))
+    mark.style('display', _.checked ? null : 'none')
+  }
 
-    // TODO Make separate method to update checkbox.
-    _.dom.box.style('background', _.i.checked ? _.i.color
-      : lighter(_.i.color, 0.6))
-    _.dom.mark.style('display', _.i.checked ? null : 'none')
+  /**
+   * Calls the current callback when the checkbox is clicked. Also updates the checkbox UI.
+   *
+   * @method onClick
+   * @memberOf Checkbox
+   * @private
+   */
+  function onClick () {
+    // Update checked status and UI.
+    _.checked = !_.checked
+    updateUi()
 
     // Trigger callback.
-    _.i.callback && _.i.callback(_.i.checked)
+    _.callback && _.callback(_.checked)
   }
 
   // Extend widget update.
   self._widget.update = extend(self._widget.update, duration => {
     // Adjust container.
-    self._widget.getElem(_.dom.container, duration)
+    self._widget.getElem(container, duration)
       .style('width', self._widget.size.width)
       .style('height', self._widget.size.height)
 
     // Adjust wrapper.
-    self._widget.getElem(_.dom.wrapper, duration)
+    self._widget.getElem(wrapper, duration)
       .style('margin-left', self._widget.margins.left + 'px')
       .style('margin-top', self._widget.margins.top + 'px')
       .style('width', self._widget.size.innerWidth)
-      .style('opacity', _.i.disabled ? 0.4 : 1)
-      .style('cursor', _.i.disabled ? 'default' : 'pointer')
-      .style('pointer-events', _.i.disabled ? 'none' : 'all')
+      .style('opacity', _.disabled ? 0.4 : 1)
+      .style('cursor', _.disabled ? 'default' : 'pointer')
+      .style('pointer-events', _.disabled ? 'none' : 'all')
 
     // Adjust label.
-    _.dom.label.text(_.i.label)
+    label.text(_.label)
 
     // Adjust box.
-    self._widget.getElem(_.dom.box, duration)
-      .style('background', _.i.checked ? _.i.color : lighter(_.i.color, 0.6))
+    self._widget.getElem(box, duration)
+      .style('background', _.checked ? _.color : lighter(_.color, 0.6))
 
     // Adjust mark.
-    _.dom.mark.style('display', _.i.checked ? null : 'none')
+    mark.style('display', _.checked ? null : 'none')
   }, true)
 
   api = Object.assign(api, {
@@ -165,7 +159,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     callback (callback) {
-      _.i.callback = callback
+      _.callback = callback
       return api
     },
 
@@ -188,7 +182,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     check (on = DEFAULTS.checked) {
-      _.i.checked = on
+      _.checked = on
       return api
     },
 
@@ -211,7 +205,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     color (color = DEFAULTS.color) {
-      _.i.color = color
+      _.color = color
       return api
     },
 
@@ -234,7 +228,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     disable (on = DEFAULTS.disabled) {
-      _.i.disabled = on
+      _.disabled = on
       return api
     },
 
@@ -257,7 +251,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     label (text = DEFAULTS.label) {
-      _.i.label = text
+      _.label = text
       return api
     }
   })

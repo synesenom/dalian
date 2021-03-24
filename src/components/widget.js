@@ -160,7 +160,13 @@ export default (type, name, parent, elem) => {
 
   // Public API.
   const api = {
-    // TODO Docstring.
+    /**
+     * Returns the ID of the current widget.
+     *
+     * @method id
+     * @memberOf Widget
+     * @return {string} The widget's identifier.
+     */
     id: () => self._widget.id,
 
     /**
