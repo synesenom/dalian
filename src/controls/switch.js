@@ -39,21 +39,20 @@ export default (name, parent = 'body') => {
     position: 'absolute',
     top: '.1em',
     'margin-left': '3.2em',
-    'line-height': '1.5em'
+    'line-height': '17px'
   })
   injectClass(CLASSES.box, {
-    width: '2.6em',
-    height: '1.3em',
-    'border-radius': '2em',
-    border: '.2em solid transparent'
+    width: '32px',
+    height: '20px',
+    'border-radius': '32px'
   })
   injectClass(CLASSES.slider, {
     position: 'absolute',
-    width: '1.4em',
-    height: '1.4em',
-    top: '.15em',
-    left: '.15em',
-    'border-radius': '.7em',
+    width: '16px',
+    height: '16px',
+    top: '2px',
+    left: '2px',
+    'border-radius': '50%',
     background: '#fff'
   })
 
@@ -110,9 +109,8 @@ export default (name, parent = 'body') => {
     // Update box and slider.
     _.dom.box.transition().duration(300)
       .style('background', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
-      .style('border-color', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
     _.dom.slider.transition().duration(300)
-      .style('left', _.i.on ? '1.2em' : '.15em')
+      .style('left', _.i.on ? '14px' : '2px')
 
     // Trigger callback.
     _.i.callback && _.i.callback(_.i.on)
@@ -137,14 +135,14 @@ export default (name, parent = 'body') => {
     // Adjust label.
     _.dom.label.text(_.i.label)
 
+    // TODO Resize switch based on font size.
     // Adjust box.
     self._widget.getElem(_.dom.box, duration)
       .style('background', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
-      .style('border-color', _.i.on ? _.i.color : lighter(_.i.color, 0.6))
 
     // TODO Move slider.
     self._widget.getElem(_.dom.slider, duration)
-      .style('left', _.i.on ? '1.2em' : '.15em')
+      .style('left', _.i.on ? '14px' : '2px')
   }, true)
 
   api = Object.assign(api, {
