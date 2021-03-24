@@ -42,9 +42,9 @@ export default (name, parent = 'body') => {
     'line-height': '1.5em'
   })
   injectClass(CLASSES.box, {
-    width: '2.4em',
+    width: '2.6em',
     height: '1.3em',
-    'border-radius': '1em',
+    'border-radius': '2em',
     border: '.2em solid transparent'
   })
   injectClass(CLASSES.slider, {
