@@ -1,6 +1,7 @@
 import { interpolateRgb, piecewise } from 'd3'
 import wong from './palettes/wong'
 import bright from './palettes/bright'
+import muted from './palettes/muted'
 import light from './palettes/light'
 import vibrant from './palettes/vibrant'
 import sunset from './palettes/sunset'
@@ -327,7 +328,7 @@ export default (self, api) => {
        *     the built-in palettes that support the vast majority of color vision deficiencies:
        *     <ul>
        *       <li>
-       *         <code>palette-bright</code>A 7 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_bright'>palette</a> designed by Paul Tol.
+       *         <code>palette-bright</code>A 6 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_bright'>palette</a> designed by Paul Tol.
        *         <div class='palette'>
        *           <span>Colors:</span>
        *           <div style='background-color:#4477aa'></div>
@@ -340,7 +341,23 @@ export default (self, api) => {
        *         </div>
        *       </li>
        *       <li>
-       *         <code>palette-light</code>A 9 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_light'>palette</a> designed by Paul Tol.
+       *         <code>palette-muted</code>A 9 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_muted'>palette</a> designed by Paul Tol.
+       *         <div class='palette'>
+       *           <span>Colors:</span>
+       *           <div style='background-color:#332288'></div>
+       *           <div style='background-color:#88ccee'></div>
+       *           <div style='background-color:#44aa99'></div>
+       *           <div style='background-color:#117733'></div>
+       *           <div style='background-color:#999933'></div>
+       *           <div style='background-color:#ddcc77'></div>
+       *           <div style='background-color:#cc6677'></div>
+       *           <div style='background-color:#882255'></div>
+       *           <div style='background-color:#aa4499'></div>
+       *           <div style='background-color:#dddddd'></div>
+       *         </div>
+       *       </li>
+       *       <li>
+       *         <code>palette-light</code>A 8 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_light'>palette</a> designed by Paul Tol.
        *         <div class='palette'>
        *           <span>Colors:</span>
        *           <div style='background-color:#77aadd'></div>
@@ -355,7 +372,7 @@ export default (self, api) => {
        *         </div>
        *       </li>
        *       <li>
-       *         <code>palette-bright</code>A 7 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_vibrant'>palette</a> designed by Paul Tol.
+       *         <code>palette-vibrant</code>A 6 color colorblind friendly qualitative <a href='https://personal.sron.nl/~pault/#fig:scheme_vibrant'>palette</a> designed by Paul Tol.
        *         <div class='palette'>
        *           <span>Colors:</span>
        *           <div style='background-color:#ee7733'></div>
@@ -427,6 +444,9 @@ export default (self, api) => {
               break
             case 'palette-light':
               _.palette = light
+              break
+            case 'palette-muted':
+              _.palette = muted
               break
             case 'palette-sunset':
               _.palette = sunset.colors
