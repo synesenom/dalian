@@ -4,7 +4,7 @@ aside {
   top: 0;
   bottom: 0;
   overflow-y: scroll;
-  box-shadow: 0 0 4px black;
+  box-shadow: 0 0 20px #ccc;
 }
 
 aside .search-bar {
