@@ -38,7 +38,7 @@ export default (self, api) => {
      * Enables/disables the smooth property.
      *
      * @method smoothing
-     * @methodOf Smoothing
+     * @memberOf Smoothing
      * @param {boolean} [on = false] Whether to enable polygon smoothing.
      * @returns {Widget} Reference to the Widget's API.
      */

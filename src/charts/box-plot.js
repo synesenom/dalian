@@ -275,7 +275,7 @@ export default (name, parent = 'body') => {
      * Sets the box width in pixels.
      *
      * @method boxWidth
-     * @methodOf BoxPlot
+     * @memberOf BoxPlot
      * @param {number} [width = 20] Width of the box in pixels.
      * @returns {Object} Reference to the BoxPlot's API.
      * @example
@@ -299,7 +299,7 @@ export default (name, parent = 'body') => {
      * on plot groups are applied on the box level.
      *
      * @method data
-     * @methodOf BoxPlot
+     * @memberOf BoxPlot
      * @param {Object[]} plots Array of objects representing the boxes to show. Each box has two properties:
      * <dl>
      *   <dt>name</dt>  <dd>{string} Category name.</dd>

@@ -32,7 +32,7 @@ export default scale => {
          * Sets the X label for the chart.
          *
          * @method label
-         * @methodOf TopAxis
+         * @memberOf TopAxis
          * @param {string} label Text to set as the label.
          * @returns {Widget} Reference to the Widget's API.
          */
@@ -45,7 +45,7 @@ export default scale => {
          * Sets the X tick format of the chart.
          *
          * @method format
-         * @methodOf TopAxis
+         * @memberOf TopAxis
          * @param {Function} format Function to set as formatter.
          * @returns {Widget} Reference to the Widget's API.
          */
@@ -58,7 +58,7 @@ export default scale => {
          * Sets the X tick values explicitly to the specified values.
          *
          * @method values
-         * @methodOf TopAxis
+         * @memberOf TopAxis
          * @param {(number[] | string[])} values The values to show ticks for.
          * @returns {Widget} Reference to the Widget's API.
          */
@@ -71,7 +71,7 @@ export default scale => {
          * Hides the tick lines on the axis.
          *
          * @method hideTicks
-         * @methodOf TopAxis
+         * @memberOf TopAxis
          * @param {boolean} on Whether hiding ticks is on.
          * @returns {Widget} Reference to the Widget's API.
          */
@@ -85,7 +85,7 @@ export default scale => {
          * Hides the axis line on the axis.
          *
          * @method hideAxisLine
-         * @methodOf TopAxis
+         * @memberOf TopAxis
          * @param {boolean} on Whether hiding the axis line is on.
          * @returns {Widget} Reference to the Widget's API.
          */

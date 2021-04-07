@@ -90,7 +90,7 @@ export default (self, api) => {
      * updates the status of the placeholder and the widget still needs to be rendered in order to take effect.
      *
      * @method placeholder
-     * @methodOf Placeholder
+     * @memberOf Placeholder
      * @param {string} content Content of the placeholder. Can be HTML formatted. If omitted, the placeholder is
      * removed. Note that the content can be an empty string in which case the widget is simply hidden.
      * @returns {Widget} Reference to the Widget's API.

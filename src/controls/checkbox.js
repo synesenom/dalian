@@ -144,7 +144,7 @@ export default (name, parent = 'body') => {
      * Binds a callback to the checkbox.
      *
      * @method callback
-     * @methodOf Checkbox
+     * @memberOf Checkbox
      * @param {Function} callback Function to call when the checkbox is checked/unchecked. The checked status is passed to the method as parameter.
      * @returns {Checkbox} Reference to the Checkbox API.
      * @example
@@ -167,7 +167,7 @@ export default (name, parent = 'body') => {
      * Checks/unchecks the checkbox.
      *
      * @method check
-     * @methodOf Checkbox
+     * @memberOf Checkbox
      * @param {boolean} on Whether to check the box.
      * @returns {Checkbox} Reference to the Checkbox API.
      * @example
@@ -190,7 +190,7 @@ export default (name, parent = 'body') => {
      * Sets the checkbox color.
      *
      * @method color
-     * @methodOf Checkbox
+     * @memberOf Checkbox
      * @param {string} [color = grey] Color to set.
      * @returns {Checkbox} Reference to the Checkbox API.
      * @example
@@ -213,7 +213,7 @@ export default (name, parent = 'body') => {
      * Disables/enables the checkbox. If disabled, the checkbox cannot be interacted with.
      *
      * @method disable
-     * @methodOf Checkbox
+     * @memberOf Checkbox
      * @param {boolean} [on = false] Whether to disable the checkbox or not.
      * @returns {Checkbox} Reference to the Checkbox API.
      * @example
@@ -236,7 +236,7 @@ export default (name, parent = 'body') => {
      * Sets the checkbox label.
      *
      * @method label
-     * @methodOf Checkbox
+     * @memberOf Checkbox
      * @param {string} [text = ''] Label text.
      * @returns {Checkbox} Reference to the Checkbox API.
      * @example

@@ -112,7 +112,7 @@ export default (self, api) => {
      * Sets the format for the tooltip title.
      *
      * @method titleFormat
-     * @methodOf ElementTooltip
+     * @memberOf ElementTooltip
      * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the title
      * of the tooltip. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
@@ -126,7 +126,7 @@ export default (self, api) => {
      * Sets the format for the tooltip entry labels.
      *
      * @method labelFormat
-     * @methodOf ElementTooltip
+     * @memberOf ElementTooltip
      * @param {Function} [format = d => d + :] Function to use as the formatter. May take one parameter which is the
      * entry label. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
@@ -140,7 +140,7 @@ export default (self, api) => {
      * Sets the format for the tooltip entry values.
      *
      * @method valueFormat
-     * @methodOf ElementTooltip
+     * @memberOf ElementTooltip
      * @param {Function} [format = d => d] Function to use as the formatter. May take two parameters: the value for the entry and the entry name (label before the value). Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
      */

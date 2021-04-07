@@ -35,7 +35,7 @@ export default (self, api) => {
        * Sets the font size of the widget in pixels. Default size is 12px.
        *
        * @method size
-       * @methodOf Font
+       * @memberOf Font
        * @param {number} [size = 12] Size of the font in pixels.
        * @returns {Widget} Reference to the Widget API.
        */
@@ -48,7 +48,7 @@ export default (self, api) => {
        * Sets the font color of the widget. Default color is black.
        *
        * @method color
-       * @methodOf Font
+       * @memberOf Font
        * @param {string} [color = black] Color to set as font color.
        * @returns {Widget} Reference to the Widget API.
        */

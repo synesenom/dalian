@@ -176,7 +176,7 @@ export default (name, parent = 'body') => {
      * Binds a callback to the slider. Note that this  is called every time the handle is dragged (you may want to debounce it).
      *
      * @method callback
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {Function} [callback = null] Callback to bind when the handle is dragged. The current value is passed as parameter.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -199,7 +199,7 @@ export default (name, parent = 'body') => {
      * Sets the color of the active handle and value track of the slider.
      *
      * @method color
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {string} [color = grey] Color to set.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -222,7 +222,7 @@ export default (name, parent = 'body') => {
      * Sets the maximum of the slider.
      *
      * @method max
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {number} [value = 1] Maximum value to set.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -245,7 +245,7 @@ export default (name, parent = 'body') => {
      * Sets the minimum value of the slider.
      *
      * @method min
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {number} [value = 0] Minimum value to set.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -268,7 +268,7 @@ export default (name, parent = 'body') => {
      * Sets the step size for the slider. If it is set to 0, the slider can take continuous values.
      *
      * @method step
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {number} [value = 0] Step size to set. Only the absolute value of the provided number is considered.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -291,7 +291,7 @@ export default (name, parent = 'body') => {
      * Sets the slider thickness in pixels.
      *
      * @method thickness
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {number} [thickness = 8] Thickness to set.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -314,7 +314,7 @@ export default (name, parent = 'body') => {
      * Sets the slider's track color.
      *
      * @method trackColor
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {string} [color = #ddd] Color to set.
      * @returns {Slider} Reference to the Slider API.
      * @example
@@ -337,7 +337,7 @@ export default (name, parent = 'body') => {
      * Sets the slider's value. Note that this method does not invoke the callback, merely positions the handle.
      *
      * @method value
-     * @methodOf Slider
+     * @memberOf Slider
      * @param {number} [value = 0] Value to set handle to. If it is not specified, no change is taking place.
      * @returns {Slider} Reference to the Slider API.
      * @example

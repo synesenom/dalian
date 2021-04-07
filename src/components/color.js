@@ -298,7 +298,7 @@ export default (self, api) => {
        * </ul>
        *
        * @method policy
-       * @methodOf Color
+       * @memberOf Color
        * @param {string} [policy = categorical] Policy to set for the color scheme.
        * @returns {Widget} Reference to the Widget's API.
        * @example
@@ -402,7 +402,7 @@ export default (self, api) => {
        * </ul>
        *
        * @method palette
-       * @methodOf Color
+       * @memberOf Color
        * @param {(string | string[] | Object)} palette Color palette to set. If not specified, the
        * default policy is set. If string, it's either a built-in palette or a the color represented by the string is
        * used for all plots. If an array of strings, it's colors are assigned to plots as they are added to the widget
@@ -473,7 +473,7 @@ export default (self, api) => {
        * [here]{@link http://web.archive.org/web/20081030075157/http://www.nofunc.com/Color_Blindness_Library/}.
        *
        * @method deficiency
-       * @methodOf Color
+       * @memberOf Color
        * @param {string} type Type of deficiency to emulate. Supported values: <code>achromatomaly</code>,
        * <code>achromatopsia</code>, <code>deuteranomaly</code>, <code>deuteranopia</code>, <code>protanomaly</code>,
        * <code>protanopia</code>, <code>tritanomaly</code>, <code>tritanopia</code>. If it is not specified, true colors
@@ -504,7 +504,7 @@ export default (self, api) => {
        * </ul>
        *
        * @method on
-       * @methodOf Color
+       * @memberOf Color
        * @param {Function} [on = d => d.name] Function that maps from a data point to a set of categories, the interval
        * [0, 1] or the interval [-1, 1].
        * @returns {Widget} Reference to the Widget's API.

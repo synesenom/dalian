@@ -24,7 +24,7 @@ export default (self, api) => {
      * Sets the label formatter.
      *
      * @method label
-     * @methodOf Label
+     * @memberOf Label
      * @param {Function?} format Function that takes a single data point as parameter and returns a text representing
      * the label to show.
      * @returns {Widget} Reference to the Widget's API.

@@ -19,10 +19,9 @@ export default defaultValue => {
          * Returns the current line width mapping for a key.
          *
          * @method mapping
-         * @methodOf LineWidth
+         * @memberOf LineWidth
          * @param {string} key Key to return line-width for.
          * @returns {string} The current line width in pixels with the 'px' suffix.
-         * @protected
          */
         mapping: key => _.mapping(key)
       }
@@ -41,7 +40,7 @@ export default defaultValue => {
        * </ul>
        *
        * @method lineWidth
-       * @methodOf LineWidth
+       * @memberOf LineWidth
        * @param {(string | Object)} policy Line width policy to set. Default value depends on the widget that has this
        * component.
        * @returns {Widget} Reference to the Widget's API.

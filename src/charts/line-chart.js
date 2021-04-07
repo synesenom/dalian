@@ -244,7 +244,7 @@ export default (name, parent = 'body') => {
    * Set/updates the data that is shown in the line chart.
    *
    * @method data
-   * @methodOf LineChart
+   * @memberOf LineChart
    * @param {Object[]} plots Array of objects representing the lines to show. Each plot has two properties:
    * <dl>
    *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>

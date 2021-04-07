@@ -235,7 +235,7 @@ export default (name, parent = 'body') => {
      * Sets the violin width in pixels.
      *
      * @method violinWidth
-     * @methodOf ViolinPlot
+     * @memberOf ViolinPlot
      * @param {number} [width = 30] Width of the violins in pixels.
      * @returns {Object} Reference to the ViolinPlot's API.
      * @example
@@ -266,7 +266,7 @@ export default (name, parent = 'body') => {
      * Sets the bandwidth of the violin's kernel density estimate to the specified value.
      *
      * @method bandwidth
-     * @methodOf ViolinPlot
+     * @memberOf ViolinPlot
      * @param {number} [bandwidth = 1] Bandwidth size.
      * @returns {Object} Reference to the ViolinPlot's API.
      * @example
@@ -303,7 +303,7 @@ export default (name, parent = 'body') => {
      * applied on the violin level.
      *
      * @method data
-     * @methodOf ViolinPlot
+     * @memberOf ViolinPlot
      * @param {Object[]} plots Array of objects representing the violins to show. Each violin has two properties:
      * <dl>
      *   <dt>name</dt>   <dd>{string} Category name.</dd>

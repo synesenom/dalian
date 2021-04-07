@@ -286,7 +286,7 @@ export default (name, parent = 'body') => {
      * Sets the inner radius of the pie chart making it actually a donut chart.
      *
      * @method innerRadius
-     * @methodOf PieChart
+     * @memberOf PieChart
      * @param {number} [radius = 0] The inner radius in pixels.
      * @returns {PieChart} Reference to the PieChart API.
      * @example
@@ -309,7 +309,7 @@ export default (name, parent = 'body') => {
      * Sets the outer radius of the pie chart.
      *
      * @method outerRadius
-     * @methodOf PieChart
+     * @memberOf PieChart
      * @param {number} [radius = 100] The outer radius in pixels. If not specified, it is set to 100.
      * @returns {PieChart} Reference to the PieChart API.
      * @example
@@ -333,7 +333,7 @@ export default (name, parent = 'body') => {
      * methods that operate on plot groups are applied on the slice level.
      *
      * @method data
-     * @methodOf PieChart
+     * @memberOf PieChart
      * @param {Object[]} plots Array of objects representing the pie slices to show. Each slice has two properties:
      * <dl>
      *   <dt>name</dt>  <dd>{string} Category name.</dd>

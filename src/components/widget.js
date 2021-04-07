@@ -78,7 +78,7 @@ export default (type, name, parent, elem) => {
      * Returns a selection with different behavior based on whether the widget has been initialized yet. If the widget is already initialized, it returns the transitioned form of the selection, otherwise it returns the selection and initializes the widget.
      *
      * @method getElem
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {Object} selection Selection to retrieve.
      * @param {number} duration Duration of the
      * @return {Object} The selection or transition of the selection.
@@ -174,7 +174,7 @@ export default (type, name, parent, elem) => {
      * measured from the right side of the parent, otherwise its left side is measured from the parent's left side.
      *
      * @method x
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {number} [value = 0] Value of the X coordinate in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
@@ -191,7 +191,7 @@ export default (type, name, parent, elem) => {
      * parent's top.
      *
      * @method y
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {number} [value = 0] Value of the Y coordinate in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
@@ -206,7 +206,7 @@ export default (type, name, parent, elem) => {
      * Sets the width of the widget in pixels (including it's margins).
      *
      * @method width
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {number} [value = 300] Width value in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
@@ -220,7 +220,7 @@ export default (type, name, parent, elem) => {
      * Sets the height of the widget in pixels (including it's margins).
      *
      * @method height
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {number} [value = 200] Height value in pixels.
      * @returns {Widget} Reference to the Widget's API.
      */
@@ -235,7 +235,7 @@ export default (type, name, parent, elem) => {
      * area.
      *
      * @method margins
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {(number | Object)} [margins = 0] A single number to set all sides to or an object specifying some of the
      * sides.
      * @returns {Widget} Reference to the Widget's API.
@@ -278,7 +278,7 @@ export default (type, name, parent, elem) => {
      * Renders and updates the widget. After any change to the widget, the render method should be called.
      *
      * @method render
-     * @methodOf Widget
+     * @memberOf Widget
      * @param {number?} duration Duration of the rendering animation in ms. If not specified, the rendering does not
      * involve animations.
      * @returns {Widget} Reference to the Widget's API.

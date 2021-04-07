@@ -229,7 +229,7 @@ export default (name, parent = 'body') => {
      * Sets the circles' radius in pixels. Default value is 4.
      *
      * @method size
-     * @methodOf ScatterPlot
+     * @memberOf ScatterPlot
      * @param {number} [value = 4] Radius of the circles to set in pixels
      * @returns {Object} Reference to the ScattePlot's API.
      * @example
@@ -252,7 +252,7 @@ export default (name, parent = 'body') => {
      * Set/updates the data that is shown in the scatter plot.
      *
      * @method data
-     * @methodOf ScatterPlot
+     * @memberOf ScatterPlot
      * @param {Object[]} plots Array of objects representing the dot clouds to show. Each plot has two properties:
      * <dl>
      *   <dt>name</dt>   <dd>{string} Name of the plot.</dd>

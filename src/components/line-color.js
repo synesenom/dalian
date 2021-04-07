@@ -1,17 +1,24 @@
 // TODO Add API docs.
 // TODO Add example.
+/**
+ * Component implementing the line color feature. When this component is available for a widget, its API is exposed via the {.lineColor} namespace.
+ *
+ * @function LineColor
+ * @param {string} defaultValue Default line color to use with the component.
+ */
 export default defaultValue => {
   return (self, api) => {
     // Private members.
     const _ = {
       // Default behavior.
-      mapping: () => defaultValue + 'px'
+      mapping: () => defaultValue
     }
 
     // Protected members.
     self = Object.assign(self || {}, {
       _lineColor: {
         // Mapping used internally.
+        // TODO Docs.
         mapping: key => _.mapping(key)
       }
     })
@@ -29,7 +36,7 @@ export default defaultValue => {
        * </ul>
        *
        * @method lineColor
-       * @methodOf LineColor
+       * @memberOf LineColor
        * @param {(string | Object)} policy Line color policy to set. Default value depends on the widget that has this
        * component.
        * @returns {Widget} Reference to the Widget's API.

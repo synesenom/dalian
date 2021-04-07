@@ -118,7 +118,7 @@ export default scales => (() => {
          * Removes one or all objects from the widget.
          *
          * @method remove
-         * @methodOf Objects
+         * @memberOf Objects
          * @param {(string | null)?} id Identifier of the object to remove. If not specified or null, all objects are
          * removed.
          * @param {number} [duration = 0] Duration of the removal animation.
@@ -144,7 +144,7 @@ export default scales => (() => {
          * Returns a D3 selection to an invisible SVG that can be used to draw an object to add. Useful if you want to use D3's simple chainable API to create objects to add.
          *
          * @method svg
-         * @methodOf Objects
+         * @memberOf Objects
          * @return {Selection} D3 selection to the Objects API SVG.
          */
         svg () {

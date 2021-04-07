@@ -462,7 +462,7 @@ export default (name, parent = 'body') => {
      * has to be defined for the data using the <a href='#schema'>schema</a> method.
      *
      * @method data
-     * @methodOf Table
+     * @memberOf Table
      * @param {Object[]} data Array of objects representing the rows of the table. Each row is an object with the column
      * IDs as property names and cell values as values.
      * @returns {Table} Reference to the Table API.
@@ -498,7 +498,7 @@ export default (name, parent = 'body') => {
      * Sets the table schema. The schema contains column names and types.
      *
      * @method schema
-     * @methodOf Table
+     * @memberOf Table
      * @param {Object[]} schema Array of objects representing the columns. Each column must have a {key} and
      * {name} properties. Also, the column can have the following optional properties:
      * <ul>
@@ -527,7 +527,7 @@ export default (name, parent = 'body') => {
      * Sets the table theme color.
      *
      * @method color
-     * @methodOf Table
+     * @memberOf Table
      * @param {string} [color = #888] Color to set.
      * @returns {Table} Reference to the Table API.
      * @example
@@ -571,7 +571,7 @@ export default (name, parent = 'body') => {
      * Enables/disables paging functionality.
      *
      * @method paging
-     * @methodOf Table
+     * @memberOf Table
      * @param {number} size Number of rows in a single page.
      * @returns {Table} Reference to the Table API.
      * @example

@@ -129,7 +129,7 @@ export default (self, api) => {
      * Sets the format for the tooltip title.
      *
      * @method titleFormat
-     * @methodOf PointTooltip
+     * @memberOf PointTooltip
      * @param {Function} [format = d => d] Function to use as the formatter. May take one parameter which is the title
      * of the tooltip. Can be HTML formatted.
      * @returns {Widget} Reference to the Widget API.
@@ -143,7 +143,7 @@ export default (self, api) => {
      * Sets the format of the tooltip entry values.
      *
      * @method valueFormat
-     * @methodOf PointTooltip
+     * @memberOf PointTooltip
      * @param {Function} [format = d => d.y] Function to use as the formatter. May take one parameter which is the data
      * point for the current plot's entry containing the plot name and the data. Can be HTML formatted. If the return
      * value is null, the value is ignored.

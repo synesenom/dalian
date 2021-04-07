@@ -182,7 +182,7 @@ export default (name, parent = 'body') => {
      * Sets the order of dimensions to show: they are positioned counter -clockwise. By default dimensions are read from the data and keys are sorted alphabetically.
      *
      * @method dimensions
-     * @methodOf RadarChart
+     * @memberOf RadarChart
      * @param {string[]} [dimensions = null] Array representing the order of dimensions. If not specified, keys are read from data and sorted alphabetically.
      * @returns {Object} Reference to the ViolinPlot's API.
      * @example
@@ -205,7 +205,7 @@ export default (name, parent = 'body') => {
      * Sets the radius in pixels.
      *
      * @method radius
-     * @methodOf RadarChart
+     * @memberOf RadarChart
      * @param {number} [radius = 100] Radius length to set.
      * @returns {Object} Reference to the ViolinPlot's API.
      * @example

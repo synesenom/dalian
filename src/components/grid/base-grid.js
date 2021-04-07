@@ -77,7 +77,7 @@ export default type => {
        * Turns on/off grid lines. By default, the grid is off.
        *
        * @method on
-       * @methodOf BaseGrid
+       * @memberOf BaseGrid
        * @param {boolean} on Whether to have grid lines.
        * @returns {Widget} Reference to the Widget's API.
        * @example
@@ -97,7 +97,7 @@ export default type => {
        * Sets the grid line's opacity. The grid color is the same as the axis color. Default opacity is 0.3.
        *
        * @method opacity
-       * @methodOf BaseGrid
+       * @memberOf BaseGrid
        * @param {number} value The opacity value.
        * @returns {Widget} Reference to the Widget's API.
        * @example
@@ -114,7 +114,7 @@ export default type => {
        * Sets the grid line's line style. Default line style is dashed.
        *
        * @method lineStyle
-       * @methodOf BaseGrid
+       * @memberOf BaseGrid
        * @param {string} style Line style. Supported values: solid, dashed, dotted.
        * @returns {Widget} Reference to the Widget's API.
        * @example

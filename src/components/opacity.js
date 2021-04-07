@@ -32,7 +32,7 @@ export default defaultValue => {
        * Sets the opacity value of the widget's elements.
        *
        * @method opacity
-       * @methodOf Opacity
+       * @memberOf Opacity
        * @param {number} value The opacity value to set. The default value depends on the widget that has this
        * component.
        * @returns {Widget} Reference to the Widget's API.

@@ -183,7 +183,7 @@ export default (name, parent = 'body') => {
      * Sets the grid of the heatmap. Initial size is 100x100.
      *
      * @method grid
-     * @methodOf Heatmap
+     * @memberOf Heatmap
      * @param {number[]} grid Array containing the horizontal and vertical grid size.
      * @returns {Heatmap} Reference to the Heatmap API.
      * @example
@@ -212,7 +212,7 @@ export default (name, parent = 'body') => {
      * Set/updates the chart data.
      *
      * @method data
-     * @methodOf Heatmap
+     * @memberOf Heatmap
      * @param {Object[]} plots Array of objects representing the density to display. Each object describes a grid with its value:
      * <dl>
      *   <dt>x</dt>     <dd>{number} Horizontal grid index.</dd>

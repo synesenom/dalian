@@ -22,7 +22,7 @@ export default (self, api) => {
        * Sets the lower boundary for the X axis.
        *
        * @method min
-       * @methodOf XRange
+       * @memberOf XRange
        * @param {(number|null)} value The lower boundary to set. If null, the calculated lower boundary is used.
        * @returns {Widget} Reference to the Widget's API.
        */
@@ -36,7 +36,7 @@ export default (self, api) => {
        * range.
        *
        * @method compressMin
-       * @methodOf XRange
+       * @memberOf XRange
        * @param {number} [value = 0] Scaling factor to expand the lower boundary with.
        * @returns {Widget} Reference to the Widget's API.
        */
@@ -49,7 +49,7 @@ export default (self, api) => {
        * Sets the upper boundary for the X axis.
        *
        * @method max
-       * @methodOf XRange
+       * @memberOf XRange
        * @param {(number|null)} value The upper boundary to set. If null, the calculated upper boundary is used.
        * @returns {Widget} Reference to the Widget's API.
        */
@@ -63,7 +63,7 @@ export default (self, api) => {
        * range.
        *
        * @method compressMax
-       * @methodOf XRange
+       * @memberOf XRange
        * @param {number} [value = 0] Scaling factor to expand the upper boundary with.
        * @returns {Widget} Reference to the Widget's API.
        */

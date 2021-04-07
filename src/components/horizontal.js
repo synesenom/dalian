@@ -32,7 +32,7 @@ export default (scales) => {
        * Converts the current chart to a horizontal one. Note that this method does not swap the axis labels.
        *
        * @method horizontal
-       * @methodOf Horizontal
+       * @memberOf Horizontal
        * @param {boolean} on Whether the chart should be horizontal.
        * @returns {Widget} Reference to the Widget's API.
        */

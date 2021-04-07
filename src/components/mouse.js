@@ -51,7 +51,7 @@ export default (self, api) => {
        * Sets the callback for the over event.
        *
        * @method over
-       * @methodOf Mouse
+       * @memberOf Mouse
        * @param {Function} callback Function to call on over.
        * @returns {Widget} Reference to the Widget API.
        */
@@ -64,7 +64,7 @@ export default (self, api) => {
        * Sets the callback for the leave event.
        *
        * @method leave
-       * @methodOf Mouse
+       * @memberOf Mouse
        * @param {Function} callback Function to call on leave.
        * @returns {Widget} Reference to the Widget API.
        */
@@ -77,7 +77,7 @@ export default (self, api) => {
        * Sets the callback for the click event.
        *
        * @method click
-       * @methodOf Mouse
+       * @memberOf Mouse
        * @param {Function} callback Function to call on click.
        * @returns {Widget} Reference to the Widget API.
        */

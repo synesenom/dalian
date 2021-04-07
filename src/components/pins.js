@@ -39,7 +39,7 @@ export default scales => (() => {
          * Adds a pins to the chart. If the pon ID already exists, no action is taken.
          *
          * @method add
-         * @methodOf Pins
+         * @memberOf Pins
          * @param {string} id Unique identifier of the pins.
          * @param {number} position Value to add pins to.
          * @param {Object} [options = {}] Pin design options. Supported values:
@@ -187,7 +187,7 @@ export default scales => (() => {
          * Removes one or all pins from the chart.
          *
          * @method remove
-         * @methodOf Pins
+         * @memberOf Pins
          * @param {string} [id = undefined] Identifier of the pins to remove. If pins with the specified identifier does not
          * exist, no change is applied. If it is not specified, all pins are removed from the current chart.
          * @param {number} [duration = 0] Duration of the remove animation.

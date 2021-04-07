@@ -79,7 +79,7 @@ export default scales => (() => {
          * Adds a trends to the chart. If the trends ID already exists, no further trends are added.
          *
          * @method add
-         * @methodOf Trends
+         * @memberOf Trends
          * @param {string} id Unique identifier of the trends.
          * @param {string} key Key of the plot to add the trends to.
          * @param {number} start Starting (left side) value of the trends.
@@ -185,7 +185,7 @@ export default scales => (() => {
          * Removes one or all trends from the chart.
          *
          * @method remove
-         * @methodOf Trends
+         * @memberOf Trends
          * @param {string} [id = undefined] Identifier of the trends to remove. If trends with the specified identifier
          * does not exist, no change is applied. If it is not specified, all trends are removed from the current chart.
          * @param {number} [duration = 0] Duration of the remove animation.

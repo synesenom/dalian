@@ -213,7 +213,7 @@ export default (name, parent = 'body') => {
    * methods that operate on plot groups are applied on the bar level.
    *
    * @method data
-   * @methodOf BarChart
+   * @memberOf BarChart
    * @param {Object[]} plots Array of objects representing the bars to show. Each bar has two properties:
    * <dl>
    *   <dt>name</dt>  <dd>{string} Category name.</dd>

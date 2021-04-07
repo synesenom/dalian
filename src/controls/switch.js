@@ -150,7 +150,7 @@ export default (name, parent = 'body') => {
      * Binds a callback to the switch.
      *
      * @method callback
-     * @methodOf Switch
+     * @memberOf Switch
      * @param {Function} callback Function to call when the switch is toggled. The switch status is passed to the method as parameter.
      * @returns {Switch} Reference to the Switch API.
      * @example
@@ -173,7 +173,7 @@ export default (name, parent = 'body') => {
      * Toggles the switch.
      *
      * @method toggle
-     * @methodOf Switch
+     * @memberOf Switch
      * @param {boolean} on Whether to toggle the switch on or off.
      * @returns {Switch} Reference to the Switch API.
      * @example
@@ -196,7 +196,7 @@ export default (name, parent = 'body') => {
      * Sets the switch color.
      *
      * @method color
-     * @methodOf switchBtn
+     * @memberOf switchBtn
      * @param {string} [color = grey] Color to set.
      * @returns {Switch} Reference to the Switch API.
      * @example
@@ -219,7 +219,7 @@ export default (name, parent = 'body') => {
      * Disables/enables the switch. If disabled, the switch cannot be interacted with.
      *
      * @method disable
-     * @methodOf Checkbox
+     * @memberOf Checkbox
      * @param {boolean} [on = false] Whether to disable the switch or not.
      * @returns {Switch} Reference to the Switch API.
      * @example
@@ -242,7 +242,7 @@ export default (name, parent = 'body') => {
      * Sets the switch label.
      *
      * @method label
-     * @methodOf Switch
+     * @memberOf Switch
      * @param {string} [text = ''] Label text.
      * @returns {Switch} Reference to the Switch API.
      * @example

@@ -223,7 +223,7 @@ export default (name, parent = 'body') => {
      * Sets the radius of the chord chart.
      *
      * @method radius
-     * @methodOf ChordDiagram
+     * @memberOf ChordDiagram
      * @param {number} [value = 100] Chart radius in pixels.
      * @returns {ChordChart} Reference to the ChordDiagram API.
      * @example
@@ -246,7 +246,7 @@ export default (name, parent = 'body') => {
      * Sets the thickness of the outer arcs.
      *
      * @method thickness
-     * @methodOf ChordDiagram
+     * @memberOf ChordDiagram
      * @param {number} [value = 10] Thickness of the arcs in pixel.
      * @returns {ChordChart} Reference to the ChordDiagram API.
      * @example
@@ -270,7 +270,7 @@ export default (name, parent = 'body') => {
      * methods that operate on plot groups are applied on the arc level.
      *
      * @method data
-     * @methodOf ChordDiagram
+     * @memberOf ChordDiagram
      * @param {Object[]} plots Array of objects representing the flows from one group to another. Each flow has three properties:
      * <dl>
      *   <dt>source</dt> <dd>{string} Name of the source group.</dd>

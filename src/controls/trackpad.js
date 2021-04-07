@@ -215,7 +215,7 @@ export default (name, parent = 'body') => {
      * Binds a callback to the trackpad. Note that this  is called every time the handle is dragged (you may want to debounce it).
      *
      * @method callback
-     * @methodOf Trackpad
+     * @memberOf Trackpad
      * @param {Function} callback Callback to bind when the handle is dragged. The current values are passed as two separate parameters.
      * @returns {Trackpad} Reference to the Trackpad API.
      * @example
@@ -238,7 +238,7 @@ export default (name, parent = 'body') => {
      * Sets the color of the trackpad.
      *
      * @method color
-     * @methodOf Trackpad
+     * @memberOf Trackpad
      * @param {string} [color = grey] Color to set.
      * @returns {Trackpad} Reference to the Trackpad API.
      * @example
@@ -261,7 +261,7 @@ export default (name, parent = 'body') => {
      * Turns on/off guiding lines.
      *
      * @method guide
-     * @methodOf Trackpad
+     * @memberOf Trackpad
      * @param {boolean} [on = false] Whether to turn on guiding lines.
      * @returns {Trackpad} Reference to the Trackpad API.
      * @example
@@ -284,7 +284,7 @@ export default (name, parent = 'body') => {
      * Sets the range to one or both axes. If null or undefined is passed to any of the ranges that range remains unchanged.
      *
      * @method range
-     * @methodOf Trackpad
+     * @memberOf Trackpad
      * @param {(number[]|null)?} range1 First (x) range.
      * @param {(number[]|null)?} range2 Second (y) range.
      * @returns {Trackpad} Reference to the Trackpad API.
@@ -315,7 +315,7 @@ export default (name, parent = 'body') => {
      * Sets one/all of the trackpad values. If null or undefined is passed to any of the values that value remains unchanged.
      *
      * @method value
-     * @methodOf Trackpad
+     * @memberOf Trackpad
      * @param {(number|null)?} value1 First (x) value.
      * @param {(number|null)?} value2 Second (y) value.
      * @returns {Trackpad} Reference to the Trackpad API.

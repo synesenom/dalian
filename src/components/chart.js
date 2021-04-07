@@ -147,7 +147,7 @@ export default (type, name, parent, elem = 'svg') => {
      * font (which is inherited from its parent) must be installed.
      *
      * @method download
-     * @methodOf Chart
+     * @memberOf Chart
      * @param {string} filename Name of the file to download chart at (without extension).
      * @returns {Widget} Reference to the Widget API.
      * @async

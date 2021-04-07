@@ -205,7 +205,7 @@ export default (name, parent = 'body') => {
      * Sets the entries of the legend. Legend entries follow the same order as provided by this method.
      *
      * @method entries
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {Object[]} entries Array of objects representing the legend entries. Each entry is defined by a {name} and
      * a {label} property. The name is used for coloring, styling and interactions whereas the label is the displayed
      * name of the entry.
@@ -237,7 +237,7 @@ export default (name, parent = 'body') => {
      * Sets the background style of the legend entry markers.
      *
      * @method styles
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {Object} styles Object mapping from the entry names to style strings. If an entry's name is not present in
      * the mapping, it defaults to solid. Default value is solid for all entries. A typical parameter is the return
      * value from the <a href="../components/line-style.html">LineStyle</a> component's mapper function.
@@ -265,7 +265,7 @@ export default (name, parent = 'body') => {
      * Sets the legend marker shape.
      *
      * @method markers
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {string} [markers = square] Marker shape. Either one of the supported values (square, circle) or a custom
      * path. In case of a custom marker, the passed string is used as the d attribute of a path. Note that the path
      * origin is set to the center of the square marker.
@@ -290,7 +290,7 @@ export default (name, parent = 'body') => {
      * Sets the number of columns to organize legend entries in.
      *
      * @method columns
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {number} [columns = 1] Number of columns.
      * @returns {Object} Reference to the Legend's API.
      * @example
@@ -314,7 +314,7 @@ export default (name, parent = 'body') => {
      * entry labels.
      *
      * @method vSep
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {number} [length = 1.4] Size of the vertical separation in units of the current font size.
      * @returns {Object} Reference to the Legend's API.
      * @example
@@ -338,7 +338,7 @@ export default (name, parent = 'body') => {
      * entry markers.
      *
      * @method hSep
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {number} [length = 6] Size of the horizontal separation in units of the current font size.
      * @returns {Object} Reference to the Legend's API.
      * @example
@@ -363,7 +363,7 @@ export default (name, parent = 'body') => {
      * However, all Legend API methods continue to function as expected.
      *
      * @method insert
-     * @methodOf Legend
+     * @memberOf Legend
      * @param {Widget} widget Any widget that supports inserting objects. If not specified, the legend is removed from
      * the current parent widget (if there is any).
      * @param {Object} pos Object representing the position within the widget where the legend should be inserted.

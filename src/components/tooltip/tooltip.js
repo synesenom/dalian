@@ -149,7 +149,7 @@ export default (self, api) => {
      * Enables/disables tooltip.
      *
      * @method on
-     * @methodOf Tooltip
+     * @memberOf Tooltip
      * @param {boolean} [on = false] Whether tooltip should be enabled or not.
      * @returns {Widget} Reference to the Widget API.
      */

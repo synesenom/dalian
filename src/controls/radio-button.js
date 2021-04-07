@@ -199,7 +199,7 @@ export default (name, parent = 'body') => {
      * Binds a callback to the radio buttons.
      *
      * @method callback
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {Function} callback Function to call when a radio button is selected. The label of the radio button is passed to the method as parameter.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -222,7 +222,7 @@ export default (name, parent = 'body') => {
      * Sets the radio button color.
      *
      * @method color
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {string} [color = grey] Color to set.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -245,7 +245,7 @@ export default (name, parent = 'body') => {
      * Sets the number of columns for the radio buttons.
      *
      * @method columns
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {number} [columns = 1] Number of columns to set.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -269,7 +269,7 @@ export default (name, parent = 'body') => {
      * Disables/enables the radio buttons. If disabled, the buttons cannot be interacted with.
      *
      * @method disable
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {boolean} [on = false] Whether to disable the buttons or not.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -292,7 +292,7 @@ export default (name, parent = 'body') => {
      * Sets the entries for the radio buttons. Note that the entry values are used as the labels as well.
      *
      * @method entries
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {string[]} [labels = []] Array of entries representing the radio buttons.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -316,7 +316,7 @@ export default (name, parent = 'body') => {
      * Sets the horizontal separation between the buttons. The separation is measured between the center of the radio markers and the labels fill the available space defined by the widget width and the margins. If it  is set to null or undefined, the columns are positioned uniformly horizontally.
      *
      * @method hSep
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {(number|null)} [length = 0] Size of the horizontal separation in units of the current font size.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -339,7 +339,7 @@ export default (name, parent = 'body') => {
      * Selects a radio button or removes selection from all buttons. Note that this method does not trigger the callback, only updates the buttons.
      *
      * @method select
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {string} entry Radio button to select. If an invalid entry is passed, none of the buttons are selected.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example
@@ -369,7 +369,7 @@ export default (name, parent = 'body') => {
      * Sets the vertical separation between the buttons. The separation is measured between the center of the ratio markers. Note that the entries fill in the space defined by the widget height and the margins.
      *
      * @method vSep
-     * @methodOf RadioButton
+     * @memberOf RadioButton
      * @param {number} [length = 0] Size of the vertical separation in units of the current font size.
      * @returns {RadioButton} Reference to the RadioButton API.
      * @example

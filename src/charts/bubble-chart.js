@@ -238,7 +238,7 @@ export default (name, parent = 'body') => {
      * Sets the maximum radius in pixels for the bubbles.
      *
      * @method radius
-     * @methodOf BubbleChart
+     * @memberOf BubbleChart
      * @param {number} [radius = 30] Maximum radius in pixels.
      * @returns {Object} Reference to the BubbleChart API.
      * @example
@@ -262,7 +262,7 @@ export default (name, parent = 'body') => {
      * applied on the bubble level.
      *
      * @method data
-     * @methodOf BubbleChart
+     * @memberOf BubbleChart
      * @param {Object[]} plots Array of objects representing the bubbles to show. Each bubble has two properties:
      * <dl>
      *   <dt>name</dt>  <dd>{string} Category name.</dd>

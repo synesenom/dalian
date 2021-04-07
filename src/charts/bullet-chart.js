@@ -199,7 +199,7 @@ export default (name, parent = 'body') => {
      * Sets the bar's value.
      *
      * @method value
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {number} [value = 0] Value to set the bar to.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -222,7 +222,7 @@ export default (name, parent = 'body') => {
      * Sets the forecast value in units of the bar's value.
      *
      * @method forecast
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {number} [forecast = 1] Forecast value in units of the bar value.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -245,7 +245,7 @@ export default (name, parent = 'body') => {
      * Sets the target value.
      *
      * @method target
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {number} target Target value to set.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -264,7 +264,7 @@ export default (name, parent = 'body') => {
      * Sets the qualitative ranges.
      *
      * @method ranges
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {number[]} [ranges = [0, 50, 80, 100] Array representing the boundaries of the ranges. Must have four
      * values corresponding to the boundaries of the three ranges.
      * @returns {BulletChart} Reference to the BulletChart API.
@@ -288,7 +288,7 @@ export default (name, parent = 'body') => {
      * Sets the thickness of the range.
      *
      * @method thickness
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {number} [thickness = 30] Thickness to set.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -312,7 +312,7 @@ export default (name, parent = 'body') => {
      * value color.
      *
      * @method valueColor
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {string} [color = #000] Color to set for the bar, forecast and target.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -335,7 +335,7 @@ export default (name, parent = 'body') => {
      * Sets the color for the ranges.
      *
      * @method rangeColor
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {string} [color = #888] Color to set for the ranges.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -358,7 +358,7 @@ export default (name, parent = 'body') => {
      * Sets the chart label.
      *
      * @method label
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {string} label Label to set for the chart.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example
@@ -376,7 +376,7 @@ export default (name, parent = 'body') => {
      * Sets the unit description.
      *
      * @method unit
-     * @methodOf BulletChart
+     * @memberOf BulletChart
      * @param {string} unit Unit description.
      * @returns {BulletChart} Reference to the BulletChart API.
      * @example

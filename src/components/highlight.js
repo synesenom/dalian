@@ -80,7 +80,7 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
        * Highlights a single plot or multiple plots.
        *
        * @method highlight
-       * @methodOf Highlight
+       * @memberOf Highlight
        * @param {(string | string[] | null)} [keys] Single key or array of keys identifying the elements to highlight.
        * If key is {null} or {undefined}, the highlight is removed (all plots become visible).
        * @param {number} [duration = 0] Duration of the highlight animation in ms.

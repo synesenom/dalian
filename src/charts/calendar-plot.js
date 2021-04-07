@@ -339,7 +339,7 @@ export default (name, parent = 'body') => {
      * Sets the names of the months.
      *
      * @method months
-     * @methodOf CalendarPlot
+     * @memberOf CalendarPlot
      * @param {string[]} names Array of strings representing the month names. Default values are the month names in
      * English.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
@@ -364,7 +364,7 @@ export default (name, parent = 'body') => {
      * Sets the label alignment for the month blocks.
      *
      * @method blockAlign
-     * @methodOf CalendarPlot
+     * @memberOf CalendarPlot
      * @param {string} [align = start] Alignment value to set. Supported values: start, middle.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
      * @example
@@ -387,7 +387,7 @@ export default (name, parent = 'body') => {
      * Sets the margin between the month blocks.
      *
      * @method blockMargin
-     * @methodOf CalendarPlot
+     * @memberOf CalendarPlot
      * @param {number} [margin = 0] Size of the margin between month blocks relative to the tile size.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
      * @example
@@ -410,7 +410,7 @@ export default (name, parent = 'body') => {
      * Sets the names of the days.
      *
      * @method days
-     * @methodOf CalendarPlot
+     * @memberOf CalendarPlot
      * @param {string[]} names Array representing the names of the days, starting with Sunday. Default values are the
      * short names in English.
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
@@ -434,7 +434,7 @@ export default (name, parent = 'body') => {
      * Sets the start of the week (topmost weekday).
      *
      * @method weekStart
-     * @methodOf CalendarPlot
+     * @memberOf CalendarPlot
      * @param {number} day Week start as an index. Supported values go from 0 (Sunday) to 6 (Saturday).
      * @returns {CalendarPlot} Reference to the CalendarPlot API.
      * @example
@@ -461,7 +461,7 @@ export default (name, parent = 'body') => {
      * so methods that operate on plot groups are applied on the month blocks.
      *
      * @method data
-     * @methodOf CalendarPlot
+     * @memberOf CalendarPlot
      * @param {Object[]} plots Array of objects representing the date values. Each data point has two properties:
      * <dl>
      *   <dt>date</dt>  <dd>{string} Date of the data point in ISO 8601 YYYY-MM-DD date format.</dd>

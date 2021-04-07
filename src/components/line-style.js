@@ -13,9 +13,12 @@ export default (self, api) => {
     // Methods.
     // TODO Docstring.
     /**
+     * Returns the stroke-dasharray value for the specified style.
      *
-     * @param style
-     * @returns {string|null}
+     * @method getStrokeDashArray
+     * @memberOf LineStyle
+     * @param {string} style Line style to get  stroke-dasharray value for.
+     * @returns {string|null} The value corresponding to the style.
      */
     getStrokeDashArray: style => {
       switch (style) {
@@ -37,7 +40,7 @@ export default (self, api) => {
        * Returns the stroke dasharray CSS property value for a specific key.
        *
        * @method strokeDashArray
-       * @methodOf LineStyle
+       * @memberOf LineStyle
        * @param {string} key Key to return stroke dasharray for.
        * @returns {(null | string)} The stroke dasharray value if policy is defined by a string or an object, null
        * otherwise (no stroke dasharray).
@@ -60,7 +63,7 @@ export default (self, api) => {
        * Returns the style for a specific key.
        *
        * @method style
-       * @methodOf LineStyle
+       * @memberOf LineStyle
        * @param {string} key Key to return style for.
        * @returns {string} The style associated with the key.
        * @ignore
@@ -82,7 +85,7 @@ export default (self, api) => {
        * Returns the background CSS property value for a specific line style.
        *
        * @method background
-       * @methodOf LinkStyle
+       * @memberOf LinkStyle
        * @param {string} style Line style to return background pattern for.
        * @param {string} color Color to use for the background pattern.
        * @returns {string} The background CSS property value.
@@ -115,7 +118,7 @@ export default (self, api) => {
      * </ul>
      *
      * @method lineStyle
-     * @methodOf LineStyle
+     * @memberOf LineStyle
      * @param {(string | Object)} policy Line style policy to set. If not specified, the default policy is set which is
      * solid for all plots.
      * @returns {Object} Reference to the LineStyle API.

@@ -253,7 +253,7 @@ export default (name, parent = 'body') => {
      * Sets the maximum radius of the chart.
      *
      * @method radius
-     * @methodOf CoxcombChart
+     * @memberOf CoxcombChart
      * @param {number} [radius = 100] Radius to set in pixels.
      * @returns {CoxcombChart} Reference to the CoxcombChart API.
      * @example
@@ -276,7 +276,7 @@ export default (name, parent = 'body') => {
      * Sets the start angle of the chart (first wedge).
      *
      * @method angle
-     * @methodOf CoxcombChart
+     * @memberOf CoxcombChart
      * @param {number} [angle = 0] Start angle in degrees measured from the top of the vertical center of the chart.
      * @returns {CoxcombChart} Reference to the CoxcombChart API.
      * @example
@@ -300,7 +300,7 @@ export default (name, parent = 'body') => {
      * plot group in itself, so all methods that operate on plot groups are applied on them.
      *
      * @method data
-     * @methodOf CoxcombChart
+     * @memberOf CoxcombChart
      * @param {Object[]} plots Array of objects representing the groups of wedges to show. Each group has two
      * properties:
      * <dl>
