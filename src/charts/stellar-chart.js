@@ -1,20 +1,18 @@
 import Scale from '../components/scale'
 import compose from '../core/compose'
 import Chart from '../components/chart'
-import LineWidth from '../components/line-width'
-import LineStyle from '../components/line-style'
-import Opacity from '../components/opacity'
 import Smoothing from '../components/smoothing'
 import RadialAxis from '../components/axis/radial-axis'
 import RadialGrid from '../components/grid/radial-grid'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import extend from '../core/extend'
-import {areaRadial, lineRadial} from 'd3'
+import {lineRadial} from 'd3'
 
 // Default values.
 const DEFAULTS = {
   radius: 100,
+  inner: 0.05,
   dimensions: null,
   max: 1
 }
@@ -51,9 +49,6 @@ export default (name, parent = 'body') => {
     Chart('radar-chart', name, parent),
     ElementTooltip,
     Highlight(() => self._chart.plots, ['.plot-group']),
-    LineStyle,
-    LineWidth(1),
-    Opacity(0),
     RadialAxis(scales.radius, scales.angle),
     RadialGrid,
     Smoothing
@@ -69,11 +64,19 @@ export default (name, parent = 'body') => {
    * @private
    */
   function mapData(d) {
+    // Determine value for inner radius.
+    const r = self._radialAxis.radialScale().invert(_.inner * _.radius)
+
     // Determine dimensions.
     const dimensions = _.dimensions || Object.keys(self._chart.data[0].values).sort()
 
     // Map data.
-    return dimensions.map(c => d.values[c])
+    const data = []
+    for (let i = 0; i < dimensions.length; i++) {
+      data.push(d.values[dimensions[i]])
+      data.push(r)
+    }
+    return data
   }
 
   // Overrides.
@@ -124,7 +127,7 @@ export default (name, parent = 'body') => {
 
     // Create line and error path functions.
     const lineFn = lineRadial()
-      .angle((d, i) => scales.angle(i))
+      .angle((d, i) => scales.angle(i / 2))
       .radius(scales.radius)
       .curve(self._smoothing.closed())
 
@@ -147,8 +150,8 @@ export default (name, parent = 'body') => {
         g.append('path')
           .attr('class', 'line')
           .attr('d', d => lineFn(mapData(d)))
-          .attr('fill-opacity', self._opacity.value())
           .attr('stroke', 'currentColor')
+          .attr('stroke-width', 2)
           .attr('stroke-linejoin', 'round')
           .attr('stroke-linecap', 'round')
 
@@ -164,10 +167,7 @@ export default (name, parent = 'body') => {
         // Update lines.
         g.select('.line')
           .attr('d', d => lineFn(mapData(d)))
-          .attr('fill', self._opacity.value() > 0 ? 'currentColor' : 'none')
-          .attr('fill-opacity', self._opacity.value())
-          .attr('stroke-width', d => self._lineWidth.mapping(d.name))
-          .attr('stroke-dasharray', d => self._lineStyle.strokeDashArray(d.name))
+          .attr('fill', 'currentColor')
 
         return g
       },
@@ -221,6 +221,12 @@ export default (name, parent = 'body') => {
      */
     radius (radius = DEFAULTS.radius) {
       _.radius = radius
+      return api
+    },
+
+    // TODO Docs.
+    inner (inner = DEFAULTS.inner) {
+      _.inner = inner
       return api
     },
 

@@ -70,24 +70,6 @@ function getData () {
       acidity: 3 + Math.random() - 0.5,
       alcohol: 4 + Math.random() - 0.5
     }
-  }, {
-    name: 'Chardonnay',
-    values: {
-      sweetness: 2 + Math.random() - 0.5,
-      body: 3 + Math.random() - 0.5,
-      tannin: 1 + Math.random() - 0.5,
-      acidity: 3 + Math.random() - 0.5,
-      alcohol: 4 + Math.random() - 0.5
-    }
-  }, {
-    name: 'Muscat of Alexandria',
-    values: {
-      sweetness: 4 + Math.random() - 0.5,
-      body: 3 + Math.random() - 0.5,
-      tannin: 1 + Math.random() - 0.5,
-      acidity: 3 + Math.random() - 0.5,
-      alcohol: 1 + Math.random() - 0.5
-    }
   }]
 }
 </script>
@@ -101,20 +83,11 @@ const stellarChart = dalian.StellarChart('myChart', '#widget')
   .margins(60)
   .font.size(14)
   .color.palette({
-    'Cabernet Sauvignon': '#ce1b74',
-    'Chardonnay': '#fdc215',
-    'Muscat of Alexandria': '#dc6333'
+    'Cabernet Sauvignon': '#ce1b74'
   })
   .radialAxis.values([1, 2, 3, 4, 5])
-  //.smoothing(true)
-  .tooltip.on(true)
-  .lineWidth(2)
-  .opacity(0.2)
   .max(5)
   .radialGrid.on(true)
-  .radialGrid.curved(true)
-  .mouse.over(k => stellarChart.highlight(k.name, 200))
-  .mouse.leave(() => stellarChart.highlight(null, 200))
   .render(1000)
 </script>
 

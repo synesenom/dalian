@@ -68,6 +68,8 @@ export default (type = 'linear') => {
     return api
   }
 
+  api.invert = _.scale.invert
+
   api.measure = size => Math.abs(_.scale.invert(size) - _.scale.invert(0))
 
   /*
