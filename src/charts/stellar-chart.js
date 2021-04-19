@@ -174,6 +174,16 @@ export default (name, parent = 'body') => {
 
       exit: g => g.style('opacity', 0)
     }, duration)
+
+    // Add white circle in the middle.
+    if (self._chart.plots.select('circle').empty()) {
+      self._chart.plots.append('circle')
+        .attr('cx', parseFloat(self._widget.size.innerWidth) / 2)
+        .attr('cy', parseFloat(self._widget.size.innerHeight) / 2)
+        .attr('r', 3)
+        .attr('fill', 'white')
+        .raise()
+    }
   }, true)
 
   // Public API.
@@ -182,18 +192,18 @@ export default (name, parent = 'body') => {
      * Sets the order of dimensions to show: they are positioned counter -clockwise. By default dimensions are read from the data and keys are sorted alphabetically.
      *
      * @method dimensions
-     * @memberOf RadarChart
+     * @memberOf StellarChart
      * @param {string[]} [dimensions = null] Array representing the order of dimensions. If not specified, keys are read from data and sorted alphabetically.
-     * @returns {Object} Reference to the ViolinPlot's API.
+     * @returns {Object} Reference to the StellarChart's API.
      * @example
      *
      * // Use a subset of dimensions.
-     * const radar = dalian.RadarPlot('my-chart')
+     * const stellar = dalian.StellarChart('my-chart')
      *   .dimensions(['col1', 'col2'])
      *   .render()
      *
      * // Reset radar to use all dimensions sorted alphabetically.
-     * radar.dimensions()
+     * stellar.dimensions()
      *   .render()
      */
     dimensions (dimensions = DEFAULTS.dimensions) {
@@ -205,18 +215,18 @@ export default (name, parent = 'body') => {
      * Sets the radius in pixels.
      *
      * @method radius
-     * @memberOf RadarChart
+     * @memberOf StellarChart
      * @param {number} [radius = 100] Radius length to set.
-     * @returns {Object} Reference to the ViolinPlot's API.
+     * @returns {Object} Reference to the StellarChart's API.
      * @example
      *
      * // Set radius to 60 pixels.
-     * const radar = dalian.RadarPlot('my-chart')
+     * const stellar = dalian.StellarChart('my-chart')
      *   .radius(60)
      *   .render()
      *
      * // Reset radius to 100 pixels.
-     * radar.radius()
+     * stellar.radius()
      *   .render()
      */
     radius (radius = DEFAULTS.radius) {
@@ -224,7 +234,24 @@ export default (name, parent = 'body') => {
       return api
     },
 
-    // TODO Docs.
+    /**
+     * Sets the inner radius relative to the axis range.
+     *
+     * @method radius
+     * @memberOf StellarChart
+     * @param {number} [inner = 0.05] Relative radius length to set.
+     * @returns {Object} Reference to the StellarChart's API.
+     * @example
+     *
+     * // Set inner radius to 0.08 of the maximum radius.
+     * const stellar = dalian.StellarChart('my-chart')
+     *   .inner(0.08)
+     *   .render()
+     *
+     * // Reset inner radius to 0.05 of the maximum radius.
+     * stellar.inner()
+     *   .render()
+     */
     inner (inner = DEFAULTS.inner) {
       _.inner = inner
       return api
@@ -235,13 +262,7 @@ export default (name, parent = 'body') => {
     max (max = DEFAULTS.max) {
       _.max = max
       return api
-    },
-
-    // TODO Docs.
-    scale (scale = 'linear') {
-      scales.radius.type(scale)
-      return api
-    },
+    }
   })
 
   // TODO Document data format.

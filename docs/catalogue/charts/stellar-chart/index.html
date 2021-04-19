@@ -7,6 +7,7 @@
     <li onclick="changeData()">.data()</li>
     <li onclick="toggleDimensions()">.dimensions()</li>
     <li onclick="toggleRadius()">.radius()</li>
+    <li onclick="toggleInner()">.inner()</li>
     <li onclick="toggleScale()">.scale()</li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
@@ -31,11 +32,11 @@ function getData () {
   return [{
     name: 'Cabernet Sauvignon',
     values: {
-      sweetness: 2 + Math.random() - 0.5,
-      body: 5 + Math.random() - 0.5,
-      tannin: 4 + Math.random() - 0.5,
-      acidity: 3 + Math.random() - 0.5,
-      alcohol: 4 + Math.random() - 0.5
+      sweetness: 4 * Math.random() + 1,
+      body: 4 * Math.random() + 1,
+      tannin: 4 * Math.random() + 1,
+      acidity: 4 * Math.random() + 1,
+      alcohol: 4 * Math.random() + 1
     }
   }]
 }
@@ -47,11 +48,11 @@ const stellarChart = dalian.StellarChart('myChart', '#widget')
   .height(HEIGHT)
   .margins(60)
   .font.size(14)
-  .color.palette({
-    'Cabernet Sauvignon': '#ce1b74'
-  })
+  .font.color('#777')
+  .color.palette('royalblue')
   .radialAxis.values([1, 2, 3, 4, 5])
   .max(5)
+  .radialGrid.on(true)
   .render(1000)
 </script><script class="doc">
 // api methods
@@ -66,6 +67,11 @@ const toggleDimensions = () => {
 const toggleRadius = () => {
   this.r = 1 - (this.r || 0)
   stellarChart.radius(this.r ? 80 : undefined).render(1000)
+}
+
+const toggleInner = () => {
+  this.i = 1 - (this.i || 0)
+  stellarChart.inner(this.i ? 0.1 : undefined).render(1000)
 }
 
 const toggleScale = () => {
