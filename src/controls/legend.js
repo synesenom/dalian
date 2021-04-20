@@ -24,8 +24,7 @@ const DEFAULTS = {
  *   <li><a href="../components/font.html">Font</a></li>
  *   <li><a href="../components/highlight.html">Highlight</a>: plot groups can be highlighted by passing their names
  *   as specified in the data array.</li>
- *   <li><a href="../components/mouse.html">Mouse</a>: The group name and the wedge {y} value is passed to each mouse
- *   callback.</li>
+ *   <li><a href="../components/mouse.html">Mouse</a>: The entry name is passed to the mouse callbacks.</li>
  *   <li><a href="../components/widget.html">Widget</a></li>
  * </ul>
  *
