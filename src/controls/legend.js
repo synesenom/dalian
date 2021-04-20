@@ -142,6 +142,7 @@ export default (name, parent = 'body') => {
             .style('cursor', self._mouse.hasAny() ? 'pointer' : 'default')
             .on('mouseover', d => self._mouse.over(d.name))
             .on('mouseleave', d => self._mouse.leave(d.name))
+            .on('click', d => self._mouse.click(d.name))
 
           // Fade in.
           entry.transition(t)
