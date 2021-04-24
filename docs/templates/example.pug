@@ -5,7 +5,7 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         each css in ['fonts', 'scrollbar', 'base', 'main', 'heading', 'code', 'example', 'link', 'marker', 'desktop', 'atelier-lakeside-light']
             link(rel='stylesheet', type='text/css', href='../../../style/' + css + '.css')
-        each lib in ['codedoc.min', 'highlight.min', 'mobile-detect.1.4.4.min', 'ranjs.min']
+        each lib in ['codedoc.min', 'highlight.min', 'mobile-detect.1.4.4.min', 'ranjs.min', 'toggle']
             script(type='text/javascript', src='../../../js/' + lib + '.js')
         each dependency in dependencies
             script(type='text/javascript', src='../../../js/' + dependency.lib + '.' + dependency.version + '.min.js')

@@ -44,10 +44,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleGrid()">.grid()</li>
-    <li onclick="toggleColorPalette()">.color.palette()</li>
-    <li onclick="toggleColorOn()">.color.on()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-grid"></li>
+    <li id="toggle-color.palette"></li>
+    <li id="toggle-color.on"></li>
   </ul>
 </div>
 
@@ -85,25 +85,12 @@ const heatmap = dalian.Heatmap('heatmap', '#widget')
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => heatmap.data(getData()).render(1000)
-
-const toggleGrid = () => {
-  this.g = 1 - (this.g || 0)
-  heatmap.grid(this.g ? [20, 20] : [100, 100])
-    .render()
-}
-
-const toggleColorPalette = () => {
-  this.c = 1 - (this.c || 0)
-  heatmap.color.palette(this.c ? ['#000', '#777', '#fff'] : undefined)
-    .render(1000)
-}
-
-const toggleColorOn = () => {
-  this.o = 1 - (this.o || 0)
-  heatmap.color.on(this.o ? d => Math.pow(d, 3) : d => d)
-    .render(1000)
-}
+<script>
+  Controls(heatmap)
+    .data(getData)
+    .toggle('grid', [[100, 100], [20, 20]], {
+      duration: 0
+    })
+    .toggle('color.palette', [undefined, ['#000', '#777', '#fff']])
+    .toggle('color.on', [d => d, d => Math.pow(d, 3)])
 </script>

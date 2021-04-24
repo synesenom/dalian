@@ -44,10 +44,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleAngle()">.angle()</li>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleLabels()">.label()</li>
-    <li onclick="toggleRadius()">.radius()</li>
+    <li id="toggle-angle"></li>
+    <li id="toggle-data"></li>
+    <li id="toggle-label"></li>
+    <li id="toggle-radius"></li>
   </ul>
 </div>
 
@@ -85,35 +85,23 @@ function getData () {
 
 <script class="doc">
 // create chart
-const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
+const coxcomb = dalian.CoxcombChart('coxcomb-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(14)
   .color.palette('palette-light')
-  .mouse.over(d => coxcombChart.highlight(d.name, 400))
-  .mouse.leave(() => coxcombChart.highlight(null, 400))
+  .mouse.over(d => coxcomb.highlight(d.name, 400))
+  .mouse.leave(() => coxcomb.highlight(null, 400))
   .tooltip.on(true)
   .tooltip.valueFormat(d => d.y.toFixed(2))
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const toggleAngle = () => {
-  this.a = 1 - (this.a || 0)
-  coxcombChart.angle(this.a ? 70 : undefined).render(1000)
-}
-
-const changeData = () => coxcombChart.data(getData()).render(1000)
-
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  coxcombChart.label(this.l ? d => d.label : undefined).render()
-}
-
-const toggleRadius = () => {
-  this.r = !(this.r || 0)
-  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
-}
+<script>
+  Controls(coxcomb)
+    .toggle('angle', [undefined, 70])
+    .data(getData)
+    .toggle('label', [undefined, d => d.label])
+    .toggle('radius', [undefined, 70])
 </script>

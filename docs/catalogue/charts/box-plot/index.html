@@ -1,14 +1,14 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/toggle.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
   });</script><title>BoxPlot | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleBoxWidth()">.boxWidth()</li>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleHorizontal()">.horizontal()</li>
-    <li onclick="toggleLineWidth()">.lineWidth()</li>
-    <li onclick="toggleOpacity()">.opacity()</li>
+    <li id="toggle-boxWidth"></li>
+    <li id="toggle-data"></li>
+    <li id="toggle-horizontal"></li>
+    <li id="toggle-lineWidth"></li>
+    <li id="toggle-opacity"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -80,7 +80,7 @@ function getData () {
 }
 </script><script class="doc">
 // create chart
-const boxPlot = dalian.BoxPlot('box-plot', '#widget')
+const box = dalian.BoxPlot('box-plot', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -88,35 +88,22 @@ const boxPlot = dalian.BoxPlot('box-plot', '#widget')
   .font.size(14)
   .bottomAxis.label('distribution')
   .leftAxis.label('sample')
-  .mouse.over(k => boxPlot.highlight(k.name))
-  .mouse.leave(() => boxPlot.highlight())
+  .mouse.over(k => box.highlight(k.name))
+  .mouse.leave(() => box.highlight())
   .tooltip.on(true)
   .tooltip.valueFormat((y, name) => name.endsWith('outliers') ? y : y.toPrecision(2))
   .render(1000)
-</script><script class="doc">
-// api methods
-const changeData = () => boxPlot.data(getData()).render(1000)
-
-const toggleBoxWidth = () => {
-  this.w = 1 - (this.w || 0)
-  boxPlot.boxWidth(this.w ? 14 : undefined).render(1000)
-}
-
-const toggleHorizontal = () => {
-  this.h = 1 - (this.h || 0)
-  boxPlot.horizontal(this.h)
-    .bottomAxis.label(this.h ? 'sample' : 'distribution')
-    .leftAxis.label(this.h ? 'distribution' : 'sample')
-    .render()
-}
-
-const toggleLineWidth = () => {
-  this.l = 1 - (this.l || 0)
-  boxPlot.lineWidth(this.l ? 2 : undefined).render(1000)
-}
-
-const toggleOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  boxPlot.opacity(this.o ? 0.8 : undefined).render(1000)
-}
+</script><script>
+  Controls(box)
+    .data(getData)
+    .toggle('boxWidth', [undefined, 14])
+    .toggle('horizontal', [undefined, true], {
+      callback: on => {
+        box.bottomAxis.label(on ? 'sample' : 'distribution')
+          .leftAxis.label(on ? 'distribution' : 'sample')
+          .render()
+      }
+    })
+    .toggle('lineWidth', [undefined, 2])
+    .toggle('opacity', [undefined, 0.8])
 </script></div></main></body></html>

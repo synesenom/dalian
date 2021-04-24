@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/toggle.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
   });</script><title>BarChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleHorizontal()">.horizontal()</li>
-    <li onclick="toggleLabels()">.label()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-horizontal"></li>
+    <li id="toggle-label"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -37,7 +37,7 @@ function getData () {
 }
 </script><script class="doc">
 // create chart
-const barChart = dalian.BarChart('bar-chart', '#widget')
+const bar = dalian.BarChart('bar-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -46,26 +46,24 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .bottomAxis.label('fruit')
   .leftAxis.label('price')
   .color.palette('royalblue')
-  .mouse.over(k => barChart.highlight(k.name))
-  .mouse.leave(() => barChart.highlight())
+  .mouse.over(k => bar.highlight(k.name))
+  .mouse.leave(() => bar.highlight())
   .tooltip.on(true)
   .tooltip.valueFormat(y => y.toFixed(1))
   .render(1000)
-</script><script class="doc">
-// api methods
-const changeData = () => barChart.data(getData()).render(1000)
-
-const toggleHorizontal = () => {
-  this.h = 1 - (this.h || 0)
-  barChart.horizontal(this.h)
-    .bottomAxis.label(this.h ? 'stock' : 'fruit')
-    .leftAxis.label(this.h ? 'fruit' : 'stock')
-    .render()
-}
-
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  barChart.label(this.l ? d => d.value.toFixed(1) : undefined)
-    .render()
-}
+</script><script>
+  Controls(bar)
+    .data(getData)
+    .toggle('horizontal', [undefined, true], {
+      callback: on => {
+        bar
+          .bottomAxis.label(on ? 'stock' : 'fruit')
+          .leftAxis.label(on ? 'fruit' : 'stock')
+          .render()
+      }
+    })
+    .toggle('label', [
+      undefined,
+      d => d.value.toFixed(1)
+    ])
 </script></div></main></body></html>

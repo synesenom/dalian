@@ -37,8 +37,8 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleRadius()">.radius()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-radius"></li>
   </ul>
 </div>
 
@@ -59,7 +59,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
+const bubble = dalian.BubbleChart('bubble-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -68,20 +68,16 @@ const bubbleChart = dalian.BubbleChart('bubble-chart', '#widget')
   .font.size(14)
   .bottomAxis.label('fruit')
   .leftAxis.label('stock')
-  .mouse.over(k => bubbleChart.highlight(k.name))
-  .mouse.leave(() => bubbleChart.highlight())
+  .mouse.over(k => bubble.highlight(k.name))
+  .mouse.leave(() => bubble.highlight())
   .mouse.click(k => alert(k.name))
   .tooltip.on(true)
   .tooltip.valueFormat(y => y.toFixed(2))
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => bubbleChart.data(getData()).render(1000)
-
-const toggleRadius = () => {
-  this.h = 1 - (this.h || 0)
-  bubbleChart.radius(this.h ? 50 : undefined).render(1000)
-}
+<script>
+  Controls(bubble)
+    .data(getData)
+    .toggle('radius', [undefined, 50])
 </script>

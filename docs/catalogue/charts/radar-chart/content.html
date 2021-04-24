@@ -51,10 +51,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleDimensions()">.dimensions()</li>
-    <li onclick="toggleRadius()">.radius()</li>
-    <li onclick="toggleScale()">.scale()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-dimensions"></li>
+    <li id="toggle-radius"></li>
+    <li id="toggle-scale"></li>
   </ul>
 </div>
 
@@ -96,7 +96,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const radarChart = dalian.RadarChart('myChart', '#widget')
+const radar = dalian.RadarChart('myChart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -114,28 +114,15 @@ const radarChart = dalian.RadarChart('myChart', '#widget')
   .max(5)
   .radialGrid.on(true)
   .radialGrid.curved(true)
-  .mouse.over(k => radarChart.highlight(k.name, 200))
-  .mouse.leave(() => radarChart.highlight(null, 200))
+  .mouse.over(k => radar.highlight(k.name, 200))
+  .mouse.leave(() => radar.highlight(null, 200))
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => radarChart.data(getData()).render(1000)
-
-const toggleDimensions = () => {
-  this.d = 1 - (this.d || 0)
-  radarChart.dimensions(this.d ? ['sweetness', 'tannin', 'alcohol']
-    : undefined).render(1000)
-}
-
-const toggleRadius = () => {
-  this.r = 1 - (this.r || 0)
-  radarChart.radius(this.r ? 80 : undefined).render(1000)
-}
-
-const toggleScale = () => {
-  this.s = 1 - (this.s || 0)
-  radarChart.scale(this.s ? 'sqrt' : undefined).render(1000)
-}
+<script>
+  Controls(radar)
+    .data(getData)
+    .toggle('dimensions', [undefined, ['sweetness', 'tannin', 'alcohol']])
+    .toggle('radius', [undefined, 80])
+    .toggle('scale', [undefined, 'sqrt'])
 </script>

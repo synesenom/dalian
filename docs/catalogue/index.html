@@ -26,9 +26,9 @@ To explore a specific component listed on a chart's documentation page under its
     .margins({ left: 30, right: 2, top: 20, bottom: 30 })
     .font.size(11)
     .color.palette({
-    normal: COLORS.widget[0],
-    exponential: COLORS.widget[1]
-  })
+      normal: COLORS.widget[0],
+      exponential: COLORS.widget[1]
+    })
     .bottomAxis.label('value')
     .leftAxis.label('density')
     .smoothing(true)
@@ -392,25 +392,14 @@ To explore a specific component listed on a chart's documentation page under its
         acidity: 3,
         alcohol: 4
       }
-    }, {
-      name: 'second',
-      values: {
-        sweetness: 4,
-        body: 3,
-        tannin: 1,
-        acidity: 3,
-        alcohol: 1
-      }
     }])
     .x(0)
     .y(0)
     .width(WIDTH)
     .height(HEIGHT)
     .font.size(11)
-    .color.palette({
-      first: COLORS.widget[0],
-      second: COLORS.widget[1]
-    })
+    .font.color('#777')
+    .color.palette(COLORS.widget[0])
     .radialAxis.values([1, 2, 3, 4, 5])
     .radialGrid.on(true)
     .max(5)

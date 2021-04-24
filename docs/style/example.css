@@ -41,10 +41,22 @@
     cursor: pointer;
     user-select: none;
     line-height: 14px;
+    font-family: monospace;
 }
 
 #controls li:hover {
     color: royalblue;
+}
+
+#controls li pre {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+#controls li pre code {
+    background: none;
+    padding: 0 !important;
+    color: #000;
 }
 
 .label {

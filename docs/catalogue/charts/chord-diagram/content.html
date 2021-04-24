@@ -39,10 +39,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleLabel()">.label()</li>
-    <li onclick="toggleRadius()">.radius()</li>
-    <li onclick="toggleThickness()">.thickness()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-label"></li>
+    <li id="toggle-radius"></li>
+    <li id="toggle-thickness"></li>
   </ul>
 </div>
 
@@ -77,24 +77,10 @@ const chord = dalian.ChordDiagram('chord-diagram', '#widget')
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => chord.data(getData()).render(1000)
-
-const toggleLabel = () => {
-  this.l = 1 - (this.l || 0)
-  chord.label(this.l ? x => x : undefined).render()
-}
-
-const toggleRadius = () => {
-  this.r = 1 - (this.r || 0)
-  chord.radius(this.r ? 80 : undefined)
-    .render(1000)
-}
-
-const toggleThickness = () => {
-  this.t = 1 - (this.t || 0)
-  chord.thickness(this.t ? 20 : undefined)
-    .render(1000)
-}
+<script>
+  Controls(chord)
+    .data(getData)
+    .toggle('label', [undefined, x => x])
+    .toggle('radius', [undefined, 80])
+    .toggle('thickness', [undefined, 20])
 </script>

@@ -1,13 +1,13 @@
 import { encode } from '@dalian/widget';
 import 'd3-transition';
-import Vector from './vector2d';
+import Vector from './vector';
 
 // TODO add four more connectors
-export default class FlowChartNode {
+export default class Node {
     /**
      * Class implementing a flow chart node.
      *
-     * @class FlowChartNode
+     * @class Node
      * @constructor
      * @param {Object} dom DOM element (d3 selection) to append node to.
      * @param {string} name Name of the node.
@@ -143,7 +143,7 @@ export default class FlowChartNode {
      * Computes a connector for the node: these are the locations in the flow chart where edges can be connected to.
      *
      * @method connector
-     * @memberOf FlowChartNode
+     * @memberOf Node
      * @param {string} direction Connector's direction. Supported values are: north, east, south and west.
      * @returns {?Vector} Position vector of the selected connector.
      */
@@ -166,7 +166,7 @@ export default class FlowChartNode {
      * Returns a normal vector for a direction.
      *
      * @method normal
-     * @memberOf FlowChartNode
+     * @memberOf Node
      * @param {string} direction Direction to return normal vector for.
      * @return {Vector} The normal vector.
      * @static
@@ -186,3 +186,4 @@ export default class FlowChartNode {
         }
     }
 }
+

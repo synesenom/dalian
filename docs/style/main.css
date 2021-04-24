@@ -38,8 +38,8 @@ main {
 .margin-right {
     display: inline-block;
     position: absolute;
-    width: 200px;
-    right: -220px;
+    width: 240px;
+    right: -260px;
     font-size: 12px;
 }
 

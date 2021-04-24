@@ -39,8 +39,8 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleSize()">.size()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-size"></li>
   </ul>
 </div>
 
@@ -67,7 +67,7 @@ function getData (labels) {
 
 <script class="doc">
 // create chart
-const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
+const scatter = dalian.ScatterPlot('scatter-plot', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -75,22 +75,17 @@ const scatterPlot = dalian.ScatterPlot('scatter-plot', '#widget')
   .font.size(14)
   .bottomAxis.label('X')
   .leftAxis.label('Y')
-  .mouse.over(k => scatterPlot.highlight(k.name))
-  .mouse.leave(() => scatterPlot.highlight())
+  .mouse.over(k => scatter.highlight(k.name))
+  .mouse.leave(() => scatter.highlight())
   .mouse.click(k => alert(k.name))
   .tooltip.on(true)
   .tooltip.valueFormat(x => x.toFixed(2))
   .tooltip.valueFormat(y => y.toFixed(2))
-  .size(6)
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => scatterPlot.data(getData()).render(1000)
-
-const toggleSize = () => {
-  this.s = !(this.s || 0)
-  scatterPlot.size(this.s ? 6 : undefined).render(1000)
-}
+<script>
+  Controls(scatter)
+    .data(getData)
+    .toggle('size', [undefined, 8])
 </script>

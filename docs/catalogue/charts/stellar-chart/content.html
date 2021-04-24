@@ -9,25 +9,14 @@
         acidity: 3,
         alcohol: 4
       }
-    }, {
-      name: 'second',
-      values: {
-        sweetness: 4,
-        body: 3,
-        tannin: 1,
-        acidity: 3,
-        alcohol: 1
-      }
     }])
     .x(0)
     .y(0)
     .width(WIDTH)
     .height(HEIGHT)
     .font.size(11)
-    .color.palette({
-      first: COLORS.widget[0],
-      second: COLORS.widget[1]
-    })
+    .font.color('#777')
+    .color.palette(COLORS.widget[0])
     .radialAxis.values([1, 2, 3, 4, 5])
     .radialGrid.on(true)
     .max(5)
@@ -49,16 +38,14 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleRadius()">.radius()</li>
-    <li onclick="toggleInner()">.inner()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-radius"></li>
+    <li id="toggle-inner"></li>
   </ul>
 </div>
 
 <script class="doc">
 // generate data
-// Data is generated with ranjs:
-// https://synesenom.github.io/ran/
 function getData () {
   return [{
     name: 'Cabernet Sauvignon',
@@ -75,7 +62,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const stellarChart = dalian.StellarChart('myChart', '#widget')
+const stellar = dalian.StellarChart('myChart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -89,17 +76,9 @@ const stellarChart = dalian.StellarChart('myChart', '#widget')
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => stellarChart.data(getData()).render(1000)
-
-const toggleRadius = () => {
-  this.r = 1 - (this.r || 0)
-  stellarChart.radius(this.r ? 80 : undefined).render(1000)
-}
-
-const toggleInner = () => {
-  this.i = 1 - (this.i || 0)
-  stellarChart.inner(this.i ? 0.1 : undefined).render(1000)
-}
+<script>
+  Controls(stellar)
+    .data(getData)
+    .toggle('radius', [undefined, 80])
+    .toggle('inner', [undefined, 0.1])
 </script>

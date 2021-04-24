@@ -69,11 +69,11 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleBoxWidth()">.boxWidth()</li>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleHorizontal()">.horizontal()</li>
-    <li onclick="toggleLineWidth()">.lineWidth()</li>
-    <li onclick="toggleOpacity()">.opacity()</li>
+    <li id="toggle-boxWidth"></li>
+    <li id="toggle-data"></li>
+    <li id="toggle-horizontal"></li>
+    <li id="toggle-lineWidth"></li>
+    <li id="toggle-opacity"></li>
   </ul>
 </div>
 
@@ -131,7 +131,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const boxPlot = dalian.BoxPlot('box-plot', '#widget')
+const box = dalian.BoxPlot('box-plot', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -139,37 +139,24 @@ const boxPlot = dalian.BoxPlot('box-plot', '#widget')
   .font.size(14)
   .bottomAxis.label('distribution')
   .leftAxis.label('sample')
-  .mouse.over(k => boxPlot.highlight(k.name))
-  .mouse.leave(() => boxPlot.highlight())
+  .mouse.over(k => box.highlight(k.name))
+  .mouse.leave(() => box.highlight())
   .tooltip.on(true)
   .tooltip.valueFormat((y, name) => name.endsWith('outliers') ? y : y.toPrecision(2))
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => boxPlot.data(getData()).render(1000)
-
-const toggleBoxWidth = () => {
-  this.w = 1 - (this.w || 0)
-  boxPlot.boxWidth(this.w ? 14 : undefined).render(1000)
-}
-
-const toggleHorizontal = () => {
-  this.h = 1 - (this.h || 0)
-  boxPlot.horizontal(this.h)
-    .bottomAxis.label(this.h ? 'sample' : 'distribution')
-    .leftAxis.label(this.h ? 'distribution' : 'sample')
-    .render()
-}
-
-const toggleLineWidth = () => {
-  this.l = 1 - (this.l || 0)
-  boxPlot.lineWidth(this.l ? 2 : undefined).render(1000)
-}
-
-const toggleOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  boxPlot.opacity(this.o ? 0.8 : undefined).render(1000)
-}
+<script>
+  Controls(box)
+    .data(getData)
+    .toggle('boxWidth', [undefined, 14])
+    .toggle('horizontal', [undefined, true], {
+      callback: on => {
+        box.bottomAxis.label(on ? 'sample' : 'distribution')
+          .leftAxis.label(on ? 'distribution' : 'sample')
+          .render()
+      }
+    })
+    .toggle('lineWidth', [undefined, 2])
+    .toggle('opacity', [undefined, 0.8])
 </script>

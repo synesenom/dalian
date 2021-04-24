@@ -30,10 +30,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleInnerRadius()">.innerRadius()</li>
-    <li onclick="toggleLabels()">.label()</li>
-    <li onclick="toggleOuterRadius()">.outerRadius()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-innerRadius"></li>
+    <li id="toggle-label"></li>
+    <li id="toggle-outerRadius"></li>
   </ul>
 </div>
 
@@ -53,7 +53,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const pieChart = dalian.PieChart('pie-chart', '#widget')
+const pie = dalian.PieChart('pie-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -65,23 +65,10 @@ const pieChart = dalian.PieChart('pie-chart', '#widget')
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => pieChart.data(getData()).render(1000)
-
-const toggleInnerRadius = () => {
-  this.i = !(this.i || 0)
-  pieChart.innerRadius(this.i ? 25 : undefined).render()
-}
-
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  pieChart.label(this.l ? d => d3.format('.2s')(d.value) : undefined).render()
-}
-
-const toggleOuterRadius = () => {
-  this.o = !(this.o || 0)
-  pieChart.outerRadius(this.o ? 40 : 0.3 * HEIGHT).render()
-}
+<script>
+  Controls(pie)
+    .data(getData)
+    .toggle('innerRadius', [undefined, 25])
+    .toggle('label', [undefined, d => d3.format('.2s')(d.value)])
+    .toggle('outerRadius', [0.3 * HEIGHT, 40])
 </script>
-

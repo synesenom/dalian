@@ -15,7 +15,7 @@ import YRange from '../components/range/y-range'
 
 // Defaults.
 const DEFAULTS = {
-  size: 4
+  size: 6
 }
 
 /**

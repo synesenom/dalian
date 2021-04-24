@@ -20,9 +20,9 @@
     .margins({ left: 30, right: 2, top: 20, bottom: 30 })
     .font.size(11)
     .color.palette({
-    normal: COLORS.widget[0],
-    exponential: COLORS.widget[1]
-  })
+      normal: COLORS.widget[0],
+      exponential: COLORS.widget[1]
+    })
     .bottomAxis.label('value')
     .leftAxis.label('density')
     .smoothing(true)
@@ -44,10 +44,10 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleLineColor()">.lineColor()</li>
-    <li onclick="toggleLineWidth()">.lineWidth()</li>
-    <li onclick="toggleOpacity()">.opacity()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-lineColor"></li>
+    <li id="toggle-lineWidth"></li>
+    <li id="toggle-opacity"></li>
   </ul>
 </div>
 
@@ -77,7 +77,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const areaChart = dalian.AreaChart('myChart', '#widget')
+const area = dalian.AreaChart('myChart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -91,25 +91,14 @@ const areaChart = dalian.AreaChart('myChart', '#widget')
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => areaChart.data(getData()).render(1000)
-
-const toggleLineColor = () => {
-  this.l = ((this.l || 0) + 1) % 3
-  areaChart.lineColor([undefined, 'white', 'currentColor'][this.l])
-    .render(1000)
-}
-
-const toggleLineWidth = () => {
-  this.w = 1 - (this.w || 0)
-  areaChart.lineWidth([undefined, 3][this.w])
-    .render(1000)
-}
-
-const toggleOpacity = () => {
-  this.o = 1 - (this.o || 0)
-  areaChart.opacity([undefined, 0.7][this.o])
-    .render(1000)
-}
+<script>
+  Controls(area)
+    .data(getData)
+    .toggle('lineColor', [
+      undefined,
+      'white',
+      'currentColor'
+    ])
+    .toggle('lineWidth', [undefined, 3])
+    .toggle('opacity', [undefined, 0.7])
 </script>

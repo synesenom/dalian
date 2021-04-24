@@ -14,6 +14,8 @@ const DEFAULTS = {
 }
 
 // TODO Add ticks.
+// FIXME Thickness animation is not working.
+// FIXME Radius animation is not working.
 /**
  * The chord chart widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
  * available APIs. Furthermore, it extends the following components:

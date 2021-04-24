@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../style/base.css"><link rel="stylesheet" type="text/css" href="../../../style/main.css"><link rel="stylesheet" type="text/css" href="../../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../../style/code.css"><link rel="stylesheet" type="text/css" href="../../../style/example.css"><link rel="stylesheet" type="text/css" href="../../../style/link.css"><link rel="stylesheet" type="text/css" href="../../../style/marker.css"><link rel="stylesheet" type="text/css" href="../../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../../style/atelier-lakeside-light.css"><script type="text/javascript" src="../../../js/codedoc.min.js"></script><script type="text/javascript" src="../../../js/highlight.min.js"></script><script type="text/javascript" src="../../../js/mobile-detect.1.4.4.min.js"></script><script type="text/javascript" src="../../../js/ranjs.min.js"></script><script type="text/javascript" src="../../../js/toggle.js"></script><script type="text/javascript" src="../../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../../js/controls.js"></script><script type="text/javascript" src="../../../dl/dalian.min.js"></script><script type="text/javascript">codedoc.heading()
   .callback(function() {
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
   });</script><title>CoxcombChart | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleAngle()">.angle()</li>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleLabels()">.label()</li>
-    <li onclick="toggleRadius()">.radius()</li>
+    <li id="toggle-angle"></li>
+    <li id="toggle-data"></li>
+    <li id="toggle-label"></li>
+    <li id="toggle-radius"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -52,33 +52,21 @@ function getData () {
 }
 </script><script class="doc">
 // create chart
-const coxcombChart = dalian.CoxcombChart('coxcomb-chart', '#widget')
+const coxcomb = dalian.CoxcombChart('coxcomb-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
   .font.size(14)
   .color.palette('palette-light')
-  .mouse.over(d => coxcombChart.highlight(d.name, 400))
-  .mouse.leave(() => coxcombChart.highlight(null, 400))
+  .mouse.over(d => coxcomb.highlight(d.name, 400))
+  .mouse.leave(() => coxcomb.highlight(null, 400))
   .tooltip.on(true)
   .tooltip.valueFormat(d => d.y.toFixed(2))
   .render(1000)
-</script><script class="doc">
-// api methods
-const toggleAngle = () => {
-  this.a = 1 - (this.a || 0)
-  coxcombChart.angle(this.a ? 70 : undefined).render(1000)
-}
-
-const changeData = () => coxcombChart.data(getData()).render(1000)
-
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  coxcombChart.label(this.l ? d => d.label : undefined).render()
-}
-
-const toggleRadius = () => {
-  this.r = !(this.r || 0)
-  coxcombChart.radius(this.r ? 70 : undefined).render(1000)
-}
+</script><script>
+  Controls(coxcomb)
+    .toggle('angle', [undefined, 70])
+    .data(getData)
+    .toggle('label', [undefined, d => d.label])
+    .toggle('radius', [undefined, 70])
 </script></div></main></body></html>

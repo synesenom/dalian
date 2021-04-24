@@ -38,9 +38,9 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleHorizontal()">.horizontal()</li>
-    <li onclick="toggleLabels()">.label()</li>
+    <li id="toggle-data"></li>
+    <li id="toggle-horizontal"></li>
+    <li id="toggle-label"></li>
   </ul>
 </div>
 
@@ -59,7 +59,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const barChart = dalian.BarChart('bar-chart', '#widget')
+const bar = dalian.BarChart('bar-chart', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -68,28 +68,26 @@ const barChart = dalian.BarChart('bar-chart', '#widget')
   .bottomAxis.label('fruit')
   .leftAxis.label('price')
   .color.palette('royalblue')
-  .mouse.over(k => barChart.highlight(k.name))
-  .mouse.leave(() => barChart.highlight())
+  .mouse.over(k => bar.highlight(k.name))
+  .mouse.leave(() => bar.highlight())
   .tooltip.on(true)
   .tooltip.valueFormat(y => y.toFixed(1))
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const changeData = () => barChart.data(getData()).render(1000)
-
-const toggleHorizontal = () => {
-  this.h = 1 - (this.h || 0)
-  barChart.horizontal(this.h)
-    .bottomAxis.label(this.h ? 'stock' : 'fruit')
-    .leftAxis.label(this.h ? 'fruit' : 'stock')
-    .render()
-}
-
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  barChart.label(this.l ? d => d.value.toFixed(1) : undefined)
-    .render()
-}
+<script>
+  Controls(bar)
+    .data(getData)
+    .toggle('horizontal', [undefined, true], {
+      callback: on => {
+        bar
+          .bottomAxis.label(on ? 'stock' : 'fruit')
+          .leftAxis.label(on ? 'fruit' : 'stock')
+          .render()
+      }
+    })
+    .toggle('label', [
+      undefined,
+      d => d.value.toFixed(1)
+    ])
 </script>

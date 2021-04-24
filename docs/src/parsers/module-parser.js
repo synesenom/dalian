@@ -74,7 +74,7 @@ module.exports = (docs, modulePath) => {
         factoryName: getFactoryName(modulePath),
         dependencies,
         description: document.getElementById('desc').innerHTML,
-        code: Array.from(document.getElementsByClassName('doc')).map(d => d.outerHTML)
+        code: Array.from(document.querySelectorAll('script:not(.card-example)')).map(d => d.outerHTML)
           .concat(Array.from(document.getElementsByClassName('doc-hidden')).map(d => d.outerHTML))
           .join(''),
         controls: document.getElementById('controls') && document.getElementById('controls').innerHTML,

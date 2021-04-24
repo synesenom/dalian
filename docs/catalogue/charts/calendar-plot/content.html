@@ -42,13 +42,13 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleBlockAlign()">.blockAlign()</li>
-    <li onclick="toggleBlockMargin()">.blockMargin()</li>
-    <li onclick="changeData()">.data()</li>
-    <li onclick="toggleDays()">.days()</li>
-    <li onclick="toggleLabels()">.label</li>
-    <li onclick="toggleMonths()">.months()</li>
-    <li onclick="toggleWeekStart()">.weekStart()</li>
+    <li id="toggle-blockAlign"></li>
+    <li id="toggle-blockMargin"></li>
+    <li id="toggle-data"></li>
+    <li id="toggle-days"><pre><code class="javascript hljs"></code></pre></li>
+    <li id="toggle-label"></li>
+    <li id="toggle-months"><pre><code class="javascript hljs"></code></pre></li>
+    <li id="toggle-weekStart"></li>
   </ul>
 </div>
 
@@ -80,7 +80,7 @@ function getData () {
 
 <script class="doc">
 // create chart
-const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
+const calendar = dalian.CalendarPlot('calendar-plot', '#widget')
   .data(getData())
   .width(WIDTH)
   .height(HEIGHT)
@@ -94,47 +94,20 @@ const calendarPlot = dalian.CalendarPlot('calendar-plot', '#widget')
     '#196127'], '#E5E5E5')
   .tooltip.on(true)
   .tooltip.valueFormat(d => d === null ? 'No data' : Math.round(d))
-  .mouse.over(k => calendarPlot.highlight(k.name))
-  .mouse.leave(() => calendarPlot.highlight())
+  .mouse.over(k => calendar.highlight(k.name))
+  .mouse.leave(() => calendar.highlight())
   .render(1000)
 </script>
 
-<script class="doc">
-// api methods
-const toggleBlockAlign = () => {
-  this.a = 1 - (this.a || 0)
-  calendarPlot.blockAlign(this.a ? 'middle' : undefined).render()
-}
-
-const toggleBlockMargin = () => {
-  this.b = 1 - (this.b || 0)
-  calendarPlot.blockMargin(this.b ? 2 : undefined).render(1000)
-}
-
-const changeData = () => calendarPlot.data(getData()).render(1000)
-
-const toggleDays = () => {
-  this.w = 1 - (this.w || 0)
-  calendarPlot.days(this.w ? ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']: undefined)
-    .render()
-}
-
-const toggleLabels = () => {
-  this.l = 1 - (this.l || 0)
-  calendarPlot
-    .label(this.l ? d => d.value === null ? '' : Math.round(d.value) : undefined)
-    .render()
-}
-
-const toggleMonths = () => {
-  this.m = 1 - (this.m || 0)
-  calendarPlot.months(this.m ? ['enero', 'febrero', 'marzo',
-    'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
-    'octubre', 'noviembre', 'diciembre'] : undefined).render()
-}
-
-const toggleWeekStart = () => {
-  this.s = 1 - (this.s || 0)
-  calendarPlot.weekStart(this.s ? 2 : undefined).render(1000)
-}
+<script>
+  Controls(calendar)
+    .data(getData)
+    .toggle('blockAlign', [undefined, 'middle'])
+    .toggle('blockMargin', [undefined, 2])
+    .toggle('days', [undefined, ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa']])
+    .toggle('label', [undefined, d => d.value === null ? '' : Math.round(d.value)])
+    .toggle('months', [undefined, ['enero', 'febrero', 'marzo',
+      'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
+      'octubre', 'noviembre', 'diciembre']])
+    .toggle('weekStart', [undefined, 2])
 </script>
