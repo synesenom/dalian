@@ -18,11 +18,11 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleToggle()">.toggle()</li>
-    <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleDisable()">.disable()</li>
-    <li onclick="toggleLabel()">.label()</li>
+    <li id="toggle-callback"></li>
+    <li id="toggle-toggle"></li>
+    <li id="toggle-color"></li>
+    <li id="toggle-disable"></li>
+    <li id="toggle-label"></li>
   </ul>
 </div>
 
@@ -37,36 +37,13 @@ const switchBtn = dalian.Switch('switch', '#widget')
   .render()
 </script>
 
-<script class="doc">
-// api methods
-let toggleCallback = () => {
-  this.a = 1 - (this.a || 0)
-  switchBtn.callback(this.a ? x => alert(x ? 'On!' : 'Off')
-    : undefined)
-    .render()
-}
-
-let toggleToggle = () => {
-  this.t = 1 - (this.t || 0)
-  switchBtn.toggle(this.t)
-    .render(400)
-}
-
-let toggleColor = () => {
-  this.o = 1 - (this.o || 0)
-  switchBtn.color(this.o ? 'yellowgreen' : undefined)
-    .render(1000)
-}
-
-let toggleDisable = () => {
-  this.d = 1 - (this.d || 0)
-  switchBtn.disable(this.d)
-    .render()
-}
-
-let toggleLabel = () => {
-  this.l = 1 - (this.l || 0)
-  switchBtn.label(this.l ? 'Switch!' : `I'm a toggle switch`)
-    .render()
-}
+<script>
+  Controls(switchBtn)
+    .toggle('callback', [undefined, x => alert(x ? 'On!' : 'Off')])
+    .toggle('toggle', [undefined, true])
+    .toggle('color', [undefined, 'yellowgreen'])
+    .toggle('disable', [undefined, true], {
+      duration: 0
+    })
+    .toggle('label', ['I am a toggle switch', 'Switch!'])
 </script>

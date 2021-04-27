@@ -4,11 +4,12 @@
     hljs.initHighlighting();
   });</script><title>Trackpad | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleGuide()">.guide()</li>
-    <li onclick="toggleRange()">.range()</li>
-    <li onclick="toggleValue()">.value()</li>
+    <li id="toggle-callback"></li>
+    <li id="toggle-color"></li>
+    <li id="toggle-guide"></li>
+    <li id="toggle-xRange"></li>
+    <li id="toggle-yRange"></li>
+    <li id="toggle-values"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -36,45 +37,20 @@ const trackpad = dalian.Trackpad('trackpad', '#widget')
   .height(0.8 * HEIGHT)
   .margins(60)
   .font.size(14)
-  .range([0, 360], [0, 100])
+  .xRange([0, 360])
+  .yRange([0, 100])
   .leftAxis.label('Saturation')
   .bottomAxis.label('Hue')
   .render()
-</script><script class="doc">
-// api methods
-let toggleCallback = () => {
-  this.a = 1 - (this.a || 0)
-  trackpad.callback(this.a
-    ? v => {
-      const el = document.getElementById('trackpad-flag')
-      el.style.backgroundColor = `hsl(${v[0]}, ${v[1]}%, 50%)`
-    } : undefined).render(1000)
-}
-
-let toggleColor = () => {
-  this.c = 1 - (this.c || 0)
-  trackpad.color(this.c ? 'yellowgreen' : undefined).render(1000)
-}
-
-let toggleGuide = () => {
-  this.g = 1 - (this.g || 0)
-  trackpad.guide(this.g)
-    .render(1000)
-}
-
-let toggleRange = () => {
-  this.r = 1 - (this.r || 0)
-  trackpad.range(
-    this.r ? [120, 200] : [0, 360],
-    this.r ? [40, 80] : [0, 100]
-  ).render(1000)
-}
-
-let toggleValue = () => {
-  this.v = 1 - (this.v || 0)
-  trackpad.value(
-    this.v ? 165 : undefined,
-    this.v ? 65 : undefined
-  ).render(1000)
-}
+</script><script>
+  Controls(trackpad)
+    .toggle('callback', [undefined, v => {
+  const el = document.getElementById('trackpad-flag')
+  el.style.backgroundColor = `hsl(${v[0]}, ${v[1]}%, 50%)`
+}])
+    .toggle('color', [undefined, 'yellowgreen'])
+    .toggle('guide', [undefined, true])
+    .toggle('xRange', [[0, 360], [120, 200]])
+    .toggle('yRange', [[0, 100], [40, 80]])
+    .toggle('values', [undefined, [165, 65]])
 </script></div></main></body></html>

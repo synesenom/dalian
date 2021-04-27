@@ -4,14 +4,14 @@
     hljs.initHighlighting();
   });</script><title>Slider | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleMax()">.max()</li>
-    <li onclick="toggleMin()">.min()</li>
-    <li onclick="toggleStep()">.step()</li>
-    <li onclick="toggleThickness()">.thickness()</li>
-    <li onclick="toggleTrackColor()">.trackColor()</li>
-    <li onclick="toggleValue()">.value()</li>
+    <li id="toggle-callback"></li>
+    <li id="toggle-color"></li>
+    <li id="toggle-max"></li>
+    <li id="toggle-min"></li>
+    <li id="toggle-step"></li>
+    <li id="toggle-thickness"></li>
+    <li id="toggle-trackColor"></li>
+    <li id="toggle-value"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -39,47 +39,14 @@ const slider = dalian.Slider('slider', '#widget')
   .margins(40)
   .font.size(14)
   .render()
-</script><script class="doc">
-// api methods
-let toggleCallback = () => {
-  this.a = 1 - (this.a || 0)
-  slider.callback(this.a
-    ? v => document.getElementById('value-label').textContent = `Value: ${v.toFixed(2)}`
-    : undefined).render(1000)
-}
-
-let toggleColor = () => {
-  this.c = 1 - (this.c || 0)
-  slider.color(this.c ? 'yellowgreen' : undefined).render(1000)
-}
-
-let toggleMax = () => {
-  this.m = 1 - (this.m || 0)
-  slider.max(this.m ? 3 : undefined).render(1000)
-}
-
-let toggleMin = () => {
-  this.i = 1 - (this.i || 0)
-  slider.min(this.i ? -2 : undefined).render(1000)
-}
-
-let toggleStep = () => {
-  this.s = 1 - (this.s || 0)
-  slider.step(this.s ? 0.2 : undefined).render(1000)
-}
-
-let toggleThickness = () => {
-  this.t = 1 - (this.t || 0)
-  slider.thickness(this.t ? 16 : undefined).render(1000)
-}
-
-let toggleTrackColor = () => {
-  this.r = 1 - (this.r || 0)
-  slider.trackColor(this.r ? '#000' : undefined).render(1000)
-}
-
-let toggleValue = () => {
-  this.v = 1 - (this.v || 0)
-  slider.value(this.v ? 0.85 : undefined).render(1000)
-}
+</script><script>
+  Controls(slider)
+    .toggle('callback', [undefined, v => document.getElementById('value-label').textContent = `Value: ${v.toFixed(2)}`])
+    .toggle('color', [undefined, 'yellowgreen'])
+    .toggle('max', [undefined, 3])
+    .toggle('min', [undefined, -2])
+    .toggle('step', [undefined, 0.2])
+    .toggle('thickness', [undefined, 16])
+    .toggle('trackColor',  [undefined, '#000'])
+    .toggle('value', [undefined, 0.85])
 </script></div></main></body></html>

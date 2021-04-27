@@ -23,14 +23,14 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleColors()">.color.palette()</li>
-    <li onclick="toggleColumns()">.columns()</li>
-    <li onclick="toggleEntries()">.entries()</li>
-    <li onclick="toggleHSep()">.hSep()</li>
-    <li onclick="toggleInsert()">.insert()</li>
-    <li onclick="toggleMarkers()">.markers()</li>
-    <li onclick="toggleStyles()">.styles()</li>
-    <li onclick="toggleVSep()">.vSep()</li>
+    <li id="toggle-color.palette"></li>
+    <li id="toggle-columns"></li>
+    <li id="toggle-entries"></li>
+    <li id="toggle-hSep"></li>
+    <li id="toggle-insert"></li>
+    <li id="toggle-markers"></li>
+    <li id="toggle-styles"></li>
+    <li id="toggle-vSep"></li>
   </ul>
 </div>
 
@@ -101,68 +101,45 @@ const legend = dalian.Legend('legend', '#widget')
   .render()
 </script>
 
-<script class="doc">
-// api methods
-const toggleColors = () => {
-  this.c = 1 - (this.c || 0)
-  const colors = this.c ? {
-    Pilsener: 'royalblue',
-    Weissbier: 'yellowgreen',
-    Saison: 'goldenrod',
-    Stout: 'firebrick',
-  } : undefined
-  legend.color.palette(colors).render(1000)
-  chart.color.palette(colors).render(1000)
-}
-
-const toggleColumns = () => {
-  this.o = 1 - (this.o || 0)
-  legend.columns(this.o ? 2 : undefined).render(1000)
-}
-
-const toggleEntries = () => {
-  this.e = 1 - (this.e || 0)
-  legend.entries(this.e ? ['Pilsener', 'Saison']
-    : ['Pilsener', 'Weissbier', 'Saison', 'Stout'])
-    .render(1000)
-}
-
-const toggleHSep = () => {
-  this.h = 1 - (this.h || 0)
-  legend.hSep(this.h ? 8 : undefined).render(1000)
-}
-
-const toggleInsert = () => {
-  this.i = 1 - (this.i || 0)
-  legend.insert(this.i ? chart : undefined, {x: 60, y: 60})
-}
-
-const toggleMarkers = () => {
-  this.m = ((this.m || 0) + 1) % 3
-  switch (this.m) {
-    case 0:
-      legend.markers().render()
-      break
-    case 1:
-      legend.markers('circle').render()
-      break
-    case 2:
-      legend.markers('m -7.5 6.495 l 7.5 -13 l 7.5 13 z').render()
-  }
-}
-
-const toggleStyles = () => {
-  this.s = 1 - (this.s || 0)
-  const styles = this.s ? undefined : {
-    Saison: 'dashed',
-    Stout: 'dotted'
-  }
-  legend.styles(styles).render()
-  chart.lineStyle(styles).render()
-}
-
-const toggleVSep = () => {
-  this.v = 1 - (this.v || 0)
-  legend.vSep(this.v ? 2 : undefined).render(1000)
-}
+<script>
+  Controls(legend)
+    .toggle('color.palette', [
+      undefined, {
+        Pilsener: 'royalblue',
+        Weissbier: 'yellowgreen',
+        Saison: 'goldenrod',
+        Stout: 'firebrick',
+      }], {
+      callback: colors => {
+        legend.color.palette(colors).render(1000)
+        chart.color.palette(colors).render(1000)
+      }
+    })
+    .toggle('columns', [undefined, 2])
+    .toggle('entries', [
+      ['Pilsener', 'Weissbier', 'Saison', 'Stout'],
+      ['Pilsener', 'Saison']
+    ])
+    .toggle('hSep', [undefined, 8])
+    .toggle('insert', [undefined, 'chart, {x: 60, y: 20}'], {
+      callback: widget => {
+        if (widget.startsWith('chart')) {
+          legend.insert(chart, {x: 60, y: 20})
+        } else {
+          legend.insert()
+        }
+      },
+      duration: 0
+    })
+    .toggle('markers', [undefined, 'circle', 'm -7.5 6.495 l 7.5 -13 l 7.5 13 z'])
+    .toggle('styles', [{
+      Saison: 'dashed',
+      Stout: 'dotted'
+    }, undefined], {
+      callback: styles => {
+        legend.styles(styles).render()
+        chart.lineStyle(styles).render()
+      }
+    })
+    .toggle('vSep', [undefined, 2])
 </script>

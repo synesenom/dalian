@@ -13,6 +13,9 @@ function getLabel(method, arg) {
     case 'undefined':
       return `.${method}()`
     case 'string':
+      if (arg.startsWith('chart')) {
+        return `.${method}(${arg})`
+      }
       return `.${method}('${arg}')`
     case 'object':
       return `.${method}(${JSON.stringify(arg).replaceAll(',', ', ').replaceAll(':', ': ')})`

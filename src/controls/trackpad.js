@@ -12,7 +12,8 @@ import { lighter } from '../utils/color'
 const DEFAULTS = {
   color: 'grey',
   guide: false,
-  ranges: [[0, 1], [0, 1]],
+  xRange: [0, 1],
+  yRange: [0, 1],
   type: 'cartesian',
   values: [0, 0]
 }
@@ -48,8 +49,8 @@ export default (name, parent = 'body') => {
     const x = typeof initialValues === 'undefined' ? event.x : scales.x.scale(initialValues[0])
     const y = typeof initialValues === 'undefined' ? event.y : scales.y.scale(initialValues[1])
     _.i.values = [
-      Math.max(_.i.ranges[0][0], Math.min(_.i.ranges[0][1], scales.x.scale.invert(x))),
-      Math.max(_.i.ranges[1][0], Math.min(_.i.ranges[1][1], scales.y.scale.invert(y)))
+      Math.max(_.i.xRange[0], Math.min(_.i.xRange[1], scales.x.scale.invert(x))),
+      Math.max(_.i.yRange[0], Math.min(_.i.yRange[1], scales.y.scale.invert(y)))
     ]
   }
 
@@ -176,9 +177,9 @@ export default (name, parent = 'body') => {
   self._widget.update = extend(self._widget.update, duration => {
     // Update scales.
     scales.x.range([0, parseFloat(self._widget.size.innerWidth)])
-      .domain(_.i.ranges[0])
+      .domain(_.i.xRange)
     scales.y.range([parseFloat(self._widget.size.innerHeight), 0])
-      .domain(_.i.ranges[1])
+      .domain(_.i.yRange)
 
     // Update internals.
     updateValues(_.i.values)
@@ -281,64 +282,59 @@ export default (name, parent = 'body') => {
     },
 
     /**
-     * Sets the range to one or both axes. If null or undefined is passed to any of the ranges that range remains unchanged.
+     * Sets the X range.
      *
      * @method range
      * @memberOf Trackpad
-     * @param {(number[]|null)?} range1 First (x) range.
-     * @param {(number[]|null)?} range2 Second (y) range.
+     * @param {number[]?} range Range to set.
      * @returns {Trackpad} Reference to the Trackpad API.
      * @example
      *
-     * // Set both ranges.
+     * // Set X range.
      * const trackpad = dalian.Trackpad('my-control')
-     *   .range([1, 2], [3, 4])
-     *   .render()
-     *
-     * // Set the first range only.
-     * trackpad.range([0.1, 3.4])
-     *   .render()
-     *
-     * // Set the second range only.
-     * trackpad.range(null, [4, 5])
+     *   .xRange([1, 2])
      *   .render()
      */
-    range (range1, range2) {
-      _.i.ranges = [
-        Array.isArray(range1) ? range1 : _.i.range[0],
-        Array.isArray(range2) ? range2 : _.i.range[1]
-      ]
+    xRange (range) {
+      _.i.xRange = Array.isArray(range) ? range : _.i.xRange
       return api
     },
 
     /**
-     * Sets one/all of the trackpad values. If null or undefined is passed to any of the values that value remains unchanged.
+     * Sets the Y range.
      *
-     * @method value
+     * @method range
      * @memberOf Trackpad
-     * @param {(number|null)?} value1 First (x) value.
-     * @param {(number|null)?} value2 Second (y) value.
+     * @param {number[]?} range Range to set.
+     * @returns {Trackpad} Reference to the Trackpad API.
+     * @example
+     *
+     * // Set Y range.
+     * const trackpad = dalian.Trackpad('my-control')
+     *   .yRange([3, 4])
+     *   .render()
+     */
+    yRange (range) {
+      _.i.yRange = Array.isArray(range) ? range : _.i.yRange
+      return api
+    },
+
+    /**
+     * Sets the trackpad coordinates.
+     *
+     * @method values
+     * @memberOf Trackpad
+     * @param {number[]} values Array containing the X and Y coordinates.
      * @returns {Trackpad} Reference to the Trackpad API.
      * @example
      *
      * // Set both values.
      * const trackpad = dalian.Trackpad('my-control')
-     *   .value(1, 2)
-     *   .render()
-     *
-     * // Set the first value only.
-     * trackpad.value(3)
-     *   .render()
-     *
-     * // Set the second value only.
-     * trackpad.value(null, 4)
+     *   .value([1, 2])
      *   .render()
      */
-    value (value1, value2) {
-      _.i.values = [
-        typeof value1 === 'number' ? value1 : _.i.values[0],
-        typeof value2 === 'number' ? value2 : _.i.values[1]
-      ]
+    values (values) {
+      _.i.values = values || _.i.values
       return api
     }
   })

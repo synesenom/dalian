@@ -4,11 +4,11 @@
     hljs.initHighlighting();
   });</script><title>Checkbox | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleCheck()">.check()</li>
-    <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleDisable()">.disable()</li>
-    <li onclick="toggleLabel()">.label()</li>
+    <li id="toggle-callback"></li>
+    <li id="toggle-check"></li>
+    <li id="toggle-color"></li>
+    <li id="toggle-disable"></li>
+    <li id="toggle-label"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -26,35 +26,11 @@ const checkbox = dalian.Checkbox('checkbox', '#widget')
   .font.size(14)
   .label(`I'm a checkbox`)
   .render()
-</script><script class="doc">
-// api methods
-let toggleCallback = () => {
-  this.a = 1 - (this.a || 0)
-  checkbox.callback(this.a ? x => alert(x ? 'On!' : 'Off') : undefined)
-    .render()
-}
-
-let toggleCheck = () => {
-  this.c = 1 - (this.c || 0)
-  checkbox.check(this.c)
-    .render()
-}
-
-let toggleColor = () => {
-  this.o = 1 - (this.o || 0)
-  checkbox.color(this.o ? 'yellowgreen' : undefined)
-    .render(1000)
-}
-
-let toggleDisable = () => {
-  this.d = 1 - (this.d || 0)
-  checkbox.disable(this.d)
-    .render()
-}
-
-let toggleLabel = () => {
-  this.l = 1 - (this.l || 0)
-  checkbox.label(this.l ? 'Click on me!' : `I'm a checkbox`)
-    .render()
-}
+</script><script>
+  Controls(checkbox)
+    .toggle('callback', [undefined, x => alert(x ? 'On!' : 'Off')])
+    .toggle('check', [undefined, true])
+    .toggle('color', [undefined, 'yellowgreen'])
+    .toggle('disable', [undefined, true])
+    .toggle('label', ['I am a checkbox', 'Click on me!'])
 </script></div></main></body></html>

@@ -4,14 +4,14 @@
     hljs.initHighlighting();
   });</script><title>RadioButton | dalian</title></head><body><main><div class="main-content-centered"><div id="widget"><div class="margin-right"><div id="controls"><div class="controls-title">Explore the API</div><div class="content">
   <ul>
-    <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleColumns()">.columns()</li>
-    <li onclick="toggleDisable()">.disable()</li>
-    <li onclick="toggleEntries()">.entries()</li>
-    <li onclick="toggleHSep()">.hSep()</li>
-    <li onclick="toggleSelect()">.select()</li>
-    <li onclick="toggleVSep()">.vSep()</li>
+    <li id="toggle-callback"></li>
+    <li id="toggle-color"></li>
+    <li id="toggle-columns"></li>
+    <li id="toggle-disable"></li>
+    <li id="toggle-entries"></li>
+    <li id="toggle-hSep"></li>
+    <li id="toggle-select"></li>
+    <li id="toggle-vSep"></li>
   </ul>
 </div></div></div></div><h1>description<div class="margin-right"><a href="../../">Back to the catalogue</a></div></h1><p id="desc">
   <p>
@@ -35,61 +35,27 @@ const radio = dalian.RadioButton('radio-button', '#widget')
   ])
   .vSep(3)
   .render()
-</script><script class="doc">
-// api methods
-let toggleCallback = () => {
-  this.c = 1 - (this.c || 0)
-  radio.callback(this.c ? d => alert(`Selected ${d}`) : undefined)
-    .render()
-}
-
-let toggleSelect = () => {
-  this.s = 1 - (this.s || 0)
-  radio.select(this.s ? 'Dark turquoise' : null)
-    .render()
-}
-
-let toggleColor = () => {
-  this.o = 1 - (this.o || 0)
-  radio.color(this.o ? 'yellowgreen' : undefined)
-    .render(1000)
-}
-
-const toggleColumns = () => {
-  this.l = 1 - (this.l || 0)
-  radio.columns(this.l ? 2 : undefined)
-    .render(1000)
-}
-
-let toggleDisable = () => {
-  this.d = 1 - (this.d || 0)
-  radio.disable(this.d)
-    .render()
-}
-
-let toggleEntries = () => {
-  this.e = 1 - (this.e || 0)
-  radio.entries(this.e ? [
-    'Green',
-    'Blue',
-    'Black'
-  ] : [
-    'Dark olive green',
-    'Light golden rod yellow',
-    'Dark turquoise',
-    'Light salmon'
-  ]).render()
-}
-
-let toggleHSep = () => {
-  this.h = 1 - (this.h || 0)
-  radio.hSep(this.h ? 9 : undefined)
-    .render(1000)
-}
-
-let toggleVSep = () => {
-  this.v = 1 - (this.v || 0)
-  radio.vSep(this.v ? 4 : 3)
-    .render(1000)
-}
+</script><script>
+  Controls(radio)
+    .toggle('callback', [undefined, d => alert(`Selected ${d}`)])
+    .toggle('select', [undefined, 'Dark turquoise'], {
+      duration: 0
+    })
+    .toggle('color', [undefined, 'yellowgreen'])
+    .toggle('columns', [undefined, 2])
+    .toggle('disable', [undefined, true], {
+      duration: 0
+    })
+    .toggle('entries', [[
+      'Dark olive green',
+      'Light golden rod yellow',
+      'Dark turquoise',
+      'Light salmon'
+    ], [
+      'Green',
+      'Blue',
+      'Black'
+    ]], {duration: 0})
+    .toggle('hSep', [undefined, 9])
+    .toggle('vSep', [3, 4])
 </script></div></main></body></html>

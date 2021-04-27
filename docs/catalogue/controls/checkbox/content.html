@@ -18,11 +18,11 @@
 </div>
 <div id="controls">
   <ul>
-    <li onclick="toggleCallback()">.callback()</li>
-    <li onclick="toggleCheck()">.check()</li>
-    <li onclick="toggleColor()">.color()</li>
-    <li onclick="toggleDisable()">.disable()</li>
-    <li onclick="toggleLabel()">.label()</li>
+    <li id="toggle-callback"></li>
+    <li id="toggle-check"></li>
+    <li id="toggle-color"></li>
+    <li id="toggle-disable"></li>
+    <li id="toggle-label"></li>
   </ul>
 </div>
 
@@ -37,35 +37,11 @@ const checkbox = dalian.Checkbox('checkbox', '#widget')
   .render()
 </script>
 
-<script class="doc">
-// api methods
-let toggleCallback = () => {
-  this.a = 1 - (this.a || 0)
-  checkbox.callback(this.a ? x => alert(x ? 'On!' : 'Off') : undefined)
-    .render()
-}
-
-let toggleCheck = () => {
-  this.c = 1 - (this.c || 0)
-  checkbox.check(this.c)
-    .render()
-}
-
-let toggleColor = () => {
-  this.o = 1 - (this.o || 0)
-  checkbox.color(this.o ? 'yellowgreen' : undefined)
-    .render(1000)
-}
-
-let toggleDisable = () => {
-  this.d = 1 - (this.d || 0)
-  checkbox.disable(this.d)
-    .render()
-}
-
-let toggleLabel = () => {
-  this.l = 1 - (this.l || 0)
-  checkbox.label(this.l ? 'Click on me!' : `I'm a checkbox`)
-    .render()
-}
+<script>
+  Controls(checkbox)
+    .toggle('callback', [undefined, x => alert(x ? 'On!' : 'Off')])
+    .toggle('check', [undefined, true])
+    .toggle('color', [undefined, 'yellowgreen'])
+    .toggle('disable', [undefined, true])
+    .toggle('label', ['I am a checkbox', 'Click on me!'])
 </script>
