@@ -174,7 +174,8 @@ export default (name, parent = 'body') => {
       },
       update: g => {
         // Show group.
-        g.style('opacity', 1)
+        // TODO Replace this with highlight focus and blur styles.
+        g.style('opacity', d => self._highlight.isHighlighted(d.name) ? 1 : 0.1)
 
         const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 

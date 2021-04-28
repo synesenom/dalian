@@ -10,6 +10,7 @@ import styles from '../utils/styles'
  */
 export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } }) => (() => {
   return (self, api) => {
+    // TODO Docstring.
     function createRemoveStyle (style) {
       const properties = Object.keys(style.focus || {})
         .concat(Object.keys(style.blur || {}))
@@ -19,15 +20,22 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
     // Private members.
     const _ = {
       container: undefined,
-      selectors,
       highlightStyle,
       removeStyle: createRemoveStyle(highlightStyle),
+      currentKeys: null,
 
       // TODO Docstring.
       highlight: (selector, keys, duration) => {
         // Ignore highlight during animation.
         if (self._widget.transition) {
           return
+        }
+
+        // Update current keys.
+        if (keys === null) {
+          _.currentKeys = null
+        } else {
+          _.currentKeys = Array.isArray(keys) ? keys : [keys]
         }
 
         // Stop current transitions and create new one.
@@ -69,7 +77,11 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
           _.highlightStyle = style
           _.removeStyle = createRemoveStyle(style)
         },
-        selectors: undefined
+
+        // TODO Docstring.
+        isHighlighted (key) {
+          return _.currentKeys === null || _.currentKeys.indexOf(key) > -1
+        }
       }
     })
 
@@ -93,7 +105,7 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
         }
 
         // Highlight elements.
-        _.selectors.forEach(d => _.highlight(d, keys, duration))
+        selectors.forEach(d => _.highlight(d, keys, duration))
 
         // Return widget API.
         return api

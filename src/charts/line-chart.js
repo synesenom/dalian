@@ -210,7 +210,7 @@ export default (name, parent = 'body') => {
 
       update: g => {
         // Show group.
-        g.style('opacity', 1)
+        g.style('opacity', d => self._highlight.isHighlighted(d.name) ? 1 : 0.1)
           .style('color', self._color.mapper)
 
         // Update error bands.
