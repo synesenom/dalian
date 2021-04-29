@@ -176,7 +176,7 @@ export default (name, parent = 'body') => {
             .style('pointer-events', self._mouse.hasAny() ? 'all' : 'none')
             .transition(t)
             .attr('transform', entryTransform)
-            .style('opacity', 1)
+            .style('opacity', d => self._highlight.isHighlighted(d.name) ? 1 : 0.1)
 
           // Update marker.
           update.select('.legend-entry-marker')
