@@ -6,7 +6,6 @@ const context = canvas.getContext('2d')
 const hidden = document.createElement('div')
 const img = document.createElement('img')
 
-
 /*
  * Methods
  */
@@ -25,7 +24,6 @@ function getSvgBBox (svg) {
   document.body.removeChild(hidden)
   return bbox
 }
-
 
 /*
  * Export

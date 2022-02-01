@@ -1,24 +1,10 @@
 import { bisector, extent, select, line, area } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
-import compose from '../core/compose'
-import extend from '../core/extend'
-import BottomAxis from '../components/axis/bottom-axis'
-import Chart from '../components/chart'
-import Highlight from '../components/highlight'
-import LeftAxis from '../components/axis/left-axis'
-import LineStyle from '../components/line-style'
-import LineWidth from '../components/line-width'
-import Objects from '../components/objects'
-import Pins from '../components/pins'
-import PlotMarker from '../components/plot-marker'
-import PointTooltip from '../components/tooltip/point-tooltip'
-import Scale from '../components/scale'
-import Smoothing from '../components/smoothing'
-import Trends from '../components/trends'
-import XGrid from '../components/grid/x-grid'
-import XRange from '../components/range/x-range'
-import YGrid from '../components/grid/y-grid'
-import YRange from '../components/range/y-range'
+import { compose, extend } from '../core'
+import {
+  Chart, BottomAxis, Highlight, LeftAxis, LineStyle, LineWidth, Objects, Pins, PlotMarker, PointTooltip, Scale,
+  Smoothing, Trends, XGrid, XRange, YGrid, YRange
+} from '../components'
 
 /**
  * The line chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
@@ -241,7 +227,7 @@ export default (name, parent = 'body') => {
 
   // Public API
   /**
-   * Set/updates the data that is shown in the line chart.
+   * Sets/updates the data that is shown in the line chart.
    *
    * @method data
    * @memberOf LineChart

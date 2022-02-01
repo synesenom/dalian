@@ -46,7 +46,7 @@ export default (name, parent = 'body') => {
 
   // Private methods.
   // TODO Docstring.
-  function interpolateImage(imgData, data, t) {
+  function interpolateImage (imgData, data, t) {
     // Go through data.
     const img = _.dom.context.createImageData(..._.i.grid)
     for (let j = 0, k = 0, l = 0; j < _.i.grid[1]; j++) {
@@ -73,7 +73,7 @@ export default (name, parent = 'body') => {
     scales,
 
     // Internal variables.
-    i: Object.assign({domain: []}, DEFAULTS),
+    i: Object.assign({ domain: [] }, DEFAULTS),
 
     dom: (() => {
       const container = self._widget.content.append('foreignObject')
@@ -102,7 +102,7 @@ export default (name, parent = 'body') => {
         }
       }
 
-      return {container, canvas, context, img}
+      return { container, canvas, context, img }
     })()
   }
 
@@ -114,7 +114,7 @@ export default (name, parent = 'body') => {
     const sy = Math.ceil((yRange[1] - yRange[0]) / _.i.grid[1])
 
     // Aggregate grid values.
-    let values = new Array(_.i.grid[0] * _.i.grid[1]).fill(null)
+    const values = new Array(_.i.grid[0] * _.i.grid[1]).fill(null)
     data.forEach(d => {
       const i = Math.floor((d.x - xRange[0]) / sx)
       const j = Math.floor((yRange[1] - (d.y - yRange[0])) / sy)
@@ -146,7 +146,7 @@ export default (name, parent = 'body') => {
     self._widget.transition = true
     const transition = timer(function (elapsed) {
       // Create scale variable.
-      let t = duration > 0 ? elapsed / duration : 1
+      const t = duration > 0 ? elapsed / duration : 1
       interpolateImage(_.dom.img, self._chart.data, t)
 
       // Stop transition.

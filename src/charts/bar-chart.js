@@ -1,18 +1,10 @@
 import { max, min } from 'd3'
 import { measureText } from '../utils/measure-text'
-import compose from '../core/compose'
-import extend from '../core/extend'
 import { backgroundAdjustedColor } from '../utils/color'
-import BottomAxis from '../components/axis/bottom-axis'
-import Chart from '../components/chart'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import Horizontal from '../components/horizontal'
-import Label from '../components/label'
-import LeftAxis from '../components/axis/left-axis'
-import Objects from '../components/objects'
-import Scale from '../components/scale'
-import YGrid from '../components/grid/y-grid'
+import { compose, extend } from '../core'
+import {
+  BottomAxis, Chart, ElementTooltip, Highlight, Horizontal, Label, LeftAxis, Objects, Scale, YGrid
+} from '../components'
 
 /**
  * The bar chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
@@ -101,16 +93,18 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides
-  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.name,
-    stripe: self._color.mapper(_.current),
-    content: {
-      data: [{
-        name: 'value',
-        value: _.current.value
-      }]
-    }
-  }
+  self._tooltip.content = () => typeof _.current === 'undefined'
+    ? undefined
+    : {
+        title: _.current.name,
+        stripe: self._color.mapper(_.current),
+        content: {
+          data: [{
+            name: 'value',
+            value: _.current.value
+          }]
+        }
+      }
 
   // Extend widget update
   self._widget.update = extend(self._widget.update, duration => {
@@ -175,7 +169,8 @@ export default (name, parent = 'body') => {
       update: g => {
         // Show group.
         // TODO Replace this with highlight focus and blur styles.
-        g.style('opacity', d => self._highlight.isHighlighted(d.name) ? 1 : 0.1)
+        // g.style('opacity', d => self._highlight.isHighlighted(d.name) ? 1 : 0.1)
+        self._highlight.apply(g, 'name')
 
         const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
 
@@ -184,8 +179,10 @@ export default (name, parent = 'body') => {
           .attr('x', d => _.scales.x(horizontal ? Math.min(0, d.value) : d.name))
           .attr('y', d => _.scales.y(horizontal ? d.name : Math.max(d.value, 0)))
           .attr('width', d => horizontal
-            ? Math.abs(_.scales.x(d.value) - _.scales.x(0)) : bandwidth)
-          .attr('height', d => horizontal ? bandwidth
+            ? Math.abs(_.scales.x(d.value) - _.scales.x(0))
+            : bandwidth)
+          .attr('height', d => horizontal
+            ? bandwidth
             : Math.abs(_.scales.y(d.value) - _.scales.y(0)))
           .attr('fill', self._color.mapper)
 

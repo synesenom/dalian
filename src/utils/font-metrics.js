@@ -1,7 +1,6 @@
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')
 
-
 /*
  * Methods
  */
@@ -14,7 +13,7 @@ const context = canvas.getContext('2d')
  * @param {number} height New canvas height.
  */
 function resize (width, height) {
-  //const canvas = getCanvas()
+  // const canvas = getCanvas()
   canvas.style.width = width + 'px'
   canvas.width = width
   canvas.style.height = height + 'px'
@@ -60,7 +59,6 @@ function measureCharacter (char, fontFamily, fontSize) {
   const max = height - Math.floor(pixelData.findIndex(d => d < 255) / width)
   return { min, max }
 }
-
 
 /*
  * Export

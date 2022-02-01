@@ -1,18 +1,9 @@
 import { area, curveBasis, max, mean, median, min, range, scaleLinear, select, sum } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
-import extend from '../core/extend'
-import compose from '../core/compose'
-import Chart from '../components/chart'
-import BottomAxis from '../components/axis/bottom-axis'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import Horizontal from '../components/horizontal'
-import LeftAxis from '../components/axis/left-axis'
-import LineWidth from '../components/line-width'
-import Objects from '../components/objects'
-import Opacity from '../components/opacity'
-import Scale from '../components/scale'
-import YRange from '../components/range/y-range'
+import { compose, extend } from '../core'
+import {
+  BottomAxis, Chart, ElementTooltip, Highlight, Horizontal, LeftAxis, LineWidth, Objects, Opacity, Scale, YRange
+} from '../components'
 
 /**
  * The violin plot widget. As a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of its
@@ -122,17 +113,19 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides.
-  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.name,
-    stripe: self._color.mapper(_.current),
-    content: {
-      data: [
-        { name: 'mean', value: _.current.stats.mean },
-        { name: 'median', value: _.current.stats.median },
-        { name: 'bimodality', value: _.current.stats.bimodality }
-      ]
-    }
-  }
+  self._tooltip.content = () => typeof _.current === 'undefined'
+    ? undefined
+    : {
+        title: _.current.name,
+        stripe: self._color.mapper(_.current),
+        content: {
+          data: [
+            { name: 'mean', value: _.current.stats.mean },
+            { name: 'median', value: _.current.stats.median },
+            { name: 'bimodality', value: _.current.stats.bimodality }
+          ]
+        }
+      }
 
   self._chart.transformData = data => {
     // Save original data (so that we can change bandwidth on the fly).
@@ -284,7 +277,7 @@ export default (name, parent = 'body') => {
       _.bandwidth = bandwidth
 
       // Update values, scales and areas.
-      self._chart.data.map((d, i) => {
+      self._chart.data.forEach((d, i) => {
         const { values, scale } = makeViolin(_.data[i].values)
 
         Object.assign(d, {

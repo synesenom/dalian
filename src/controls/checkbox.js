@@ -1,9 +1,7 @@
-import compose from '../core/compose'
-import Widget from '../components/widget'
-import Font from '../components/font'
-import extend from '../core/extend'
-import {lighter} from '../utils/color'
-import {injectClass} from '../utils/style-injector'
+import { Font, Widget } from '../components'
+import { compose, extend } from '../core'
+import { lighter } from '../utils/color'
+import { injectClass } from '../utils/style-injector'
 
 // Classes.
 const TAG = 'dalian-checkbox-'
@@ -91,7 +89,8 @@ export default (name, parent = 'body') => {
    * @private
    */
   function updateUi () {
-    box.style('background', _.checked ? _.color
+    box.style('background', _.checked
+      ? _.color
       : lighter(_.color, 0.6))
     mark.style('display', _.checked ? null : 'none')
   }

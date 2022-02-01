@@ -1,5 +1,5 @@
 import extend from '../core/extend'
-import {injectClass} from '../utils/style-injector'
+import { injectClass } from '../utils/style-injector'
 
 // Classes.
 const CLASSES = {

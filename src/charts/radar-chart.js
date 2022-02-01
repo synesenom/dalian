@@ -11,7 +11,7 @@ import RadialGrid from '../components/grid/radial-grid'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import extend from '../core/extend'
-import {areaRadial, lineRadial} from 'd3'
+import { areaRadial, lineRadial } from 'd3'
 
 // Default values.
 const DEFAULTS = {
@@ -71,7 +71,7 @@ export default (name, parent = 'body') => {
    * @return {object[]} Array of objects representing the selected values.
    * @private
    */
-  function mapData(d) {
+  function mapData (d) {
     // Determine dimensions.
     const dimensions = _.dimensions || Object.keys(self._chart.data[0].values).sort()
 
@@ -107,14 +107,14 @@ export default (name, parent = 'body') => {
   }
 
   self._chart.transformData = data => {
-    return data.map(({name, values}) => ({
+    return data.map(({ name, values }) => ({
       name,
       values: Object.entries(values)
         .reduce((obj, [key, d]) => Object.assign(obj, {
           [key]: {
-              y: typeof d[0] === 'number' ? d[0] : d,
-              lo: typeof d[1] === 'number' ? d[1] : 0,
-              hi: typeof d[2] === 'number' ? d[2] : 0
+            y: typeof d[0] === 'number' ? d[0] : d,
+            lo: typeof d[1] === 'number' ? d[1] : 0,
+            hi: typeof d[2] === 'number' ? d[2] : 0
           }
         }), {})
     }))
@@ -210,7 +210,7 @@ export default (name, parent = 'body') => {
   }, true)
 
   // Public API.
-  api = Object.assign(api || {},  {
+  api = Object.assign(api || {}, {
     /**
      * Sets the order of dimensions to show: they are positioned counter -clockwise. By default dimensions are read from the data and keys are sorted alphabetically.
      *
@@ -268,7 +268,7 @@ export default (name, parent = 'body') => {
     scale (scale = 'linear') {
       scales.radius.type(scale)
       return api
-    },
+    }
   })
 
   // TODO Document data format.

@@ -3,8 +3,7 @@ import { select } from 'd3'
 /*
  * Hidden variables
  */
-let defs = undefined
-
+let defs
 
 /*
  * Methods
@@ -15,7 +14,7 @@ let defs = undefined
  * @method getDefs
  * @return {object} D3 selection of the defs tag.
  */
-function getDefs() {
+function getDefs () {
   if (typeof defs === 'undefined') {
     defs = select('body').append('svg')
       .attr('id', 'dalian-defs')
@@ -23,7 +22,6 @@ function getDefs() {
   }
   return defs
 }
-
 
 /*
  * Exports

@@ -1,13 +1,9 @@
 import { arc, pie } from 'd3'
-import compose from '../core/compose'
-import extend from '../core/extend'
+import { compose, extend } from '../core'
 import { backgroundAdjustedColor } from '../utils/color'
 import { measureText } from '../utils/measure-text'
 import { attrTween } from '../utils/tweens'
-import Chart from '../components/chart'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import Label from '../components/label'
+import { Chart, ElementTooltip, Highlight, Label } from '../components'
 
 // Defaults.
 const DEFAULTS = {
@@ -152,17 +148,19 @@ export default (name, parent = 'body') => {
       .map(d => Object.assign(d, { name: d.data.name }))
   }
 
-  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.name,
-    stripe: self._color.mapper(_.current),
-    content: {
-      type: 'plots',
-      data: [{
-        name: 'value',
-        value: _.current.value
-      }]
-    }
-  }
+  self._tooltip.content = () => typeof _.current === 'undefined'
+    ? undefined
+    : {
+        title: _.current.name,
+        stripe: self._color.mapper(_.current),
+        content: {
+          type: 'plots',
+          data: [{
+            name: 'value',
+            value: _.current.value
+          }]
+        }
+      }
 
   // Extend widget update.
   self._widget.update = extend(self._widget.update, duration => {

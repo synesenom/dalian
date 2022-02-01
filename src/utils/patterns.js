@@ -1,6 +1,5 @@
 import { addPattern, addMask } from './defs'
 
-
 /*
  * Hidden variables
  */
@@ -14,9 +13,8 @@ const TAGS = {
     mask: 'dalian-mask-dotted'
   }
 }
-let dashedId = undefined
-let dottedId = undefined
-
+let dashedId
+let dottedId
 
 /*
  * Methods
@@ -50,7 +48,6 @@ function createMask (maskId, patternId) {
     .attr('fill', `url(#${patternId})`)
 }
 
-
 /*
  * Exports
  */
@@ -63,10 +60,6 @@ function createMask (maskId, patternId) {
  */
 export default function (name) {
   switch (name) {
-    case 'solid':
-    default:
-      return null
-
     case 'dashed':
       if (typeof dashedId === 'undefined') {
         const patternId = TAGS.dashed.pattern
@@ -93,5 +86,9 @@ export default function (name) {
         createMask(dottedId, patternId)
       }
       return `url(#${dottedId})`
+
+    case 'solid':
+    default:
+      return null
   }
 }

@@ -1,11 +1,5 @@
-import extend from '../core/extend'
-import compose from '../core/compose'
-import Font from '../components/font'
-import Description from '../components/description'
-import Highlight from '../components/highlight'
-import Mouse from '../components/mouse'
-import Placeholder from '../components/placeholder'
-import Widget from '../components/widget'
+import { compose, extend } from '../core'
+import { Description, Font, Highlight, Mouse, Placeholder, Widget } from '../components'
 import { injectClass, injectId, updateId } from '../utils/style-injector'
 import { fromISO } from '../utils/utc'
 import { backgroundAdjustedColor, lighter } from '../utils/color'
@@ -155,12 +149,12 @@ export default (name, parent = 'body') => {
   // TODO Docstring.
   function align (d) {
     switch (d.type) {
-      default:
-      case 'string':
-      case 'date':
-        return 'left'
       case 'number':
         return 'right'
+      case 'string':
+      case 'date':
+      default:
+        return 'left'
     }
   }
 
@@ -208,7 +202,8 @@ export default (name, parent = 'body') => {
           return ''
         }
 
-        return type === 'up' ? 'm 1 8 l 4 -6.92 l 4 6.92 z'
+        return type === 'up'
+          ? 'm 1 8 l 4 -6.92 l 4 6.92 z'
           : 'm 1 2 l 4 6.92 l 4 -6.92 z'
       },
 
@@ -220,24 +215,18 @@ export default (name, parent = 'body') => {
       sorter (key, type = 'string', reverse = false) {
         const factor = reverse ? -1 : 1
         switch (type) {
-          default:
-          case 'string':
-            return (a, b) => factor * a[key].localeCompare(b[key])
           case 'number':
             return (a, b) => factor * (a[key] - b[key])
           case 'date':
             return (a, b) => factor * (fromISO(a[key]) - fromISO(b[key]))
+          case 'string':
+          default:
+            return (a, b) => factor * a[key].localeCompare(b[key])
         }
       },
 
       sort (column) {
         switch (_.sorting.key) {
-          default:
-          case null:
-            // No sorting column: sort by this in ascending order.
-            _.data.values.sort(_.sorting.sorter(column.key, column.type))
-            _.sorting.update(column.key, true)
-            break
           case column.key:
             if (_.sorting.ascending) {
               // Sorted by current column in ascending order: sort in descending order.
@@ -248,6 +237,12 @@ export default (name, parent = 'body') => {
               _.data.values.sort((a, b) => a._id - b._id)
               _.sorting.update(null, true)
             }
+            break
+          case null:
+          default:
+            // No sorting column: sort by this in ascending order.
+            _.data.values.sort(_.sorting.sorter(column.key, column.type))
+            _.sorting.update(column.key, true)
         }
         _.updateBody()
         _.dom.header.selectAll('.' + SELECTORS.headMarker)

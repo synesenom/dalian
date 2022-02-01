@@ -1,9 +1,7 @@
-import compose from '../core/compose'
-import Widget from '../components/widget'
-import Font from '../components/font'
-import {lighter} from '../utils/color'
-import extend from '../core/extend'
-import {injectClass} from '../utils/style-injector'
+import { compose, extend } from '../core'
+import { Font, Widget } from '../components'
+import { lighter } from '../utils/color'
+import { injectClass } from '../utils/style-injector'
 
 const TAG = 'dalian-switch-'
 const CLASSES = {

@@ -1,16 +1,14 @@
 import { select } from 'd3'
 
-
 /*
  * Hidden variables
  */
 
 // Create container.
-let container = undefined
+let container
 
 // Styles.
 const styles = []
-
 
 /*
  * Methods
@@ -94,7 +92,6 @@ function updateStyle (queryName, styleSheet, marker) {
   }
 }
 
-
 /*
  * Exports
  */
@@ -106,7 +103,7 @@ function updateStyle (queryName, styleSheet, marker) {
  * @param {string} selector Class name.
  * @param {object} styles Style entries.
  */
-export function injectClass(selector, styles) {
+export function injectClass (selector, styles) {
   injectStyle(selector, styles)
 }
 
@@ -117,7 +114,7 @@ export function injectClass(selector, styles) {
  * @param {string} selector ID name.
  * @param {object} styles Style entries.
  */
-export function injectId(selector, styles) {
+export function injectId (selector, styles) {
   injectStyle(selector, styles, '#')
 }
 
@@ -128,6 +125,6 @@ export function injectId(selector, styles) {
  * @param {string} selector ID name.
  * @param {object} styles New style entries.
  */
-export function updateId(selector, styles) {
+export function updateId (selector, styles) {
   updateStyle(selector, styles, '#')
 }

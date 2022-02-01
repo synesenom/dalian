@@ -8,13 +8,76 @@ import styles from '../utils/styles'
  *
  * @function Highlight
  */
-export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } }) => (() => {
+export default (container, selectors, highlightStyle = {
+  blur: { opacity: 0.1 }
+}) => (() => {
   return (self, api) => {
-    // TODO Docstring.
+    /**
+     * Creates an object containing both focus and blur style keys but with null values.
+     *
+     * @method createRemoveStyle
+     * @methodOf Highlight
+     * @param {Object} style Style describing the focus and blur styles.
+     * @returns {Object} Object representing the style that removes all styles.
+     * @private
+     */
     function createRemoveStyle (style) {
       const properties = Object.keys(style.focus || {})
         .concat(Object.keys(style.blur || {}))
       return properties.reduce((obj, d) => Object.assign(obj, { [d]: null }), {})
+    }
+
+    /**
+     * Performs the highlight.
+     *
+     * @method highlight
+     * @methodOf Highlight
+     * @param {string} selector Selector for the elements to be highlighted.
+     * @param {(string|string[]|undefined)} keys Single key, array of keys or  undefined representing the plot entities to highlight within the selection.
+     * @param {number} duration Duration of the highlight animation.
+     * @private
+     */
+    function highlight (selector, keys, duration) {
+      // Ignore highlight during animation.
+      if (self._widget.transition) {
+        return
+      }
+
+      // Update current keys.
+      if (keys === null) {
+        _.currentKeys = null
+      } else {
+        _.currentKeys = Array.isArray(keys) ? keys : [keys]
+      }
+
+      // Stop current transitions and create new one.
+      const selection = (_.container || (_.container = container())).selectAll(selector)
+        .interrupt()
+      const t = selection.transition().duration(duration || 0)
+
+      // Prepare key group.
+      let keyGroup
+      if (typeof keys === 'string') {
+        keyGroup = [encode(keys)]
+      } else if (Array.isArray(keys)) {
+        keyGroup = keys.map(encode)
+      } else {
+        styles(selection.transition(t), _.removeStyle)
+        return
+      }
+
+      // Perform highlight.
+      // Highlight selected elements.
+      styles(selection.filter(function () {
+        const elem = select(this)
+        return keyGroup.reduce((s, d) => s || elem.classed(d), false)
+      }).transition(t), _.highlightStyle.focus || _.removeStyle)
+
+      // Blur others.
+      styles(selection.filter(function () {
+        const elem = select(this)
+        return !keyGroup.reduce((s, d) => s || elem.classed(d), false)
+      }).transition(t), _.highlightStyle.blur || _.removeStyle)
     }
 
     // Private members.
@@ -22,63 +85,39 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
       container: undefined,
       highlightStyle,
       removeStyle: createRemoveStyle(highlightStyle),
-      currentKeys: null,
-
-      // TODO Docstring.
-      highlight: (selector, keys, duration) => {
-        // Ignore highlight during animation.
-        if (self._widget.transition) {
-          return
-        }
-
-        // Update current keys.
-        if (keys === null) {
-          _.currentKeys = null
-        } else {
-          _.currentKeys = Array.isArray(keys) ? keys : [keys]
-        }
-
-        // Stop current transitions and create new one.
-        const selection = (_.container || (_.container = container())).selectAll(selector)
-          .interrupt()
-        const t = selection.transition().duration(duration || 0)
-
-        // Prepare key group.
-        let keyGroup
-        if (typeof keys === 'string') {
-          keyGroup = [encode(keys)]
-        } else if (Array.isArray(keys)) {
-          keyGroup = keys.map(encode)
-        } else {
-          styles(selection.transition(t), _.removeStyle)
-          return
-        }
-
-        // Perform highlight.
-        // Highlight selected elements.
-        styles(selection.filter(function () {
-          const elem = select(this)
-          return keyGroup.reduce((s, d) => s || elem.classed(d), false)
-        }).transition(t), _.highlightStyle.focus || _.removeStyle)
-
-        // Blur others.
-        styles(selection.filter(function () {
-          const elem = select(this)
-          return !keyGroup.reduce((s, d) => s || elem.classed(d), false)
-        }).transition(t), _.highlightStyle.blur || _.removeStyle)
-      }
+      currentKeys: null
     }
 
     // Protected members.
     self = Object.assign(self || {}, {
       _highlight: {
-        // TODO Docstring.
+        apply (groups, accessor) {
+          groups.each(function (d) {
+            styles(select(this), (self._highlight.isHighlighted(d[accessor]) ? _.highlightStyle.focus : _.highlightStyle.blur) || _.removeStyle)
+          })
+        },
+
+        /**
+         * Sets the highlighting style.
+         *
+         * @method style
+         * @methodOf Highlight
+         * @param {Object} style Object containing the focused and blurred styles.
+         * @protected
+         */
         style (style) {
           _.highlightStyle = style
           _.removeStyle = createRemoveStyle(style)
         },
 
-        // TODO Docstring.
+        /**
+         * Check if a key is currently highlighted.
+         *
+         * @method isHighlighted
+         * @methodOf Highlight
+         * @param {string} key Key to check highlighted status for.
+         * @returns {boolean} True if key is highlighted, false otherwise.
+         */
         isHighlighted (key) {
           return _.currentKeys === null || _.currentKeys.indexOf(key) > -1
         }
@@ -105,7 +144,7 @@ export default (container, selectors, highlightStyle = { blur: { opacity: 0.1 } 
         }
 
         // Highlight elements.
-        selectors.forEach(d => _.highlight(d, keys, duration))
+        selectors.forEach(d => highlight(d, keys, duration))
 
         // Return widget API.
         return api

@@ -1,5 +1,5 @@
 import { event, select } from 'd3'
-import {injectClass} from '../utils/style-injector'
+import { injectClass } from '../utils/style-injector'
 
 // Classes.
 const CLASSES = {

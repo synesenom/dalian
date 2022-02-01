@@ -1,18 +1,9 @@
 import { arc, max } from 'd3'
 import { attrTween } from '../utils/tweens'
-import compose from '../core/compose'
-import encode from '../core/encode'
-import extend from '../core/extend'
-import Color from '../components/color'
-import Description from '../components/description'
-import Font from '../components/font'
-import Label from '../components/label'
-import Highlight from '../components/highlight'
-import Mouse from '../components/mouse'
-import Placeholder from '../components/placeholder'
-import PointTooltip from '../components/tooltip/point-tooltip'
-import Scale from '../components/scale'
-import Widget from '../components/widget'
+import { compose, encode, extend } from '../core'
+import {
+  Color, Description, Font, Highlight, Label, Mouse, Placeholder, PointTooltip, Scale, Widget
+} from '../components'
 
 // Defaults.
 const DEFAULTS = {
@@ -61,24 +52,24 @@ export default (name, parent = 'body') => {
 
   // TODO Docstring.
   const updateWedges = (selection, t) => selection
-      .attr('class', d => `wedge ${encode(d.name)}`)
-      .order()
-      // Mouse events that are attached through the API.
-      .on('mouseover.chart', d => self._mouse.over({
-        name: d.name,
-        y: d.y
-      }))
-      .on('mouseleave.chart', d => self._mouse.leave({
-        name: d.name,
-        y: d.y
-      }))
-      .on('click.chart', d => self._mouse.click({
-        name: d.name,
-        y: d.y
-      }))
-      .transition(t)
-      .attr('fill', self._color.mapper)
-      .attrTween('d', attrTween(d => _.arc(d)))
+    .attr('class', d => `wedge ${encode(d.name)}`)
+    .order()
+  // Mouse events that are attached through the API.
+    .on('mouseover.chart', d => self._mouse.over({
+      name: d.name,
+      y: d.y
+    }))
+    .on('mouseleave.chart', d => self._mouse.leave({
+      name: d.name,
+      y: d.y
+    }))
+    .on('click.chart', d => self._mouse.click({
+      name: d.name,
+      y: d.y
+    }))
+    .transition(t)
+    .attr('fill', self._color.mapper)
+    .attrTween('d', attrTween(d => _.arc(d)))
 
   // Private members
   const _ = {
@@ -93,16 +84,18 @@ export default (name, parent = 'body') => {
   }
 
   // Override.
-  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.label,
-    content: {
-      data: _.current.data.map(d => ({
-        name: d.name,
-        background: self._color.mapper(d),
-        y: d.y
-      }))
-    }
-  }
+  self._tooltip.content = () => typeof _.current === 'undefined'
+    ? undefined
+    : {
+        title: _.current.label,
+        content: {
+          data: _.current.data.map(d => ({
+            name: d.name,
+            background: self._color.mapper(d),
+            y: d.y
+          }))
+        }
+      }
 
   // Extend widget update
   self._widget.update = extend(self._widget.update, duration => {
@@ -112,7 +105,7 @@ export default (name, parent = 'body') => {
       .domain([0, maxValue])
 
     // Scale values.
-    _.data.map(d => {
+    _.data.forEach(d => {
       d.data.map(dd => Object.assign(dd, {
         outerRadius: _.scale.scale(dd.y || 0)
       }))

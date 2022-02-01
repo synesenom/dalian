@@ -31,7 +31,7 @@ const DEFAULTS = {
 export default (type, name, parent, elem) => {
   // Private members.
   const _ = {
-    parent: typeof parent === 'string' || parent instanceof HTMLElement ? select(parent) : parent,
+    parent: typeof parent === 'string' || parent instanceof window.HTMLElement ? select(parent) : parent,
     initialized: false,
     pos: {
       x: {
@@ -242,15 +242,6 @@ export default (type, name, parent, elem) => {
      */
     margins: (margins = DEFAULTS.margins) => {
       switch (typeof margins) {
-        case 'undefined':
-        default:
-          self._widget.margins = {
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0
-          }
-          break
         case 'number':
           // Single value for each side
           self._widget.margins = {
@@ -264,6 +255,14 @@ export default (type, name, parent, elem) => {
           // Update specified values
           self._widget.margins = Object.assign(self._widget.margins, margins)
           break
+        case 'undefined':
+        default:
+          self._widget.margins = {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+          }
       }
 
       // Update inner size

@@ -1,16 +1,9 @@
 import { extent, min, max, sum, scaleLinear } from 'd3'
-import compose from '../core/compose'
-import extend from '../core/extend'
+import { compose, extend } from '../core'
 import * as utc from '../utils/utc'
 import unrotate from '../utils/unrotate'
 import { backgroundAdjustedColor } from '../utils/color'
-import Chart from '../components/chart'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import Label from '../components/label'
-import LeftAxis from '../components/axis/left-axis'
-import Scale from '../components/scale'
-import TopAxis from '../components/axis/top-axis'
+import { Chart, ElementTooltip, Highlight, Label, LeftAxis, Scale, TopAxis } from '../components'
 
 // Default values.
 const DEFAULTS = {
@@ -210,17 +203,19 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides.
-  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.date.toISOString().substr(0, 10),
-    stripe: self._color.mapper(_.current),
-    content: {
-      type: 'plots',
-      data: [{
-        name: 'value',
-        value: _.current.value
-      }]
-    }
-  }
+  self._tooltip.content = () => typeof _.current === 'undefined'
+    ? undefined
+    : {
+        title: _.current.date.toISOString().substr(0, 10),
+        stripe: self._color.mapper(_.current),
+        content: {
+          type: 'plots',
+          data: [{
+            name: 'value',
+            value: _.current.value
+          }]
+        }
+      }
 
   self._widget.update = extend(self._widget.update, duration => {
     // TODO Move these to a method.

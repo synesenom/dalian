@@ -35,9 +35,7 @@ export default (self, api) => {
       },
 
       // TODO Docstring.
-      isEnabled: type => {
-        return typeof _.callbacks[type] === 'function'
-      },
+      isEnabled: type => typeof _.callbacks[type] === 'function',
 
       // TODO Docstring.
       hasAny: () => Object.values(_.callbacks).reduce((has, d) => has || typeof d === 'function', false)

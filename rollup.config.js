@@ -1,5 +1,6 @@
 import * as meta from './package.json'
 import { terser } from 'rollup-plugin-terser'
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import gzipPlugin from 'rollup-plugin-gzip'
 import stripCode from 'rollup-plugin-strip-code'
 
@@ -17,7 +18,8 @@ export default {
         stripCode({
             start_comment: 'test-code',
             end_comment: 'end-test-code'
-        })
+        }),
+        nodeResolve()
     ],
     output: {
         globals: dependencies,

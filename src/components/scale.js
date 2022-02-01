@@ -14,15 +14,15 @@ export default (type = 'linear') => {
     type,
     scale: (() => {
       switch (type) {
-        default:
-        case 'linear':
-          return scaleLinear()
         case 'sqrt':
           return scalePow().exponent(0.5)
         case 'band':
           return scaleBand().padding(0.1)
         case 'point':
           return scalePoint().padding(0.5)
+        case 'linear':
+        default:
+          return scaleLinear()
       }
     })()
   }
@@ -51,10 +51,6 @@ export default (type = 'linear') => {
       return _.type
     } else {
       switch (value) {
-        default:
-        case 'linear':
-          _.scale = scaleLinear()
-          break
         case 'sqrt':
           _.scale = scalePow().exponent(0.5)
           break
@@ -63,6 +59,10 @@ export default (type = 'linear') => {
           break
         case 'point':
           _.scale = scalePoint().padding(0.5)
+          break
+        case 'linear':
+        default:
+          _.scale = scaleLinear()
       }
     }
     return api

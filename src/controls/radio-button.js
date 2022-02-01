@@ -1,8 +1,6 @@
-import compose from '../core/compose'
-import Widget from '../components/widget'
-import Font from '../components/font'
-import extend from '../core/extend'
-import {injectClass} from '../utils/style-injector'
+import { compose, extend } from '../core'
+import { Font, Widget } from '../components'
+import { injectClass } from '../utils/style-injector'
 import { lighter } from '../utils/color'
 
 // Classes.
@@ -104,7 +102,7 @@ export default (name, parent = 'body') => {
 
   // TODO Docstring.
   function entryWidth () {
-    if (_.i.hSep === null || _.i.columns === 1)  {
+    if (_.i.hSep === null || _.i.columns === 1) {
       return parseFloat(self._widget.size.innerWidth) / _.i.columns + 'px'
     } else {
       return parseFloat(self._font.size) * _.i.hSep + 'px'
@@ -124,7 +122,7 @@ export default (name, parent = 'body') => {
   }
 
   // TODO Docstring.
-  const entryTop = (d, i) =>  `${parseFloat(self._widget.margins.top) + Math.floor(i / _.i.columns)  * parseFloat(self._font.size) * _.i.vSep}px`
+  const entryTop = (d, i) => `${parseFloat(self._widget.margins.top) + Math.floor(i / _.i.columns) * parseFloat(self._font.size) * _.i.vSep}px`
 
   self._widget.update = extend(self._widget.update, duration => {
     // Adjust container.

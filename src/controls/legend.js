@@ -1,12 +1,6 @@
-import compose from '../core/compose'
-import extend from '../core/extend'
+import { compose, encode, extend } from '../core'
 import getPattern from '../utils/patterns'
-import Widget from '../components/widget'
-import Font from '../components/font'
-import Highlight from '../components/highlight'
-import Mouse from '../components/mouse'
-import Color from '../components/color'
-import encode from '../core/encode'
+import { Color, Font, Highlight, Mouse, Widget } from '../components'
 
 // Default values.
 const DEFAULTS = {

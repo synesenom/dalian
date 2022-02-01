@@ -1,11 +1,6 @@
 import { drag, event } from 'd3'
-import extend from '../core/extend'
-import compose from '../core/compose'
-import BottomAxis from '../components/axis/bottom-axis'
-import Font from '../components/font'
-import LeftAxis from '../components/axis/left-axis'
-import Scale from '../components/scale'
-import Widget from '../components/widget'
+import { compose, extend } from '../core'
+import { BottomAxis, Font, LeftAxis, Scale, Widget } from '../components'
 import { lighter } from '../utils/color'
 
 // Default values.

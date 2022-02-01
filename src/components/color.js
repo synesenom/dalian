@@ -1,12 +1,5 @@
 import { interpolateRgb, piecewise } from 'd3'
-import wong from './palettes/wong'
-import bright from './palettes/bright'
-import muted from './palettes/muted'
-import light from './palettes/light'
-import vibrant from './palettes/vibrant'
-import sunset from './palettes/sunset'
-import iridescent from './palettes/iridescent'
-import deficiencyConverter from './palettes/deficiency'
+import * as Palettes from './palettes'
 
 const POLICIES = {
   categorical: 'categorical',
@@ -19,26 +12,26 @@ const POLICIES = {
 // TODO Docstring.
 function selectDefaultPalette (policy) {
   switch (policy) {
-    default:
-    case POLICIES.categorical:
-      return wong
     case POLICIES.sequential:
-      return iridescent.colors
+      return Palettes.iridescent.colors
     case POLICIES.diverging:
-      return sunset.colors
+      return Palettes.sunset.colors
+    case POLICIES.categorical:
+    default:
+      return Palettes.wong
   }
 }
 
 // TODO Docstring.
 function selectDefaultMissingColor (policy) {
   switch (policy) {
-    default:
-    case POLICIES.categorical:
-      return '#fff'
     case POLICIES.sequential:
-      return iridescent.missing
+      return Palettes.iridescent.missing
     case POLICIES.diverging:
-      return sunset.missing
+      return Palettes.sunset.missing
+    case POLICIES.categorical:
+    default:
+      return '#fff'
   }
 }
 
@@ -170,7 +163,7 @@ export default (self, api) => {
       const originalPalette = _.palette || selectDefaultPalette(_.policy)
 
       // Convert palette according to the current deficiency.
-      const mappedPalette = applyDeficiency(originalPalette, deficiencyConverter(_.deficiency))
+      const mappedPalette = applyDeficiency(originalPalette, Palettes.deficiencyConverter(_.deficiency))
 
       // Build accessor.
       const accessor = d => {
@@ -180,13 +173,13 @@ export default (self, api) => {
 
       // Create mapper function.
       switch (_.policy) {
-        default:
-        case POLICIES.categorical:
-          return createCategoricalMapping(mappedPalette, _.missing, accessor)
         case POLICIES.sequential:
           return createSequentialMapping(mappedPalette, _.missing, accessor)
         case POLICIES.diverging:
           return createDivergingMapping(mappedPalette, _.missing, accessor)
+        case POLICIES.categorical:
+        default:
+          return createCategoricalMapping(mappedPalette, _.missing, accessor)
       }
     }
   }
@@ -434,25 +427,25 @@ export default (self, api) => {
         if (typeof palette === 'string' && palette.startsWith('palette-')) {
           switch (palette) {
             case 'palette-bright':
-              _.palette = bright
+              _.palette = Palettes.bright
               break
             case 'palette-vibrant':
-              _.palette = vibrant
+              _.palette = Palettes.vibrant
               break
             case 'palette-wong':
-              _.palette = wong
+              _.palette = Palettes.wong
               break
             case 'palette-light':
-              _.palette = light
+              _.palette = Palettes.light
               break
             case 'palette-muted':
-              _.palette = muted
+              _.palette = Palettes.muted
               break
             case 'palette-sunset':
-              _.palette = sunset.colors
+              _.palette = Palettes.sunset.colors
               break
             case 'palette-iridescent':
-              _.palette = iridescent.colors
+              _.palette = Palettes.iridescent.colors
               break
           }
         } else {

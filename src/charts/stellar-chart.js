@@ -7,7 +7,7 @@ import RadialGrid from '../components/grid/radial-grid'
 import ElementTooltip from '../components/tooltip/element-tooltip'
 import Highlight from '../components/highlight'
 import extend from '../core/extend'
-import {lineRadial} from 'd3'
+import { lineRadial } from 'd3'
 
 // Default values.
 const DEFAULTS = {
@@ -63,7 +63,7 @@ export default (name, parent = 'body') => {
    * @return {object[]} Array of objects representing the selected values.
    * @private
    */
-  function mapData(d) {
+  function mapData (d) {
     // Determine value for inner radius.
     const r = self._radialAxis.radialScale().invert(_.inner * _.radius)
 
@@ -100,7 +100,7 @@ export default (name, parent = 'body') => {
   }
 
   self._chart.transformData = data => {
-    return data.map(({name, values}) => ({
+    return data.map(({ name, values }) => ({
       name,
       values: Object.entries(values)
         .reduce((obj, [key, d]) => Object.assign(obj, {
@@ -187,7 +187,7 @@ export default (name, parent = 'body') => {
   }, true)
 
   // Public API.
-  api = Object.assign(api || {},  {
+  api = Object.assign(api || {}, {
     /**
      * Sets the order of dimensions to show: they are positioned counter -clockwise. By default dimensions are read from the data and keys are sorted alphabetically.
      *

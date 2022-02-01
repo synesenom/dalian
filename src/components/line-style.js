@@ -22,13 +22,13 @@ export default (self, api) => {
      */
     getStrokeDashArray: style => {
       switch (style) {
-        case 'solid':
-        default:
-          return null
         case 'dashed':
           return '5 8'
         case 'dotted':
           return '1 8'
+        case 'solid':
+        default:
+          return null
       }
     }
   }
@@ -93,13 +93,13 @@ export default (self, api) => {
        */
       background (style, color) {
         switch (style) {
-          case 'solid':
-          default:
-            return color
           case 'dashed':
             return `repeating-linear-gradient(-45deg, transparent, transparent 2px, ${color} 2px, ${color} 4px`
           case 'dotted':
             return `radial-gradient(${color} 37%, transparent 37%) 0px 0px/6px 6px, radial-gradient(${color} 37%, transparent 37%) 3px 3px/6px 6px transparent`
+          case 'solid':
+          default:
+            return color
         }
       }
     }

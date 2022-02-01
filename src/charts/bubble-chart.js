@@ -1,16 +1,8 @@
 import { extent, max, voronoi } from 'd3'
-import compose from '../core/compose'
-import extend from '../core/extend'
-import BottomAxis from '../components/axis/bottom-axis'
-import Chart from '../components/chart'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import LeftAxis from '../components/axis/left-axis'
-import Objects from '../components/objects'
-import Opacity from '../components/opacity'
-import Scale from '../components/scale'
-import XRange from '../components/range/x-range'
-import YRange from '../components/range/y-range'
+import { compose, extend } from '../core'
+import {
+  BottomAxis, Chart, ElementTooltip, Highlight, LeftAxis, Objects, Opacity, Scale, XRange, YRange
+} from '../components'
 
 /**
  * The bubble chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of

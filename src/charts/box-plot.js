@@ -1,16 +1,8 @@
 import { max, min } from 'd3'
-import extend from '../core/extend'
-import compose from '../core/compose'
-import Chart from '../components/chart'
-import BottomAxis from '../components/axis/bottom-axis'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import Horizontal from '../components/horizontal'
-import LeftAxis from '../components/axis/left-axis'
-import LineWidth from '../components/line-width'
-import Objects from '../components/objects'
-import Opacity from '../components/opacity'
-import Scale from '../components/scale'
+import { compose, extend } from '../core'
+import {
+  BottomAxis, Chart, ElementTooltip, Highlight, Horizontal, LeftAxis, LineWidth, Objects, Opacity, Scale
+} from '../components'
 
 // TODO Add LineColor component.
 /**
@@ -84,21 +76,23 @@ export default (name, parent = 'body') => {
   }
 
   // Overrides.
-  self._tooltip.content = () => typeof _.current === 'undefined' ? undefined : {
-    title: _.current.name,
-    stripe: self._color.mapper(_.current),
-    content: {
-      data: [
-        { name: 'median', value: _.current.value.median },
-        { name: 'q1', value: _.current.value.q1 },
-        { name: 'q3', value: _.current.value.q3 },
-        { name: 'low', value: _.current.value.whiskers.lower },
-        { name: 'high', value: _.current.value.whiskers.upper },
-        { name: 'mild outliers', value: _.current.value.outliers.mild.length },
-        { name: 'extreme outliers', value: _.current.value.outliers.extreme.length }
-      ]
-    }
-  }
+  self._tooltip.content = () => typeof _.current === 'undefined'
+    ? undefined
+    : {
+        title: _.current.name,
+        stripe: self._color.mapper(_.current),
+        content: {
+          data: [
+            { name: 'median', value: _.current.value.median },
+            { name: 'q1', value: _.current.value.q1 },
+            { name: 'q3', value: _.current.value.q3 },
+            { name: 'low', value: _.current.value.whiskers.lower },
+            { name: 'high', value: _.current.value.whiskers.upper },
+            { name: 'mild outliers', value: _.current.value.outliers.mild.length },
+            { name: 'extreme outliers', value: _.current.value.outliers.extreme.length }
+          ]
+        }
+      }
 
   // Extend widget update
   self._widget.update = extend(self._widget.update, duration => {

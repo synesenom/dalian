@@ -1,4 +1,4 @@
-import {curveMonotoneX, curveLinear, curveCardinalClosed, curveLinearClosed} from 'd3'
+import { curveMonotoneX, curveLinear, curveCardinalClosed, curveLinearClosed } from 'd3'
 
 // Default values.
 const DEFAULTS = {

@@ -1,0 +1,8 @@
+export {default as wong} from './wong'
+export {default as bright} from './bright'
+export {default as muted} from './muted'
+export {default as light} from './light'
+export {default as vibrant} from './vibrant'
+export {default as sunset} from './sunset'
+export {default as iridescent} from './iridescent'
+export {default as deficiencyConverter} from './deficiency'

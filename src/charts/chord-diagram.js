@@ -1,11 +1,7 @@
 import { arc, chord, descending, ribbon } from 'd3'
-import compose from '../core/compose'
-import Chart from '../components/chart'
-import Highlight from '../components/highlight'
-import Label from '../components/label'
-import extend from '../core/extend'
+import { compose, encode, extend } from '../core'
+import { Chart, Highlight, Label } from '../components'
 import { attrTween } from '../utils/tweens'
-import encode from '../core/encode'
 
 // Defaults.
 const DEFAULTS = {
@@ -45,7 +41,7 @@ export default (name, parent = 'body') => {
   // Private methods.
   // TODO Docstring.
   function ribbonId (source, target) {
-    source < target ? source + '-' + target : target + '-' + source
+    return source < target ? source + '-' + target : target + '-' + source
   }
 
   // TODO Docstring.

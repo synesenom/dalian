@@ -1,10 +1,6 @@
 import { drag, event } from 'd3'
-import extend from '../core/extend'
-import compose from '../core/compose'
-import BottomAxis from '../components/axis/bottom-axis'
-import Font from '../components/font'
-import Scale from '../components/scale'
-import Widget from '../components/widget'
+import { compose, extend } from '../core'
+import { BottomAxis, Font, Scale, Widget } from '../components'
 
 // Default values.
 const DEFAULTS = {
@@ -14,7 +10,7 @@ const DEFAULTS = {
   step: 0,
   thickness: 8,
   trackColor: '#ccc',
-  value: 0,
+  value: 0
 }
 
 // TODO Add API .disabled().
@@ -39,7 +35,7 @@ export default (name, parent = 'body') => {
   // Private members.
   const _ = {
     // Internal variables.
-    i: Object.assign({domain: []}, DEFAULTS),
+    i: Object.assign({ domain: [] }, DEFAULTS),
 
     // DOM.
     // TODO Move this outside.

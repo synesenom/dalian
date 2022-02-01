@@ -1,21 +1,10 @@
 import { area, bisector, extent, line, select } from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
-import extend from '../core/extend'
-import compose from '../core/compose'
-import Chart from '../components/chart'
-import BottomAxis from '../components/axis/bottom-axis'
-import Highlight from '../components/highlight'
-import LeftAxis from '../components/axis/left-axis'
-import LineColor from '../components/line-color'
-import LineWidth from '../components/line-width'
-import Objects from '../components/objects'
-import Opacity from '../components/opacity'
-import Pins from '../components/pins'
-import PlotMarker from '../components/plot-marker'
-import PointTooltip from '../components/tooltip/point-tooltip'
-import Scale from '../components/scale'
-import Smoothing from '../components/smoothing'
-import YRange from '../components/range/y-range'
+import { compose, extend } from '../core'
+import {
+  BottomAxis, Chart, Highlight, LeftAxis, LineColor, LineWidth, Objects, Opacity, Pins, PlotMarker, PointTooltip, Scale,
+  Smoothing, YRange
+} from '../components'
 
 /**
  * The area chart widget. Being a chart, it extends the [Chart]{@link ../components/chart.html} component, with all of
