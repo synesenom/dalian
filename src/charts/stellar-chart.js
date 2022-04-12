@@ -1,12 +1,5 @@
-import Scale from '../components/scale'
-import compose from '../core/compose'
-import Chart from '../components/chart'
-import Smoothing from '../components/smoothing'
-import RadialAxis from '../components/axis/radial-axis'
-import RadialGrid from '../components/grid/radial-grid'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import extend from '../core/extend'
+import {compose, extend} from '../core'
+import {Chart, ElementTooltip, Highlight,  RadialAxis, RadialGrid, Scale, Smoothing} from '../components'
 import { lineRadial } from 'd3'
 
 // Default values.
@@ -14,6 +7,7 @@ const DEFAULTS = {
   radius: 100,
   inner: 0.05,
   dimensions: null,
+  min: 0,
   max: 1
 }
 
@@ -117,7 +111,7 @@ export default (name, parent = 'body') => {
     // Update scales.
     scales.radius
       .range([0, _.radius])
-      .domain([0, _.max])
+      .domain([_.min, _.max])
     scales.angle
       .range([0, (dimensions.length - 1) * 2 * Math.PI / dimensions.length])
       .domain([0, dimensions.length - 1])
@@ -258,9 +252,20 @@ export default (name, parent = 'body') => {
     },
 
     // TODO Move this to RadialRange.
-    // TODO Default to data max.
+    min (min = DEFAULTS.min) {
+      _.min = min
+      return api
+    },
+
+    // TODO Move this to RadialRange.
     max (max = DEFAULTS.max) {
       _.max = max
+      return api
+    },
+
+    // TODO Docs.
+    scale (scale = 'linear') {
+      scales.radius.type(scale)
       return api
     }
   })

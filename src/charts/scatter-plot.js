@@ -1,17 +1,8 @@
 import { extent, voronoi } from 'd3'
-import compose from '../core/compose'
-import extend from '../core/extend'
-import Chart from '../components/chart'
-import BottomAxis from '../components/axis/bottom-axis'
-import ElementTooltip from '../components/tooltip/element-tooltip'
-import Highlight from '../components/highlight'
-import LeftAxis from '../components/axis/left-axis'
-import Objects from '../components/objects'
-import Opacity from '../components/opacity'
-import PlotMarker from '../components/plot-marker'
-import Scale from '../components/scale'
-import XRange from '../components/range/x-range'
-import YRange from '../components/range/y-range'
+import {compose, extend} from '../core'
+import {
+  BottomAxis, Chart, ElementTooltip, Highlight, LeftAxis, Objects, Opacity, PlotMarker, Scale, XRange, YRange
+} from '../components'
 
 // Defaults.
 const DEFAULTS = {
@@ -123,6 +114,7 @@ export default (name, parent = 'body') => {
     return data.map(d => ({
       name: d.name,
       values: d.values.map(dd => ({
+        name: d.name,
         x: +dd.x,
         y: +dd.y
       }))
@@ -153,9 +145,6 @@ export default (name, parent = 'body') => {
       enter: g => {
         // Init group
         g.style('opacity', 0)
-          .style('color', self._color.mapper)
-          .attr('stroke', 'none')
-          .attr('fill', 'currentColor')
 
         // Add dots
         g.selectAll('circle').data(d => d.values)
@@ -165,12 +154,13 @@ export default (name, parent = 'body') => {
           .attr('cy', d => _.scales.y(d.y))
           .attr('r', _.size / 2)
           .style('opacity', 0)
+          .style('fill', self._color.mapper)
+          .attr('stroke', 'none')
 
         return g
       },
       updateBefore: g => {
         g.style('opacity', 1)
-          .style('color', self._color.mapper)
 
         g.selectAll('circle')
           .data(d => d.values)
@@ -191,6 +181,7 @@ export default (name, parent = 'body') => {
           .attr('cy', d => _.scales.y(d.y))
           .attr('r', _.size / 2)
           .style('opacity', self._opacity.value())
+          .style('fill', self._color.mapper)
 
         return g
       },

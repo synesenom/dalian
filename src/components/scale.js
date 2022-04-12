@@ -1,4 +1,4 @@
-import { scaleBand, scaleLinear, scalePoint, scalePow } from 'd3'
+import { scaleBand, scaleLinear, scaleLog, scalePoint, scalePow } from 'd3'
 
 /**
  * Component implementing a scale.
@@ -16,6 +16,8 @@ export default (type = 'linear') => {
       switch (type) {
         case 'sqrt':
           return scalePow().exponent(0.5)
+        case 'log':
+          return scaleLog()
         case 'band':
           return scaleBand().padding(0.1)
         case 'point':
@@ -53,6 +55,9 @@ export default (type = 'linear') => {
       switch (value) {
         case 'sqrt':
           _.scale = scalePow().exponent(0.5)
+          break
+        case 'log':
+          _.scale = scaleLog()
           break
         case 'band':
           _.scale = scaleBand().padding(0.1)
