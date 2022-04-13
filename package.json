@@ -1,6 +1,6 @@
 {
   "name": "dalian",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "A lightweight, minimalistic charting library",
   "author": {
     "name": "Enys Mones",
@@ -50,7 +50,8 @@
     "build:api": "node docs/index.js --api",
     "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",
-    "dev:tutorial": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/tutorial --ext pug,js --exec 'node docs/index.js --tutorial all'",
+    "dev:catalogue": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/catalogue --ext pug,js --exec 'node docs/index.js --catalogue'",
+    "dev:tutorial": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/tutorial --ext pug,js --exec 'node docs/index.js --tutorial'",
     "dev": "./node_modules/.bin/nodemon --watch src --ext js --exec 'npm run-script build'",
     "reload": "./node_modules/.bin/reload --dir docs --watch-dir docs --port 8081",
     "standard": "./node_modules/.bin/standard --fix src/**/*.js",
