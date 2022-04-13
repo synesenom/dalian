@@ -135,9 +135,9 @@ export default (name, parent = 'body') => {
       .domain(yRange)
 
     // Adjust scales to fit circles within the axes.
-    const dx = _.scales.x.measure(_.size)
+    const dx = 0//_.scales.x.measure(_.size)
     _.scales.x.domain(self._xRange.range([xRange[0] - dx, xRange[1] + dx]))
-    const dy = _.scales.y.measure(_.size)
+    const dy = 0//_.scales.y.measure(_.size)
     _.scales.y.domain(self._yRange.range([yRange[1] + dy, yRange[0] - dy]))
 
     // Add plots.
@@ -152,7 +152,7 @@ export default (name, parent = 'body') => {
           .attr('class', 'dot')
           .attr('cx', d => _.scales.x(d.x))
           .attr('cy', d => _.scales.y(d.y))
-          .attr('r', _.size / 2)
+          .attr('r', _.size)
           .style('opacity', 0)
           .style('fill', self._color.mapper)
           .attr('stroke', 'none')
@@ -169,7 +169,7 @@ export default (name, parent = 'body') => {
               .attr('class', 'dot')
               .attr('cx', d => _.scales.x(d.x))
               .attr('cy', d => _.scales.y(d.y))
-              .attr('r', _.size / 2)
+              .attr('r', _.size)
               .style('opacity', 0),
             update => update,
             exit => exit.transition().duration(duration)
@@ -179,7 +179,7 @@ export default (name, parent = 'body') => {
           .transition().duration(duration)
           .attr('cx', d => _.scales.x(d.x))
           .attr('cy', d => _.scales.y(d.y))
-          .attr('r', _.size / 2)
+          .attr('r', _.size)
           .style('opacity', self._opacity.value())
           .style('fill', self._color.mapper)
 
