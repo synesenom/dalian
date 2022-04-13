@@ -1,4 +1,4 @@
-import { extent, voronoi } from 'd3'
+import { extent, voronoi, max } from 'd3'
 import { compose, extend } from '../core'
 import {
   BottomAxis, Chart, ElementTooltip, Highlight, LeftAxis, Objects, Opacity, PlotMarker, Scale, XRange, YRange
@@ -6,7 +6,7 @@ import {
 
 // Defaults.
 const DEFAULTS = {
-  size: 3
+  size: () => 3
 }
 
 /**
@@ -98,7 +98,7 @@ export default (name, parent = 'body') => {
       return
     } else {
       self._plotMarker.add(_.scales.x(_.current.x), _.scales.y(_.current.y), 'marker', _.current,
-        Math.max(5, 0.75 * _.size))
+        Math.max(5, 1.5 * _.size(_.current)))
     }
 
     return {
@@ -133,21 +133,18 @@ export default (name, parent = 'body') => {
   self._widget.update = extend(self._widget.update, duration => {
     // Determine boundaries.
     const flatData = self._chart.data.map(d => d.values).flat()
-
-    // Create size mappers for adjusting the axes.
-    const sizeX = d => _.scales.x.measure(typeof _.size === 'number' ? _.size : _.size(d))
-    const sizeY = d => _.scales.y.measure(typeof _.size === 'number' ? _.size : _.size(d))
+    const maxSize = max(flatData.map(_.size))
 
     // Init scales.
     const xRange = extent(flatData.map(d => {
-      const dx = sizeX(d)
-      return [d.x - dx, d.x + dx]
+      const size = _.size(d)
+      return [d.x - size, d.x + size]
     }).flat())
     _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
       .domain(self._xRange.range(xRange))
     const yRange = extent(flatData.map(d => {
-      const dy = sizeY(d)
-      return [d.y - dy, d.y + dy]
+      const size = _.size(d)
+      return [d.y - size, d.y + size]
     }).flat())
     _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
       .domain(self._yRange.range(yRange))
@@ -206,7 +203,7 @@ export default (name, parent = 'body') => {
     // Add event to detect hovering events.
     self._widget.container
       .on('mousemove.scatter', () => {
-        const dot = _.diagram.find(...self._widget.getMouse(), Math.max(20, _.size / 2)) || undefined
+        const dot = _.diagram.find(...self._widget.getMouse(), Math.max(20, maxSize)) || undefined
 
         // Mouse events.
         if (typeof dot !== 'undefined' && dot !== _.current) {
@@ -248,7 +245,7 @@ export default (name, parent = 'body') => {
      *   .render()
      */
     size: (value = DEFAULTS.size) => {
-      _.size = value
+      _.size = typeof value === 'number' ? () => value : value
       return api
     }
 
