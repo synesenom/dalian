@@ -13,7 +13,15 @@ html(lang='en')
                 p Here you can find some guided tutorials that demonstrate the flexibility of the library.
 
                 .card-container
-                    a.card.large(href='gapminder')
+                    // TODO Tutorial for Nightingale's famous chart
+                    // TODO Tutorial for an OWID chart: https://ourworldindata.org/grapher/share-of-world-merchandise-trade-by-type-of-trade-percent?time=earliest..2014&country=~OWID_WRL
+                    a.card.large(href='gapminder/index.html')
                         .background(style='background-image:url(gapminder/thumbnail.png)')
                         .card-label Gapminder
                         .card-desc Hans Rosling's famous bubble chart on the life expectancy distribution for multiple years.
+
+                    a.card.large(href='multiple-types/index.html')
+                        // TODO Change thumbnail
+                        .background(style='background-image:url(gapminder/thumbnail.png)')
+                        .card-label Multiple types
+                        .card-desc This tutorial shows how to have multiple chart types on the same chart.

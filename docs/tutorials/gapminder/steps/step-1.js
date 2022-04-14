@@ -1,4 +1,4 @@
-(async() => {
+(async () => {
   // Load data.
   const data = await d3.json('data.json')
 

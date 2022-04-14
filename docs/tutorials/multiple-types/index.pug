@@ -1,0 +1,64 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        each css in ['code', 'fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'link', 'catalogue', 'desktop', 'atelier-lakeside-light']
+            link(rel='stylesheet', type='text/css', href='../../style/' + css + '.css')
+        link(rel='stylesheet', type='text/css', href='../css/style.css')
+        each dependency in dependencies
+            script(type='text/javascript', src='../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
+        script(type='text/javascript', src='../../js/lib/highlight.min.js')
+        script(type='text/javascript', src='../../dl/dalian.min.js')
+        title Multiple types | tutorials
+    body
+        main
+            .main-content-centered
+                h1 Multiple types
+                p In this tutorial we learn how to use the axis components in a smart way to emulate having multiple chart types on one chart.
+
+                h2 Data
+                p In this example, we use the monthly sea surface temperature anomaly from the #[a(href="https://www.metoffice.gov.uk/hadobs/hadsst4/data/download.html") Met Office Hadley Center].
+                  | Loading and parsing the data with the Fetch API is fairly straightforward as it comes in a CSV containing numbers only (the data is copied as a Github Gist):
+                pre
+                    code.hljs.javascript.
+                        const URL = 'https://gist.githubusercontent.com/synesenom/38f6ac1567aab8dba68b0dbf476d8a71/raw/monthly-temperature-anomaly.csv'
+
+                        (async () => {
+                          // Fetch our data.
+                          const raw = await fetch(URL)
+                            .then(response => response.text())
+                          const data = raw.split('\n')
+                            .map(d => {
+                              // For this guide's purpose, let's extract the year and anomaly
+                              // value only.
+                              const cols = d.split(',')
+                              return {
+                                x: +cols[0],
+                                y: +cols[2]
+                              }
+                            })
+                        })()
+
+                p A sample of what the file would be seen by Javascript:
+                pre.data.
+                    [
+                        {x: 1850, y: -0.35138},
+                        {x: 1850, y: -0.34437},
+                        {x: 1850, y: -0.58001},
+                        {x: 1850, y: -0.34222},
+                        {x: 1850, y: -0.25093},
+                        ...
+                    ]
+
+                h2 The scatter plot
+                p We start with a scatter plot showing all anomaly values for each year.
+                  | Following the #[a(href="https://synesenom.github.io/dalian/catalogue/charts/scatter-plot/") example] in the catalogue:
+
+                .chart-container#chart-step-final
+                script
+                    include steps/step-final.js
+
+
+    script
+        include ../js/common.js
