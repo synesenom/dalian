@@ -1,9 +1,6 @@
-const canvas = document.createElement('canvas')
-const context = canvas.getContext('2d')
+import Dom from './dom'
 
-/*
- * Methods
- */
+const dom = Dom().add('canvas')
 
 /**
  * Resizes canvas.
@@ -13,7 +10,8 @@ const context = canvas.getContext('2d')
  * @param {number} height New canvas height.
  */
 function resize (width, height) {
-  // const canvas = getCanvas()
+  const canvas = dom.canvas()
+
   canvas.style.width = width + 'px'
   canvas.width = width
   canvas.style.height = height + 'px'
@@ -30,6 +28,8 @@ function resize (width, height) {
  * @return {object} Object containing the min/max heights of the character relative to the baseline.
  */
 function measureCharacter (char, fontFamily, fontSize) {
+  const context = dom.canvas().getContext('2d')
+
   // Get character width first.
   const charWidth = context.measureText(char).width
   const charHeight = fontSize
