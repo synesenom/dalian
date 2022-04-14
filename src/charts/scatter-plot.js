@@ -1,12 +1,12 @@
 import { extent, voronoi } from 'd3'
-import {compose, extend} from '../core'
+import { compose, extend } from '../core'
 import {
   BottomAxis, Chart, ElementTooltip, Highlight, LeftAxis, Objects, Opacity, PlotMarker, Scale, XRange, YRange
 } from '../components'
 
 // Defaults.
 const DEFAULTS = {
-  size: 6
+  size: 3
 }
 
 /**
@@ -52,7 +52,15 @@ export default (name, parent = 'body') => {
   )
 
   // Private methods.
-  // TODO Docstring.
+  /**
+   * Computes the Voronoi diagram for detecting the closest dot.
+   *
+   * @method computeDiagram
+   * @memberOf ScatterPlot
+   * @param {Object[]} data Plot data as described in the chart's data function.
+   * @returns {Object} The D3 Voronoi object.
+   * @private
+   */
   function computeDiagram (data) {
     const sites = data.map(plot => plot.values.map(d => ({
       name: plot.name,
@@ -126,19 +134,23 @@ export default (name, parent = 'body') => {
     // Determine boundaries.
     const flatData = self._chart.data.map(d => d.values).flat()
 
-    // Init scales.
-    const xRange = extent(flatData.map(d => d.x))
-    _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-      .domain(xRange)
-    const yRange = extent(flatData.map(d => d.y))
-    _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-      .domain(yRange)
+    // Create size mappers for adjusting the axes.
+    const sizeX = d => _.scales.x.measure(typeof _.size === 'number' ? _.size : _.size(d))
+    const sizeY = d => _.scales.y.measure(typeof _.size === 'number' ? _.size : _.size(d))
 
-    // Adjust scales to fit circles within the axes.
-    const dx = 0//_.scales.x.measure(_.size)
-    _.scales.x.domain(self._xRange.range([xRange[0] - dx, xRange[1] + dx]))
-    const dy = 0//_.scales.y.measure(_.size)
-    _.scales.y.domain(self._yRange.range([yRange[1] + dy, yRange[0] - dy]))
+    // Init scales.
+    const xRange = extent(flatData.map(d => {
+      const dx = sizeX(d)
+      return [d.x - dx, d.x + dx]
+    }).flat())
+    _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain(self._xRange.range(xRange))
+    const yRange = extent(flatData.map(d => {
+      const dy = sizeY(d)
+      return [d.y - dy, d.y + dy]
+    }).flat())
+    _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
+      .domain(self._yRange.range(yRange))
 
     // Add plots.
     self._chart.plotGroups({
@@ -221,7 +233,8 @@ export default (name, parent = 'body') => {
      *
      * @method size
      * @memberOf ScatterPlot
-     * @param {number} [value = 4] Radius of the circles to set in pixels
+     * @param {(number|Function)} [value = 3] Radius of the circles to set in pixels. Either a number or a function
+     * mapping from a data point to a number.
      * @returns {Object} Reference to the ScattePlot's API.
      * @example
      *
