@@ -1,4 +1,6 @@
-const a = document.createElement('a')
+import Dom from './dom'
+
+const dom = Dom().add('a')
 
 /**
  * Downloads some data.
@@ -9,6 +11,8 @@ const a = document.createElement('a')
  * @param {string} format File format.
  */
 export default (data, name, format) => {
+  const a = dom.a()
+
   // Set content and action.
   a.download = `${name}.${format}`
   a.href = data
