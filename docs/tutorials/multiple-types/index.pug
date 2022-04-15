@@ -5,7 +5,7 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         each css in ['code', 'fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'link', 'catalogue', 'desktop', 'atelier-lakeside-light']
             link(rel='stylesheet', type='text/css', href='../../style/' + css + '.css')
-        link(rel='stylesheet', type='text/css', href='../css/style.css')
+        link(rel='stylesheet', type='text/css', href='../shared/css/style.css')
         each dependency in dependencies
             script(type='text/javascript', src='../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
         script(type='text/javascript', src='../../js/lib/highlight.min.js')
@@ -61,4 +61,4 @@ html(lang='en')
 
 
     script
-        include ../js/common.js
+        include ../shared/js/common.js

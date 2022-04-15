@@ -116,6 +116,8 @@
 
   // Add legend.
   const legend = dalian.Legend('legend-step-6', '#chart-step-6')
+    .x(parseFloat(d3.select('#chart-step-6').style('width')) - 30)
+    .y(40)
     .width(200)
     .height(100)
     .font.size(11)
@@ -139,10 +141,6 @@
       chart.highlight(null, 100)
     })
 
-    // Insert in the chart.
-    .insert(chart, {
-      x: parseFloat(d3.select('#chart-step-6').style('width')) - 210,
-      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 200
-    })
+    // Render legend.
     .render()
 })()

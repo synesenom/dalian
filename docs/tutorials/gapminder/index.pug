@@ -5,7 +5,7 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         each css in ['code', 'fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'link', 'catalogue', 'desktop', 'atelier-lakeside-light']
             link(rel='stylesheet', type='text/css', href='../../style/' + css + '.css')
-        link(rel='stylesheet', type='text/css', href='../css/style.css')
+        link(rel='stylesheet', type='text/css', href='../shared/css/style.css')
         each dependency in dependencies
             script(type='text/javascript', src='../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
         script(type='text/javascript', src='../../js/lib/highlight.min.js')
@@ -244,6 +244,8 @@ html(lang='en')
 
                         // Add legend.
                         const legend = dalian.Legend('legend-step-6', '#chart-step-6')
+                          .x(parseFloat(d3.select('#chart-step-6').style('width')) - 30)
+                          .y(40)
                           .width(200)
                           .height(100)
                           .entries(['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
@@ -266,11 +268,7 @@ html(lang='en')
                             chart.highlight(null, 100)
                           })
 
-                          // Insert in the chart.
-                          .insert(chart, {
-                            x: parseFloat(d3.select('#chart-step-6').style('width')) - 230,
-                            y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 260
-                          })
+                          // Render legend.
                           .render()
 
                 p And this is how the final chart looks like in less than 150 lines of code:
@@ -280,4 +278,4 @@ html(lang='en')
                     include steps/step-6.js
 
     script
-        include ../js/common.js
+        include ../shared/js/common.js

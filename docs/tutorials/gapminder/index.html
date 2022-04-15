@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/list.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/catalogue.css"><link rel="stylesheet" type="text/css" href="../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../css/style.css"><script type="text/javascript" src="../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../js/lib/highlight.min.js"></script><script type="text/javascript" src="../../dl/dalian.min.js"></script><title>Gapminder | tutorials</title></head><body><main><div class="main-content-centered"><h1>Gapminder</h1><p>In this tutorial we recreate the deservedly famous <a href="https://www.gapminder.org/tools/?from=world#$chart-type=bubbles">life expectancy chart</a> of Gapminder designed and popularized by <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> as a tribute to his tremendous efforts to bring understanding of statistics to everyone.</p><h2>Data</h2><p>We will use data collected from <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">Our World in Data</a> and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the <a href="data.json">data file</a>:</p><pre class="data">{
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/list.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/catalogue.css"><link rel="stylesheet" type="text/css" href="../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../shared/css/style.css"><script type="text/javascript" src="../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../js/lib/highlight.min.js"></script><script type="text/javascript" src="../../dl/dalian.min.js"></script><title>Gapminder | tutorials</title></head><body><main><div class="main-content-centered"><h1>Gapminder</h1><p>In this tutorial we recreate the deservedly famous <a href="https://www.gapminder.org/tools/?from=world#$chart-type=bubbles">life expectancy chart</a> of Gapminder designed and popularized by <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> as a tribute to his tremendous efforts to bring understanding of statistics to everyone.</p><h2>Data</h2><p>We will use data collected from <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">Our World in Data</a> and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the <a href="data.json">data file</a>:</p><pre class="data">{
   "1950": [
     {
       "name": "Afghanistan",
@@ -398,6 +398,8 @@ const countries = Object.entries(continents).reduce((map, d) => {
 
 // Add legend.
 const legend = dalian.Legend('legend-step-6', '#chart-step-6')
+  .x(parseFloat(d3.select('#chart-step-6').style('width')) - 30)
+  .y(40)
   .width(200)
   .height(100)
   .entries(['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
@@ -420,11 +422,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     chart.highlight(null, 100)
   })
 
-  // Insert in the chart.
-  .insert(chart, {
-    x: parseFloat(d3.select('#chart-step-6').style('width')) - 230,
-    y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 260
-  })
+  // Render legend.
   .render()
 </code></pre><p>And this is how the final chart looks like in less than 150 lines of code:</p><div class="chart-container" id="chart-step-6"></div><script>(async () => {
   // Load data and continents.
@@ -544,6 +542,8 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
 
   // Add legend.
   const legend = dalian.Legend('legend-step-6', '#chart-step-6')
+    .x(parseFloat(d3.select('#chart-step-6').style('width')) - 30)
+    .y(40)
     .width(200)
     .height(100)
     .font.size(11)
@@ -567,11 +567,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
       chart.highlight(null, 100)
     })
 
-    // Insert in the chart.
-    .insert(chart, {
-      x: parseFloat(d3.select('#chart-step-6').style('width')) - 210,
-      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 200
-    })
+    // Render legend.
     .render()
 })()
 </script></div></main></body><script>//capture.run(function () {
