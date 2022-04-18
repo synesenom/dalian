@@ -1,10 +1,8 @@
-/*
- * Hidden variables
- */
-const canvas = document.createElement('canvas')
-const context = canvas.getContext('2d')
-const hidden = document.createElement('div')
-const img = document.createElement('img')
+import Dom from './dom'
+
+const dom = Dom().add('canvas')
+  .add('div', 'hidden')
+  .add('img')
 
 /*
  * Methods
@@ -17,6 +15,8 @@ const img = document.createElement('img')
  * @return {DOMRect} The bounding client rectangle.
  */
 function getSvgBBox (svg) {
+  const hidden = dom.hidden()
+
   hidden.style.opacty = 0
   hidden.appendChild(svg)
   document.body.appendChild(hidden)
@@ -41,6 +41,10 @@ function getSvgBBox (svg) {
  * @async
  */
 export default async (svg, scale = 3, format = 'png', quality = 0.92) => {
+  const canvas = dom.canvas()
+  const context = canvas.getContext('2d')
+  const img = dom.img()
+
   // Get SVG data.
   const svgData = new window.XMLSerializer().serializeToString(svg)
 

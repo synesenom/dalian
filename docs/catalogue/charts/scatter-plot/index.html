@@ -56,5 +56,5 @@ const scatter = dalian.ScatterPlot('scatter-plot', '#widget')
 </script><script>
   Controls(scatter)
     .data(getData)
-    .toggle('size', [undefined, 8])
+    .toggle('size', [undefined, 6, d => Math.sqrt(d.y)])
 </script></div></main></body></html>

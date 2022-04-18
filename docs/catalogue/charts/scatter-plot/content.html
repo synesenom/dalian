@@ -25,7 +25,6 @@
   })
     .bottomAxis.label('X')
     .leftAxis.label('Y')
-    .size(4)
     .render()
 </script>
 
@@ -87,5 +86,5 @@ const scatter = dalian.ScatterPlot('scatter-plot', '#widget')
 <script>
   Controls(scatter)
     .data(getData)
-    .toggle('size', [undefined, 8])
+    .toggle('size', [undefined, 6, d => Math.sqrt(d.y)])
 </script>
