@@ -33,13 +33,13 @@
   const data = await d3.json('data.json')
 
   // Add static chart.
-  const chart = dalian.BubbleChart('chart-step-1', '#chart-step-1')
+  const chart = dalian.BubbleChart('chart', '#chart')
     // Bind data.
     .data(data[1950])
 
     // Read dimensions from the container.
-    .width(parseFloat(d3.select('#chart-step-1').style('width')))
-    .height(parseFloat(d3.select('#chart-step-1').style('padding-bottom')))
+    .width(parseFloat(d3.select('#chart').style('width')))
+    .height(parseFloat(d3.select('#chart').style('padding-bottom')))
     .margins(50)
 
     // Initialize axes.
@@ -263,11 +263,11 @@ const continents = await d3.json('continents.json')
     .render()
 })()
 </script><h2>Changing data</h2><p>To complete the chart, we add a <a href="../../catalogue/controls/slider">Slider</a> to be able to change the data displayed in our chart. Adding the slider and binding the chart update to it  is rather easy:</p><pre><code class="hljs javascript">// Add slider.
-dalian.Slider('slider-step-5', '#chart-step-5')
+dalian.Slider('slider', '#chart')
   // Adjusting slider position and size.
-  .y(0.8 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
-  .width(parseFloat(d3.select('#chart-step-5').style('width')))
-  .height(0.2 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
+  .y(0.8 * parseFloat(d3.select('#chart').style('padding-bottom')))
+  .width(parseFloat(d3.select('#chart').style('width')))
+  .height(0.2 * parseFloat(d3.select('#chart').style('padding-bottom')))
   .margins(50)
   .min(1950)
   .max(2019)
@@ -397,8 +397,8 @@ const countries = Object.entries(continents).reduce((map, d) => {
 }, new Map())
 
 // Add legend.
-const legend = dalian.Legend('legend-step-6', '#chart-step-6')
-  .x(parseFloat(d3.select('#chart-step-6').style('width')) - 30)
+const legend = dalian.Legend('legend', '#chart')
+  .x(parseFloat(d3.select('#chart').style('width')) - 30)
   .y(40)
   .width(200)
   .height(100)
@@ -570,8 +570,6 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     // Render legend.
     .render()
 })()
-</script></div></main></body><script>//capture.run(function () {
-hljs.initHighlighting.called = false
+</script></div></main></body><script>hljs.initHighlighting.called = false
 hljs.initHighlighting()
-//})
 </script></html>
