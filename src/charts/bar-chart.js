@@ -82,6 +82,68 @@ export default (name, parent = 'body') => {
     }
   }
 
+  function addBars (g, horizontal) {
+    const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+    g.append('rect')
+      .attr('class', 'bar')
+      .on('mouseover.bar', d => {
+        _.current = d
+      })
+      .on('mouseleave.bar', () => {
+        _.current = undefined
+      })
+      .attr('x', d => _.scales.x(horizontal ? 0 : d.name))
+      .attr('y', d => _.scales.y(horizontal ? d.name : 0))
+      .attr('width', horizontal ? 0 : bandwidth)
+      .attr('height', horizontal ? bandwidth : 0)
+      .attr('fill', self._color.mapper)
+  }
+
+  function addLabels (g, horizontal, style) {
+    const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+    const measure = horizontal ? measureX : measureY
+    g.append('text')
+      .attr('class', 'bar-label')
+      .attr('stroke', 'none')
+      .style('display', 'none')
+      .style('pointer-events', 'none')
+      .text(self._label.format)
+      .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
+      .attr('fill', d => d._measures.color)
+      .attr('x', d => horizontal ? _.scales.x(0) : d._measures.x)
+      .attr('y', d => horizontal ? d._measures.y : _.scales.y(0))
+  }
+
+  function updateBars (g, horizontal) {
+    const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+    g.select('.bar')
+      .attr('x', d => _.scales.x(horizontal ? Math.min(0, d.value) : d.name))
+      .attr('y', d => _.scales.y(horizontal ? d.name : Math.max(d.value, 0)))
+      .attr('width', d => horizontal
+        ? Math.abs(_.scales.x(d.value) - _.scales.x(0))
+        : bandwidth)
+      .attr('height', d => horizontal
+        ? bandwidth
+        : Math.abs(_.scales.y(d.value) - _.scales.y(0)))
+      .attr('fill', self._color.mapper)
+  }
+
+  function updateLabels (g, horizontal, style) {
+    const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
+    const measure = horizontal ? measureX : measureY
+    g.select('.bar-label')
+      .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
+      .attr('text-anchor', horizontal ? 'end' : 'middle')
+      .attr('dominant-baseline', horizontal ? 'central' : 'hanging')
+      .attr('font-size', 'inherit')
+      .attr('fill', self._font.color)
+      .attr('fill', d => d._measures.color)
+      .attr('x', d => d._measures.x)
+      .attr('y', d => d._measures.y)
+      .text(self._label.format)
+      .style('display', self._label.show ? null : 'none')
+  }
+
   // Private members
   const _ = {
     // Variables
@@ -134,35 +196,11 @@ export default (name, parent = 'body') => {
     // Add plots.
     self._chart.plotGroups({
       enter: g => {
-        const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
-
         // Add bars.
-        g.append('rect')
-          .attr('class', 'bar')
-          .on('mouseover.bar', d => {
-            _.current = d
-          })
-          .on('mouseleave.bar', () => {
-            _.current = undefined
-          })
-          .attr('x', d => _.scales.x(horizontal ? 0 : d.name))
-          .attr('y', d => _.scales.y(horizontal ? d.name : 0))
-          .attr('width', horizontal ? 0 : bandwidth)
-          .attr('height', horizontal ? bandwidth : 0)
-          .attr('fill', self._color.mapper)
+        addBars(g, horizontal)
 
         // Add labels.
-        const measure = horizontal ? measureX : measureY
-        g.append('text')
-          .attr('class', 'bar-label')
-          .attr('stroke', 'none')
-          .style('display', 'none')
-          .style('pointer-events', 'none')
-          .text(self._label.format)
-          .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
-          .attr('fill', d => d._measures.color)
-          .attr('x', d => horizontal ? _.scales.x(0) : d._measures.x)
-          .attr('y', d => horizontal ? d._measures.y : _.scales.y(0))
+        addLabels(g, horizontal, style)
 
         return g
       },
@@ -172,33 +210,10 @@ export default (name, parent = 'body') => {
         // g.style('opacity', d => self._highlight.isHighlighted(d.name) ? 1 : 0.1)
         self._highlight.apply(g, 'name')
 
-        const bandwidth = horizontal ? _.scales.y.scale.bandwidth() : _.scales.x.scale.bandwidth()
-
-        // Update bars.
-        g.select('.bar')
-          .attr('x', d => _.scales.x(horizontal ? Math.min(0, d.value) : d.name))
-          .attr('y', d => _.scales.y(horizontal ? d.name : Math.max(d.value, 0)))
-          .attr('width', d => horizontal
-            ? Math.abs(_.scales.x(d.value) - _.scales.x(0))
-            : bandwidth)
-          .attr('height', d => horizontal
-            ? bandwidth
-            : Math.abs(_.scales.y(d.value) - _.scales.y(0)))
-          .attr('fill', self._color.mapper)
+        updateBars(g, horizontal)
 
         // Update labels.
-        const measure = horizontal ? measureX : measureY
-        g.select('.bar-label')
-          .each(d => Object.assign(d, { _measures: measure(d, bandwidth, style) }))
-          .attr('text-anchor', horizontal ? 'end' : 'middle')
-          .attr('dominant-baseline', horizontal ? 'central' : 'hanging')
-          .attr('font-size', 'inherit')
-          .attr('fill', self._font.color)
-          .attr('fill', d => d._measures.color)
-          .attr('x', d => d._measures.x)
-          .attr('y', d => d._measures.y)
-          .text(self._label.format)
-          .style('display', self._label.show ? null : 'none')
+        updateLabels(g, horizontal, style)
 
         return g
       },
