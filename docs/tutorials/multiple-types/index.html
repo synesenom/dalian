@@ -149,7 +149,7 @@ const scatter = dalian.ScatterPlot('scatter-plot', '#chart')
     .color.palette('firebrick')
     .render()
 })()
-</script><p>Note how we didn't set any axis labels for the line chart.</p><h2>Adjustments</h2><p>As we can see, the axes are not quite the same... This is because we applied the default axis settings which are adjusted differently for each chart.
+</script><p>Note how we didn't set any axis labels for the line chart.</p><h2>Adjustments</h2><p>As we can see, the axes are not quite aligned... This is because we applied the default axis settings which are adjusted differently for each chart.
  For instance, the scatter plot compresses the axis such that each circle fits in.
  In order to fix this, we just need to set the axis range manually, from the data.
  Let's calculate the range for that:</p><pre><code class="hljs javascript">const rangeX = d3.extent(trend, d => d.x)
@@ -220,8 +220,8 @@ line.xRange.min(rangeX[0])
     .render()
 
   // Adjust axes.
-  const rangeX = d3.extent(trend, d => d.x)
-  const rangeY = d3.extent(trend, d => d.y)
+  const rangeX = d3.extent(data, d => d.x)
+  const rangeY = d3.extent(data, d => d.y)
   scatter.xRange.min(rangeX[0])
     .xRange.max(rangeX[1])
     .yRange.min(rangeY[0])
@@ -315,13 +315,12 @@ line.xRange.min(rangeX[0])
 
   // Hide unused parts.
   line.leftAxis.hideAxisLine(true)
-    .leftAxis.hideTicks(true)
     .leftAxis.label('')
+    .leftAxis.values([])
     .bottomAxis.hideAxisLine(true)
-    .bottomAxis.hideTicks(true)
     .bottomAxis.label('')
+    .bottomAxis.values([])
     .render()
-  scatter.tooltip.on(true)
 })()
 </script><h2>Final remarks</h2><p>In order to make the steps in this tutorial isolated, we called <code>.render</code> after re-adjusting the ranges. Note that this is not needed and we could just as well pre-calculate the range in the beginning and apply all the adjustments right away sparing some calls to <code>.render</code>.</p><h2>Final script</h2><p><a href="final-example.html">Here</a> you can download the full working example as a stand-alone HTML file.</p></div></main></body><script>hljs.initHighlighting.called = false
 hljs.initHighlighting()
