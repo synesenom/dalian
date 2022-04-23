@@ -1,4 +1,4 @@
-(async() => {
+(async () => {
   // Load data and continents.
   const data = await d3.json('data.json')
   const continents = await d3.json('continents.json')
@@ -22,11 +22,11 @@
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
     .color.palette({
-      'Africa': '#4477aa',
-      'Asia': '#66ccee',
-      'Europe': '#228833',
+      Africa: '#4477aa',
+      Asia: '#66ccee',
+      Europe: '#228833',
       'North America': '#ccbb44',
-      'Oceania': '#ee6677',
+      Oceania: '#ee6677',
       'South America': '#aa3377'
     })
     .color.on(d => continents[d.name])
@@ -37,7 +37,7 @@
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })

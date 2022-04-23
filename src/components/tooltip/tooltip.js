@@ -128,7 +128,7 @@ export default (self, api) => {
   self._widget.update = extend(self._widget.update, () => {
     // Update relevant mouse events.
     self._widget.container
-      .style('pointer-events', _.on ? 'all' : null)
+      .style('pointer-events', _.on ? 'all' : 'none')
       .on('mousemove.tooltip', () => _.on && !self._widget.disabled && showTooltip())
       .on('touchmove.tooltip', () => _.on && !self._widget.disabled && showTooltip(), {passive: true})
       .on('mouseout.tooltip', hideTooltip)

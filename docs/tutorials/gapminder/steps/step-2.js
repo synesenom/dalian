@@ -1,4 +1,4 @@
-(async() => {
+(async () => {
   // Load data.
   const data = await d3.json('data.json')
 
@@ -25,7 +25,7 @@
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })

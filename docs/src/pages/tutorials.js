@@ -4,7 +4,8 @@ const compile = require('../utils/compile')
 
 const ROOT = './docs/tutorials'
 const PAGES = [
-  'gapminder'
+  'gapminder',
+  'multiple-types'
 ]
 
 

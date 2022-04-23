@@ -18,13 +18,13 @@
     cursor: pointer;
     text-decoration: none;
     color: black;
-    transition: box-shadow .2s, top .2s;
+    transition: box-shadow .4s, top .4s;
     overflow: hidden;
 }
 .card:hover {
-    box-shadow: 0 10px 40px #ccc;
+    box-shadow: 0 5px 20px #ccc;
     top: -5px;
-    transition: box-shadow .2s, top .2s;
+    transition: box-shadow .4s, top .4s;
 }
 
 .card.large {
@@ -58,7 +58,7 @@
 }
 .card:hover .card-desc {
     opacity: 1;
-    transition: opacity .2s;
+    transition: opacity .4s;
 }
 
 .card-content {
@@ -83,11 +83,11 @@
     background-repeat: no-repeat;
     background-position: center;
     opacity: 1;
-    transition: opacity .2s;
+    transition: opacity .4s;
 }
 .card:hover .background {
     opacity: .15;
-    transition: opacity .2s;
+    transition: opacity .4s;
 }
 
 @media screen and (min-width: 600px) {
