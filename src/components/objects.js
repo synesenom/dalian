@@ -16,7 +16,15 @@ export default scales => (() => {
       objects: new Map(),
 
       // Methods.
-      // TODO Docstring.
+      /**
+       * Returns the objects container. If it doesn't exist yet, it also creates it.
+       *
+       * @method getContainer
+       * @memberOf Objects
+       * @param {string} [type = 'outside'] Type of the container. Either 'outside' or 'inside'.
+       * @returns {Object} The D3 selection of the object container.
+       * @private
+       */
       getContainer (type = 'outside') {
         if (typeof _.containers[type] === 'undefined') {
           // Add container.
@@ -51,8 +59,7 @@ export default scales => (() => {
         /**
          * Adds an SVG element to the widget using internal (data level) or widget coordinates.
          *
-         * @param {string} id Unique identifier of the object to add. If an object with the ID already exists, no action
-         * is taken.
+         * @param {string} id Unique identifier of the object to add. If an object with the ID already exists, it is updated with the new parameters.
          * @param {Element} obj The SVG HTML element to insert to the widget.
          * @param {Object} pos Object representing the {x} and {y} coordinates of the point to add the object at. The
          * coordinates are used as the widget's internal (data) coordinates.
@@ -105,7 +112,7 @@ export default scales => (() => {
             update: duration => {
               g.transition().duration(duration)
                 .attr('transform', options && options.floating
-                  ? `translate(${scales.x(pos.x)}, ${scales.x(pos.y)})`
+                  ? `translate(${scales.x(pos.x)}, ${scales.y(pos.y)})`
                   : `translate(${pos.x}, ${pos.y})`)
             }
           }
