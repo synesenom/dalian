@@ -18,7 +18,16 @@ html(lang='en')
                 p In this tutorial we recreate the deservedly famous #[a(href='https://www.gapminder.org/tools/?from=world#$chart-type=bubbles') life expectancy chart] of Gapminder designed and popularized by #[a(href='https://en.wikipedia.org/wiki/Hans_Rosling') Hans Rosling] as a tribute to his tremendous efforts to bring understanding of statistics to everyone.
 
                 h2 Data
-                p We will use data collected from #[a(href='https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita') Our World in Data] and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the #[a(href='data.json') data file]:
+                p We will use data collected from #[a(href='https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita') Our World in Data] and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. The full data set for this tutorial is available as a Gist and it includes the plottable data as well as country-continent mapping:
+                pre
+                    code.hljs.javascript.
+                        (async () => {
+                            // Load data and continents.
+                            const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json')
+                              .then(response => response.json())
+                        })()
+
+                p For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the #[code data] part:
                 pre.data.
                     {
                       "1950": [
@@ -45,7 +54,7 @@ html(lang='en')
                       ...
                     }
 
-                p We will also need the #[a(href='continents.json') mapping] from country codes to continents:
+                p And #[code continents]:
                 pre.data.
                     {
                       "Afghanistan": "Asia",
@@ -276,6 +285,9 @@ html(lang='en')
                 .chart-container#chart-step-6
                 script
                     include steps/step-6.js
+
+                h2 Final script
+                p #[a(href="gapminder.html") Here] you can download the full working example as a stand-alone HTML file.
 
     script
         include ../shared/js/common.js

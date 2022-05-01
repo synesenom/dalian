@@ -1,7 +1,6 @@
 (async () => {
   // Load data and continents.
-  const data = await d3.json('data.json')
-  const continents = await d3.json('continents.json')
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-4', '#chart-step-4')
