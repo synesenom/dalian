@@ -121,7 +121,7 @@ export default (name, parent = 'body') => {
     // Just make sure we convert strings to numbers.
     return data.map(d => ({
       name: d.name,
-      values: d.values.map(dd => ({
+      values: d.values.map(dd => Object.assign(dd, {
         name: d.name,
         x: +dd.x,
         y: +dd.y

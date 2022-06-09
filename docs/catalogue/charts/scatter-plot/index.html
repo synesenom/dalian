@@ -25,6 +25,7 @@ function getData (labels) {
     values: Array.from({ length: 70 + Math.floor(30 * Math.random()) }, (d, i) => ({
       x: i + Math.random() - 0.5,
       y: 10 * Math.pow(i / 40, 2) + Math.random() * 10,
+      size: 5 * Math.random(),
       label: labels ? i : undefined
     }))
   }, {
@@ -32,6 +33,7 @@ function getData (labels) {
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i + Math.random() * 8 - 4,
       y: 80 * (1 - Math.exp(-i / 30)) + Math.random() * 10,
+      size: 5 * Math.random(),
       label: labels ? i : undefined
     }))
   }]
@@ -56,5 +58,5 @@ const scatter = dalian.ScatterPlot('scatter-plot', '#widget')
 </script><script>
   Controls(scatter)
     .data(getData)
-    .toggle('size', [undefined, 6, d => Math.sqrt(d.y)])
+    .toggle('size', [undefined, 6, d => d.size])
 </script></div></main></body></html>
