@@ -1,7 +1,7 @@
 // TODO Docstring.
 export default () => {
   // Private members.
-  let _ = {
+  const _ = {
     min: undefined,
     max: undefined,
     compressMax: 0,
@@ -11,16 +11,24 @@ export default () => {
   // Public API.
   return {
     // TODO Docstring.
-    min: value => _.min = value,
+    min (value) {
+      _.min = value
+    },
 
     // TODO Docstring.
-    max: value => _.max = value,
+    max (value) {
+      _.max = value
+    },
 
     // TODO Docstring.
-    compressMin: value => _.compressMin = Math.abs(value || 0),
+    compressMin (value) {
+      _.compressMin = Math.abs(value || 0)
+    },
 
     // TODO Docstring.
-    compressMax: value => _.compressMax = Math.abs(value || 0),
+    compressMax (value) {
+      _.compressMax = Math.abs(value || 0)
+    },
 
     // TODO Docstring.
     range: data => {
@@ -29,7 +37,7 @@ export default () => {
       let max = typeof _.max !== 'undefined' ? _.max : Math.max(...data)
 
       // Add stretch or buffer to range.
-      let range = max - min
+      const range = max - min
       min -= _.compressMin > 0 ? _.compressMin * range : 0
       max += _.compressMax > 0 ? _.compressMax * range : 0
 
@@ -38,7 +46,7 @@ export default () => {
     },
 
     // TODO Docstring.
-    contains: value => (typeof _.min === 'undefined' || value >= _.min)
-      && (typeof _.max === 'undefined' || value <= _.max)
+    contains: value => (typeof _.min === 'undefined' || value >= _.min) &&
+      (typeof _.max === 'undefined' || value <= _.max)
   }
 }

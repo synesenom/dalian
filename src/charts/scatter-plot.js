@@ -136,18 +136,22 @@ export default (name, parent = 'body') => {
     const maxSize = max(flatData.map(_.size))
 
     // Init scales.
+    _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
+      .domain(extent(flatData.map(d => d.x).flat()))
+    _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
+      .domain(extent(flatData.map(d => d.y).flat()))
+
+    // Adjust for size _after_ the data based initialization is done.
     const xRange = extent(flatData.map(d => {
-      const size = _.size(d)
+      const size = _.scales.x.measure(_.size(d))
       return [d.x - size, d.x + size]
     }).flat())
-    _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-      .domain(self._xRange.range(xRange))
+    _.scales.x.domain(self._xRange.range(xRange))
     const yRange = extent(flatData.map(d => {
-      const size = _.size(d)
+      const size = _.scales.y.measure(_.size(d))
       return [d.y - size, d.y + size]
     }).flat())
-    _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-      .domain(self._yRange.range(yRange))
+    _.scales.y.domain(self._yRange.range(yRange))
 
     // Add plots.
     self._chart.plotGroups({

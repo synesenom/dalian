@@ -1,6 +1,6 @@
-(async() => {
-  // Load data.
-  const data = await d3.json('data.json')
+(async () => {
+  // Load data and continents.
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-2', '#chart-step-2')
@@ -25,7 +25,7 @@
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })

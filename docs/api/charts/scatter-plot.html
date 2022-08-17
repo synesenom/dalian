@@ -16,7 +16,7 @@
       ...
     ]
   } ... ])
-  .render()</code></pre></div><div class="card"><pre class="title" id="size">ScatterPlot.size([value])</pre><div class="desc">Sets the circles' radius in pixels. Default value is 4.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>value</td><td class="param-type">number</td><td class="param-desc"><span class="param-optional">optional</span>Radius of the circles to set in pixels&nbsp;Default value is <code>4</code>.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the ScattePlot's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set dot size to 2px.
+  .render()</code></pre></div><div class="card"><pre class="title" id="size">ScatterPlot.size([value])</pre><div class="desc">Sets the circles' radius in pixels. Default value is 4.</div><h3>Parameters</h3><table><thead><tr><th class="param-name">Name</th><th class="param-type">Type</th><th class="param-desc">Description</th></tr></thead><tbody><tr><td>value</td><td class="param-type">number, Function</td><td class="param-desc"><span class="param-optional">optional</span>Radius of the circles to set in pixels. Either a number or a function mapping from a data point to a number.&nbsp;Default value is <code>3</code>.</td></tr></tbody></table><h3>Returns</h3><div class="returns"><div class="return-type"><code>Object</code></div><div class="return-desc">Reference to the ScattePlot's API.</div></div><h3>Examples</h3><pre class="example"><code>// Set dot size to 2px.
 const scatter = dalian.ScatterPlot('my-chart')
   .size(2)
   .render()

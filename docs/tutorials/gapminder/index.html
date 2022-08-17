@@ -1,4 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/list.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/catalogue.css"><link rel="stylesheet" type="text/css" href="../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../css/style.css"><script type="text/javascript" src="../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../js/lib/highlight.min.js"></script><script type="text/javascript" src="../../dl/dalian.min.js"></script><title>Gapminder | tutorials</title></head><body><!-- TODO Adjust size by the largest.--><main><div class="main-content-centered"><h1>Gapminder</h1><p>In this tutorial we recreate the deservedly famous <a href="https://www.gapminder.org/tools/?from=world#$chart-type=bubbles">life expectancy chart</a> of Gapminder designed and popularized by <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> as a tribute to his tremendous efforts to bring understanding of statistics to everyone.</p><h2>Data</h2><p>We will use data collected from <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">Our World in Data</a> and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the <a href="data.json">data file</a>:</p><pre class="data">{
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="../../style/code.css"><link rel="stylesheet" type="text/css" href="../../style/fonts.css"><link rel="stylesheet" type="text/css" href="../../style/scrollbar.css"><link rel="stylesheet" type="text/css" href="../../style/base.css"><link rel="stylesheet" type="text/css" href="../../style/main.css"><link rel="stylesheet" type="text/css" href="../../style/heading.css"><link rel="stylesheet" type="text/css" href="../../style/list.css"><link rel="stylesheet" type="text/css" href="../../style/link.css"><link rel="stylesheet" type="text/css" href="../../style/catalogue.css"><link rel="stylesheet" type="text/css" href="../../style/desktop.css"><link rel="stylesheet" type="text/css" href="../../style/atelier-lakeside-light.css"><link rel="stylesheet" type="text/css" href="../shared/css/style.css"><script type="text/javascript" src="../../js/d3.5.15.0.min.js"></script><script type="text/javascript" src="../../js/d3-interpolate-path.2.1.1.min.js"></script><script type="text/javascript" src="../../js/lib/highlight.min.js"></script><script type="text/javascript" src="../../dl/dalian.min.js"></script><title>Gapminder | tutorials</title></head><body><main><div class="main-content-centered"><h1>Gapminder</h1><p>In this tutorial we recreate the deservedly famous <a href="https://www.gapminder.org/tools/?from=world#$chart-type=bubbles">life expectancy chart</a> of Gapminder designed and popularized by <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> as a tribute to his tremendous efforts to bring understanding of statistics to everyone.</p><h2>Data</h2><p>We will use data collected from <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">Our World in Data</a> and transformed in a JSON format that can be directly inserted in the chart's <code>.data()</code> method. The full data set for this tutorial is available as a Gist and it includes the plottable data as well as country-continent mapping:</p><pre><code class="hljs javascript">(async () => {
+    // Load data and continents.
+    const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json')
+      .then(response => response.json())
+})()
+</code></pre><p>For the sake of simplicity, we only consider data starting in 1950. Here are the first couple of lines of the <code>data</code> part:</p><pre class="data">{
   "1950": [
     {
       "name": "Afghanistan",
@@ -22,7 +27,7 @@
   "1952": [...],
   ...
 }
-</pre><p>We will also need the <a href="continents.json">mapping</a> from country codes to continents:</p><pre class="data">{
+</pre><p>And <code>continents</code>:</p><pre class="data">{
   "Afghanistan": "Asia",
   "Albania": "Europe",
   "Algeria": "Africa",
@@ -33,22 +38,22 @@
   const data = await d3.json('data.json')
 
   // Add static chart.
-  const chart = dalian.BubbleChart('chart-step-1', '#chart-step-1')
+  const chart = dalian.BubbleChart('chart', '#chart')
     // Bind data.
     .data(data[1950])
 
     // Read dimensions from the container.
-    .width(parseFloat(d3.select('#chart-step-1').style('width')))
-    .height(parseFloat(d3.select('#chart-step-1').style('padding-bottom')))
+    .width(parseFloat(d3.select('#chart').style('width')))
+    .height(parseFloat(d3.select('#chart').style('padding-bottom')))
     .margins(50)
 
     // Initialize axes.
     .leftAxis.label('Life expectancy')
     .bottomAxis.label('GDP per capita')
     .render()
-})()</code></pre><div class="chart-container" id="chart-step-1"></div><script>(async() => {
-  // Load data.
-  const data = await d3.json('data.json')
+})()</code></pre><div class="chart-container" id="chart-step-1"></div><script>(async () => {
+  // Load data and continents.
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-1', '#chart-step-1')
@@ -78,9 +83,9 @@
 ...
 
 // Add $ and a suffix to the values.
-.bottomAxis.format(x => `$${Math.floor(Math.pow(10, x - 3))}k`)</code></pre><div class="chart-container" id="chart-step-2"></div><script>(async() => {
-  // Load data.
-  const data = await d3.json('data.json')
+.bottomAxis.format(x => `$${Math.floor(Math.pow(10, x - 3))}k`)</code></pre><div class="chart-container" id="chart-step-2"></div><script>(async () => {
+  // Load data and continents.
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-2', '#chart-step-2')
@@ -105,7 +110,7 @@
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })
@@ -117,10 +122,9 @@ const continents = await d3.json('continents.json')
 // Set color palette and assign colors by continent.
 .color.palette('palette-light')
 .color.on(d => continents[d.name])
-</code></pre><p>Regarding the color palette, we just went with the default one, which is the Wong color palette (see the default for the <a href="../../api/components/color.html#policy">categorical</a> policy).</p><div class="chart-container" id="chart-step-3"></div><script>(async() => {
+</code></pre><p>Regarding the color palette, we just went with the default one, which is the Wong color palette (see the default for the <a href="../../api/components/color.html#policy">categorical</a> policy).</p><div class="chart-container" id="chart-step-3"></div><script>(async () => {
   // Load data and continents.
-  const data = await d3.json('data.json')
-  const continents = await d3.json('continents.json')
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-3', '#chart-step-3')
@@ -141,11 +145,11 @@ const continents = await d3.json('continents.json')
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
     .color.palette({
-      'Africa': '#4477aa',
-      'Asia': '#66ccee',
-      'Europe': '#228833',
+      Africa: '#4477aa',
+      Asia: '#66ccee',
+      Europe: '#228833',
       'North America': '#ccbb44',
-      'Oceania': '#ee6677',
+      Oceania: '#ee6677',
       'South America': '#aa3377'
     })
     .color.on(d => continents[d.name])
@@ -156,7 +160,7 @@ const continents = await d3.json('continents.json')
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })
@@ -188,10 +192,9 @@ const continents = await d3.json('continents.json')
 </code></pre><p>Note that the tooltip API allows for formatting each entry in the tooltip separately as the name of the entry label is passed as the second argument to the value formatter. Also, the labels passed to the tooltip are just the axis labels and 'size' for the bubble sizes (see the docs for <a href="../../catalogue/charts/bubble-chart">BubbleChart</a>).</p><p>We can also add some highlight when hovered over a country to see it a bit better. All mouse interactions are added through the <a href="../../api/components/mouse.html">Mouse</a> component which simply binds a callback to the bubbles:</p><pre><code class="hljs javascript">// Highlight bubble on hover.
 .mouse.over(d => chart.highlight(d.name))
 .mouse.leave(() => chart.highlight(null))
-</code></pre><div class="chart-container" id="chart-step-4"></div><script>(async() => {
+</code></pre><div class="chart-container" id="chart-step-4"></div><script>(async () => {
   // Load data and continents.
-  const data = await d3.json('data.json')
-  const continents = await d3.json('continents.json')
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-4', '#chart-step-4')
@@ -212,11 +215,11 @@ const continents = await d3.json('continents.json')
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
     .color.palette({
-      'Africa': '#4477aa',
-      'Asia': '#66ccee',
-      'Europe': '#228833',
+      Africa: '#4477aa',
+      Asia: '#66ccee',
+      Europe: '#228833',
       'North America': '#ccbb44',
-      'Oceania': '#ee6677',
+      Oceania: '#ee6677',
       'South America': '#aa3377'
     })
     .color.on(d => continents[d.name])
@@ -227,7 +230,7 @@ const continents = await d3.json('continents.json')
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })
@@ -263,11 +266,11 @@ const continents = await d3.json('continents.json')
     .render()
 })()
 </script><h2>Changing data</h2><p>To complete the chart, we add a <a href="../../catalogue/controls/slider">Slider</a> to be able to change the data displayed in our chart. Adding the slider and binding the chart update to it  is rather easy:</p><pre><code class="hljs javascript">// Add slider.
-dalian.Slider('slider-step-5', '#chart-step-5')
+dalian.Slider('slider', '#chart')
   // Adjusting slider position and size.
-  .y(0.8 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
-  .width(parseFloat(d3.select('#chart-step-5').style('width')))
-  .height(0.2 * parseFloat(d3.select('#chart-step-5').style('padding-bottom')))
+  .y(0.8 * parseFloat(d3.select('#chart').style('padding-bottom')))
+  .width(parseFloat(d3.select('#chart').style('width')))
+  .height(0.2 * parseFloat(d3.select('#chart').style('padding-bottom')))
   .margins(50)
   .min(1950)
   .max(2019)
@@ -284,10 +287,9 @@ dalian.Slider('slider-step-5', '#chart-step-5')
     }))).render(100)
   })
   .render()
-</code></pre><p>The callback function is simply the copy of the previous data binding from <i>Logarithmic X-axis</i>. Also, when the year is changed, the rendering is not instant but we add a 100ms transition to make the update more smooth.</p><div class="chart-container" id="chart-step-5"></div><script>(async() => {
+</code></pre><p>The callback function is simply the copy of the previous data binding from <i>Logarithmic X-axis</i>. Also, when the year is changed, the rendering is not instant but we add a 100ms transition to make the update more smooth.</p><div class="chart-container" id="chart-step-5"></div><script>(async () => {
   // Load data and continents.
-  const data = await d3.json('data.json')
-  const continents = await d3.json('continents.json')
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Add static chart.
   const chart = dalian.BubbleChart('chart-step-5', '#chart-step-5')
@@ -308,11 +310,11 @@ dalian.Slider('slider-step-5', '#chart-step-5')
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
     .color.palette({
-      'Africa': '#4477aa',
-      'Asia': '#66ccee',
-      'Europe': '#228833',
+      Africa: '#4477aa',
+      Asia: '#66ccee',
+      Europe: '#228833',
       'North America': '#ccbb44',
-      'Oceania': '#ee6677',
+      Oceania: '#ee6677',
       'South America': '#aa3377'
     })
     .color.on(d => continents[d.name])
@@ -323,7 +325,7 @@ dalian.Slider('slider-step-5', '#chart-step-5')
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })
@@ -397,7 +399,9 @@ const countries = Object.entries(continents).reduce((map, d) => {
 }, new Map())
 
 // Add legend.
-const legend = dalian.Legend('legend-step-6', '#chart-step-6')
+const legend = dalian.Legend('legend', '#chart')
+  .x(parseFloat(d3.select('#chart').style('width')) - 30)
+  .y(40)
   .width(200)
   .height(100)
   .entries(['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
@@ -420,16 +424,11 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     chart.highlight(null, 100)
   })
 
-  // Insert in the chart.
-  .insert(chart, {
-    x: parseFloat(d3.select('#chart-step-6').style('width')) - 230,
-    y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 260
-  })
+  // Render legend.
   .render()
-</code></pre><p>And this is how the final chart looks like in less than 150 lines of code:</p><div class="chart-container" id="chart-step-6"></div><script>(async() => {
+</code></pre><p>And this is how the final chart looks like in less than 150 lines of code:</p><div class="chart-container" id="chart-step-6"></div><script>(async () => {
   // Load data and continents.
-  const data = await d3.json('data.json')
-  const continents = await d3.json('continents.json')
+  const {data, continents} = await fetch('https://gist.githubusercontent.com/synesenom/794bc8ad12b91f27d5934604361ff0b5/raw/dalian-tutorial-gapminder.json').then(response => response.json())
 
   // Map continents to list of countries.
   const countries = Object.entries(continents).reduce((map, d) => {
@@ -459,11 +458,11 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
 
     // Set a nice color palette from https://personal.sron.nl/~pault/ and assign colors by continent.
     .color.palette({
-      'Africa': '#4477aa',
-      'Asia': '#66ccee',
-      'Europe': '#228833',
+      Africa: '#4477aa',
+      Asia: '#66ccee',
+      Europe: '#228833',
       'North America': '#ccbb44',
-      'Oceania': '#ee6677',
+      Oceania: '#ee6677',
       'South America': '#aa3377'
     })
     .color.on(d => continents[d.name])
@@ -474,7 +473,7 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
     .bottomAxis.format(x => {
       if (x < 3) {
         return `$${Math.round(Math.pow(10, x))}`
-      }  else {
+      } else {
         return `$${Math.round(Math.pow(10, x - 3))}k`
       }
     })
@@ -544,16 +543,18 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
 
   // Add legend.
   const legend = dalian.Legend('legend-step-6', '#chart-step-6')
+    .x(parseFloat(d3.select('#chart-step-6').style('width')) - 30)
+    .y(40)
     .width(200)
     .height(100)
     .font.size(11)
     .entries(['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
     .color.palette({
-      'Africa': '#4477aa',
-      'Asia': '#66ccee',
-      'Europe': '#228833',
+      Africa: '#4477aa',
+      Asia: '#66ccee',
+      Europe: '#228833',
       'North America': '#ccbb44',
-      'Oceania': '#ee6677',
+      Oceania: '#ee6677',
       'South America': '#aa3377'
     })
 
@@ -567,15 +568,9 @@ const legend = dalian.Legend('legend-step-6', '#chart-step-6')
       chart.highlight(null, 100)
     })
 
-    // Insert in the chart.
-    .insert(chart, {
-      x: parseFloat(d3.select('#chart-step-6').style('width')) - 210,
-      y: parseFloat(d3.select('#chart-step-6').style('padding-bottom')) - 200
-    })
+    // Render legend.
     .render()
 })()
-</script></div></main></body><script>//capture.run(function () {
-hljs.initHighlighting.called = false
+</script><h2>Final script</h2><p><a href="gapminder.html">Here</a> you can download the full working example as a stand-alone HTML file.</p></div></main></body><script>hljs.initHighlighting.called = false
 hljs.initHighlighting()
-//})
 </script></html>

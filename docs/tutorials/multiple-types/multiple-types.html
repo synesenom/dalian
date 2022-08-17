@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/d3@5"></script>
+    <script src="https://unpkg.com/d3-interpolate-path"></script>
+    <script src="https://unpkg.com/dalian"></script>
+    <style>
+        #chart {
+            position: absolute;
+            width: 600px;
+            height: 0;
+            margin: 10px;
+            padding-bottom: 400px;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    <title>Multiple types</title>
+</head>
+<body>
+<div id="chart"></div>
+</body>
+<script>
+  (async () => {
+    // Fetch data.
+    const raw = await fetch('https://gist.githubusercontent.com/synesenom/38f6ac1567aab8dba68b0dbf476d8a71/raw/monthly-temperature-anomaly.csv')
+      .then(response => response.text())
+    const data = raw.split('\n')
+      .map(d => {
+        const cols = d.split(',')
+        return {
+          x: +cols[0],
+          y: +cols[2]
+        }
+      })
+
+    // Calculate trends.
+    const trend = d3.nest()
+      .key(d => d.x)
+      .rollup(v => d3.mean(v, d => d.y))
+      .entries(data)
+      .map(d => Object.assign(d.value, {
+        x: +d.key,
+        y: d.value
+      }))
+
+    // Calculate ranges.
+    const rangeX = d3.extent(data, d => d.x)
+    const rangeY = d3.extent(data, d => d.y)
+
+    // Add scatter plot.
+    dalian.ScatterPlot('monthly', '#chart')
+      .data([{
+        name: 'monthly',
+        values: data
+      }])
+      .width(parseFloat(d3.select('#chart').style('width')))
+      .height(parseFloat(d3.select('#chart').style('padding-bottom')))
+      .margins(50)
+      .color.palette('#789')
+      .opacity(0.1)
+      .size(4)
+      .leftAxis.label('Anomaly [%]')
+      .bottomAxis.label('Time [year]')
+      .xRange.min(rangeX[0])
+      .xRange.max(rangeX[1])
+      .yRange.min(rangeY[0])
+      .yRange.max(rangeY[1])
+      .yRange.compressMin(0.1)
+      .yRange.compressMax(0.1)
+      .render()
+
+    // Add trend.
+    dalian.LineChart('trend', '#chart')
+      .data([{
+        name: 'trend',
+        values: trend
+      }])
+      .width(parseFloat(d3.select('#chart').style('width')))
+      .height(parseFloat(d3.select('#chart').style('padding-bottom')))
+      .margins(50)
+      .color.palette('firebrick')
+      .xRange.min(rangeX[0])
+      .xRange.max(rangeX[1])
+      .yRange.min(rangeY[0])
+      .yRange.max(rangeY[1])
+      .yRange.compressMin(0.1)
+      .yRange.compressMax(0.1)
+      .font.color('red')
+      .leftAxis.hideAxisLine(true)
+      .leftAxis.label('')
+      .leftAxis.values([])
+      .bottomAxis.hideAxisLine(true)
+      .bottomAxis.label('')
+      .bottomAxis.values([])
+      .render()
+  })()
+</script>
+</html>
