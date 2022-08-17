@@ -3,7 +3,7 @@ import { compose, extend } from '../core'
 import { backgroundAdjustedColor } from '../utils/color'
 import { measureText } from '../utils/measure-text'
 import { attrTween } from '../utils/tweens'
-import { Chart, ElementTooltip, Highlight, Label } from '../components'
+import { Chart, ElementTooltip, Highlight, Label, Objects } from '../components'
 
 // Defaults.
 const DEFAULTS = {
@@ -24,6 +24,7 @@ const DEFAULTS = {
  *     <a href="../components/label.html">Label</a> Labels are shown inside the slice if they fit in, otherwise they are
  *     shown outside.
  *   </li>
+ *   <li><a href="../components/objects.html">Objects</a></li>
  * </ul>
  *
  * By changing the inner radius of the chart, this widget doubles as a donut chart.
@@ -38,7 +39,8 @@ export default (name, parent = 'body') => {
     Chart('pie-chart', name, parent),
     ElementTooltip,
     Highlight(() => self._chart.plots, ['.plot-group']),
-    Label
+    Label,
+    Objects({})
   )
 
   // Private methods.
@@ -68,7 +70,13 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // TODO Docstring.
+  /**
+   * Calculates the tick path for the label.
+   *
+   * @param {Object} d Datapoint for the current label.
+   * @returns {string} The tick path for the label.
+   * @private
+   */
   function labelLinePath (d) {
     // Start and initial middle positions of the path.
     let p1 = _.labels.arcs.inner.centroid(d)
@@ -96,12 +104,22 @@ export default (name, parent = 'body') => {
     return `M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]} L${p3[0]} ${p3[1]}`
   }
 
-  // Private methods.
-  // TODO Docstring.
+  /**
+   * Calculates the text anchor value for the label text.
+   *
+   * @param {Object} d Datapoint for the current label.
+   * @returns {string} The text anchor of the text.
+   * @private
+   */
   const labelTextAnchor = d => _.labels.left(d) ? 'end' : 'start'
 
-  // Adjustment in the horizontal position to avoid overlapping labels.
-  // TODO Docstring.
+  /**
+   * Calculates the horizontal position of the label text.
+   *
+   * @param {Object} d Datapoint for the current label.
+   * @returns {number} The horizontal position of the text.
+   * @private
+   */
   function labelTextX (d) {
     const dx = 0.25 * _.outerRadius
     if (_.labels.left(d)) {
@@ -111,8 +129,13 @@ export default (name, parent = 'body') => {
     }
   }
 
-  // Adjustment in the vertical position to avoid overlapping labels.
-  // TODO Docstring.
+  /**
+   * Calculates the vertical position of the label text.
+   *
+   * @param {Object} d Datapoint for the current label.
+   * @returns {number} The vertical position of the text.
+   * @private
+   */
   const labelTextY = d => Math.max(_.labels.arcs.outer.centroid(d)[1], d._measures.y)
 
   // Private members.

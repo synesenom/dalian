@@ -3,7 +3,7 @@ import { measureText } from '../utils/measure-text'
 import { backgroundAdjustedColor } from '../utils/color'
 import { compose, extend } from '../core'
 import {
-  BottomAxis, Chart, ElementTooltip, Highlight, Horizontal, Label, LeftAxis, Objects, Scale, YGrid
+  BottomAxis, Chart, ElementTooltip, Highlight, Horizontal, Label, LeftAxis, Objects, Scale, YGrid, YRange
 } from '../components'
 
 /**
@@ -22,6 +22,8 @@ import {
  *   <li><a href="../components/left-axis.html">LeftAxis</a></li>
  *   <li><a href="../components/objects.html">Objects</a></li>
  *   <li><a href="../components/y-grid.html">YGrid</a> The same component (and namespace) is used for the default and
+ *   horizontal modes, adapting to the orientation.</li>
+ *   <li><a href="../components/y-range.html">YRange</a> The same component (and namespace) is used for the default and
  *   horizontal modes, adapting to the orientation.</li>
  * </ul>
  *
@@ -47,7 +49,8 @@ export default (name, parent = 'body') => {
     Horizontal(scales),
     Label,
     Objects(scales),
-    YGrid
+    YGrid,
+    YRange
   )
 
   // Private methods.
@@ -189,9 +192,9 @@ export default (name, parent = 'body') => {
 
     // Update scales.
     _.scales.x.range([0, parseInt(self._widget.size.innerWidth)])
-      .domain(horizontal ? [yMin, yMax] : xValues)
+      .domain(horizontal ? self._yRange.range([yMin, yMax]) : xValues)
     _.scales.y.range([parseInt(self._widget.size.innerHeight), 0])
-      .domain(horizontal ? xValues : [yMin, yMax])
+      .domain(horizontal ? xValues : self._yRange.range([yMin, yMax]))
 
     // Add plots.
     self._chart.plotGroups({
