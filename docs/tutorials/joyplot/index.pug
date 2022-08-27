@@ -1,0 +1,84 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        each css in ['code', 'fonts', 'scrollbar', 'base', 'main', 'heading', 'list', 'link', 'catalogue', 'desktop', 'atelier-lakeside-light']
+            link(rel='stylesheet', type='text/css', href='../../style/' + css + '.css')
+        link(rel='stylesheet', type='text/css', href='../shared/css/style.css')
+        each dependency in dependencies
+            script(type='text/javascript', src='../../js/' + dependency.lib + '.' + dependency.version + '.min.js')
+        script(type='text/javascript', src='../../js/lib/highlight.min.js')
+        script(type='text/javascript', src='../../dl/dalian.min.js')
+        title Joyplot | tutorials
+    body
+        main
+            .main-content-centered
+                h1 Joyplot
+                p In this tutorial we recreate the famous Joy Division cover for their #[a(href="https://en.wikipedia.org/wiki/Unknown_Pleasures") Unknown Pleasures] album.
+
+                h2 Data
+                p Data is available thanks to #[a(href="https://bl.ocks.org/borgar/31c1e476b8e92a11d7e9") Borgar Þorsteinsson] and #[a(href="http://i.document.m05.de/2013/05/23/joy-divisions-unknown-pleasures-printed-in-3d") Michael Zöllner].
+                  | We load it using the Fetch API and transform it into a set of plottable data.
+                  | Each line becomes a separate curve and the indices of the numbers will be the X coordinates.
+                pre
+                    code.hljs.javascript.
+                        const URL = 'https://gist.githubusercontent.com/synesenom/0c2e98a34b548d9fcb9fdf0f76dc79ff/raw/psr_b1919_p21.csv'
+
+                        (async () => {
+                          // Fetch our data.
+                          const raw = await fetch(URL)
+                            .then(response => response.text())
+                          const data = raw.split('\n')
+                            // Each line is a single plot with the indices as X values.
+                            // We also apply a small shift between each curve. The value
+                            // 100 is added to ensure we only have positive numbers.
+                            .map((d, i) => ({
+                              name: `line${Math.floor(i / 10)}${i % 10}`,
+                              values: d.split(',')
+                                .map(parseFloat)
+                                .map((y, x) => ({
+                                  x,
+                                  y: 0.3 * y - i + 100
+                                }))
+                            }))
+                        })()
+
+                p Now we have an array of 80 curves. Good news is that with the transformation we already did the most
+                  | work and now we just have to add a single plot.
+
+                h2 The plot
+                p Since each curve should cover the previous one, we use an #[a(href="https://synesenom.github.io/dalian/catalogue/charts/area-chart/") AreaChart].
+                  | As we noted before, the data is prepared in a way that we can pass it directly to the chart as it is
+                  | and once we hide the axes and display none of the ticks we are done.
+
+                pre
+                    code.hljs.javascript.
+                        dalian.AreaChart('lines', '#chart')
+                          .data(data)
+                          .width(parseFloat(d3.select('#chart').style('width')))
+                          .height(parseFloat(d3.select('#chart').style('padding-bottom')))
+                          .margins(50)
+                          .color.palette('#fff')
+                          .lineColor('#000')
+                          .opacity(1)
+                          .leftAxis.hideAxisLine(true)
+                          .leftAxis.hideTicks(true)
+                          .leftAxis.values([])
+                          .bottomAxis.hideAxisLine(true)
+                          .bottomAxis.hideTicks(true)
+                          .bottomAxis.values([])
+                          .render()
+
+                .chart-container#chart-step-1
+                script
+                    include steps/step-1.js
+
+                p And that was it, we have our own version of the famous Unknown Pleasures cover in about 30 lines of
+                  | code!
+
+                h2 Final script
+                p #[a(href="joyplot.html") Here] you can download the full working example as a stand-alone HTML file.
+
+    script
+        include ../shared/js/common.js

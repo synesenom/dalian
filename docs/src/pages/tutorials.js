@@ -1,21 +1,20 @@
 const meta = require('../utils/meta')
 const compile = require('../utils/compile')
 
-
 const ROOT = './docs/tutorials'
 const PAGES = [
   'gapminder',
+  'joyplot',
   'multiple-types'
 ]
 
-
 module.exports = {
-  index() {
+  index () {
     console.log('Building tutorials index')
     compile(`${ROOT}/index.pug`, `${ROOT}/index.html`)
   },
 
-  pages(names) {
+  pages (names) {
     const pages = typeof names === 'undefined' ? PAGES : names
     pages.forEach(page => {
       console.log(`Building tutorials: ${page}`)
