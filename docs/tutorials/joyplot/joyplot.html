@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/d3@5"></script>
+    <script src="https://unpkg.com/d3-interpolate-path"></script>
+    <script src="https://unpkg.com/dalian"></script>
+    <style>
+        #chart {
+            position: absolute;
+            width: 600px;
+            height: 0;
+            margin: 10px;
+            padding-bottom: 400px;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    <title>Joyplot</title>
+</head>
+<body>
+<div id="chart"></div>
+</body>
+<script>
+  (async () => {
+    // Fetch and transform data.
+    const raw = await fetch('https://gist.githubusercontent.com/synesenom/0c2e98a34b548d9fcb9fdf0f76dc79ff/raw/psr_b1919_p21.csv')
+      .then(response => response.text())
+    const data = raw.split('\n')
+      .map((d, i) => ({
+        name: `line${Math.floor(i / 10)}${i % 10}`,
+        values: d.split(',')
+          .map(parseFloat)
+          .map((y, x) => ({
+            x,
+            y: 0.3 * y - i + 100
+          }))
+      }))
+
+    // Add chart without any axes shown.
+    dalian.AreaChart('lines', '#chart')
+      .data(data)
+      .width(parseFloat(d3.select('#chart').style('width')))
+      .height(parseFloat(d3.select('#chart').style('padding-bottom')))
+      .margins(50)
+      .color.palette('#fff')
+      .lineColor('#000')
+      .opacity(1)
+      .leftAxis.hideAxisLine(true)
+      .leftAxis.values([])
+      .bottomAxis.hideAxisLine(true)
+      .bottomAxis.values([])
+      .render()
+  })()
+</script>
+</html>

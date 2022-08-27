@@ -4,7 +4,6 @@ const catalogue = require('./src/pages/catalogue')
 const api = require('./src/pages/api')
 const tutorials = require('./src/pages/tutorials')
 
-
 const parser = new ArgumentParser({
   description: 'Documentation builder'
 })
@@ -30,26 +29,25 @@ parser.add_argument('-d', '--docs', {
 
 const args = parser.parse_args()
 
-
 // Build home page.
-if (args['home']) {
+if (args.home) {
   home.index()
 }
 
 // Build tutorials.
-if (args['tutorials']) {
+if (args.tutorials) {
   tutorials.index()
   tutorials.pages()
 }
 
 // Build catalogue.
-if (args['catalogue']) {
+if (args.catalogue) {
   catalogue.index()
   catalogue.pages()
 }
 
 // Build API pages.
-if (args['api']) {
+if (args.api) {
   api.index()
   api.pages()
 }
