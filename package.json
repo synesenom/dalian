@@ -11,12 +11,26 @@
   "main": "dist/dalian.min.js",
   "module": "src/index.js",
   "license": "MIT",
+  "scripts": {
+    "build:home": "node docs/index.js --home",
+    "build:tutorials": "node docs/index.js --tutorials",
+    "build:catalogue": "node docs/index.js --catalogue",
+    "build:api": "node docs/index.js --api",
+    "build": "rollup -c; cp dist/* docs/dl/",
+    "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",
+    "dev:catalogue": "npm run-script reload & nodemon --watch docs/catalogue --ext pug,js --exec 'node docs/index.js --catalogue'",
+    "dev:tutorials": "npm run-script reload & nodemon --watch docs/tutorials --ext pug,js --exec 'node docs/index.js --tutorial'",
+    "dev": ".nodemon --watch src --ext js --exec 'npm run-script build'",
+    "reload": "reload --dir docs --watch-dir docs --port 8081",
+    "standard": "standard --fix src/**/*.js",
+    "test": "mocha --recursive --require babel-core/register"
+  },
   "dependencies": {
     "d3": "^5.15.0",
     "d3-interpolate-path": "^2.1.1"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "argparse": "^2.0.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-istanbul": "^3.0.0",
@@ -28,34 +42,20 @@
     "documentation": "^13.1.1",
     "eslint-config-standard": "^16.0.2",
     "istanbul": "^0.4.5",
-    "jsdom": "^16.4.0",
+    "jsdom": "^20.0.0",
     "mocha": "^8.2.1",
     "mocha-lcov-reporter": "^1.3.0",
-    "nodemon": "^2.0.7",
-    "node-sass": "^7.0.0",
+    "nodemon": "^2.0.19",
+    "node-sass": "^7.0.1",
     "nyc": "^15.1.0",
     "pug": "^3.0.0",
     "pug-cli": "^1.0.0-alpha6",
-    "reload": "^3.1.1",
-    "rollup": "^2.38.5",
+    "reload": "^3.2.0",
+    "rollup": "^2.78.1",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-gzip": "^2.5.0",
     "rollup-plugin-strip-code": "^0.2.7",
-    "standard": "^16.0.3"
-  },
-  "scripts": {
-    "build:home": "node docs/index.js --home",
-    "build:tutorials": "node docs/index.js --tutorials",
-    "build:catalogue": "node docs/index.js --catalogue",
-    "build:api": "node docs/index.js --api",
-    "build": "./node_modules/.bin/rollup -c; cp dist/* docs/dl/",
-    "coverage": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html _mocha --recursive --require babel-core/register",
-    "dev:catalogue": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/catalogue --ext pug,js --exec 'node docs/index.js --catalogue'",
-    "dev:tutorials": "npm run-script reload & ./node_modules/.bin/nodemon --watch docs/tutorials --ext pug,js --exec 'node docs/index.js --tutorial'",
-    "dev": "./node_modules/.bin/nodemon --watch src --ext js --exec 'npm run-script build'",
-    "reload": "./node_modules/.bin/reload --dir docs --watch-dir docs --port 8081",
-    "standard": "./node_modules/.bin/standard --fix src/**/*.js",
-    "test": "./node_modules/.bin/mocha --recursive --require babel-core/register"
+    "standard": "^17.0.0"
   },
   "babel": {
     "presets": [

@@ -93,8 +93,8 @@ export default (name, parent = 'body') => {
       const img = context.createImageData(...DEFAULTS.grid).data
 
       // Init color of heatmap to something neutral: fully transparent white.
-      for (let j = 0, k = 0, l = 0; j < DEFAULTS.grid[1]; j++) {
-        for (let i = 0; i < DEFAULTS.grid[0]; i++, k++, l += 4) {
+      for (let j = 0, l = 0; j < DEFAULTS.grid[1]; j++) {
+        for (let i = 0; i < DEFAULTS.grid[0]; i++, l += 4) {
           img[l] = 255
           img[l + 1] = 255
           img[l + 2] = 255

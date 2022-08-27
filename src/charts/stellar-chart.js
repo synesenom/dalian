@@ -1,5 +1,5 @@
-import {compose, extend} from '../core'
-import {Chart, ElementTooltip, Highlight,  RadialAxis, RadialGrid, Scale, Smoothing} from '../components'
+import { compose, extend } from '../core'
+import { Chart, ElementTooltip, Highlight, RadialAxis, RadialGrid, Scale, Smoothing } from '../components'
 import { lineRadial } from 'd3'
 
 // Default values.
