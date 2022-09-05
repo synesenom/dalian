@@ -24,11 +24,14 @@ export default (self, api) => {
           x1: x,
           y1: 0,
           x2: x,
-          y2: self._widget.size.innerHeight,
+          y2: self._widget.size.innerHeight
+        })
+        styles(_.line, {
+          opacity: 0.5,
           stroke: self._font.color,
           'stroke-width': 1,
           'stroke-dasharray': '4 4',
-          opacity: 0.5
+          'pointer-events': 'none'
         })
         // Get or create marker.
         _.markers.set(id, _.markers.get(id) || self._chart.plots.append('circle'))
@@ -59,6 +62,10 @@ export default (self, api) => {
         } else if (_.markers.has(id)) {
           _.markers.get(id).remove()
           _.markers.delete(id)
+        }
+        if (_.markers.size === 0 && typeof _.line !== 'undefined') {
+          _.line.remove()
+          _.line = undefined
         }
       }
     }
