@@ -55,7 +55,7 @@ const line = dalian.LineChart('line-chart', '#widget')
   .smoothing(true)
   .lineStyle({
     mango: 'dashed'
-  })
+  }).lineWidth({ mango: 3 })
   .tooltip.on(true)
   .tooltip.valueFormat(d => d.y === null ? 'No data' : d.y.toFixed(2))
   .render(1000)

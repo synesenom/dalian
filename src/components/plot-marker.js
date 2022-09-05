@@ -8,6 +8,7 @@ import extend from '../core/extend'
 export default (self, api) => {
   // Private members.
   const _ = {
+    line: undefined,
     markers: new Map()
   }
 
@@ -16,6 +17,19 @@ export default (self, api) => {
     _plotMarker: {
       // TODO Docstring.
       add (x, y, id, point, size) {
+        if (typeof _.line === 'undefined') {
+          _.line = self._chart.plots.append('line')
+        }
+        attributes(_.line, {
+          x1: x,
+          y1: 0,
+          x2: x,
+          y2: self._widget.size.innerHeight,
+          stroke: self._font.color,
+          'stroke-width': 1,
+          'stroke-dasharray': '4 4',
+          opacity: 0.5
+        })
         // Get or create marker.
         _.markers.set(id, _.markers.get(id) || self._chart.plots.append('circle'))
 

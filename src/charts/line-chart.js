@@ -97,7 +97,8 @@ export default (name, parent = 'body') => {
 
         // Marker
         if (point.y !== null && self._yRange.contains(point.y)) {
-          self._plotMarker.add(scales.x(x), scales.y(point.y), d.name, d)
+          self._plotMarker
+            .add(scales.x(x), scales.y(point.y), d.name, d, 2 * parseFloat(self._lineWidth.mapping(d.name)))
         } else {
           self._plotMarker.remove(d.name)
         }
