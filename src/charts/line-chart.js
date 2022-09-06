@@ -88,13 +88,6 @@ export default (name, parent = 'body') => {
 
         const data = d.values
 
-        /*
-        const left = data[j - 1] ? data[j - 1] : data[j]
-
-        const right = data[j] ? data[j] : data[j - 1]
-
-        const point = data[j]//x - left.x > right.x - x ? right : left
-         */
         const point = data[j]
         x = point.x
 
@@ -114,6 +107,12 @@ export default (name, parent = 'body') => {
           lo: point.lo,
           hi: point.hi
         }
+      })
+
+    // Remove plot markers for ignored plots.
+    self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) > -1)
+      .forEach(d => {
+        self._plotMarker.remove(d.name)
       })
 
     return {
