@@ -8,6 +8,7 @@ import extend from '../core/extend'
 export default (self, api) => {
   // Private members.
   const _ = {
+    ignore: [],
     line: undefined,
     markers: new Map()
   }
@@ -17,6 +18,10 @@ export default (self, api) => {
     _plotMarker: {
       // TODO Docstring.
       add (x, y, id, point, size) {
+        if (_.ignore.indexOf(id) > -1) {
+          return
+        }
+
         if (typeof _.line === 'undefined') {
           _.line = self._chart.plots.append('line')
         }
@@ -74,6 +79,14 @@ export default (self, api) => {
   // Remove markers when exiting widget.
   self._widget.update = extend(self._widget.update, () => {
     self._widget.container.on('mouseout.plot-marker', self._plotMarker.remove)
+  })
+
+  api.plotMarker = Object.assign(api.plotMarker || {}, {
+    // TODO Docs.
+    ignore (names) {
+      _.ignore = names
+      return api
+    },
   })
 
   return { self, api }

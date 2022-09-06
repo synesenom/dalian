@@ -81,39 +81,32 @@ export default (name, parent = 'body') => {
 
     // Get plots, only those that are not ignored.
     let x = scales.x.scale.invert(mouse[0])
-    const plots = self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) === -1)
-      .map((d, i) => {
-        // Data point
-        const j = index[i]
+    const plots = self._chart.data.map((d, i) => {
+      // Data point
+      const j = index[i]
 
-        const data = d.values
+      const data = d.values
 
-        const point = data[j]
-        x = point.x
+      const point = data[j]
+      x = point.x
 
-        // Marker
-        if (point.y !== null && self._yRange.contains(point.y)) {
-          self._plotMarker
-            .add(scales.x(x), scales.y(point.y), d.name, d, 2 * parseFloat(self._lineWidth.mapping(d.name)))
-        } else {
-          self._plotMarker.remove(d.name)
-        }
-
-        return {
-          name: d.name,
-          background: self._lineStyle.background(self._lineStyle.style(d.name), self._color.mapper(d)),
-          x: point.x,
-          y: point.y,
-          lo: point.lo,
-          hi: point.hi
-        }
-      })
-
-    // Remove plot markers for ignored plots.
-    self._chart.data.filter(d => self._tooltip.ignore.indexOf(d.name) > -1)
-      .forEach(d => {
+      // Marker
+      if (point.y !== null && self._yRange.contains(point.y)) {
+        self._plotMarker
+          .add(scales.x(x), scales.y(point.y), d.name, d, 2 * parseFloat(self._lineWidth.mapping(d.name)))
+      } else {
         self._plotMarker.remove(d.name)
-      })
+      }
+
+      return {
+        name: d.name,
+        background: self._lineStyle.background(self._lineStyle.style(d.name), self._color.mapper(d)),
+        x: point.x,
+        y: point.y,
+        lo: point.lo,
+        hi: point.hi
+      }
+    })
 
     return {
       // TODO Replace this with the data points.
