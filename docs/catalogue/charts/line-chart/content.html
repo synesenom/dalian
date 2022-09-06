@@ -62,7 +62,8 @@ function getData () {
     name: 'mango',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
-      y: scale * Math.pow(i / 40, tau),
+      // Limit length of data.
+      y: i < length ? scale * Math.pow(i / 40, tau) : null,
       lo: i / 100,
       hi: i / 150
     }))
@@ -70,7 +71,8 @@ function getData () {
     name: 'kiwi',
     values: Array.from({ length: 100 }, (d, i) => ({
       x: i,
-      y: i < length ? Math.log(i + 1)
+      // Add random missing values.
+      y: Math.random() < 0.90 ? Math.log(i + 1)
         * Math.pow(Math.cos(Math.PI * i / phi), 2) + 2 : null,
       lo: .4,
       hi: .6
