@@ -87,7 +87,11 @@ export default (name, parent = 'body') => {
 
       const data = d.values
 
-      const point = data[j]
+      const left = data[j - 1] ? data[j - 1] : data[j]
+
+      const right = data[j] ? data[j] : data[j - 1]
+
+      const point = x - left.x > right.x - x ? right : left
       x = point.x
 
       // Marker
