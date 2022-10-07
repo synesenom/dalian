@@ -177,6 +177,9 @@ export default (name, parent = 'body') => {
     _.scales = self._horizontal.scales()
     const horizontal = self._horizontal.on()
 
+    // Update object scales.
+    self._objects.scales(_.scales)
+
     // Compute some constants beforehand.
     const style = self._widget.getStyle()
 
