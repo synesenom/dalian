@@ -12,6 +12,7 @@ export default scales => (() => {
     // Private members.
     const _ = {
       // Variables.
+      scales,
       containers: {},
       objects: new Map(),
 
@@ -53,6 +54,14 @@ export default scales => (() => {
       _.objects.forEach(obj => obj.update(duration))
     })
 
+    self = Object.assign(self || {}, {
+      _objects: {
+        scales (scales) {
+          _.scales = scales
+        }
+      }
+    })
+
     // Public methods.
     api = Object.assign(api || {}, {
       objects: {
@@ -81,7 +90,7 @@ export default scales => (() => {
           const g = _.getContainer(options && options.layer).append('g')
             .attr('transform', options && options.floating
               // TODO Check if scales are radial or Cartesian.
-              ? `translate(${scales.x(pos.x)}, ${scales.y(pos.y)})`
+              ? `translate(${_.scales.x(pos.x)}, ${_.scales.y(pos.y)})`
               : `translate(${pos.x}, ${pos.y})`)
             .style('opacity', 0)
 
@@ -112,7 +121,7 @@ export default scales => (() => {
             update: duration => {
               g.transition().duration(duration)
                 .attr('transform', options && options.floating
-                  ? `translate(${scales.x(pos.x)}, ${scales.y(pos.y)})`
+                  ? `translate(${_.scales.x(pos.x)}, ${_.scales.y(pos.y)})`
                   : `translate(${pos.x}, ${pos.y})`)
             }
           }
