@@ -2355,12 +2355,14 @@ d3-hierarchy@1:
   resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-1.1.9.tgz#2f6bee24caaea43f8dc37545fa01628559647a83"
   integrity sha512-j8tPxlqh1srJHAtxfvOUwKNYJkQuBFdM1+JAUfq6xqH5eAqf93L7oG1NVqDa4CpFZNvnNKtCYEUC8KY9yEn9lQ==
 
-d3-interpolate-path@^2.1.1:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/d3-interpolate-path/-/d3-interpolate-path-2.2.3.tgz#7a2a906231c316c5166872c13400aae918e604fa"
-  integrity sha512-1i1WUmOzSHI7nYqhjnL9v/gA5VQNgMMfX4u1Emv2vKmUUQsRPx/Ghl/AvcyOq3GRINW8iSz5elCdoHX0imyWCg==
+d3-interpolate-path@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/d3-interpolate-path/-/d3-interpolate-path-2.1.1.tgz#caaf1529fba9fb1784b263dd30e1bf46f33a6531"
+  integrity sha512-vjwnHYknNBZulCXmhiQtvldD76XagZ0JguGyQFOB9YPSlVT2yYkOg1omkB/OhJDp7R+w9ipYOimwxYEvaOG9Ug==
+  dependencies:
+    d3-interpolate "^1.1.1"
 
-d3-interpolate@1:
+d3-interpolate@1, d3-interpolate@^1.1.1:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.4.0.tgz#526e79e2d80daa383f9e0c1c1c7dcc0f0583e987"
   integrity sha512-V9znK0zc3jOPV4VD2zZn0sDhZU3WAE2bmlxdIwwQPPzPjvyLkd8B3JUVdS1IDUFDkWZ72c9qnv1GK2ZagTZ8EA==
